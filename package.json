@@ -9,5 +9,8 @@
     "dev:api": "npm run dev --workspace=@primecare/worker-api",
     "dev:admin": "npm run dev --workspace=@primecare/web-admin",
     "dev:web": "npm run dev --workspace=@primecare/web-marketing"
+  },
+  "dependencies": {
+    "esbuild": "^0.27.2"
   }
 }
