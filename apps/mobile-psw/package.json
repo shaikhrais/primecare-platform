@@ -18,7 +18,7 @@
     "react-native-safe-area-context": "^5.6.2",
     "react-native-screens": "^4.22.0",
     "zod": "^3.25.76",
-    "@primecare/shared": "workspace:*"
+    "@primecare/shared": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

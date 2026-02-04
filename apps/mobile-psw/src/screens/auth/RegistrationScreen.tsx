@@ -3,11 +3,13 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator 
 // @ts-ignore
 import { MOBILE_APP_KEY, API_URL } from '@env';
 import { PswRegistry } from '@primecare/shared';
+
 const { ApiRegistry, ContentRegistry, RouteRegistry } = PswRegistry;
 
-export default function LoginScreen({ navigation }: any) {
+export default function RegistrationScreen({ navigation }: any) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -16,11 +18,10 @@ export default function LoginScreen({ navigation }: any) {
         return re.test(email);
     };
 
-    const handleLogin = async () => {
-        setErrorMessage(null); // Clear previous errors
+    const handleRegister = async () => {
+        setErrorMessage(null);
 
-        // 1. Validation Errors
-        if (!email || !password) {
+        if (!email || !password || !confirmPassword) {
             setErrorMessage(ContentRegistry.AUTH.ERRORS.VALIDATION_MISSING);
             return;
         }
@@ -28,34 +29,30 @@ export default function LoginScreen({ navigation }: any) {
             setErrorMessage(ContentRegistry.AUTH.ERRORS.VALIDATION_EMAIL);
             return;
         }
+        if (password !== confirmPassword) {
+            setErrorMessage("Passwords do not match.");
+            return;
+        }
 
         setLoading(true);
         try {
-            // Timeout Promise to handle network hangs
             const timeoutPromise = new Promise((_, reject) =>
                 setTimeout(() => reject(new Error('TIMEOUT')), 10000)
             );
 
-            const fetchPromise = fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
+            const fetchPromise = fetch(`${API_URL}${ApiRegistry.AUTH.REGISTER}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-mobile-app-key': MOBILE_APP_KEY,
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password, role: 'psw' }),
             });
 
             const response: any = await Promise.race([fetchPromise, timeoutPromise]);
 
-            // 2. Server Errors (5xx)
             if (response.status >= 500) {
                 setErrorMessage(ContentRegistry.AUTH.ERRORS.SERVER_ERROR);
-                return;
-            }
-
-            // 3. Client Errors (4xx) (except 401 which is handled by data)
-            if (response.status === 429) {
-                setErrorMessage(ContentRegistry.AUTH.ERRORS.RATE_LIMIT);
                 return;
             }
 
@@ -63,23 +60,18 @@ export default function LoginScreen({ navigation }: any) {
             try {
                 data = await response.json();
             } catch (e) {
-                // 4. Unexpected Response Format
                 setErrorMessage(ContentRegistry.AUTH.ERRORS.INVALID_RESPONSE);
                 return;
             }
 
             if (response.ok) {
-                setErrorMessage(null);
+                // Auto-login or navigate to Dashboard
                 navigation.replace(RouteRegistry.DASHBOARD.HOME);
             } else {
-                // 401 Unauthorized or other API errors
-                setErrorMessage(data.error || 'Invalid credentials. Please check your email and password.');
-                setPassword('');
+                setErrorMessage(data.error || 'Registration failed.');
             }
         } catch (error: any) {
-            console.error('Login Error:', error);
-
-            // 5. Network & Unexpected Errors
+            console.error('Registration Error:', error);
             if (error.message === 'TIMEOUT') {
                 setErrorMessage(ContentRegistry.AUTH.ERRORS.TIMEOUT);
             } else if (error.message === 'Network request failed') {
@@ -94,8 +86,8 @@ export default function LoginScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{ContentRegistry.APP.NAME}</Text>
-            <Text style={styles.subtitle}>{ContentRegistry.APP.TAGLINE}</Text>
+            <Text style={styles.title}>{ContentRegistry.AUTH.REGISTER.TITLE}</Text>
+            <Text style={styles.subtitle}>{ContentRegistry.AUTH.REGISTER.SUBTITLE}</Text>
 
             {errorMessage && (
                 <View style={styles.errorContainer}>
@@ -104,7 +96,7 @@ export default function LoginScreen({ navigation }: any) {
             )}
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>{ContentRegistry.AUTH.LOGIN.EMAIL_LABEL}</Text>
+                <Text style={styles.label}>{ContentRegistry.AUTH.REGISTER.EMAIL_LABEL}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder={ContentRegistry.AUTH.LOGIN.EMAIL_PLACEHOLDER}
@@ -116,7 +108,7 @@ export default function LoginScreen({ navigation }: any) {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>{ContentRegistry.AUTH.LOGIN.PASSWORD_LABEL}</Text>
+                <Text style={styles.label}>{ContentRegistry.AUTH.REGISTER.PASSWORD_LABEL}</Text>
                 <TextInput
                     style={styles.input}
                     placeholder={ContentRegistry.AUTH.LOGIN.PASSWORD_PLACEHOLDER}
@@ -126,20 +118,31 @@ export default function LoginScreen({ navigation }: any) {
                 />
             </View>
 
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>{ContentRegistry.AUTH.REGISTER.CONFIRM_PASSWORD_LABEL}</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder={ContentRegistry.AUTH.LOGIN.PASSWORD_PLACEHOLDER}
+                    value={confirmPassword}
+                    onChangeText={(text) => { setConfirmPassword(text); setErrorMessage(null); }}
+                    secureTextEntry
+                />
+            </View>
+
             <TouchableOpacity
                 style={[styles.button, loading && styles.buttonDisabled]}
-                onPress={handleLogin}
+                onPress={handleRegister}
                 disabled={loading}
             >
                 {loading ? (
                     <ActivityIndicator color="#fff" />
                 ) : (
-                    <Text style={styles.buttonText}>{ContentRegistry.AUTH.LOGIN.BUTTON}</Text>
+                    <Text style={styles.buttonText}>{ContentRegistry.AUTH.REGISTER.BUTTON}</Text>
                 )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate(RouteRegistry.AUTH.REGISTER)}>
-                <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
+            <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate(RouteRegistry.AUTH.LOGIN)}>
+                <Text style={styles.linkText}>{ContentRegistry.AUTH.REGISTER.LOGIN_LINK}</Text>
             </TouchableOpacity>
         </View>
     );

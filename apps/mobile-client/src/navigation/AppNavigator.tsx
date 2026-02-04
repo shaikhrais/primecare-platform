@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ClientRegistry } from '@primecare/shared';
 
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
-import VisitDetailsScreen from '../screens/dashboard/VisitDetailsScreen';
-import { PswRegistry } from '@primecare/shared';
+import BookServiceScreen from '../screens/dashboard/BookServiceScreen';
 
-const { RouteRegistry } = PswRegistry;
+const { RouteRegistry } = ClientRegistry;
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
@@ -28,12 +28,12 @@ export default function AppNavigator() {
                 <Stack.Screen
                     name={RouteRegistry.DASHBOARD.HOME}
                     component={DashboardScreen}
-                    options={{ headerTitle: 'My Visits' }}
+                    options={{ headerTitle: 'My Services' }}
                 />
                 <Stack.Screen
-                    name={RouteRegistry.DASHBOARD.VISIT_DETAILS}
-                    component={VisitDetailsScreen}
-                    options={{ title: 'Visit Details' }}
+                    name={RouteRegistry.DASHBOARD.BOOK_SERVICE}
+                    component={BookServiceScreen}
+                    options={{ headerTitle: 'Book Service' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
