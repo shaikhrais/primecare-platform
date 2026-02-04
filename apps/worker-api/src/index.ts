@@ -4,6 +4,9 @@ import { z } from 'zod';
 import { PrismaClient, Role } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { generateToken } from './auth';
+import clientApp from './routes/client';
+import pswApp from './routes/psw';
+// import adminApp from './routes/admin';
 
 const LeadSchema = z.object({
     full_name: z.string().min(2),
@@ -43,7 +46,30 @@ app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString() });
 });
 
-// Auth Routes
+/**
+ * @openapi
+ * /v1/auth/register:
+ *   post:
+ *     summary: Register a new user (Client or PSW)
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *                 enum: [client, psw]
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: User already exists
+ */
 app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const { email, password, role } = c.req.valid('json');
@@ -74,6 +100,27 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
     return c.json({ user, token }, 201);
 });
 
+/**
+ * @openapi
+ * /v1/auth/login:
+ *   post:
+ *     summary: Login user and return JWT token
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid credentials
+ */
 app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const { email, password } = c.req.valid('json');
@@ -87,7 +134,12 @@ app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
     return c.json({ user, token });
 });
 
-// Marketing/Leads
+/**
+ * @openapi
+ * /v1/public/leads:
+ *   post:
+ *     summary: Submit a new lead (Contact Form)
+ */
 app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const data = c.req.valid('json');
@@ -105,13 +157,24 @@ app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
     return c.json(lead, 201);
 });
 
-// Public Blog & Services
+/**
+ * @openapi
+ * /v1/public/services:
+ *   get:
+ *     summary: List all active services
+ */
 app.get('/v1/public/services', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const services = await prisma.service.findMany({ where: { isActive: true } });
     return c.json(services);
 });
 
+/**
+ * @openapi
+ * /v1/public/blog:
+ *   get:
+ *     summary: List published blog posts
+ */
 app.get('/v1/public/blog', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const posts = await prisma.blogPost.findMany({
@@ -131,10 +194,13 @@ app.get('/v1/public/blog/:slug', async (c) => {
     return c.json(post);
 });
 
-// OpenAPI Spec Endpoint
 app.get('/v1/openapi.yaml', async (c) => {
-    // In a real scenario, we might serve from a file or R2
     return c.text('OpenAPI Spec placeholder');
 });
+
+// Mount Routes
+app.route('/v1/client', clientApp);
+app.route('/v1/psw', pswApp);
+// app.route('/v1/admin', adminApp);
 
 export default app;

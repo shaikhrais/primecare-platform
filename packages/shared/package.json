@@ -2,7 +2,7 @@
     "name": "@primecare/shared",
     "version": "1.0.0",
     "private": true,
-    "main": "src/schemas.ts",
+    "main": "src/index.ts",
     "dependencies": {
         "zod": "^3.22.4"
     }
