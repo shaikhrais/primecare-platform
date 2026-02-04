@@ -62,6 +62,13 @@ export default function DashboardScreen({ navigation }: any) {
             />
 
             <TouchableOpacity
+                style={styles.messageFab}
+                onPress={() => navigation.navigate(RouteRegistry.DASHBOARD.CHAT)}
+            >
+                <Text style={styles.fabText}>💬</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.navigate(RouteRegistry.DASHBOARD.BOOK_SERVICE)}
             >
@@ -100,4 +107,16 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     fabText: { color: '#fff', fontSize: 24, fontWeight: 'bold' },
+    messageFab: {
+        position: 'absolute',
+        right: 20,
+        bottom: 90,
+        backgroundColor: '#28a745',
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 6,
+    },
 });

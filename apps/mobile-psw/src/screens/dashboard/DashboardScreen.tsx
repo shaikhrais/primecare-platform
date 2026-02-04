@@ -87,6 +87,13 @@ export default function DashboardScreen({ navigation }: any) {
                     </View>
                 }
             />
+
+            <TouchableOpacity
+                style={styles.timesheetFab}
+                onPress={() => navigation.navigate(RouteRegistry.DASHBOARD.TIMESHEETS)}
+            >
+                <Text style={styles.fabText}>🕒</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -167,5 +174,21 @@ const styles = StyleSheet.create({
     emptyText: {
         fontSize: 16,
         color: '#888',
+    },
+    timesheetFab: {
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#004d40',
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 6,
+    },
+    fabText: {
+        fontSize: 24,
+        color: '#fff',
     }
 });

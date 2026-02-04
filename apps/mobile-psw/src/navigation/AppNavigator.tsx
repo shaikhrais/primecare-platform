@@ -6,6 +6,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import VisitDetailsScreen from '../screens/dashboard/VisitDetailsScreen';
+import TimesheetsScreen from '../screens/dashboard/TimesheetsScreen';
 import { PswRegistry } from '@primecare/shared';
 
 const { RouteRegistry } = PswRegistry;
@@ -34,6 +35,11 @@ export default function AppNavigator() {
                     name={RouteRegistry.DASHBOARD.VISIT_DETAILS}
                     component={VisitDetailsScreen}
                     options={{ title: 'Visit Details' }}
+                />
+                <Stack.Screen
+                    name={RouteRegistry.DASHBOARD.TIMESHEETS}
+                    component={TimesheetsScreen}
+                    options={{ title: 'My Timesheets' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -7,6 +7,7 @@ export const ApiRegistry = {
         PROFILE: '/v1/client/profile',
         BOOKINGS: '/v1/client/bookings',
         INVOICES: '/v1/client/invoices',
+        MESSAGES: '/v1/client/messages',
     },
     PUBLIC: {
         SERVICES: '/v1/public/services',

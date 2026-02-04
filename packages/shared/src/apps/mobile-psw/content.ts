@@ -54,5 +54,12 @@ export const ContentRegistry = {
             CALL_CLIENT: 'Call Client',
         },
         DETAILS_TITLE: 'Visit Details',
+    },
+    TIMESHEETS: {
+        TITLE: 'My Timesheets',
+        EMPTY: 'No timesheet entries found.',
+        HOURS: 'Hours',
+        EARNINGS: 'Earnings',
+        SUBMIT: 'Submit Timesheet',
     }
 } as const;

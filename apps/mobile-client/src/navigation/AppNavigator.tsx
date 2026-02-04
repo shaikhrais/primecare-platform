@@ -7,35 +7,21 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import BookServiceScreen from '../screens/dashboard/BookServiceScreen';
+import ChatScreen from '../screens/dashboard/ChatScreen';
 
-const { RouteRegistry } = ClientRegistry;
-const Stack = createNativeStackNavigator();
+// ...
 
-export default function AppNavigator() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName={RouteRegistry.AUTH.LOGIN}>
                 <Stack.Screen
-                    name={RouteRegistry.AUTH.LOGIN}
-                    component={LoginScreen}
-                    options={{ headerShown: false }}
+                    name={RouteRegistry.DASHBOARD.INVOICES}
+                    component={InvoicesScreen}
+                    options={{ headerTitle: 'My Invoices' }}
                 />
                 <Stack.Screen
-                    name={RouteRegistry.AUTH.REGISTER}
-                    component={RegistrationScreen}
-                    options={{ headerShown: false }}
+                    name={RouteRegistry.DASHBOARD.CHAT}
+                    component={ChatScreen}
+                    options={{ headerTitle: 'Messages' }}
                 />
-                <Stack.Screen
-                    name={RouteRegistry.DASHBOARD.HOME}
-                    component={DashboardScreen}
-                    options={{ headerTitle: 'My Services' }}
-                />
-                <Stack.Screen
-                    name={RouteRegistry.DASHBOARD.BOOK_SERVICE}
-                    component={BookServiceScreen}
-                    options={{ headerTitle: 'Book Service' }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+            </Stack.Navigator >
+        </NavigationContainer >
     );
 }

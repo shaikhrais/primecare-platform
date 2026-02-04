@@ -13,6 +13,7 @@ export const ApiRegistry = {
         VISITS: '/v1/psw/visits',
         CHECK_IN: (id: string) => `/v1/psw/visits/${id}/check-in`,
         CHECK_OUT: (id: string) => `/v1/psw/visits/${id}/check-out`,
+        TIMESHEETS: '/v1/psw/timesheets',
     },
     PUBLIC: {
         LEADS: '/v1/public/leads',

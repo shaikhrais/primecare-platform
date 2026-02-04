@@ -7,5 +7,6 @@ export const RouteRegistry = {
         HOME: 'Dashboard',
         VISIT_DETAILS: 'VisitDetails',
         PROFILE: 'Profile',
+        TIMESHEETS: 'Timesheets',
     },
 } as const;

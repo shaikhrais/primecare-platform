@@ -40,5 +40,10 @@ export const ContentRegistry = {
         SELECT_DATE: 'Requested Start Date (YYYY-MM-DD HH:MM)',
         BUTTON: 'Confirm Booking',
         SUCCESS: 'Booking request sent successfully!',
+    },
+    CHAT: {
+        TITLE: 'Messages',
+        SEND_PLACEHOLDER: 'Type a message...',
+        SEND_BTN: 'Send',
     }
 } as const;
