@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';

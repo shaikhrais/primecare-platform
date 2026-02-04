@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AdminRegistry } from '@primecare/shared';
+import { AdminRegistry } from 'prime-care-shared';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;

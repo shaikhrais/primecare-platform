@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 const { ContentRegistry } = PswRegistry;
 
 interface Props {

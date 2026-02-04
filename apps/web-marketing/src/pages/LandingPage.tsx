@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MarketingRegistry } from '@primecare/shared';
+import { MarketingRegistry } from 'prime-care-shared';
 
 const { ContentRegistry, RouteRegistry } = MarketingRegistry;
 

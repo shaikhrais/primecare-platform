@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AdminRegistry } from '@primecare/shared';
+import { AdminRegistry } from 'prime-care-shared';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 

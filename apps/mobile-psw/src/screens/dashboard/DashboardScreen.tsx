@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 import { VisitsService } from '../../services/VisitsService';
 
 const { ContentRegistry, RouteRegistry } = PswRegistry;

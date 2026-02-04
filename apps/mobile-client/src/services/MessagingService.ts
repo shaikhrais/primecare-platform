@@ -1,6 +1,6 @@
 // @ts-ignore
 import { API_URL, MOBILE_APP_KEY } from '@env';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 
 const { ApiRegistry } = ClientRegistry;
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 import { BookingsService, Booking } from '../../services/BookingsService';
 
 const { ContentRegistry, RouteRegistry } = ClientRegistry;

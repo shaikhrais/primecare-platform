@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 import { InvoicesService, Invoice } from '../../services/InvoicesService';
 
 const { ContentRegistry } = ClientRegistry;

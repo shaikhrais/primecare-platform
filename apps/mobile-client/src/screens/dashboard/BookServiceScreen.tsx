@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, ActivityIndicator, Alert } from 'react-native';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 import { BookingsService, Service } from '../../services/BookingsService';
 
 const { ContentRegistry, RouteRegistry } = ClientRegistry;

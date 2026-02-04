@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, ScrollView } from 'react-native';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 import { VisitsService } from '../../services/VisitsService';
 
 const { ContentRegistry } = PswRegistry;

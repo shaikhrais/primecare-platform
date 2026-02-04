@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AdminRegistry } from '@primecare/shared';
+import { AdminRegistry } from 'prime-care-shared';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;

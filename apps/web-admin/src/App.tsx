@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AdminRegistry } from '@primecare/shared';
+import { AdminRegistry } from 'prime-care-shared';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 

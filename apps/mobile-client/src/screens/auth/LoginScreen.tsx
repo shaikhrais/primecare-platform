@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 // @ts-ignore
 import { MOBILE_APP_KEY, API_URL } from '@env';
-import { ClientRegistry } from '@primecare/shared';
+import { ClientRegistry } from 'prime-care-shared';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = ClientRegistry;
 

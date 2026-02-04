@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 // @ts-ignore
 import { MOBILE_APP_KEY, API_URL } from '@env';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 const { ApiRegistry, ContentRegistry, RouteRegistry } = PswRegistry;
 
 export default function LoginScreen({ navigation }: any) {

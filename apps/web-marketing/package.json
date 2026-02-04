@@ -1,5 +1,5 @@
 {
-  "name": "@primecare/web-marketing",
+  "name": "prime-care-web-marketing",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +12,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.0",
-    "@primecare/shared": "*"
+    "prime-care-shared": "*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",

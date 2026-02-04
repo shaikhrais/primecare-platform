@@ -7,7 +7,7 @@ import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import VisitDetailsScreen from '../screens/dashboard/VisitDetailsScreen';
 import TimesheetsScreen from '../screens/dashboard/TimesheetsScreen';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = PswRegistry;
 const Stack = createNativeStackNavigator();

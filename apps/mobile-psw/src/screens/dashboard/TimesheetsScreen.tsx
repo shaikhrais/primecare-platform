@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import { PswRegistry } from '@primecare/shared';
+import { PswRegistry } from 'prime-care-shared';
 import { TimesheetsService, TimesheetEntry } from '../../services/TimesheetsService';
 
 const { ContentRegistry } = PswRegistry;
