@@ -1,0 +1,10 @@
+name = "primecare-api"
+main = "src/index.ts"
+compatibility_date = "2024-02-01"
+
+[vars]
+# DATABASE_URL = "" (Set via secrets)
+
+[[r2_buckets]]
+binding = "DOCS_BUCKET"
+bucket_name = "primecare-docs"

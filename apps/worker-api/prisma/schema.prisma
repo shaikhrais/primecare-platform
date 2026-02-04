@@ -1,0 +1,421 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  client
+  psw
+  coordinator
+  admin
+  finance
+}
+
+enum DocStatus {
+  pending
+  verified
+  rejected
+}
+
+enum VisitStatus {
+  requested
+  scheduled
+  assigned
+  en_route
+  arrived
+  in_progress
+  completed
+  cancelled
+}
+
+enum EventType {
+  check_in
+  check_out
+}
+
+enum EventResult {
+  success
+  rejected
+}
+
+enum IncidentType {
+  fall_risk
+  refusal
+  no_show
+  safety
+  other
+}
+
+enum IncidentStatus {
+  open
+  investigating
+  resolved
+}
+
+enum TimesheetStatus {
+  draft
+  submitted
+  approved
+  rejected
+}
+
+enum InvoiceStatus {
+  draft
+  unpaid
+  paid
+  void
+}
+
+model User {
+  id           String    @id @default(uuid())
+  role         Role
+  email        String    @unique
+  phone        String?
+  passwordHash String    @map("password_hash")
+  status       String?   @default("active")
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  clientProfile      ClientProfile?
+  pswProfile         PswProfile?
+  verifiedDocs       PswDocument[]     @relation("VerifiedBy")
+  reportedIncidents  Incident[]        @relation("Reporter")
+  reviewedTimesheets Timesheet[]       @relation("ReviewedBy")
+  sentMessages       Message[]
+  auditLogs          AuditLog[]
+  blogPosts          BlogPost[]
+  VisitCheckEvent    VisitCheckEvent[]
+
+  @@map("users")
+}
+
+model ClientProfile {
+  id             String    @id @default(uuid())
+  userId         String    @unique @map("user_id")
+  fullName       String    @map("full_name")
+  dob            DateTime?
+  addressLine1   String?   @map("address_line1")
+  addressLine2   String?   @map("address_line2")
+  city           String?
+  province       String?
+  postalCode     String?   @map("postal_code")
+  lat            Float?
+  lng            Float?
+  emergencyName  String?   @map("emergency_contact_name")
+  emergencyPhone String?   @map("emergency_contact_phone")
+  preferences    Json?     @map("preferences_json")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  user           User            @relation(fields: [userId], references: [id])
+  visits         Visit[]
+  invoices       Invoice[]
+  messageThreads MessageThread[]
+
+  @@map("client_profiles")
+}
+
+model PswProfile {
+  id           String    @id @default(uuid())
+  userId       String    @unique @map("user_id")
+  fullName     String    @map("full_name")
+  bio          String?
+  languages    String[]
+  serviceAreas String[]  @map("service_areas")
+  availability Json?     @map("availability_json")
+  isApproved   Boolean   @default(false) @map("is_approved")
+  approvedAt   DateTime? @map("approved_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  user           User              @relation(fields: [userId], references: [id])
+  documents      PswDocument[]
+  assignedVisits Visit[]
+  checkEvents    VisitCheckEvent[]
+  notes          VisitNote[]
+  checklists     VisitChecklist[]
+  timesheets     Timesheet[]
+  messageThreads MessageThread[]
+
+  @@map("psw_profiles")
+}
+
+model Visit {
+  id                  String       @id @default(uuid())
+  clientId            String       @map("client_id")
+  serviceId           String       @map("service_id")
+  requestedStartAt    DateTime     @map("requested_start_at")
+  durationMinutes     Int          @map("duration_minutes")
+  status              VisitStatus? @default(requested)
+  assignedPswId       String?      @map("assigned_psw_id")
+  serviceAddressLine1 String?      @map("service_address_line1")
+  serviceAddressLine2 String?      @map("service_address_line2")
+  serviceCity         String?      @map("service_city")
+  serviceProvince     String?      @map("service_province")
+  servicePostalCode   String?      @map("service_postal_code")
+  serviceLat          Float?       @map("service_lat")
+  serviceLng          Float?       @map("service_lng")
+  clientNotes         String?      @map("client_notes")
+  coordinatorNotes    String?      @map("coordinator_notes")
+  cancellationReason  String?      @map("cancellation_reason")
+  createdAt           DateTime     @default(now()) @map("created_at")
+  updatedAt           DateTime     @updatedAt @map("updated_at")
+
+  client         ClientProfile     @relation(fields: [clientId], references: [id])
+  service        Service           @relation(fields: [serviceId], references: [id])
+  psw            PswProfile?       @relation(fields: [assignedPswId], references: [id])
+  checkEvents    VisitCheckEvent[]
+  notes          VisitNote[]
+  checklists     VisitChecklist[]
+  incidents      Incident[]
+  timesheetItems TimesheetItem[]
+
+  @@map("visits")
+}
+
+model Service {
+  id             String   @id @default(uuid())
+  name           String
+  slug           String   @unique
+  description    String?
+  baseRateHourly Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
+  isActive       Boolean? @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  visits         Visit[]
+
+  @@map("services")
+}
+
+model VisitCheckEvent {
+  id                String      @id @default(uuid())
+  visitId           String      @map("visit_id")
+  pswId             String      @map("psw_id")
+  eventType         EventType   @map("event_type")
+  lat               Float?
+  lng               Float?
+  accuracyM         Float?      @map("accuracy_m")
+  computedDistanceM Float?      @map("computed_distance_m")
+  deviceTimeIso     DateTime?   @map("device_time_iso")
+  serverTime        DateTime?   @default(now()) @map("server_time")
+  result            EventResult
+  rejectReason      String?     @map("reject_reason")
+  isOverride        Boolean?    @default(false) @map("is_override")
+  overrideByUserId  String?     @map("override_by_user_id")
+  overrideReason    String?     @map("override_reason")
+  createdAt         DateTime    @default(now()) @map("created_at")
+
+  visit        Visit      @relation(fields: [visitId], references: [id])
+  pswProfile   PswProfile @relation(fields: [pswId], references: [id])
+  overriddenBy User?      @relation(fields: [overrideByUserId], references: [id])
+
+  @@map("visit_check_events")
+}
+
+model VisitNote {
+  id        String   @id @default(uuid())
+  visitId   String   @map("visit_id")
+  pswId     String   @map("psw_id")
+  noteText  String   @map("note_text")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  visit Visit      @relation(fields: [visitId], references: [id])
+  psw   PswProfile @relation(fields: [pswId], references: [id])
+
+  @@map("visit_notes")
+}
+
+model VisitChecklist {
+  id            String   @id @default(uuid())
+  visitId       String   @map("visit_id")
+  pswId         String   @map("psw_id")
+  checklistJson Json     @map("checklist_json")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  visit Visit      @relation(fields: [visitId], references: [id])
+  psw   PswProfile @relation(fields: [pswId], references: [id])
+
+  @@map("visit_checklists")
+}
+
+model Incident {
+  id              String          @id @default(uuid())
+  visitId         String?         @map("visit_id")
+  reporterUserId  String          @map("reporter_user_id")
+  type            IncidentType
+  description     String
+  status          IncidentStatus? @default(open)
+  resolutionNotes String?         @map("resolution_notes")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+
+  visit    Visit? @relation(fields: [visitId], references: [id])
+  reporter User   @relation("Reporter", fields: [reporterUserId], references: [id])
+
+  @@map("incidents")
+}
+
+model Timesheet {
+  id           String           @id @default(uuid())
+  pswId        String           @map("psw_id")
+  weekId       String           @map("week_id")
+  totalMinutes Int?             @default(0) @map("total_minutes")
+  status       TimesheetStatus? @default(draft)
+  submittedAt  DateTime?        @map("submitted_at")
+  reviewedBy   String?          @map("reviewed_by")
+  reviewedAt   DateTime?        @map("reviewed_at")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+
+  psw      PswProfile      @relation(fields: [pswId], references: [id])
+  reviewer User?           @relation("ReviewedBy", fields: [reviewedBy], references: [id])
+  items    TimesheetItem[]
+
+  @@map("timesheets")
+}
+
+model TimesheetItem {
+  id          String   @id @default(uuid())
+  timesheetId String   @map("timesheet_id")
+  visitId     String   @map("visit_id")
+  minutes     Int
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  timesheet Timesheet @relation(fields: [timesheetId], references: [id])
+  visit     Visit     @relation(fields: [visitId], references: [id])
+
+  @@map("timesheet_items")
+}
+
+model Invoice {
+  id              String         @id @default(uuid())
+  clientId        String         @map("client_id")
+  status          InvoiceStatus? @default(draft)
+  currency        String?        @default("CAD")
+  subtotal        Decimal?       @db.Decimal(10, 2)
+  tax             Decimal?       @db.Decimal(10, 2)
+  total           Decimal?       @db.Decimal(10, 2)
+  stripeInvoiceId String?        @map("stripe_invoice_id")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+
+  client   ClientProfile @relation(fields: [clientId], references: [id])
+  payments Payment[]
+
+  @@map("invoices")
+}
+
+model Payment {
+  id                    String   @id @default(uuid())
+  invoiceId             String   @map("invoice_id")
+  stripePaymentIntentId String?  @map("stripe_payment_intent_id")
+  amount                Decimal? @db.Decimal(10, 2)
+  status                String?
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@map("payments")
+}
+
+model MessageThread {
+  id         String   @id @default(uuid())
+  threadType String   @map("thread_type")
+  clientId   String?  @map("client_id")
+  pswId      String?  @map("psw_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  client   ClientProfile? @relation(fields: [clientId], references: [id])
+  psw      PswProfile?    @relation(fields: [pswId], references: [id])
+  messages Message[]
+
+  @@map("messages_threads")
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  threadId     String   @map("thread_id")
+  senderUserId String   @map("sender_user_id")
+  bodyText     String   @map("body_text")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  thread MessageThread @relation(fields: [threadId], references: [id])
+  sender User          @relation(fields: [senderUserId], references: [id])
+
+  @@map("messages")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  actorUserId  String?  @map("actor_user_id")
+  action       String
+  resourceType String   @map("resource_type")
+  resourceId   String?  @map("resource_id")
+  metadataJson Json?    @map("metadata_json")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  actor User? @relation(fields: [actorUserId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  fullName  String   @map("full_name")
+  email     String
+  phone     String?
+  message   String?
+  source    String
+  status    String?  @default("new")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("leads")
+}
+
+model BlogPost {
+  id                String    @id @default(uuid())
+  title             String
+  slug              String    @unique
+  excerpt           String?
+  contentHtml       String?   @map("content_html")
+  status            String?   @default("draft")
+  publishedAt       DateTime? @map("published_at")
+  authorUserId      String?   @map("author_user_id")
+  featureImageDocId String?   @map("feature_image_doc_id")
+  seoTitle          String?   @map("seo_title")
+  seoDescription    String?   @map("seo_description")
+  canonicalUrl      String?   @map("canonical_url")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  author User? @relation(fields: [authorUserId], references: [id])
+
+  @@map("blog_posts")
+}
+
+model PswDocument {
+  id         String     @id @default(uuid())
+  pswId      String     @map("psw_id")
+  docType    String     @map("doc_type")
+  fileKey    String     @map("file_key")
+  status     DocStatus? @default(pending)
+  expiryDate DateTime?  @map("expiry_date")
+  verifiedBy String?    @map("verified_by")
+  verifiedAt DateTime?  @map("verified_at")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+
+  psw      PswProfile @relation(fields: [pswId], references: [id])
+  verifier User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+
+  @@map("psw_documents")
+}
