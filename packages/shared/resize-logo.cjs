@@ -5,7 +5,7 @@
  * This script takes a high-resolution source logo and generates
  * all required sizes for Android, iOS, and Web platforms.
  * 
- * Usage: node resize-logo.js <source-image>
+ * Usage: node resize-logo.cjs <source-image>
  * 
  * Requirements: npm install sharp
  */
@@ -15,10 +15,16 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration for all output sizes
+const TARGET_APPS = [
+    'mobile-client',
+    'mobile-psw',
+    'PrimeCareClient',
+    'PrimeCarePsw'
+];
+
 const OUTPUT_CONFIG = {
     // Android mipmap sizes
     android: {
-        outputDir: '../apps/mobile-client/android/app/src/main/res',
         sizes: [
             { folder: 'mipmap-mdpi', size: 48 },
             { folder: 'mipmap-hdpi', size: 72 },
@@ -30,7 +36,6 @@ const OUTPUT_CONFIG = {
     },
     // iOS app icon sizes
     ios: {
-        outputDir: '../apps/mobile-client/ios/mobileclient/Images.xcassets/AppIcon.appiconset',
         sizes: [
             { name: 'Icon-20', size: 20 },
             { name: 'Icon-20@2x', size: 40 },
@@ -51,7 +56,7 @@ const OUTPUT_CONFIG = {
     },
     // Web sizes
     web: {
-        outputDir: '../apps/web-marketing/public',
+        outputDir: '../../apps/web-marketing/public',
         sizes: [
             { name: 'logo', size: 512 },
             { name: 'logo-192', size: 192 },
@@ -74,7 +79,9 @@ async function resizeAndSave(sourceImage, outputPath, size, filename) {
     const fullPath = path.join(outputPath, filename);
 
     // Ensure directory exists
-    fs.mkdirSync(outputPath, { recursive: true });
+    if (!fs.existsSync(outputPath)) {
+        fs.mkdirSync(outputPath, { recursive: true });
+    }
 
     await sharp(sourceImage)
         .resize(size, size, {
@@ -87,11 +94,13 @@ async function resizeAndSave(sourceImage, outputPath, size, filename) {
     console.log(`✓ Created: ${fullPath} (${size}x${size})`);
 }
 
-async function processAndroid(sourceImage, baseDir) {
-    console.log('\n📱 Generating Android icons...');
+async function processAndroid(sourceImage, baseDir, appName) {
     const config = OUTPUT_CONFIG.android;
-    const outputBase = path.resolve(baseDir, config.outputDir);
+    const outputBase = path.resolve(baseDir, `../../apps/${appName}/android/app/src/main/res`);
 
+    if (!fs.existsSync(path.resolve(baseDir, `../../apps/${appName}/android`))) return;
+
+    console.log(`\n📱 Generating Android icons for ${appName}...`);
     for (const sizeConfig of config.sizes) {
         const outputDir = path.join(outputBase, sizeConfig.folder);
         for (const filename of config.filenames) {
@@ -100,11 +109,41 @@ async function processAndroid(sourceImage, baseDir) {
     }
 }
 
-async function processIOS(sourceImage, baseDir) {
-    console.log('\n🍎 Generating iOS icons...');
+async function processIOS(sourceImage, baseDir, appName) {
     const config = OUTPUT_CONFIG.ios;
-    const outputDir = path.resolve(baseDir, config.outputDir);
+    // Attempt to find the correct ios project folder name
+    const iosDir = path.resolve(baseDir, `../../apps/${appName}/ios`);
+    if (!fs.existsSync(iosDir)) return;
 
+    let projectFolder = appName.replace(/-/g, '');
+    // Check if directory exists, if not try to find it
+    let outputDir = path.join(iosDir, projectFolder, 'Images.xcassets/AppIcon.appiconset');
+
+    if (!fs.existsSync(outputDir)) {
+        // Find existing AppIcon.appiconset
+        const findAppIconSet = (dir) => {
+            const files = fs.readdirSync(dir);
+            for (const file of files) {
+                const fullPath = path.join(dir, file);
+                if (fs.statSync(fullPath).isDirectory()) {
+                    if (file === 'AppIcon.appiconset') return fullPath;
+                    const result = findAppIconSet(fullPath);
+                    if (result) return result;
+                }
+            }
+            return null;
+        };
+        try {
+            outputDir = findAppIconSet(iosDir);
+        } catch (e) { }
+    }
+
+    if (!outputDir || !fs.existsSync(outputDir)) {
+        console.log(`⚠️ Could not find iOS AppIcon.appiconset for ${appName}`);
+        return;
+    }
+
+    console.log(`\n🍎 Generating iOS icons for ${appName}...`);
     for (const sizeConfig of config.sizes) {
         await resizeAndSave(sourceImage, outputDir, sizeConfig.size, `${sizeConfig.name}.png`);
     }
@@ -134,8 +173,7 @@ async function main() {
     const args = process.argv.slice(2);
 
     if (args.length === 0) {
-        console.log('Usage: node resize-logo.js <source-image>');
-        console.log('Example: node resize-logo.js ./assets/logo-source.png');
+        console.log('Usage: node resize-logo.cjs <source-image>');
         process.exit(1);
     }
 
@@ -153,15 +191,15 @@ async function main() {
 
     try {
         await processShared(sourceImage, baseDir);
-        await processAndroid(sourceImage, baseDir);
-        await processIOS(sourceImage, baseDir);
+
+        for (const app of TARGET_APPS) {
+            await processAndroid(sourceImage, baseDir, app);
+            await processIOS(sourceImage, baseDir, app);
+        }
+
         await processWeb(sourceImage, baseDir);
 
-        console.log('\n✅ All icons generated successfully!');
-        console.log('\nNext steps:');
-        console.log('1. Verify the generated icons look correct');
-        console.log('2. Rebuild your apps to use the new icons');
-        console.log('3. Redeploy web-marketing if needed');
+        console.log('\n✅ All icons generated and synchronized successfully!');
     } catch (error) {
         console.error('Error processing images:', error);
         process.exit(1);
