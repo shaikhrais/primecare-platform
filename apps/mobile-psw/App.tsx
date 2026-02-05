@@ -1,19 +1,13 @@
 import React from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import ErrorBoundary from './src/components/ErrorBoundary';
 import AppNavigator from './src/navigation/AppNavigator';
+import { AuthProvider } from './src/context/AuthContext';
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
+function App(): JSX.Element {
   return (
-    <ErrorBoundary>
+    <AuthProvider>
       <AppNavigator />
-    </ErrorBoundary>
+    </AuthProvider>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default App;

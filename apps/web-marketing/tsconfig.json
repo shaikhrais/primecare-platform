@@ -18,7 +18,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "prime-care-shared": [
+        "../../packages/shared/src/index.ts"
+      ]
+    }
   },
   "include": [
     "src"

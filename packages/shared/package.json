@@ -5,5 +5,9 @@
     "main": "src/index.ts",
     "dependencies": {
         "zod": "^3.22.4"
+    },
+    "type": "module",
+    "devDependencies": {
+        "sharp": "^0.33.5"
     }
 }

@@ -10,11 +10,15 @@
         "prisma:push": "prisma db push"
     },
     "dependencies": {
+        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+        "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
         "@hono/zod-validator": "^0.7.6",
         "@prisma/adapter-pg": "^5.22.0",
         "@prisma/client": "^5.22.0",
         "@prisma/extension-accelerate": "^2.0.2",
+        "acorn-walk": "^8.3.4",
         "hono": "^4.11.7",
+        "stripe": "^20.3.0",
         "zod": "^3.25.76"
     },
     "devDependencies": {

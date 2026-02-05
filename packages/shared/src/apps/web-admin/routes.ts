@@ -3,4 +3,5 @@ export const RouteRegistry = {
     DASHBOARD: '/',
     USERS: '/users',
     VISITS: '/visits',
+    SCHEDULE: '/schedule',
 } as const;

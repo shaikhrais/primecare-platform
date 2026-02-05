@@ -45,5 +45,10 @@ export const ContentRegistry = {
         TITLE: 'Messages',
         SEND_PLACEHOLDER: 'Type a message...',
         SEND_BTN: 'Send',
+        SENDING_VOICE: '🎤 Sending Voice...',
+        PLAY_VOICE: '▶️ Play Voice',
+        VOICE_MSG: '🎤 Voice Message',
+        RECORD_ICON: '🎤',
+        STOP_ICON: '🛑',
     }
 } as const;

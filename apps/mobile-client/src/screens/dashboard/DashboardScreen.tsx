@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+// @ts-ignore
 import { useFocusEffect } from '@react-navigation/native';
 import { ClientRegistry } from 'prime-care-shared';
 import { BookingsService, Booking } from '../../services/BookingsService';
@@ -63,9 +64,9 @@ export default function DashboardScreen({ navigation }: any) {
 
             <TouchableOpacity
                 style={styles.messageFab}
-                onPress={() => navigation.navigate(RouteRegistry.DASHBOARD.CHAT)}
+                onPress={() => navigation.navigate(RouteRegistry.DASHBOARD.CALL)}
             >
-                <Text style={styles.fabText}>💬</Text>
+                <Text style={styles.fabText}>📞</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

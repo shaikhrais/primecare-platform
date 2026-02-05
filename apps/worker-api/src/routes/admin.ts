@@ -1,4 +1,6 @@
 import { Hono } from 'hono';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
@@ -12,6 +14,12 @@ const getPrisma = (database_url: string) => {
     }).$extends(withAccelerate());
 };
 
+const AssignPswSchema = z.object({
+    visitId: z.string().uuid(),
+    pswId: z.string().uuid(),
+});
+
+// Middleware: Admin Only
 app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
     await middleware(c, next);
@@ -23,56 +31,88 @@ app.use('*', rbacMiddleware(['admin']));
  * /v1/admin/users:
  *   get:
  *     summary: List all users
- *     security:
- *       - bearerAuth: []
  */
 app.get('/users', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const users = await prisma.user.findMany({
-        orderBy: { createdAt: 'desc' },
-        include: {
-            clientProfile: true,
-            pswProfile: true,
+        select: {
+            id: true,
+            email: true,
+            role: true,
+            isVerified: true,
+            createdAt: true,
+            ClientProfile: { select: { fullName: true } },
+            PswProfile: { select: { fullName: true } },
         },
+        orderBy: { createdAt: 'desc' },
     });
     return c.json(users);
 });
 
 /**
  * @openapi
- * /v1/admin/psw/approve/{id}:
- *   post:
- *     summary: Approve a PSW profile
- *     security:
- *       - bearerAuth: []
+ * /v1/admin/visits:
+ *   get:
+ *     summary: List all visits (Scheduling)
  */
-app.post('/psw/approve/:id', async (c) => {
+app.get('/visits', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
-    const pswId = c.req.param('id');
-
-    const profile = await prisma.pswProfile.update({
-        where: { id: pswId },
-        data: { isApproved: true, approvedAt: new Date() },
+    const visits = await prisma.visit.findMany({
+        include: {
+            client: { select: { fullName: true, addressLine1: true } },
+            psw: { select: { fullName: true } },
+            service: true,
+        },
+        orderBy: { requestedStartAt: 'desc' },
     });
-
-    return c.json(profile);
+    return c.json(visits);
 });
 
 /**
  * @openapi
- * /v1/admin/visits/unassigned:
- *   get:
- *     summary: List unassigned visits
- *     security:
- *       - bearerAuth: []
+ * /v1/admin/visits/assign:
+ *   post:
+ *     summary: Assign PSW to Visit
  */
-app.get('/visits/unassigned', async (c) => {
+app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
-    const visits = await prisma.visit.findMany({
-        where: { assignedPswId: null, status: 'requested' },
-        include: { client: true, service: true },
+    const { visitId, pswId } = c.req.valid('json');
+
+    // Verify PSW exists
+    const psw = await prisma.pswProfile.findUnique({ where: { id: pswId } });
+    if (!psw) return c.json({ error: 'PSW not found' }, 404);
+
+    const visit = await prisma.visit.update({
+        where: { id: visitId },
+        data: {
+            assignedPswId: pswId,
+            status: 'scheduled',
+        },
     });
-    return c.json(visits);
+
+    return c.json(visit);
+});
+
+/**
+ * @openapi
+ * /v1/admin/stats:
+ *   get:
+ *     summary: Dashboard Stats
+ */
+app.get('/stats', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+
+    const [totalUsers, totalVisits, pendingVisits] = await Promise.all([
+        prisma.user.count(),
+        prisma.visit.count(),
+        prisma.visit.count({ where: { status: 'requested' } }),
+    ]);
+
+    return c.json({
+        totalUsers,
+        totalVisits,
+        pendingVisits,
+    });
 });
 
 export default app;

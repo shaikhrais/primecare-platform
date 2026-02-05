@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { ClientRegistry } from 'prime-care-shared';
-import { MessagingService, Message } from '../../services/MessagingService';
+import { chatService } from '../../services/ChatService';
+import { useAuth } from '../../context/AuthContext';
+// Keep Message type definition if it's reused, or define it locally if strictly simple
+import { Message } from '../../services/MessagingService';
 
 const { ContentRegistry } = ClientRegistry;
 
@@ -9,24 +12,48 @@ export default function ChatScreen() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputText, setInputText] = useState('');
     const flatListRef = useRef<FlatList>(null);
+    const { user } = useAuth(); // Assuming useAuth exposes the user object
 
     useEffect(() => {
-        loadMessages();
-    }, []);
+        if (user?.id) {
+            chatService.connect(user.id);
+            const removeListener = chatService.addListener((msg) => {
+                const newMessage: Message = {
+                    id: Date.now().toString(),
+                    text: msg.message || JSON.stringify(msg),
+                    sender: msg.sender === 'user' ? 'user' : 'support',
+                    timestamp: new Date().toISOString(),
+                };
+                setMessages(prev => [...prev, newMessage]);
 
-    const loadMessages = async () => {
-        const data = await MessagingService.getMessages();
-        setMessages(data);
-    };
+                // Scroll to bottom on new message
+                setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
+            });
+
+            return () => {
+                removeListener();
+                chatService.disconnect();
+            };
+        }
+    }, [user?.id]);
 
     const handleSend = async () => {
         if (!inputText.trim()) return;
 
-        const newMessage = await MessagingService.sendMessage(inputText);
-        setMessages(prev => [...prev, newMessage]);
+        const text = inputText;
         setInputText('');
 
-        // Scroll to bottom
+        chatService.sendMessage(text);
+
+        // Optimistic update
+        const newMessage: Message = {
+            id: Date.now().toString(),
+            text: text,
+            sender: 'user',
+            timestamp: new Date().toISOString(),
+        };
+        setMessages(prev => [...prev, newMessage]);
+
         setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
     };
 
@@ -64,6 +91,7 @@ export default function ChatScreen() {
                     onChangeText={setInputText}
                     placeholder={ContentRegistry.CHAT.SEND_PLACEHOLDER}
                 />
+
                 <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
                     <Text style={styles.sendButtonText}>{ContentRegistry.CHAT.SEND_BTN}</Text>
                 </TouchableOpacity>

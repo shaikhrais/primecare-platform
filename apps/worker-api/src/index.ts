@@ -1,12 +1,14 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient, Role } from '@prisma/client/edge';
+import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { generateToken } from './auth';
+import { cors } from 'hono/cors';
 import clientApp from './routes/client';
 import pswApp from './routes/psw';
-// import adminApp from './routes/admin';
+import adminApp from './routes/admin';
+import paymentApp from './routes/payments';
 
 const LeadSchema = z.object({
     full_name: z.string().min(2),
@@ -27,13 +29,30 @@ const RegisterSchema = z.object({
     role: z.enum(['client', 'psw']),
 });
 
+
+import { DurableObject } from 'cloudflare:workers';
+
+// Re-export Durable Object class so it can be found by Wrangler
+export { ChatServer } from './durable_objects/ChatServer';
+
 type Bindings = {
     DATABASE_URL: string;
     JWT_SECRET: string;
     DOCS_BUCKET: R2Bucket;
+    CHAT_SERVER: DurableObjectNamespace;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+// Enable CORS for all routes
+app.use('*', cors({
+    origin: '*',
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    exposeHeaders: ['Content-Length'],
+    maxAge: 600,
+    credentials: true,
+}));
 
 // Prisma middleware
 const getPrisma = (database_url: string) => {
@@ -85,7 +104,7 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
         data: {
             email,
             passwordHash,
-            role: role as Role,
+            role: role as any,
         },
     });
 
@@ -199,8 +218,58 @@ app.get('/v1/openapi.yaml', async (c) => {
 });
 
 // Mount Routes
+import storageApp from './routes/storage';
+import notificationApp from './routes/notifications';
+import voiceApp from './routes/voice';
+
 app.route('/v1/client', clientApp);
 app.route('/v1/psw', pswApp);
-// app.route('/v1/admin', adminApp);
+app.route('/v1/admin', adminApp);
+app.route('/v1/storage', storageApp);
+app.route('/v1/notifications', notificationApp);
+app.route('/v1/voice', voiceApp);
+
+// WebSocket and Chat Routes
+app.get('/ws/chat', async (c) => {
+    const upgradeHeader = c.req.header('Upgrade');
+    if (!upgradeHeader || upgradeHeader !== 'websocket') {
+        return c.text('Expected Upgrade: websocket', 426);
+    }
+
+    const userId = c.req.query('userId');
+    if (!userId) {
+        return c.text('Missing userId param', 400);
+    }
+
+    // Identify the Durable Object by userId (one DO per user/chat)
+    const id = c.env.CHAT_SERVER.idFromName(userId);
+    const stub = c.env.CHAT_SERVER.get(id);
+
+    return stub.fetch(c.req.raw);
+});
+
+app.post('/webhook/n8n/chat', async (c) => {
+    const { userId, message, type } = await c.req.json();
+
+    if (!userId || !message) {
+        return c.json({ error: 'Missing userId or message' }, 400);
+    }
+
+    const id = c.env.CHAT_SERVER.idFromName(userId);
+    const stub = c.env.CHAT_SERVER.get(id);
+
+    // Call the DO to broadcast/send message to the user
+    await stub.fetch(new Request('https://worker/broadcast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            message,
+            sender: 'AI',
+            type: type || 'text'
+        })
+    }));
+
+    return c.json({ success: true });
+});
 
 export default app;

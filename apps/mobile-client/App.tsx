@@ -1,9 +1,12 @@
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
+import { AuthProvider } from './src/context/AuthContext';
 
-function App(): React.JSX.Element {
+function App(): JSX.Element {
   return (
-    <AppNavigator />
+    <AuthProvider>
+      <AppNavigator />
+    </AuthProvider>
   );
 }
 

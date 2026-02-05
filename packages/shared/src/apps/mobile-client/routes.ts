@@ -7,5 +7,7 @@ export const RouteRegistry = {
         HOME: 'Dashboard',
         BOOK_SERVICE: 'BookService',
         INVOICES: 'Invoices',
+        CHAT: 'Chat',
+        CALL: 'Call',
     },
 } as const;

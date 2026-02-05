@@ -38,6 +38,13 @@ export default function Dashboard() {
                         <div style={{ color: '#6b7280', fontSize: '0.875rem' }}>{ContentRegistry.DASHBOARD.STATS.VISITS}</div>
                         <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ef4444' }}>{stats.unassigned}</div>
                     </div>
+
+                    <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }}>
+                        <div style={{ padding: '1.5rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', cursor: 'pointer' }}>
+                            <div style={{ color: '#6b7280', fontSize: '0.875rem' }}>View Schedule</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#004d40', marginTop: '0.5rem' }}>Calendar &rarr;</div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

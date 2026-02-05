@@ -1,6 +1,16 @@
 export const RouteRegistry = {
     HOME: '/',
     SERVICES: '/services',
+    SERVICE_FOOT_CARE: '/services/foot-care',
+    SERVICE_EDUCATION: '/services/education',
+    SERVICE_IT: '/services/it-support',
+    SERVICE_SENIOR: '/services/senior-care',
     BLOG: '/blog',
+    BLOG_DETAIL: '/blog/:id',
     CONTACT: '/contact',
+    TERMS: '/terms',
+    PRIVACY: '/privacy',
+    CAREERS: '/careers',
+    ABOUT: '/about',
+    BOOKING: '/book-now',
 } as const;

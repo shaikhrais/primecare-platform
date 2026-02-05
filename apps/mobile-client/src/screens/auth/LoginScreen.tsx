@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-// @ts-ignore
-import { MOBILE_APP_KEY, API_URL } from '@env';
-import { ClientRegistry } from 'prime-care-shared';
-
-const { ApiRegistry, ContentRegistry, RouteRegistry } = ClientRegistry;
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { useAuth, API_URL } from '../../context/AuthContext';
 
 export default function LoginScreen({ navigation }: any) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const { login } = useAuth();
 
     const handleLogin = async () => {
-        setErrorMessage(null);
+        if (!email || !password) {
+            Alert.alert('Error', 'Please fill in all fields');
+            return;
+        }
+
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
+            const response = await fetch(`${API_URL}/v1/auth/login`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-mobile-app-key': MOBILE_APP_KEY,
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                navigation.replace(RouteRegistry.DASHBOARD.HOME);
+                await login(data.token, data.user);
             } else {
-                const data = await response.json();
-                setErrorMessage(data.error || 'Login failed');
+                Alert.alert('Login Failed', data.error || 'Invalid credentials');
             }
         } catch (error) {
-            setErrorMessage(ContentRegistry.AUTH.ERRORS.NETWORK);
+            console.error(error);
+            Alert.alert('Error', 'Something went wrong. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -40,45 +39,79 @@ export default function LoginScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{ContentRegistry.APP.NAME}</Text>
-            <Text style={styles.subtitle}>{ContentRegistry.APP.TAGLINE}</Text>
-
-            {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+            <Text style={styles.title}>PrimeCare - Client</Text>
 
             <TextInput
                 style={styles.input}
-                placeholder={ContentRegistry.AUTH.LOGIN.EMAIL_PLACEHOLDER}
+                placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
+                keyboardType="email-address"
             />
+
             <TextInput
                 style={styles.input}
-                placeholder={ContentRegistry.AUTH.LOGIN.PASSWORD_PLACEHOLDER}
+                placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
             />
 
             <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
-                {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{ContentRegistry.AUTH.LOGIN.BUTTON}</Text>}
+                {loading ? (
+                    <ActivityIndicator color="white" />
+                ) : (
+                    <Text style={styles.buttonText}>Login</Text>
+                )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.link} onPress={() => navigation.navigate(RouteRegistry.AUTH.REGISTER)}>
-                <Text style={styles.linkText}>{ContentRegistry.AUTH.LOGIN.REGISTER_LINK}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{ marginTop: 20 }}>
+                <Text style={styles.link}>Don't have an account? Register</Text>
             </TouchableOpacity>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 20, justifyContent: 'center', backgroundColor: '#fff' },
-    title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#333' },
-    subtitle: { fontSize: 16, textAlign: 'center', color: '#666', marginBottom: 30 },
-    error: { color: 'red', textAlign: 'center', marginBottom: 10 },
-    input: { borderWidth: 1, borderColor: '#ddd', padding: 15, borderRadius: 8, marginBottom: 15 },
-    button: { backgroundColor: '#007bff', padding: 15, borderRadius: 8, alignItems: 'center' },
-    buttonText: { color: '#fff', fontWeight: 'bold' },
-    link: { marginTop: 15, alignItems: 'center' },
-    linkText: { color: '#007bff' },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#004d40',
+        marginBottom: 40,
+        textAlign: 'center',
+    },
+    input: {
+        height: 50,
+        borderColor: '#ddd',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        fontSize: 16,
+    },
+    button: {
+        backgroundColor: '#004d40',
+        height: 50,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    link: {
+        color: '#004d40',
+        textAlign: 'center',
+        fontSize: 16,
+    },
 });
