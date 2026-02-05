@@ -81,16 +81,36 @@ export default function Schedule() {
     };
 
     return (
-        <div style={{ height: '80vh', padding: '1rem', backgroundColor: 'white' }}>
-            <h2>Visit Schedule</h2>
-            <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: '100%' }}
-                onSelectEvent={handleSelectEvent}
-            />
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <div>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Visit Schedule</h2>
+                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }}>Coordinate care visits and assign PSWs to client requests.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>Filter</button>
+                    <button style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>New Booking</button>
+                </div>
+            </div>
+
+            <div style={{
+                flex: 1,
+                backgroundColor: 'white',
+                borderRadius: '0.75rem',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                padding: '1.5rem',
+                minHeight: '600px'
+            }}>
+                <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    style={{ height: '100%', minHeight: '550px' }}
+                    onSelectEvent={handleSelectEvent}
+                    views={['month', 'week', 'day']}
+                />
+            </div>
         </div>
     );
 }

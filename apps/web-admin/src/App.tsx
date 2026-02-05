@@ -1,10 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 
 import UserList from './pages/users/UserList';
 import Schedule from './pages/schedule/Schedule';
+import LeadsPage from './pages/leads/LeadsPage';
+import AdminLayout from './components/layout/AdminLayout';
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -13,9 +15,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={RouteRegistry.LOGIN} element={<Login />} />
-        <Route path={RouteRegistry.DASHBOARD} element={<Dashboard />} />
-        <Route path={RouteRegistry.USERS} element={<UserList />} />
-        <Route path={RouteRegistry.SCHEDULE} element={<Schedule />} />
+
+        {/* Protected Dashboard Routes */}
+        <Route path={RouteRegistry.DASHBOARD} element={<AdminLayout><Dashboard /></AdminLayout>} />
+        <Route path={RouteRegistry.USERS} element={<AdminLayout><UserList /></AdminLayout>} />
+        <Route path={RouteRegistry.SCHEDULE} element={<AdminLayout><Schedule /></AdminLayout>} />
+        <Route path="/leads" element={<AdminLayout><LeadsPage /></AdminLayout>} />
+
+        {/* Fallback */}
+        <Route path="/" element={<Navigate to={RouteRegistry.DASHBOARD} replace />} />
       </Routes>
     </BrowserRouter>
   );
