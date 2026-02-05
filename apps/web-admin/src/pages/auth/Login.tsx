@@ -11,6 +11,17 @@ export default function Login() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const searchParams = new URLSearchParams(window.location.search);
+    const roleParam = searchParams.get('role');
+
+    const uiText = {
+        title: roleParam === 'psw' ? ContentRegistry.AUTH.LOGIN_TITLE_PSW :
+            roleParam === 'client' ? ContentRegistry.AUTH.LOGIN_TITLE_CLIENT :
+                ContentRegistry.AUTH.LOGIN_TITLE,
+        button: roleParam === 'psw' ? ContentRegistry.AUTH.BUTTON_PSW :
+            roleParam === 'client' ? ContentRegistry.AUTH.BUTTON_CLIENT :
+                ContentRegistry.AUTH.BUTTON
+    };
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -62,9 +73,9 @@ export default function Login() {
                 padding: '2rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px'
             }}>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }}>
-                    {ContentRegistry.APP.NAME}
+                    PrimeCare
                 </h1>
-                <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem' }}>{ContentRegistry.AUTH.LOGIN_TITLE}</p>
+                <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem' }}>{uiText.title}</p>
 
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
 
@@ -93,6 +104,11 @@ export default function Login() {
                             required
                         />
                     </div>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
+                        <a href="/forgot-password" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                            Forgot password?
+                        </a>
+                    </div>
                     <button
                         type="submit"
                         disabled={loading}
@@ -100,7 +116,7 @@ export default function Login() {
                             width: '100%', padding: '0.75rem', backgroundColor: '#059669', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
-                        {loading ? 'Loading...' : ContentRegistry.AUTH.BUTTON}
+                        {loading ? 'Loading...' : uiText.button}
                     </button>
                 </form>
             </div>

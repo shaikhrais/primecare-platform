@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '../../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
@@ -111,6 +111,21 @@ app.get('/visits', async (c) => {
     return c.json(visits);
 });
 
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371e3; // Earth radius in meters
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // Distance in meters
+};
+
 // POST Check-In
 /**
  * @openapi
@@ -129,14 +144,30 @@ app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c)
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    // Verify visit assignment
-    const visit = await prisma.visit.findUnique({ where: { id: visitId } });
+    // Verify visit assignment and get client location
+    const visit = await prisma.visit.findUnique({
+        where: { id: visitId },
+        include: { client: true },
+    });
     if (!visit || visit.assignedPswId !== profile.id) {
         return c.json({ error: 'Visit not found or not assigned to you' }, 404);
     }
 
-    // TODO: Verify distance from client location (Geofencing)
-    const result = 'success';
+    // Verify distance from client location (Geofencing)
+    let result = 'success';
+    if (visit.client?.lat && visit.client?.lng) {
+        const distance = calculateDistance(lat, lng, visit.client.lat, visit.client.lng);
+        // Allow 500m grace period for urban areas/GPS drift
+        if (distance > 500) {
+            result = 'rejected';
+            // We still log the event but might prevent the status update or alert admin
+            return c.json({
+                error: 'Too far from client location',
+                distance: Math.round(distance),
+                threshold: 500
+            }, 400);
+        }
+    }
 
     const event = await prisma.visitCheckEvent.create({
         data: {

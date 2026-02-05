@@ -1,3 +1,3 @@
-export * from './api';
-export * from './routes';
-export * from './content';
+// Re-export central registries as the new standard
+export { ApiRegistry, ContentRegistry, DataRegistry } from '../../registries/index';
+export { RouteRegistry } from './routes';

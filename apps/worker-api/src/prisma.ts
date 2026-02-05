@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 
 export const getPrismaClient = (databaseUrl: string) => {

@@ -1,14 +1,40 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { generateToken } from './auth';
 import { cors } from 'hono/cors';
+
+// Route Imports
 import clientApp from './routes/client';
 import pswApp from './routes/psw';
 import adminApp from './routes/admin';
 import paymentApp from './routes/payments';
+import storageApp from './routes/storage';
+import notificationApp from './routes/notifications';
+import voiceApp from './routes/voice';
+import staffApp from './routes/staff';
+
+import { DurableObject } from 'cloudflare:workers';
+export { ChatServer } from './durable_objects/ChatServer';
+
+type Bindings = {
+    DATABASE_URL: string;
+    JWT_SECRET: string;
+    DOCS_BUCKET: R2Bucket;
+    CHAT_SERVER: DurableObjectNamespace;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+// Basic SHA-256 hashing
+async function hashPassword(password: string) {
+    const msgUint8 = new TextEncoder().encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 const LeadSchema = z.object({
     full_name: z.string().min(2),
@@ -23,28 +49,27 @@ const LoginSchema = z.object({
     password: z.string().min(8),
 });
 
+const ForgotPasswordSchema = z.object({
+    email: z.string().email(),
+});
+
+const ResetPasswordSchema = z.object({
+    token: z.string(),
+    newPassword: z.string().min(8),
+});
+
 const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
-    role: z.enum(['client', 'psw']),
+    role: z.enum(['client', 'psw', 'staff']),
 });
 
-
-import { DurableObject } from 'cloudflare:workers';
-
-// Re-export Durable Object class so it can be found by Wrangler
-export { ChatServer } from './durable_objects/ChatServer';
-
-type Bindings = {
-    DATABASE_URL: string;
-    JWT_SECRET: string;
-    DOCS_BUCKET: R2Bucket;
-    CHAT_SERVER: DurableObjectNamespace;
+const getPrisma = (database_url: string) => {
+    return new PrismaClient({
+        datasourceUrl: database_url,
+    }).$extends(withAccelerate());
 };
 
-const app = new Hono<{ Bindings: Bindings }>();
-
-// Enable CORS for all routes
 app.use('*', cors({
     origin: '*',
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -54,51 +79,18 @@ app.use('*', cors({
     credentials: true,
 }));
 
-// Prisma middleware
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
-
 app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString() });
 });
 
-/**
- * @openapi
- * /v1/auth/register:
- *   post:
- *     summary: Register a new user (Client or PSW)
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *               role:
- *                 type: string
- *                 enum: [client, psw]
- *     responses:
- *       201:
- *         description: User created successfully
- *       400:
- *         description: User already exists
- */
 app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const { email, password, role } = c.req.valid('json');
 
-    // Check if user exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) return c.json({ error: 'User already exists' }, 400);
 
-    // Hash password (simplified for now, recommend PBKDF2 in production)
-    const passwordHash = password; // TODO: Implement proper hashing
+    const passwordHash = await hashPassword(password);
 
     const user = await prisma.user.create({
         data: {
@@ -108,44 +100,25 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
         },
     });
 
-    // Create profile based on role
     if (role === 'client') {
         await prisma.clientProfile.create({ data: { userId: user.id, fullName: email.split('@')[0] } });
     } else if (role === 'psw') {
         await prisma.pswProfile.create({ data: { userId: user.id, fullName: email.split('@')[0] } });
     }
+    // Note: 'staff' and 'admin' roles don't have separate profile models in current schema.
 
     const token = await generateToken(user, c.env.JWT_SECRET || 'fallback_secret');
     return c.json({ user, token }, 201);
 });
 
-/**
- * @openapi
- * /v1/auth/login:
- *   post:
- *     summary: Login user and return JWT token
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Login successful
- *       401:
- *         description: Invalid credentials
- */
 app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const { email, password } = c.req.valid('json');
 
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user || user.passwordHash !== password) {
+    const passwordHash = await hashPassword(password);
+
+    if (!user || user.passwordHash !== passwordHash) {
         return c.json({ error: 'Invalid credentials' }, 401);
     }
 
@@ -153,16 +126,62 @@ app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
     return c.json({ user, token });
 });
 
-/**
- * @openapi
- * /v1/public/leads:
- *   post:
- *     summary: Submit a new lead (Contact Form)
- */
+app.post('/v1/auth/forgot-password', zValidator('json', ForgotPasswordSchema), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const { email } = c.req.valid('json');
+
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+        // Return 200 even if user not found to prevent enumeration
+        return c.json({ message: 'If an account exists, a reset link has been sent.' });
+    }
+
+    const resetToken = crypto.randomUUID();
+    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { resetToken, resetTokenExpiry }
+    });
+
+    console.log(`[MOCK EMAIL] Password reset token for ${email}: ${resetToken}`);
+
+    // In dev/test, return token for testing
+    return c.json({ message: 'Reset link sent.', debug_token: resetToken });
+});
+
+app.post('/v1/auth/reset-password', zValidator('json', ResetPasswordSchema), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const { token, newPassword } = c.req.valid('json');
+
+    const user = await prisma.user.findFirst({
+        where: {
+            resetToken: token,
+            resetTokenExpiry: { gt: new Date() }
+        }
+    });
+
+    if (!user) {
+        return c.json({ error: 'Invalid or expired token' }, 400);
+    }
+
+    const passwordHash = await hashPassword(newPassword);
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: {
+            passwordHash,
+            resetToken: null,
+            resetTokenExpiry: null
+        }
+    });
+
+    return c.json({ success: true, message: 'Password updated successfully' });
+});
+
 app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const data = c.req.valid('json');
-
     const lead = await prisma.lead.create({
         data: {
             fullName: data.full_name,
@@ -172,28 +191,15 @@ app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
             source: data.source,
         },
     });
-
     return c.json(lead, 201);
 });
 
-/**
- * @openapi
- * /v1/public/services:
- *   get:
- *     summary: List all active services
- */
 app.get('/v1/public/services', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const services = await prisma.service.findMany({ where: { isActive: true } });
     return c.json(services);
 });
 
-/**
- * @openapi
- * /v1/public/blog:
- *   get:
- *     summary: List published blog posts
- */
 app.get('/v1/public/blog', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const posts = await prisma.blogPost.findMany({
@@ -206,69 +212,68 @@ app.get('/v1/public/blog', async (c) => {
 app.get('/v1/public/blog/:slug', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const slug = c.req.param('slug');
-    const post = await prisma.blogPost.findUnique({
-        where: { slug },
-    });
+    const post = await prisma.blogPost.findUnique({ where: { slug } });
     if (!post) return c.json({ error: 'Post not found' }, 404);
     return c.json(post);
 });
 
 app.get('/v1/openapi.yaml', async (c) => {
-    return c.text('OpenAPI Spec placeholder');
+    return c.text(`
+openapi: 3.0.0
+info:
+  title: PrimeCare Worker API
+  version: 1.0.0
+paths:
+  /v1/health:
+    get:
+      responses:
+        '200':
+          description: OK
+  /v1/auth/login:
+    post:
+      summary: User Login
+  /v1/admin/stats:
+    get:
+      summary: Admin Dashboard Statistics
+    `);
 });
 
 // Mount Routes
-import storageApp from './routes/storage';
-import notificationApp from './routes/notifications';
-import voiceApp from './routes/voice';
-
 app.route('/v1/client', clientApp);
 app.route('/v1/psw', pswApp);
 app.route('/v1/admin', adminApp);
 app.route('/v1/storage', storageApp);
 app.route('/v1/notifications', notificationApp);
 app.route('/v1/voice', voiceApp);
+app.route('/v1/payments', paymentApp);
+app.route('/v1/staff', staffApp);
 
-// WebSocket and Chat Routes
 app.get('/ws/chat', async (c) => {
     const upgradeHeader = c.req.header('Upgrade');
     if (!upgradeHeader || upgradeHeader !== 'websocket') {
         return c.text('Expected Upgrade: websocket', 426);
     }
-
     const userId = c.req.query('userId');
     if (!userId) {
         return c.text('Missing userId param', 400);
     }
-
-    // Identify the Durable Object by userId (one DO per user/chat)
     const id = c.env.CHAT_SERVER.idFromName(userId);
     const stub = c.env.CHAT_SERVER.get(id);
-
     return stub.fetch(c.req.raw);
 });
 
 app.post('/webhook/n8n/chat', async (c) => {
     const { userId, message, type } = await c.req.json();
-
     if (!userId || !message) {
         return c.json({ error: 'Missing userId or message' }, 400);
     }
-
     const id = c.env.CHAT_SERVER.idFromName(userId);
     const stub = c.env.CHAT_SERVER.get(id);
-
-    // Call the DO to broadcast/send message to the user
     await stub.fetch(new Request('https://worker/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            message,
-            sender: 'AI',
-            type: type || 'text'
-        })
+        body: JSON.stringify({ message, sender: 'AI', type: type || 'text' })
     }));
-
     return c.json({ success: true });
 });
 

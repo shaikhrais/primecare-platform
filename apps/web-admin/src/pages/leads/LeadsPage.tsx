@@ -1,30 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ApiRegistry, ContentRegistry } = AdminRegistry;
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Lead {
     id: string;
-    full_name: string;
+    fullName: string;
     email: string;
     phone: string;
     message: string;
-    status: 'New' | 'Contacted' | 'Converted' | 'Rejected';
-    timestamp: string;
+    status: string;
+    createdAt: string;
 }
 
-const MOCK_LEADS: Lead[] = [
-    { id: '1', full_name: 'John Doe', email: 'john@example.com', phone: '416-555-0199', message: 'I need a PSW for my father for 4 hours a day.', status: 'New', timestamp: '2026-02-04 10:30' },
-    { id: '2', full_name: 'Sarah Smith', email: 'sarah@test.com', phone: '647-555-0122', message: 'Interested in diabetic foot care services.', status: 'Contacted', timestamp: '2026-02-03 14:15' },
-    { id: '3', full_name: 'Michael Chen', email: 'mchen@company.ca', phone: '416-555-0555', message: 'Staffing inquiry for our retirement home.', status: 'Converted', timestamp: '2026-02-01 09:00' },
-];
-
 export default function LeadsPage() {
-    const [leads, setLeads] = useState<Lead[]>(MOCK_LEADS);
+    const [leads, setLeads] = useState<Lead[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchLeads = async () => {
+        setLoading(true);
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.LEADS}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setLeads(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch leads', error);
+            alert(ContentRegistry.LEADS.MESSAGES.ERROR);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const updateStatus = async (id: string, newStatus: string) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.LEADS_UPDATE(id)}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus })
+            });
+            if (response.ok) {
+                setLeads(prev => prev.map(l => l.id === id ? { ...l, status: newStatus } : l));
+            }
+        } catch (error) {
+            alert(ContentRegistry.LEADS.MESSAGES.ERROR_UPDATE);
+        }
+    };
+
+    useEffect(() => {
+        fetchLeads();
+    }, []);
 
     const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'New': return { bg: '#eff6ff', text: '#1e40af' };
-            case 'Contacted': return { bg: '#fef3c7', text: '#92400e' };
-            case 'Converted': return { bg: '#ecfdf5', text: '#065f46' };
-            case 'Rejected': return { bg: '#fef2f2', text: '#991b1b' };
+        switch (status.toLowerCase()) {
+            case 'new': return { bg: '#eff6ff', text: '#1e40af' };
+            case 'contacted': return { bg: '#fef3c7', text: '#92400e' };
+            case 'converted': return { bg: '#ecfdf5', text: '#065f46' };
+            case 'rejected': return { bg: '#fef2f2', text: '#991b1b' };
             default: return { bg: '#f3f4f6', text: '#374151' };
         }
     };
@@ -32,10 +73,12 @@ export default function LeadsPage() {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Lead Inquiries</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.LEADS.TITLE}</h2>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>Export CSV</button>
-                    <button style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>Refresh</button>
+                    <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
+                    <button onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>
+                        {loading ? ContentRegistry.LEADS.ACTIONS.REFRESHING : ContentRegistry.LEADS.ACTIONS.REFRESH}
+                    </button>
                 </div>
             </div>
 
@@ -51,44 +94,57 @@ export default function LeadsPage() {
                         </tr>
                     </thead>
                     <tbody style={{ backgroundColor: 'white' }}>
-                        {leads.map((lead) => {
-                            const colors = getStatusColor(lead.status);
-                            return (
-                                <tr key={lead.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ fontWeight: '600', color: '#111827' }}>{lead.full_name}</div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.email}</div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.phone}</div>
-                                    </td>
-                                    <td style={{ padding: '1rem', maxWidth: '300px' }}>
-                                        <div style={{ fontSize: '0.875rem', color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                            {lead.message}
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span style={{
-                                            padding: '0.25rem 0.625rem',
-                                            borderRadius: '9999px',
-                                            fontSize: '0.75rem',
-                                            fontWeight: '600',
-                                            backgroundColor: colors.bg,
-                                            color: colors.text
-                                        }}>
-                                            {lead.status}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }}>
-                                        {lead.timestamp}
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                            <button style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}>View</button>
-                                            <button style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}>Call</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                        {loading ? (
+                            <tr><td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.LEADS.MESSAGES.LOADING}</td></tr>
+                        ) : (
+                            leads.map((lead) => {
+                                const colors = getStatusColor(lead.status);
+                                return (
+                                    <tr key={lead.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                        <td style={{ padding: '1rem' }}>
+                                            <div style={{ fontWeight: '600', color: '#111827' }}>{lead.fullName}</div>
+                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.email}</div>
+                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.phone}</div>
+                                        </td>
+                                        <td style={{ padding: '1rem', maxWidth: '300px' }}>
+                                            <div style={{ fontSize: '0.875rem', color: '#374151', whiteSpace: 'pre-wrap' }}>
+                                                {lead.message}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '1rem' }}>
+                                            <span style={{
+                                                padding: '0.25rem 0.625rem',
+                                                borderRadius: '9999px',
+                                                fontSize: '0.75rem',
+                                                fontWeight: '600',
+                                                backgroundColor: colors.bg,
+                                                color: colors.text,
+                                                textTransform: 'capitalize'
+                                            }}>
+                                                {lead.status}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }}>
+                                            {new Date(lead.createdAt).toLocaleDateString()}
+                                        </td>
+                                        <td style={{ padding: '1rem' }}>
+                                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                {lead.status.toLowerCase() === 'new' && (
+                                                    <button onClick={() => updateStatus(lead.id, 'contacted')} style={{ color: '#92400e', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.MARK_CONTACTED}</button>
+                                                )}
+                                                {lead.status.toLowerCase() !== 'converted' && (
+                                                    <button onClick={() => updateStatus(lead.id, 'converted')} style={{ color: '#059669', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.CONVERT}</button>
+                                                )}
+                                                <button style={{ color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}>{ContentRegistry.LEADS.ACTIONS.CLOSE}</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        )}
+                        {leads.length === 0 && !loading && (
+                            <tr><td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.LEADS.MESSAGES.EMPTY}</td></tr>
+                        )}
                     </tbody>
                 </table>
             </div>

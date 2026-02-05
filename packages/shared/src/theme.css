@@ -1,0 +1,43 @@
+:root {
+  /* Brand Colors */
+  --pc-primary: #00897b;
+  --pc-primary-dark: #004d40;
+  --pc-secondary: #004d40;
+  --pc-accent: #c2ffd9;
+  --pc-background: #f9fafb;
+  --pc-white: #ffffff;
+
+  /* Text Colors */
+  --pc-text-primary: #111827;
+  --pc-text-secondary: #4b5563;
+  --pc-text-muted: #6b7280;
+
+  /* Status Colors */
+  --pc-status-success-text: #065f46;
+  --pc-status-success-bg: #ecfdf5;
+  --pc-status-warning-text: #92400e;
+  --pc-status-warning-bg: #fef3c7;
+  --pc-status-error-text: #991b1b;
+  --pc-status-error-bg: #fee2e2;
+  --pc-status-info-text: #0369a1;
+  --pc-status-info-bg: #e0f2fe;
+
+  /* Spacing */
+  --pc-spacing-xs: 0.25rem;
+  --pc-spacing-sm: 0.5rem;
+  --pc-spacing-md: 1rem;
+  --pc-spacing-lg: 1.5rem;
+  --pc-spacing-xl: 2rem;
+
+  /* Border Radius */
+  --pc-radius-sm: 0.375rem;
+  --pc-radius-md: 0.5rem;
+  --pc-radius-lg: 0.75rem;
+  --pc-radius-xl: 1rem;
+  --pc-radius-full: 9999px;
+
+  /* Shadows */
+  --pc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

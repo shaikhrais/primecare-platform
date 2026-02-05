@@ -1,6 +1,6 @@
 import { Context, Next } from 'hono';
 import { jwt, sign } from 'hono/jwt';
-import { Role } from '@prisma/client/edge';
+import { Role } from '../generated/client/edge';
 
 export const authMiddleware = (secret: string) => {
     return jwt({ secret, alg: 'HS256' });

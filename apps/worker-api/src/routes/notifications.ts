@@ -3,7 +3,7 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings } from '../bindings';
 import { authMiddleware } from '../auth';
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '../../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 
 const app = new Hono<{ Bindings: Bindings }>();

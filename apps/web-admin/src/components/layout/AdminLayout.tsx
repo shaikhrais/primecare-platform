@@ -4,45 +4,88 @@ import { AdminRegistry } from 'prime-care-shared';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
-interface AdminLayoutProps {
-    children: React.ReactNode;
+interface MenuItem {
+    label: string;
+    path: string;
+    icon: string;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+interface AdminLayoutProps {
+    children: React.ReactNode;
+    roleGated?: string[];
+}
+
+export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-    // Get user info from storage
-    const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : { role: 'admin' };
-    const role = user.role;
+    // Get user info from storage with safety
+    const getUser = () => {
+        try {
+            const userStr = localStorage.getItem('user');
+            if (!userStr || userStr === 'undefined') return { role: 'client' };
+            const u = JSON.parse(userStr);
+            return u;
+        } catch (e) {
+            return { role: 'client' };
+        }
+    };
+
+    const user = getUser();
+    const token = localStorage.getItem('token');
+    const role = user.role || 'client';
+
+    // Auth & Role Guard
+    React.useEffect(() => {
+        if (!token) {
+            navigate(RouteRegistry.LOGIN);
+            return;
+        }
+
+        if (roleGated && !roleGated.includes(role)) {
+            // Redirect to home dashboard if unauthorized
+            navigate(RouteRegistry.DASHBOARD);
+        }
+    }, [token, navigate, role, roleGated]);
 
     const adminMenu = [
         { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
         { label: 'Users & PSWs', path: RouteRegistry.USERS, icon: '👥' },
         { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
         { label: 'Lead Inquiries', path: '/leads', icon: '📥' },
+        { label: 'Services', path: '/services', icon: '💰' },
+        { label: 'Call Audits', path: '/audits', icon: '🎙️' },
+        { label: 'Content', path: '/content', icon: '📝' },
         { label: 'Settings', path: '/settings', icon: '⚙️' },
     ];
 
     const clientMenu = [
         { label: 'My Care Hub', path: RouteRegistry.DASHBOARD, icon: '🏠' },
         { label: 'My Bookings', path: '/bookings', icon: '📅' },
+        { label: 'Billing', path: '/billing', icon: '💳' },
         { label: 'Account Profile', path: '/profile', icon: '👤' },
         { label: 'Support', path: '/support', icon: '💬' },
     ];
 
-    const pswMenu = [
+    const staffMenu: MenuItem[] = [
+        { label: 'Staff Hub', path: RouteRegistry.DASHBOARD, icon: '🏢' },
+        { label: 'Customer Mgmt', path: '/customers', icon: '👤' },
+        { label: 'Tickets', path: '/support', icon: '🎫' },
+        { label: 'My Profile', path: '/profile', icon: '👤' },
+    ];
+
+    const pswMenu: MenuItem[] = [
         { label: 'Work Schedule', path: RouteRegistry.DASHBOARD, icon: '🗓️' },
         { label: 'My Shifts', path: '/shifts', icon: '⌚' },
+        { label: 'My Earnings', path: '/earnings', icon: '💰' },
         { label: 'My Credentials', path: '/profile', icon: '📜' },
         { label: 'Help Desk', path: '/support', icon: '❓' },
     ];
 
-    const menuItems = role === 'admin' ? adminMenu : role === 'psw' ? pswMenu : clientMenu;
+    const menuItems = role === 'admin' ? adminMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
 
-    const portalTitle = role === 'admin' ? 'Admin' : role === 'psw' ? 'Caregiver' : 'Family';
+    const portalTitle = role === 'admin' ? 'Admin' : role === 'psw' ? 'Caregiver' : role === 'staff' ? 'Staff' : 'Family';
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -55,7 +98,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {/* Sidebar */}
             <aside style={{
                 width: '260px',
-                backgroundColor: '#004d40',
+                backgroundColor: 'var(--pc-primary-dark)',
                 color: 'white',
                 display: 'flex',
                 flexDirection: 'column',
@@ -70,7 +113,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </div>
 
                 <nav style={{ flex: 1, padding: '1rem 0' }}>
-                    {menuItems.map((item) => {
+                    {menuItems.map((item: MenuItem) => {
                         const isActive = location.pathname === item.path;
                         return (
                             <Link
@@ -129,7 +172,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                 fontWeight: '500',
                             }}
                         >
-                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#004d40', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.875rem' }}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--pc-primary-dark)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.875rem' }}>
                                 {user.email?.[0].toUpperCase() || 'U'}
                             </div>
                             <span style={{ textTransform: 'capitalize' }}>{user.email?.split('@')[0] || portalTitle}</span>
@@ -149,8 +192,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                 padding: '0.5rem 0',
                                 marginTop: '0.5rem',
                             }}>
-                                <button style={{ width: '100%', textAlign: 'left', padding: '0.5rem 1rem', background: 'none', border: 'none', cursor: 'pointer', color: '#374151' }}>Profile</button>
-                                <button style={{ width: '100%', textAlign: 'left', padding: '0.5rem 1rem', background: 'none', border: 'none', cursor: 'pointer', color: '#374151' }}>Settings</button>
+                                <button onClick={() => { navigate('/profile'); setIsProfileOpen(false); }} style={{ width: '100%', textAlign: 'left', padding: '0.5rem 1rem', background: 'none', border: 'none', cursor: 'pointer', color: '#374151' }}>Profile</button>
+                                <button onClick={() => { navigate('/settings'); setIsProfileOpen(false); }} style={{ width: '100%', textAlign: 'left', padding: '0.5rem 1rem', background: 'none', border: 'none', cursor: 'pointer', color: '#374151' }}>Settings</button>
                                 <div style={{ borderTop: '1px solid #e5e7eb', margin: '0.5rem 0' }} />
                                 <button
                                     onClick={handleLogout}

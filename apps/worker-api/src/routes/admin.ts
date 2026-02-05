@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient, VisitStatus } from '../../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
@@ -39,10 +39,10 @@ app.get('/users', async (c) => {
             id: true,
             email: true,
             role: true,
-            isVerified: true,
+            status: true,
             createdAt: true,
-            ClientProfile: { select: { fullName: true } },
-            PswProfile: { select: { fullName: true } },
+            clientProfile: { select: { fullName: true } },
+            pswProfile: { select: { fullName: true } },
         },
         orderBy: { createdAt: 'desc' },
     });
@@ -102,16 +102,18 @@ app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
 app.get('/stats', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
 
-    const [totalUsers, totalVisits, pendingVisits] = await Promise.all([
+    const [totalUsers, totalVisits, pendingVisits, totalLeads] = await Promise.all([
         prisma.user.count(),
         prisma.visit.count(),
         prisma.visit.count({ where: { status: 'requested' } }),
+        prisma.lead.count(),
     ]);
 
     return c.json({
         totalUsers,
         totalVisits,
         pendingVisits,
+        totalLeads,
     });
 });
 
@@ -131,6 +133,25 @@ app.get('/leads', async (c) => {
 
 /**
  * @openapi
+ * /v1/admin/leads/:id:
+ *   patch:
+ *     summary: Update lead status
+ */
+app.patch('/leads/:id', zValidator('json', z.object({ status: z.string() })), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const { status } = c.req.valid('json');
+
+    const lead = await prisma.lead.update({
+        where: { id },
+        data: { status },
+    });
+
+    return c.json(lead);
+});
+
+/**
+ * @openapi
  * /v1/admin/users/:id/verify:
  *   post:
  *     summary: Verify a user profile (e.g. PSW)
@@ -141,10 +162,131 @@ app.post('/users/:id/verify', async (c) => {
 
     const user = await prisma.user.update({
         where: { id },
-        data: { isVerified: true },
+        data: { status: 'verified' },
     });
 
     return c.json(user);
+});
+
+// Services CRUD
+app.get('/services', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const services = await prisma.service.findMany();
+    return c.json(services);
+});
+
+app.post('/services', zValidator('json', z.object({
+    name: z.string(),
+    description: z.string().optional(),
+    hourlyRate: z.number(),
+    category: z.string().optional(),
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const data = c.req.valid('json');
+    // Generate slug from name
+    const slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    const service = await prisma.service.create({
+        data: {
+            ...data,
+            slug
+        }
+    });
+    return c.json(service, 201);
+});
+
+app.put('/services/:id', zValidator('json', z.object({
+    name: z.string().optional(),
+    description: z.string().optional(),
+    hourlyRate: z.number().optional(),
+    category: z.string().optional(),
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const data = c.req.valid('json');
+    const service = await prisma.service.update({
+        where: { id },
+        data,
+    });
+    return c.json(service);
+});
+
+// Visit Modification
+app.patch('/visits/:id', zValidator('json', z.object({
+    status: z.string().optional(),
+    requestedStartAt: z.string().datetime().optional(),
+    durationMinutes: z.number().optional(),
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const data = c.req.valid('json');
+
+    // Explicitly handle status enum casting if present
+    const updateData: any = { ...data };
+    if (data.status) {
+        updateData.status = data.status as VisitStatus;
+    }
+
+    const visit = await prisma.visit.update({
+        where: { id },
+        data: updateData,
+    });
+    return c.json(visit);
+});
+
+app.delete('/visits/:id', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    await prisma.visit.delete({ where: { id } });
+    return c.json({ success: true });
+});
+
+// Blog Management
+app.get('/blog', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: 'desc' } });
+    return c.json(posts);
+});
+
+app.post('/blog', zValidator('json', z.object({
+    title: z.string(),
+    content: z.string(),
+    slug: z.string(),
+    status: z.string(),
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const data = c.req.valid('json');
+    // Map content to contentHtml for now or adjust schema
+    const post = await prisma.blogPost.create({
+        data: {
+            title: data.title,
+            slug: data.slug,
+            contentHtml: data.content,
+            status: data.status
+        }
+    });
+    return c.json(post, 201);
+});
+
+// FAQ Management
+app.get('/faqs', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    // Assuming model name became fAQ or FAQ in generated client. 
+    // Usually camelCase of ModelName. If model is FAQ, client property is fAQ or faq.
+    // We will assume fAQ as per previous error hints.
+    const faqs = await prisma.fAQ.findMany();
+    return c.json(faqs);
+});
+
+app.post('/faqs', zValidator('json', z.object({
+    question: z.string(),
+    answer: z.string(),
+    category: z.string(),
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const data = c.req.valid('json');
+    const faq = await prisma.fAQ.create({ data });
+    return c.json(faq, 201);
 });
 
 export default app;

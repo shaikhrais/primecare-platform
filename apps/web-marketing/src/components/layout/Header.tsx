@@ -173,7 +173,7 @@ export default function Header() {
         <header style={{ position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             {/* Top Bar */}
             <div style={{
-                backgroundColor: '#00897b',
+                backgroundColor: 'var(--pc-primary)',
                 color: 'white',
                 padding: '0.5rem 2rem',
                 fontSize: '0.875rem',
@@ -239,7 +239,7 @@ export default function Header() {
                         to={RouteRegistry.BOOKING}
                         style={{
                             padding: '0.75rem 1.5rem',
-                            backgroundColor: '#00897b',
+                            backgroundColor: 'var(--pc-primary)',
                             color: 'white',
                             borderRadius: '50px',
                             textDecoration: 'none',
@@ -272,7 +272,7 @@ export default function Header() {
                     <div>
                         <div
                             onClick={() => toggleMobileSubmenu('about')}
-                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#00897b' }}
+                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: 'var(--pc-primary)' }}
                         >
                             About Us <span>{mobileSubmenu === 'about' ? '−' : '+'}</span>
                         </div>
