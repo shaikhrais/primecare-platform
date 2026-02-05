@@ -22,6 +22,13 @@ function App() {
         <Route path={RouteRegistry.SCHEDULE} element={<AdminLayout><Schedule /></AdminLayout>} />
         <Route path="/leads" element={<AdminLayout><LeadsPage /></AdminLayout>} />
 
+        {/* Portal-Specific Routes (Shared layouts) */}
+        <Route path="/bookings" element={<AdminLayout><div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem' }}>My Bookings coming soon.</div></AdminLayout>} />
+        <Route path="/profile" element={<AdminLayout><div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem' }}>Account Profile coming soon.</div></AdminLayout>} />
+        <Route path="/shifts" element={<AdminLayout><div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem' }}>My Shifts coming soon.</div></AdminLayout>} />
+        <Route path="/support" element={<AdminLayout><div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem' }}>Help & Support coming soon.</div></AdminLayout>} />
+        <Route path="/settings" element={<AdminLayout><div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem' }}>Settings coming soon.</div></AdminLayout>} />
+
         {/* Fallback */}
         <Route path="/" element={<Navigate to={RouteRegistry.DASHBOARD} replace />} />
       </Routes>

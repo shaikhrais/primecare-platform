@@ -13,7 +13,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const navigate = useNavigate();
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-    const menuItems = [
+    // Get user info from storage
+    const userStr = localStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : { role: 'admin' };
+    const role = user.role;
+
+    const adminMenu = [
         { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
         { label: 'Users & PSWs', path: RouteRegistry.USERS, icon: '👥' },
         { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
@@ -21,8 +26,27 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         { label: 'Settings', path: '/settings', icon: '⚙️' },
     ];
 
+    const clientMenu = [
+        { label: 'My Care Hub', path: RouteRegistry.DASHBOARD, icon: '🏠' },
+        { label: 'My Bookings', path: '/bookings', icon: '📅' },
+        { label: 'Account Profile', path: '/profile', icon: '👤' },
+        { label: 'Support', path: '/support', icon: '💬' },
+    ];
+
+    const pswMenu = [
+        { label: 'Work Schedule', path: RouteRegistry.DASHBOARD, icon: '🗓️' },
+        { label: 'My Shifts', path: '/shifts', icon: '⌚' },
+        { label: 'My Credentials', path: '/profile', icon: '📜' },
+        { label: 'Help Desk', path: '/support', icon: '❓' },
+    ];
+
+    const menuItems = role === 'admin' ? adminMenu : role === 'psw' ? pswMenu : clientMenu;
+
+    const portalTitle = role === 'admin' ? 'Admin' : role === 'psw' ? 'Caregiver' : 'Family';
+
     const handleLogout = () => {
-        // Simple logout for now
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate(RouteRegistry.LOGIN);
     };
 
@@ -41,7 +65,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             }}>
                 <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                     <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold', margin: 0, color: '#4db6ac' }}>
-                        PrimeCare <span style={{ color: 'white', fontWeight: 'normal' }}>Admin</span>
+                        PrimeCare <span style={{ color: 'white', fontWeight: 'normal' }}>{portalTitle}</span>
                     </h1>
                 </div>
 
@@ -72,7 +96,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </nav>
 
                 <div style={{ padding: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                    <p style={{ fontSize: '0.75rem', opacity: 0.5, margin: 0 }}>Logged in as Admin</p>
+                    <p style={{ fontSize: '0.75rem', opacity: 0.5, margin: 0 }}>Logged in as {role.toUpperCase()}</p>
                 </div>
             </aside>
 
@@ -106,9 +130,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             }}
                         >
                             <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#004d40', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.875rem' }}>
-                                A
+                                {user.email?.[0].toUpperCase() || 'U'}
                             </div>
-                            <span>Administrator</span>
+                            <span style={{ textTransform: 'capitalize' }}>{user.email?.split('@')[0] || portalTitle}</span>
                             <span>▼</span>
                         </button>
 

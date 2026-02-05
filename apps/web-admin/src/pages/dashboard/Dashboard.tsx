@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import ClientDashboard from '../client/ClientDashboard';
+import PswDashboard from '../psw/PswDashboard';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function Dashboard() {
+    const userStr = localStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : { role: 'admin' };
+    const role = user.role;
+
+    if (role === 'client') return <ClientDashboard />;
+    if (role === 'psw') return <PswDashboard />;
+
+    // Admin Dashboard (Existing)
     const [stats, setStats] = useState({ users: 0, approvals: 0, unassigned: 0, leads: 0 });
 
     useEffect(() => {

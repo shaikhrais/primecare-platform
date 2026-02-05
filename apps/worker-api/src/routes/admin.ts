@@ -115,4 +115,36 @@ app.get('/stats', async (c) => {
     });
 });
 
+/**
+ * @openapi
+ * /v1/admin/leads:
+ *   get:
+ *     summary: List all leads from marketing
+ */
+app.get('/leads', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const leads = await prisma.lead.findMany({
+        orderBy: { createdAt: 'desc' },
+    });
+    return c.json(leads);
+});
+
+/**
+ * @openapi
+ * /v1/admin/users/:id/verify:
+ *   post:
+ *     summary: Verify a user profile (e.g. PSW)
+ */
+app.post('/users/:id/verify', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+
+    const user = await prisma.user.update({
+        where: { id },
+        data: { isVerified: true },
+    });
+
+    return c.json(user);
+});
+
 export default app;

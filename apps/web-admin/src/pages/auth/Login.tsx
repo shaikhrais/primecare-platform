@@ -26,6 +26,22 @@ export default function Login() {
             });
 
             if (response.ok) {
+                const data = await response.json();
+
+                // Save auth state
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+
+                // Redirection based on role or query param
+                const searchParams = new URLSearchParams(window.location.search);
+                const targetRole = searchParams.get('role');
+
+                if (targetRole && data.user.role !== targetRole) {
+                    setError(`This account is not registered as a ${targetRole}. Please use your ${data.user.role} credentials.`);
+                    setLoading(false);
+                    return;
+                }
+
                 navigate(RouteRegistry.DASHBOARD);
             } else {
                 const data = await response.json();
