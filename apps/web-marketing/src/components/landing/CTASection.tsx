@@ -43,7 +43,7 @@ export function CTASection({
                             to={primaryCTA.link}
                             style={{
                                 padding: '1rem 2rem',
-                                backgroundColor: '#004d40',
+                                backgroundColor: '#00897b',
                                 color: 'white',
                                 textDecoration: 'none',
                                 borderRadius: '8px',
@@ -66,20 +66,20 @@ export function CTASection({
                             style={{
                                 padding: '1rem 2rem',
                                 backgroundColor: 'white',
-                                color: '#004d40',
+                                color: '#00897b',
                                 textDecoration: 'none',
                                 borderRadius: '8px',
                                 fontWeight: 'bold',
-                                border: '2px solid #004d40',
+                                border: '2px solid #00897b',
                                 transition: 'all 0.2s',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#004d40';
+                                e.currentTarget.style.backgroundColor = '#00897b';
                                 e.currentTarget.style.color = 'white';
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = 'white';
-                                e.currentTarget.style.color = '#004d40';
+                                e.currentTarget.style.color = '#00897b';
                             }}
                         >
                             {secondaryCTA.text}

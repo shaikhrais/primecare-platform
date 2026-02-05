@@ -11,7 +11,7 @@ export default function SeniorCarePage() {
             <Helmet>
                 <title>{ContentRegistry.SERVICES.SENIOR_CARE.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem' }}>{ContentRegistry.SERVICES.SENIOR_CARE.TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem' }}>{ContentRegistry.SERVICES.SENIOR_CARE.TITLE}</h1>
             <p style={{ fontSize: '1.2rem', color: '#555', lineHeight: '1.8', margin: '1rem 0 2rem' }}>
                 {ContentRegistry.SERVICES.SENIOR_CARE.DESCRIPTION}
             </p>
@@ -27,7 +27,7 @@ export default function SeniorCarePage() {
                 </ul>
             </div>
 
-            <Link to={RouteRegistry.BOOKING} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: '#004d40', color: 'white', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
+            <Link to={RouteRegistry.BOOKING} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
                 Inquire About Senior Care
             </Link>
             <br /><br />

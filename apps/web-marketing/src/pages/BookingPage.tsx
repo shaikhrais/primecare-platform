@@ -11,7 +11,7 @@ export default function BookingPage() {
                 <title>{ContentRegistry.BOOKING.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#004d40' }}>{ContentRegistry.BOOKING.TITLE}</h1>
+            <h1 style={{ color: '#00897b' }}>{ContentRegistry.BOOKING.TITLE}</h1>
             <p className="lead">{ContentRegistry.BOOKING.SUBTITLE}</p>
 
             <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
@@ -51,7 +51,7 @@ export default function BookingPage() {
                     </select>
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ padding: '1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1.1rem', cursor: 'pointer' }}>
+                <button type="submit" className="btn-primary" style={{ padding: '1rem', backgroundColor: '#00897b', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1.1rem', cursor: 'pointer' }}>
                     {ContentRegistry.BOOKING.FORM.SUBMIT_BTN}
                 </button>
             </form>

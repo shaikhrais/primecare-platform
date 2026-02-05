@@ -28,7 +28,7 @@ function ChatWidget() {
                     overflow: 'hidden',
                 }}>
                     {/* Header */}
-                    <div style={{ backgroundColor: '#004d40', color: 'white', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ backgroundColor: '#00897b', color: 'white', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Chat with us</h3>
                             <p style={{ fontSize: '0.8rem', opacity: 0.9, margin: '0.25rem 0 0 0' }}>We typically reply in minutes</p>
@@ -84,7 +84,7 @@ function ChatWidget() {
 
                     {/* Footer */}
                     <div style={{ padding: '1rem', borderTop: '1px solid #eee', textAlign: 'center' }}>
-                        <Link to={RouteRegistry.CONTACT} style={{ color: '#004d40', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}>
+                        <Link to={RouteRegistry.CONTACT} style={{ color: '#00897b', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}>
                             Or visit our Contact Page →
                         </Link>
                     </div>

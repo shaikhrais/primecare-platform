@@ -103,7 +103,7 @@ export default function VolunteerPage() {
                                     height: '100%',
                                 }}>
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{opp.icon}</div>
-                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#004d40' }}>{opp.title}</h3>
+                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#00897b' }}>{opp.title}</h3>
                                     <p style={{ color: '#666', lineHeight: '1.6' }}>{opp.description}</p>
                                 </div>
                             </AnimatedSection>
@@ -113,7 +113,7 @@ export default function VolunteerPage() {
             </section>
 
             {/* Impact Stats */}
-            <section style={{ padding: '4rem 2rem', backgroundColor: '#004d40', color: 'white' }}>
+            <section style={{ padding: '4rem 2rem', backgroundColor: '#00897b', color: 'white' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '2rem', textAlign: 'center' }}>
                     <div>
                         <div style={{ fontSize: '3rem', fontWeight: 'bold' }}>500+</div>
@@ -198,7 +198,7 @@ export default function VolunteerPage() {
                             style={{
                                 width: '100%',
                                 padding: '1rem',
-                                backgroundColor: '#004d40',
+                                backgroundColor: '#00897b',
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '8px',
@@ -214,7 +214,7 @@ export default function VolunteerPage() {
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>
                     ← Back to Home
                 </Link>
             </div>

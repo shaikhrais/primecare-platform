@@ -12,7 +12,7 @@ export default function PrivacyPage() {
                 <title>{ContentRegistry.LEGAL.PRIVACY_TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem', marginBottom: '2rem' }}>{ContentRegistry.LEGAL.PRIVACY_TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem', marginBottom: '2rem' }}>{ContentRegistry.LEGAL.PRIVACY_TITLE}</h1>
             <p style={{ color: '#666', marginBottom: '2rem' }}>Effective Date: February 2026</p>
 
             <section style={{ marginBottom: '2rem' }}>
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
             <section style={{ marginBottom: '2rem' }}>
                 <h2 style={{ color: '#333', fontSize: '1.5rem', marginBottom: '1rem' }}>Your Rights</h2>
                 <p style={{ lineHeight: '1.8', color: '#444' }}>
-                    You have the right to access, correct, or delete your personal information. You may also withdraw consent for data processing at any time. To exercise these rights, contact our Privacy Officer at <a href="mailto:privacy@primecare.ca" style={{ color: '#004d40' }}>privacy@primecare.ca</a>.
+                    You have the right to access, correct, or delete your personal information. You may also withdraw consent for data processing at any time. To exercise these rights, contact our Privacy Officer at <a href="mailto:privacy@primecare.ca" style={{ color: '#00897b' }}>privacy@primecare.ca</a>.
                 </p>
             </section>
 
@@ -70,12 +70,12 @@ export default function PrivacyPage() {
                     For privacy-related inquiries:<br />
                     Privacy Officer<br />
                     PrimeCare Health Services<br />
-                    Email: <a href="mailto:privacy@primecare.ca" style={{ color: '#004d40' }}>privacy@primecare.ca</a>
+                    Email: <a href="mailto:privacy@primecare.ca" style={{ color: '#00897b' }}>privacy@primecare.ca</a>
                 </p>
             </section>
 
             <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

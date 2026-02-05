@@ -35,15 +35,15 @@ export default function FranchisePage() {
             <section style={{ padding: '5rem 2rem', backgroundColor: '#f8f9fa' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', textAlign: 'center' }}>
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px' }}>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#004d40' }}>$75K-$150K</div>
+                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#00897b' }}>$75K-$150K</div>
                         <div style={{ color: '#666' }}>Total Investment</div>
                     </div>
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px' }}>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#004d40' }}>$35K</div>
+                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#00897b' }}>$35K</div>
                         <div style={{ color: '#666' }}>Franchise Fee</div>
                     </div>
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px' }}>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#004d40' }}>6%</div>
+                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#00897b' }}>6%</div>
                         <div style={{ color: '#666' }}>Royalty Fee</div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ export default function FranchisePage() {
                             <AnimatedSection key={i} animation="slideUp" delay={i * 0.1}>
                                 <div style={{ backgroundColor: '#f8f9fa', padding: '2rem', borderRadius: '12px', textAlign: 'center' }}>
                                     <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{b.icon}</div>
-                                    <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>{b.title}</h3>
+                                    <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>{b.title}</h3>
                                     <p style={{ color: '#666' }}>{b.text}</p>
                                 </div>
                             </AnimatedSection>
@@ -66,14 +66,14 @@ export default function FranchisePage() {
                 </div>
             </section>
 
-            <section style={{ padding: '5rem 2rem', backgroundColor: '#004d40', color: 'white', textAlign: 'center' }}>
+            <section style={{ padding: '5rem 2rem', backgroundColor: '#00897b', color: 'white', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Ready to Get Started?</h2>
                 <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Contact us for a franchise information kit</p>
-                <Link to={RouteRegistry.CONTACT} style={{ padding: '1rem 2rem', backgroundColor: 'white', color: '#004d40', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
+                <Link to={RouteRegistry.CONTACT} style={{ padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

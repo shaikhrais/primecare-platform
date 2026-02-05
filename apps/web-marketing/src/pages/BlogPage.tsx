@@ -54,7 +54,7 @@ export default function BlogPage() {
                 <title>{ContentRegistry.BLOG.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>{ContentRegistry.BLOG.TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>{ContentRegistry.BLOG.TITLE}</h1>
             <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '3rem' }}>{ContentRegistry.BLOG.SUBTITLE}</p>
 
             {loading ? (
@@ -72,7 +72,7 @@ export default function BlogPage() {
                                     {new Date(post.publishedAt).toLocaleDateString()} {post.author && `• ${post.author}`}
                                 </p>
                                 <p style={{ color: '#666', lineHeight: '1.6', marginBottom: '1rem' }}>{post.excerpt}</p>
-                                <Link to={`${RouteRegistry.BLOG}/${post.slug}`} style={{ color: '#004d40', fontWeight: 'bold', textDecoration: 'none' }}>
+                                <Link to={`${RouteRegistry.BLOG}/${post.slug}`} style={{ color: '#00897b', fontWeight: 'bold', textDecoration: 'none' }}>
                                     Read More →
                                 </Link>
                             </div>
@@ -82,7 +82,7 @@ export default function BlogPage() {
             )}
 
             <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

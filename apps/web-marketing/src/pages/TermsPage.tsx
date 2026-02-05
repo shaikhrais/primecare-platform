@@ -12,7 +12,7 @@ export default function TermsPage() {
                 <title>{ContentRegistry.LEGAL.TERMS_TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem', marginBottom: '2rem' }}>{ContentRegistry.LEGAL.TERMS_TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem', marginBottom: '2rem' }}>{ContentRegistry.LEGAL.TERMS_TITLE}</h1>
             <p style={{ color: '#666', marginBottom: '2rem' }}>Last updated: February 2026</p>
 
             <section style={{ marginBottom: '2rem' }}>
@@ -63,12 +63,12 @@ export default function TermsPage() {
             <section style={{ marginBottom: '2rem' }}>
                 <h2 style={{ color: '#333', fontSize: '1.5rem', marginBottom: '1rem' }}>7. Contact Us</h2>
                 <p style={{ lineHeight: '1.8', color: '#444' }}>
-                    If you have questions about these Terms, please contact us at <a href="mailto:legal@primecare.ca" style={{ color: '#004d40' }}>legal@primecare.ca</a>.
+                    If you have questions about these Terms, please contact us at <a href="mailto:legal@primecare.ca" style={{ color: '#00897b' }}>legal@primecare.ca</a>.
                 </p>
             </section>
 
             <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

@@ -122,7 +122,7 @@ export default function ServicesPage() {
                                 <div style={{
                                     fontSize: '1.5rem',
                                     fontWeight: 'bold',
-                                    color: '#004d40',
+                                    color: '#00897b',
                                     marginBottom: '1rem'
                                 }}>
                                     Starting at ${service.price}/hour
@@ -151,7 +151,7 @@ export default function ServicesPage() {
                                             gap: '0.5rem',
                                             color: '#444',
                                         }}>
-                                            <span style={{ color: '#004d40' }}>✓</span>
+                                            <span style={{ color: '#00897b' }}>✓</span>
                                             {feature}
                                         </li>
                                     ))}
@@ -162,7 +162,7 @@ export default function ServicesPage() {
                                     style={{
                                         display: 'inline-block',
                                         padding: '1rem 2rem',
-                                        backgroundColor: '#004d40',
+                                        backgroundColor: '#00897b',
                                         color: 'white',
                                         textDecoration: 'none',
                                         borderRadius: '8px',
@@ -181,7 +181,7 @@ export default function ServicesPage() {
             {/* CTA Section */}
             <section style={{
                 padding: '5rem 2rem',
-                background: 'linear-gradient(135deg, #004d40 0%, #00695c 100%)',
+                background: 'linear-gradient(135deg, #00897b 0%, #00695c 100%)',
                 color: 'white',
                 textAlign: 'center',
             }}>
@@ -195,7 +195,7 @@ export default function ServicesPage() {
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'white',
-                            color: '#004d40',
+                            color: '#00897b',
                             textDecoration: 'none',
                             borderRadius: '50px',
                             fontWeight: 'bold',
@@ -224,7 +224,7 @@ export default function ServicesPage() {
 
             {/* Back to Home */}
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>
                     ← Back to Home
                 </Link>
             </div>

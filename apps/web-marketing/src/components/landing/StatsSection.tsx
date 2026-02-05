@@ -23,7 +23,7 @@ export function StatsSection({ stats = defaultStats }: StatsSectionProps) {
     return (
         <section style={{
             padding: '5rem 2rem',
-            backgroundColor: '#004d40',
+            backgroundColor: '#00897b',
             color: 'white',
         }}>
             <div style={{

@@ -119,7 +119,7 @@ export default function CareersPage() {
                                     textAlign: 'center',
                                 }}>
                                     <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{benefit.icon}</div>
-                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: '#004d40' }}>{benefit.title}</h3>
+                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: '#00897b' }}>{benefit.title}</h3>
                                     <p style={{ color: '#666' }}>{benefit.text}</p>
                                 </div>
                             </AnimatedSection>
@@ -150,7 +150,7 @@ export default function CareersPage() {
                                     padding: '0.5rem 1rem',
                                     border: 'none',
                                     borderRadius: '50px',
-                                    backgroundColor: selectedDepartment === dept ? '#004d40' : '#e0e0e0',
+                                    backgroundColor: selectedDepartment === dept ? '#00897b' : '#e0e0e0',
                                     color: selectedDepartment === dept ? 'white' : '#333',
                                     cursor: 'pointer',
                                     textTransform: 'capitalize',
@@ -187,7 +187,7 @@ export default function CareersPage() {
                                             to={`/careers/apply/${job.id}`}
                                             style={{
                                                 padding: '0.75rem 1.5rem',
-                                                backgroundColor: '#004d40',
+                                                backgroundColor: '#00897b',
                                                 color: 'white',
                                                 textDecoration: 'none',
                                                 borderRadius: '8px',
@@ -208,7 +208,7 @@ export default function CareersPage() {
             {/* General Application CTA */}
             <section style={{
                 padding: '5rem 2rem',
-                background: 'linear-gradient(135deg, #004d40 0%, #00695c 100%)',
+                background: 'linear-gradient(135deg, #00897b 0%, #00695c 100%)',
                 color: 'white',
                 textAlign: 'center',
             }}>
@@ -223,7 +223,7 @@ export default function CareersPage() {
                             display: 'inline-block',
                             padding: '1rem 2rem',
                             backgroundColor: 'white',
-                            color: '#004d40',
+                            color: '#00897b',
                             textDecoration: 'none',
                             borderRadius: '50px',
                             fontWeight: 'bold',
@@ -235,7 +235,7 @@ export default function CareersPage() {
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>
                     ← Back to Home
                 </Link>
             </div>

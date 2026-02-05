@@ -77,7 +77,7 @@ export default function AboutPage() {
                     alignItems: 'center',
                 }}>
                     <div>
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#004d40' }}>
+                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#00897b' }}>
                             {ContentRegistry.ABOUT.MISSION}
                         </h2>
                         <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#444', marginBottom: '2rem' }}>
@@ -133,11 +133,11 @@ export default function AboutPage() {
                                     justifyContent: 'center',
                                     margin: '0 auto 1.5rem auto',
                                     fontSize: '1.5rem',
-                                    color: '#004d40',
+                                    color: '#00897b',
                                 }}>
                                     {index === 0 ? '❤️' : index === 1 ? '⭐' : index === 2 ? '🤝' : '🎯'}
                                 </div>
-                                <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: '#004d40' }}>
+                                <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: '#00897b' }}>
                                     {value.title}
                                 </h3>
                                 <p style={{ color: '#666', lineHeight: '1.6' }}>{value.text}</p>
@@ -181,7 +181,7 @@ export default function AboutPage() {
                                     textAlign: index % 2 === 0 ? 'right' : 'left',
                                     order: index % 2 === 0 ? 1 : 2,
                                 }}>
-                                    <div style={{ fontWeight: 'bold', color: '#004d40', fontSize: '1.25rem' }}>
+                                    <div style={{ fontWeight: 'bold', color: '#00897b', fontSize: '1.25rem' }}>
                                         {milestone.year}
                                     </div>
                                     <div style={{ color: '#666' }}>{milestone.event}</div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                                 <div style={{
                                     width: '20px',
                                     height: '20px',
-                                    backgroundColor: '#004d40',
+                                    backgroundColor: '#00897b',
                                     borderRadius: '50%',
                                     position: 'absolute',
                                     left: '50%',
@@ -236,7 +236,7 @@ export default function AboutPage() {
                                     <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#333' }}>
                                         {member.name}
                                     </h3>
-                                    <div style={{ color: '#004d40', fontWeight: 'bold', marginBottom: '1rem' }}>
+                                    <div style={{ color: '#00897b', fontWeight: 'bold', marginBottom: '1rem' }}>
                                         {member.role}
                                     </div>
                                     <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: '1.6' }}>
@@ -252,7 +252,7 @@ export default function AboutPage() {
             {/* CTA */}
             <section style={{
                 padding: '5rem 2rem',
-                background: 'linear-gradient(135deg, #004d40 0%, #00695c 100%)',
+                background: 'linear-gradient(135deg, #00897b 0%, #00695c 100%)',
                 color: 'white',
                 textAlign: 'center',
             }}>
@@ -266,7 +266,7 @@ export default function AboutPage() {
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'white',
-                            color: '#004d40',
+                            color: '#00897b',
                             textDecoration: 'none',
                             borderRadius: '50px',
                             fontWeight: 'bold',
@@ -292,7 +292,7 @@ export default function AboutPage() {
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>
                     ← Back to Home
                 </Link>
             </div>

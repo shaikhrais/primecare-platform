@@ -39,7 +39,7 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             {Object.entries(timeLeft).map(([unit, value]) => (
                 <div key={unit} style={timeBoxStyle}>
-                    <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#004d40' }}>
+                    <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#00897b' }}>
                         {String(value).padStart(2, '0')}
                     </span>
                     <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#666', letterSpacing: '1px' }}>

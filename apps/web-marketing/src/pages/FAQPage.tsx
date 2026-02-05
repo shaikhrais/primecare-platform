@@ -56,7 +56,7 @@ export default function FAQPage() {
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                     {faqs.map((category, catIdx) => (
                         <div key={catIdx} style={{ marginBottom: '3rem' }}>
-                            <h2 style={{ fontSize: '1.5rem', color: '#004d40', marginBottom: '1.5rem', borderBottom: '2px solid #004d40', paddingBottom: '0.5rem' }}>
+                            <h2 style={{ fontSize: '1.5rem', color: '#00897b', marginBottom: '1.5rem', borderBottom: '2px solid #00897b', paddingBottom: '0.5rem' }}>
                                 {category.category}
                             </h2>
                             {category.items.map((faq, i) => {
@@ -85,11 +85,11 @@ export default function FAQPage() {
             <section style={{ padding: '4rem 2rem', backgroundColor: '#f8f9fa', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#333' }}>Still have questions?</h2>
                 <p style={{ color: '#666', marginBottom: '2rem' }}>Contact us and we'll be happy to help</p>
-                <Link to={RouteRegistry.CONTACT} style={{ padding: '1rem 2rem', backgroundColor: '#004d40', color: 'white', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
+                <Link to={RouteRegistry.CONTACT} style={{ padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

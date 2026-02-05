@@ -35,7 +35,7 @@ export function WhyChooseUsSection() {
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             flexShrink: 0,
-                                            color: '#004d40',
+                                            color: '#00897b',
                                             fontWeight: 'bold',
                                         }}>
                                             ✓

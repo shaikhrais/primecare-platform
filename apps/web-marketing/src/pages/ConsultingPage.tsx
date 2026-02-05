@@ -35,7 +35,7 @@ export default function ConsultingPage() {
                             <AnimatedSection key={i} animation="slideUp" delay={i * 0.1}>
                                 <div style={{ backgroundColor: '#f8f9fa', padding: '2rem', borderRadius: '12px', height: '100%' }}>
                                     <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{s.icon}</div>
-                                    <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>{s.title}</h3>
+                                    <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>{s.title}</h3>
                                     <p style={{ color: '#666' }}>{s.text}</p>
                                 </div>
                             </AnimatedSection>
@@ -49,20 +49,20 @@ export default function ConsultingPage() {
                     <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#333' }}>Industries We Serve</h2>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginTop: '2rem' }}>
                         {['Long Term Care', 'Hospitals', 'Retirement Homes', 'Clinics', 'Municipalities', 'Healthcare Startups'].map((i, idx) => (
-                            <span key={idx} style={{ padding: '0.75rem 1.5rem', backgroundColor: 'white', borderRadius: '50px', color: '#004d40', fontWeight: '500' }}>{i}</span>
+                            <span key={idx} style={{ padding: '0.75rem 1.5rem', backgroundColor: 'white', borderRadius: '50px', color: '#00897b', fontWeight: '500' }}>{i}</span>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section style={{ padding: '5rem 2rem', backgroundColor: '#004d40', color: 'white', textAlign: 'center' }}>
+            <section style={{ padding: '5rem 2rem', backgroundColor: '#00897b', color: 'white', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Schedule a Consultation</h2>
                 <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Let's discuss how we can help your organization</p>
-                <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#004d40', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
+                <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

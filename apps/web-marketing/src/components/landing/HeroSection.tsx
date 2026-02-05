@@ -70,7 +70,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                         style={{
                             padding: '1.25rem 2.5rem',
                             backgroundColor: 'white',
-                            color: '#004d40',
+                            color: '#00897b',
                             textDecoration: 'none',
                             borderRadius: '50px',
                             fontSize: '1.1rem',

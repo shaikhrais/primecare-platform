@@ -11,7 +11,7 @@ export default function ITSupportPage() {
             <Helmet>
                 <title>{ContentRegistry.SERVICES.IT_SUPPORT.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem' }}>{ContentRegistry.SERVICES.IT_SUPPORT.TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem' }}>{ContentRegistry.SERVICES.IT_SUPPORT.TITLE}</h1>
             <p style={{ fontSize: '1.2rem', color: '#555', lineHeight: '1.8', margin: '1rem 0 2rem' }}>
                 {ContentRegistry.SERVICES.IT_SUPPORT.DESCRIPTION}
             </p>

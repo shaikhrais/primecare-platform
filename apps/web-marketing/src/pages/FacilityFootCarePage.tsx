@@ -37,7 +37,7 @@ export default function FacilityFootCarePage() {
                             <AnimatedSection key={i} animation="slideUp" delay={i * 0.1}>
                                 <div style={{ backgroundColor: '#f8f9fa', padding: '2rem', borderRadius: '12px', textAlign: 'center' }}>
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{b.icon}</div>
-                                    <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>{b.title}</h3>
+                                    <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>{b.title}</h3>
                                     <p style={{ color: '#666' }}>{b.text}</p>
                                 </div>
                             </AnimatedSection>
@@ -51,20 +51,20 @@ export default function FacilityFootCarePage() {
                     <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#333' }}>Facilities We Serve</h2>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
                         {facilities.map((f, i) => (
-                            <span key={i} style={{ padding: '0.75rem 1.5rem', backgroundColor: 'white', borderRadius: '50px', color: '#004d40', fontWeight: '500' }}>{f}</span>
+                            <span key={i} style={{ padding: '0.75rem 1.5rem', backgroundColor: 'white', borderRadius: '50px', color: '#00897b', fontWeight: '500' }}>{f}</span>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section style={{ padding: '5rem 2rem', backgroundColor: '#004d40', color: 'white', textAlign: 'center' }}>
+            <section style={{ padding: '5rem 2rem', backgroundColor: '#00897b', color: 'white', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Partner With Us</h2>
                 <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Contact us to discuss foot care services for your facility</p>
-                <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#004d40', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Request a Consultation</Link>
+                <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Request a Consultation</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

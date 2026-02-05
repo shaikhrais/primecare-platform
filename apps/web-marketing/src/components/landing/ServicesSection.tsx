@@ -102,11 +102,11 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                                     }}
                                 >
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
-                                    <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#004d40' }}>
+                                    <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#00897b' }}>
                                         {service.title}
                                     </h3>
                                     <p style={{ color: '#666', lineHeight: '1.7' }}>{service.description}</p>
-                                    <div style={{ marginTop: '1.5rem', color: '#004d40', fontWeight: 'bold' }}>
+                                    <div style={{ marginTop: '1.5rem', color: '#00897b', fontWeight: 'bold' }}>
                                         Learn More →
                                     </div>
                                 </div>

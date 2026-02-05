@@ -81,16 +81,16 @@ export default function TestimonialsPage() {
                 </div>
             </section>
 
-            <section style={{ padding: '5rem 2rem', backgroundColor: '#004d40', color: 'white', textAlign: 'center' }}>
+            <section style={{ padding: '5rem 2rem', backgroundColor: '#00897b', color: 'white', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Share Your Experience</h2>
                 <p style={{ marginBottom: '2rem', opacity: 0.9 }}>We'd love to hear about your experience with PrimeCare</p>
-                <a href="https://g.page/r/CXt4g7X1U2NMEAE/review" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#004d40', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>
+                <a href="https://g.page/r/CXt4g7X1U2NMEAE/review" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>
                     Leave a Google Review
                 </a>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

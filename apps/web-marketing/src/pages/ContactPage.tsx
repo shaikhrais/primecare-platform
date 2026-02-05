@@ -46,7 +46,7 @@ export default function ContactPage() {
                 <title>{ContentRegistry.CONTACT.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#004d40', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>{ContentRegistry.CONTACT.TITLE}</h1>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>{ContentRegistry.CONTACT.TITLE}</h1>
             <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '3rem' }}>
                 We'd love to hear from you. Reach out with any questions or to schedule a consultation.
             </p>
@@ -113,7 +113,7 @@ export default function ContactPage() {
                             disabled={status === 'sending'}
                             style={{
                                 padding: '1rem',
-                                backgroundColor: status === 'sending' ? '#999' : '#004d40',
+                                backgroundColor: status === 'sending' ? '#999' : '#00897b',
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '4px',
@@ -132,12 +132,12 @@ export default function ContactPage() {
 
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }}>Email</h3>
-                        <a href="mailto:info@primecare.ca" style={{ color: '#004d40', fontSize: '1.1rem' }}>info@primecare.ca</a>
+                        <a href="mailto:info@primecare.ca" style={{ color: '#00897b', fontSize: '1.1rem' }}>info@primecare.ca</a>
                     </div>
 
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }}>Phone</h3>
-                        <a href="tel:+14165551234" style={{ color: '#004d40', fontSize: '1.1rem' }}>+1 (416) 555-1234</a>
+                        <a href="tel:+14165551234" style={{ color: '#00897b', fontSize: '1.1rem' }}>+1 (416) 555-1234</a>
                     </div>
 
                     <div style={{ marginBottom: '2rem' }}>
@@ -157,9 +157,9 @@ export default function ContactPage() {
                     </div>
 
                     <div style={{ backgroundColor: '#f5f5f5', padding: '1.5rem', borderRadius: '8px' }}>
-                        <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>Need Immediate Assistance?</h3>
+                        <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>Need Immediate Assistance?</h3>
                         <p style={{ color: '#666', marginBottom: '1rem' }}>Book a consultation to speak with our care coordinators.</p>
-                        <Link to={RouteRegistry.BOOKING} style={{ display: 'inline-block', padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>
+                        <Link to={RouteRegistry.BOOKING} style={{ display: 'inline-block', padding: '0.75rem 1.5rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>
                             Book Consultation
                         </Link>
                     </div>
@@ -167,7 +167,7 @@ export default function ContactPage() {
             </div>
 
             <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

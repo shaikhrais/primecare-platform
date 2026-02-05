@@ -45,7 +45,7 @@ export default function FootCareCertificatePage() {
                         <AnimatedSection key={i} animation="scaleUp" delay={i * 0.1}>
                             <div style={{ backgroundColor: '#f8f9fa', padding: '2rem', borderRadius: '12px', textAlign: 'center' }}>
                                 <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{f.icon}</div>
-                                <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>{f.title}</h3>
+                                <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>{f.title}</h3>
                                 <p style={{ color: '#666' }}>{f.text}</p>
                             </div>
                         </AnimatedSection>
@@ -59,7 +59,7 @@ export default function FootCareCertificatePage() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
                         {curriculum.map((item, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', backgroundColor: 'white', borderRadius: '8px' }}>
-                                <span style={{ color: '#004d40', fontWeight: 'bold' }}>✓</span>
+                                <span style={{ color: '#00897b', fontWeight: 'bold' }}>✓</span>
                                 <span style={{ color: '#555' }}>{item}</span>
                             </div>
                         ))}
@@ -68,16 +68,16 @@ export default function FootCareCertificatePage() {
             </section>
 
             <section style={{ padding: '5rem 2rem' }}>
-                <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#004d40', color: 'white', padding: '3rem', borderRadius: '16px', textAlign: 'center' }}>
+                <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#00897b', color: 'white', padding: '3rem', borderRadius: '16px', textAlign: 'center' }}>
                     <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Ready to Enroll?</h2>
                     <div style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>$1,495</div>
                     <p style={{ opacity: 0.9, marginBottom: '2rem' }}>Includes all materials and clinical placement</p>
-                    <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#004d40', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Register Now</Link>
+                    <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Register Now</Link>
                 </div>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

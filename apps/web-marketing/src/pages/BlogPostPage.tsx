@@ -81,7 +81,7 @@ export default function BlogPostPage() {
             <div style={{ padding: '4rem', textAlign: 'center' }}>
                 <h1>Article Not Found</h1>
                 <p>The article you're looking for doesn't exist.</p>
-                <Link to={RouteRegistry.BLOG} style={{ color: '#004d40' }}>Back to Blog</Link>
+                <Link to={RouteRegistry.BLOG} style={{ color: '#00897b' }}>Back to Blog</Link>
             </div>
         );
     }
@@ -92,12 +92,12 @@ export default function BlogPostPage() {
                 <title>{post.title} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <Link to={RouteRegistry.BLOG} style={{ color: '#004d40', textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
+            <Link to={RouteRegistry.BLOG} style={{ color: '#00897b', textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
                 ← Back to Blog
             </Link>
 
             <article>
-                <h1 style={{ color: '#004d40', fontSize: '2.5rem', marginBottom: '1rem' }}>{post.title}</h1>
+                <h1 style={{ color: '#00897b', fontSize: '2.5rem', marginBottom: '1rem' }}>{post.title}</h1>
                 <p style={{ color: '#888', marginBottom: '2rem' }}>
                     Published on {new Date(post.publishedAt).toLocaleDateString()}
                     {post.author && ` by ${post.author}`}
@@ -112,7 +112,7 @@ export default function BlogPostPage() {
             <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
                 <h3 style={{ marginBottom: '1rem' }}>Need Help?</h3>
                 <p>
-                    If you have questions about home care services, <Link to={RouteRegistry.CONTACT} style={{ color: '#004d40' }}>contact us</Link> or <Link to={RouteRegistry.BOOKING} style={{ color: '#004d40' }}>book a consultation</Link>.
+                    If you have questions about home care services, <Link to={RouteRegistry.CONTACT} style={{ color: '#00897b' }}>contact us</Link> or <Link to={RouteRegistry.BOOKING} style={{ color: '#00897b' }}>book a consultation</Link>.
                 </p>
             </div>
         </div>

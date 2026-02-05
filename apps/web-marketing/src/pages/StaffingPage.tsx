@@ -44,7 +44,7 @@ export default function StaffingPage() {
                             <AnimatedSection key={i} animation="slideUp" delay={i * 0.1}>
                                 <div style={{ backgroundColor: '#f8f9fa', padding: '2rem', borderRadius: '12px', textAlign: 'center', height: '100%' }}>
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{s.icon}</div>
-                                    <h3 style={{ color: '#004d40', marginBottom: '0.5rem' }}>{s.title}</h3>
+                                    <h3 style={{ color: '#00897b', marginBottom: '0.5rem' }}>{s.title}</h3>
                                     <p style={{ color: '#666' }}>{s.text}</p>
                                 </div>
                             </AnimatedSection>
@@ -60,7 +60,7 @@ export default function StaffingPage() {
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {benefits.map((b, i) => (
                                 <li key={i} style={{ padding: '0.75rem 0', display: 'flex', alignItems: 'center', gap: '1rem', color: '#555' }}>
-                                    <span style={{ color: '#004d40', fontWeight: 'bold' }}>✓</span> {b}
+                                    <span style={{ color: '#00897b', fontWeight: 'bold' }}>✓</span> {b}
                                 </li>
                             ))}
                         </ul>
@@ -68,13 +68,13 @@ export default function StaffingPage() {
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                         <h3 style={{ marginBottom: '1rem', color: '#333' }}>Request Staff</h3>
                         <p style={{ color: '#666', marginBottom: '1.5rem' }}>Contact us for staffing solutions</p>
-                        <Link to={RouteRegistry.CONTACT} style={{ display: 'block', padding: '1rem', backgroundColor: '#004d40', color: 'white', textDecoration: 'none', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold' }}>Get a Quote</Link>
+                        <Link to={RouteRegistry.CONTACT} style={{ display: 'block', padding: '1rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold' }}>Get a Quote</Link>
                     </div>
                 </div>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#004d40', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

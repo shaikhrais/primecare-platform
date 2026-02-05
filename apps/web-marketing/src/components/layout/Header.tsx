@@ -173,7 +173,7 @@ export default function Header() {
         <header style={{ position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             {/* Top Bar */}
             <div style={{
-                backgroundColor: '#004d40',
+                backgroundColor: '#00897b',
                 color: 'white',
                 padding: '0.5rem 2rem',
                 fontSize: '0.875rem',
@@ -208,7 +208,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link to={RouteRegistry.HOME} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                     <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '50px', width: 'auto' }} />
-                    <span style={{ marginLeft: '10px', color: '#004d40', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                    <span style={{ marginLeft: '10px', color: '#00897b', fontSize: '1.5rem', fontWeight: 'bold' }}>
                         {ContentRegistry.APP.NAME}
                     </span>
                 </Link>
@@ -227,7 +227,7 @@ export default function Header() {
                         to={RouteRegistry.BOOKING}
                         style={{
                             padding: '0.75rem 1.5rem',
-                            backgroundColor: '#004d40',
+                            backgroundColor: '#00897b',
                             color: 'white',
                             borderRadius: '50px',
                             textDecoration: 'none',
@@ -260,7 +260,7 @@ export default function Header() {
                     <div>
                         <div
                             onClick={() => toggleMobileSubmenu('about')}
-                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#004d40' }}
+                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#00897b' }}
                         >
                             About Us <span>{mobileSubmenu === 'about' ? '−' : '+'}</span>
                         </div>
@@ -279,7 +279,7 @@ export default function Header() {
                     <div>
                         <div
                             onClick={() => toggleMobileSubmenu('services')}
-                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#004d40' }}
+                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#00897b' }}
                         >
                             Senior Care <span>{mobileSubmenu === 'services' ? '−' : '+'}</span>
                         </div>
@@ -296,7 +296,7 @@ export default function Header() {
                     <div>
                         <div
                             onClick={() => toggleMobileSubmenu('education')}
-                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#004d40' }}
+                            style={{ padding: '0.75rem 2rem', display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontWeight: 'bold', color: '#00897b' }}
                         >
                             Education <span>{mobileSubmenu === 'education' ? '−' : '+'}</span>
                         </div>
@@ -318,7 +318,7 @@ export default function Header() {
                             style={{
                                 display: 'block',
                                 padding: '0.75rem',
-                                backgroundColor: '#004d40',
+                                backgroundColor: '#00897b',
                                 color: 'white',
                                 borderRadius: '8px',
                                 textDecoration: 'none',
