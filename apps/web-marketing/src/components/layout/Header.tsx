@@ -207,10 +207,7 @@ export default function Header() {
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* Logo */}
                 <Link to={RouteRegistry.HOME} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-                    <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '50px', width: 'auto' }} />
-                    <span style={{ marginLeft: '10px', color: '#00897b', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                        {ContentRegistry.APP.NAME}
-                    </span>
+                    <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '70px', width: 'auto' }} />
                 </Link>
 
                 {/* Desktop Nav */}
