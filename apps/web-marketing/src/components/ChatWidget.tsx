@@ -43,23 +43,8 @@ export default function ChatWidget() {
     const handleChat = () => {
         setIsOpen(!isOpen);
         setShowTooltip(false);
-        if (!isOpen) setView('menu');
-    };
-
-    const startAction = (action: 'chat' | 'call') => {
-        if (contactSubmitted) {
-            setView(action);
-            if (action === 'chat' && messages.length === 0) {
-                setMessages([{
-                    id: '1',
-                    text: `Hi ${contactInfo.name}! I'm PrimeCare's AI assistant. How can I help you today?`,
-                    sender: 'ai',
-                    timestamp: new Date()
-                }]);
-            }
-        } else {
-            setPendingAction(action);
-            setView('contact');
+        if (!isOpen) {
+            setView(contactSubmitted ? 'menu' : 'contact');
         }
     };
 
@@ -75,7 +60,7 @@ export default function ChatWidget() {
                     full_name: contactInfo.name,
                     email: contactInfo.email,
                     phone: contactInfo.phone,
-                    message: `Started ${pendingAction} session`,
+                    message: "Started chat widget session",
                     source: 'contact_form'
                 })
             });
@@ -84,17 +69,24 @@ export default function ChatWidget() {
         }
 
         setContactSubmitted(true);
-        if (pendingAction) {
-            setView(pendingAction);
-            if (pendingAction === 'chat') {
-                setMessages([{
-                    id: '1',
-                    text: `Hi ${contactInfo.name}! I'm PrimeCare's AI assistant. How can I help you today?`,
-                    sender: 'ai',
-                    timestamp: new Date()
-                }]);
-            }
+        setView('menu');
+    };
+
+    const startAction = (action: 'chat' | 'call') => {
+        setView(action);
+        if (action === 'chat' && messages.length === 0) {
+            setMessages([{
+                id: '1',
+                text: `Hi ${contactInfo.name}! I'm PrimeCare's AI assistant. How can I help you today?`,
+                sender: 'ai',
+                timestamp: new Date()
+            }]);
         }
+    };
+
+    const getWhatsAppUrl = () => {
+        const message = `Name: ${contactInfo.name}\nContact: ${contactInfo.phone}\nEmail: ${contactInfo.email}\n\nHow can I help you?`;
+        return `https://wa.me/14165551234?text=${encodeURIComponent(message)}`;
     };
 
     const sendMessage = async () => {
@@ -195,7 +187,7 @@ export default function ChatWidget() {
                             </p>
                         </div>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            {view !== 'menu' && (
+                            {view !== 'menu' && view !== 'contact' && (
                                 <button onClick={() => setView('menu')} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1rem', cursor: 'pointer' }}>←</button>
                             )}
                             <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.25rem', cursor: 'pointer' }}>✕</button>
@@ -206,7 +198,7 @@ export default function ChatWidget() {
                     {view === 'contact' && (
                         <div style={{ padding: '1.5rem' }}>
                             <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                                Please share your details so we can assist you better and follow up if needed.
+                                Please share your details to explore our support options.
                             </p>
                             <input
                                 type="text"
@@ -238,7 +230,7 @@ export default function ChatWidget() {
                                     opacity: (!contactInfo.name || !contactInfo.phone || !contactInfo.email) ? 0.5 : 1,
                                 }}
                             >
-                                Continue to {pendingAction === 'chat' ? 'AI Chat' : 'AI Call'} →
+                                Continue →
                             </button>
                             <p style={{ color: '#999', fontSize: '0.75rem', marginTop: '0.75rem', textAlign: 'center' }}>
                                 We respect your privacy. Your info is used only to assist you.
@@ -275,7 +267,7 @@ export default function ChatWidget() {
                                 <p style={{ color: '#999', fontSize: '0.8rem', marginBottom: '0.75rem', textAlign: 'center' }}>Or contact us directly:</p>
                                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                                     <a href="tel:+14165551234" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>📞 Call</a>
-                                    <a href="https://wa.me/14165551234" target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#25D366', borderRadius: '8px', textDecoration: 'none', color: 'white', fontSize: '0.85rem' }}>💬 WhatsApp</a>
+                                    <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#25D366', borderRadius: '8px', textDecoration: 'none', color: 'white', fontSize: '0.85rem' }}>💬 WhatsApp</a>
                                     <a href="mailto:info@primecare.ca" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>✉️ Email</a>
                                 </div>
                             </div>
