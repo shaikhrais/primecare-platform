@@ -1,135 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MarketingRegistry } from 'prime-care-shared';
+import ChatWidget from '../ChatWidget';
 
 const { ContentRegistry, RouteRegistry } = MarketingRegistry;
-
-function ChatWidget() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [showTooltip, setShowTooltip] = useState(true);
-
-    const handleChat = () => {
-        setIsOpen(!isOpen);
-        setShowTooltip(false);
-    };
-
-    return (
-        <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 9999 }}>
-            {/* Chat Panel */}
-            {isOpen && (
-                <div style={{
-                    position: 'absolute',
-                    bottom: '70px',
-                    right: 0,
-                    width: '320px',
-                    backgroundColor: 'white',
-                    borderRadius: '16px',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
-                    overflow: 'hidden',
-                }}>
-                    {/* Header */}
-                    <div style={{ backgroundColor: '#00897b', color: 'white', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                            <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Chat with us</h3>
-                            <p style={{ fontSize: '0.8rem', opacity: 0.9, margin: '0.25rem 0 0 0' }}>We typically reply in minutes</p>
-                        </div>
-                        <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.25rem', cursor: 'pointer' }}>✕</button>
-                    </div>
-
-                    {/* Options */}
-                    <div style={{ padding: '1rem' }}>
-                        <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem' }}>How would you like to reach us?</p>
-
-                        <a href="tel:+14165551234" style={{
-                            display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem',
-                            backgroundColor: '#f8f9fa', borderRadius: '12px', textDecoration: 'none', color: '#333', marginBottom: '0.75rem',
-                            transition: 'background 0.2s',
-                        }}
-                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e9ecef'}
-                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                        >
-                            <span style={{ fontSize: '1.5rem' }}>📞</span>
-                            <div>
-                                <div style={{ fontWeight: 'bold' }}>Call Us</div>
-                                <div style={{ fontSize: '0.85rem', color: '#666' }}>(416) 555-1234</div>
-                            </div>
-                        </a>
-
-                        <a href="https://wa.me/14165551234?text=Hi, I'm interested in your services" target="_blank" rel="noopener noreferrer" style={{
-                            display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem',
-                            backgroundColor: '#25D366', borderRadius: '12px', textDecoration: 'none', color: 'white', marginBottom: '0.75rem',
-                        }}>
-                            <span style={{ fontSize: '1.5rem' }}>💬</span>
-                            <div>
-                                <div style={{ fontWeight: 'bold' }}>WhatsApp</div>
-                                <div style={{ fontSize: '0.85rem', opacity: 0.9 }}>Chat instantly</div>
-                            </div>
-                        </a>
-
-                        <a href="mailto:info@primecare.ca" style={{
-                            display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem',
-                            backgroundColor: '#f8f9fa', borderRadius: '12px', textDecoration: 'none', color: '#333',
-                            transition: 'background 0.2s',
-                        }}
-                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e9ecef'}
-                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                        >
-                            <span style={{ fontSize: '1.5rem' }}>✉️</span>
-                            <div>
-                                <div style={{ fontWeight: 'bold' }}>Email Us</div>
-                                <div style={{ fontSize: '0.85rem', color: '#666' }}>info@primecare.ca</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    {/* Footer */}
-                    <div style={{ padding: '1rem', borderTop: '1px solid #eee', textAlign: 'center' }}>
-                        <Link to={RouteRegistry.CONTACT} style={{ color: '#00897b', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}>
-                            Or visit our Contact Page →
-                        </Link>
-                    </div>
-                </div>
-            )}
-
-            {/* Floating Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                {showTooltip && !isOpen && (
-                    <div style={{
-                        backgroundColor: 'white',
-                        padding: '0.75rem 1rem',
-                        borderRadius: '50px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
-                        fontSize: '0.9rem',
-                        color: '#333',
-                        animation: 'pulse 2s infinite',
-                    }}>
-                        Chat with us 👋
-                    </div>
-                )}
-                <button
-                    onClick={handleChat}
-                    style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '50%',
-                        backgroundColor: isOpen ? '#333' : '#f59e0b',
-                        border: 'none',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                        transition: 'transform 0.2s, background-color 0.2s',
-                    }}
-                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    <span style={{ fontSize: '1.5rem' }}>{isOpen ? '✕' : '💬'}</span>
-                </button>
-            </div>
-        </div>
-    );
-}
 
 export default function Footer() {
     return (
@@ -238,7 +112,7 @@ export default function Footer() {
                 </div>
             </footer>
 
-            {/* Chat Widget - Separate from footer for proper fixed positioning */}
+            {/* Chat Widget with AI Chat and Voice Call */}
             <ChatWidget />
         </>
     );
