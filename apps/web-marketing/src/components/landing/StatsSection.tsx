@@ -1,5 +1,6 @@
 import React from 'react';
 import { AnimatedCounter } from './AnimatedCounter';
+import { AnimatedSection } from './AnimatedSection';
 
 interface Stat {
     value: number;
@@ -34,12 +35,16 @@ export function StatsSection({ stats = defaultStats }: StatsSectionProps) {
                 textAlign: 'center',
             }}>
                 {stats.map((stat, index) => (
-                    <div key={index}>
+                    <AnimatedSection
+                        key={index}
+                        animation="scaleUp"
+                        delay={index * 0.15}
+                    >
                         <div style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                             <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                         </div>
                         <div style={{ fontSize: '1rem', opacity: 0.9 }}>{stat.label}</div>
-                    </div>
+                    </AnimatedSection>
                 ))}
             </div>
         </section>

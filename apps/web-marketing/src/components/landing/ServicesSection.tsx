@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MarketingRegistry } from 'prime-care-shared';
+import { AnimatedSection } from './AnimatedSection';
 
 const { ContentRegistry, RouteRegistry } = MarketingRegistry;
 
@@ -46,24 +47,26 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
     return (
         <section style={{ padding: '6rem 2rem', backgroundColor: '#f8f9fa' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 style={{
-                    fontSize: '2.5rem',
-                    textAlign: 'center',
-                    marginBottom: '1rem',
-                    color: '#333',
-                }}>
-                    Our Services
-                </h2>
-                <p style={{
-                    textAlign: 'center',
-                    fontSize: '1.2rem',
-                    color: '#666',
-                    marginBottom: '4rem',
-                    maxWidth: '600px',
-                    margin: '0 auto 4rem auto',
-                }}>
-                    Comprehensive healthcare solutions tailored to your unique needs
-                </p>
+                <AnimatedSection animation="fadeInUp">
+                    <h2 style={{
+                        fontSize: '2.5rem',
+                        textAlign: 'center',
+                        marginBottom: '1rem',
+                        color: '#333',
+                    }}>
+                        Our Services
+                    </h2>
+                    <p style={{
+                        textAlign: 'center',
+                        fontSize: '1.2rem',
+                        color: '#666',
+                        marginBottom: '4rem',
+                        maxWidth: '600px',
+                        margin: '0 auto 4rem auto',
+                    }}>
+                        Comprehensive healthcare solutions tailored to your unique needs
+                    </p>
+                </AnimatedSection>
 
                 <div style={{
                     display: 'grid',
@@ -71,30 +74,44 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                     gap: '2rem'
                 }}>
                     {services.map((service, index) => (
-                        <Link
+                        <AnimatedSection
                             key={index}
-                            to={service.link}
-                            style={{ textDecoration: 'none' }}
+                            animation="slideUp"
+                            delay={index * 0.1}
                         >
-                            <div style={{
-                                backgroundColor: 'white',
-                                padding: '2.5rem',
-                                borderRadius: '16px',
-                                boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                                transition: 'transform 0.3s, box-shadow 0.3s',
-                                height: '100%',
-                                cursor: 'pointer',
-                            }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
-                                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#004d40' }}>
-                                    {service.title}
-                                </h3>
-                                <p style={{ color: '#666', lineHeight: '1.7' }}>{service.description}</p>
-                                <div style={{ marginTop: '1.5rem', color: '#004d40', fontWeight: 'bold' }}>
-                                    Learn More →
+                            <Link
+                                to={service.link}
+                                style={{ textDecoration: 'none', display: 'block', height: '100%' }}
+                            >
+                                <div style={{
+                                    backgroundColor: 'white',
+                                    padding: '2.5rem',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                                    transition: 'transform 0.3s, box-shadow 0.3s',
+                                    height: '100%',
+                                    cursor: 'pointer',
+                                }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-8px)';
+                                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+                                    }}
+                                >
+                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
+                                    <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#004d40' }}>
+                                        {service.title}
+                                    </h3>
+                                    <p style={{ color: '#666', lineHeight: '1.7' }}>{service.description}</p>
+                                    <div style={{ marginTop: '1.5rem', color: '#004d40', fontWeight: 'bold' }}>
+                                        Learn More →
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </AnimatedSection>
                     ))}
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TestimonialCard } from './TestimonialCard';
+import { AnimatedSection } from './AnimatedSection';
 
 interface Testimonial {
     quote: string;
@@ -37,12 +38,14 @@ export function TestimonialsSection({ testimonials = defaultTestimonials }: Test
     return (
         <section style={{ padding: '6rem 2rem', backgroundColor: '#f0f9f8' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem', color: '#333' }}>
-                    What Our Clients Say
-                </h2>
-                <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '4rem' }}>
-                    Trusted by thousands of families across Ontario
-                </p>
+                <AnimatedSection animation="fadeInUp">
+                    <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem', color: '#333' }}>
+                        What Our Clients Say
+                    </h2>
+                    <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '4rem' }}>
+                        Trusted by thousands of families across Ontario
+                    </p>
+                </AnimatedSection>
 
                 <div style={{
                     display: 'grid',
@@ -50,7 +53,13 @@ export function TestimonialsSection({ testimonials = defaultTestimonials }: Test
                     gap: '2rem'
                 }}>
                     {testimonials.map((testimonial, index) => (
-                        <TestimonialCard key={index} {...testimonial} />
+                        <AnimatedSection
+                            key={index}
+                            animation="scaleUp"
+                            delay={index * 0.15}
+                        >
+                            <TestimonialCard {...testimonial} />
+                        </AnimatedSection>
                     ))}
                 </div>
             </div>
