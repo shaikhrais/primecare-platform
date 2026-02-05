@@ -55,8 +55,18 @@ export default function Footer() {
                     <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '2rem' }}>
                         {/* Logo */}
                         <div>
+                            <style>{`
+                                @media (max-width: 600px) {
+                                    .footer-logo { height: 50px !important; }
+                                }
+                            `}</style>
                             <Link to={RouteRegistry.HOME} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', marginBottom: '1rem' }}>
-                                <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '80px', width: 'auto' }} />
+                                <img
+                                    src="/logo.png"
+                                    alt={ContentRegistry.APP.NAME}
+                                    className="footer-logo"
+                                    style={{ height: '80px', width: 'auto' }}
+                                />
                             </Link>
                         </div>
 

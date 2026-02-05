@@ -178,7 +178,7 @@ export default function Header() {
                 padding: '0.5rem 2rem',
                 fontSize: '0.875rem',
             }}>
-                <div style={{
+                <div className="top-bar-inner" style={{
                     maxWidth: '1200px',
                     margin: '0 auto',
                     display: 'flex',
@@ -187,7 +187,7 @@ export default function Header() {
                     flexWrap: 'wrap',
                     gap: '0.5rem',
                 }}>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
+                    <div className="top-bar-contacts" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <a href="mailto:info@primecare.ca" style={{ color: 'white', textDecoration: 'none' }}>
                             📧 info@primecare.ca
                         </a>
@@ -195,7 +195,7 @@ export default function Header() {
                             📞 (416) 555-1234
                         </a>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                         <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>Family Login</Link>
                         <span style={{ opacity: 0.5 }}>|</span>
                         <Link to="/caregiver-login" style={{ color: 'white', textDecoration: 'none' }}>Caregiver Login</Link>
@@ -207,12 +207,27 @@ export default function Header() {
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* Logo */}
                 <Link to={RouteRegistry.HOME} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-                    <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '80px', width: 'auto', transition: 'height 0.3s ease', display: 'block' }} />
+                    <img
+                        src="/logo.png"
+                        alt={ContentRegistry.APP.NAME}
+                        className="header-logo"
+                        style={{ height: '80px', width: 'auto', transition: 'height 0.3s ease', display: 'block' }}
+                    />
                 </Link>
 
                 {/* Desktop Nav */}
                 <nav className="desktop-nav" style={{ display: 'none', gap: '2rem', alignItems: 'center' }}>
-                    <style>{`@media (min-width: 900px) { .desktop-nav { display: flex !important; } .mobile-toggle { display: none !important; } }`}</style>
+                    <style>{`
+                        @media (max-width: 600px) {
+                            .header-logo { height: 50px !important; }
+                            .top-bar-inner { flex-direction: column !important; text-align: center !important; }
+                            .top-bar-contacts { margin-bottom: 0.25rem !important; }
+                        }
+                        @media (min-width: 900px) { 
+                            .desktop-nav { display: flex !important; } 
+                            .mobile-toggle { display: none !important; } 
+                        }
+                    `}</style>
 
                     <Dropdown {...aboutMenu} />
                     <Dropdown {...servicesMenu} />
