@@ -56,9 +56,8 @@ export default function Footer() {
                         {/* Logo */}
                         <div>
                             <Link to={RouteRegistry.HOME} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', marginBottom: '1rem' }}>
-                                <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '60px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
+                                <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '80px', width: 'auto' }} />
                             </Link>
-                            <p style={{ color: '#f59e0b', fontSize: '1.1rem', fontWeight: '600' }}>{ContentRegistry.APP.NAME}</p>
                         </div>
 
                         {/* Company */}
