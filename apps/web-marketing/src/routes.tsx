@@ -14,6 +14,15 @@ import ITSupportPage from './pages/ITSupportPage';
 import SeniorCarePage from './pages/SeniorCarePage';
 import BookingPage from './pages/BookingPage';
 import CareersPage from './pages/CareersPage';
+import VolunteerPage from './pages/VolunteerPage';
+import FranchisePage from './pages/FranchisePage';
+import TestimonialsPage from './pages/TestimonialsPage';
+import FAQPage from './pages/FAQPage';
+import StaffingPage from './pages/StaffingPage';
+import FacilityFootCarePage from './pages/FacilityFootCarePage';
+import FootCareCertificatePage from './pages/FootCareCertificatePage';
+import PSWTrainingPage from './pages/PSWTrainingPage';
+import ConsultingPage from './pages/ConsultingPage';
 
 const { RouteRegistry } = MarketingRegistry;
 
@@ -38,6 +47,16 @@ export const routes = [
             { path: RouteRegistry.PRIVACY, Component: PrivacyPage },
             { path: RouteRegistry.CAREERS, Component: CareersPage },
             { path: RouteRegistry.BOOKING, Component: BookingPage },
+            // New pages
+            { path: '/volunteer', Component: VolunteerPage },
+            { path: '/franchise', Component: FranchisePage },
+            { path: '/testimonials', Component: TestimonialsPage },
+            { path: '/faq', Component: FAQPage },
+            { path: '/services/staffing', Component: StaffingPage },
+            { path: '/services/facility-foot-care', Component: FacilityFootCarePage },
+            { path: '/education/foot-care-certificate', Component: FootCareCertificatePage },
+            { path: '/education/psw-training', Component: PSWTrainingPage },
+            { path: '/consulting', Component: ConsultingPage },
             { path: "*", Component: LandingPage },
         ]
     }
