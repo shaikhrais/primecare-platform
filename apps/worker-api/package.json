@@ -7,7 +7,8 @@
         "dev": "wrangler dev",
         "deploy": "wrangler deploy",
         "prisma:generate": "prisma generate",
-        "prisma:push": "prisma db push"
+        "prisma:push": "prisma db push",
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@esbuild-plugins/node-globals-polyfill": "^0.2.3",

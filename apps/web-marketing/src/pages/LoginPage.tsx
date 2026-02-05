@@ -5,9 +5,9 @@ const { ContentRegistry } = MarketingRegistry;
 
 export default function LoginPage() {
     return (
-        <div style={{ padding: '80px 20px', textAlign: 'center', backgroundColor: '#f8fafc', minHeight: '80vh' }}>
-            <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
-                <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '120px', width: 'auto', marginBottom: '30px' }} />
+        <div style={{ padding: '80px 20px', textAlign: 'center', backgroundColor: '#ffffff', minHeight: '80vh' }}>
+            <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+                <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ width: 'clamp(120px, 40%, 240px)', height: 'auto', marginBottom: '30px' }} />
                 <h1 style={{ color: '#00897b', marginBottom: '10px' }}>Family Member Login</h1>
                 <p style={{ color: '#64748b', fontSize: '1.1rem', marginBottom: '40px' }}>
                     Access your care plans, schedule, and communicate with your care team.

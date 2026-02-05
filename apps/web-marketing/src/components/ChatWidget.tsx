@@ -161,7 +161,7 @@ export default function ChatWidget() {
                     position: 'absolute',
                     bottom: '70px',
                     right: 0,
-                    width: '360px',
+                    width: 'min(360px, calc(100vw - 4rem))', // Responsive width matching 2rem right margin -> 2rem left margin
                     height: view === 'chat' ? '500px' : 'auto',
                     backgroundColor: 'white',
                     borderRadius: '16px',

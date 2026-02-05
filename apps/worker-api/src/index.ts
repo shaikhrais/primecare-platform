@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+// Force reload 2
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { PrismaClient } from '../generated/client/edge';
@@ -61,7 +62,7 @@ const ResetPasswordSchema = z.object({
 const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
-    role: z.enum(['client', 'psw', 'staff']),
+    role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance']),
 });
 
 const getPrisma = (database_url: string) => {

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { ApiRegistry } from 'prime-care-shared';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EarningsPage() {
     const [visits, setVisits] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [requesting, setRequesting] = useState(false);
     const hourlyRate = 25; // Default for simulation
 
     useEffect(() => {
         const fetchVisits = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`${API_URL}/v1/psw/visits`, {
+                const response = await fetch(`${API_URL}${ApiRegistry.PSW.VISITS}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await response.json();
@@ -30,6 +32,34 @@ export default function EarningsPage() {
     };
 
     const totalEarnings = visits.reduce((acc, v) => acc + calculateEarnings(v.durationMinutes || 60), 0);
+
+    const handlePayout = async () => {
+        if (totalEarnings === 0) {
+            alert('No earnings to payout.');
+            return;
+        }
+        if (!confirm('Request payout for verified earnings?')) return;
+
+        setRequesting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}${ApiRegistry.PSW.PAYOUT_REQUEST}`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                alert(data.message || 'Payout requested!');
+            } else {
+                alert('Failed to request payout.');
+            }
+        } catch (error) {
+            console.error('Payout Request Error', error);
+            alert('Error requesting payout.');
+        } finally {
+            setRequesting(false);
+        }
+    };
 
     return (
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }}>
@@ -74,8 +104,19 @@ export default function EarningsPage() {
             </div>
 
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <button style={{ padding: '0.75rem 2rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}>
-                    Request Payout
+                <button
+                    onClick={handlePayout}
+                    disabled={requesting || totalEarnings === 0}
+                    style={{
+                        padding: '0.75rem 2rem',
+                        backgroundColor: requesting || totalEarnings === 0 ? '#9ca3af' : '#004d40',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '0.5rem',
+                        fontWeight: '600',
+                        cursor: requesting || totalEarnings === 0 ? 'not-allowed' : 'pointer'
+                    }}>
+                    {requesting ? 'Processing...' : 'Request Payout'}
                 </button>
             </div>
         </div>

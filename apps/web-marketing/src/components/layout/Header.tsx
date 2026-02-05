@@ -199,6 +199,8 @@ export default function Header() {
                         <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>Family Login</Link>
                         <span style={{ opacity: 0.5 }}>|</span>
                         <Link to="/caregiver-login" style={{ color: 'white', textDecoration: 'none' }}>Caregiver Login</Link>
+                        <span style={{ opacity: 0.5 }}>|</span>
+                        <Link to="/staff-login" style={{ color: 'white', textDecoration: 'none' }}>Staff Login</Link>
                     </div>
                 </div>
             </div>

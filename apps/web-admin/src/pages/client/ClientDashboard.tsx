@@ -37,8 +37,23 @@ export default function ClientDashboard() {
         }
     };
 
+    const [services, setServices] = useState<any[]>([]);
+
+    const fetchServices = async () => {
+        try {
+            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.SERVICES}`);
+            if (response.ok) {
+                const data = await response.json();
+                setServices(data.filter((s: any) => s.isActive));
+            }
+        } catch (error) {
+            console.error('Failed to fetch services', error);
+        }
+    };
+
     useEffect(() => {
         fetchBookings();
+        fetchServices();
     }, []);
 
     const getStatusColor = (status: string) => {
@@ -68,6 +83,7 @@ export default function ClientDashboard() {
             if (response.ok) {
                 alert('Care request submitted successfully!');
                 setIsModalOpen(false);
+                setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60 });
                 fetchBookings();
             } else {
                 const data = await response.json();
@@ -103,31 +119,37 @@ export default function ClientDashboard() {
                         <h3 style={{ marginTop: 0 }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE}</h3>
                         <p style={{ color: '#6b7280' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE}</p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
-                            <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Care Service ID (Demo: Enter a UUID)</label>
-                            <input
-                                type="text"
-                                placeholder="Service UUID"
+                            <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Select Care Service</label>
+                            <select
                                 value={newRequest.serviceId}
                                 onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                                 required
-                            />
+                            >
+                                <option value="">-- Choose a Service --</option>
+                                {services.map(s => (
+                                    <option key={s.id} value={s.id}>{s.name} (${parseFloat(s.baseRateHourly).toFixed(2)}/hr)</option>
+                                ))}
+                            </select>
                             <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Preferred Date & Time</label>
                             <input
                                 type="datetime-local"
-                                value={newRequest.requestedStartAt}
+                                value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
                                 onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                                 required
                             />
                             <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Duration (Minutes)</label>
-                            <input
-                                type="number"
+                            <select
                                 value={newRequest.durationMinutes}
                                 onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                                min="60"
-                            />
+                            >
+                                <option value={60}>1 Hour</option>
+                                <option value={90}>1.5 Hours</option>
+                                <option value={120}>2 Hours</option>
+                                <option value={180}>3 Hours</option>
+                            </select>
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
                             <button type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ApiRegistry } from 'prime-care-shared';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,15 +12,32 @@ interface Booking {
     psw?: { fullName: string };
 }
 
+interface Service {
+    id: string;
+    name: string;
+    hourlyRate: number;
+    description?: string;
+}
+
 export default function BookingsPage() {
     const [bookings, setBookings] = useState<Booking[]>([]);
+    const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+
+    // Form State
+    const [selectedService, setSelectedService] = useState('');
+    const [activeDate, setActiveDate] = useState('');
+    const [activeTime, setActiveTime] = useState('');
+    const [duration, setDuration] = useState(60);
+    const [notes, setNotes] = useState('');
 
     const fetchBookings = async () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/client/bookings`, {
+            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKINGS}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -33,9 +51,61 @@ export default function BookingsPage() {
         }
     };
 
+    const fetchServices = async () => {
+        try {
+            const response = await fetch(`${API_URL}${ApiRegistry.PUBLIC.SERVICES}`);
+            if (response.ok) {
+                const data = await response.json();
+                setServices(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch services', error);
+        }
+    };
+
     useEffect(() => {
         fetchBookings();
+        fetchServices();
     }, []);
+
+    const handleRequest = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const requestedStartAt = new Date(`${activeDate}T${activeTime}`).toISOString();
+
+            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKINGS}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    serviceId: selectedService,
+                    requestedStartAt,
+                    durationMinutes: Number(duration),
+                    notes
+                })
+            });
+
+            if (response.ok) {
+                setShowModal(false);
+                setNotes('');
+                setActiveDate('');
+                setActiveTime('');
+                setSelectedService('');
+                alert('Request submitted! We will assign a caregiver shortly.');
+                fetchBookings(); // Refresh list
+            } else {
+                alert('Failed to submit request.');
+            }
+        } catch (error) {
+            console.error('Error submitting booking', error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     const getStatusStyle = (status: string) => {
         switch (status.toLowerCase()) {
@@ -49,9 +119,25 @@ export default function BookingsPage() {
 
     return (
         <div style={{ padding: '1rem' }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Care Bookings</h2>
-                <p style={{ color: '#6b7280' }}>Track all your current and past care requests.</p>
+            <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Care Bookings</h2>
+                    <p style={{ color: '#6b7280' }}>Track all your current and past care requests.</p>
+                </div>
+                <button
+                    onClick={() => setShowModal(true)}
+                    style={{
+                        backgroundColor: 'var(--pc-primary-dark)',
+                        color: 'white',
+                        padding: '0.75rem 1.5rem',
+                        borderRadius: '0.5rem',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontWeight: '600'
+                    }}
+                >
+                    + Request Care
+                </button>
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
@@ -105,6 +191,101 @@ export default function BookingsPage() {
                     </tbody>
                 </table>
             </div>
+
+            {/* Simple Modal */}
+            {showModal && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
+                }}>
+                    <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', width: '90%', maxWidth: '500px' }}>
+                        <h3 style={{ marginTop: 0, fontSize: '1.25rem' }}>Request New Care Visit</h3>
+
+                        <form onSubmit={handleRequest} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Service Type</label>
+                                <select
+                                    value={selectedService}
+                                    onChange={e => setSelectedService(e.target.value)}
+                                    required
+                                    style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                >
+                                    <option value="">-- Select Service --</option>
+                                    {services.map(s => (
+                                        <option key={s.id} value={s.id}>{s.name} (${s.hourlyRate}/hr)</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Date</label>
+                                    <input
+                                        type="date"
+                                        required
+                                        value={activeDate}
+                                        onChange={e => setActiveDate(e.target.value)}
+                                        style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                    />
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Time</label>
+                                    <input
+                                        type="time"
+                                        required
+                                        value={activeTime}
+                                        onChange={e => setActiveTime(e.target.value)}
+                                        style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Duration (Minutes)</label>
+                                <select
+                                    value={duration}
+                                    onChange={e => setDuration(Number(e.target.value))}
+                                    style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                >
+                                    <option value={60}>1 Hour</option>
+                                    <option value={90}>1.5 Hours</option>
+                                    <option value={120}>2 Hours</option>
+                                    <option value={180}>3 Hours</option>
+                                    <option value={240}>4 Hours</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Notes for Caregiver</label>
+                                <textarea
+                                    rows={3}
+                                    value={notes}
+                                    onChange={e => setNotes(e.target.value)}
+                                    placeholder="Enter any special instructions..."
+                                    style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                />
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', justifyContent: 'flex-end' }}>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowModal(false)}
+                                    style={{ padding: '0.5rem 1rem', border: '1px solid #d1d5db', background: 'white', borderRadius: '0.375rem', cursor: 'pointer' }}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    style={{ padding: '0.5rem 1rem', background: 'var(--pc-primary-dark)', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}
+                                >
+                                    {submitting ? 'Submitting...' : 'Submit Request'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

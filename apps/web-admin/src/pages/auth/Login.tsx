@@ -17,10 +17,12 @@ export default function Login() {
     const uiText = {
         title: roleParam === 'psw' ? ContentRegistry.AUTH.LOGIN_TITLE_PSW :
             roleParam === 'client' ? ContentRegistry.AUTH.LOGIN_TITLE_CLIENT :
-                ContentRegistry.AUTH.LOGIN_TITLE,
+                roleParam === 'staff' ? ContentRegistry.AUTH.LOGIN_TITLE_STAFF :
+                    ContentRegistry.AUTH.LOGIN_TITLE,
         button: roleParam === 'psw' ? ContentRegistry.AUTH.BUTTON_PSW :
             roleParam === 'client' ? ContentRegistry.AUTH.BUTTON_CLIENT :
-                ContentRegistry.AUTH.BUTTON
+                roleParam === 'staff' ? ContentRegistry.AUTH.BUTTON_STAFF :
+                    ContentRegistry.AUTH.BUTTON
     };
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -70,12 +72,17 @@ export default function Login() {
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f2f5'
         }}>
             <div style={{
-                padding: '2rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px'
+                padding: '2.5rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', width: '100%', maxWidth: '400px', border: '1px solid #f3f4f6'
             }}>
+                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                    <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
+                </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }}>
-                    PrimeCare
+                    {uiText.title}
                 </h1>
-                <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem' }}>{uiText.title}</p>
+                <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem', fontSize: '0.9rem' }}>
+                    Sign in to access your dashboard
+                </p>
 
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
 

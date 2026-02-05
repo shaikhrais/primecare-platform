@@ -45,6 +45,7 @@ export default function Footer() {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
                                 <Link to="/caregiver-login" style={{ color: 'white', textDecoration: 'none', opacity: 0.8, fontSize: '0.9rem' }}>Caregiver Login</Link>
                                 <Link to="/login" style={{ color: 'white', textDecoration: 'none', opacity: 0.8, fontSize: '0.9rem' }}>Family Login</Link>
+                                <Link to="/staff-login" style={{ color: 'white', textDecoration: 'none', opacity: 0.8, fontSize: '0.9rem' }}>Staff Login</Link>
                             </div>
                         </div>
                     </div>

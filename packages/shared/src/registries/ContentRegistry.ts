@@ -6,10 +6,11 @@ export const ContentRegistry = {
     AUTH: {
         LOGIN_TITLE: 'Sign in to your account',
         LOGIN_TITLE_CLIENT: 'Client Portal Login',
-        LOGIN_TITLE_PSW: 'Caregiver Portal Login',
+        LOGIN_TITLE_STAFF: 'Staff Portal Login',
         BUTTON: 'Sign in',
         BUTTON_CLIENT: 'Sign In as Client',
         BUTTON_PSW: 'Sign In as Caregiver',
+        BUTTON_STAFF: 'Sign In as Staff',
         EMAIL_LABEL: 'Email address',
         PASSWORD_LABEL: 'Password',
         FORGOT_PASSWORD: 'Forgot password?',

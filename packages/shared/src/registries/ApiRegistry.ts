@@ -29,11 +29,14 @@ export const ApiRegistry = {
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
+        INVOICES: '/v1/client/invoices',
+        SERVICES: '/v1/client/services',
     },
     PSW: {
         VISITS: '/v1/psw/visits',
         CHECK_IN: (id: string) => `/v1/psw/visits/${id}/check-in`,
         CHECK_OUT: (id: string) => `/v1/psw/visits/${id}/check-out`,
+        PAYOUT_REQUEST: '/v1/psw/payouts/request',
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',

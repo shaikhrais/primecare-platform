@@ -173,4 +173,18 @@ app.get('/invoices', async (c) => {
     return c.json(invoices);
 });
 
+/**
+ * @openapi
+ * /v1/client/services:
+ *   get:
+ *     summary: List Available Services
+ *     security:
+ *       - bearerAuth: []
+ */
+app.get('/services', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const services = await prisma.service.findMany();
+    return c.json(services);
+});
+
 export default app;

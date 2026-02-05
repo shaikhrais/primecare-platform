@@ -154,7 +154,7 @@ app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c)
     }
 
     // Verify distance from client location (Geofencing)
-    let result = 'success';
+    let result: 'success' | 'rejected' = 'success';
     if (visit.client?.lat && visit.client?.lng) {
         const distance = calculateDistance(lat, lng, visit.client.lat, visit.client.lng);
         // Allow 500m grace period for urban areas/GPS drift
@@ -225,6 +225,104 @@ app.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c
     });
 
     return c.json(event);
+});
+
+/**
+ * @openapi
+ * /v1/psw/payouts/request:
+ *   post:
+ *     summary: Request Payout
+ *     security:
+ *       - bearerAuth: []
+ */
+app.post('/payouts/request', async (c) => {
+    // Mock implementation for V1
+    // In a real app, this would check balance, create PayoutRequest record, etc.
+    return c.json({ success: true, message: 'Payout requested successfully. Admin will review.' });
+});
+
+/**
+ * @openapi
+ * /v1/psw/visits/:id/note:
+ *   post:
+ *     summary: Add a clinical or visit note
+ */
+app.post('/visits/:id/note', zValidator('json', z.object({
+    noteText: z.string().min(1)
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const userId = c.get('jwtPayload').sub;
+    const visitId = c.req.param('id');
+    const { noteText } = c.req.valid('json');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const note = await prisma.visitNote.create({
+        data: {
+            visitId,
+            pswId: profile.id,
+            noteText
+        }
+    });
+
+    return c.json(note, 201);
+});
+
+/**
+ * @openapi
+ * /v1/psw/visits/:id/checklist:
+ *   post:
+ *     summary: Submit visit checklist (JSON)
+ */
+app.post('/visits/:id/checklist', zValidator('json', z.object({
+    checklistJson: z.any()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const userId = c.get('jwtPayload').sub;
+    const visitId = c.req.param('id');
+    const { checklistJson } = c.req.valid('json');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const checklist = await prisma.visitChecklist.create({
+        data: {
+            visitId,
+            pswId: profile.id,
+            checklistJson
+        }
+    });
+
+    return c.json(checklist, 201);
+});
+
+/**
+ * @openapi
+ * /v1/psw/incidents:
+ *   post:
+ *     summary: Report an incident during/after visit
+ */
+app.post('/incidents', zValidator('json', z.object({
+    visitId: z.string().uuid().optional(),
+    type: z.string(),
+    description: z.string()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const userId = c.get('jwtPayload').sub;
+    const { visitId, type, description } = c.req.valid('json');
+
+    const incident = await prisma.incident.create({
+        data: {
+            visitId,
+            reporterUserId: userId,
+            type: type as any,
+            description,
+            status: 'open'
+        }
+    });
+
+    return c.json(incident, 201);
 });
 
 export default app;

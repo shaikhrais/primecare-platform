@@ -10,7 +10,7 @@ export function WhyChooseUsSection() {
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '4rem',
                     alignItems: 'center',
                 }}>

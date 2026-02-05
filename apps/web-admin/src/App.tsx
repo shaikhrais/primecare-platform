@@ -18,6 +18,8 @@ import CallAuditPage from './pages/admin/CallAuditPage';
 import ServicesPage from './pages/admin/ServicesPage';
 import CustomerList from './pages/admin/CustomerList';
 import SupportDashboard from './pages/admin/SupportDashboard';
+import IncidentList from './pages/admin/IncidentList';
+import TimesheetList from './pages/admin/TimesheetList';
 import BillingPage from './pages/client/BillingPage';
 import EarningsPage from './pages/psw/EarningsPage';
 import VisitDetails from './pages/shared/VisitDetails';
@@ -58,6 +60,8 @@ function App() {
         <Route path="/support/chat/:id" element={<AdminLayout roleGated={['staff', 'admin']}><MessagingPortal /></AdminLayout>} />
 
         <Route path="/support/manual" element={<AdminLayout><SupportHub /></AdminLayout>} />
+        <Route path="/incidents" element={<AdminLayout roleGated={['admin', 'staff']}><IncidentList /></AdminLayout>} />
+        <Route path="/timesheets" element={<AdminLayout roleGated={['admin']}><TimesheetList /></AdminLayout>} />
         <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
 
         {/* Fallback */}

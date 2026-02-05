@@ -168,6 +168,125 @@ app.post('/users/:id/verify', async (c) => {
     return c.json(user);
 });
 
+/**
+ * @openapi
+ * /v1/admin/psw/approve/:id:
+ *   post:
+ *     summary: Specifically approve a PSW profile
+ */
+app.post('/psw/approve/:id', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const profile = await prisma.pswProfile.update({
+        where: { id },
+        data: { isApproved: true, approvedAt: new Date() }
+    });
+    return c.json(profile);
+});
+
+/**
+ * @openapi
+ * /v1/admin/incidents:
+ *   get:
+ *     summary: List all reported incidents
+ */
+app.get('/incidents', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const incidents = await prisma.incident.findMany({
+        include: {
+            reporter: { select: { email: true } },
+            visit: { select: { id: true, status: true } }
+        },
+        orderBy: { createdAt: 'desc' }
+    });
+    return c.json(incidents);
+});
+
+app.patch('/incidents/:id', zValidator('json', z.object({
+    status: z.string(),
+    resolutionNotes: z.string().optional()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const data = c.req.valid('json');
+    const incident = await prisma.incident.update({
+        where: { id },
+        data: {
+            status: data.status as any,
+            resolutionNotes: data.resolutionNotes
+        }
+    });
+    return c.json(incident);
+});
+
+/**
+ * @openapi
+ * /v1/admin/timesheets:
+ *   get:
+ *     summary: List all timesheets for review
+ */
+app.get('/timesheets', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const timesheets = await prisma.timesheet.findMany({
+        include: {
+            psw: { select: { fullName: true } },
+            items: { include: { visit: true } }
+        },
+        orderBy: { createdAt: 'desc' }
+    });
+    return c.json(timesheets);
+});
+
+app.patch('/timesheets/:id', zValidator('json', z.object({
+    status: z.string()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const id = c.req.param('id');
+    const { status } = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+    const timesheet = await prisma.timesheet.update({
+        where: { id },
+        data: {
+            status: status as any,
+            reviewedBy: payload.sub,
+            reviewedAt: new Date()
+        }
+    });
+    return c.json(timesheet);
+});
+
+/**
+ * @openapi
+ * /v1/admin/invoices:
+ *   get:
+ *     summary: List all invoices
+ */
+app.get('/invoices', async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const invoices = await prisma.invoice.findMany({
+        include: { client: { select: { fullName: true } } },
+        orderBy: { createdAt: 'desc' }
+    });
+    return c.json(invoices);
+});
+
+app.post('/invoices', zValidator('json', z.object({
+    clientId: z.string().uuid(),
+    total: z.number(),
+    status: z.string().optional()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const data = c.req.valid('json');
+    const invoice = await prisma.invoice.create({
+        data: {
+            clientId: data.clientId,
+            total: data.total,
+            status: (data.status || 'unpaid') as any
+        }
+    });
+    return c.json(invoice, 201);
+});
+
 // Services CRUD
 app.get('/services', async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
@@ -180,15 +299,17 @@ app.post('/services', zValidator('json', z.object({
     description: z.string().optional(),
     hourlyRate: z.number(),
     category: z.string().optional(),
+    isActive: z.boolean().optional(),
 })), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
-    const data = c.req.valid('json');
+    const { hourlyRate, ...rest } = c.req.valid('json');
     // Generate slug from name
-    const slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const slug = rest.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
     const service = await prisma.service.create({
         data: {
-            ...data,
+            ...rest,
+            baseRateHourly: hourlyRate,
             slug
         }
     });
@@ -200,13 +321,20 @@ app.put('/services/:id', zValidator('json', z.object({
     description: z.string().optional(),
     hourlyRate: z.number().optional(),
     category: z.string().optional(),
+    isActive: z.boolean().optional(),
 })), async (c) => {
     const prisma = getPrisma(c.env.DATABASE_URL);
     const id = c.req.param('id');
-    const data = c.req.valid('json');
+    const { hourlyRate, ...data } = c.req.valid('json');
+
+    const updateData: any = { ...data };
+    if (hourlyRate !== undefined) {
+        updateData.baseRateHourly = hourlyRate;
+    }
+
     const service = await prisma.service.update({
         where: { id },
-        data,
+        data: updateData,
     });
     return c.json(service);
 });

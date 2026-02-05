@@ -25,6 +25,7 @@ import PSWTrainingPage from './pages/PSWTrainingPage';
 import ConsultingPage from './pages/ConsultingPage';
 import LoginPage from './pages/LoginPage';
 import CaregiverLoginPage from './pages/CaregiverLoginPage';
+import StaffLoginPage from './pages/StaffLoginPage';
 
 const { RouteRegistry } = MarketingRegistry;
 
@@ -61,6 +62,7 @@ export const routes = [
             { path: '/consulting', Component: ConsultingPage },
             { path: '/login', Component: LoginPage },
             { path: '/caregiver-login', Component: CaregiverLoginPage },
+            { path: '/staff-login', Component: StaffLoginPage },
             { path: "*", Component: LandingPage },
         ]
     }
