@@ -6,8 +6,6 @@
  * all required sizes for Android, iOS, and Web platforms.
  * 
  * Usage: node resize-logo.cjs <source-image>
- * 
- * Requirements: npm install sharp
  */
 
 const sharp = require('sharp');
@@ -23,7 +21,7 @@ const TARGET_APPS = [
 ];
 
 const OUTPUT_CONFIG = {
-    // Android mipmap sizes
+    // Android mipmap sizes (Must be square)
     android: {
         sizes: [
             { folder: 'mipmap-mdpi', size: 48 },
@@ -32,9 +30,10 @@ const OUTPUT_CONFIG = {
             { folder: 'mipmap-xxhdpi', size: 144 },
             { folder: 'mipmap-xxxhdpi', size: 192 },
         ],
-        filenames: ['ic_launcher.png', 'ic_launcher_round.png']
+        filenames: ['ic_launcher.png', 'ic_launcher_round.png'],
+        square: true
     },
-    // iOS app icon sizes
+    // iOS app icon sizes (Must be square)
     ios: {
         sizes: [
             { name: 'Icon-20', size: 20 },
@@ -52,30 +51,31 @@ const OUTPUT_CONFIG = {
             { name: 'Icon-76@2x', size: 152 },
             { name: 'Icon-83.5@2x', size: 167 },
             { name: 'Icon-1024', size: 1024 },
-        ]
+        ],
+        square: true
     },
-    // Web sizes
+    // Web sizes (Preserve aspect ratio for main logo)
     web: {
         outputDir: '../../apps/web-marketing/public',
         sizes: [
-            { name: 'logo', size: 512 },
-            { name: 'logo-192', size: 192 },
-            { name: 'logo-32', size: 32 },
-            { name: 'favicon', size: 32 },
+            { name: 'logo', height: 512 },
+            { name: 'logo-192', height: 192 },
+            { name: 'logo-32', height: 32 },
+            { name: 'favicon', size: 32, square: true },
         ]
     },
     // Shared package (source of truth)
     shared: {
         outputDir: './assets',
         sizes: [
-            { name: 'logo', size: 1024 },
-            { name: 'logo-512', size: 512 },
-            { name: 'logo-256', size: 256 },
+            { name: 'logo', height: 1024 },
+            { name: 'logo-512', height: 512 },
+            { name: 'logo-256', height: 256 },
         ]
     }
 };
 
-async function resizeAndSave(sourceImage, outputPath, size, filename) {
+async function resizeAndSave(sourceImage, outputPath, sizeConfig, filename) {
     const fullPath = path.join(outputPath, filename);
 
     // Ensure directory exists
@@ -83,15 +83,20 @@ async function resizeAndSave(sourceImage, outputPath, size, filename) {
         fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    await sharp(sourceImage)
-        .resize(size, size, {
+    let pipeline = sharp(sourceImage).trim(); // Always trim extra transparent space
+
+    if (sizeConfig.square) {
+        pipeline = pipeline.resize(sizeConfig.size, sizeConfig.size, {
             fit: 'contain',
             background: { r: 0, g: 0, b: 0, alpha: 0 }
-        })
-        .png()
-        .toFile(fullPath);
+        });
+    } else {
+        // Just resize to target height, keeping aspect ratio
+        pipeline = pipeline.resize({ height: sizeConfig.height || sizeConfig.size });
+    }
 
-    console.log(`✓ Created: ${fullPath} (${size}x${size})`);
+    await pipeline.png().toFile(fullPath);
+    console.log(`✓ Created: ${fullPath}`);
 }
 
 async function processAndroid(sourceImage, baseDir, appName) {
@@ -104,23 +109,20 @@ async function processAndroid(sourceImage, baseDir, appName) {
     for (const sizeConfig of config.sizes) {
         const outputDir = path.join(outputBase, sizeConfig.folder);
         for (const filename of config.filenames) {
-            await resizeAndSave(sourceImage, outputDir, sizeConfig.size, filename);
+            await resizeAndSave(sourceImage, outputDir, { ...sizeConfig, square: true }, filename);
         }
     }
 }
 
 async function processIOS(sourceImage, baseDir, appName) {
     const config = OUTPUT_CONFIG.ios;
-    // Attempt to find the correct ios project folder name
     const iosDir = path.resolve(baseDir, `../../apps/${appName}/ios`);
     if (!fs.existsSync(iosDir)) return;
 
     let projectFolder = appName.replace(/-/g, '');
-    // Check if directory exists, if not try to find it
     let outputDir = path.join(iosDir, projectFolder, 'Images.xcassets/AppIcon.appiconset');
 
     if (!fs.existsSync(outputDir)) {
-        // Find existing AppIcon.appiconset
         const findAppIconSet = (dir) => {
             const files = fs.readdirSync(dir);
             for (const file of files) {
@@ -145,7 +147,7 @@ async function processIOS(sourceImage, baseDir, appName) {
 
     console.log(`\n🍎 Generating iOS icons for ${appName}...`);
     for (const sizeConfig of config.sizes) {
-        await resizeAndSave(sourceImage, outputDir, sizeConfig.size, `${sizeConfig.name}.png`);
+        await resizeAndSave(sourceImage, outputDir, { ...sizeConfig, square: true }, `${sizeConfig.name}.png`);
     }
 }
 
@@ -155,7 +157,7 @@ async function processWeb(sourceImage, baseDir) {
     const outputDir = path.resolve(baseDir, config.outputDir);
 
     for (const sizeConfig of config.sizes) {
-        await resizeAndSave(sourceImage, outputDir, sizeConfig.size, `${sizeConfig.name}.png`);
+        await resizeAndSave(sourceImage, outputDir, sizeConfig, `${sizeConfig.name}.png`);
     }
 }
 
@@ -165,7 +167,7 @@ async function processShared(sourceImage, baseDir) {
     const outputDir = path.resolve(baseDir, config.outputDir);
 
     for (const sizeConfig of config.sizes) {
-        await resizeAndSave(sourceImage, outputDir, sizeConfig.size, `${sizeConfig.name}.png`);
+        await resizeAndSave(sourceImage, outputDir, sizeConfig, `${sizeConfig.name}.png`);
     }
 }
 
@@ -185,8 +187,8 @@ async function main() {
         process.exit(1);
     }
 
-    console.log(`\n🎨 PrimeCare Logo Resize Script`);
-    console.log(`================================`);
+    console.log(`\n🎨 PrimeCare Logo Resize Script (Aspect Ratio Preservation)`);
+    console.log(`==========================================================`);
     console.log(`Source: ${sourceImage}`);
 
     try {
