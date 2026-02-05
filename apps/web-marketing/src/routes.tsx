@@ -23,6 +23,8 @@ import FacilityFootCarePage from './pages/FacilityFootCarePage';
 import FootCareCertificatePage from './pages/FootCareCertificatePage';
 import PSWTrainingPage from './pages/PSWTrainingPage';
 import ConsultingPage from './pages/ConsultingPage';
+import LoginPage from './pages/LoginPage';
+import CaregiverLoginPage from './pages/CaregiverLoginPage';
 
 const { RouteRegistry } = MarketingRegistry;
 
@@ -57,6 +59,8 @@ export const routes = [
             { path: '/education/foot-care-certificate', Component: FootCareCertificatePage },
             { path: '/education/psw-training', Component: PSWTrainingPage },
             { path: '/consulting', Component: ConsultingPage },
+            { path: '/login', Component: LoginPage },
+            { path: '/caregiver-login', Component: CaregiverLoginPage },
             { path: "*", Component: LandingPage },
         ]
     }
