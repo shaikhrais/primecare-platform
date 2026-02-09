@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite App</title>
+  <title>PrimeCare Admin</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f1733">
+  <link rel="icon" href="/logo.png">
+  <script>
+    (() => {
+      const saved = localStorage.getItem('psw_theme') || 'midnight';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
 </head>
+
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('PC ServiceWorker registered'))
+          .catch(err => console.log('PC ServiceWorker registration failed', err));
+      });
+    }
+  </script>
 </body>
+
 </html>
