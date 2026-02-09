@@ -52,3 +52,16 @@ apps/PrimeCareClient/
 apps/PrimeCarePsw/
 *.keystore
 *.jks
+
+# Verification Artifacts
+apps/mobile-client/maestro/
+**/*.mp4
+**/*.webm
+**/.cypress-cache/
+tests/cypress/videos/
+tests/cypress/screenshots/
+tests/.cypress-cache/
+**/local.properties
+**/*.log.txt
+**/build_out*.txt
+**/*.txt
