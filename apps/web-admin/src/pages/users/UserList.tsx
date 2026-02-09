@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -15,6 +16,7 @@ interface User {
 }
 
 export default function UserList() {
+    const { showToast } = useNotification();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -45,6 +47,7 @@ export default function UserList() {
             }
         } catch (error) {
             console.error('Failed to fetch users', error);
+            showToast('Failed to load user list', 'error');
         } finally {
             setLoading(false);
         }
@@ -59,19 +62,20 @@ export default function UserList() {
             });
             if (response.ok) {
                 setUsers(prev => prev.map(u => u.id === id ? { ...u, profile: { ...u.profile!, isVerified: true } } : u));
+                showToast('User extracted and verified successfully', 'success');
             }
         } catch (error) {
-            alert(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY);
+            showToast(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY, 'error');
         }
     };
 
     const handleInvite = () => {
         const email = prompt(ContentRegistry.USERS.INVITE_PROMPT);
-        if (email) alert(ContentRegistry.USERS.INVITE_SUCCESS(email));
+        if (email) showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
     };
 
     const handleEdit = (user: User) => {
-        alert(`Editing profile for ${user.profile?.fullName || user.email}`);
+        showToast(`Editing profile for ${user.profile?.fullName || user.email}`, 'info');
     };
 
     return (

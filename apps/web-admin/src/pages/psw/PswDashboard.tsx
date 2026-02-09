@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -15,6 +16,7 @@ interface Shift {
 }
 
 export default function PswDashboard() {
+    const { showToast } = useNotification();
     const navigate = useNavigate();
     const [shifts, setShifts] = useState<Shift[]>([]);
     const [loading, setLoading] = useState(true);
@@ -32,6 +34,7 @@ export default function PswDashboard() {
             }
         } catch (error) {
             console.error('Failed to fetch shifts', error);
+            showToast('Failed to load shifts', 'error');
         } finally {
             setLoading(false);
         }
@@ -39,7 +42,7 @@ export default function PswDashboard() {
 
     const handleCheckIn = async (id: string) => {
         if (!navigator.geolocation) {
-            alert('Geolocation is not supported by your browser');
+            showToast('Geolocation is not supported by your browser', 'error');
             return;
         }
 
@@ -60,22 +63,22 @@ export default function PswDashboard() {
                 });
                 if (response.ok) {
                     fetchShifts();
-                    alert('Check-in successful!');
+                    showToast('Check-in successful!', 'success');
                 } else {
                     const data = await response.json();
-                    alert(`Check-in failed: ${data.error || 'Unknown error'}`);
+                    showToast(`Check-in failed: ${data.error || 'Unknown error'}`, 'error');
                 }
             } catch (error) {
-                alert('Check-in failed');
+                showToast('Check-in failed', 'error');
             }
         }, (error) => {
-            alert(`Could not get location: ${error.message}`);
+            showToast(`Could not get location: ${error.message}`, 'error');
         });
     };
 
     const handleCheckOut = async (id: string) => {
         if (!navigator.geolocation) {
-            alert('Geolocation is not supported by your browser');
+            showToast('Geolocation is not supported by your browser', 'error');
             return;
         }
 
@@ -96,16 +99,16 @@ export default function PswDashboard() {
                 });
                 if (response.ok) {
                     fetchShifts();
-                    alert('Check-out successful! Visit completed.');
+                    showToast('Check-out successful! Visit completed.', 'success');
                 } else {
                     const data = await response.json();
-                    alert(`Check-out failed: ${data.error || 'Unknown error'}`);
+                    showToast(`Check-out failed: ${data.error || 'Unknown error'}`, 'error');
                 }
             } catch (error) {
-                alert('Check-out failed');
+                showToast('Check-out failed', 'error');
             }
         }, (error) => {
-            alert(`Could not get location: ${error.message}`);
+            showToast(`Could not get location: ${error.message}`, 'error');
         });
     };
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ProfilePage() {
+    const { showToast } = useNotification();
     const [profile, setProfile] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -24,6 +26,7 @@ export default function ProfilePage() {
             }
         } catch (error) {
             console.error('Failed to fetch profile', error);
+            showToast('Failed to load profile data', 'error');
         } finally {
             setLoading(false);
         }
@@ -48,10 +51,10 @@ export default function ProfilePage() {
                 body: JSON.stringify(profile)
             });
             if (response.ok) {
-                alert('Profile updated successfully!');
+                showToast('Profile updated successfully!', 'success');
             }
         } catch (error) {
-            alert('Failed to update profile');
+            showToast('Failed to update profile', 'error');
         } finally {
             setSaving(false);
         }

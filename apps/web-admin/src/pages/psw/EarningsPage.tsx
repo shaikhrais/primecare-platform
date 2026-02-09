@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EarningsPage() {
+    const { showToast } = useNotification();
     const [visits, setVisits] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [requesting, setRequesting] = useState(false);
@@ -20,6 +22,7 @@ export default function EarningsPage() {
                 setVisits(data.filter((v: any) => v.status === 'completed'));
             } catch (error) {
                 console.error('Failed to fetch visits');
+                showToast('Failed to load earnings data', 'error');
             } finally {
                 setLoading(false);
             }
@@ -35,7 +38,7 @@ export default function EarningsPage() {
 
     const handlePayout = async () => {
         if (totalEarnings === 0) {
-            alert('No earnings to payout.');
+            showToast('No earnings available to payout.', 'info');
             return;
         }
         if (!confirm('Request payout for verified earnings?')) return;
@@ -49,13 +52,13 @@ export default function EarningsPage() {
             });
             if (response.ok) {
                 const data = await response.json();
-                alert(data.message || 'Payout requested!');
+                showToast(data.message || 'Payout requested successfully!', 'success');
             } else {
-                alert('Failed to request payout.');
+                showToast('Failed to request payout.', 'error');
             }
         } catch (error) {
             console.error('Payout Request Error', error);
-            alert('Error requesting payout.');
+            showToast('Error processing payout request.', 'error');
         } finally {
             setRequesting(false);
         }

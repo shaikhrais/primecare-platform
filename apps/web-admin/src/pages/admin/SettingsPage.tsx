@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '../../App';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { ContentRegistry } = AdminRegistry;
 
 export default function SettingsPage() {
+    const { showToast } = useNotification();
     const [settings, setSettings] = useState({
         emailAlerts: true,
         autoAssignment: false,
@@ -17,7 +19,7 @@ export default function SettingsPage() {
 
     const handleSave = () => {
         localStorage.setItem('adminSettings', JSON.stringify(settings));
-        alert(ContentRegistry.SETTINGS.ACTIONS.SUCCESS_SAVE);
+        showToast(ContentRegistry.SETTINGS.ACTIONS.SUCCESS_SAVE, 'success');
     };
 
     const handleReset = () => {

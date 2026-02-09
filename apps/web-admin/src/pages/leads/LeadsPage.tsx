@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -15,6 +16,7 @@ interface Lead {
 }
 
 export default function LeadsPage() {
+    const { showToast } = useNotification();
     const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -31,7 +33,7 @@ export default function LeadsPage() {
             }
         } catch (error) {
             console.error('Failed to fetch leads', error);
-            alert(ContentRegistry.LEADS.MESSAGES.ERROR);
+            showToast(ContentRegistry.LEADS.MESSAGES.ERROR, 'error');
         } finally {
             setLoading(false);
         }
@@ -52,7 +54,7 @@ export default function LeadsPage() {
                 setLeads(prev => prev.map(l => l.id === id ? { ...l, status: newStatus } : l));
             }
         } catch (error) {
-            alert(ContentRegistry.LEADS.MESSAGES.ERROR_UPDATE);
+            showToast(ContentRegistry.LEADS.MESSAGES.ERROR_UPDATE, 'error');
         }
     };
 

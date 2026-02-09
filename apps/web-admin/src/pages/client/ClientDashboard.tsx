@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -14,6 +15,7 @@ interface Booking {
 }
 
 export default function ClientDashboard() {
+    const { showToast } = useNotification();
     const navigate = useNavigate();
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
@@ -81,16 +83,16 @@ export default function ClientDashboard() {
                 body: JSON.stringify(newRequest)
             });
             if (response.ok) {
-                alert('Care request submitted successfully!');
+                showToast('Care request submitted successfully!', 'success');
                 setIsModalOpen(false);
                 setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60 });
                 fetchBookings();
             } else {
                 const data = await response.json();
-                alert(`Submission failed: ${data.error || 'Unknown error'}`);
+                showToast(`Submission failed: ${data.error || 'Unknown error'}`, 'error');
             }
         } catch (error) {
-            alert('Failed to submit request');
+            showToast('Failed to submit request', 'error');
         }
     };
 

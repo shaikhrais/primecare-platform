@@ -4,6 +4,7 @@ import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 
@@ -31,6 +32,7 @@ interface Visit {
 }
 
 export default function Schedule() {
+    const { showToast } = useNotification();
     const [events, setEvents] = useState<any[]>([]);
     const [visits, setVisits] = useState<Visit[]>([]);
     const [psws, setPsws] = useState<any[]>([]);
@@ -107,10 +109,10 @@ export default function Schedule() {
             if (response.ok) {
                 setIsAssignModalOpen(false);
                 fetchVisits();
-                alert(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_ASSIGN);
+                showToast(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_ASSIGN, 'success');
             }
         } catch (err) {
-            alert(ContentRegistry.SCHEDULE.MESSAGES.ERROR_ASSIGN);
+            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_ASSIGN, 'error');
         }
     };
 
@@ -143,10 +145,10 @@ export default function Schedule() {
             if (response.ok) {
                 setIsAssignModalOpen(false);
                 fetchVisits();
-                alert(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_CANCEL);
+                showToast(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_CANCEL, 'success');
             }
         } catch (err) {
-            alert(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE);
+            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE, 'error');
         }
     };
 
@@ -165,7 +167,7 @@ export default function Schedule() {
             fetchVisits();
             setIsAssignModalOpen(false);
         } catch (err) {
-            alert(ContentRegistry.SCHEDULE.MESSAGES.ERROR_UPDATE);
+            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_UPDATE, 'error');
         }
     };
 
@@ -177,7 +179,7 @@ export default function Schedule() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }}>{ContentRegistry.SCHEDULE.SUBTITLE}</p>
                 </div>
                 <button
-                    onClick={() => alert('Opening New Request form...')}
+                    onClick={() => showToast('Opening New Request form...', 'info')}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {ContentRegistry.SCHEDULE.ACTIONS.CREATE}

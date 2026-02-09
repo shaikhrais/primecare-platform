@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,6 +12,7 @@ interface Service {
 }
 
 export default function ServicesPage() {
+    const { showToast } = useNotification();
     const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,6 +32,7 @@ export default function ServicesPage() {
             }
         } catch (error) {
             console.error('Failed to fetch services');
+            showToast('Failed to load services', 'error');
         } finally {
             setLoading(false);
         }
@@ -58,14 +61,14 @@ export default function ServicesPage() {
             });
 
             if (response.ok) {
-                alert(`Service ${currentService.id ? 'updated' : 'created'} successfully!`);
+                showToast(`Service ${currentService.id ? 'updated' : 'created'} successfully!`, 'success');
                 setIsModalOpen(false);
                 fetchServices();
             } else {
-                alert('Failed to save service');
+                showToast('Failed to save service', 'error');
             }
         } catch (error) {
-            alert('Error saving service');
+            showToast('Error saving service', 'error');
         }
     };
 
@@ -79,11 +82,12 @@ export default function ServicesPage() {
             });
             if (response.ok) {
                 fetchServices();
+                showToast('Service deleted successfully', 'success');
             } else {
-                alert('Failed to delete service');
+                showToast('Failed to delete service', 'error');
             }
         } catch (error) {
-            alert('Error deleting service');
+            showToast('Error deleting service', 'error');
         }
     };
 

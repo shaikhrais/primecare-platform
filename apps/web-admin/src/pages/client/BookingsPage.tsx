@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -20,6 +21,7 @@ interface Service {
 }
 
 export default function BookingsPage() {
+    const { showToast } = useNotification();
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState(true);
@@ -95,13 +97,14 @@ export default function BookingsPage() {
                 setActiveDate('');
                 setActiveTime('');
                 setSelectedService('');
-                alert('Request submitted! We will assign a caregiver shortly.');
+                showToast('Request submitted! We will assign a caregiver shortly.', 'success');
                 fetchBookings(); // Refresh list
             } else {
-                alert('Failed to submit request.');
+                showToast('Failed to submit request.', 'error');
             }
         } catch (error) {
             console.error('Error submitting booking', error);
+            showToast('An unexpected error occurred.', 'error');
         } finally {
             setSubmitting(false);
         }

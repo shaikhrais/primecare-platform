@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
+import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,6 +14,7 @@ interface Invoice {
 }
 
 export default function BillingPage() {
+    const { showToast } = useNotification();
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -55,11 +57,11 @@ export default function BillingPage() {
             });
             const data = await response.json();
             if (data.clientSecret) {
-                alert('Stripe Checkout simulated. Please complete on the Stripe hosted page.');
+                showToast('Stripe Checkout simulated. Please complete on the Stripe hosted page.', 'info');
                 window.location.href = `https://checkout.stripe.com/pay/${data.clientSecret}`;
             }
         } catch (error) {
-            alert('Failed to initialize payment');
+            showToast('Failed to initialize payment', 'error');
         } finally {
             setLoading(false);
         }
