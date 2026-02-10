@@ -1,0 +1,134 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-02-10T22:15:58.836Z",
+    "end": "2026-02-10T22:16:01.400Z",
+    "duration": 2564,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "6bd5ccd8-dd8e-4154-a9fe-450446dbb7ca",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\admin.routes.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\admin.routes.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ae7ca7a4-ffbb-4cb6-beab-6bb5b105d40a",
+          "title": "Admin/Portal Routes Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads core routes as guest",
+              "fullTitle": "Admin/Portal Routes Smoke loads core routes as guest",
+              "timedOut": null,
+              "duration": 295,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (cfg) {\n    cy.loginAs(role);\n    // For smoke test, we only check a representative subset of routes per role\n    // to keep the suite fast. Full matrix is in 10_security.\n    var smokeRoutes = role === \"guest\"\n        ? cfg.routes.filter(function (r) { return r.auth === \"guest\"; })\n        : cfg.routes.filter(function (r) { return [\"staff\", \"any\"].includes(r.auth); });\n    smokeRoutes.forEach(function (r) {\n        cy.log(\"[\".concat(role, \"] Testing Route: \").concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        if (role !== \"guest\") {\n            cy.getByCy(\"sidebar\").should(\"be.visible\");\n        }\n    });\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "ffd33cf1-9a85-4021-8722-2ee8a3121e81",
+              "parentUUID": "ae7ca7a4-ffbb-4cb6-beab-6bb5b105d40a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "loads core routes as staff",
+              "fullTitle": "Admin/Portal Routes Smoke loads core routes as staff",
+              "timedOut": null,
+              "duration": 293,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (cfg) {\n    cy.loginAs(role);\n    // For smoke test, we only check a representative subset of routes per role\n    // to keep the suite fast. Full matrix is in 10_security.\n    var smokeRoutes = role === \"guest\"\n        ? cfg.routes.filter(function (r) { return r.auth === \"guest\"; })\n        : cfg.routes.filter(function (r) { return [\"staff\", \"any\"].includes(r.auth); });\n    smokeRoutes.forEach(function (r) {\n        cy.log(\"[\".concat(role, \"] Testing Route: \").concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        if (role !== \"guest\") {\n            cy.getByCy(\"sidebar\").should(\"be.visible\");\n        }\n    });\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "87c5f858-ffb3-4e88-8a04-966507ac88df",
+              "parentUUID": "ae7ca7a4-ffbb-4cb6-beab-6bb5b105d40a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "ffd33cf1-9a85-4021-8722-2ee8a3121e81",
+            "87c5f858-ffb3-4e88-8a04-966507ac88df"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 588,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

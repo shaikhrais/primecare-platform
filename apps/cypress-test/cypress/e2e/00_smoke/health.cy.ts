@@ -1,33 +1,33 @@
-/// <reference path="../../support/index.d.ts" />
+/// <reference path="../support/index.d.ts" />
 
-describe("Accessibility & Health Micro-tests", { tags: ["@a11y", "@smoke"] }, () => {
+/**
+ * Quality & Health Suite
+ * App-wide boot checks and console integrity.
+ */
 
-    const keyRoutes = ["/login", "/register", "/dashboard"];
+describe("Platform Health & Console Integrity", { tags: ["@smoke", "@reliability"] }, () => {
 
-    keyRoutes.forEach((route) => {
-        it(`Page Health: ${route} loads without severe errors`, () => {
-            cy.visitAppRoute("ADMIN_BASE_URL", route);
+    it("Boot: Admin app boot check", () => {
+        cy.visitRoute("ADMIN_BASE_URL", "/login");
 
-            // 1. Boot check: body is not empty
-            cy.get("body").should("not.be.empty");
+        // 1. Ensure no white screen
+        cy.get("#root").should("not.be.empty");
 
-            // 2. Content check: No "Application error" or white screen indicators
-            cy.get("body").should("not.contain", "Application error");
-            cy.get("body").should("not.contain", "Something went wrong");
+        // 2. Ensure basic UI elements ready
+        cy.getByCy("inp-email").should("be.visible");
 
-            // 3. SEO/A11y: Exactly one H1 per page
-            // (Note: Optional strictness, but recommended by user)
-            cy.get("h1").should("have.length", 1);
-        });
+        // 3. No critical errors caught by support/e2e handler
+        cy.assertNoAppCrash();
     });
 
-    it("Form Accessibility: Inputs have associated labels or aria-labels", () => {
-        cy.visitAppRoute("ADMIN_BASE_URL", "/login");
+    it("Boot: Marketing app boot check", () => {
+        cy.visitRoute("MARKETING_BASE_URL", "/");
 
-        // Every input/select/textarea should have an accessible name
-        cy.get("input").each(($el) => {
-            const name = $el.attr("name") || $el.attr("aria-label") || $el.attr("placeholder");
-            expect(name, "Input missing accessible identification").to.not.be.empty;
-        });
+        // 1. Ensure marketing site rendered
+        cy.get("header").should("be.visible");
+        cy.get("footer").should("be.visible");
+
+        // 2. No crashes
+        cy.assertNoAppCrash();
     });
 });

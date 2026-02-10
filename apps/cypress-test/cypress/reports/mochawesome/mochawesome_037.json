@@ -1,0 +1,157 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-02-10T22:17:38.024Z",
+    "end": "2026-02-10T22:17:42.457Z",
+    "duration": 4433,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "89e0d7e8-4b7e-4be5-877e-c0877c59e271",
+      "title": "",
+      "fullFile": "cypress\\e2e\\30_reliability\\auth-flows.cy.ts",
+      "file": "cypress\\e2e\\30_reliability\\auth-flows.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e031b0c9-9465-483e-992c-a66b806fb709",
+          "title": "Authentication Reliability Flows",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Redirection: Guest accessing protected route is sent to /login",
+              "fullTitle": "Authentication Reliability Flows Redirection: Guest accessing protected route is sent to /login",
+              "timedOut": null,
+              "duration": 495,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (cfg) {\n    // Pick a staff-protected route\n    var protectedRoute = cfg.routes.find(function (r) { return r.auth === \"staff\"; });\n    cy.visitAppRoute(cfg.baseUrlEnv, protectedRoute.path);\n    // Should be redirected to login\n    cy.url().should(\"include\", \"/login\");\n    cy.getByCy(\"inp-email\").should(\"be.visible\");\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "66eb475c-9d34-429d-98d2-01fc4b6b8b76",
+              "parentUUID": "e031b0c9-9465-483e-992c-a66b806fb709",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deep-Linking: Redirects back to intended page after login",
+              "fullTitle": "Authentication Reliability Flows Deep-Linking: Redirects back to intended page after login",
+              "timedOut": null,
+              "duration": 390,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (cfg) {\n    var intendedPath = \"/users\";\n    // 1. Attempt to visit protected page as guest\n    cy.visitAppRoute(cfg.baseUrlEnv, intendedPath);\n    cy.url().should(\"include\", \"/login\");\n    // 2. Perform login\n    cy.fixture(\"users.json\").then(function (users) {\n        var u = users.staff;\n        cy.getByCy(\"inp-email\").type(u.email);\n        cy.getByCy(\"inp-password\").type(u.password, { log: false });\n        cy.getByCy(\"btn-login\").click();\n        // 3. Should land on intended page, not just dashboard\n        cy.url().should(\"include\", intendedPath);\n    });\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "3fce1edd-f111-4873-81e5-20c8ff4920a3",
+              "parentUUID": "e031b0c9-9465-483e-992c-a66b806fb709",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Security: Logout clears session and blocks access",
+              "fullTitle": "Authentication Reliability Flows Security: Logout clears session and blocks access",
+              "timedOut": null,
+              "duration": 344,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (cfg) {\n    // 1. Login as staff\n    cy.loginAs(\"staff\");\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/dashboard\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to dashboard via URL\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/dashboard\");\n    cy.url().should(\"include\", \"/login\");\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "b8d9070f-3d82-4d16-905e-2e89d5a2b60b",
+              "parentUUID": "e031b0c9-9465-483e-992c-a66b806fb709",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "66eb475c-9d34-429d-98d2-01fc4b6b8b76",
+            "3fce1edd-f111-4873-81e5-20c8ff4920a3",
+            "b8d9070f-3d82-4d16-905e-2e89d5a2b60b"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1229,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

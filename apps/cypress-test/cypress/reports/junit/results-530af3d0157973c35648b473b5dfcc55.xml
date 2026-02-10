@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="4.572" tests="3" failures="3">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:17:47" tests="0" file="cypress\e2e\30_reliability\resilience.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="UI Resilience &amp; Error Handling" timestamp="2026-02-10T22:17:47" tests="3" time="4.558" failures="3">
+    <testcase name="UI Resilience &amp; Error Handling Resilience: API 500 shows error toast" time="0.482" classname="Resilience: API 500 shows error toast">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:14:0)]]></failure>
+    </testcase>
+    <testcase name="UI Resilience &amp; Error Handling UX: Slow API shows loader/spinner" time="0.390" classname="UX: Slow API shows loader/spinner">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:26:0)]]></failure>
+    </testcase>
+    <testcase name="UI Resilience &amp; Error Handling UX: Empty data shows &apos;No results&apos; state" time="0.345" classname="UX: Empty data shows &apos;No results&apos; state">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:41:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T22:16:17.799Z",
+    "end": "2026-02-10T22:16:18.983Z",
+    "duration": 1184,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "937a4db5-ee08-4cc5-8d41-4bb7b2ebf8c9",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f4d0a109-c927-419b-b6a6-967757ad10e9",
+          "title": "Marketing Routes Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads every marketing page without blank screen",
+              "fullTitle": "Marketing Routes Smoke loads every marketing page without blank screen",
+              "timedOut": null,
+              "duration": 284,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.marketing.json\").then(function (cfg) {\n    cfg.routes.forEach(function (r) {\n        cy.log(\"Testing Route: \".concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        // Professional health check\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"Application error\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        // Ensure layout elements are present\n        cy.getByCy(\"logo-link\").should(\"exist\");\n    });\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.marketing.json\n    > cypress\\fixtures\\routes.marketing.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.marketing.json\n    > cypress\\fixtures\\routes.marketing.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "2194f746-c0c3-4132-ac79-0eb90f80703e",
+              "parentUUID": "f4d0a109-c927-419b-b6a6-967757ad10e9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "2194f746-c0c3-4132-ac79-0eb90f80703e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 284,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

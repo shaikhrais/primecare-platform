@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.089" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:19:04" tests="0" file="cypress\e2e\40_features\admin-tables.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin Table Interactions" timestamp="2026-02-10T22:19:04" tests="2" time="3.075" failures="2">
+    <testcase name="Admin Table Interactions Leads Table: Status update transition" time="0.399" classname="Leads Table: Status update transition">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/admin-tables.cy.ts:13:0)]]></failure>
+    </testcase>
+    <testcase name="Admin Table Interactions Users Table: ID Verification flow (PSW)" time="0.381" classname="Users Table: ID Verification flow (PSW)">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/admin-tables.cy.ts:35:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

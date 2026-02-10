@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T22:21:06.624Z",
+    "end": "2026-02-10T22:21:10.135Z",
+    "duration": 3511,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "411948b4-6f68-4f1e-85b6-5353b2e797a8",
+      "title": "",
+      "fullFile": "cypress\\e2e\\generated\\00_marketing.smoke.cy.ts",
+      "file": "cypress\\e2e\\generated\\00_marketing.smoke.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b86b911c-1a78-41d1-86e7-7f231cdb9e8a",
+          "title": "Generated: Marketing Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads all marketing routes",
+              "fullTitle": "Generated: Marketing Smoke loads all marketing routes",
+              "timedOut": null,
+              "duration": 957,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.marketing.json\").then(function (cfg) {\n    var baseUrl = Cypress.env(cfg.baseUrlEnv);\n    expect(baseUrl).to.exist;\n    cfg.routes.forEach(function (r) {\n        cy.log(\"\".concat(r.key, \" -> \").concat(r.path));\n        cy.visit(new URL(r.path, baseUrl).toString(), { failOnStatusCode: false });\n        cy.assertNoAppCrash();\n    });\n});",
+              "err": {
+                "message": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+                "estack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131607:74)\n    at visitFailedByErr (http://localhost:5173/__cypress/runner/cypress_runner.js:131006:12)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131606:11)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1720:18)\n    at _drainQueueStep (http://localhost:5173/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (http://localhost:5173/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/00_marketing.smoke.cy.ts:9:0)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16)",
+                "diff": null
+              },
+              "uuid": "7930b537-940f-41d9-b0ee-be8d26eed167",
+              "parentUUID": "b86b911c-1a78-41d1-86e7-7f231cdb9e8a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "7930b537-940f-41d9-b0ee-be8d26eed167"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 957,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

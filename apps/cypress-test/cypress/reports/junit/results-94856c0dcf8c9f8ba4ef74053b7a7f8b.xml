@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.631" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:19:12" tests="0" file="cypress\e2e\40_features\form-validation.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Validation Micro-tests" timestamp="2026-02-10T22:19:12" tests="2" time="2.612" failures="2">
+    <testcase name="Form Validation Micro-tests Login Form: Required fields and email format" time="0.366" classname="Login Form: Required fields and email format">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-validation.cy.ts:8:0)]]></failure>
+    </testcase>
+    <testcase name="Form Validation Micro-tests Register Form: Password mismatch validation" time="0.344" classname="Register Form: Password mismatch validation">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-validation.cy.ts:30:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

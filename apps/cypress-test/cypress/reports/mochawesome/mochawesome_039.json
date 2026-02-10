@@ -1,0 +1,157 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-02-10T22:17:57.143Z",
+    "end": "2026-02-10T22:18:55.028Z",
+    "duration": 57885,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ede9f43b-4a4f-4dc2-a8a8-a4f99461320b",
+      "title": "",
+      "fullFile": "cypress\\e2e\\30_reliability\\state-resilience.cy.ts",
+      "file": "cypress\\e2e\\30_reliability\\state-resilience.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3cc178a0-c7a9-4809-9e7f-132a2de0aa18",
+          "title": "State Resilience & Routing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "State: Dashboard handles 500 server error gracefully",
+              "fullTitle": "State Resilience & Routing State: Dashboard handles 500 server error gracefully",
+              "timedOut": null,
+              "duration": 6738,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept(\"GET\", DASHBOARD_API, {\n    statusCode: 500,\n    body: { message: \"Internal Server Error\" }\n}).as(\"getDashError\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\ncy.wait(\"@getDashError\");\n// Should show error fallback UI\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Failed to load dashboard\");\ncy.get(\"body\").should(\"contain\", \"Try again\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.\n\nhttps://on.cypress.io/wait",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n    at cypressErr (http://localhost:5173/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (http://localhost:5173/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (http://localhost:5173/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (http://localhost:5173/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (http://localhost:5173/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:28:0)",
+                "diff": null
+              },
+              "uuid": "077d2f3b-0bf5-422d-87cf-7d69a02ed512",
+              "parentUUID": "3cc178a0-c7a9-4809-9e7f-132a2de0aa18",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "State: Dashboard handles empty data state",
+              "fullTitle": "State Resilience & Routing State: Dashboard handles empty data state",
+              "timedOut": null,
+              "duration": 441,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept(\"GET\", DASHBOARD_API, {\n    fixture: \"stubs/dashboard.empty.json\"\n}).as(\"getDashEmpty\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\ncy.wait(\"@getDashEmpty\");\n// Should show empty state message\ncy.get(\"body\").should(\"contain\", \"No recent activity to display\");",
+              "err": {
+                "message": "Error: An error was thrown while processing a network event: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\stubs\\dashboard.empty.json\n    > cypress\\fixtures\\stubs\\dashboard.empty.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: An error was thrown while processing a network event: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\stubs\\dashboard.empty.json\n    > cypress\\fixtures\\stubs\\dashboard.empty.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "d7210084-d4dc-442d-9086-eb32c66d8575",
+              "parentUUID": "3cc178a0-c7a9-4809-9e7f-132a2de0aa18",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Routing: Unknown route displays Not Found UI",
+              "fullTitle": "State Resilience & Routing Routing: Unknown route displays Not Found UI",
+              "timedOut": null,
+              "duration": 11805,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/this-page-does-not-exist\");\n// Should see NotFound content\ncy.url().should(\"include\", \"/this-page-does-not-exist\");\ncy.get(\"h1, h2\").should(\"contain\", \"404\");\ncy.get(\"body\").should(\"contain\", \"Page Not Found\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `h1, h2`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `h1, h2`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/state-resilience.cy.ts:35:0)",
+                "diff": null
+              },
+              "uuid": "98fe7d1e-710a-4f0b-81aa-020c70cab59d",
+              "parentUUID": "3cc178a0-c7a9-4809-9e7f-132a2de0aa18",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "077d2f3b-0bf5-422d-87cf-7d69a02ed512",
+            "d7210084-d4dc-442d-9086-eb32c66d8575",
+            "98fe7d1e-710a-4f0b-81aa-020c70cab59d"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 18984,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

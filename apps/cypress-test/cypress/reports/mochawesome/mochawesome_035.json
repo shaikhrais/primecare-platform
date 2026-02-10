@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T22:16:38.789Z",
+    "end": "2026-02-10T22:16:40.082Z",
+    "duration": 1293,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "05e9c420-adb0-44e6-941e-2188d7b12ab7",
+      "title": "",
+      "fullFile": "cypress\\e2e\\10_security\\access.matrix.cy.ts",
+      "file": "cypress\\e2e\\10_security\\access.matrix.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "d676ecbd-6535-49de-92dc-a7dae981c92e",
+          "title": "Access Control Matrix",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "enforces role-based access rules for all routes",
+              "fullTitle": "Access Control Matrix enforces role-based access rules for all routes",
+              "timedOut": null,
+              "duration": 355,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"routes.admin.json\").then(function (adminCfg) {\n    cy.fixture(\"access.matrix.json\").then(function (matrix) {\n        var redirectPath = matrix.redirectWhenDenied;\n        matrix.roles.forEach(function (role) {\n            describe(\"Role: \".concat(role), function () {\n                beforeEach(function () {\n                    cy.loginAs(role);\n                });\n                matrix.rules.forEach(function (rule) {\n                    var route = adminCfg.routes.find(function (r) { return r.key === rule.routeKey; });\n                    if (!route)\n                        return;\n                    var isAllowed = rule.allowed.includes(role);\n                    it(\"\".concat(isAllowed ? 'ALLOWS' : 'DENIES', \" access to \").concat(rule.routeKey, \" (\").concat(route.path, \")\"), function () {\n                        cy.visitAppRoute(adminCfg.baseUrlEnv, route.path);\n                        if (isAllowed) {\n                            cy.url().should(\"not.include\", redirectPath);\n                            // Verify a core element of the target page exists\n                            cy.get(\"body\").should(\"be.visible\");\n                        }\n                        else {\n                            cy.url().should(\"include\", redirectPath);\n                        }\n                    });\n                });\n            });\n        });\n    });\n});",
+              "err": {
+                "message": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.",
+                "estack": "Error: A fixture file could not be found at any of the following paths:\n\n    > cypress\\fixtures\\routes.admin.json\n    > cypress\\fixtures\\routes.admin.json.[ext]\n\nCypress looked for these file extensions at the provided path:\n\n    > .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip\n\nProvide a path to an existing fixture file.\n    at Object.<anonymous> (<embedded>:2771:115826)\n    at Object.tryCatcher (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\util.js:16:23)\n    at Promise._settlePromiseFromHandler (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:512:31)\n    at Promise._settlePromise (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:569:18)\n    at Promise._settlePromise0 (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:614:10)\n    at Promise._settlePromises (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:694:18)\n    at Promise._fulfill (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\promise.js:638:18)\n    at <unknown> (C:\\Users\\User\\AppData\\Local\\Cypress\\Cache\\13.17.0\\Cypress\\resources\\app\\node_modules\\bluebird\\js\\release\\nodeback.js:42:21)\n    at s (<embedded>:227:106085)\n    at T.<anonymous> (<embedded>:2771:105530)\n    at T.emit (node:events:514:28)\n    at T._finish (<embedded>:2771:106397)\n    at i (<embedded>:2771:105793)\n    at T._processSimple2 (<embedded>:2771:111554)\n    at <unknown> (<embedded>:2771:111407)\n    at T._stat2 (<embedded>:2771:112472)\n    at <unknown> (<embedded>:2771:112319)\n    at s (<embedded>:846:24236)\n    at s (<embedded>:227:106085)\n    at r (<embedded>:3031:13485)\n    at FSReqCallback.oncomplete (node:fs:210:21)",
+                "diff": null
+              },
+              "uuid": "815ab60c-7349-4f8c-b37d-c615ad06fb3a",
+              "parentUUID": "d676ecbd-6535-49de-92dc-a7dae981c92e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "815ab60c-7349-4f8c-b37d-c615ad06fb3a"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 355,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
