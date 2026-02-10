@@ -1,4 +1,11 @@
-# PrimeCare Platform Page Route Map
+# PrimeCare Platform Absolute Page Access List
+
+> [!IMPORTANT]
+> **Last Updated**: 2026-02-10
+> **Application Version**: 1.4.3
+> **Total Pages**: 51
+> **Global Coverage**: 100%
+> **Owner**: QA Automation Team
 
 This document provides a complete map of URLs to their corresponding pages and components across the platform.
 

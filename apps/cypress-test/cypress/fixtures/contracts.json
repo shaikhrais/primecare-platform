@@ -1,0 +1,48 @@
+{
+    "LOGIN": [
+        "inp-email",
+        "inp-password",
+        "btn-login"
+    ],
+    "REGISTER": [
+        "inp-email",
+        "inp-password",
+        "inp-confirm-password",
+        "btn-register"
+    ],
+    "DASHBOARD": [
+        "adm-dashboard",
+        "qa-link-users",
+        "qa-link-schedule"
+    ],
+    "USERS": [
+        "btn-invite-user",
+        "tbl-users"
+    ],
+    "SCHEDULE": [
+        "calendar-container",
+        "btn-today"
+    ],
+    "MANAGER_DASH": [
+        "mgr-dashboard",
+        "qa-daily-entry"
+    ],
+    "MANAGER_DAILY": [
+        "daily-entry-page",
+        "client-select",
+        "submit-entry"
+    ],
+    "BOOKINGS": [
+        "btn-request-care",
+        "tbl-bookings"
+    ],
+    "SHIFTS": [
+        "btn-check-in",
+        "tbl-shift-history"
+    ],
+    "CHAT": [
+        "btn-chat-widget-toggle",
+        "chat-contact-name",
+        "btn-chat-contact-submit"
+    ]
+}

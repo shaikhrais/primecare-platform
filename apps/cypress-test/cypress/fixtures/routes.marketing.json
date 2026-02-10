@@ -1,0 +1,76 @@
+{
+    "app": "web-marketing",
+    "baseUrlEnv": "MARKETING_BASE_URL",
+    "routes": [
+        {
+            "key": "HOME",
+            "path": "/",
+            "area": "Customer Hero/Entry"
+        },
+        {
+            "key": "SERVICES",
+            "path": "/services",
+            "area": "Service Overview"
+        },
+        {
+            "key": "SERVICE_FOOT_CARE",
+            "path": "/services/foot-care",
+            "area": "Specialized Care"
+        },
+        {
+            "key": "SERVICE_EDUCATION",
+            "path": "/services/education",
+            "area": "Professional Training"
+        },
+        {
+            "key": "SERVICE_IT",
+            "path": "/services/it-support",
+            "area": "Managed Services"
+        },
+        {
+            "key": "SERVICE_SENIOR",
+            "path": "/services/senior-care",
+            "area": "Personal Care"
+        },
+        {
+            "key": "BLOG",
+            "path": "/blog",
+            "area": "Content/Insights"
+        },
+        {
+            "key": "CONTACT",
+            "path": "/contact",
+            "area": "Lead Generation"
+        },
+        {
+            "key": "ABOUT",
+            "path": "/about",
+            "area": "Company Info"
+        },
+        {
+            "key": "BOOKING",
+            "path": "/book-now",
+            "area": "Online Booking"
+        },
+        {
+            "key": "FAQ",
+            "path": "/faq",
+            "area": "Support"
+        },
+        {
+            "key": "LOGIN",
+            "path": "/login",
+            "area": "Family Auth"
+        },
+        {
+            "key": "LOGIN_CAREGIVER",
+            "path": "/caregiver-login",
+            "area": "PSW Auth"
+        },
+        {
+            "key": "LOGIN_STAFF",
+            "path": "/staff-login",
+            "area": "Admin Auth"
+        }
+    ]
+}

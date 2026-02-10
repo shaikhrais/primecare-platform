@@ -1,0 +1,116 @@
+{
+    "app": "web-admin",
+    "baseUrlEnv": "ADMIN_BASE_URL",
+    "routes": [
+        {
+            "key": "LOGIN",
+            "path": "/login",
+            "auth": "guest"
+        },
+        {
+            "key": "REGISTER",
+            "path": "/register",
+            "auth": "guest"
+        },
+        {
+            "key": "DASHBOARD",
+            "path": "/dashboard",
+            "auth": "staff"
+        },
+        {
+            "key": "USERS",
+            "path": "/users",
+            "auth": "staff"
+        },
+        {
+            "key": "SCHEDULE",
+            "path": "/schedule",
+            "auth": "staff"
+        },
+        {
+            "key": "LEADS",
+            "path": "/leads",
+            "auth": "staff"
+        },
+        {
+            "key": "SERVICES",
+            "path": "/services",
+            "auth": "staff"
+        },
+        {
+            "key": "CONTENT",
+            "path": "/content",
+            "auth": "staff"
+        },
+        {
+            "key": "AUDITS",
+            "path": "/audits",
+            "auth": "staff"
+        },
+        {
+            "key": "CUSTOMERS",
+            "path": "/customers",
+            "auth": "staff"
+        },
+        {
+            "key": "SUPPORT",
+            "path": "/support",
+            "auth": "staff"
+        },
+        {
+            "key": "INCIDENTS",
+            "path": "/incidents",
+            "auth": "staff"
+        },
+        {
+            "key": "TIMESHEETS",
+            "path": "/timesheets",
+            "auth": "staff"
+        },
+        {
+            "key": "SETTINGS",
+            "path": "/settings",
+            "auth": "staff"
+        },
+        {
+            "key": "MANAGER_DASH",
+            "path": "/manager/dashboard",
+            "auth": "manager"
+        },
+        {
+            "key": "MANAGER_DAILY",
+            "path": "/manager/daily-entry",
+            "auth": "manager"
+        },
+        {
+            "key": "BOOKINGS",
+            "path": "/bookings",
+            "auth": "client"
+        },
+        {
+            "key": "BILLING",
+            "path": "/billing",
+            "auth": "client"
+        },
+        {
+            "key": "EARNINGS",
+            "path": "/earnings",
+            "auth": "psw"
+        },
+        {
+            "key": "SHIFTS",
+            "path": "/shifts",
+            "auth": "psw"
+        },
+        {
+            "key": "PROFILE",
+            "path": "/profile",
+            "auth": "any"
+        },
+        {
+            "key": "CHAT",
+            "path": "/support/chat",
+            "auth": "any"
+        }
+    ]
+}

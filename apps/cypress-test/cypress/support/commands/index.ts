@@ -5,3 +5,4 @@ import "./asserts";
 import "./reporting";
 import "./network";
 import "./auth.ui";
+import "./routes";

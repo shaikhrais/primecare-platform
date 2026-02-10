@@ -3,37 +3,44 @@ import { ADM } from "../selectors/admin.cy";
 
 export { };
 
+type Role = "guest" | "client" | "psw" | "manager" | "staff";
+
 declare global {
     namespace Cypress {
         interface Chainable {
+            loginAs(role: Role): Chainable<void>;
             loginAsAdmin(): Chainable<void>;
             loginAsManager(): Chainable<void>;
         }
     }
 }
 
+Cypress.Commands.add("loginAs", (role: Role) => {
+    if (role === "guest") {
+        cy.log("Continuing as guest (skipping login)");
+        return;
+    }
+
+    cy.fixture("users.json").then((users) => {
+        const u = users[role];
+        if (!u) throw new Error(`Missing credentials for role: ${role}`);
+
+        const baseUrl = Cypress.env("ADMIN_BASE_URL") || Cypress.config("baseUrl");
+        cy.visit(`${baseUrl}/login`);
+
+        // Use common selectors for login if they exist, else fallback to ADM/MGR
+        cy.getByCy("inp-email").clear().type(u.email);
+        cy.getByCy("inp-password").clear().type(u.password, { log: false });
+        cy.getByCy("btn-login").click();
+
+        cy.url().should("not.include", "/login");
+    });
+});
+
 Cypress.Commands.add("loginAsAdmin", () => {
-    const baseUrl = Cypress.config("baseUrl");
-    cy.visit(`${baseUrl}/admin/login`);
-    cy.waitForPageReady();
-
-    cy.step("Login as Admin");
-    cy.clearAndTypeByCy(ADM.loginEmail, Cypress.env("ADMIN_EMAIL") || "admin@example.com");
-    cy.clearAndTypeByCy(ADM.loginPassword, Cypress.env("ADMIN_PASSWORD") || "password");
-    cy.clickByCy(ADM.loginSubmit);
-
-    cy.waitForByCy(ADM.dashboard);
+    cy.loginAs("staff");
 });
 
 Cypress.Commands.add("loginAsManager", () => {
-    const baseUrl = Cypress.config("baseUrl");
-    cy.visit(`${baseUrl}/manager/login`);
-    cy.waitForPageReady();
-
-    cy.step("Login as Manager");
-    cy.clearAndTypeByCy(MGR.loginEmail, Cypress.env("MANAGER_EMAIL") || "manager@example.com");
-    cy.clearAndTypeByCy(MGR.loginPassword, Cypress.env("MANAGER_PASSWORD") || "password");
-    cy.clickByCy(MGR.loginSubmit);
-
-    cy.waitForByCy(MGR.dashboard);
+    cy.loginAs("manager");
 });

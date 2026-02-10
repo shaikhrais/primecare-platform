@@ -1,0 +1,117 @@
+{
+    "roles": [
+        "guest",
+        "client",
+        "psw",
+        "manager",
+        "staff"
+    ],
+    "rules": [
+        {
+            "routeKey": "DASHBOARD",
+            "allowed": [
+                "staff",
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "USERS",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "SCHEDULE",
+            "allowed": [
+                "staff",
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "LEADS",
+            "allowed": [
+                "staff",
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "SERVICES",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "AUDITS",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "MANAGER_DASH",
+            "allowed": [
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "MANAGER_DAILY",
+            "allowed": [
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "BOOKINGS",
+            "allowed": [
+                "client"
+            ]
+        },
+        {
+            "routeKey": "BILLING",
+            "allowed": [
+                "client"
+            ]
+        },
+        {
+            "routeKey": "EARNINGS",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "SHIFTS",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "PROFILE",
+            "allowed": [
+                "client",
+                "psw",
+                "manager",
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "CHAT",
+            "allowed": [
+                "client",
+                "psw",
+                "manager",
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "TIMESHEETS",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "SETTINGS",
+            "allowed": [
+                "staff"
+            ]
+        }
+    ],
+    "redirectWhenDenied": "/login"
+}
