@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ProfilePage() {
     const { showToast } = useNotification();
-    const [profile, setProfile] = useState<any>(null);
+    const [profile, setProfile] = useState<any>({ user: {} });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
@@ -16,13 +16,16 @@ export default function ProfilePage() {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const endpoint = role === 'psw' ? '/v1/psw/profile' : '/v1/client/profile';
+            const endpoint = role === 'psw' ? '/v1/psw/profile' : role === 'admin' || role === 'staff' ? '/v1/user/profile' : '/v1/client/profile';
             const response = await fetch(`${API_URL}${endpoint}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
                 const data = await response.json();
                 setProfile(data);
+            } else if (response.status === 403 || response.status === 404) {
+                // Fallback to local user data if profile endpoint not found for this role
+                setProfile({ ...user, fullName: user.fullName || user.email?.split('@')[0] });
             }
         } catch (error) {
             console.error('Failed to fetch profile', error);

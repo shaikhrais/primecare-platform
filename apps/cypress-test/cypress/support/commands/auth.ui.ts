@@ -28,7 +28,6 @@ Cypress.Commands.add("loginAs", (role: Role) => {
         const baseUrl = Cypress.env("ADMIN_BASE_URL") || Cypress.config("baseUrl");
         cy.visit(`${baseUrl}/login`);
 
-        // Use common selectors for login if they exist, else fallback to ADM/MGR
         cy.getByCy("inp-email").clear().type(u.email);
         cy.getByCy("inp-password").clear().type(u.password, { log: false });
         cy.getByCy("btn-login").click();

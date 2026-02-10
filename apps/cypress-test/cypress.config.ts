@@ -18,5 +18,10 @@ export default defineConfig({
         defaultCommandTimeout: 10000,
         pageLoadTimeout: 60000,
         retries: { runMode: 2, openMode: 0 },
+        env: {
+            ADMIN_BASE_URL: "http://localhost:5173",
+            MARKETING_BASE_URL: "http://localhost:5174",
+            API_BASE_URL: "http://localhost:8787",
+        },
     },
 });
