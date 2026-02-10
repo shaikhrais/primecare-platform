@@ -1,0 +1,20 @@
+[
+    {
+        "id": "user-001",
+        "email": "walker.j@primecare.ca",
+        "role": "psw",
+        "status": "verified",
+        "PswProfile": {
+            "fullName": "John Walker"
+        }
+    },
+    {
+        "id": "user-002",
+        "email": "staff.s@primecare.ca",
+        "role": "admin",
+        "status": "verified",
+        "AdminProfile": {
+            "fullName": "Sarah Staff"
+        }
+    }
+]

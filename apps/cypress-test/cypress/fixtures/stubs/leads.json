@@ -1,0 +1,20 @@
+[
+    {
+        "id": "lead-001",
+        "fullName": "Jane Doe",
+        "email": "jane@example.com",
+        "phone": "555-0199",
+        "message": "I'm interested in home care for my mother.",
+        "status": "new",
+        "createdAt": "2026-02-10T10:00:00Z"
+    },
+    {
+        "id": "lead-002",
+        "fullName": "Bob Smith",
+        "email": "bob@provider.com",
+        "phone": "555-0102",
+        "message": "Enquiring about senior care services.",
+        "status": "contacted",
+        "createdAt": "2026-02-09T14:30:00Z"
+    }
+]
