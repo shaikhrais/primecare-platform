@@ -1,5 +1,5 @@
-import { MGR } from "../selectors/manager.cy";
-import { ADM } from "../selectors/admin.cy";
+import { SELECTORS } from "../selectors";
+const { MANAGER: MGR, ADMIN: ADM } = SELECTORS;
 
 export { };
 

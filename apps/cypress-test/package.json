@@ -7,9 +7,13 @@
         "cy:run": "cypress run",
         "report:merge": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome.json",
         "report:html": "marge cypress/reports/mochawesome.json -f index -o cypress/reports/html",
-        "test:smoke": "cypress run --spec \"cypress/e2e/**/smoke/*.cy.ts\"",
-        "test:regression": "cypress run --spec \"cypress/e2e/**/regression/*.cy.ts\"",
-        "test:ci": "cypress run && npm run report:merge && npm run report:html"
+        "test:smoke": "cypress run --env grepTags=@smoke",
+        "test:security": "cypress run --env grepTags=@security",
+        "test:regression": "cypress run --env grepTags=@regression",
+        "test:ci": "cypress run && npm run report:merge && npm run report:html",
+        "cy:smoke": "npm run test:smoke",
+        "cy:security": "npm run test:security",
+        "cy:regression": "npm run test:regression"
     },
     "devDependencies": {
         "cypress": "^13.6.4",

@@ -1,3 +1,4 @@
+/// <reference path="../../support/index.d.ts" />
 describe("Admin/Portal Routes Smoke", { tags: ["@smoke", "@admin"] }, () => {
     const rolesToCheck = ["guest", "staff"] as const;
 

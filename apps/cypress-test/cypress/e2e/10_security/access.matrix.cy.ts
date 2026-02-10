@@ -1,3 +1,4 @@
+/// <reference path="../../support/index.d.ts" />
 type Role = "guest" | "client" | "psw" | "manager" | "staff";
 
 describe("Access Control Matrix", { tags: ["@security", "@regression"] }, () => {

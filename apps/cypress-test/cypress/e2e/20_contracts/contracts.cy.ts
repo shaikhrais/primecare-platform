@@ -1,3 +1,4 @@
+/// <reference path="../../support/index.d.ts" />
 describe("Page Contracts (data-cy Verification)", { tags: ["@contract", "@smoke"] }, () => {
     it("verifies that all contracted pages have their required UI elements", () => {
         cy.fixture("routes.admin.json").then((adminCfg) => {
