@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="16.479" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-10T23:29:47" tests="0" file="cypress\e2e\generated\01_admin.smoke.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Admin Smoke" timestamp="2026-02-10T23:29:47" tests="1" time="16.453" failures="0">
+    <testcase name="Generated: Admin Smoke guest routes load and protected routes redirect" time="16.022" classname="guest routes load and protected routes redirect">
+    </testcase>
+  </testsuite>
+</testsuites>

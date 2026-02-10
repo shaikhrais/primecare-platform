@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T23:17:40.538Z",
+    "end": "2026-02-10T23:17:44.666Z",
+    "duration": 4128,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "96bf8e7b-577c-4776-9484-eeeecc687cb4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\admin.routes.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\admin.routes.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f2bc4691-784f-403b-9a37-cddf07d7ea29",
+          "title": "Admin/Portal Routes Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads core routes as guest",
+              "fullTitle": "Admin/Portal Routes Smoke loads core routes as guest",
+              "timedOut": null,
+              "duration": 2357,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    cy.loginAs(role);\n    // For smoke test, we only check a representative subset of routes per role\n    // to keep the suite fast. Full matrix is in 10_security.\n    var smokeRoutes = role === \"guest\"\n        ? cfg.routes.filter(function (r) { return r.auth === \"guest\"; })\n        : cfg.routes.filter(function (r) { return [\"staff\", \"any\"].includes(r.auth); });\n    smokeRoutes.forEach(function (r) {\n        cy.log(\"[\".concat(role, \"] Testing Route: \").concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        if (role !== \"guest\") {\n            cy.getByCy(\"sidebar\").should(\"be.visible\");\n        }\n    });\n});",
+              "err": {},
+              "uuid": "4cd5314e-9341-4e9b-a5b4-2ba5f23236fc",
+              "parentUUID": "f2bc4691-784f-403b-9a37-cddf07d7ea29",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "loads core routes as staff",
+              "fullTitle": "Admin/Portal Routes Smoke loads core routes as staff",
+              "timedOut": null,
+              "duration": 446,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    cy.loginAs(role);\n    // For smoke test, we only check a representative subset of routes per role\n    // to keep the suite fast. Full matrix is in 10_security.\n    var smokeRoutes = role === \"guest\"\n        ? cfg.routes.filter(function (r) { return r.auth === \"guest\"; })\n        : cfg.routes.filter(function (r) { return [\"staff\", \"any\"].includes(r.auth); });\n    smokeRoutes.forEach(function (r) {\n        cy.log(\"[\".concat(role, \"] Testing Route: \").concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        if (role !== \"guest\") {\n            cy.getByCy(\"sidebar\").should(\"be.visible\");\n        }\n    });\n});",
+              "err": {
+                "message": "Error: Login failed for staff: \"Internal Server Error\"",
+                "estack": "Error: Login failed for staff: \"Internal Server Error\"\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:25:0)",
+                "diff": null
+              },
+              "uuid": "8c468feb-4f00-4ea3-ae9a-92d81feb837e",
+              "parentUUID": "f2bc4691-784f-403b-9a37-cddf07d7ea29",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "4cd5314e-9341-4e9b-a5b4-2ba5f23236fc"
+          ],
+          "failures": [
+            "8c468feb-4f00-4ea3-ae9a-92d81feb837e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2803,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

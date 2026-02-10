@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="9.281" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-10T23:34:49" tests="0" file="cypress\e2e\debug\api-check.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="API Connectivity Check" timestamp="2026-02-10T23:34:49" tests="2" time="9.262" failures="0">
+    <testcase name="API Connectivity Check can reach the API root" time="0.468" classname="can reach the API root">
+    </testcase>
+    <testcase name="API Connectivity Check verifies VITE_API_URL usage in app" time="4.840" classname="verifies VITE_API_URL usage in app">
+    </testcase>
+  </testsuite>
+</testsuites>

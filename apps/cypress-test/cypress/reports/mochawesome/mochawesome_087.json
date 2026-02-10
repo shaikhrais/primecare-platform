@@ -1,0 +1,126 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-02-10T23:25:43.869Z",
+    "end": "2026-02-10T23:25:50.971Z",
+    "duration": 7102,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9340535e-410e-4365-8142-41afe216fa1b",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\health.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\health.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "15ab6d08-0f1c-441a-b9ac-0dd1f85b2f3c",
+          "title": "Platform Health & Console Integrity",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Boot: Admin app boot check",
+              "fullTitle": "Platform Health & Console Integrity Boot: Admin app boot check",
+              "timedOut": null,
+              "duration": 795,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/login\");\n// 1. Ensure no white screen\ncy.get(\"#root\").should(\"not.be.empty\");\n// 2. Ensure basic UI elements ready\ncy.getByCy(\"inp-email\").should(\"be.visible\");\n// 3. No critical errors caught by support/e2e handler\ncy.assertNoAppCrash();",
+              "err": {},
+              "uuid": "57898381-d98c-4bca-a21b-aed92ddf1f15",
+              "parentUUID": "15ab6d08-0f1c-441a-b9ac-0dd1f85b2f3c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Boot: Marketing app boot check",
+              "fullTitle": "Platform Health & Console Integrity Boot: Marketing app boot check",
+              "timedOut": null,
+              "duration": 1459,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitRoute(\"MARKETING_BASE_URL\", \"/\");\n// 1. Ensure marketing site rendered\ncy.get(\"header\").should(\"be.visible\");\ncy.get(\"footer\").should(\"be.visible\");\n// 2. No crashes\ncy.assertNoAppCrash();",
+              "err": {},
+              "uuid": "5d7a642b-af96-4641-b7da-a44c0c211d6a",
+              "parentUUID": "15ab6d08-0f1c-441a-b9ac-0dd1f85b2f3c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "57898381-d98c-4bca-a21b-aed92ddf1f15",
+            "5d7a642b-af96-4641-b7da-a44c0c211d6a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 2254,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

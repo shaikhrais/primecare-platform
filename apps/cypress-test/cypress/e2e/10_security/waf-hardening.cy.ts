@@ -13,7 +13,7 @@ describe("Security & WAF Hardening", { tags: ["@security", "@waf"] }, () => {
 
     it("WAF: Verify Security Headers in server response", () => {
         cy.request({
-            url: Cypress.env("ADMIN_BASE_URL") || "http://localhost:5173",
+            url: Cypress.env("ADMIN_BASE_URL"),
             method: "GET"
         }).then((response) => {
             // Essential security headers

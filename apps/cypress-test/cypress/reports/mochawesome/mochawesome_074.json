@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T23:18:33.616Z",
+    "end": "2026-02-10T23:19:10.653Z",
+    "duration": 37037,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "15423166-d4fc-4b9a-91e6-b0923788d54f",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "afa05bfe-63ac-48f7-ae11-c89a00f12f78",
+          "title": "Marketing Routes Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads every marketing page without blank screen",
+              "fullTitle": "Marketing Routes Smoke loads every marketing page without blank screen",
+              "timedOut": null,
+              "duration": 10955,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.marketing.json\").then(function (cfg) {\n    cfg.routes.forEach(function (r) {\n        cy.log(\"Testing Route: \".concat(r.key, \" -> \").concat(r.path));\n        cy.visitAppRoute(cfg.baseUrlEnv, r.path);\n        // Professional health check\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"Application error\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n        // Ensure layout elements are present\n        cy.getByCy(\"logo-link\").should(\"exist\");\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"logo-link\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"logo-link\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/marketing.routes.cy.ts:13:0)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/marketing.routes.cy.ts:5:0)",
+                "diff": null
+              },
+              "uuid": "597c410d-ae37-4b9f-a70c-dfb71cb3ce8e",
+              "parentUUID": "afa05bfe-63ac-48f7-ae11-c89a00f12f78",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "597c410d-ae37-4b9f-a70c-dfb71cb3ce8e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 10955,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

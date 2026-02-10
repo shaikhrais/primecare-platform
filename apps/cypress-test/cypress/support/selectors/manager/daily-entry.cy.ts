@@ -1,11 +1,13 @@
 export const MGR_DAILY = {
-    page: "daily-entry-page",
+    dailyEntryPage: "daily-entry-page",
     clientSelect: "client-select",
     adlPrefix: "adl-",
+    adlBathing: "adl-bathing",
+    adlFeeding: "adl-feeding",
     vitalsBp: "vitals-bp",
     vitalsPulse: "vitals-pulse",
     vitalsTemp: "vitals-temp",
     notes: "notes",
     signature: "signature",
-    btnSubmit: "submit-entry",
+    submitEntry: "submit-entry",
 };

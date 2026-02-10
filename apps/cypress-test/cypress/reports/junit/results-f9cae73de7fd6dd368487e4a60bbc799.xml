@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="38.431" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-10T23:17:49" tests="0" file="cypress\e2e\00_smoke\health.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Platform Health &amp; Console Integrity" timestamp="2026-02-10T23:17:49" tests="2" time="38.417" failures="1">
+    <testcase name="Platform Health &amp; Console Integrity Boot: Admin app boot check" time="11.094" classname="Boot: Admin app boot check">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;inp-email&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="inp-email"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:12:0)]]></failure>
+    </testcase>
+    <testcase name="Platform Health &amp; Console Integrity Boot: Marketing app boot check" time="1.015" classname="Boot: Marketing app boot check">
+    </testcase>
+  </testsuite>
+</testsuites>

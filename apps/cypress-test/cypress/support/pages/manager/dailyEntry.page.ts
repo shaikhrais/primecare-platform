@@ -1,4 +1,6 @@
-import { MGR } from "../../selectors/manager.cy";
+import { SELECTORS } from "../../selectors";
+const MGR = SELECTORS.MANAGER.DAILY_ENTRY;
+const { COMMON } = SELECTORS;
 
 export const DailyEntryPage = {
     open() {
@@ -31,7 +33,7 @@ export const DailyEntryPage = {
         cy.step("Submit daily entry");
         cy.clearAndTypeByCy(MGR.signature, signature);
         cy.clickByCy(MGR.submitEntry);
-        cy.waitForByCy(MGR.toast);
-        cy.getByCy(MGR.toast).should("contain.text", "Submitted");
+        cy.waitForByCy(COMMON.toast);
+        cy.getByCy(COMMON.toast).should("contain.text", "Submitted");
     },
 };

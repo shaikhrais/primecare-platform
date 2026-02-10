@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="71.950" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T23:27:47" tests="0" file="cypress\e2e\40_features\seo-responsive.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="SEO &amp; Responsive Verification" timestamp="2026-02-10T23:27:47" tests="2" time="71.922" failures="2">
+    <testcase name="SEO &amp; Responsive Verification SEO: Verify Title, Meta Description and H1 tags" time="11.312" classname="SEO: Verify Title, Meta Description and H1 tags">
+      <failure message="Timed out retrying after 10000ms: expected &apos;PrimeCare Health Services - Compassionate Healthcare at Home&apos; to equal &apos;PrimeCare - Compassionate Care Solutions&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: expected 'PrimeCare Health Services - Compassionate Healthcare at Home' to equal 'PrimeCare - Compassionate Care Solutions'
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/seo-responsive.cy.ts:16:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/seo-responsive.cy.ts:13:0)
+
+      + expected - actual
+
+      -'PrimeCare Health Services - Compassionate Healthcare at Home'
+      +'PrimeCare - Compassionate Care Solutions'
+      ]]></failure>
+    </testcase>
+    <testcase name="SEO &amp; Responsive Verification Responsive: Mobile menu visibility at 375x667" time="10.869" classname="Responsive: Mobile menu visibility at 375x667">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;desktop-nav&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="desktop-nav"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/seo-responsive.cy.ts:29:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
