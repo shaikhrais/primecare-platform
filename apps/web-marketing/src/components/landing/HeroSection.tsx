@@ -71,6 +71,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                     <Link
                         to={RouteRegistry.BOOKING}
+                        data-cy="hero-cta-primary"
                         style={{
                             padding: '1.25rem 2.5rem',
                             backgroundColor: 'white',
@@ -86,6 +87,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                     </Link>
                     <Link
                         to={RouteRegistry.SERVICES}
+                        data-cy="hero-cta-secondary"
                         style={{
                             padding: '1.25rem 2.5rem',
                             backgroundColor: 'transparent',

@@ -57,13 +57,13 @@ export default function ContactPage() {
                     <h2 style={{ color: '#333', marginBottom: '1.5rem' }}>Send us a Message</h2>
 
                     {status === 'success' && (
-                        <div style={{ padding: '1rem', backgroundColor: '#e8f5e9', borderRadius: '8px', marginBottom: '1rem', color: '#2e7d32' }}>
+                        <div data-cy="contact-success" style={{ padding: '1rem', backgroundColor: '#e8f5e9', borderRadius: '8px', marginBottom: '1rem', color: '#2e7d32' }}>
                             Thank you! We'll be in touch shortly.
                         </div>
                     )}
 
                     {status === 'error' && (
-                        <div style={{ padding: '1rem', backgroundColor: '#ffebee', borderRadius: '8px', marginBottom: '1rem', color: '#c62828' }}>
+                        <div data-cy="contact-error" style={{ padding: '1rem', backgroundColor: '#ffebee', borderRadius: '8px', marginBottom: '1rem', color: '#c62828' }}>
                             Something went wrong. Please try again.
                         </div>
                     )}
@@ -72,6 +72,7 @@ export default function ContactPage() {
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>{ContentRegistry.CONTACT.FORM.NAME}</label>
                             <input
+                                data-cy="inp-name"
                                 type="text"
                                 required
                                 value={formData.full_name}
@@ -82,6 +83,7 @@ export default function ContactPage() {
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>{ContentRegistry.CONTACT.FORM.EMAIL}</label>
                             <input
+                                data-cy="inp-email"
                                 type="email"
                                 required
                                 value={formData.email}
@@ -92,6 +94,7 @@ export default function ContactPage() {
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Phone (Optional)</label>
                             <input
+                                data-cy="inp-phone"
                                 type="tel"
                                 value={formData.phone}
                                 onChange={e => setFormData(prev => ({ ...prev, phone: e.target.value }))}
@@ -101,6 +104,7 @@ export default function ContactPage() {
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>{ContentRegistry.CONTACT.FORM.MESSAGE}</label>
                             <textarea
+                                data-cy="inp-message"
                                 rows={5}
                                 required
                                 value={formData.message}
@@ -109,6 +113,7 @@ export default function ContactPage() {
                             />
                         </div>
                         <button
+                            data-cy="btn-submit-contact"
                             type="submit"
                             disabled={status === 'sending'}
                             style={{

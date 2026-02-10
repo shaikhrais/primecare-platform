@@ -41,6 +41,7 @@ export function CTASection({
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                         <Link
                             to={primaryCTA.link}
+                            data-cy="cta-primary"
                             style={{
                                 padding: '1rem 2rem',
                                 backgroundColor: '#00897b',
@@ -63,6 +64,7 @@ export function CTASection({
                         </Link>
                         <Link
                             to={secondaryCTA.link}
+                            data-cy="cta-secondary"
                             style={{
                                 padding: '1rem 2rem',
                                 backgroundColor: 'white',

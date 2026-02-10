@@ -221,6 +221,7 @@ export default function Header() {
                     <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                         {/* Full Screen Toggle */}
                         <button
+                            data-cy="btn-fullscreen"
                             onClick={toggleFullscreen}
                             title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                             style={{
@@ -253,6 +254,7 @@ export default function Header() {
                             <span style={{ fontSize: '0.7rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 800 }}>Mode</span>
                             <select
                                 id="themePick"
+                                data-cy="theme-selector"
                                 defaultValue={localStorage.getItem('psw_theme') || 'midnight'}
                                 onChange={(e) => {
                                     const v = e.target.value;
@@ -288,9 +290,9 @@ export default function Header() {
                         </a>
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <Link to={RouteRegistry.LOGIN} style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Family Portal</Link>
+                        <Link to={RouteRegistry.LOGIN} data-cy="link-family-portal" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Family Portal</Link>
                         <span style={{ opacity: 0.3 }}>|</span>
-                        <Link to={RouteRegistry.LOGIN_STAFF} style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Staff Hub</Link>
+                        <Link to={RouteRegistry.LOGIN_STAFF} data-cy="link-staff-hub" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Staff Hub</Link>
                     </div>
                 </div>
             </div>
@@ -306,7 +308,7 @@ export default function Header() {
                 height: 'var(--header-height)',
             }}>
                 {/* Logo */}
-                <Link to={RouteRegistry.HOME} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                <Link to={RouteRegistry.HOME} data-cy="logo-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                     <img
                         src="/logo.png"
                         alt="PrimeCare Logo"
@@ -327,7 +329,7 @@ export default function Header() {
                     <Dropdown {...servicesMenu} />
                     <Dropdown {...educationMenu} />
 
-                    <Link to={RouteRegistry.SERVICE_IT} style={{
+                    <Link to={RouteRegistry.SERVICE_IT} data-cy="nav-healthtech" style={{
                         textDecoration: 'none',
                         color: 'var(--text)',
                         fontWeight: 600,
@@ -337,6 +339,7 @@ export default function Header() {
 
                     <Link
                         to={RouteRegistry.BOOKING}
+                        data-cy="btn-book-assessment"
                         className="btn btn-primary"
                         style={{
                             padding: '0.7rem 1.75rem',
@@ -351,7 +354,7 @@ export default function Header() {
                 </nav>
 
                 {/* Mobile Toggle */}
-                <button className="mobile-toggle" onClick={toggleMenu} style={{ background: 'none', border: 'none', fontSize: '1.75rem', cursor: 'pointer', color: 'var(--primary)' }}>
+                <button className="mobile-toggle" data-cy="btn-mobile-menu" onClick={toggleMenu} style={{ background: 'none', border: 'none', fontSize: '1.75rem', cursor: 'pointer', color: 'var(--primary)' }}>
                     {isMobileMenuOpen ? '✕' : '☰'}
                 </button>
             </div>

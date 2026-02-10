@@ -14,7 +14,7 @@ export default function CaregiverLoginPage() {
                 </p>
 
                 <div style={{ display: 'grid', gap: '20px' }}>
-                    <a href="https://primecare-admin.pages.dev/login?role=psw" style={{
+                    <a href="https://primecare-admin.pages.dev/login?role=psw" data-cy="link-psw-portal" style={{
                         backgroundColor: '#00897b', color: 'white', padding: '16px', borderRadius: '8px',
                         textDecoration: 'none', fontWeight: 'bold', fontSize: '1.2rem', transition: 'transform 0.2s'
                     }}>
