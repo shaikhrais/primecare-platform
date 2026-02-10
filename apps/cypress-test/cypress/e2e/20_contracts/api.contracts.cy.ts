@@ -40,7 +40,7 @@ describe("API Contract Verification (UI-less)", { tags: ["@api", "@smoke"] }, ()
                     }).then((statsResp) => {
                         expect(statsResp.status).to.eq(200);
                         // Stats often contain counts
-                        expect(statsResp.body).to.have.property("userCount");
+                        expect(statsResp.body).to.have.property("totalUsers");
                     });
                 });
         });

@@ -1,0 +1,126 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-02-10T22:48:33.589Z",
+    "end": "2026-02-10T22:48:34.321Z",
+    "duration": 732,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "627b981b-5f51-4870-8cf1-c00861b12505",
+      "title": "",
+      "fullFile": "cypress\\e2e\\20_contracts\\api.contracts.cy.ts",
+      "file": "cypress\\e2e\\20_contracts\\api.contracts.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ac026c5f-58f1-44f1-9ad3-3d86359ac5b0",
+          "title": "API Contract Verification (UI-less)",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET /user/profile returns correct identity shape",
+              "fullTitle": "API Contract Verification (UI-less) GET /user/profile returns correct identity shape",
+              "timedOut": null,
+              "duration": 197,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"users.json\").then(function (users) {\n    var u = users.staff;\n    // 1. Get token via request (fast)\n    cy.request({\n        method: \"POST\",\n        url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/auth/login\"),\n        body: { email: u.email, password: u.password }\n    }).then(function (resp) {\n        var token = resp.body.token;\n        // 2. Verify Profile contract\n        cy.request({\n            method: \"GET\",\n            url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/user/profile\"),\n            headers: { Authorization: \"Bearer \".concat(token) }\n        }).then(function (profileResp) {\n            expect(profileResp.status).to.eq(200);\n            expect(profileResp.body).to.have.property(\"email\", u.email);\n            expect(profileResp.body).to.have.any.keys(\"id\", \"role\", \"profile\");\n        });\n    });\n});",
+              "err": {},
+              "uuid": "b2ea1c78-2a95-4bc1-8681-f9f18e77a1ee",
+              "parentUUID": "ac026c5f-58f1-44f1-9ad3-3d86359ac5b0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET /admin/stats returns expected keys",
+              "fullTitle": "API Contract Verification (UI-less) GET /admin/stats returns expected keys",
+              "timedOut": null,
+              "duration": 424,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"users.json\").then(function (users) {\n    var u = users.staff;\n    cy.request(\"POST\", \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/auth/login\"), { email: u.email, password: u.password })\n        .then(function (resp) {\n        cy.request({\n            method: \"GET\",\n            url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/admin/stats\"),\n            headers: { Authorization: \"Bearer \".concat(resp.body.token) }\n        }).then(function (statsResp) {\n            expect(statsResp.status).to.eq(200);\n            // Stats often contain counts\n            expect(statsResp.body).to.have.property(\"totalUsers\");\n        });\n    });\n});",
+              "err": {},
+              "uuid": "245a31d9-79f5-4894-9ba6-4ba6b48cee26",
+              "parentUUID": "ac026c5f-58f1-44f1-9ad3-3d86359ac5b0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b2ea1c78-2a95-4bc1-8681-f9f18e77a1ee",
+            "245a31d9-79f5-4894-9ba6-4ba6b48cee26"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 621,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

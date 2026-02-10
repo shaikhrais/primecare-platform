@@ -9,7 +9,7 @@ describe("Authentication Reliability Flows", { tags: ["@reliability", "@smoke"] 
     });
 
     it("Redirection: Guest accessing protected route is sent to /login", () => {
-        cy.fixture("routes.admin.json").then((cfg) => {
+        cy.fixture("registry/routes.admin.json").then((cfg) => {
             // Pick a staff-protected route
             const protectedRoute = cfg.routes.find((r: any) => r.auth === "staff");
 
@@ -22,7 +22,7 @@ describe("Authentication Reliability Flows", { tags: ["@reliability", "@smoke"] 
     });
 
     it("Deep-Linking: Redirects back to intended page after login", () => {
-        cy.fixture("routes.admin.json").then((cfg) => {
+        cy.fixture("registry/routes.admin.json").then((cfg) => {
             const intendedPath = "/users";
 
             // 1. Attempt to visit protected page as guest
@@ -43,7 +43,7 @@ describe("Authentication Reliability Flows", { tags: ["@reliability", "@smoke"] 
     });
 
     it("Security: Logout clears session and blocks access", () => {
-        cy.fixture("routes.admin.json").then((cfg) => {
+        cy.fixture("registry/routes.admin.json").then((cfg) => {
             // 1. Login as staff
             cy.loginAs("staff");
             cy.visitAppRoute(cfg.baseUrlEnv, "/dashboard");

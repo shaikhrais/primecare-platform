@@ -1,7 +1,7 @@
 /// <reference path="../../support/index.d.ts" />
 describe("Page Contracts (data-cy Verification)", { tags: ["@contract", "@smoke"] }, () => {
     it("verifies that all contracted pages have their required UI elements", () => {
-        cy.fixture("routes.admin.json").then((adminCfg) => {
+        cy.fixture("registry/routes.admin.json").then((adminCfg) => {
             cy.fixture("contracts.json").then((contracts) => {
                 // Run contract checks as 'staff' to ensure most pages are accessible
                 cy.loginAs("staff");

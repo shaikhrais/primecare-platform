@@ -60,7 +60,7 @@ export default function Schedule() {
                     const end = new Date(start.getTime() + visit.durationMinutes * 60000);
                     return {
                         id: visit.id,
-                        title: `${visit.client.fullName} (${visit.status})`,
+                        title: `${visit.client?.fullName || 'Unknown Client'} (${visit.status})`,
                         start,
                         end,
                         resource: visit,
@@ -211,7 +211,7 @@ export default function Schedule() {
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }}>
                         <h3 style={{ marginTop: 0 }}>{ContentRegistry.SCHEDULE.ACTIONS.ASSIGN}</h3>
                         <div style={{ margin: '1rem 0' }}>
-                            <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Client:</strong> {selectedVisit.client.fullName}</p>
+                            <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Client:</strong> {selectedVisit.client?.fullName || 'N/A'}</p>
                             <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Visit:</strong> {new Date(selectedVisit.requestedStartAt).toLocaleString()}</p>
                             <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Status:</strong> {selectedVisit.status.toUpperCase()}</p>
                         </div>

@@ -25,6 +25,8 @@ Cypress.on('window:before:load', (win) => {
 
         // Ignore specific non-critical warnings that might be logged as errors
         if (errorMsg.includes('ReactDOM.render is no longer supported')) return;
+        if (errorMsg.includes('Warning: ReactDOM.render')) return;
+        if (errorMsg.includes('reactjs.org/link/switch-to-createroot')) return;
 
         throw new Error(`Browser Console Error: ${errorMsg}`);
     });

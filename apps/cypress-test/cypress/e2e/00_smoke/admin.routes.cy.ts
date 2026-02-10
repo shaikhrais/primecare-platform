@@ -4,7 +4,7 @@ describe("Admin/Portal Routes Smoke", { tags: ["@smoke", "@admin"] }, () => {
 
     rolesToCheck.forEach((role) => {
         it(`loads core routes as ${role}`, () => {
-            cy.fixture("routes.admin.json").then((cfg) => {
+            cy.fixture("registry/routes.admin.json").then((cfg) => {
                 cy.loginAs(role);
 
                 // For smoke test, we only check a representative subset of routes per role

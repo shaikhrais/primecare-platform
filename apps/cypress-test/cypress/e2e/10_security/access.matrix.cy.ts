@@ -1,13 +1,13 @@
 /// <reference path="../../support/index.d.ts" />
-type Role = "guest" | "client" | "psw" | "manager" | "staff";
+type TestRole = "guest" | "client" | "psw" | "manager" | "staff";
 
 describe("Access Control Matrix", { tags: ["@security", "@regression"] }, () => {
     it("enforces role-based access rules for all routes", () => {
-        cy.fixture("routes.admin.json").then((adminCfg) => {
+        cy.fixture("registry/routes.admin.json").then((adminCfg) => {
             cy.fixture("access.matrix.json").then((matrix) => {
                 const redirectPath = matrix.redirectWhenDenied;
 
-                (matrix.roles as Role[]).forEach((role) => {
+                (matrix.roles as TestRole[]).forEach((role) => {
                     describe(`Role: ${role}`, () => {
                         beforeEach(() => {
                             cy.loginAs(role);

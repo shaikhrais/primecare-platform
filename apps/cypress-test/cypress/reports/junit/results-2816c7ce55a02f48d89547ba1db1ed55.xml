@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.732" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:48:33" tests="0" file="cypress\e2e\20_contracts\api.contracts.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="API Contract Verification (UI-less)" timestamp="2026-02-10T22:48:33" tests="2" time="0.713" failures="0">
+    <testcase name="API Contract Verification (UI-less) GET /user/profile returns correct identity shape" time="0.197" classname="GET /user/profile returns correct identity shape">
+    </testcase>
+    <testcase name="API Contract Verification (UI-less) GET /admin/stats returns expected keys" time="0.424" classname="GET /admin/stats returns expected keys">
+    </testcase>
+  </testsuite>
+</testsuites>

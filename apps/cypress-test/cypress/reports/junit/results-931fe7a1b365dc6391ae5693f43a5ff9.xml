@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="43.831" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:53:42" tests="0" file="cypress\e2e\40_features\admin-tables.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin Table Interactions" timestamp="2026-02-10T22:53:42" tests="2" time="43.818" failures="2">
+    <testcase name="Admin Table Interactions Leads Table: Status update transition" time="7.241" classname="Leads Table: Status update transition">
+      <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getLeads`. No request ever occurred.
+
+https://on.cypress.io/wait" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getLeads`. No request ever occurred.
+
+https://on.cypress.io/wait
+    at cypressErr (http://localhost:5173/__cypress/runner/cypress_runner.js:76065:18)
+    at Object.errByPath (http://localhost:5173/__cypress/runner/cypress_runner.js:76119:10)
+    at checkForXhr (http://localhost:5173/__cypress/runner/cypress_runner.js:135342:84)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135368:28)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (http://localhost:5173/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (http://localhost:5173/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:28:0)]]></failure>
+    </testcase>
+    <testcase name="Admin Table Interactions Users Table: ID Verification flow (PSW)" time="6.856" classname="Users Table: ID Verification flow (PSW)">
+      <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsers`. No request ever occurred.
+
+https://on.cypress.io/wait" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsers`. No request ever occurred.
+
+https://on.cypress.io/wait
+    at cypressErr (http://localhost:5173/__cypress/runner/cypress_runner.js:76065:18)
+    at Object.errByPath (http://localhost:5173/__cypress/runner/cypress_runner.js:76119:10)
+    at checkForXhr (http://localhost:5173/__cypress/runner/cypress_runner.js:135342:84)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135368:28)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (http://localhost:5173/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (http://localhost:5173/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:28:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

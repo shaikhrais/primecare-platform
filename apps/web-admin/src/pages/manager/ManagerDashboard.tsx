@@ -115,8 +115,8 @@ export default function ManagerDashboard() {
                                 {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </div>
                             <div style={{ flex: 1 }}>
-                                <div style={{ fontWeight: 700 }}>{shift.client.fullName}</div>
-                                <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service.name} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
+                                <div style={{ fontWeight: 700 }}>{shift.client?.fullName || 'Untitled Client'}</div>
+                                <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
                             </div>
                             <button data-cy={`btn-view-shift-${shift.id}`} className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
                         </div>

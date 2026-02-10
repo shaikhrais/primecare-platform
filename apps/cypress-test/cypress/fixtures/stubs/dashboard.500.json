@@ -1,0 +1,5 @@
+{
+    "message": "Internal Server Error",
+    "code": "INTERNAL_ERROR",
+    "requestId": "test-request-id"
+}

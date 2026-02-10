@@ -9,7 +9,7 @@
   "scripts": {
     "dev:api": "npm run dev --workspace=@primecare/worker-api",
     "dev:admin": "npm run dev --workspace=@primecare/web-admin",
-    "dev:web": "npm run dev --workspace=@primecare/web-marketing"
+    "dev:web": "npm run dev --workspace=prime-care-web-marketing"
   },
   "dependencies": {
     "@fastify/busboy": "^3.2.0",

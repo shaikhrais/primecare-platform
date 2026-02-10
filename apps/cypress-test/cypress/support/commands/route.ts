@@ -16,6 +16,10 @@ Cypress.Commands.add("visitRoute", (baseUrlEnv: string, path: string) => {
     cy.visit(url, { failOnStatusCode: false });
 });
 
+Cypress.Commands.add("visitAppRoute", (baseUrlEnv: string, path: string) => {
+    cy.visitRoute(baseUrlEnv, path);
+});
+
 Cypress.Commands.add("assertRedirectToLogin", () => {
     cy.url().should("include", "/login");
 });

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="123.969" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:58:30" tests="0" file="cypress\e2e\generated\10_access.matrix.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Access Matrix" timestamp="2026-02-10T22:58:30" tests="1" time="123.948" failures="1">
+    <testcase name="Generated: Access Matrix enforces route permissions" time="37.908" classname="enforces route permissions">
+      <failure message="Timed out retrying after 10000ms: expected &apos;http://localhost:5173/dashboard&apos; to include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/dashboard' to include '/login'
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/10_access.matrix.cy.ts:27:0)
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/10_access.matrix.cy.ts:15:0)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/10_access.matrix.cy.ts:13:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

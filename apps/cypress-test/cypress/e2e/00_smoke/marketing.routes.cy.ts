@@ -1,7 +1,7 @@
 /// <reference path="../../support/index.d.ts" />
 describe("Marketing Routes Smoke", { tags: ["@smoke", "@marketing"] }, () => {
     it("loads every marketing page without blank screen", () => {
-        cy.fixture("routes.marketing.json").then((cfg) => {
+        cy.fixture("registry/routes.marketing.json").then((cfg) => {
             cfg.routes.forEach((r: any) => {
                 cy.log(`Testing Route: ${r.key} -> ${r.path}`);
                 cy.visitAppRoute(cfg.baseUrlEnv, r.path);
