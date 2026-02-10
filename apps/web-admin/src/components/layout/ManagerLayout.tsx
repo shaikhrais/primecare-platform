@@ -14,8 +14,15 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : { role: 'client' };
+    const token = localStorage.getItem('token');
+    const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { role: 'client' };
     const role = user.role || 'client';
+
+    React.useEffect(() => {
+        if (!token) {
+            navigate(RouteRegistry.LOGIN);
+        }
+    }, [token, navigate]);
 
     const menuItems = [
         { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' },

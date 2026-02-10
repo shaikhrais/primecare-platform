@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.995" tests="4" failures="4">
+  <testsuite name="Root Suite" timestamp="2026-02-10T22:05:49" tests="0" file="cypress\e2e\00_smoke\health.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Accessibility &amp; Health Micro-tests" timestamp="2026-02-10T22:05:49" tests="4" time="2.983" failures="4">
+    <testcase name="Accessibility &amp; Health Micro-tests Page Health: /login loads without severe errors" time="0.234" classname="Page Health: /login loads without severe errors">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:6:0)]]></failure>
+    </testcase>
+    <testcase name="Accessibility &amp; Health Micro-tests Page Health: /register loads without severe errors" time="0.185" classname="Page Health: /register loads without severe errors">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:6:0)]]></failure>
+    </testcase>
+    <testcase name="Accessibility &amp; Health Micro-tests Page Health: /dashboard loads without severe errors" time="0.170" classname="Page Health: /dashboard loads without severe errors">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:6:0)]]></failure>
+    </testcase>
+    <testcase name="Accessibility &amp; Health Micro-tests Form Accessibility: Inputs have associated labels or aria-labels" time="0.220" classname="Form Accessibility: Inputs have associated labels or aria-labels">
+      <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:18:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.260" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-10T21:42:02" tests="0" file="cypress\e2e\generated\01_admin.smoke.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Admin Smoke" timestamp="2026-02-10T21:42:02" tests="1" time="3.250" failures="1">
+    <testcase name="Generated: Admin Smoke guest routes load and protected routes redirect" time="0.868" classname="guest routes load and protected routes redirect">
+      <failure message="The following error originated from your application code, not from Cypress.
+
+  &gt; Browser Console Error: Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it&apos;s running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+https://on.cypress.io/uncaught-exception-from-application" type="Error"><![CDATA[Error: The following error originated from your application code, not from Cypress.
+
+  > Browser Console Error: Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+https://on.cypress.io/uncaught-exception-from-application
+    at console.eval (webpack://@primecare/cypress-test/./cypress/support/e2e.ts:14:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

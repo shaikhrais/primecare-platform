@@ -1,0 +1,88 @@
+Issue Type,Summary,Description,Precondition,Test Steps,Test Data,Expected Result,Priority,Component/s,Labels,Affects Version,Fix Version/s
+"Test","SMOKE - Marketing HOME loads","Verify marketing HOME page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/'
+2. Confirm no crash","URL: /","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing SERVICES loads","Verify marketing SERVICES page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/services'
+2. Confirm no crash","URL: /services","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing SERVICE_FOOT_CARE loads","Verify marketing SERVICE_FOOT_CARE page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/services/foot-care'
+2. Confirm no crash","URL: /services/foot-care","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing SERVICE_EDUCATION loads","Verify marketing SERVICE_EDUCATION page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/services/education'
+2. Confirm no crash","URL: /services/education","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing SERVICE_IT loads","Verify marketing SERVICE_IT page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/services/it-support'
+2. Confirm no crash","URL: /services/it-support","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing SERVICE_SENIOR loads","Verify marketing SERVICE_SENIOR page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/services/senior-care'
+2. Confirm no crash","URL: /services/senior-care","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing BLOG loads","Verify marketing BLOG page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/blog'
+2. Confirm no crash","URL: /blog","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing CONTACT loads","Verify marketing CONTACT page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/contact'
+2. Confirm no crash","URL: /contact","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing ABOUT loads","Verify marketing ABOUT page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/about'
+2. Confirm no crash","URL: /about","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing BOOKING loads","Verify marketing BOOKING page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/book-now'
+2. Confirm no crash","URL: /book-now","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing FAQ loads","Verify marketing FAQ page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/faq'
+2. Confirm no crash","URL: /faq","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing LOGIN loads","Verify marketing LOGIN page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/login'
+2. Confirm no crash","URL: /login","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing LOGIN_CAREGIVER loads","Verify marketing LOGIN_CAREGIVER page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/caregiver-login'
+2. Confirm no crash","URL: /caregiver-login","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Marketing LOGIN_STAFF loads","Verify marketing LOGIN_STAFF page loads without errors","Marketing site deployed","1. Open MARKETING_BASE_URL + '/staff-login'
+2. Confirm no crash","URL: /staff-login","Page renders successfully","High","Marketing","@smoke @marketing","1.4.3",""
+"Test","SMOKE - Admin LOGIN access","Verify LOGIN page loads for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/login'
+2. Verify no crash","URL: /login","Page renders","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin REGISTER access","Verify REGISTER page loads for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/register'
+2. Verify no crash","URL: /register","Page renders","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin DASHBOARD access","Verify DASHBOARD page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/dashboard'
+2. Verify login redirect","URL: /dashboard","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin USERS access","Verify USERS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/users'
+2. Verify login redirect","URL: /users","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin SCHEDULE access","Verify SCHEDULE page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/schedule'
+2. Verify login redirect","URL: /schedule","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin LEADS access","Verify LEADS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/leads'
+2. Verify login redirect","URL: /leads","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin SERVICES access","Verify SERVICES page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/services'
+2. Verify login redirect","URL: /services","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin CONTENT access","Verify CONTENT page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/content'
+2. Verify login redirect","URL: /content","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin AUDITS access","Verify AUDITS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/audits'
+2. Verify login redirect","URL: /audits","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin CUSTOMERS access","Verify CUSTOMERS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/customers'
+2. Verify login redirect","URL: /customers","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin SUPPORT access","Verify SUPPORT page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/support'
+2. Verify login redirect","URL: /support","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin INCIDENTS access","Verify INCIDENTS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/incidents'
+2. Verify login redirect","URL: /incidents","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin TIMESHEETS access","Verify TIMESHEETS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/timesheets'
+2. Verify login redirect","URL: /timesheets","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin SETTINGS access","Verify SETTINGS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/settings'
+2. Verify login redirect","URL: /settings","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin MANAGER_DASH access","Verify MANAGER_DASH page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/manager/dashboard'
+2. Verify login redirect","URL: /manager/dashboard","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin MANAGER_DAILY access","Verify MANAGER_DAILY page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/manager/daily-entry'
+2. Verify login redirect","URL: /manager/daily-entry","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin BOOKINGS access","Verify BOOKINGS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/bookings'
+2. Verify login redirect","URL: /bookings","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin BILLING access","Verify BILLING page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/billing'
+2. Verify login redirect","URL: /billing","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin EARNINGS access","Verify EARNINGS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/earnings'
+2. Verify login redirect","URL: /earnings","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin SHIFTS access","Verify SHIFTS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/shifts'
+2. Verify login redirect","URL: /shifts","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin PROFILE access","Verify PROFILE page loads for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/profile'
+2. Verify no crash","URL: /profile","Page renders","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin CHAT access","Verify CHAT page loads for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/support/chat'
+2. Verify no crash","URL: /support/chat","Page renders","Highest","Security","@smoke @security","1.4.3",""
+"Test","AUTH - Invalid Password","Verify login fails with wrong password","Valid user exists","1. Try login with wrong password","Valid email, wrong pass","Error message shown","Highest","Auth","@auth @negative","1.4.3",""
+"Test","AUTH - Forgot Password","Verify recovery request flow","Valid email","1. Submit forgot password","Valid email","Success message","High","Auth","@auth","1.4.3",""
+"Test","RBAC - PSW block Users","Verify PSW cannot access /users","Logged in as PSW","1. Visit /users","PSW role","Redirect to Login/Denied","Highest","Security","@rbac @psw","1.4.3",""
+"Test","RBAC - Client block Users","Verify Client cannot access /users","Logged in as Client","1. Visit /users","Client role","Redirect to Login/Denied","Highest","Security","@rbac @client","1.4.3",""
+"Test","RBAC - Manager access Daily","Verify Manager can access daily checkins","Logged in as Manager","1. Visit /manager/daily-entry","Manager role","Dashboard loads","High","Manager","@rbac @manager","1.4.3",""
+"Test","STATE - Dashboard Empty","Verify dashboard handles empty data state","Logged in as Staff; No data in API","1. Visit /dashboard","Empty API stub","Shows empty state UI","Medium","Admin","@state","1.4.3",""
+"Test","STATE - Dashboard Error 500","Verify dashboard handles API failure","Logged in as Staff; API 500s","1. Visit /dashboard","API 500 stub","Shows error fallback UI","Medium","Admin","@state","1.4.3",""
+"Test","CONTRACT - Users Table","Verify users table schema and visibility","Logged in as Staff","1. Visit /users","N/A","Table correctly rendered","High","Contract","@contract","1.4.3",""
+"Test","CONTRACT - Schedule Calendar","Verify calendar render contract","Logged in as Staff","1. Visit /schedule","N/A","Calendar visible","High","Contract","@contract","1.4.3",""
+"Test","CONTRACT - Leads Form","Verify leads form fields exist","Logged in as Staff","1. Visit /leads","N/A","Form inputs visible","High","Contract","@contract","1.4.3",""
+"Test","PERF - Lighthouse Home","Verify marketing home performance score","Marketing deployed","1. Run lighthouse audit on /","N/A","Score > 90","Medium","Marketing","@performance","1.4.3",""
+"Test","WAF - SQL Injection","Verify auth inputs resist SQLi","Login page accessible","1. Submit ' OR 1=1 -- in email","Payload: SQLi","Rejected/Auth failed","Highest","Security","@security","1.4.3",""
+"Test","WAF - XSS Header","Verify search params resist XSS","Search pages accessible","1. Insert <script> in search","Payload: XSS","Sanitized/Escaped","Highest","Security","@security","1.4.3",""
+"Test","WAF - No-Sniff Header","Verify security headers present","Any page","1. Check response headers","N/A","X-Content-Type-Options: nosniff present","Medium","Security","@security","1.4.3",""
+"Test","ROUTING - 404 Generic","Verify fallback for non-existent paths","Admin deployed","1. Visit /invalid-page","N/A","404 or Redirect shown","Medium","Routing","@routing","1.4.3",""

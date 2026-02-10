@@ -3,16 +3,13 @@ export { };
 declare global {
     namespace Cypress {
         interface Chainable {
-            shouldSeeByCy(value: string): Chainable<void>;
-            shouldHaveTextByCy(value: string, text: string): Chainable<void>;
+            assertNoAppCrash(): Chainable<void>;
         }
     }
 }
 
-Cypress.Commands.add("shouldSeeByCy", (value: string) => {
-    cy.getByCy(value).should("be.visible");
-});
-
-Cypress.Commands.add("shouldHaveTextByCy", (value: string, text: string) => {
-    cy.getByCy(value).should("be.visible").and("contain.text", text);
+Cypress.Commands.add("assertNoAppCrash", () => {
+    cy.get("body").should("not.contain", "Application error");
+    cy.get("body").should("not.contain", "Uncaught");
+    cy.get("body").should("not.contain", "TypeError");
 });

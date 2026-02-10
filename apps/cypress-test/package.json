@@ -5,15 +5,15 @@
     "scripts": {
         "cy:open": "cypress open",
         "cy:run": "cypress run",
+        "cy:gen": "node scripts/generate-tests.mjs",
+        "cy:export": "node scripts/generate-jira-csv.mjs",
+        "cy:smoke": "npm run cy:gen && cypress run --env grepTags=@smoke",
+        "cy:security": "npm run cy:gen && cypress run --env grepTags=@security",
+        "cy:contracts": "npm run cy:gen && cypress run --env grepTags=@contract",
+        "cy:regression": "npm run cy:gen && cypress run --env grepTags=@regression",
         "report:merge": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome.json",
         "report:html": "marge cypress/reports/mochawesome.json -f index -o cypress/reports/html",
-        "test:smoke": "cypress run --env grepTags=@smoke",
-        "test:security": "cypress run --env grepTags=@security",
-        "test:regression": "cypress run --env grepTags=@regression",
-        "test:ci": "cypress run && npm run report:merge && npm run report:html",
-        "cy:smoke": "npm run test:smoke",
-        "cy:security": "npm run test:security",
-        "cy:regression": "npm run test:regression"
+        "test:ci": "npm run cy:gen && cypress run && npm run report:merge && npm run report:html"
     },
     "devDependencies": {
         "cypress": "^13.6.4",
