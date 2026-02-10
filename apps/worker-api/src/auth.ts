@@ -10,6 +10,7 @@ export const rbacMiddleware = (allowedRoles: Role[]) => {
     return async (c: Context, next: Next) => {
         const payload = c.get('jwtPayload');
         const userRole = payload?.role as Role;
+        console.log('RBAC Check:', { payload, userRole, allowedRoles });
 
         if (!userRole || !allowedRoles.includes(userRole)) {
             return c.json({ error: 'Forbidden: Insufficient permissions' }, 403);

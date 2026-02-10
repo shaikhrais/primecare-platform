@@ -192,7 +192,15 @@ export default function Header() {
     };
 
     return (
-        <header className="glass-effect" style={{ position: 'sticky', top: 0, zIndex: 1000, backgroundColor: 'rgba(255,255,255,0.01)', borderBottom: '1px solid var(--line)' }}>
+        <header className="glass-effect" style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(12px)',
+            borderBottom: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+        }}>
             {/* Top Bar - High Utility */}
             <div style={{
                 backgroundColor: 'var(--primary-dark)',
@@ -230,7 +238,15 @@ export default function Header() {
                                 transition: 'var(--pc-transition)'
                             }}
                         >
-                            {isFullscreen ? '🔳' : '🔲'}
+                            {isFullscreen ? (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+                                </svg>
+                            ) : (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                                </svg>
+                            )}
                         </button>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', padding: '4px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)' }}>

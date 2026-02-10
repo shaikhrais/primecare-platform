@@ -113,12 +113,18 @@ export type PswDocument = $Result.DefaultSelection<Prisma.$PswDocumentPayload>
  * 
  */
 export type FAQ = $Result.DefaultSelection<Prisma.$FAQPayload>
+/**
+ * Model DailyEntry
+ * 
+ */
+export type DailyEntry = $Result.DefaultSelection<Prisma.$DailyEntryPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
   export const Role: {
+  manager: 'manager',
   client: 'client',
   psw: 'psw',
   coordinator: 'coordinator',
@@ -208,6 +214,14 @@ export const DocStatus: {
 
 export type DocStatus = (typeof DocStatus)[keyof typeof DocStatus]
 
+
+export const DailyEntryStatus: {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED'
+};
+
+export type DailyEntryStatus = (typeof DailyEntryStatus)[keyof typeof DailyEntryStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -245,6 +259,10 @@ export const InvoiceStatus: typeof $Enums.InvoiceStatus
 export type DocStatus = $Enums.DocStatus
 
 export const DocStatus: typeof $Enums.DocStatus
+
+export type DailyEntryStatus = $Enums.DailyEntryStatus
+
+export const DailyEntryStatus: typeof $Enums.DailyEntryStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -568,6 +586,16 @@ export class PrismaClient<
     * ```
     */
   get fAQ(): Prisma.FAQDelegate<ExtArgs>;
+
+  /**
+   * `prisma.dailyEntry`: Exposes CRUD operations for the **DailyEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyEntries
+    * const dailyEntries = await prisma.dailyEntry.findMany()
+    * ```
+    */
+  get dailyEntry(): Prisma.DailyEntryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1028,7 +1056,8 @@ export namespace Prisma {
     Lead: 'Lead',
     BlogPost: 'BlogPost',
     PswDocument: 'PswDocument',
-    FAQ: 'FAQ'
+    FAQ: 'FAQ',
+    DailyEntry: 'DailyEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1044,7 +1073,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "blogPost" | "pswDocument" | "fAQ"
+      modelProps: "user" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2448,6 +2477,76 @@ export namespace Prisma {
           }
         }
       }
+      DailyEntry: {
+        payload: Prisma.$DailyEntryPayload<ExtArgs>
+        fields: Prisma.DailyEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          findMany: {
+            args: Prisma.DailyEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>[]
+          }
+          create: {
+            args: Prisma.DailyEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          createMany: {
+            args: Prisma.DailyEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          update: {
+            args: Prisma.DailyEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DailyEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyEntry>
+          }
+          groupBy: {
+            args: Prisma.DailyEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2620,6 +2719,7 @@ export namespace Prisma {
     auditLogs: number
     blogPosts: number
     VisitCheckEvent: number
+    DailyEntry: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2630,6 +2730,7 @@ export namespace Prisma {
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     blogPosts?: boolean | UserCountOutputTypeCountBlogPostsArgs
     VisitCheckEvent?: boolean | UserCountOutputTypeCountVisitCheckEventArgs
+    DailyEntry?: boolean | UserCountOutputTypeCountDailyEntryArgs
   }
 
   // Custom InputTypes
@@ -2692,6 +2793,13 @@ export namespace Prisma {
     where?: VisitCheckEventWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyEntryWhereInput
+  }
+
 
   /**
    * Count Type ClientProfileCountOutputType
@@ -2701,12 +2809,14 @@ export namespace Prisma {
     visits: number
     invoices: number
     messageThreads: number
+    DailyEntry: number
   }
 
   export type ClientProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     visits?: boolean | ClientProfileCountOutputTypeCountVisitsArgs
     invoices?: boolean | ClientProfileCountOutputTypeCountInvoicesArgs
     messageThreads?: boolean | ClientProfileCountOutputTypeCountMessageThreadsArgs
+    DailyEntry?: boolean | ClientProfileCountOutputTypeCountDailyEntryArgs
   }
 
   // Custom InputTypes
@@ -2739,6 +2849,13 @@ export namespace Prisma {
    */
   export type ClientProfileCountOutputTypeCountMessageThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageThreadWhereInput
+  }
+
+  /**
+   * ClientProfileCountOutputType without action
+   */
+  export type ClientProfileCountOutputTypeCountDailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyEntryWhereInput
   }
 
 
@@ -2837,6 +2954,7 @@ export namespace Prisma {
     checklists: number
     incidents: number
     timesheetItems: number
+    DailyEntry: number
   }
 
   export type VisitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2845,6 +2963,7 @@ export namespace Prisma {
     checklists?: boolean | VisitCountOutputTypeCountChecklistsArgs
     incidents?: boolean | VisitCountOutputTypeCountIncidentsArgs
     timesheetItems?: boolean | VisitCountOutputTypeCountTimesheetItemsArgs
+    DailyEntry?: boolean | VisitCountOutputTypeCountDailyEntryArgs
   }
 
   // Custom InputTypes
@@ -2891,6 +3010,13 @@ export namespace Prisma {
    */
   export type VisitCountOutputTypeCountTimesheetItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TimesheetItemWhereInput
+  }
+
+  /**
+   * VisitCountOutputType without action
+   */
+  export type VisitCountOutputTypeCountDailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyEntryWhereInput
   }
 
 
@@ -3243,6 +3369,7 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     blogPosts?: boolean | User$blogPostsArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
+    DailyEntry?: boolean | User$DailyEntryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3284,6 +3411,7 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     blogPosts?: boolean | User$blogPostsArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
+    DailyEntry?: boolean | User$DailyEntryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3300,6 +3428,7 @@ export namespace Prisma {
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       blogPosts: Prisma.$BlogPostPayload<ExtArgs>[]
       VisitCheckEvent: Prisma.$VisitCheckEventPayload<ExtArgs>[]
+      DailyEntry: Prisma.$DailyEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3686,6 +3815,7 @@ export namespace Prisma {
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
     blogPosts<T extends User$blogPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$blogPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogPostPayload<ExtArgs>, T, "findMany"> | Null>
     VisitCheckEvent<T extends User$VisitCheckEventArgs<ExtArgs> = {}>(args?: Subset<T, User$VisitCheckEventArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitCheckEventPayload<ExtArgs>, T, "findMany"> | Null>
+    DailyEntry<T extends User$DailyEntryArgs<ExtArgs> = {}>(args?: Subset<T, User$DailyEntryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4210,6 +4340,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.DailyEntry
+   */
+  export type User$DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    where?: DailyEntryWhereInput
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    cursor?: DailyEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4514,6 +4664,7 @@ export namespace Prisma {
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
+    DailyEntry?: boolean | ClientProfile$DailyEntryArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientProfile"]>
 
@@ -4561,6 +4712,7 @@ export namespace Prisma {
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
+    DailyEntry?: boolean | ClientProfile$DailyEntryArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClientProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4574,6 +4726,7 @@ export namespace Prisma {
       visits: Prisma.$VisitPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
+      DailyEntry: Prisma.$DailyEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4960,6 +5113,7 @@ export namespace Prisma {
     visits<T extends ClientProfile$visitsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
     invoices<T extends ClientProfile$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany"> | Null>
     messageThreads<T extends ClientProfile$messageThreadsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany"> | Null>
+    DailyEntry<T extends ClientProfile$DailyEntryArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$DailyEntryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5380,6 +5534,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageThreadScalarFieldEnum | MessageThreadScalarFieldEnum[]
+  }
+
+  /**
+   * ClientProfile.DailyEntry
+   */
+  export type ClientProfile$DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    where?: DailyEntryWhereInput
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    cursor?: DailyEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
   }
 
   /**
@@ -6886,6 +7060,7 @@ export namespace Prisma {
     checklists?: boolean | Visit$checklistsArgs<ExtArgs>
     incidents?: boolean | Visit$incidentsArgs<ExtArgs>
     timesheetItems?: boolean | Visit$timesheetItemsArgs<ExtArgs>
+    DailyEntry?: boolean | Visit$DailyEntryArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["visit"]>
 
@@ -6945,6 +7120,7 @@ export namespace Prisma {
     checklists?: boolean | Visit$checklistsArgs<ExtArgs>
     incidents?: boolean | Visit$incidentsArgs<ExtArgs>
     timesheetItems?: boolean | Visit$timesheetItemsArgs<ExtArgs>
+    DailyEntry?: boolean | Visit$DailyEntryArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6964,6 +7140,7 @@ export namespace Prisma {
       checklists: Prisma.$VisitChecklistPayload<ExtArgs>[]
       incidents: Prisma.$IncidentPayload<ExtArgs>[]
       timesheetItems: Prisma.$TimesheetItemPayload<ExtArgs>[]
+      DailyEntry: Prisma.$DailyEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7357,6 +7534,7 @@ export namespace Prisma {
     checklists<T extends Visit$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, Visit$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitChecklistPayload<ExtArgs>, T, "findMany"> | Null>
     incidents<T extends Visit$incidentsArgs<ExtArgs> = {}>(args?: Subset<T, Visit$incidentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany"> | Null>
     timesheetItems<T extends Visit$timesheetItemsArgs<ExtArgs> = {}>(args?: Subset<T, Visit$timesheetItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetItemPayload<ExtArgs>, T, "findMany"> | Null>
+    DailyEntry<T extends Visit$DailyEntryArgs<ExtArgs> = {}>(args?: Subset<T, Visit$DailyEntryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7835,6 +8013,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TimesheetItemScalarFieldEnum | TimesheetItemScalarFieldEnum[]
+  }
+
+  /**
+   * Visit.DailyEntry
+   */
+  export type Visit$DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    where?: DailyEntryWhereInput
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    cursor?: DailyEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
   }
 
   /**
@@ -23784,6 +23982,1084 @@ export namespace Prisma {
 
 
   /**
+   * Model DailyEntry
+   */
+
+  export type AggregateDailyEntry = {
+    _count: DailyEntryCountAggregateOutputType | null
+    _avg: DailyEntryAvgAggregateOutputType | null
+    _sum: DailyEntrySumAggregateOutputType | null
+    _min: DailyEntryMinAggregateOutputType | null
+    _max: DailyEntryMaxAggregateOutputType | null
+  }
+
+  export type DailyEntryAvgAggregateOutputType = {
+    mood: number | null
+  }
+
+  export type DailyEntrySumAggregateOutputType = {
+    mood: number | null
+  }
+
+  export type DailyEntryMinAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    staffId: string | null
+    visitId: string | null
+    mood: number | null
+    notes: string | null
+    signature: string | null
+    status: $Enums.DailyEntryStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyEntryMaxAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    staffId: string | null
+    visitId: string | null
+    mood: number | null
+    notes: string | null
+    signature: string | null
+    status: $Enums.DailyEntryStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyEntryCountAggregateOutputType = {
+    id: number
+    clientId: number
+    staffId: number
+    visitId: number
+    adlData: number
+    medication: number
+    mood: number
+    vitals: number
+    notes: number
+    signature: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DailyEntryAvgAggregateInputType = {
+    mood?: true
+  }
+
+  export type DailyEntrySumAggregateInputType = {
+    mood?: true
+  }
+
+  export type DailyEntryMinAggregateInputType = {
+    id?: true
+    clientId?: true
+    staffId?: true
+    visitId?: true
+    mood?: true
+    notes?: true
+    signature?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyEntryMaxAggregateInputType = {
+    id?: true
+    clientId?: true
+    staffId?: true
+    visitId?: true
+    mood?: true
+    notes?: true
+    signature?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyEntryCountAggregateInputType = {
+    id?: true
+    clientId?: true
+    staffId?: true
+    visitId?: true
+    adlData?: true
+    medication?: true
+    mood?: true
+    vitals?: true
+    notes?: true
+    signature?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DailyEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyEntry to aggregate.
+     */
+    where?: DailyEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyEntries to fetch.
+     */
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyEntries
+    **/
+    _count?: true | DailyEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DailyEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DailyEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyEntryMaxAggregateInputType
+  }
+
+  export type GetDailyEntryAggregateType<T extends DailyEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyEntry[P]>
+      : GetScalarType<T[P], AggregateDailyEntry[P]>
+  }
+
+
+
+
+  export type DailyEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyEntryWhereInput
+    orderBy?: DailyEntryOrderByWithAggregationInput | DailyEntryOrderByWithAggregationInput[]
+    by: DailyEntryScalarFieldEnum[] | DailyEntryScalarFieldEnum
+    having?: DailyEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyEntryCountAggregateInputType | true
+    _avg?: DailyEntryAvgAggregateInputType
+    _sum?: DailyEntrySumAggregateInputType
+    _min?: DailyEntryMinAggregateInputType
+    _max?: DailyEntryMaxAggregateInputType
+  }
+
+  export type DailyEntryGroupByOutputType = {
+    id: string
+    clientId: string
+    staffId: string
+    visitId: string | null
+    adlData: JsonValue
+    medication: JsonValue | null
+    mood: number | null
+    vitals: JsonValue | null
+    notes: string | null
+    signature: string | null
+    status: $Enums.DailyEntryStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: DailyEntryCountAggregateOutputType | null
+    _avg: DailyEntryAvgAggregateOutputType | null
+    _sum: DailyEntrySumAggregateOutputType | null
+    _min: DailyEntryMinAggregateOutputType | null
+    _max: DailyEntryMaxAggregateOutputType | null
+  }
+
+  type GetDailyEntryGroupByPayload<T extends DailyEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    staffId?: boolean
+    visitId?: boolean
+    adlData?: boolean
+    medication?: boolean
+    mood?: boolean
+    vitals?: boolean
+    notes?: boolean
+    signature?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    staff?: boolean | UserDefaultArgs<ExtArgs>
+    visit?: boolean | DailyEntry$visitArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyEntry"]>
+
+  export type DailyEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    staffId?: boolean
+    visitId?: boolean
+    adlData?: boolean
+    medication?: boolean
+    mood?: boolean
+    vitals?: boolean
+    notes?: boolean
+    signature?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    staff?: boolean | UserDefaultArgs<ExtArgs>
+    visit?: boolean | DailyEntry$visitArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyEntry"]>
+
+  export type DailyEntrySelectScalar = {
+    id?: boolean
+    clientId?: boolean
+    staffId?: boolean
+    visitId?: boolean
+    adlData?: boolean
+    medication?: boolean
+    mood?: boolean
+    vitals?: boolean
+    notes?: boolean
+    signature?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DailyEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    staff?: boolean | UserDefaultArgs<ExtArgs>
+    visit?: boolean | DailyEntry$visitArgs<ExtArgs>
+  }
+  export type DailyEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    staff?: boolean | UserDefaultArgs<ExtArgs>
+    visit?: boolean | DailyEntry$visitArgs<ExtArgs>
+  }
+
+  export type $DailyEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyEntry"
+    objects: {
+      client: Prisma.$ClientProfilePayload<ExtArgs>
+      staff: Prisma.$UserPayload<ExtArgs>
+      visit: Prisma.$VisitPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      clientId: string
+      staffId: string
+      visitId: string | null
+      adlData: Prisma.JsonValue
+      medication: Prisma.JsonValue | null
+      mood: number | null
+      vitals: Prisma.JsonValue | null
+      notes: string | null
+      signature: string | null
+      status: $Enums.DailyEntryStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dailyEntry"]>
+    composites: {}
+  }
+
+  type DailyEntryGetPayload<S extends boolean | null | undefined | DailyEntryDefaultArgs> = $Result.GetResult<Prisma.$DailyEntryPayload, S>
+
+  type DailyEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DailyEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DailyEntryCountAggregateInputType | true
+    }
+
+  export interface DailyEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyEntry'], meta: { name: 'DailyEntry' } }
+    /**
+     * Find zero or one DailyEntry that matches the filter.
+     * @param {DailyEntryFindUniqueArgs} args - Arguments to find a DailyEntry
+     * @example
+     * // Get one DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyEntryFindUniqueArgs>(args: SelectSubset<T, DailyEntryFindUniqueArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DailyEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DailyEntryFindUniqueOrThrowArgs} args - Arguments to find a DailyEntry
+     * @example
+     * // Get one DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DailyEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryFindFirstArgs} args - Arguments to find a DailyEntry
+     * @example
+     * // Get one DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyEntryFindFirstArgs>(args?: SelectSubset<T, DailyEntryFindFirstArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DailyEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryFindFirstOrThrowArgs} args - Arguments to find a DailyEntry
+     * @example
+     * // Get one DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DailyEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyEntries
+     * const dailyEntries = await prisma.dailyEntry.findMany()
+     * 
+     * // Get first 10 DailyEntries
+     * const dailyEntries = await prisma.dailyEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyEntryWithIdOnly = await prisma.dailyEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyEntryFindManyArgs>(args?: SelectSubset<T, DailyEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DailyEntry.
+     * @param {DailyEntryCreateArgs} args - Arguments to create a DailyEntry.
+     * @example
+     * // Create one DailyEntry
+     * const DailyEntry = await prisma.dailyEntry.create({
+     *   data: {
+     *     // ... data to create a DailyEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyEntryCreateArgs>(args: SelectSubset<T, DailyEntryCreateArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DailyEntries.
+     * @param {DailyEntryCreateManyArgs} args - Arguments to create many DailyEntries.
+     * @example
+     * // Create many DailyEntries
+     * const dailyEntry = await prisma.dailyEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyEntryCreateManyArgs>(args?: SelectSubset<T, DailyEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyEntries and returns the data saved in the database.
+     * @param {DailyEntryCreateManyAndReturnArgs} args - Arguments to create many DailyEntries.
+     * @example
+     * // Create many DailyEntries
+     * const dailyEntry = await prisma.dailyEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyEntries and only return the `id`
+     * const dailyEntryWithIdOnly = await prisma.dailyEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DailyEntry.
+     * @param {DailyEntryDeleteArgs} args - Arguments to delete one DailyEntry.
+     * @example
+     * // Delete one DailyEntry
+     * const DailyEntry = await prisma.dailyEntry.delete({
+     *   where: {
+     *     // ... filter to delete one DailyEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyEntryDeleteArgs>(args: SelectSubset<T, DailyEntryDeleteArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DailyEntry.
+     * @param {DailyEntryUpdateArgs} args - Arguments to update one DailyEntry.
+     * @example
+     * // Update one DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyEntryUpdateArgs>(args: SelectSubset<T, DailyEntryUpdateArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DailyEntries.
+     * @param {DailyEntryDeleteManyArgs} args - Arguments to filter DailyEntries to delete.
+     * @example
+     * // Delete a few DailyEntries
+     * const { count } = await prisma.dailyEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyEntryDeleteManyArgs>(args?: SelectSubset<T, DailyEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyEntries
+     * const dailyEntry = await prisma.dailyEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyEntryUpdateManyArgs>(args: SelectSubset<T, DailyEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DailyEntry.
+     * @param {DailyEntryUpsertArgs} args - Arguments to update or create a DailyEntry.
+     * @example
+     * // Update or create a DailyEntry
+     * const dailyEntry = await prisma.dailyEntry.upsert({
+     *   create: {
+     *     // ... data to create a DailyEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyEntryUpsertArgs>(args: SelectSubset<T, DailyEntryUpsertArgs<ExtArgs>>): Prisma__DailyEntryClient<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DailyEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryCountArgs} args - Arguments to filter DailyEntries to count.
+     * @example
+     * // Count the number of DailyEntries
+     * const count = await prisma.dailyEntry.count({
+     *   where: {
+     *     // ... the filter for the DailyEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyEntryCountArgs>(
+      args?: Subset<T, DailyEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyEntryAggregateArgs>(args: Subset<T, DailyEntryAggregateArgs>): Prisma.PrismaPromise<GetDailyEntryAggregateType<T>>
+
+    /**
+     * Group by DailyEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyEntryGroupByArgs['orderBy'] }
+        : { orderBy?: DailyEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyEntry model
+   */
+  readonly fields: DailyEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    staff<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    visit<T extends DailyEntry$visitArgs<ExtArgs> = {}>(args?: Subset<T, DailyEntry$visitArgs<ExtArgs>>): Prisma__VisitClient<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyEntry model
+   */ 
+  interface DailyEntryFieldRefs {
+    readonly id: FieldRef<"DailyEntry", 'String'>
+    readonly clientId: FieldRef<"DailyEntry", 'String'>
+    readonly staffId: FieldRef<"DailyEntry", 'String'>
+    readonly visitId: FieldRef<"DailyEntry", 'String'>
+    readonly adlData: FieldRef<"DailyEntry", 'Json'>
+    readonly medication: FieldRef<"DailyEntry", 'Json'>
+    readonly mood: FieldRef<"DailyEntry", 'Int'>
+    readonly vitals: FieldRef<"DailyEntry", 'Json'>
+    readonly notes: FieldRef<"DailyEntry", 'String'>
+    readonly signature: FieldRef<"DailyEntry", 'String'>
+    readonly status: FieldRef<"DailyEntry", 'DailyEntryStatus'>
+    readonly createdAt: FieldRef<"DailyEntry", 'DateTime'>
+    readonly updatedAt: FieldRef<"DailyEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyEntry findUnique
+   */
+  export type DailyEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyEntry to fetch.
+     */
+    where: DailyEntryWhereUniqueInput
+  }
+
+  /**
+   * DailyEntry findUniqueOrThrow
+   */
+  export type DailyEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyEntry to fetch.
+     */
+    where: DailyEntryWhereUniqueInput
+  }
+
+  /**
+   * DailyEntry findFirst
+   */
+  export type DailyEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyEntry to fetch.
+     */
+    where?: DailyEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyEntries to fetch.
+     */
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyEntries.
+     */
+    cursor?: DailyEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyEntries.
+     */
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
+  }
+
+  /**
+   * DailyEntry findFirstOrThrow
+   */
+  export type DailyEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyEntry to fetch.
+     */
+    where?: DailyEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyEntries to fetch.
+     */
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyEntries.
+     */
+    cursor?: DailyEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyEntries.
+     */
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
+  }
+
+  /**
+   * DailyEntry findMany
+   */
+  export type DailyEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyEntries to fetch.
+     */
+    where?: DailyEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyEntries to fetch.
+     */
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyEntries.
+     */
+    cursor?: DailyEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyEntries.
+     */
+    skip?: number
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
+  }
+
+  /**
+   * DailyEntry create
+   */
+  export type DailyEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyEntry.
+     */
+    data: XOR<DailyEntryCreateInput, DailyEntryUncheckedCreateInput>
+  }
+
+  /**
+   * DailyEntry createMany
+   */
+  export type DailyEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyEntries.
+     */
+    data: DailyEntryCreateManyInput | DailyEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyEntry createManyAndReturn
+   */
+  export type DailyEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DailyEntries.
+     */
+    data: DailyEntryCreateManyInput | DailyEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyEntry update
+   */
+  export type DailyEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyEntry.
+     */
+    data: XOR<DailyEntryUpdateInput, DailyEntryUncheckedUpdateInput>
+    /**
+     * Choose, which DailyEntry to update.
+     */
+    where: DailyEntryWhereUniqueInput
+  }
+
+  /**
+   * DailyEntry updateMany
+   */
+  export type DailyEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyEntries.
+     */
+    data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyEntries to update
+     */
+    where?: DailyEntryWhereInput
+  }
+
+  /**
+   * DailyEntry upsert
+   */
+  export type DailyEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyEntry to update in case it exists.
+     */
+    where: DailyEntryWhereUniqueInput
+    /**
+     * In case the DailyEntry found by the `where` argument doesn't exist, create a new DailyEntry with this data.
+     */
+    create: XOR<DailyEntryCreateInput, DailyEntryUncheckedCreateInput>
+    /**
+     * In case the DailyEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyEntryUpdateInput, DailyEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyEntry delete
+   */
+  export type DailyEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    /**
+     * Filter which DailyEntry to delete.
+     */
+    where: DailyEntryWhereUniqueInput
+  }
+
+  /**
+   * DailyEntry deleteMany
+   */
+  export type DailyEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyEntries to delete
+     */
+    where?: DailyEntryWhereInput
+  }
+
+  /**
+   * DailyEntry.visit
+   */
+  export type DailyEntry$visitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Visit
+     */
+    select?: VisitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VisitInclude<ExtArgs> | null
+    where?: VisitWhereInput
+  }
+
+  /**
+   * DailyEntry without action
+   */
+  export type DailyEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -24106,6 +25382,25 @@ export namespace Prisma {
   export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
 
 
+  export const DailyEntryScalarFieldEnum: {
+    id: 'id',
+    clientId: 'clientId',
+    staffId: 'staffId',
+    visitId: 'visitId',
+    adlData: 'adlData',
+    medication: 'medication',
+    mood: 'mood',
+    vitals: 'vitals',
+    notes: 'notes',
+    signature: 'signature',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DailyEntryScalarFieldEnum = (typeof DailyEntryScalarFieldEnum)[keyof typeof DailyEntryScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -24367,6 +25662,20 @@ export namespace Prisma {
    */
   export type ListEnumDocStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'DailyEntryStatus'
+   */
+  export type EnumDailyEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DailyEntryStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DailyEntryStatus[]'
+   */
+  export type ListEnumDailyEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DailyEntryStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -24396,6 +25705,7 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     blogPosts?: BlogPostListRelationFilter
     VisitCheckEvent?: VisitCheckEventListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -24419,6 +25729,7 @@ export namespace Prisma {
     auditLogs?: AuditLogOrderByRelationAggregateInput
     blogPosts?: BlogPostOrderByRelationAggregateInput
     VisitCheckEvent?: VisitCheckEventOrderByRelationAggregateInput
+    DailyEntry?: DailyEntryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -24445,6 +25756,7 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     blogPosts?: BlogPostListRelationFilter
     VisitCheckEvent?: VisitCheckEventListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -24505,6 +25817,7 @@ export namespace Prisma {
     visits?: VisitListRelationFilter
     invoices?: InvoiceListRelationFilter
     messageThreads?: MessageThreadListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }
 
   export type ClientProfileOrderByWithRelationInput = {
@@ -24528,6 +25841,7 @@ export namespace Prisma {
     visits?: VisitOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
     messageThreads?: MessageThreadOrderByRelationAggregateInput
+    DailyEntry?: DailyEntryOrderByRelationAggregateInput
   }
 
   export type ClientProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -24554,6 +25868,7 @@ export namespace Prisma {
     visits?: VisitListRelationFilter
     invoices?: InvoiceListRelationFilter
     messageThreads?: MessageThreadListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }, "id" | "userId">
 
   export type ClientProfileOrderByWithAggregationInput = {
@@ -24739,6 +26054,7 @@ export namespace Prisma {
     checklists?: VisitChecklistListRelationFilter
     incidents?: IncidentListRelationFilter
     timesheetItems?: TimesheetItemListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }
 
   export type VisitOrderByWithRelationInput = {
@@ -24769,6 +26085,7 @@ export namespace Prisma {
     checklists?: VisitChecklistOrderByRelationAggregateInput
     incidents?: IncidentOrderByRelationAggregateInput
     timesheetItems?: TimesheetItemOrderByRelationAggregateInput
+    DailyEntry?: DailyEntryOrderByRelationAggregateInput
   }
 
   export type VisitWhereUniqueInput = Prisma.AtLeast<{
@@ -24802,6 +26119,7 @@ export namespace Prisma {
     checklists?: VisitChecklistListRelationFilter
     incidents?: IncidentListRelationFilter
     timesheetItems?: TimesheetItemListRelationFilter
+    DailyEntry?: DailyEntryListRelationFilter
   }, "id">
 
   export type VisitOrderByWithAggregationInput = {
@@ -26041,6 +27359,109 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"FAQ"> | Date | string
   }
 
+  export type DailyEntryWhereInput = {
+    AND?: DailyEntryWhereInput | DailyEntryWhereInput[]
+    OR?: DailyEntryWhereInput[]
+    NOT?: DailyEntryWhereInput | DailyEntryWhereInput[]
+    id?: StringFilter<"DailyEntry"> | string
+    clientId?: StringFilter<"DailyEntry"> | string
+    staffId?: StringFilter<"DailyEntry"> | string
+    visitId?: StringNullableFilter<"DailyEntry"> | string | null
+    adlData?: JsonFilter<"DailyEntry">
+    medication?: JsonNullableFilter<"DailyEntry">
+    mood?: IntNullableFilter<"DailyEntry"> | number | null
+    vitals?: JsonNullableFilter<"DailyEntry">
+    notes?: StringNullableFilter<"DailyEntry"> | string | null
+    signature?: StringNullableFilter<"DailyEntry"> | string | null
+    status?: EnumDailyEntryStatusFilter<"DailyEntry"> | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    staff?: XOR<UserRelationFilter, UserWhereInput>
+    visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
+  }
+
+  export type DailyEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    staffId?: SortOrder
+    visitId?: SortOrderInput | SortOrder
+    adlData?: SortOrder
+    medication?: SortOrderInput | SortOrder
+    mood?: SortOrderInput | SortOrder
+    vitals?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    client?: ClientProfileOrderByWithRelationInput
+    staff?: UserOrderByWithRelationInput
+    visit?: VisitOrderByWithRelationInput
+  }
+
+  export type DailyEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DailyEntryWhereInput | DailyEntryWhereInput[]
+    OR?: DailyEntryWhereInput[]
+    NOT?: DailyEntryWhereInput | DailyEntryWhereInput[]
+    clientId?: StringFilter<"DailyEntry"> | string
+    staffId?: StringFilter<"DailyEntry"> | string
+    visitId?: StringNullableFilter<"DailyEntry"> | string | null
+    adlData?: JsonFilter<"DailyEntry">
+    medication?: JsonNullableFilter<"DailyEntry">
+    mood?: IntNullableFilter<"DailyEntry"> | number | null
+    vitals?: JsonNullableFilter<"DailyEntry">
+    notes?: StringNullableFilter<"DailyEntry"> | string | null
+    signature?: StringNullableFilter<"DailyEntry"> | string | null
+    status?: EnumDailyEntryStatusFilter<"DailyEntry"> | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    staff?: XOR<UserRelationFilter, UserWhereInput>
+    visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
+  }, "id">
+
+  export type DailyEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    staffId?: SortOrder
+    visitId?: SortOrderInput | SortOrder
+    adlData?: SortOrder
+    medication?: SortOrderInput | SortOrder
+    mood?: SortOrderInput | SortOrder
+    vitals?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DailyEntryCountOrderByAggregateInput
+    _avg?: DailyEntryAvgOrderByAggregateInput
+    _max?: DailyEntryMaxOrderByAggregateInput
+    _min?: DailyEntryMinOrderByAggregateInput
+    _sum?: DailyEntrySumOrderByAggregateInput
+  }
+
+  export type DailyEntryScalarWhereWithAggregatesInput = {
+    AND?: DailyEntryScalarWhereWithAggregatesInput | DailyEntryScalarWhereWithAggregatesInput[]
+    OR?: DailyEntryScalarWhereWithAggregatesInput[]
+    NOT?: DailyEntryScalarWhereWithAggregatesInput | DailyEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyEntry"> | string
+    clientId?: StringWithAggregatesFilter<"DailyEntry"> | string
+    staffId?: StringWithAggregatesFilter<"DailyEntry"> | string
+    visitId?: StringNullableWithAggregatesFilter<"DailyEntry"> | string | null
+    adlData?: JsonWithAggregatesFilter<"DailyEntry">
+    medication?: JsonNullableWithAggregatesFilter<"DailyEntry">
+    mood?: IntNullableWithAggregatesFilter<"DailyEntry"> | number | null
+    vitals?: JsonNullableWithAggregatesFilter<"DailyEntry">
+    notes?: StringNullableWithAggregatesFilter<"DailyEntry"> | string | null
+    signature?: StringNullableWithAggregatesFilter<"DailyEntry"> | string | null
+    status?: EnumDailyEntryStatusWithAggregatesFilter<"DailyEntry"> | $Enums.DailyEntryStatus
+    createdAt?: DateTimeWithAggregatesFilter<"DailyEntry"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DailyEntry"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     role: $Enums.Role
@@ -26062,6 +27483,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -26085,6 +27507,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserUpdateInput = {
@@ -26108,6 +27531,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -26131,6 +27555,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -26195,6 +27620,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateInput = {
@@ -26217,6 +27643,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUpdateInput = {
@@ -26239,6 +27666,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateInput = {
@@ -26261,6 +27689,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileCreateManyInput = {
@@ -26469,6 +27898,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateInput = {
@@ -26496,6 +27926,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUpdateInput = {
@@ -26523,6 +27954,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateInput = {
@@ -26550,6 +27982,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitCreateManyInput = {
@@ -27868,6 +29301,115 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DailyEntryCreateInput = {
+    id?: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutDailyEntryInput
+    staff: UserCreateNestedOneWithoutDailyEntryInput
+    visit?: VisitCreateNestedOneWithoutDailyEntryInput
+  }
+
+  export type DailyEntryUncheckedCreateInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
+    staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
+    visit?: VisitUpdateOneWithoutDailyEntryNestedInput
+  }
+
+  export type DailyEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryCreateManyInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27979,6 +29521,12 @@ export namespace Prisma {
     none?: VisitCheckEventWhereInput
   }
 
+  export type DailyEntryListRelationFilter = {
+    every?: DailyEntryWhereInput
+    some?: DailyEntryWhereInput
+    none?: DailyEntryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -28009,6 +29557,10 @@ export namespace Prisma {
   }
 
   export type VisitCheckEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29393,6 +30945,73 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumDailyEntryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DailyEntryStatus | EnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDailyEntryStatusFilter<$PrismaModel> | $Enums.DailyEntryStatus
+  }
+
+  export type DailyEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    staffId?: SortOrder
+    visitId?: SortOrder
+    adlData?: SortOrder
+    medication?: SortOrder
+    mood?: SortOrder
+    vitals?: SortOrder
+    notes?: SortOrder
+    signature?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyEntryAvgOrderByAggregateInput = {
+    mood?: SortOrder
+  }
+
+  export type DailyEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    staffId?: SortOrder
+    visitId?: SortOrder
+    mood?: SortOrder
+    notes?: SortOrder
+    signature?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    staffId?: SortOrder
+    visitId?: SortOrder
+    mood?: SortOrder
+    notes?: SortOrder
+    signature?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyEntrySumOrderByAggregateInput = {
+    mood?: SortOrder
+  }
+
+  export type EnumDailyEntryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DailyEntryStatus | EnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDailyEntryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DailyEntryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+    _max?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+  }
+
   export type ClientProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput
@@ -29454,6 +31073,13 @@ export namespace Prisma {
     connect?: VisitCheckEventWhereUniqueInput | VisitCheckEventWhereUniqueInput[]
   }
 
+  export type DailyEntryCreateNestedManyWithoutStaffInput = {
+    create?: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput> | DailyEntryCreateWithoutStaffInput[] | DailyEntryUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutStaffInput | DailyEntryCreateOrConnectWithoutStaffInput[]
+    createMany?: DailyEntryCreateManyStaffInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+  }
+
   export type ClientProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput
@@ -29513,6 +31139,13 @@ export namespace Prisma {
     connectOrCreate?: VisitCheckEventCreateOrConnectWithoutOverriddenByInput | VisitCheckEventCreateOrConnectWithoutOverriddenByInput[]
     createMany?: VisitCheckEventCreateManyOverriddenByInputEnvelope
     connect?: VisitCheckEventWhereUniqueInput | VisitCheckEventWhereUniqueInput[]
+  }
+
+  export type DailyEntryUncheckedCreateNestedManyWithoutStaffInput = {
+    create?: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput> | DailyEntryCreateWithoutStaffInput[] | DailyEntryUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutStaffInput | DailyEntryCreateOrConnectWithoutStaffInput[]
+    createMany?: DailyEntryCreateManyStaffInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -29653,6 +31286,20 @@ export namespace Prisma {
     deleteMany?: VisitCheckEventScalarWhereInput | VisitCheckEventScalarWhereInput[]
   }
 
+  export type DailyEntryUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput> | DailyEntryCreateWithoutStaffInput[] | DailyEntryUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutStaffInput | DailyEntryCreateOrConnectWithoutStaffInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutStaffInput | DailyEntryUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: DailyEntryCreateManyStaffInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutStaffInput | DailyEntryUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutStaffInput | DailyEntryUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
   export type ClientProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput
@@ -29771,6 +31418,20 @@ export namespace Prisma {
     deleteMany?: VisitCheckEventScalarWhereInput | VisitCheckEventScalarWhereInput[]
   }
 
+  export type DailyEntryUncheckedUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput> | DailyEntryCreateWithoutStaffInput[] | DailyEntryUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutStaffInput | DailyEntryCreateOrConnectWithoutStaffInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutStaffInput | DailyEntryUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: DailyEntryCreateManyStaffInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutStaffInput | DailyEntryUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutStaffInput | DailyEntryUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutClientProfileInput = {
     create?: XOR<UserCreateWithoutClientProfileInput, UserUncheckedCreateWithoutClientProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutClientProfileInput
@@ -29798,6 +31459,13 @@ export namespace Prisma {
     connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
   }
 
+  export type DailyEntryCreateNestedManyWithoutClientInput = {
+    create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
+    createMany?: DailyEntryCreateManyClientInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+  }
+
   export type VisitUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<VisitCreateWithoutClientInput, VisitUncheckedCreateWithoutClientInput> | VisitCreateWithoutClientInput[] | VisitUncheckedCreateWithoutClientInput[]
     connectOrCreate?: VisitCreateOrConnectWithoutClientInput | VisitCreateOrConnectWithoutClientInput[]
@@ -29817,6 +31485,13 @@ export namespace Prisma {
     connectOrCreate?: MessageThreadCreateOrConnectWithoutClientInput | MessageThreadCreateOrConnectWithoutClientInput[]
     createMany?: MessageThreadCreateManyClientInputEnvelope
     connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+  }
+
+  export type DailyEntryUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
+    createMany?: DailyEntryCreateManyClientInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -29877,6 +31552,20 @@ export namespace Prisma {
     deleteMany?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
   }
 
+  export type DailyEntryUpdateManyWithoutClientNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutClientInput | DailyEntryUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: DailyEntryCreateManyClientInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutClientInput | DailyEntryUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutClientInput | DailyEntryUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
   export type VisitUncheckedUpdateManyWithoutClientNestedInput = {
     create?: XOR<VisitCreateWithoutClientInput, VisitUncheckedCreateWithoutClientInput> | VisitCreateWithoutClientInput[] | VisitUncheckedCreateWithoutClientInput[]
     connectOrCreate?: VisitCreateOrConnectWithoutClientInput | VisitCreateOrConnectWithoutClientInput[]
@@ -29917,6 +31606,20 @@ export namespace Prisma {
     update?: MessageThreadUpdateWithWhereUniqueWithoutClientInput | MessageThreadUpdateWithWhereUniqueWithoutClientInput[]
     updateMany?: MessageThreadUpdateManyWithWhereWithoutClientInput | MessageThreadUpdateManyWithWhereWithoutClientInput[]
     deleteMany?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutClientInput | DailyEntryUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: DailyEntryCreateManyClientInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutClientInput | DailyEntryUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutClientInput | DailyEntryUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
   }
 
   export type PswProfileCreatelanguagesInput = {
@@ -30302,6 +32005,13 @@ export namespace Prisma {
     connect?: TimesheetItemWhereUniqueInput | TimesheetItemWhereUniqueInput[]
   }
 
+  export type DailyEntryCreateNestedManyWithoutVisitInput = {
+    create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
+    createMany?: DailyEntryCreateManyVisitInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+  }
+
   export type VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput = {
     create?: XOR<VisitCheckEventCreateWithoutVisitInput, VisitCheckEventUncheckedCreateWithoutVisitInput> | VisitCheckEventCreateWithoutVisitInput[] | VisitCheckEventUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: VisitCheckEventCreateOrConnectWithoutVisitInput | VisitCheckEventCreateOrConnectWithoutVisitInput[]
@@ -30335,6 +32045,13 @@ export namespace Prisma {
     connectOrCreate?: TimesheetItemCreateOrConnectWithoutVisitInput | TimesheetItemCreateOrConnectWithoutVisitInput[]
     createMany?: TimesheetItemCreateManyVisitInputEnvelope
     connect?: TimesheetItemWhereUniqueInput | TimesheetItemWhereUniqueInput[]
+  }
+
+  export type DailyEntryUncheckedCreateNestedManyWithoutVisitInput = {
+    create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
+    createMany?: DailyEntryCreateManyVisitInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -30445,6 +32162,20 @@ export namespace Prisma {
     deleteMany?: TimesheetItemScalarWhereInput | TimesheetItemScalarWhereInput[]
   }
 
+  export type DailyEntryUpdateManyWithoutVisitNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutVisitInput | DailyEntryUpsertWithWhereUniqueWithoutVisitInput[]
+    createMany?: DailyEntryCreateManyVisitInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutVisitInput | DailyEntryUpdateWithWhereUniqueWithoutVisitInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutVisitInput | DailyEntryUpdateManyWithWhereWithoutVisitInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
   export type VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput = {
     create?: XOR<VisitCheckEventCreateWithoutVisitInput, VisitCheckEventUncheckedCreateWithoutVisitInput> | VisitCheckEventCreateWithoutVisitInput[] | VisitCheckEventUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: VisitCheckEventCreateOrConnectWithoutVisitInput | VisitCheckEventCreateOrConnectWithoutVisitInput[]
@@ -30513,6 +32244,20 @@ export namespace Prisma {
     update?: TimesheetItemUpdateWithWhereUniqueWithoutVisitInput | TimesheetItemUpdateWithWhereUniqueWithoutVisitInput[]
     updateMany?: TimesheetItemUpdateManyWithWhereWithoutVisitInput | TimesheetItemUpdateManyWithWhereWithoutVisitInput[]
     deleteMany?: TimesheetItemScalarWhereInput | TimesheetItemScalarWhereInput[]
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutVisitNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutVisitInput | DailyEntryUpsertWithWhereUniqueWithoutVisitInput[]
+    createMany?: DailyEntryCreateManyVisitInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutVisitInput | DailyEntryUpdateWithWhereUniqueWithoutVisitInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutVisitInput | DailyEntryUpdateManyWithWhereWithoutVisitInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
   }
 
   export type VisitCreateNestedManyWithoutServiceInput = {
@@ -31069,6 +32814,54 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVerifiedDocsInput, UserUpdateWithoutVerifiedDocsInput>, UserUncheckedUpdateWithoutVerifiedDocsInput>
   }
 
+  export type ClientProfileCreateNestedOneWithoutDailyEntryInput = {
+    create?: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutDailyEntryInput
+    connect?: ClientProfileWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDailyEntryInput = {
+    create?: XOR<UserCreateWithoutDailyEntryInput, UserUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyEntryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VisitCreateNestedOneWithoutDailyEntryInput = {
+    create?: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutDailyEntryInput
+    connect?: VisitWhereUniqueInput
+  }
+
+  export type EnumDailyEntryStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DailyEntryStatus
+  }
+
+  export type ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutDailyEntryInput
+    upsert?: ClientProfileUpsertWithoutDailyEntryInput
+    connect?: ClientProfileWhereUniqueInput
+    update?: XOR<XOR<ClientProfileUpdateToOneWithWhereWithoutDailyEntryInput, ClientProfileUpdateWithoutDailyEntryInput>, ClientProfileUncheckedUpdateWithoutDailyEntryInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyEntryNestedInput = {
+    create?: XOR<UserCreateWithoutDailyEntryInput, UserUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyEntryInput
+    upsert?: UserUpsertWithoutDailyEntryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyEntryInput, UserUpdateWithoutDailyEntryInput>, UserUncheckedUpdateWithoutDailyEntryInput>
+  }
+
+  export type VisitUpdateOneWithoutDailyEntryNestedInput = {
+    create?: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutDailyEntryInput
+    upsert?: VisitUpsertWithoutDailyEntryInput
+    disconnect?: VisitWhereInput | boolean
+    delete?: VisitWhereInput | boolean
+    connect?: VisitWhereUniqueInput
+    update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutDailyEntryInput, VisitUpdateWithoutDailyEntryInput>, VisitUncheckedUpdateWithoutDailyEntryInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31523,6 +33316,23 @@ export namespace Prisma {
     _max?: NestedEnumDocStatusNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumDailyEntryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DailyEntryStatus | EnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDailyEntryStatusFilter<$PrismaModel> | $Enums.DailyEntryStatus
+  }
+
+  export type NestedEnumDailyEntryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DailyEntryStatus | EnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DailyEntryStatus[] | ListEnumDailyEntryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDailyEntryStatusWithAggregatesFilter<$PrismaModel> | $Enums.DailyEntryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+    _max?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+  }
+
   export type ClientProfileCreateWithoutUserInput = {
     id?: string
     fullName: string
@@ -31542,6 +33352,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutUserInput = {
@@ -31563,6 +33374,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutUserInput = {
@@ -31859,6 +33671,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DailyEntryCreateWithoutStaffInput = {
+    id?: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutDailyEntryInput
+    visit?: VisitCreateNestedOneWithoutDailyEntryInput
+  }
+
+  export type DailyEntryUncheckedCreateWithoutStaffInput = {
+    id?: string
+    clientId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryCreateOrConnectWithoutStaffInput = {
+    where: DailyEntryWhereUniqueInput
+    create: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput>
+  }
+
+  export type DailyEntryCreateManyStaffInputEnvelope = {
+    data: DailyEntryCreateManyStaffInput | DailyEntryCreateManyStaffInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ClientProfileUpsertWithoutUserInput = {
     update: XOR<ClientProfileUpdateWithoutUserInput, ClientProfileUncheckedUpdateWithoutUserInput>
     create: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
@@ -31889,6 +33741,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutUserInput = {
@@ -31910,6 +33763,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PswProfileUpsertWithoutUserInput = {
@@ -32189,6 +34043,41 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"VisitCheckEvent"> | Date | string
   }
 
+  export type DailyEntryUpsertWithWhereUniqueWithoutStaffInput = {
+    where: DailyEntryWhereUniqueInput
+    update: XOR<DailyEntryUpdateWithoutStaffInput, DailyEntryUncheckedUpdateWithoutStaffInput>
+    create: XOR<DailyEntryCreateWithoutStaffInput, DailyEntryUncheckedCreateWithoutStaffInput>
+  }
+
+  export type DailyEntryUpdateWithWhereUniqueWithoutStaffInput = {
+    where: DailyEntryWhereUniqueInput
+    data: XOR<DailyEntryUpdateWithoutStaffInput, DailyEntryUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type DailyEntryUpdateManyWithWhereWithoutStaffInput = {
+    where: DailyEntryScalarWhereInput
+    data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutStaffInput>
+  }
+
+  export type DailyEntryScalarWhereInput = {
+    AND?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+    OR?: DailyEntryScalarWhereInput[]
+    NOT?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+    id?: StringFilter<"DailyEntry"> | string
+    clientId?: StringFilter<"DailyEntry"> | string
+    staffId?: StringFilter<"DailyEntry"> | string
+    visitId?: StringNullableFilter<"DailyEntry"> | string | null
+    adlData?: JsonFilter<"DailyEntry">
+    medication?: JsonNullableFilter<"DailyEntry">
+    mood?: IntNullableFilter<"DailyEntry"> | number | null
+    vitals?: JsonNullableFilter<"DailyEntry">
+    notes?: StringNullableFilter<"DailyEntry"> | string | null
+    signature?: StringNullableFilter<"DailyEntry"> | string | null
+    status?: EnumDailyEntryStatusFilter<"DailyEntry"> | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
+  }
+
   export type UserCreateWithoutClientProfileInput = {
     id?: string
     role: $Enums.Role
@@ -32209,6 +34098,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -32231,6 +34121,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -32262,6 +34153,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutClientInput = {
@@ -32288,6 +34180,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutClientInput = {
@@ -32362,6 +34255,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DailyEntryCreateWithoutClientInput = {
+    id?: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    staff: UserCreateNestedOneWithoutDailyEntryInput
+    visit?: VisitCreateNestedOneWithoutDailyEntryInput
+  }
+
+  export type DailyEntryUncheckedCreateWithoutClientInput = {
+    id?: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryCreateOrConnectWithoutClientInput = {
+    where: DailyEntryWhereUniqueInput
+    create: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput>
+  }
+
+  export type DailyEntryCreateManyClientInputEnvelope = {
+    data: DailyEntryCreateManyClientInput | DailyEntryCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutClientProfileInput = {
     update: XOR<UserUpdateWithoutClientProfileInput, UserUncheckedUpdateWithoutClientProfileInput>
     create: XOR<UserCreateWithoutClientProfileInput, UserUncheckedCreateWithoutClientProfileInput>
@@ -32393,6 +34326,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -32415,6 +34349,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutClientInput = {
@@ -32517,6 +34452,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"MessageThread"> | Date | string
   }
 
+  export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
+    where: DailyEntryWhereUniqueInput
+    update: XOR<DailyEntryUpdateWithoutClientInput, DailyEntryUncheckedUpdateWithoutClientInput>
+    create: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput>
+  }
+
+  export type DailyEntryUpdateWithWhereUniqueWithoutClientInput = {
+    where: DailyEntryWhereUniqueInput
+    data: XOR<DailyEntryUpdateWithoutClientInput, DailyEntryUncheckedUpdateWithoutClientInput>
+  }
+
+  export type DailyEntryUpdateManyWithWhereWithoutClientInput = {
+    where: DailyEntryScalarWhereInput
+    data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutClientInput>
+  }
+
   export type UserCreateWithoutPswProfileInput = {
     id?: string
     role: $Enums.Role
@@ -32537,6 +34488,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -32559,6 +34511,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -32624,6 +34577,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutPswInput = {
@@ -32650,6 +34604,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutPswInput = {
@@ -32849,6 +34804,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -32871,6 +34827,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type PswDocumentUpsertWithWhereUniqueWithoutPswInput = {
@@ -33026,6 +34983,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutClientProfileInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutVisitsInput = {
@@ -33047,6 +35005,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutVisitsInput = {
@@ -33276,6 +35235,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DailyEntryCreateWithoutVisitInput = {
+    id?: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutDailyEntryInput
+    staff: UserCreateNestedOneWithoutDailyEntryInput
+  }
+
+  export type DailyEntryUncheckedCreateWithoutVisitInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryCreateOrConnectWithoutVisitInput = {
+    where: DailyEntryWhereUniqueInput
+    create: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput>
+  }
+
+  export type DailyEntryCreateManyVisitInputEnvelope = {
+    data: DailyEntryCreateManyVisitInput | DailyEntryCreateManyVisitInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ClientProfileUpsertWithoutVisitsInput = {
     update: XOR<ClientProfileUpdateWithoutVisitsInput, ClientProfileUncheckedUpdateWithoutVisitsInput>
     create: XOR<ClientProfileCreateWithoutVisitsInput, ClientProfileUncheckedCreateWithoutVisitsInput>
@@ -33306,6 +35305,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutVisitsInput = {
@@ -33327,6 +35327,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceUpsertWithoutVisitsInput = {
@@ -33504,6 +35505,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TimesheetItem"> | Date | string
   }
 
+  export type DailyEntryUpsertWithWhereUniqueWithoutVisitInput = {
+    where: DailyEntryWhereUniqueInput
+    update: XOR<DailyEntryUpdateWithoutVisitInput, DailyEntryUncheckedUpdateWithoutVisitInput>
+    create: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput>
+  }
+
+  export type DailyEntryUpdateWithWhereUniqueWithoutVisitInput = {
+    where: DailyEntryWhereUniqueInput
+    data: XOR<DailyEntryUpdateWithoutVisitInput, DailyEntryUncheckedUpdateWithoutVisitInput>
+  }
+
+  export type DailyEntryUpdateManyWithWhereWithoutVisitInput = {
+    where: DailyEntryScalarWhereInput
+    data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutVisitInput>
+  }
+
   export type VisitCreateWithoutServiceInput = {
     id?: string
     requestedStartAt: Date | string
@@ -33528,6 +35545,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutServiceInput = {
@@ -33554,6 +35572,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutServiceInput = {
@@ -33606,6 +35625,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutCheckEventsInput = {
@@ -33632,6 +35652,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutCheckEventsInput = {
@@ -33704,6 +35725,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -33726,6 +35748,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -33768,6 +35791,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutCheckEventsInput = {
@@ -33794,6 +35818,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -33878,6 +35903,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -33900,6 +35926,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type VisitCreateWithoutNotesInput = {
@@ -33926,6 +35953,7 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutNotesInput = {
@@ -33952,6 +35980,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutNotesInput = {
@@ -34039,6 +36068,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutNotesInput = {
@@ -34065,6 +36095,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswProfileUpsertWithoutNotesInput = {
@@ -34142,6 +36173,7 @@ export namespace Prisma {
     notes?: VisitNoteCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutChecklistsInput = {
@@ -34168,6 +36200,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutChecklistsInput = {
@@ -34255,6 +36288,7 @@ export namespace Prisma {
     notes?: VisitNoteUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutChecklistsInput = {
@@ -34281,6 +36315,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswProfileUpsertWithoutChecklistsInput = {
@@ -34358,6 +36393,7 @@ export namespace Prisma {
     notes?: VisitNoteCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutIncidentsInput = {
@@ -34384,6 +36420,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutIncidentsInput = {
@@ -34411,6 +36448,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -34433,6 +36471,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -34475,6 +36514,7 @@ export namespace Prisma {
     notes?: VisitNoteUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutIncidentsInput = {
@@ -34501,6 +36541,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -34534,6 +36575,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -34556,6 +36598,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type PswProfileCreateWithoutTimesheetsInput = {
@@ -34623,6 +36666,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -34645,6 +36689,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -34758,6 +36803,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -34780,6 +36826,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type TimesheetItemUpsertWithWhereUniqueWithoutTimesheetInput = {
@@ -34853,6 +36900,7 @@ export namespace Prisma {
     notes?: VisitNoteCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutTimesheetItemsInput = {
@@ -34879,6 +36927,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutTimesheetItemsInput = {
@@ -34958,6 +37007,7 @@ export namespace Prisma {
     notes?: VisitNoteUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutTimesheetItemsInput = {
@@ -34984,6 +37034,7 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type ClientProfileCreateWithoutInvoicesInput = {
@@ -35005,6 +37056,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutInvoicesInput = {
@@ -35026,6 +37078,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutInvoicesInput = {
@@ -35091,6 +37144,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutInvoicesInput = {
@@ -35112,6 +37166,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -35230,6 +37285,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMessageThreadsInput = {
@@ -35251,6 +37307,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMessageThreadsInput = {
@@ -35357,6 +37414,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMessageThreadsInput = {
@@ -35378,6 +37436,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PswProfileUpsertWithoutMessageThreadsInput = {
@@ -35488,6 +37547,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -35510,6 +37570,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -35575,6 +37636,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -35597,6 +37659,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -35619,6 +37682,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -35641,6 +37705,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -35679,6 +37744,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -35701,6 +37767,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type UserCreateWithoutBlogPostsInput = {
@@ -35723,6 +37790,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -35745,6 +37813,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -35783,6 +37852,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -35805,6 +37875,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -35872,6 +37943,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -35894,6 +37966,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -35983,6 +38056,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -36005,6 +38079,343 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
+  export type ClientProfileCreateWithoutDailyEntryInput = {
+    id?: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutClientProfileInput
+    visits?: VisitCreateNestedManyWithoutClientInput
+    invoices?: InvoiceCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileUncheckedCreateWithoutDailyEntryInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileCreateOrConnectWithoutDailyEntryInput = {
+    where: ClientProfileWhereUniqueInput
+    create: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
+  }
+
+  export type UserCreateWithoutDailyEntryInput = {
+    id?: string
+    role: $Enums.Role
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+  }
+
+  export type UserUncheckedCreateWithoutDailyEntryInput = {
+    id?: string
+    role: $Enums.Role
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+  }
+
+  export type UserCreateOrConnectWithoutDailyEntryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyEntryInput, UserUncheckedCreateWithoutDailyEntryInput>
+  }
+
+  export type VisitCreateWithoutDailyEntryInput = {
+    id?: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutVisitsInput
+    service: ServiceCreateNestedOneWithoutVisitsInput
+    psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
+    incidents?: IncidentCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitUncheckedCreateWithoutDailyEntryInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitCreateOrConnectWithoutDailyEntryInput = {
+    where: VisitWhereUniqueInput
+    create: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
+  }
+
+  export type ClientProfileUpsertWithoutDailyEntryInput = {
+    update: XOR<ClientProfileUpdateWithoutDailyEntryInput, ClientProfileUncheckedUpdateWithoutDailyEntryInput>
+    create: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
+    where?: ClientProfileWhereInput
+  }
+
+  export type ClientProfileUpdateToOneWithWhereWithoutDailyEntryInput = {
+    where?: ClientProfileWhereInput
+    data: XOR<ClientProfileUpdateWithoutDailyEntryInput, ClientProfileUncheckedUpdateWithoutDailyEntryInput>
+  }
+
+  export type ClientProfileUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
+    visits?: VisitUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+  }
+
+  export type UserUpsertWithoutDailyEntryInput = {
+    update: XOR<UserUpdateWithoutDailyEntryInput, UserUncheckedUpdateWithoutDailyEntryInput>
+    create: XOR<UserCreateWithoutDailyEntryInput, UserUncheckedCreateWithoutDailyEntryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDailyEntryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDailyEntryInput, UserUncheckedUpdateWithoutDailyEntryInput>
+  }
+
+  export type UserUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+  }
+
+  export type VisitUpsertWithoutDailyEntryInput = {
+    update: XOR<VisitUpdateWithoutDailyEntryInput, VisitUncheckedUpdateWithoutDailyEntryInput>
+    create: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
+    where?: VisitWhereInput
+  }
+
+  export type VisitUpdateToOneWithWhereWithoutDailyEntryInput = {
+    where?: VisitWhereInput
+    data: XOR<VisitUpdateWithoutDailyEntryInput, VisitUncheckedUpdateWithoutDailyEntryInput>
+  }
+
+  export type VisitUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateWithoutDailyEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswDocumentCreateManyVerifierInput = {
@@ -36091,6 +38502,21 @@ export namespace Prisma {
     isOverride?: boolean | null
     overrideReason?: string | null
     createdAt?: Date | string
+  }
+
+  export type DailyEntryCreateManyStaffInput = {
+    id?: string
+    clientId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PswDocumentUpdateWithoutVerifierInput = {
@@ -36353,6 +38779,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DailyEntryUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
+    visit?: VisitUpdateOneWithoutDailyEntryNestedInput
+  }
+
+  export type DailyEntryUncheckedUpdateWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutStaffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VisitCreateManyClientInput = {
     id?: string
     serviceId: string
@@ -36393,6 +38864,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type DailyEntryCreateManyClientInput = {
+    id?: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type VisitUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36417,6 +38903,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutClientInput = {
@@ -36443,6 +38930,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutClientInput = {
@@ -36525,6 +39013,51 @@ export namespace Prisma {
     threadType?: StringFieldUpdateOperationsInput | string
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
+    visit?: VisitUpdateOneWithoutDailyEntryNestedInput
+  }
+
+  export type DailyEntryUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PswDocumentCreateManyPswInput = {
@@ -36671,6 +39204,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutPswInput = {
@@ -36697,6 +39231,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutPswInput = {
@@ -36927,6 +39462,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type DailyEntryCreateManyVisitInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type VisitCheckEventUpdateWithoutVisitInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventType?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
@@ -37077,6 +39627,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DailyEntryUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
+    staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
+  }
+
+  export type DailyEntryUncheckedUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VisitCreateManyServiceInput = {
     id?: string
     clientId: string
@@ -37122,6 +39717,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutServiceInput = {
@@ -37148,6 +39744,7 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutServiceInput = {
@@ -37380,6 +39977,10 @@ export namespace Prisma {
      * @deprecated Use FAQDefaultArgs instead
      */
     export type FAQArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FAQDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DailyEntryDefaultArgs instead
+     */
+    export type DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyEntryDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

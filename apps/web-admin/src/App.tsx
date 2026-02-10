@@ -25,6 +25,9 @@ import EarningsPage from './pages/psw/EarningsPage';
 import VisitDetails from './pages/shared/VisitDetails';
 import MessagingPortal from './pages/shared/MessagingPortal';
 import AdminLayout from './components/layout/AdminLayout';
+import ManagerLayout from './components/layout/ManagerLayout';
+import ManagerDashboard from './pages/manager/ManagerDashboard';
+import DailyEntryPage from './pages/manager/DailyEntryPage';
 
 import { NotificationProvider, useNotification } from './context/NotificationContext';
 
@@ -69,6 +72,13 @@ function App() {
           <Route path="/incidents" element={<AdminLayout roleGated={['admin', 'staff']}><IncidentList /></AdminLayout>} />
           <Route path="/timesheets" element={<AdminLayout roleGated={['admin']}><TimesheetList /></AdminLayout>} />
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
+
+          <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
+
+          {/* Manager Routes */}
+          <Route path="/manager/dashboard" element={<ManagerLayout><ManagerDashboard /></ManagerLayout>} />
+          <Route path="/manager/daily-entry" element={<ManagerLayout><DailyEntryPage /></ManagerLayout>} />
+          <Route path="/reports" element={<ManagerLayout><div>Reports Placeholder</div></ManagerLayout>} />
 
           {/* Fallback */}
           <Route path="/" element={<Navigate to={RouteRegistry.DASHBOARD} replace />} />

@@ -16,6 +16,8 @@ import storageApp from './routes/storage';
 import notificationApp from './routes/notifications';
 import voiceApp from './routes/voice';
 import staffApp from './routes/staff';
+import dailyEntryApp from './routes/daily-entry';
+import managerApp from './routes/manager';
 
 import { DurableObject } from 'cloudflare:workers';
 export { ChatServer } from './durable_objects/ChatServer';
@@ -247,7 +249,10 @@ app.route('/v1/storage', storageApp);
 app.route('/v1/notifications', notificationApp);
 app.route('/v1/voice', voiceApp);
 app.route('/v1/payments', paymentApp);
+app.route('/v1/payments', paymentApp);
 app.route('/v1/staff', staffApp);
+app.route('/v1/daily-entry', dailyEntryApp);
+app.route('/v1/manager', managerApp);
 
 app.get('/ws/chat', async (c) => {
     const upgradeHeader = c.req.header('Upgrade');

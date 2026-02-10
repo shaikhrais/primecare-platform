@@ -109,4 +109,36 @@ app.patch('/customers/:id', zValidator('json', z.object({
     return c.json(customer);
 });
 
+/**
+ * Create a new Visit (Open Shift)
+ */
+app.post('/visits', zValidator('json', z.object({
+    clientId: z.string().uuid(),
+    serviceId: z.string().uuid(),
+    requestedStartAt: z.string().datetime(),
+    durationMinutes: z.number().int().positive(),
+    notes: z.string().optional()
+})), async (c) => {
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const data = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    // Verify client exists
+    const client = await prisma.clientProfile.findUnique({ where: { id: data.clientId } });
+    if (!client) return c.json({ error: 'Client not found' }, 404);
+
+    const visit = await prisma.visit.create({
+        data: {
+            clientId: data.clientId,
+            serviceId: data.serviceId,
+            requestedStartAt: data.requestedStartAt,
+            durationMinutes: data.durationMinutes,
+            status: 'requested', // Open Shift
+            managementNotes: `Created by Staff/Admin ${payload.sub}: ${data.notes || ''}`
+        }
+    });
+
+    return c.json(visit, 201);
+});
+
 export default app;

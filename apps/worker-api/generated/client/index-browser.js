@@ -371,6 +371,22 @@ exports.Prisma.FAQScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DailyEntryScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  staffId: 'staffId',
+  visitId: 'visitId',
+  adlData: 'adlData',
+  medication: 'medication',
+  mood: 'mood',
+  vitals: 'vitals',
+  notes: 'notes',
+  signature: 'signature',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -401,6 +417,7 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
+  manager: 'manager',
   client: 'client',
   psw: 'psw',
   coordinator: 'coordinator',
@@ -464,6 +481,11 @@ exports.DocStatus = exports.$Enums.DocStatus = {
   rejected: 'rejected'
 };
 
+exports.DailyEntryStatus = exports.$Enums.DailyEntryStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   ClientProfile: 'ClientProfile',
@@ -484,7 +506,8 @@ exports.Prisma.ModelName = {
   Lead: 'Lead',
   BlogPost: 'BlogPost',
   PswDocument: 'PswDocument',
-  FAQ: 'FAQ'
+  FAQ: 'FAQ',
+  DailyEntry: 'DailyEntry'
 };
 
 /**

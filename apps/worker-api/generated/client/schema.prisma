@@ -10,6 +10,7 @@ datasource db {
 }
 
 enum Role {
+  manager
   client
   psw
   coordinator
@@ -95,6 +96,7 @@ model User {
   auditLogs          AuditLog[]
   blogPosts          BlogPost[]
   VisitCheckEvent    VisitCheckEvent[]
+  DailyEntry         DailyEntry[]
 
   @@map("users")
 }
@@ -121,6 +123,7 @@ model ClientProfile {
   visits         Visit[]
   invoices       Invoice[]
   messageThreads MessageThread[]
+  DailyEntry     DailyEntry[]
 
   @@map("client_profiles")
 }
@@ -179,6 +182,7 @@ model Visit {
   checklists     VisitChecklist[]
   incidents      Incident[]
   timesheetItems TimesheetItem[]
+  DailyEntry     DailyEntry[]
 
   @@map("visits")
 }
@@ -433,4 +437,31 @@ model FAQ {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("faqs")
+}
+
+enum DailyEntryStatus {
+  DRAFT
+  SUBMITTED
+}
+
+model DailyEntry {
+  id         String           @id @default(uuid())
+  clientId   String           @map("client_id")
+  staffId    String           @map("staff_id")
+  visitId    String?          @map("visit_id")
+  adlData    Json             @map("adl_data")
+  medication Json?
+  mood       Int?
+  vitals     Json?
+  notes      String?
+  signature  String?
+  status     DailyEntryStatus @default(DRAFT)
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  staff  User          @relation(fields: [staffId], references: [id])
+  visit  Visit?        @relation(fields: [visitId], references: [id])
+
+  @@map("daily_entries")
 }

@@ -55,7 +55,11 @@ export default function Login() {
                     return;
                 }
 
-                navigate(RouteRegistry.DASHBOARD);
+                if (data.user.role === 'manager') {
+                    navigate('/manager/dashboard');
+                } else {
+                    navigate(RouteRegistry.DASHBOARD);
+                }
             } else {
                 const data = await response.json();
                 setError(data.error || 'Login failed');

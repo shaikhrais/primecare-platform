@@ -40,8 +40,10 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                 <h1 style={{
                     fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                     marginBottom: '1.5rem',
-                    fontWeight: '700',
-                    lineHeight: '1.2',
+                    fontWeight: '800',
+                    lineHeight: '1.1',
+                    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                    letterSpacing: '-0.02em',
                 }}>
                     {ContentRegistry.HERO.TITLE}
                 </h1>
@@ -49,10 +51,12 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                 <p style={{
                     fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
                     marginBottom: '2.5rem',
-                    opacity: 0.95,
-                    lineHeight: '1.7',
+                    opacity: 1,
+                    lineHeight: '1.6',
                     maxWidth: '700px',
                     margin: '0 auto 2.5rem auto',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.6)',
+                    fontWeight: 500
                 }}>
                     {ContentRegistry.HERO.SUBTITLE}
                 </p>
