@@ -47,12 +47,12 @@ export default function TimesheetList() {
                     </thead>
                     <tbody>
                         {timesheets.map((ts: any) => (
-                            <tr key={ts.id}>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{ts.psw?.fullName}</td>
+                            <tr key={ts.id} data-cy={`timesheet-row-${ts.id}`}>
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-caregiver">{ts.psw?.fullName}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{ts.weekId}</td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{ts.totalMinutes}</td>
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-minutes">{ts.totalMinutes}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                    <span style={{
+                                    <span data-cy="ts-status" style={{
                                         padding: '0.25rem 0.5rem',
                                         borderRadius: '9999px',
                                         fontSize: '0.75rem',
@@ -66,12 +66,14 @@ export default function TimesheetList() {
                                     {ts.status === 'submitted' && (
                                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                                             <button
+                                                data-cy="btn-approve-ts"
                                                 onClick={() => handleApprove(ts.id, 'approved')}
                                                 style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                             >
                                                 Approve
                                             </button>
                                             <button
+                                                data-cy="btn-reject-ts"
                                                 onClick={() => handleApprove(ts.id, 'rejected')}
                                                 style={{ color: '#dc2626', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                             >

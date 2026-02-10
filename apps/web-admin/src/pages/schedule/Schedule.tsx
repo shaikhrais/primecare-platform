@@ -179,6 +179,7 @@ export default function Schedule() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }}>{ContentRegistry.SCHEDULE.SUBTITLE}</p>
                 </div>
                 <button
+                    data-cy="btn-create-visit"
                     onClick={() => showToast('Opening New Request form...', 'info')}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
@@ -232,10 +233,11 @@ export default function Schedule() {
                         </div>
 
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button onClick={handleDeleteVisit} style={{ padding: '0.75rem', backgroundColor: '#fef2f2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CANCEL_VISIT}</button>
+                            <button data-cy="btn-modal-cancel-visit" onClick={handleDeleteVisit} style={{ padding: '0.75rem', backgroundColor: '#fef2f2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CANCEL_VISIT}</button>
                             <div style={{ flex: 1 }} />
-                            <button onClick={() => setIsAssignModalOpen(false)} style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CLOSE}</button>
+                            <button data-cy="btn-modal-close" onClick={() => setIsAssignModalOpen(false)} style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CLOSE}</button>
                             <button
+                                data-cy="btn-modal-confirm-assign"
                                 onClick={handleAssign}
                                 disabled={!assignedPswId}
                                 style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', opacity: assignedPswId ? 1 : 0.5, cursor: 'pointer' }}

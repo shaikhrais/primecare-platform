@@ -32,6 +32,7 @@ export default function SupportDashboard() {
                 {threads.map((thread) => (
                     <div
                         key={thread.id}
+                        data-cy={`support-ticket-${thread.id}`}
                         onClick={() => navigate(`/support/chat/${thread.id}`)}
                         style={{
                             padding: '1.5rem',

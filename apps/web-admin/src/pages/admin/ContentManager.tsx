@@ -41,6 +41,7 @@ export default function ContentManager() {
 
             <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
                 <button
+                    data-cy="tab-blogs"
                     onClick={() => setActiveTab('blogs')}
                     style={{
                         paddingBottom: '1rem',
@@ -55,6 +56,7 @@ export default function ContentManager() {
                     Blog Posts
                 </button>
                 <button
+                    data-cy="tab-faqs"
                     onClick={() => setActiveTab('faqs')}
                     style={{
                         paddingBottom: '1rem',
@@ -73,7 +75,7 @@ export default function ContentManager() {
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                     <h3 style={{ margin: 0, textTransform: 'capitalize' }}>{activeTab} List</h3>
-                    <button style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}>
+                    <button data-cy="btn-add-content" style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}>
                         + Add New {activeTab === 'blogs' ? 'Post' : 'Item'}
                     </button>
                 </div>
@@ -92,17 +94,17 @@ export default function ContentManager() {
                             <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>Loading...</td></tr>
                         ) : activeTab === 'blogs' ? (
                             blogs.length > 0 ? blogs.map(blog => (
-                                <tr key={blog.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={blog.id} data-cy={`blog-row-${blog.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
                                     <td style={{ padding: '1rem', fontWeight: '500' }}>{blog.title}</td>
                                     <td style={{ padding: '1rem', color: '#6b7280' }}>{new Date(blog.createdAt).toLocaleDateString()}</td>
                                     <td style={{ padding: '1rem' }}>
-                                        <span style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: blog.status === 'published' ? '#ecfdf5' : '#fef3c7', color: blog.status === 'published' ? '#065f46' : '#92400e', fontSize: '0.75rem' }}>
+                                        <span data-cy="content-status" style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: blog.status === 'published' ? '#ecfdf5' : '#fef3c7', color: blog.status === 'published' ? '#065f46' : '#92400e', fontSize: '0.75rem' }}>
                                             {blog.status}
                                         </span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        <button style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
-                                        <button style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
+                                        <button data-cy="btn-edit-content" style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
+                                        <button data-cy="btn-delete-content" style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
                                     </td>
                                 </tr>
                             )) : <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>No blogs found.</td></tr>

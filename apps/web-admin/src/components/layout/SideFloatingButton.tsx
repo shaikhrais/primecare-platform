@@ -54,23 +54,24 @@ export default function SideFloatingButton() {
     return (
         <>
             {isOpen && (
-                <div style={menuStyle}>
-                    <button style={menuItemStyle} onClick={() => navigate('/manager/daily-entry')}>
+                <div style={menuStyle} data-cy="floating-menu">
+                    <button data-cy="mbtn-new-daily-entry" style={menuItemStyle} onClick={() => navigate('/manager/daily-entry')}>
                         📝 New Daily Entry
                     </button>
-                    <button style={menuItemStyle} onClick={() => navigate('/incidents')}>
+                    <button data-cy="mbtn-new-incident" style={menuItemStyle} onClick={() => navigate('/incidents')}>
                         ⚠️ New Incident
                     </button>
-                    <button style={menuItemStyle} onClick={() => { }}>
+                    <button data-cy="mbtn-new-client" style={menuItemStyle} onClick={() => { }}>
                         🏥 New Client
                     </button>
-                    <button style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={() => alert('Emergency Protocol Activated!')}>
+                    <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={() => alert('Emergency Protocol Activated!')}>
                         🚨 EMERGENCY
                     </button>
                 </div>
             )}
 
             <button
+                data-cy="btn-floating-toggle"
                 style={{ ...baseStyle, transform: isOpen ? 'rotate(45deg)' : 'none' }}
                 onClick={() => setIsOpen(!isOpen)}
             >
