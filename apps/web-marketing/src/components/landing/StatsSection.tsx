@@ -37,6 +37,7 @@ export function StatsSection({ stats = defaultStats }: StatsSectionProps) {
                 {stats.map((stat, index) => (
                     <AnimatedSection
                         key={index}
+                        data-cy={`stat-item-${index}`}
                         animation="scaleUp"
                         delay={index * 0.15}
                     >

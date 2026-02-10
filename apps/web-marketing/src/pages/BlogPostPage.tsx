@@ -92,7 +92,7 @@ export default function BlogPostPage() {
                 <title>{post.title} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <Link to={RouteRegistry.BLOG} style={{ color: '#00897b', textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
+            <Link to={RouteRegistry.BLOG} data-cy="btn-back-to-blog" style={{ color: '#00897b', textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
                 ← Back to Blog
             </Link>
 
@@ -112,7 +112,7 @@ export default function BlogPostPage() {
             <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
                 <h3 style={{ marginBottom: '1rem' }}>Need Help?</h3>
                 <p>
-                    If you have questions about home care services, <Link to={RouteRegistry.CONTACT} style={{ color: '#00897b' }}>contact us</Link> or <Link to={RouteRegistry.BOOKING} style={{ color: '#00897b' }}>book a consultation</Link>.
+                    If you have questions about home care services, <Link to={RouteRegistry.CONTACT} data-cy="lnk-blog-contact" style={{ color: '#00897b' }}>contact us</Link> or <Link to={RouteRegistry.BOOKING} data-cy="lnk-blog-booking" style={{ color: '#00897b' }}>book a consultation</Link>.
                 </p>
             </div>
         </div>

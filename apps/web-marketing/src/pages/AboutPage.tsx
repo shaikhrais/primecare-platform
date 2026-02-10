@@ -263,6 +263,7 @@ export default function AboutPage() {
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Link
                         to={RouteRegistry.BOOKING}
+                        data-cy="btn-about-booking"
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'white',
@@ -276,6 +277,7 @@ export default function AboutPage() {
                     </Link>
                     <Link
                         to={RouteRegistry.CAREERS}
+                        data-cy="btn-about-careers"
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'transparent',

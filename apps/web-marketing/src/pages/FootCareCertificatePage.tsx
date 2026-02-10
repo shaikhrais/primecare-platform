@@ -72,12 +72,12 @@ export default function FootCareCertificatePage() {
                     <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Ready to Enroll?</h2>
                     <div style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>$1,495</div>
                     <p style={{ opacity: 0.9, marginBottom: '2rem' }}>Includes all materials and clinical placement</p>
-                    <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Register Now</Link>
+                    <Link to={RouteRegistry.CONTACT} data-cy="btn-enroll-now" style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Register Now</Link>
                 </div>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} data-cy="btn-back-to-home" style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

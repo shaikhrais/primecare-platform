@@ -65,6 +65,7 @@ export default function FAQPage() {
                                 return (
                                     <div key={i} style={{ marginBottom: '1rem', border: '1px solid #eee', borderRadius: '8px', overflow: 'hidden' }}>
                                         <button
+                                            data-cy={`faq-toggle-${idx}`}
                                             onClick={() => setOpenIndex(isOpen ? null : idx)}
                                             style={{ width: '100%', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: isOpen ? '#f8f9fa' : 'white', border: 'none', cursor: 'pointer', textAlign: 'left', fontSize: '1rem', fontWeight: 'bold', color: '#333' }}
                                         >
@@ -85,7 +86,7 @@ export default function FAQPage() {
             <section style={{ padding: '4rem 2rem', backgroundColor: '#f8f9fa', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#333' }}>Still have questions?</h2>
                 <p style={{ color: '#666', marginBottom: '2rem' }}>Contact us and we'll be happy to help</p>
-                <Link to={RouteRegistry.CONTACT} style={{ padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
+                <Link to={RouteRegistry.CONTACT} data-cy="btn-faq-contact" style={{ padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>

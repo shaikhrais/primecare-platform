@@ -29,6 +29,7 @@ export function MissionSection() {
                 <AnimatedSection animation="scaleUp" delay={0.4}>
                     <Link
                         to={RouteRegistry.ABOUT}
+                        data-cy="btn-mission-learn-more"
                         style={{
                             display: 'inline-block',
                             padding: '1rem 2.5rem',

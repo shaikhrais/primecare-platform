@@ -68,13 +68,13 @@ export default function StaffingPage() {
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                         <h3 style={{ marginBottom: '1rem', color: '#333' }}>Request Staff</h3>
                         <p style={{ color: '#666', marginBottom: '1.5rem' }}>Contact us for staffing solutions</p>
-                        <Link to={RouteRegistry.CONTACT} style={{ display: 'block', padding: '1rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold' }}>Get a Quote</Link>
+                        <Link to={RouteRegistry.CONTACT} data-cy="btn-staffing-quote" style={{ display: 'block', padding: '1rem', backgroundColor: '#00897b', color: 'white', textDecoration: 'none', borderRadius: '8px', textAlign: 'center', fontWeight: 'bold' }}>Get a Quote</Link>
                     </div>
                 </div>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} data-cy="btn-back-to-home" style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

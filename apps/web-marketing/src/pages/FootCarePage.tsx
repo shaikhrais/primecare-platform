@@ -20,9 +20,9 @@ export default function FootCarePage() {
                 <li>Fungal Infection Treatment</li>
                 <li>Ingrown Toenail Management</li>
             </ul>
-            <Link to={RouteRegistry.BOOKING} className="btn-primary">Book Appointment</Link>
+            <Link to={RouteRegistry.BOOKING} data-cy="btn-foot-care-booking" className="btn-primary">Book Appointment</Link>
             <br /><br />
-            <Link to={RouteRegistry.SERVICES}>Back to Services</Link>
+            <Link to={RouteRegistry.SERVICES} data-cy="btn-back-to-services">Back to Services</Link>
         </div>
     );
 }

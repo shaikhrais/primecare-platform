@@ -75,7 +75,7 @@ export default function PrivacyPage() {
             </section>
 
             <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} data-cy="btn-back-to-home" style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );

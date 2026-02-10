@@ -72,7 +72,7 @@ export default function BlogPage() {
                                     {new Date(post.publishedAt).toLocaleDateString()} {post.author && `• ${post.author}`}
                                 </p>
                                 <p style={{ color: '#666', lineHeight: '1.6', marginBottom: '1rem' }}>{post.excerpt}</p>
-                                <Link to={`${RouteRegistry.BLOG}/${post.slug}`} style={{ color: '#00897b', fontWeight: 'bold', textDecoration: 'none' }}>
+                                <Link to={`${RouteRegistry.BLOG}/${post.slug}`} data-cy={`btn-read-more-${post.slug}`} style={{ color: '#00897b', fontWeight: 'bold', textDecoration: 'none' }}>
                                     Read More →
                                 </Link>
                             </div>

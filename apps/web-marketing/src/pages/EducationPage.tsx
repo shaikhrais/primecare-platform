@@ -27,11 +27,11 @@ export default function EducationPage() {
                 </ul>
             </div>
 
-            <Link to={RouteRegistry.BOOKING} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: '#006064', color: 'white', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
+            <Link to={RouteRegistry.BOOKING} data-cy="btn-training-registration" style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: '#006064', color: 'white', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
                 Register for Training
             </Link>
             <br /><br />
-            <Link to={RouteRegistry.SERVICES} style={{ color: '#666', textDecoration: 'underline' }}>Back to Services</Link>
+            <Link to={RouteRegistry.SERVICES} data-cy="btn-back-to-services" style={{ color: '#666', textDecoration: 'underline' }}>Back to Services</Link>
         </div>
     );
 }

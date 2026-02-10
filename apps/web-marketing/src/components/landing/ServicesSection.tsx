@@ -81,6 +81,7 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                         >
                             <Link
                                 to={service.link}
+                                data-cy={`lnk-service-card-${index}`}
                                 style={{ textDecoration: 'none', display: 'block', height: '100%' }}
                             >
                                 <div style={{

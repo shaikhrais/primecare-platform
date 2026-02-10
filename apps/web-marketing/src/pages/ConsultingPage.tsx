@@ -58,11 +58,11 @@ export default function ConsultingPage() {
             <section style={{ padding: '5rem 2rem', backgroundColor: '#00897b', color: 'white', textAlign: 'center' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Schedule a Consultation</h2>
                 <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Let's discuss how we can help your organization</p>
-                <Link to={RouteRegistry.CONTACT} style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
+                <Link to={RouteRegistry.CONTACT} data-cy="btn-consulting-contact" style={{ display: 'inline-block', padding: '1rem 2rem', backgroundColor: 'white', color: '#00897b', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold' }}>Contact Us</Link>
             </section>
 
             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                <Link to={RouteRegistry.HOME} style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link to={RouteRegistry.HOME} data-cy="btn-back-to-home" style={{ color: '#00897b', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );
