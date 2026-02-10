@@ -27,11 +27,11 @@ export default function Footer() {
                             <div style={{ opacity: 0.8, fontSize: '0.9rem' }}>
                                 <p style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <span>✉️</span>
-                                    <a href="mailto:info@primecare.ca" style={{ color: 'white', textDecoration: 'none' }}>info@primecare.ca</a>
+                                    <a href="mailto:info@primecare.ca" data-cy="lnk-footer-email" style={{ color: 'white', textDecoration: 'none' }}>info@primecare.ca</a>
                                 </p>
                                 <p style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <span>📞</span>
-                                    <a href="tel:+14165551234" style={{ color: 'white', textDecoration: 'none' }}>(+1) 416-555-1234</a>
+                                    <a href="tel:+14165551234" data-cy="lnk-footer-phone" style={{ color: 'white', textDecoration: 'none' }}>(+1) 416-555-1234</a>
                                 </p>
                                 <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <span>🕐</span>
@@ -75,8 +75,8 @@ export default function Footer() {
                         <div>
                             <h4 style={{ color: '#f59e0b', fontSize: '1rem', marginBottom: '1rem', fontWeight: '600' }}>Company</h4>
                             <ul style={{ listStyle: 'none', padding: 0, opacity: 0.8, fontSize: '0.9rem' }}>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.ABOUT} style={{ color: 'white', textDecoration: 'none' }}>About</Link></li>
-                                <li><Link to={RouteRegistry.CAREERS} style={{ color: 'white', textDecoration: 'none' }}>Careers</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.ABOUT} data-cy="lnk-footer-about" style={{ color: 'white', textDecoration: 'none' }}>About</Link></li>
+                                <li><Link to={RouteRegistry.CAREERS} data-cy="lnk-footer-careers" style={{ color: 'white', textDecoration: 'none' }}>Careers</Link></li>
                             </ul>
                         </div>
 
@@ -84,12 +84,12 @@ export default function Footer() {
                         <div>
                             <h4 style={{ color: '#f59e0b', fontSize: '1rem', marginBottom: '1rem', fontWeight: '600' }}>Services</h4>
                             <ul style={{ listStyle: 'none', padding: 0, opacity: 0.8, fontSize: '0.9rem' }}>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.SERVICE_SENIOR} style={{ color: 'white', textDecoration: 'none' }}>Personal Care</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.SERVICE_FOOT_CARE} style={{ color: 'white', textDecoration: 'none' }}>Diabetic Foot Care</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="/education/foot-care-certificate" style={{ color: 'white', textDecoration: 'none' }}>Nurse Education</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="/services/facility-foot-care" style={{ color: 'white', textDecoration: 'none' }}>Foot Clinics</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="/services/staffing" style={{ color: 'white', textDecoration: 'none' }}>Healthcare Staffing</Link></li>
-                                <li><Link to={RouteRegistry.SERVICE_IT} style={{ color: 'white', textDecoration: 'none' }}>IT Managed Services</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.SERVICE_SENIOR} data-cy="lnk-footer-senior-care" style={{ color: 'white', textDecoration: 'none' }}>Personal Care</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to={RouteRegistry.SERVICE_FOOT_CARE} data-cy="lnk-footer-foot-care" style={{ color: 'white', textDecoration: 'none' }}>Diabetic Foot Care</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/education/foot-care-certificate" data-cy="lnk-footer-education" style={{ color: 'white', textDecoration: 'none' }}>Nurse Education</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/services/facility-foot-care" data-cy="lnk-footer-facility-care" style={{ color: 'white', textDecoration: 'none' }}>Foot Clinics</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/services/staffing" data-cy="lnk-footer-staffing" style={{ color: 'white', textDecoration: 'none' }}>Healthcare Staffing</Link></li>
+                                <li><Link to={RouteRegistry.SERVICE_IT} data-cy="lnk-footer-it" style={{ color: 'white', textDecoration: 'none' }}>IT Managed Services</Link></li>
                             </ul>
                         </div>
 
@@ -97,18 +97,18 @@ export default function Footer() {
                         <div>
                             <h4 style={{ color: '#f59e0b', fontSize: '1rem', marginBottom: '1rem', fontWeight: '600' }}>Quick Links</h4>
                             <ul style={{ listStyle: 'none', padding: 0, opacity: 0.8, fontSize: '0.9rem' }}>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="/faq" style={{ color: 'white', textDecoration: 'none' }}>FAQ's</Link></li>
-                                <li style={{ marginBottom: '0.5rem' }}><Link to="/testimonials" style={{ color: 'white', textDecoration: 'none' }}>Testimonials</Link></li>
-                                <li><Link to={RouteRegistry.BLOG} style={{ color: 'white', textDecoration: 'none' }}>Blog</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/faq" data-cy="lnk-footer-faq" style={{ color: 'white', textDecoration: 'none' }}>FAQ's</Link></li>
+                                <li style={{ marginBottom: '0.5rem' }}><Link to="/testimonials" data-cy="lnk-footer-testimonials" style={{ color: 'white', textDecoration: 'none' }}>Testimonials</Link></li>
+                                <li><Link to={RouteRegistry.BLOG} data-cy="lnk-footer-blog" style={{ color: 'white', textDecoration: 'none' }}>Blog</Link></li>
                             </ul>
 
                             {/* Social Icons */}
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>📘</a>
-                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>𝕏</a>
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>💼</a>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>📷</a>
-                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>▶️</a>
+                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" data-cy="lnk-footer-fb" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>📘</a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" data-cy="lnk-footer-tw" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>𝕏</a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" data-cy="lnk-footer-li" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>💼</a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" data-cy="lnk-footer-ig" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>📷</a>
+                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" data-cy="lnk-footer-yt" style={{ color: 'white', opacity: 0.8, fontSize: '1.25rem' }}>▶️</a>
                             </div>
                         </div>
                     </div>
@@ -117,8 +117,8 @@ export default function Footer() {
                 {/* Copyright */}
                 <div style={{ backgroundColor: 'rgba(0,0,0,0.2)', padding: '1rem 2rem', textAlign: 'center', fontSize: '0.85rem', opacity: 0.6 }}>
                     © {new Date().getFullYear()} {ContentRegistry.APP.NAME}. All rights reserved. |
-                    <Link to={RouteRegistry.PRIVACY} style={{ color: 'white', textDecoration: 'none', marginLeft: '0.5rem' }}>Privacy Policy</Link> |
-                    <Link to={RouteRegistry.TERMS} style={{ color: 'white', textDecoration: 'none', marginLeft: '0.5rem' }}>Terms of Service</Link>
+                    <Link to={RouteRegistry.PRIVACY} data-cy="lnk-footer-privacy" style={{ color: 'white', textDecoration: 'none', marginLeft: '0.5rem' }}>Privacy Policy</Link> |
+                    <Link to={RouteRegistry.TERMS} data-cy="lnk-footer-terms" style={{ color: 'white', textDecoration: 'none', marginLeft: '0.5rem' }}>Terms of Service</Link>
                 </div>
             </footer>
 

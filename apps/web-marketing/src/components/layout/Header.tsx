@@ -75,6 +75,7 @@ function Dropdown({ label, items }: DropdownProps) {
                             ) : (
                                 <Link
                                     to={item.link}
+                                    data-cy={`nav-dropdown-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                                     style={{
                                         display: 'block',
                                         padding: '0.75rem 1.25rem',
@@ -107,6 +108,7 @@ function Dropdown({ label, items }: DropdownProps) {
                                         <Link
                                             key={subindex}
                                             to={subitem.link}
+                                            data-cy={`nav-submenu-item-${subitem.label.toLowerCase().replace(/\s+/g, '-')}`}
                                             style={{
                                                 display: 'block',
                                                 padding: '0.75rem 1.25rem',
@@ -402,7 +404,7 @@ export default function Header() {
                                                         </Link>
                                                     ))
                                                 ) : (
-                                                    <Link to={item.link} onClick={toggleMenu} style={{ display: 'block', padding: '0.75rem 0', color: 'var(--text-muted)', textDecoration: 'none', fontWeight: 500 }}>
+                                                    <Link to={item.link} data-cy={`mobile-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={toggleMenu} style={{ display: 'block', padding: '0.75rem 0', color: 'var(--text-muted)', textDecoration: 'none', fontWeight: 500 }}>
                                                         {item.label}
                                                     </Link>
                                                 )}
@@ -413,7 +415,7 @@ export default function Header() {
                             </div>
                         ))}
 
-                        <Link to={RouteRegistry.BLOG} onClick={toggleMenu} style={{ display: 'block', padding: '1rem 0', color: 'var(--text)', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem' }}>Insights & News</Link>
+                        <Link to={RouteRegistry.BLOG} data-cy="mobile-nav-insights" onClick={toggleMenu} style={{ display: 'block', padding: '1rem 0', color: 'var(--text)', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem' }}>Insights & News</Link>
 
                         <div style={{ marginTop: '2rem' }}>
                             <Link

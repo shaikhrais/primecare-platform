@@ -188,9 +188,9 @@ export default function ChatWidget() {
                         </div>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                             {view !== 'menu' && view !== 'contact' && (
-                                <button onClick={() => setView('menu')} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1rem', cursor: 'pointer' }}>←</button>
+                                <button onClick={() => setView('menu')} data-cy="btn-chat-back" style={{ background: 'none', border: 'none', color: 'white', fontSize: '1rem', cursor: 'pointer' }}>←</button>
                             )}
-                            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.25rem', cursor: 'pointer' }}>✕</button>
+                            <button onClick={() => setIsOpen(false)} data-cy="btn-chat-close" style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.25rem', cursor: 'pointer' }}>✕</button>
                         </div>
                     </div>
 
@@ -202,6 +202,7 @@ export default function ChatWidget() {
                             </p>
                             <input
                                 type="text"
+                                data-cy="chat-contact-name"
                                 placeholder="Your Name *"
                                 value={contactInfo.name}
                                 onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
@@ -209,6 +210,7 @@ export default function ChatWidget() {
                             />
                             <input
                                 type="tel"
+                                data-cy="chat-contact-phone"
                                 placeholder="Phone Number *"
                                 value={contactInfo.phone}
                                 onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
@@ -216,6 +218,7 @@ export default function ChatWidget() {
                             />
                             <input
                                 type="email"
+                                data-cy="chat-contact-email"
                                 placeholder="Email Address *"
                                 value={contactInfo.email}
                                 onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
@@ -223,6 +226,7 @@ export default function ChatWidget() {
                             />
                             <button
                                 onClick={handleContactSubmit}
+                                data-cy="btn-chat-contact-submit"
                                 disabled={!contactInfo.name || !contactInfo.phone || !contactInfo.email}
                                 style={{
                                     width: '100%', padding: '1rem', backgroundColor: '#00897b', color: 'white',
@@ -241,7 +245,7 @@ export default function ChatWidget() {
                     {/* Menu View */}
                     {view === 'menu' && (
                         <div style={{ padding: '1rem' }}>
-                            <button onClick={() => startAction('chat')} style={{
+                            <button onClick={() => startAction('chat')} data-cy="btn-chat-text" style={{
                                 display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', width: '100%',
                                 backgroundColor: '#e8f5e9', borderRadius: '12px', border: 'none', cursor: 'pointer', marginBottom: '0.75rem', textAlign: 'left',
                             }}>
@@ -252,7 +256,7 @@ export default function ChatWidget() {
                                 </div>
                             </button>
 
-                            <button onClick={() => startAction('call')} style={{
+                            <button onClick={() => startAction('call')} data-cy="btn-chat-voice" style={{
                                 display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', width: '100%',
                                 backgroundColor: '#e3f2fd', borderRadius: '12px', border: 'none', cursor: 'pointer', marginBottom: '0.75rem', textAlign: 'left',
                             }}>
@@ -266,9 +270,9 @@ export default function ChatWidget() {
                             <div style={{ borderTop: '1px solid #eee', paddingTop: '1rem', marginTop: '0.5rem' }}>
                                 <p style={{ color: '#999', fontSize: '0.8rem', marginBottom: '0.75rem', textAlign: 'center' }}>Or contact us directly:</p>
                                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <a href="tel:+14165551234" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>📞 Call</a>
-                                    <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#25D366', borderRadius: '8px', textDecoration: 'none', color: 'white', fontSize: '0.85rem' }}>💬 WhatsApp</a>
-                                    <a href="mailto:info@primecare.ca" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>✉️ Email</a>
+                                    <a href="tel:+14165551234" data-cy="lnk-chat-call-direct" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>📞 Call</a>
+                                    <a href={getWhatsAppUrl()} data-cy="lnk-chat-whatsapp" target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#25D366', borderRadius: '8px', textDecoration: 'none', color: 'white', fontSize: '0.85rem' }}>💬 WhatsApp</a>
+                                    <a href="mailto:info@primecare.ca" data-cy="lnk-chat-email-direct" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textDecoration: 'none', color: '#333', fontSize: '0.85rem' }}>✉️ Email</a>
                                 </div>
                             </div>
                         </div>
@@ -301,13 +305,14 @@ export default function ChatWidget() {
                             <div style={{ padding: '1rem', borderTop: '1px solid #eee', display: 'flex', gap: '0.5rem' }}>
                                 <input
                                     type="text"
+                                    data-cy="chat-input-text"
                                     value={inputText}
                                     onChange={(e) => setInputText(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                                     placeholder="Type your message..."
                                     style={{ flex: 1, padding: '0.75rem', borderRadius: '24px', border: '1px solid #ddd', outline: 'none', fontSize: '0.9rem' }}
                                 />
-                                <button onClick={sendMessage} disabled={isLoading || !inputText.trim()} style={{ padding: '0.75rem 1rem', backgroundColor: '#00897b', color: 'white', border: 'none', borderRadius: '24px', cursor: 'pointer', opacity: isLoading || !inputText.trim() ? 0.5 : 1 }}>Send</button>
+                                <button onClick={sendMessage} data-cy="btn-chat-send" disabled={isLoading || !inputText.trim()} style={{ padding: '0.75rem 1rem', backgroundColor: '#00897b', color: 'white', border: 'none', borderRadius: '24px', cursor: 'pointer', opacity: isLoading || !inputText.trim() ? 0.5 : 1 }}>Send</button>
                             </div>
                         </>
                     )}
@@ -320,7 +325,7 @@ export default function ChatWidget() {
                                     <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎙️</div>
                                     <h4 style={{ margin: '0 0 0.5rem 0', color: '#333' }}>AI Voice Assistant</h4>
                                     <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Ready to help you, {contactInfo.name}</p>
-                                    <button onClick={startCall} style={{ padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold' }}>🎤 Start Voice Call</button>
+                                    <button onClick={startCall} data-cy="btn-chat-call-start" style={{ padding: '1rem 2rem', backgroundColor: '#00897b', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold' }}>🎤 Start Voice Call</button>
                                 </>
                             ) : (
                                 <>
@@ -328,7 +333,7 @@ export default function ChatWidget() {
                                         <span style={{ fontSize: '3rem' }}>🎙️</span>
                                     </div>
                                     <p style={{ color: '#00897b', fontWeight: 'bold', marginBottom: '1rem' }}>{callStatus}</p>
-                                    <button onClick={endCall} style={{ padding: '1rem 2rem', backgroundColor: '#f44336', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontSize: '1rem' }}>End Call</button>
+                                    <button onClick={endCall} data-cy="btn-chat-call-end" style={{ padding: '1rem 2rem', backgroundColor: '#f44336', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontSize: '1rem' }}>End Call</button>
                                 </>
                             )}
                         </div>
@@ -336,7 +341,7 @@ export default function ChatWidget() {
 
                     {view === 'menu' && (
                         <div style={{ padding: '0.75rem', borderTop: '1px solid #eee', textAlign: 'center' }}>
-                            <Link to={RouteRegistry.CONTACT} onClick={() => setIsOpen(false)} style={{ color: '#00897b', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.85rem' }}>Or visit our Contact Page →</Link>
+                            <Link to={RouteRegistry.CONTACT} data-cy="lnk-chat-contact-page" onClick={() => setIsOpen(false)} style={{ color: '#00897b', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.85rem' }}>Or visit our Contact Page →</Link>
                         </div>
                     )}
                 </div>
@@ -358,6 +363,7 @@ export default function ChatWidget() {
                 )}
                 <button
                     onClick={handleChat}
+                    data-cy="btn-chat-widget-toggle"
                     style={{
                         width: '56px',
                         height: '56px',
