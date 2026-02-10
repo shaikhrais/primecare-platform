@@ -7,6 +7,7 @@ export const ContentRegistry = {
         LOGIN_TITLE: 'Sign in to your account',
         LOGIN_TITLE_CLIENT: 'Client Portal Login',
         LOGIN_TITLE_STAFF: 'Staff Portal Login',
+        LOGIN_TITLE_PSW: 'Caregiver Portal Login',
         BUTTON: 'Sign in',
         BUTTON_CLIENT: 'Sign In as Client',
         BUTTON_PSW: 'Sign In as Caregiver',
@@ -14,6 +15,9 @@ export const ContentRegistry = {
         EMAIL_LABEL: 'Email address',
         PASSWORD_LABEL: 'Password',
         FORGOT_PASSWORD: 'Forgot password?',
+        REGISTER_TITLE: 'Create your account',
+        BUTTON_REGISTER: 'Sign up',
+        SIGNUP_LINK: "Don't have an account? Sign up",
     },
     ADMIN_DASHBOARD: {
         STATS: {

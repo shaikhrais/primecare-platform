@@ -84,7 +84,7 @@ export default function DailyEntryPage() {
     };
 
     return (
-        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }}>
+        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="daily-entry-page">
 
             {/* Left Panel: Context Selection */}
             <div style={{ width: '300px', background: 'var(--bg-elev)', padding: '24px', borderRadius: '16px', border: '1px solid var(--line)' }}>
@@ -93,6 +93,7 @@ export default function DailyEntryPage() {
                 <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Client</label>
                     <select
+                        data-cy="client-select"
                         style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg-input)', color: 'var(--text)' }}
                         value={selectedClient}
                         onChange={(e) => setSelectedClient(e.target.value)}
@@ -128,6 +129,7 @@ export default function DailyEntryPage() {
                             {Object.keys(adl).map(key => (
                                 <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '12px', background: 'var(--bg)', borderRadius: '8px', border: '1px solid var(--line)' }}>
                                     <input
+                                        data-cy={`adl-${key}`}
                                         type="checkbox"
                                         checked={(adl as any)[key]}
                                         onChange={(e) => setAdl({ ...adl, [key]: e.target.checked })}
@@ -146,15 +148,15 @@ export default function DailyEntryPage() {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>BP</label>
-                                <input placeholder="120/80" value={vitals.bp} onChange={(e) => setVitals({ ...vitals, bp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="vitals-bp" placeholder="120/80" value={vitals.bp} onChange={(e) => setVitals({ ...vitals, bp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pulse</label>
-                                <input placeholder="72" value={vitals.pulse} onChange={(e) => setVitals({ ...vitals, pulse: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="vitals-pulse" placeholder="72" value={vitals.pulse} onChange={(e) => setVitals({ ...vitals, pulse: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Temp</label>
-                                <input placeholder="36.5" value={vitals.temp} onChange={(e) => setVitals({ ...vitals, temp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="vitals-temp" placeholder="36.5" value={vitals.temp} onChange={(e) => setVitals({ ...vitals, temp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                         </div>
 
@@ -185,6 +187,7 @@ export default function DailyEntryPage() {
                 <div style={{ marginTop: '32px' }}>
                     <h3 style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>Notes & Signature</h3>
                     <textarea
+                        data-cy="notes"
                         placeholder="Daily progress notes, observations, or incidents..."
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
@@ -195,6 +198,7 @@ export default function DailyEntryPage() {
                         <div style={{ flex: 1, minWidth: '250px' }}>
                             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Digital Signature</label>
                             <input
+                                data-cy="signature"
                                 placeholder="Type full name to sign"
                                 value={signature}
                                 onChange={(e) => setSignature(e.target.value)}
@@ -213,6 +217,7 @@ export default function DailyEntryPage() {
                                 onClick={() => handleSubmit(false)}
                                 disabled={submitting}
                                 className="btn btn-primary"
+                                data-cy="submit-entry"
                                 style={{ padding: '14px 32px', borderRadius: '50px', fontWeight: 800 }}
                             >
                                 {submitting ? 'Submitting...' : 'Submit Entry'}

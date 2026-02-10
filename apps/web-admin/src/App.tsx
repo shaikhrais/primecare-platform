@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -41,6 +42,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={RouteRegistry.LOGIN} element={<Login />} />
+          <Route path={RouteRegistry.REGISTER} element={<Register />} />
           <Route path={ApiRegistry.AUTH.FORGOT_PASSWORD.replace('/v1/auth', '')} element={<ForgotPassword />} />
           <Route path={ApiRegistry.AUTH.RESET_PASSWORD.replace('/v1/auth', '')} element={<ResetPassword />} />
 

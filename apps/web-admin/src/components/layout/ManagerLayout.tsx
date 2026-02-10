@@ -52,7 +52,7 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                     top: '50px', // Below text bar
                     height: 'calc(100vh - 50px)',
                     overflowY: 'auto'
-                }}>
+                }} data-cy="sidebar">
                     <div style={{ padding: '20px' }}>
                         <h2 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--primary)' }}>PSW Manager</h2>
                         <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{user.email}</p>
@@ -65,6 +65,7 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                                 <Link
                                     key={item.path}
                                     to={item.path}
+                                    data-cy={`menu-${item.label.toLowerCase().replace(/\s/g, '-')}`}
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -88,6 +89,7 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
 
                         <button
                             onClick={handleLogout}
+                            data-cy="btn-logout"
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',

@@ -48,8 +48,9 @@ export default function ManagerDashboard() {
         fetchData();
     }, []);
 
-    const QuickActionCard = ({ label, icon, onClick, color = 'var(--bg-elev)' }: any) => (
+    const QuickActionCard = ({ label, icon, onClick, color = 'var(--bg-elev)', dataCy }: any) => (
         <div
+            data-cy={dataCy}
             onClick={onClick}
             style={{
                 backgroundColor: color,
@@ -79,7 +80,7 @@ export default function ManagerDashboard() {
     );
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }} data-cy="mgr-dashboard">
 
             <h1 className="display-text" style={{ marginBottom: '24px' }}>Manager Dashboard</h1>
 
@@ -94,7 +95,7 @@ export default function ManagerDashboard() {
             {/* Quick Action Grid */}
             <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Quick Actions</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" />
+                <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" dataCy="qa-daily-entry" />
                 <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} />
                 <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} />
                 <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} />

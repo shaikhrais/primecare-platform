@@ -125,7 +125,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                 height: '100vh',
                 zIndex: 'var(--z-index-sidebar)',
                 borderRight: '1px solid var(--line)'
-            }}>
+            }} data-cy="sidebar">
                 <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--line)' }}>
                     <h1 style={{ fontSize: '1.25rem', fontWeight: 900, margin: 0, color: 'var(--primary)', fontFamily: 'var(--pc-font-display)', letterSpacing: '-0.03em' }}>
                         PrimeCare <span style={{ color: 'var(--text)', fontWeight: 500 }}>{portalTitle}</span>
@@ -180,7 +180,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     top: 0,
                     zIndex: 'var(--z-index-header)',
                     borderBottom: '1px solid var(--line)'
-                }}>
+                }} data-cy="topbar">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <h2 style={{ fontSize: '1rem', fontWeight: 800, margin: 0, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>SYSTEM OPERATIONS</h2>
                     </div>

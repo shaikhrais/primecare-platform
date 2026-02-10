@@ -50,14 +50,14 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
             overflowX: 'auto',
             whiteSpace: 'nowrap',
             borderBottom: '1px solid rgba(255,255,255,0.1)'
-        }} className="no-scrollbar">
+        }} className="no-scrollbar" data-cy="qa-bar">
 
             <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', marginRight: '8px' }}>
                 Quick Actions
             </span>
 
             {/* Common Actions */}
-            <button style={actionButtonStyle} onClick={() => navigate('/manager/daily-entry')}>
+            <button style={actionButtonStyle} onClick={() => navigate('/manager/daily-entry')} data-cy="qa-daily-entry">
                 📝 Daily Entry
             </button>
 
@@ -65,7 +65,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                 ⏱️ Create Shift
             </button>
 
-            <button style={actionButtonStyle} onClick={() => navigate('/incidents')}>
+            <button style={actionButtonStyle} onClick={() => navigate('/incidents')} data-cy="qa-incident">
                 ⚠️ Log Incident
             </button>
 
