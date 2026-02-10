@@ -42,7 +42,7 @@ export default function CustomerList() {
                     <tbody style={{ borderTop: '1px solid #e5e7eb' }}>
                         {customers.map((customer) => (
                             <tr key={customer.id} data-cy={`customer-row-${customer.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }} data-cy="customer-name">{customer.fullName}</td>
+                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }} data-cy="customer-name">{customer?.fullName || 'Anonymous Customer'}</td>
                                 <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }} data-cy="customer-email">{customer.user?.email}</td>
                                 <td style={{ padding: '1rem' }}>
                                     <span data-cy="customer-status" style={{

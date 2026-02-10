@@ -99,7 +99,7 @@ export default function DailyEntryPage() {
                         onChange={(e) => setSelectedClient(e.target.value)}
                     >
                         <option value="">Select Client...</option>
-                        {clients.map(c => <option key={c.id} value={c.id}>{c.fullName}</option>)}
+                        {clients.map(c => <option key={c.id} value={c.id}>{c?.fullName || 'Unknown Client'}</option>)}
                     </select>
                 </div>
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="83.909" tests="3" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T23:53:17" tests="0" file="cypress\e2e\30_reliability\auth-flows.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Authentication Reliability Flows" timestamp="2026-02-10T23:53:17" tests="3" time="83.884" failures="2">
+    <testcase name="Authentication Reliability Flows Redirection: Guest accessing protected route is sent to /login" time="0.542" classname="Redirection: Guest accessing protected route is sent to /login">
+    </testcase>
+    <testcase name="Authentication Reliability Flows Deep-Linking: Redirects back to intended page after login" time="16.744" classname="Deep-Linking: Redirects back to intended page after login">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/dashboard&apos; to include &apos;/users&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/dashboard' to include '/users'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/auth-flows.cy.ts:31:0)]]></failure>
+    </testcase>
+    <testcase name="Authentication Reliability Flows Security: Logout clears session and blocks access" time="11.096" classname="Security: Logout clears session and blocks access">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;btn-logout&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="btn-logout"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

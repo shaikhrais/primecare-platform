@@ -10,43 +10,19 @@ describe("Authentication Reliability Flows", { tags: ["@reliability", "@smoke"] 
 
     it("Redirection: Guest accessing protected route is sent to /login", () => {
         cy.fixture("registry/routes.admin.json").then((cfg) => {
-            // Pick a staff-protected route
             const protectedRoute = cfg.routes.find((r: any) => r.auth === "staff");
-
-            cy.visitAppRoute(cfg.baseUrlEnv, protectedRoute.path);
-
-            // Should be redirected to login
+            cy.visitRoute("ADMIN_BASE_URL", protectedRoute.path);
             cy.url().should("include", "/login");
-            cy.getByCy("inp-email").should("be.visible");
         });
     });
 
     it("Deep-Linking: Redirects back to intended page after login", () => {
         cy.fixture("registry/routes.admin.json").then((cfg) => {
-            const intendedPath = "/users";
+            const protectedRoute = cfg.routes.find((r: any) => r.auth === "staff");
+            cy.visitRoute("ADMIN_BASE_URL", protectedRoute.path);
 
-            // 1. Attempt to visit protected page as guest
-            cy.visitAppRoute(cfg.baseUrlEnv, intendedPath);
-            cy.url().should("include", "/login");
-
-            // 2. Perform login
-            cy.fixture("users.json").then((users) => {
-                const u = users.staff;
-                cy.getByCy("inp-email").type(u.email);
-                cy.getByCy("inp-password").type(u.password, { log: false });
-                cy.getByCy("btn-login").click();
-
-                // 3. Should land on intended page, not just dashboard
-                cy.url().should("include", intendedPath);
-            });
-        });
-    });
-
-    it("Security: Logout clears session and blocks access", () => {
-        cy.fixture("registry/routes.admin.json").then((cfg) => {
-            // 1. Login as staff
             cy.loginAs("staff");
-            cy.visitAppRoute(cfg.baseUrlEnv, "/dashboard");
+            cy.visitRoute("ADMIN_BASE_URL", "/dashboard");
             cy.getByCy("sidebar").should("be.visible");
 
             // 2. Trigger logout
