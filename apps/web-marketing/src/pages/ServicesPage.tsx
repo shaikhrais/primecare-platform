@@ -159,6 +159,7 @@ export default function ServicesPage() {
 
                                 <Link
                                     to={service.link}
+                                    data-cy={`btn-learn-more-${service.id}`}
                                     style={{
                                         display: 'inline-block',
                                         padding: '1rem 2rem',
@@ -192,6 +193,7 @@ export default function ServicesPage() {
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Link
                         to={RouteRegistry.BOOKING}
+                        data-cy="btn-services-booking"
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'white',
@@ -206,6 +208,7 @@ export default function ServicesPage() {
                     </Link>
                     <Link
                         to={RouteRegistry.CONTACT}
+                        data-cy="btn-services-contact"
                         style={{
                             padding: '1rem 2.5rem',
                             backgroundColor: 'transparent',

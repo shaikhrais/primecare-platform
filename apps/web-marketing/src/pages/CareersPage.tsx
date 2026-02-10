@@ -145,6 +145,7 @@ export default function CareersPage() {
                         {departments.map(dept => (
                             <button
                                 key={dept}
+                                data-cy={`filter-${dept}`}
                                 onClick={() => setSelectedDepartment(dept)}
                                 style={{
                                     padding: '0.5rem 1rem',
@@ -185,6 +186,7 @@ export default function CareersPage() {
                                         </div>
                                         <Link
                                             to={`/careers/apply/${job.id}`}
+                                            data-cy={`btn-apply-${job.id}`}
                                             style={{
                                                 padding: '0.75rem 1.5rem',
                                                 backgroundColor: '#00897b',
@@ -219,6 +221,7 @@ export default function CareersPage() {
                     </p>
                     <Link
                         to="/careers/general-application"
+                        data-cy="btn-general-application"
                         style={{
                             display: 'inline-block',
                             padding: '1rem 2rem',

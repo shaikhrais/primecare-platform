@@ -143,6 +143,7 @@ export default function VolunteerPage() {
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#333' }}>Full Name *</label>
                             <input
+                                data-cy="inp-name"
                                 type="text"
                                 required
                                 value={formData.name}
@@ -153,6 +154,7 @@ export default function VolunteerPage() {
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#333' }}>Email *</label>
                             <input
+                                data-cy="inp-email"
                                 type="email"
                                 required
                                 value={formData.email}
@@ -163,6 +165,7 @@ export default function VolunteerPage() {
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#333' }}>Phone</label>
                             <input
+                                data-cy="inp-phone"
                                 type="tel"
                                 value={formData.phone}
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -172,6 +175,7 @@ export default function VolunteerPage() {
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#333' }}>Availability</label>
                             <select
+                                data-cy="sel-availability"
                                 value={formData.availability}
                                 onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '8px', fontSize: '1rem' }}
@@ -194,6 +198,7 @@ export default function VolunteerPage() {
                             />
                         </div>
                         <button
+                            data-cy="btn-submit-volunteer"
                             type="submit"
                             style={{
                                 width: '100%',
