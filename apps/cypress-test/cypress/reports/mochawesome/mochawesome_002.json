@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T15:17:59.025Z",
+    "end": "2026-02-10T15:18:26.150Z",
+    "duration": 27125,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "13999914-5316-47d6-9a2f-cf4c1f2c4884",
+      "title": "",
+      "fullFile": "cypress\\e2e\\manager\\regression\\daily-entry-flow.cy.ts",
+      "file": "cypress\\e2e\\manager\\regression\\daily-entry-flow.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "37cb1916-7d14-4a0b-99ea-331be7196f84",
+          "title": "[REGRESSION] Manager Daily Entry Flow",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "creates daily entry via Quick Actions",
+              "fullTitle": "[REGRESSION] Manager Daily Entry Flow creates daily entry via Quick Actions",
+              "timedOut": null,
+              "duration": 8313,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.step(\"Open Daily Entry from Quick Action bar\");\nquickActions_comp_1.QuickActions.openDailyEntry();\ncy.waitForByCy(manager_cy_1.MGR.dailyEntryPage);\ndailyEntry_page_1.DailyEntryPage.selectClient(\"John\");\ndailyEntry_page_1.DailyEntryPage.fillADL();\ndailyEntry_page_1.DailyEntryPage.fillVitals(\"120/80\", \"72\", \"36.7\");\ncy.clearAndTypeByCy(manager_cy_1.MGR.notes, \"Stable. No pain. Good mood.\");\ndailyEntry_page_1.DailyEntryPage.submit(\"Rahil\");\ncy.wait(\"@postDailyEntry\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashboard`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `[REGRESSION] Manager Daily ...`",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashboard`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `[REGRESSION] Manager Daily ...`\n    at cypressErr (http://localhost:5173/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (http://localhost:5173/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (http://localhost:5173/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (http://localhost:5173/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (http://localhost:5173/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/manager/regression/daily-entry-flow.cy.ts:17:0)",
+                "diff": null
+              },
+              "uuid": "13271339-712f-430a-bd83-5621439f3a36",
+              "parentUUID": "37cb1916-7d14-4a0b-99ea-331be7196f84",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "13271339-712f-430a-bd83-5621439f3a36"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 8313,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

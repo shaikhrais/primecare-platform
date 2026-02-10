@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-10T15:38:20.150Z",
+    "end": "2026-02-10T15:38:23.654Z",
+    "duration": 3504,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "30ed87de-8bb5-401c-901d-fcfbd0f00269",
+      "title": "",
+      "fullFile": "cypress\\e2e\\debug\\api-check.cy.ts",
+      "file": "cypress\\e2e\\debug\\api-check.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "36dff487-7611-4441-b468-fc41e50c595a",
+          "title": "API Connectivity Check",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "can reach the API root",
+              "fullTitle": "API Connectivity Check can reach the API root",
+              "timedOut": null,
+              "duration": 172,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Try to reach API directly - using 127.0.0.1 just in case\ncy.request({\n    url: \"http://127.0.0.1:8787/health\",\n    failOnStatusCode: false\n}).then(function (response) {\n    cy.log(\"API Response: \".concat(response.status));\n});",
+              "err": {},
+              "uuid": "103123e7-8808-469b-b7f8-ad0252ab4f30",
+              "parentUUID": "36dff487-7611-4441-b468-fc41e50c595a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verifies VITE_API_URL usage in app",
+              "fullTitle": "API Connectivity Check verifies VITE_API_URL usage in app",
+              "timedOut": null,
+              "duration": 897,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.on(\"window:console\", function (msg) {\n    cy.log(\"BROWSER CONSOLE: \".concat(JSON.stringify(msg)));\n});\n// EXPLICIT IP\ncy.visit(\"http://127.0.0.1:5173/login\");\ncy.get('[data-cy=\"inp-email\"]').should('be.visible').type(\"test@test.com\");\ncy.get('[data-cy=\"inp-password\"]').type(\"password\");\ncy.get('[data-cy=\"btn-login\"]').click();\ncy.wait(2000);",
+              "err": {
+                "message": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://127.0.0.1:5173/login\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5173\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+                "estack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://127.0.0.1:5173/login\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5173\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131607:74)\n    at visitFailedByErr (http://localhost:5173/__cypress/runner/cypress_runner.js:131006:12)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131606:11)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1720:18)\n    at _drainQueueStep (http://localhost:5173/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (http://localhost:5173/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/api-check.cy.ts:16:0)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5173\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16)",
+                "diff": null
+              },
+              "uuid": "1ede0e8c-38c4-4c2a-9402-f19f883316ab",
+              "parentUUID": "36dff487-7611-4441-b468-fc41e50c595a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "103123e7-8808-469b-b7f8-ad0252ab4f30"
+          ],
+          "failures": [
+            "1ede0e8c-38c4-4c2a-9402-f19f883316ab"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1069,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

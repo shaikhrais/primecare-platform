@@ -73,7 +73,7 @@ export default function EarningsPage() {
                 </div>
                 <div style={{ backgroundColor: '#ecfdf5', padding: '1.5rem', borderRadius: '1rem', textAlign: 'right', border: '1px solid #c2ffd9' }}>
                     <span style={{ fontSize: '0.875rem', color: '#065f46', textTransform: 'uppercase', fontWeight: 'bold' }}>Total Withdrawable</span>
-                    <div style={{ fontSize: '2rem', fontWeight: '900', color: '#004d40' }}>${totalEarnings.toFixed(2)}</div>
+                    <div data-cy="txt-total-earnings" style={{ fontSize: '2rem', fontWeight: '900', color: '#004d40' }}>${totalEarnings.toFixed(2)}</div>
                 </div>
             </div>
 
@@ -108,6 +108,7 @@ export default function EarningsPage() {
 
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                 <button
+                    data-cy="btn-request-payout"
                     onClick={handlePayout}
                     disabled={requesting || totalEarnings === 0}
                     style={{

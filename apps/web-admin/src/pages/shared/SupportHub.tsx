@@ -35,6 +35,7 @@ export default function SupportHub() {
                 <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Need Direct Help?</h3>
                 <p style={{ opacity: 0.8, maxWidth: '600px', margin: '0 auto', marginBottom: '2rem' }}>Connect with our care coordination team instantly through our secure messaging portal.</p>
                 <button
+                    data-cy="btn-open-messaging"
                     onClick={() => window.location.href = '/support'}
                     style={{ padding: '0.75rem 2rem', backgroundColor: 'white', color: 'var(--pc-primary-dark)', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >

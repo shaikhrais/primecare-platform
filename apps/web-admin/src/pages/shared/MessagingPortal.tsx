@@ -100,7 +100,7 @@ export default function MessagingPortal() {
             </div>
 
             {/* Message Area */}
-            <div style={{ flex: 1, padding: '1.5rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: '#f9fafb' }}>
+            <div data-cy="list-messages" style={{ flex: 1, padding: '1.5rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: '#f9fafb' }}>
                 {messages.map(msg => (
                     <div key={msg.id} style={{ alignSelf: msg.type === 'sent' ? 'flex-end' : 'flex-start', maxWidth: '70%', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                         <div style={{
@@ -124,6 +124,7 @@ export default function MessagingPortal() {
             {/* Input */}
             <form onSubmit={handleSend} style={{ padding: '1.25rem', borderTop: '1px solid #e5e7eb', display: 'flex', gap: '0.75rem' }}>
                 <input
+                    data-cy="inp-message"
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
@@ -131,6 +132,7 @@ export default function MessagingPortal() {
                     style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', outline: 'none' }}
                 />
                 <button
+                    data-cy="btn-send-message"
                     type="submit"
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: 'var(--pc-primary-dark)', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >

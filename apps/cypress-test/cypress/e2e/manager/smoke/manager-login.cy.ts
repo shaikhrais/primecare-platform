@@ -3,7 +3,7 @@ import { MGR } from "../../../support/selectors/manager.cy";
 describe("[SMOKE] Manager Login", () => {
     it("logs in successfully via UI", () => {
         cy.step("Open Manager Login");
-        cy.visit("/manager/login");
+        cy.visit("/login");
         cy.waitForPageReady();
 
         cy.step("Enter Credentials");

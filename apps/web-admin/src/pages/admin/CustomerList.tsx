@@ -30,7 +30,7 @@ export default function CustomerList() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-customers">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Full Name</th>
@@ -41,11 +41,11 @@ export default function CustomerList() {
                     </thead>
                     <tbody style={{ borderTop: '1px solid #e5e7eb' }}>
                         {customers.map((customer) => (
-                            <tr key={customer.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }}>{customer.fullName}</td>
-                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }}>{customer.user?.email}</td>
+                            <tr key={customer.id} data-cy={`customer-row-${customer.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }} data-cy="customer-name">{customer.fullName}</td>
+                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }} data-cy="customer-email">{customer.user?.email}</td>
                                 <td style={{ padding: '1rem' }}>
-                                    <span style={{
+                                    <span data-cy="customer-status" style={{
                                         padding: '0.25rem 0.75rem',
                                         borderRadius: '9999px',
                                         fontSize: '0.75rem',
@@ -57,7 +57,7 @@ export default function CustomerList() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '1rem' }}>
-                                    <button style={{ color: 'var(--pc-primary)', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}>
+                                    <button data-cy="btn-view-customer" style={{ color: 'var(--pc-primary)', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}>
                                         View Details
                                     </button>
                                 </td>

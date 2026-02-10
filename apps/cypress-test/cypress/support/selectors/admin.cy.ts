@@ -1,4 +1,4 @@
-export const ADM = {
+export const ADMIN = {
     dashboard: "adm-dashboard",
     loginEmail: "inp-email",
     loginPassword: "inp-password",

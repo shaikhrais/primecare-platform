@@ -83,6 +83,7 @@ export default function UserList() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.USERS.TITLE}</h2>
                 <button
+                    data-cy="btn-invite-user"
                     onClick={handleInvite}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
@@ -91,7 +92,7 @@ export default function UserList() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-users">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{ContentRegistry.USERS.TITLE}</th>
@@ -105,13 +106,13 @@ export default function UserList() {
                             <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.USERS.MESSAGES.LOADING}</td></tr>
                         ) : (
                             users.map(user => (
-                                <tr key={user.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={user.id} data-cy={`user-row-${user.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
                                     <td style={{ padding: '1rem' }}>
-                                        <div style={{ fontWeight: '600', color: '#111827' }}>{user.profile?.fullName}</div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{user.email}</div>
+                                        <div style={{ fontWeight: '600', color: '#111827' }} data-cy="user-fullname">{user.profile?.fullName}</div>
+                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="user-email">{user.email}</div>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        <span style={{
+                                        <span data-cy="user-role" style={{
                                             padding: '0.25rem 0.625rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: '600',
                                             backgroundColor: user.role === 'psw' ? '#e0f2fe' : user.role === 'admin' ? '#fef3c7' : '#f3f4f6',
                                             color: user.role === 'psw' ? '#0369a1' : user.role === 'admin' ? '#92400e' : '#374151'
@@ -122,10 +123,10 @@ export default function UserList() {
                                     <td style={{ padding: '1rem' }}>
                                         {user.role === 'psw' ? (
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                <span style={{ color: user.profile?.isVerified ? '#059669' : '#d97706', fontSize: '1.2rem' }}>
+                                                <span data-cy="user-verification-icon" style={{ color: user.profile?.isVerified ? '#059669' : '#d97706', fontSize: '1.2rem' }}>
                                                     {user.profile?.isVerified ? '✅' : '⏳'}
                                                 </span>
-                                                <span style={{ fontSize: '0.875rem', color: user.profile?.isVerified ? '#059669' : '#d97706', fontWeight: '500' }}>
+                                                <span data-cy="user-verification-text" style={{ fontSize: '0.875rem', color: user.profile?.isVerified ? '#059669' : '#d97706', fontWeight: '500' }}>
                                                     {user.profile?.isVerified ? 'Verified' : 'Pending Review'}
                                                 </span>
                                             </div>
@@ -134,6 +135,7 @@ export default function UserList() {
                                     <td style={{ padding: '1rem' }}>
                                         <div style={{ display: 'flex', gap: '0.75rem' }}>
                                             <button
+                                                data-cy="btn-edit-user"
                                                 onClick={() => handleEdit(user)}
                                                 style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}
                                             >
@@ -141,6 +143,7 @@ export default function UserList() {
                                             </button>
                                             {user.role === 'psw' && !user.profile?.isVerified && (
                                                 <button
+                                                    data-cy="btn-verify-user"
                                                     onClick={() => handleApprove(user.id)}
                                                     style={{ color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}
                                                 >

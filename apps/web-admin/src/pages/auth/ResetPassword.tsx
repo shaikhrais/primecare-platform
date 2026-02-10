@@ -78,6 +78,7 @@ export default function ResetPassword() {
                             New Password
                         </label>
                         <input
+                            data-cy="inp-reset-password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -91,6 +92,7 @@ export default function ResetPassword() {
                             Confirm Password
                         </label>
                         <input
+                            data-cy="inp-reset-confirm-password"
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -99,6 +101,7 @@ export default function ResetPassword() {
                         />
                     </div>
                     <button
+                        data-cy="btn-reset-submit"
                         type="submit"
                         disabled={loading}
                         style={{

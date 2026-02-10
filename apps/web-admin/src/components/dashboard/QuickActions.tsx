@@ -53,6 +53,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
 
     return (
         <button
+            data-cy="btn-crisis-mode"
             onClick={toggleCrisisMode}
             disabled={isLoading}
             style={{

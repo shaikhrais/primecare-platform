@@ -102,19 +102,19 @@ export default function LeadsPage() {
                             leads.map((lead) => {
                                 const colors = getStatusColor(lead.status);
                                 return (
-                                    <tr key={lead.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                    <tr key={lead.id} data-cy={`lead-row-${lead.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
                                         <td style={{ padding: '1rem' }}>
-                                            <div style={{ fontWeight: '600', color: '#111827' }}>{lead.fullName}</div>
-                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.email}</div>
-                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{lead.phone}</div>
+                                            <div style={{ fontWeight: '600', color: '#111827' }} data-cy="lead-fullname">{lead.fullName}</div>
+                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="lead-email">{lead.email}</div>
+                                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="lead-phone">{lead.phone}</div>
                                         </td>
                                         <td style={{ padding: '1rem', maxWidth: '300px' }}>
-                                            <div style={{ fontSize: '0.875rem', color: '#374151', whiteSpace: 'pre-wrap' }}>
+                                            <div style={{ fontSize: '0.875rem', color: '#374151', whiteSpace: 'pre-wrap' }} data-cy="lead-message">
                                                 {lead.message}
                                             </div>
                                         </td>
                                         <td style={{ padding: '1rem' }}>
-                                            <span style={{
+                                            <span data-cy="lead-status" style={{
                                                 padding: '0.25rem 0.625rem',
                                                 borderRadius: '9999px',
                                                 fontSize: '0.75rem',
@@ -132,12 +132,12 @@ export default function LeadsPage() {
                                         <td style={{ padding: '1rem' }}>
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                                                 {lead.status.toLowerCase() === 'new' && (
-                                                    <button onClick={() => updateStatus(lead.id, 'contacted')} style={{ color: '#92400e', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.MARK_CONTACTED}</button>
+                                                    <button data-cy="btn-lead-contacted" onClick={() => updateStatus(lead.id, 'contacted')} style={{ color: '#92400e', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.MARK_CONTACTED}</button>
                                                 )}
                                                 {lead.status.toLowerCase() !== 'converted' && (
-                                                    <button onClick={() => updateStatus(lead.id, 'converted')} style={{ color: '#059669', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.CONVERT}</button>
+                                                    <button data-cy="btn-lead-convert" onClick={() => updateStatus(lead.id, 'converted')} style={{ color: '#059669', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}>{ContentRegistry.LEADS.ACTIONS.CONVERT}</button>
                                                 )}
-                                                <button style={{ color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}>{ContentRegistry.LEADS.ACTIONS.CLOSE}</button>
+                                                <button data-cy="btn-lead-close" style={{ color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}>{ContentRegistry.LEADS.ACTIONS.CLOSE}</button>
                                             </div>
                                         </td>
                                     </tr>

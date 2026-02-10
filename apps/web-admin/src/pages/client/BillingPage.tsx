@@ -111,6 +111,7 @@ export default function BillingPage() {
                                     <td style={{ padding: '1rem' }}>
                                         {inv.status === 'pending' && (
                                             <button
+                                                data-cy="btn-pay-invoice"
                                                 onClick={() => handlePay(inv)}
                                                 disabled={loading}
                                                 style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}

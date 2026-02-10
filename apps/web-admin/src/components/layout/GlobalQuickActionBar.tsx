@@ -61,7 +61,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                 📝 Daily Entry
             </button>
 
-            <button style={actionButtonStyle} onClick={() => showToast('Opening Shift Modal...', 'info')}>
+            <button style={actionButtonStyle} onClick={() => showToast('Opening Shift Modal...', 'info')} data-cy="qa-create-shift">
                 ⏱️ Create Shift
             </button>
 
@@ -72,10 +72,10 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
             {/* Manager/Admin Extras */}
             {(role === 'manager' || role === 'admin') && (
                 <>
-                    <button style={actionButtonStyle} onClick={() => showToast('Assigning Staff...', 'info')}>
+                    <button style={actionButtonStyle} onClick={() => showToast('Assigning Staff...', 'info')} data-cy="qa-assign-staff">
                         👥 Assign Staff
                     </button>
-                    <button style={actionButtonStyle} onClick={() => navigate('/schedule')}>
+                    <button style={actionButtonStyle} onClick={() => navigate('/schedule')} data-cy="qa-schedule">
                         📅 Today Schedule
                     </button>
                 </>
@@ -84,10 +84,10 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
             {/* Admin Extras */}
             {role === 'admin' && (
                 <>
-                    <button style={actionButtonStyle} onClick={() => navigate('/users')}>
+                    <button style={actionButtonStyle} onClick={() => navigate('/users')} data-cy="qa-add-user">
                         👤 Add User
                     </button>
-                    <button style={actionButtonStyle} onClick={() => showToast('System Backup Started', 'success')}>
+                    <button style={actionButtonStyle} onClick={() => showToast('System Backup Started', 'success')} data-cy="qa-backup">
                         💾 Backup
                     </button>
                 </>
@@ -96,7 +96,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
             <div style={{ flex: 1 }}></div>
 
             {/* Emergency - Always Visible */}
-            <button style={emergencyStyle} onClick={handleEmergency}>
+            <button style={emergencyStyle} onClick={handleEmergency} data-cy="qa-emergency">
                 🚨 EMERGENCY ALERT
             </button>
 

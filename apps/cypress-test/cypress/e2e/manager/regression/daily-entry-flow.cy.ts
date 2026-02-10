@@ -7,7 +7,7 @@ describe("[REGRESSION] Manager Daily Entry Flow", () => {
         cy.interceptManagerCore();
 
         cy.step("Open Manager login");
-        cy.visit("/manager/login");
+        cy.visit("/login");
         cy.waitForPageReady();
 
         cy.step("Login");

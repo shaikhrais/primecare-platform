@@ -128,6 +128,7 @@ export default function BookingsPage() {
                     <p style={{ color: '#6b7280' }}>Track all your current and past care requests.</p>
                 </div>
                 <button
+                    data-cy="btn-request-care"
                     onClick={() => setShowModal(true)}
                     style={{
                         backgroundColor: 'var(--pc-primary-dark)',
@@ -144,7 +145,7 @@ export default function BookingsPage() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-bookings">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Service</th>
@@ -162,7 +163,7 @@ export default function BookingsPage() {
                             bookings.map((booking) => {
                                 const style = getStatusStyle(booking.status);
                                 return (
-                                    <tr key={booking.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                    <tr key={booking.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy={`row-booking-${booking.id}`}>
                                         <td style={{ padding: '1rem', fontWeight: '500' }}>{booking.service.name}</td>
                                         <td style={{ padding: '1rem', color: '#4b5563' }}>
                                             {new Date(booking.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
@@ -204,7 +205,7 @@ export default function BookingsPage() {
                     <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', width: '90%', maxWidth: '500px' }}>
                         <h3 style={{ marginTop: 0, fontSize: '1.25rem' }}>Request New Care Visit</h3>
 
-                        <form onSubmit={handleRequest} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                        <form onSubmit={handleRequest} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }} data-cy="form-booking">
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Service Type</label>
                                 <select
@@ -212,6 +213,7 @@ export default function BookingsPage() {
                                     onChange={e => setSelectedService(e.target.value)}
                                     required
                                     style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                    data-cy="sel-service"
                                 >
                                     <option value="">-- Select Service --</option>
                                     {services.map(s => (
@@ -224,6 +226,7 @@ export default function BookingsPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Date</label>
                                     <input
+                                        data-cy="inp-date"
                                         type="date"
                                         required
                                         value={activeDate}
@@ -234,6 +237,7 @@ export default function BookingsPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Time</label>
                                     <input
+                                        data-cy="inp-time"
                                         type="time"
                                         required
                                         value={activeTime}
@@ -246,6 +250,7 @@ export default function BookingsPage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Duration (Minutes)</label>
                                 <select
+                                    data-cy="sel-duration"
                                     value={duration}
                                     onChange={e => setDuration(Number(e.target.value))}
                                     style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
@@ -261,6 +266,7 @@ export default function BookingsPage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Notes for Caregiver</label>
                                 <textarea
+                                    data-cy="inp-notes"
                                     rows={3}
                                     value={notes}
                                     onChange={e => setNotes(e.target.value)}
@@ -271,6 +277,7 @@ export default function BookingsPage() {
 
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', justifyContent: 'flex-end' }}>
                                 <button
+                                    data-cy="btn-cancel-request"
                                     type="button"
                                     onClick={() => setShowModal(false)}
                                     style={{ padding: '0.5rem 1rem', border: '1px solid #d1d5db', background: 'white', borderRadius: '0.375rem', cursor: 'pointer' }}
@@ -278,6 +285,7 @@ export default function BookingsPage() {
                                     Cancel
                                 </button>
                                 <button
+                                    data-cy="btn-submit-request"
                                     type="submit"
                                     disabled={submitting}
                                     style={{ padding: '0.5rem 1rem', background: 'var(--pc-primary-dark)', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}

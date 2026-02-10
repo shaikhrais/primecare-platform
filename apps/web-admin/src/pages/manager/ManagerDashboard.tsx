@@ -72,8 +72,8 @@ export default function ManagerDashboard() {
         </div>
     );
 
-    const KPICard = ({ label, value, color }: any) => (
-        <div style={{ padding: '20px', borderRadius: '12px', background: 'var(--bg-elev)', borderLeft: `5px solid ${color}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+    const KPICard = ({ label, value, color, dataCy }: any) => (
+        <div data-cy={dataCy} style={{ padding: '20px', borderRadius: '12px', background: 'var(--bg-elev)', borderLeft: `5px solid ${color}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase' }}>{label}</div>
             <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text)' }}>{value}</div>
         </div>
@@ -86,21 +86,21 @@ export default function ManagerDashboard() {
 
             {/* KPI Section */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <KPICard label="Today's Shifts" value={kpi.todayShifts} color="#2196f3" />
-                <KPICard label="Active Clients" value={kpi.activeClients} color="#4caf50" />
-                <KPICard label="Staff On Duty" value={kpi.staffOnDuty} color="#ff9800" />
-                <KPICard label="Open Incidents" value={kpi.openIncidents} color="#f44336" />
+                <KPICard label="Today's Shifts" value={kpi.todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />
+                <KPICard label="Active Clients" value={kpi.activeClients} color="#4caf50" dataCy="kpi-active-clients" />
+                <KPICard label="Staff On Duty" value={kpi.staffOnDuty} color="#ff9800" dataCy="kpi-staff-on-duty" />
+                <KPICard label="Open Incidents" value={kpi.openIncidents} color="#f44336" dataCy="kpi-open-incidents" />
             </div>
 
             {/* Quick Action Grid */}
             <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Quick Actions</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
                 <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" dataCy="qa-daily-entry" />
-                <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} />
-                <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} />
-                <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} />
-                <QuickActionCard label="View Clients" icon="👥" onClick={() => navigate('/customers')} />
-                <QuickActionCard label="Generate Report" icon="📈" onClick={() => navigate('/reports')} />
+                <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
+                <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} dataCy="qa-end-shift" />
+                <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} dataCy="qa-log-incident" />
+                <QuickActionCard label="View Clients" icon="👥" onClick={() => navigate('/customers')} dataCy="qa-view-clients" />
+                <QuickActionCard label="Generate Report" icon="📈" onClick={() => navigate('/reports')} dataCy="qa-generate-report" />
             </div>
 
             {/* Today's Timeline */}
@@ -118,7 +118,7 @@ export default function ManagerDashboard() {
                                 <div style={{ fontWeight: 700 }}>{shift.client.fullName}</div>
                                 <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service.name} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
                             </div>
-                            <button className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
+                            <button data-cy={`btn-view-shift-${shift.id}`} className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
                         </div>
                     ))
                 )}

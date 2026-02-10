@@ -47,7 +47,7 @@ export default function AdminDashboard() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
                 {statCards.map((card, index) => (
-                    <div key={index} style={{
+                    <div key={index} data-cy={`stat-card-${card.label.toLowerCase().replace(/\s+/g, '-')}`} style={{
                         padding: '1.5rem',
                         backgroundColor: 'white',
                         borderRadius: '0.75rem',
@@ -74,25 +74,25 @@ export default function AdminDashboard() {
                         {ContentRegistry.ADMIN_DASHBOARD.TITLES.QUICK_ACTIONS}
                     </h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <Link to={RouteRegistry.USERS} style={{ textDecoration: 'none' }}>
+                        <Link to={RouteRegistry.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
                             <button style={{ width: '100%', padding: '1rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.5rem', cursor: 'pointer', textAlign: 'left' }}>
                                 <div style={{ fontWeight: '600', color: '#004d40' }}>{ContentRegistry.USERS.TITLE}</div>
                                 <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Check certifications</div>
                             </button>
                         </Link>
-                        <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }}>
+                        <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
                             <button style={{ width: '100%', padding: '1rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.5rem', cursor: 'pointer', textAlign: 'left' }}>
                                 <div style={{ fontWeight: '600', color: '#004d40' }}>View Schedule</div>
                                 <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Manage assignments</div>
                             </button>
                         </Link>
-                        <Link to="/leads" style={{ textDecoration: 'none' }}>
+                        <Link to="/leads" style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
                             <button style={{ width: '100%', padding: '1rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.5rem', cursor: 'pointer', textAlign: 'left' }}>
                                 <div style={{ fontWeight: '600', color: '#004d40' }}>Review Leads</div>
                                 <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Respond to inquiries</div>
                             </button>
                         </Link>
-                        <Link to="/settings" style={{ textDecoration: 'none' }}>
+                        <Link to="/settings" style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
                             <button style={{ width: '100%', padding: '1rem', backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '0.5rem', cursor: 'pointer', textAlign: 'left' }}>
                                 <div style={{ fontWeight: '600', color: '#004d40' }}>System Config</div>
                                 <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>App adjustments</div>

@@ -46,6 +46,7 @@ export default function SettingsPage() {
                             checked={settings.emailAlerts}
                             onChange={(e) => setSettings({ ...settings, emailAlerts: e.target.checked })}
                             style={{ width: '1.25rem', height: '1.25rem', accentColor: '#004d40' }}
+                            data-cy="chk-email-alerts"
                         />
                     </div>
                 </div>
@@ -62,6 +63,7 @@ export default function SettingsPage() {
                             checked={settings.autoAssignment}
                             onChange={(e) => setSettings({ ...settings, autoAssignment: e.target.checked })}
                             style={{ width: '1.25rem', height: '1.25rem', accentColor: '#004d40' }}
+                            data-cy="chk-auto-assign"
                         />
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>
@@ -73,6 +75,7 @@ export default function SettingsPage() {
                             value={settings.gracePeriod}
                             onChange={(e) => setSettings({ ...settings, gracePeriod: e.target.value })}
                             style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                            data-cy="sel-grace-period"
                         >
                             <option>15 Minutes</option>
                             <option>30 Minutes</option>
@@ -85,12 +88,14 @@ export default function SettingsPage() {
                     <button
                         onClick={handleReset}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
+                        data-cy="btn-reset-settings"
                     >
                         {ContentRegistry.SETTINGS.ACTIONS.RESET}
                     </button>
                     <button
                         onClick={handleSave}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
+                        data-cy="btn-save-settings"
                     >
                         {ContentRegistry.SETTINGS.ACTIONS.SAVE}
                     </button>

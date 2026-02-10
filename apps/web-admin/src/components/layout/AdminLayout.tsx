@@ -139,6 +139,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                             <Link
                                 key={item.path}
                                 to={item.path}
+                                data-cy={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',

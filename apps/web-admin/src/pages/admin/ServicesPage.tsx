@@ -99,6 +99,7 @@ export default function ServicesPage() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>Manage the care packages and hourly rates offered to clients.</p>
                 </div>
                 <button
+                    data-cy="btn-add-service"
                     onClick={() => { setCurrentService({}); setIsModalOpen(true); }}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
@@ -107,7 +108,7 @@ export default function ServicesPage() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-services">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontWeight: '600' }}>Service Name</th>
@@ -122,7 +123,7 @@ export default function ServicesPage() {
                             <tr><td colSpan={5} style={{ padding: '3rem', textAlign: 'center' }}>Loading services...</td></tr>
                         ) : services.length > 0 ? (
                             services.map((service) => (
-                                <tr key={service.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={service.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy={`row-service-${service.id}`}>
                                     <td style={{ padding: '1rem', fontWeight: '500' }}>{service.name}</td>
                                     <td style={{ padding: '1rem' }}>
                                         <span style={{ backgroundColor: '#f3f4f6', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.75rem' }}>{service.category}</span>
@@ -131,12 +132,14 @@ export default function ServicesPage() {
                                     <td style={{ padding: '1rem', color: '#6b7280', fontSize: '0.875rem', maxWidth: '300px' }}>{service.description}</td>
                                     <td style={{ padding: '1rem' }}>
                                         <button
+                                            data-cy={`btn-edit-service-${service.id}`}
                                             onClick={() => { setCurrentService(service); setIsModalOpen(true); }}
                                             style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem', fontWeight: '500' }}
                                         >
                                             Edit
                                         </button>
                                         <button
+                                            data-cy={`btn-delete-service-${service.id}`}
                                             onClick={() => handleDelete(service.id)}
                                             style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}
                                         >
@@ -154,12 +157,13 @@ export default function ServicesPage() {
 
             {isModalOpen && (
                 <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }}>
+                    <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }} data-cy="form-service">
                         <h3 style={{ marginTop: 0 }}>{currentService.id ? 'Edit Service' : 'Add New Service'}</h3>
                         <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Name</label>
                                 <input
+                                    data-cy="inp-service-name"
                                     type="text"
                                     value={currentService.name || ''}
                                     onChange={(e) => setCurrentService({ ...currentService, name: e.target.value })}
@@ -171,6 +175,7 @@ export default function ServicesPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Hourly Rate ($)</label>
                                     <input
+                                        data-cy="inp-service-rate"
                                         type="number"
                                         value={currentService.hourlyRate || ''}
                                         onChange={(e) => setCurrentService({ ...currentService, hourlyRate: parseFloat(e.target.value) })}
@@ -181,6 +186,7 @@ export default function ServicesPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Category</label>
                                     <select
+                                        data-cy="sel-service-category"
                                         value={currentService.category || ''}
                                         onChange={(e) => setCurrentService({ ...currentService, category: e.target.value })}
                                         style={{ width: '100%', padding: '0.625rem', border: '1px solid #d1d5db', borderRadius: '0.375rem' }}
@@ -195,6 +201,7 @@ export default function ServicesPage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Description</label>
                                 <textarea
+                                    data-cy="inp-service-desc"
                                     value={currentService.description || ''}
                                     onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })}
                                     rows={3}
@@ -204,8 +211,8 @@ export default function ServicesPage() {
                         </div>
 
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
-                            <button type="submit" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Save Service</button>
+                            <button type="button" data-cy="btn-cancel-service" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
+                            <button type="submit" data-cy="btn-save-service" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Save Service</button>
                         </div>
                     </form>
                 </div>

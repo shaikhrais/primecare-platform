@@ -11,9 +11,9 @@ declare global {
 }
 
 Cypress.Commands.add("interceptManagerCore", () => {
-    cy.intercept("GET", "**/api/dashboard/**").as("getDashboard");
-    cy.intercept("GET", "**/api/shifts**").as("getShifts");
-    cy.intercept("POST", "**/api/daily-entry**").as("postDailyEntry");
+    cy.intercept("GET", "**/manager/dashboard/**").as("getDashboard");
+    cy.intercept("GET", "**/manager/dashboard/today").as("getShifts");
+    cy.intercept("POST", "**/daily-entry**").as("postDailyEntry");
 });
 
 Cypress.Commands.add("interceptAdminCore", () => {

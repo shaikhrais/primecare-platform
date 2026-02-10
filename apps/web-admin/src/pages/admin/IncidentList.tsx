@@ -38,7 +38,7 @@ export default function IncidentList() {
         <div>
             <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Reported Incidents</h1>
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }} data-cy="tbl-incidents">
                     <thead style={{ backgroundColor: '#f9fafb' }}>
                         <tr>
                             <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Type</th>
@@ -50,11 +50,11 @@ export default function IncidentList() {
                     </thead>
                     <tbody>
                         {incidents.map((incident: any) => (
-                            <tr key={incident.id}>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{incident.type}</td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{incident.reporter?.email}</td>
+                            <tr key={incident.id} data-cy={`incident-row-${incident.id}`}>
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">{incident.reporter?.email}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                    <span style={{
+                                    <span data-cy="incident-status" style={{
                                         padding: '0.25rem 0.5rem',
                                         borderRadius: '9999px',
                                         fontSize: '0.75rem',
@@ -68,6 +68,7 @@ export default function IncidentList() {
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
                                     {incident.status === 'open' && (
                                         <button
+                                            data-cy="btn-resolve-incident"
                                             onClick={() => handleResolve(incident.id)}
                                             style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                         >

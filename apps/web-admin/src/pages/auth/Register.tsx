@@ -88,6 +88,7 @@ export default function Register() {
                             {ContentRegistry.AUTH.EMAIL_LABEL}
                         </label>
                         <input
+                            data-cy="inp-email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -100,6 +101,7 @@ export default function Register() {
                             {ContentRegistry.AUTH.PASSWORD_LABEL}
                         </label>
                         <input
+                            data-cy="inp-password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -112,6 +114,7 @@ export default function Register() {
                             Confirm Password
                         </label>
                         <input
+                            data-cy="inp-confirm-password"
                             name="confirmPassword"
                             type="password"
                             value={confirmPassword}
@@ -122,6 +125,7 @@ export default function Register() {
                     </div>
 
                     <button
+                        data-cy="btn-register"
                         type="submit"
                         disabled={loading}
                         style={{

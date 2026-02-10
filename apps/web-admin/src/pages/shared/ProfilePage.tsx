@@ -74,6 +74,7 @@ export default function ProfilePage() {
                     <div style={{ gridColumn: 'span 2' }}>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Full Name</label>
                         <input
+                            data-cy="inp-fullname"
                             type="text"
                             value={profile.fullName || ''}
                             onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
@@ -85,6 +86,7 @@ export default function ProfilePage() {
                         <div style={{ gridColumn: 'span 2' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Professional Bio</label>
                             <textarea
+                                data-cy="inp-bio"
                                 value={profile.bio || ''}
                                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                                 rows={4}
@@ -96,6 +98,7 @@ export default function ProfilePage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Address</label>
                                 <input
+                                    data-cy="inp-address"
                                     type="text"
                                     value={profile.addressLine1 || ''}
                                     onChange={(e) => setProfile({ ...profile, addressLine1: e.target.value })}
@@ -105,6 +108,7 @@ export default function ProfilePage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>City</label>
                                 <input
+                                    data-cy="inp-city"
                                     type="text"
                                     value={profile.city || ''}
                                     onChange={(e) => setProfile({ ...profile, city: e.target.value })}
@@ -117,6 +121,7 @@ export default function ProfilePage() {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Email (Unchangeable)</label>
                         <input
+                            data-cy="inp-email-readonly"
                             type="email"
                             value={profile.user?.email || ''}
                             disabled
@@ -126,6 +131,7 @@ export default function ProfilePage() {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Phone</label>
                         <input
+                            data-cy="inp-phone-readonly"
                             type="text"
                             value={profile.user?.phone || ''}
                             disabled
@@ -136,6 +142,7 @@ export default function ProfilePage() {
 
                 <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
                     <button
+                        data-cy="btn-save-profile"
                         type="submit"
                         disabled={saving}
                         style={{

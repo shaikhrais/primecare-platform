@@ -125,6 +125,7 @@ export default function PswDashboard() {
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <button
+                        data-cy="btn-view-all-shifts"
                         onClick={() => navigate('/shifts')}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                     >
@@ -155,6 +156,7 @@ export default function PswDashboard() {
                                         {shift.status.toLowerCase() !== 'completed' && (
                                             shift.status.toLowerCase() === 'in_progress' ? (
                                                 <button
+                                                    data-cy="btn-check-out"
                                                     onClick={() => handleCheckOut(shift.id)}
                                                     style={{ flex: 1, padding: '0.625rem', backgroundColor: '#dc2626', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}
                                                 >
@@ -162,6 +164,7 @@ export default function PswDashboard() {
                                                 </button>
                                             ) : (
                                                 <button
+                                                    data-cy="btn-check-in"
                                                     onClick={() => handleCheckIn(shift.id)}
                                                     style={{ flex: 1, padding: '0.625rem', backgroundColor: 'var(--pc-primary-dark)', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}
                                                 >
@@ -169,7 +172,7 @@ export default function PswDashboard() {
                                                 </button>
                                             )
                                         )}
-                                        <button style={{ flex: 1, padding: '0.625rem', backgroundColor: 'white', border: '1px solid #d1d5db', color: '#374151', borderRadius: '0.375rem', fontWeight: '600' }}>View Files</button>
+                                        <button data-cy="btn-view-files" style={{ flex: 1, padding: '0.625rem', backgroundColor: 'white', border: '1px solid #d1d5db', color: '#374151', borderRadius: '0.375rem', fontWeight: '600' }}>View Files</button>
                                     </div>
                                 </div>
                             ))}

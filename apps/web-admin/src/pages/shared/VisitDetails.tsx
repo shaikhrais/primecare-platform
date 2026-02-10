@@ -38,10 +38,10 @@ export default function VisitDetails() {
     if (!visit) return <div style={{ padding: '2rem', textAlign: 'center' }}>Visit not found.</div>;
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="visit-details-page">
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Visit Profile</h2>
-                <p style={{ color: '#6b7280' }}>Tracking ID: {visit.id}</p>
+                <p style={{ color: '#6b7280' }}>Tracking ID: <span data-cy="visit-id">{visit.id}</span></p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
@@ -68,7 +68,7 @@ export default function VisitDetails() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                         <div>
                             <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Status</span>
-                            <span style={{ fontWeight: '600' }}>{visit.status.toUpperCase()}</span>
+                            <span style={{ fontWeight: '600' }} data-cy="visit-status">{visit.status.toUpperCase()}</span>
                         </div>
                         <div>
                             <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Service</span>

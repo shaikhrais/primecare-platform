@@ -53,7 +53,7 @@ export default function ShiftsPage() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-shift-history">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Client</th>
@@ -72,17 +72,17 @@ export default function ShiftsPage() {
                             shifts.map((shift) => {
                                 const style = getStatusStyle(shift.status);
                                 return (
-                                    <tr key={shift.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                        <td style={{ padding: '1rem', fontWeight: '500' }}>{shift.client.fullName}</td>
+                                    <tr key={shift.id} data-cy={`shift-row-${shift.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                        <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="shift-client">{shift.client.fullName}</td>
                                         <td style={{ padding: '1rem', color: '#4b5563', fontSize: '0.875rem' }}>
                                             {shift.client.addressLine1}, {shift.client.city}
                                         </td>
-                                        <td style={{ padding: '1rem', color: '#4b5563' }}>
+                                        <td style={{ padding: '1rem', color: '#4b5563' }} data-cy="shift-date">
                                             {new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
                                         </td>
-                                        <td style={{ padding: '1rem', color: '#4b5563' }}>{shift.service.name}</td>
+                                        <td style={{ padding: '1rem', color: '#4b5563' }} data-cy="shift-service">{shift.service.name}</td>
                                         <td style={{ padding: '1rem' }}>
-                                            <span style={{
+                                            <span data-cy="shift-status" style={{
                                                 padding: '0.25rem 0.625rem',
                                                 borderRadius: '9999px',
                                                 fontSize: '0.75rem',

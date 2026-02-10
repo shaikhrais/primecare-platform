@@ -35,6 +35,7 @@ export const Toast: React.FC<ToastProps> = ({ message, type, onClose, duration =
 
     return (
         <div
+            data-cy="toast"
             style={{
                 position: 'fixed',
                 bottom: '24px',

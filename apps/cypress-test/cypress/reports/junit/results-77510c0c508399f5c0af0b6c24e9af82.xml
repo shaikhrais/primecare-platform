@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="5.756" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-10T15:36:57" tests="0" file="cypress\e2e\debug\api-check.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="API Connectivity Check" timestamp="2026-02-10T15:36:57" tests="2" time="5.741" failures="2">
+    <testcase name="API Connectivity Check can reach the API root" time="0.833" classname="can reach the API root">
+      <failure message="expected 404 to not equal 404" type="AssertionError"><![CDATA[AssertionError: expected 404 to not equal 404
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/api-check.cy.ts:9:0)
+
+      + expected - actual
+
+]]></failure>
+    </testcase>
+    <testcase name="API Connectivity Check verifies VITE_API_URL usage in app" time="0.977" classname="verifies VITE_API_URL usage in app">
+      <failure message="`cy.visit()` failed trying to load:
+
+http://localhost:5173/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: connect ECONNREFUSED 127.0.0.1:5173
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+http://localhost:5173/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: connect ECONNREFUSED 127.0.0.1:5173
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (http://localhost:5173/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (http://localhost:5173/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (http://localhost:5173/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/api-check.cy.ts:15:0)
+
+From Node.js Internals:
+  Error: connect ECONNREFUSED 127.0.0.1:5173
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

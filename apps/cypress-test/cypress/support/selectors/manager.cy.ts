@@ -9,8 +9,7 @@ export const MGR = {
 
     dailyEntryPage: "daily-entry-page",
     clientSelect: "client-select",
-    clientSelectInput: "client-select-input",
-    clientOption0: "client-option-0",
+
 
     adlBathing: "adl-bathing",
     adlFeeding: "adl-feeding",

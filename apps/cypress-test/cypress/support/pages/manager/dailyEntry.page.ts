@@ -9,9 +9,9 @@ export const DailyEntryPage = {
 
     selectClient(name: string) {
         cy.step(`Select client: ${name}`);
-        cy.clickByCy(MGR.clientSelect);
-        cy.clearAndTypeByCy(MGR.clientSelectInput, name);
-        cy.clickByCy(MGR.clientOption0);
+        // The component uses a native select, but we likely need to select by value (ID) or text.
+        // Since the test might pass the name, we should find the option with that text.
+        cy.getByCy(MGR.clientSelect).select(name);
     },
 
     fillADL() {

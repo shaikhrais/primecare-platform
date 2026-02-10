@@ -105,6 +105,7 @@ export default function ClientDashboard() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
                 </div>
                 <button
+                    data-cy="btn-request-care"
                     onClick={() => setIsModalOpen(true)}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
@@ -154,8 +155,8 @@ export default function ClientDashboard() {
                             </select>
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
-                            <button type="submit" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Submit Request</button>
+                            <button data-cy="btn-modal-cancel" type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
+                            <button data-cy="btn-modal-submit" type="submit" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Submit Request</button>
                         </div>
                     </form>
                 </div>

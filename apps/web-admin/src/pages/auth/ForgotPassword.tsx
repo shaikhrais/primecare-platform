@@ -65,6 +65,7 @@ export default function ForgotPassword() {
                             Email Address
                         </label>
                         <input
+                            data-cy="inp-forgot-email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -73,6 +74,7 @@ export default function ForgotPassword() {
                         />
                     </div>
                     <button
+                        data-cy="btn-forgot-submit"
                         type="submit"
                         disabled={loading}
                         style={{

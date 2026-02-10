@@ -1,0 +1,203 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 0,
+    "pending": 0,
+    "failures": 5,
+    "start": "2026-02-10T15:28:19.069Z",
+    "end": "2026-02-10T15:32:15.918Z",
+    "duration": 236849,
+    "testsRegistered": 5,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "1d367b94-e510-4311-b38f-8a37fbdc32ab",
+      "title": "",
+      "fullFile": "cypress\\e2e\\auth\\role-based-auth.cy.ts",
+      "file": "cypress\\e2e\\auth\\role-based-auth.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+          "title": "[AUTH] Role-Based Authentication",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "registers a new Client and redirects to Dashboard",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Client and redirects to Dashboard",
+              "timedOut": null,
+              "duration": 13948,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var email = \"client_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('client');\nregister_page_1.Register.register(email, password);\n// After registration, should be on dashboard\ncy.url().should('include', '/dashboard');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/dashboard'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:14:0)",
+                "diff": null
+              },
+              "uuid": "6af8550d-c860-4f39-8a2c-014bc1da84e8",
+              "parentUUID": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "registers a new PSW and redirects to Dashboard",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new PSW and redirects to Dashboard",
+              "timedOut": null,
+              "duration": 13723,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var email = \"psw_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('psw');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/dashboard');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/dashboard'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:21:0)",
+                "diff": null
+              },
+              "uuid": "97909722-0aaf-4398-a04b-b75b03eeba90",
+              "parentUUID": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "registers a new Staff and redirects to Dashboard",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Staff and redirects to Dashboard",
+              "timedOut": null,
+              "duration": 14390,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var email = \"staff_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('staff');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/dashboard');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/dashboard'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:28:0)",
+                "diff": null
+              },
+              "uuid": "abc4b503-6de3-4038-8cde-f4120e02205d",
+              "parentUUID": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "logs in as Manager",
+              "fullTitle": "[AUTH] Role-Based Authentication logs in as Manager",
+              "timedOut": null,
+              "duration": 23455,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "login_page_1.Login.visit('manager');\nlogin_page_1.Login.login(\"manager@example.com\", \"password\");\ncy.waitForByCy(manager_cy_1.MGR.dashboard);\ncy.url().should('include', '/manager/dashboard');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
+                "diff": null
+              },
+              "uuid": "37e55960-4e93-42f8-bdc9-cc82c79c9ff7",
+              "parentUUID": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "logs in as Admin",
+              "fullTitle": "[AUTH] Role-Based Authentication logs in as Admin",
+              "timedOut": null,
+              "duration": 13708,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "login_page_1.Login.visit('admin');\nlogin_page_1.Login.login(\"admin@example.com\", \"password\"); // Assuming admin credentials\n// cy.waitForByCy(ADM.dashboard); // Admin dashboard might not have a specific data-cy yet or different\n// Let's check Admin selector map\ncy.url().should('include', '/dashboard'); // Admin usually goes to main dashboard too but with more access",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/dashboard'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:41:0)",
+                "diff": null
+              },
+              "uuid": "7ebaa623-a631-4ccb-b9b6-8002b43ade1e",
+              "parentUUID": "940f7b25-9c41-4de5-aec2-c7f8e58c36c2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "6af8550d-c860-4f39-8a2c-014bc1da84e8",
+            "97909722-0aaf-4398-a04b-b75b03eeba90",
+            "abc4b503-6de3-4038-8cde-f4120e02205d",
+            "37e55960-4e93-42f8-bdc9-cc82c79c9ff7",
+            "7ebaa623-a631-4ccb-b9b6-8002b43ade1e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 79224,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
