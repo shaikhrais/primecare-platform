@@ -21,6 +21,13 @@ export default function CaregiverLoginPage() {
                         Enter Staff Web Portal
                     </a>
 
+                    <div style={{ marginTop: '10px', fontSize: '0.9rem', color: '#64748b' }}>
+                        Looking for a different portal? <br />
+                        <a href="/login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }}>Family Login</a>
+                        <span style={{ margin: '0 8px', opacity: 0.5 }}>•</span>
+                        <a href="/staff-login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }}>Staff Login</a>
+                    </div>
+
                     <div style={{ marginTop: '40px', borderTop: '1px solid #e2e8f0', paddingTop: '40px' }}>
                         <p style={{ fontWeight: 'bold', marginBottom: '20px', color: '#334155' }}>Get the Staff App</p>
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>

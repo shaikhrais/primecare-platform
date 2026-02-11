@@ -294,6 +294,8 @@ export default function Header() {
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                         <Link to={RouteRegistry.LOGIN} data-cy="link-family-portal" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Family Portal</Link>
                         <span style={{ opacity: 0.3 }}>|</span>
+                        <Link to="/caregiver-login" data-cy="link-caregiver-portal" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Caregiver Portal</Link>
+                        <span style={{ opacity: 0.3 }}>|</span>
                         <Link to={RouteRegistry.LOGIN_STAFF} data-cy="link-staff-hub" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Staff Hub</Link>
                     </div>
                 </div>

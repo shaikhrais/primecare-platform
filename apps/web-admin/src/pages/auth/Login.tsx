@@ -138,6 +138,15 @@ export default function Login() {
                         </a>
                     </div>
                 </form>
+
+                <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
+                    <p style={{ fontSize: '0.85rem', color: '#6b7280', marginBottom: '0.75rem' }}>Looking for a different portal?</p>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                        {roleParam !== 'client' && <a href="/login?role=client" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Family Portal</a>}
+                        {roleParam !== 'psw' && <a href="/login?role=psw" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Caregiver Portal</a>}
+                        {roleParam !== 'staff' && <a href="/login?role=staff" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Staff Hub</a>}
+                    </div>
+                </div>
             </div>
         </div>
     );
