@@ -13,7 +13,7 @@ const auditedForms = [
     {
         name: "Profile Update",
         route: "/profile",
-        role: "admin",
+        role: "staff",
         container: "form.profile.page",
         dirtyField: "form.profile.fullname",
         leaveAction: "guard.unsaved.leave",
@@ -31,7 +31,7 @@ const auditedForms = [
     {
         name: "Service Configuration",
         route: "/services",
-        role: "admin",
+        role: "staff",
         container: "form.service.page",
         triggerModal: "btn.service.add",
         modalContainer: "modal.service.container",
@@ -43,7 +43,7 @@ const auditedForms = [
     {
         name: "Client Admission",
         route: "/admin/clients/admission",
-        role: "admin",
+        role: "staff",
         container: "form.client.page",
         dirtyField: "form.client.fullname",
         leaveAction: "guard.unsaved.leave",
@@ -59,7 +59,7 @@ describe("Global Enterprise Form Audit", { tags: ["@enterprise", "@smoke", "@for
             beforeEach(() => {
                 cy.clearCookies();
                 cy.clearLocalStorage();
-                cy.loginAs(form.role);
+                cy.loginAs(form.role as any);
                 cy.visit(`${Cypress.env("ADMIN_BASE_URL")}${form.route}`, { failOnStatusCode: false });
                 if (form.triggerModal) {
                     cy.get(byCy(form.triggerModal)).click();

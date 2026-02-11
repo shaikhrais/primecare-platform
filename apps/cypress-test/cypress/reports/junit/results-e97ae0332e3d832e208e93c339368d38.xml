@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="68.431" tests="8" failures="4">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:48:33" tests="0" file="cypress\e2e\40_features\form-check.global.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Enterprise Form Audit" timestamp="2026-02-11T00:48:33" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Audit: Profile Update" timestamp="2026-02-11T00:48:33" tests="2" time="1.243" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.449" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`" type="Error"><![CDATA[Error: Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:14:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Daily Care Entry" timestamp="2026-02-11T00:48:34" tests="2" time="65.090" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="4.664" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 6: Unsaved Changes Guard Verification" time="20.356" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:78:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Configuration" timestamp="2026-02-11T00:49:39" tests="2" time="1.126" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.260" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`" type="Error"><![CDATA[Error: Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:14:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Admission" timestamp="2026-02-11T00:49:40" tests="2" time="0.953" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.249" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`" type="Error"><![CDATA[Error: Missing credentials for role: admin
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:14:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
