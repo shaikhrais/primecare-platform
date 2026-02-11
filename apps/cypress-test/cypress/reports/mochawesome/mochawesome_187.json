@@ -1,0 +1,360 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 10,
+    "passes": 5,
+    "pending": 0,
+    "failures": 5,
+    "start": "2026-02-11T00:34:07.575Z",
+    "end": "2026-02-11T00:38:56.676Z",
+    "duration": 289101,
+    "testsRegistered": 10,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "650133b3-6703-4050-aa43-a425f581aa6a",
+      "title": "",
+      "fullFile": "cypress\\e2e\\40_features\\daily-entry.micro.cy.ts",
+      "file": "cypress\\e2e\\40_features\\daily-entry.micro.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "eb9856a7-1ec7-4ab7-9163-b4f3e9a3802c",
+          "title": "Daily Entry Enterprise Micro-Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+              "title": "Create & Contract",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "DE-01: Page container and header are visible",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Create & Contract DE-01: Page container and header are visible",
+                  "timedOut": null,
+                  "duration": 17523,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(DE.dailyEntryPage)).should(\"be.visible\");\ncy.get(byCy(DE.dailyEntryHeader)).should(\"be.visible\").and(\"contain\", \"Daily Care Entry\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"daily-entry-header\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"daily-entry-header\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:20:0)",
+                    "diff": null
+                  },
+                  "uuid": "1e93e5e3-9a5f-46a0-b066-6288bf2060c4",
+                  "parentUUID": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-02: Form fields contract exists",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Create & Contract DE-02: Form fields contract exists",
+                  "timedOut": null,
+                  "duration": 17963,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(DE.clientSelect)).should(\"be.visible\");\ncy.get(byCy(DE.vitalsBp)).should(\"be.visible\");\ncy.get(byCy(DE.notes)).should(\"be.visible\");\ncy.get(byCy(DE.signature)).should(\"be.visible\");\ncy.get(byCy(DE.submitEntry)).should(\"be.visible\");\ncy.get(byCy(DE.saveDraft)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected '<input>' to be 'visible'\n\nThis element `<input>` is not visible because its content is being clipped by one of its parent elements, which has a CSS property of overflow: `hidden`, `scroll` or `auto`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected '<input>' to be 'visible'\n\nThis element `<input>` is not visible because its content is being clipped by one of its parent elements, which has a CSS property of overflow: `hidden`, `scroll` or `auto`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:24:0)",
+                    "diff": null
+                  },
+                  "uuid": "a65202ab-ac59-4700-9314-275de58d2b7a",
+                  "parentUUID": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-03: Required field validation (signature)",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Create & Contract DE-03: Required field validation (signature)",
+                  "timedOut": null,
+                  "duration": 2410,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(DE.clientSelect)).select(1); // Select first client\ncy.get(byCy(DE.submitEntry)).click();\ncy.get(byCy(selectors_1.SELECTORS.COMMON.toast)).should(\"be.visible\").and(\"contain\", \"Signature required\");",
+                  "err": {},
+                  "uuid": "dc527f26-ddba-430f-9d6d-df86e61a3a8c",
+                  "parentUUID": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-04: Mood button interaction",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Create & Contract DE-04: Mood button interaction",
+                  "timedOut": null,
+                  "duration": 17903,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(\"\".concat(DE.moodPrefix, \"5\"))).click().should(\"have.css\", \"border-width\", \"2px\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"mood-5\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"mood-5\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:36:0)",
+                    "diff": null
+                  },
+                  "uuid": "96f1158e-1d72-438c-aa77-8105c136845c",
+                  "parentUUID": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-05: ADL checkbox interaction",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Create & Contract DE-05: ADL checkbox interaction",
+                  "timedOut": null,
+                  "duration": 2239,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(\"\".concat(DE.adlPrefix, \"bathing\"))).check().should(\"be.checked\");",
+                  "err": {},
+                  "uuid": "94f72d04-c1dc-4c94-b703-46db42222f78",
+                  "parentUUID": "d3b033f4-2a9d-42f3-b92b-e282e2763299",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "dc527f26-ddba-430f-9d6d-df86e61a3a8c",
+                "94f72d04-c1dc-4c94-b703-46db42222f78"
+              ],
+              "failures": [
+                "1e93e5e3-9a5f-46a0-b066-6288bf2060c4",
+                "a65202ab-ac59-4700-9314-275de58d2b7a",
+                "96f1158e-1d72-438c-aa77-8105c136845c"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 58038,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "5aec5b3f-bcbb-49f0-9eb4-d8fe7340bcc8",
+              "title": "Drafts & Resilience",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "DE-06: Save Draft returns success toast",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Drafts & Resilience DE-06: Save Draft returns success toast",
+                  "timedOut": null,
+                  "duration": 19765,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.intercept(\"POST\", \"**/v1/daily-entry/draft\", {\n    statusCode: 200,\n    body: { message: \"Draft saved!\" }\n}).as(\"saveDraft\");\ncy.get(byCy(DE.clientSelect)).select(1);\ncy.get(byCy(DE.notes)).type(\"Testing draft save\");\ncy.get(byCy(DE.saveDraft)).click();\ncy.wait(\"@saveDraft\");\ncy.get(byCy(selectors_1.SELECTORS.COMMON.toast)).should(\"be.visible\").and(\"contain\", \"Draft saved\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"save-draft\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"save-draft\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:53:0)",
+                    "diff": null
+                  },
+                  "uuid": "aeededbb-d025-445e-b084-77c4ec3c64ed",
+                  "parentUUID": "5aec5b3f-bcbb-49f0-9eb4-d8fe7340bcc8",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-07: Unsaved changes guard (beforeunload)",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Drafts & Resilience DE-07: Unsaved changes guard (beforeunload)",
+                  "timedOut": null,
+                  "duration": 2295,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(DE.notes)).type(\"Dirtying the form...\");\n// We can't easily test browser native 'beforeunload' in Cypress without tricky window events,\n// but we can verify the state is set correctly if we had a way to check it.\n// For now, we simulate the 'Dirty' state verification via a reload which should trigger a browser prompt.\n// A more direct way is to check the 'isDirty' state if exposed, but it's internal.\n// We will trust the instrumentation passed manual check.",
+                  "err": {},
+                  "uuid": "30048738-fff4-474b-aa06-1e2cae800180",
+                  "parentUUID": "5aec5b3f-bcbb-49f0-9eb4-d8fe7340bcc8",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-08: API 500 on submit shows error toast",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Drafts & Resilience DE-08: API 500 on submit shows error toast",
+                  "timedOut": null,
+                  "duration": 2616,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.intercept(\"POST\", \"**/v1/daily-entry\", {\n    statusCode: 500,\n    body: { error: \"Internal Server Error\" }\n}).as(\"submitFail\");\ncy.get(byCy(DE.clientSelect)).select(1);\ncy.get(byCy(DE.signature)).type(\"Test Signature\");\ncy.get(byCy(DE.submitEntry)).click();\ncy.wait(\"@submitFail\");\ncy.get(byCy(selectors_1.SELECTORS.COMMON.toast)).should(\"be.visible\").and(\"contain\", \"Failed to save\");",
+                  "err": {},
+                  "uuid": "ee62dfdd-16e9-4da5-b2ad-ba555b2d044e",
+                  "parentUUID": "5aec5b3f-bcbb-49f0-9eb4-d8fe7340bcc8",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "30048738-fff4-474b-aa06-1e2cae800180",
+                "ee62dfdd-16e9-4da5-b2ad-ba555b2d044e"
+              ],
+              "failures": [
+                "aeededbb-d025-445e-b084-77c4ec3c64ed"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 24676,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "505eb5f0-25be-4358-9c84-a71f35953812",
+              "title": "Data Integrity",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "DE-09: Post payload contains all form fields",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Data Integrity DE-09: Post payload contains all form fields",
+                  "timedOut": null,
+                  "duration": 20529,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.intercept(\"POST\", \"**/v1/daily-entry\", function (req) {\n    expect(req.body.notes).to.equal(\"Detailed clinical notes\");\n    expect(req.body.vitals.bp).to.equal(\"120/80\");\n    expect(req.body.mood).to.equal(4);\n    req.reply({ statusCode: 200 });\n}).as(\"verifyPayload\");\ncy.get(byCy(DE.clientSelect)).select(1);\ncy.get(byCy(DE.notes)).type(\"Detailed clinical notes\");\ncy.get(byCy(DE.vitalsBp)).type(\"120/80\");\ncy.get(byCy(\"\".concat(DE.moodPrefix, \"4\"))).click();\ncy.get(byCy(DE.signature)).type(\"Contract Verifier\");\ncy.get(byCy(DE.submitEntry)).click();\ncy.wait(\"@verifyPayload\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"mood-4\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"mood-4\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:91:0)",
+                    "diff": null
+                  },
+                  "uuid": "f069e123-cf9a-4fe2-85e4-171c68027a2d",
+                  "parentUUID": "505eb5f0-25be-4358-9c84-a71f35953812",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "DE-10: Multi-row ADL state preservation",
+                  "fullTitle": "Daily Entry Enterprise Micro-Tests Data Integrity DE-10: Multi-row ADL state preservation",
+                  "timedOut": null,
+                  "duration": 2757,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get(byCy(\"\".concat(DE.adlPrefix, \"bathing\"))).check();\ncy.get(byCy(\"\".concat(DE.adlPrefix, \"feeding\"))).check();\ncy.get(byCy(\"\".concat(DE.adlPrefix, \"bathing\"))).should(\"be.checked\");\ncy.get(byCy(\"\".concat(DE.adlPrefix, \"feeding\"))).should(\"be.checked\");\ncy.get(byCy(\"\".concat(DE.adlPrefix, \"dressing\"))).should(\"not.be.checked\");",
+                  "err": {},
+                  "uuid": "e1b6895b-c1b0-435b-aaf5-4a72711f8b57",
+                  "parentUUID": "505eb5f0-25be-4358-9c84-a71f35953812",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "e1b6895b-c1b0-435b-aaf5-4a72711f8b57"
+              ],
+              "failures": [
+                "f069e123-cf9a-4fe2-85e4-171c68027a2d"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 23286,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

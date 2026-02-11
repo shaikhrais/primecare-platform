@@ -11,6 +11,19 @@ export default function SettingsPage() {
         autoAssignment: false,
         gracePeriod: '15 Minutes'
     });
+    const [isDirty, setIsDirty] = useState(false);
+    const [showGuard, setShowGuard] = useState(false);
+
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
 
     useEffect(() => {
         const saved = localStorage.getItem('adminSettings');
@@ -19,15 +32,29 @@ export default function SettingsPage() {
 
     const handleSave = () => {
         localStorage.setItem('adminSettings', JSON.stringify(settings));
+        setIsDirty(false);
         showToast(ContentRegistry.SETTINGS.ACTIONS.SUCCESS_SAVE, 'success');
     };
 
     const handleReset = () => {
         setSettings({ emailAlerts: true, autoAssignment: false, gracePeriod: '15 Minutes' });
+        setIsDirty(true);
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="form.settings.page">
+            {showGuard && (
+                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
+                        <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
+                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved configuration changes. Navigating away will discard them.</p>
+                        <div style={{ display: 'flex', gap: '16px' }}>
+                            <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); }} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Discard</button>
+                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>{ContentRegistry.SETTINGS.TITLE}</h2>
                 <p style={{ color: '#6b7280' }}>{ContentRegistry.SETTINGS.SUBTITLE}</p>
@@ -44,9 +71,9 @@ export default function SettingsPage() {
                         <input
                             type="checkbox"
                             checked={settings.emailAlerts}
-                            onChange={(e) => setSettings({ ...settings, emailAlerts: e.target.checked })}
+                            onChange={(e) => { setSettings({ ...settings, emailAlerts: e.target.checked }); setIsDirty(true); }}
                             style={{ width: '1.25rem', height: '1.25rem', accentColor: '#004d40' }}
-                            data-cy="chk-email-alerts"
+                            data-cy="form.settings.emailAlerts"
                         />
                     </div>
                 </div>
@@ -61,9 +88,9 @@ export default function SettingsPage() {
                         <input
                             type="checkbox"
                             checked={settings.autoAssignment}
-                            onChange={(e) => setSettings({ ...settings, autoAssignment: e.target.checked })}
+                            onChange={(e) => { setSettings({ ...settings, autoAssignment: e.target.checked }); setIsDirty(true); }}
                             style={{ width: '1.25rem', height: '1.25rem', accentColor: '#004d40' }}
-                            data-cy="chk-auto-assign"
+                            data-cy="form.settings.autoAssign"
                         />
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>
@@ -73,9 +100,9 @@ export default function SettingsPage() {
                         </div>
                         <select
                             value={settings.gracePeriod}
-                            onChange={(e) => setSettings({ ...settings, gracePeriod: e.target.value })}
+                            onChange={(e) => { setSettings({ ...settings, gracePeriod: e.target.value }); setIsDirty(true); }}
                             style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                            data-cy="sel-grace-period"
+                            data-cy="form.settings.gracePeriod"
                         >
                             <option>15 Minutes</option>
                             <option>30 Minutes</option>
@@ -88,14 +115,14 @@ export default function SettingsPage() {
                     <button
                         onClick={handleReset}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                        data-cy="btn-reset-settings"
+                        data-cy="form.settings.reset"
                     >
                         {ContentRegistry.SETTINGS.ACTIONS.RESET}
                     </button>
                     <button
                         onClick={handleSave}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                        data-cy="btn-save-settings"
+                        data-cy="form.settings.save"
                     >
                         {ContentRegistry.SETTINGS.ACTIONS.SAVE}
                     </button>

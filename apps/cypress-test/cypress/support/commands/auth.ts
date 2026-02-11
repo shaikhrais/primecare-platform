@@ -1,3 +1,6 @@
+
+import { SELECTORS } from "../selectors";
+
 type Role = "guest" | "client" | "psw" | "manager" | "staff";
 
 export { };
@@ -6,11 +9,16 @@ declare global {
     namespace Cypress {
         interface Chainable {
             loginAs(role: Role): Chainable<void>;
+            loginAsAdmin(): Chainable<void>;
+            loginAsManager(): Chainable<void>;
             logout(): Chainable<void>;
         }
     }
 }
 
+/**
+ * Standard UI-based login for end-to-end reliability.
+ */
 Cypress.Commands.add("loginAs", (role: Role) => {
     if (role === "guest") {
         cy.log("Continuing as guest (skipping login)");
@@ -21,33 +29,27 @@ Cypress.Commands.add("loginAs", (role: Role) => {
         const u = users[role];
         if (!u) throw new Error(`Missing credentials for role: ${role}`);
 
-        const apiUrl = Cypress.env("API_BASE_URL");
-        cy.log(`API Login for ${role} at ${apiUrl}`);
+        const baseUrl = Cypress.env("ADMIN_BASE_URL") || Cypress.config("baseUrl");
+        cy.visit(`${baseUrl}/login`);
 
-        // Zero-UI Login for speed and stability
-        cy.request({
-            method: "POST",
-            url: `${apiUrl}/v1/auth/login`,
-            body: {
-                email: u.email,
-                password: u.password
-            },
-            failOnStatusCode: false
-        }).then((res) => {
-            if (res.status !== 200) {
-                throw new Error(`Login failed for ${role}: ${JSON.stringify(res.body)}`);
-            }
+        cy.getByCy("inp-email").clear().type(u.email);
+        cy.getByCy("inp-password").clear().type(u.password, { log: false });
+        cy.getByCy("btn-login").click();
 
-            expect(res.body).to.have.property("token");
-            expect(res.body).to.have.property("user");
+        // Wait for transition out of login or appearance of dashboard-grade element
+        cy.url({ timeout: 15000 }).should("not.include", "/login");
 
-            // Persist to localStorage as the app expects
-            window.localStorage.setItem("token", res.body.token);
-            window.localStorage.setItem("user", JSON.stringify(res.body.user));
-
-            cy.log(`Authenticated as ${role} via API`);
-        });
+        // Final guard to ensure app is interactive
+        cy.get("body").should("be.visible");
     });
+});
+
+Cypress.Commands.add("loginAsAdmin", () => {
+    cy.loginAs("staff");
+});
+
+Cypress.Commands.add("loginAsManager", () => {
+    cy.loginAs("manager");
 });
 
 Cypress.Commands.add("logout", () => {

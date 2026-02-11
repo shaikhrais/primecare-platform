@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-11T00:21:31.684Z",
+    "end": "2026-02-11T00:21:33.684Z",
+    "duration": 2000,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8276f989-7bd4-4c6f-b063-32710366b31f",
+      "title": "",
+      "fullFile": "cypress\\e2e\\20_contracts\\api.contracts.cy.ts",
+      "file": "cypress\\e2e\\20_contracts\\api.contracts.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e387bc6c-f06c-4025-be88-2bdd438a125d",
+          "title": "API Contract Verification (UI-less)",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET /user/profile returns correct identity shape",
+              "fullTitle": "API Contract Verification (UI-less) GET /user/profile returns correct identity shape",
+              "timedOut": null,
+              "duration": 507,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"users.json\").then(function (users) {\n    var u = users.staff;\n    // 1. Get token via request (fast)\n    cy.request({\n        method: \"POST\",\n        url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/auth/login\"),\n        body: { email: u.email, password: u.password }\n    }).then(function (resp) {\n        var token = resp.body.token;\n        // 2. Verify Profile contract\n        cy.request({\n            method: \"GET\",\n            url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/user/profile\"),\n            headers: { Authorization: \"Bearer \".concat(token) }\n        }).then(function (profileResp) {\n            expect(profileResp.status).to.eq(200);\n            expect(profileResp.body).to.have.property(\"email\", u.email);\n            expect(profileResp.body).to.have.any.keys(\"id\", \"role\", \"profile\");\n        });\n    });\n});",
+              "err": {},
+              "uuid": "e8233659-6448-4044-a128-2e99ecddfc85",
+              "parentUUID": "e387bc6c-f06c-4025-be88-2bdd438a125d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET /admin/stats returns expected keys",
+              "fullTitle": "API Contract Verification (UI-less) GET /admin/stats returns expected keys",
+              "timedOut": null,
+              "duration": 362,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"users.json\").then(function (users) {\n    var u = users.staff;\n    cy.request(\"POST\", \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/auth/login\"), { email: u.email, password: u.password })\n        .then(function (resp) {\n        cy.request({\n            method: \"GET\",\n            url: \"\".concat(Cypress.env(\"API_BASE_URL\"), \"/v1/admin/stats\"),\n            headers: { Authorization: \"Bearer \".concat(resp.body.token) }\n        }).then(function (statsResp) {\n            expect(statsResp.status).to.eq(200);\n            // Stats often contain counts\n            expect(statsResp.body).to.have.property(\"totalUsers\");\n        });\n    });\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/admin/stats\n\nThe response we received from your web server was:\n\n  > 500: Internal Server Error\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/admin/stats\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtb2NrLXV1aWQtYWRtaW4ucHJpbWUiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3NzA4NTU2OTN9.Bzoa4XPuPuTWW9AnsUL0tgaifc7V72F2tR3Vh3TBuMc\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 500 - Internal Server Error\nHeaders: {\n  \"date\": \"Wed, 11 Feb 2026 00:21:33 GMT\",\n  \"content-type\": \"text/plain; charset=UTF-8\",\n  \"content-length\": \"21\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length\",\n  \"report-to\": \"{\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800,\\\"endpoints\\\":[{\\\"url\\\":\\\"https://a.nel.cloudflare.com/report/v4?s=Pq46oiGspo2WAgfzZB%2BlwDjnffPGull69xqaJXuNepU0Nlto7t6ibJceI0VL8wnzajPOhqyqx5%2FeScEeY733YOQMMK2n%2BtltO46%2B1z%2FqFH6%2BjdLVYXdTP9bh94oMf3iyu1Z9Koe%2BP%2FE%3D\\\"}]}\",\n  \"nel\": \"{\\\"report_to\\\":\\\"cf-nel\\\",\\\"success_fraction\\\":0.0,\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"cf-ray\": \"9cbfafd25936ac40-YYZ\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: Internal Server Error\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/admin/stats\n\nThe response we received from your web server was:\n\n  > 500: Internal Server Error\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/admin/stats\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtb2NrLXV1aWQtYWRtaW4ucHJpbWUiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3NzA4NTU2OTN9.Bzoa4XPuPuTWW9AnsUL0tgaifc7V72F2tR3Vh3TBuMc\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 500 - Internal Server Error\nHeaders: {\n  \"date\": \"Wed, 11 Feb 2026 00:21:33 GMT\",\n  \"content-type\": \"text/plain; charset=UTF-8\",\n  \"content-length\": \"21\",\n  \"connection\": \"keep-alive\",\n  \"access-control-allow-origin\": \"*\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length\",\n  \"report-to\": \"{\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800,\\\"endpoints\\\":[{\\\"url\\\":\\\"https://a.nel.cloudflare.com/report/v4?s=Pq46oiGspo2WAgfzZB%2BlwDjnffPGull69xqaJXuNepU0Nlto7t6ibJceI0VL8wnzajPOhqyqx5%2FeScEeY733YOQMMK2n%2BtltO46%2B1z%2FqFH6%2BjdLVYXdTP9bh94oMf3iyu1Z9Koe%2BP%2FE%3D\\\"}]}\",\n  \"nel\": \"{\\\"report_to\\\":\\\"cf-nel\\\",\\\"success_fraction\\\":0.0,\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"cf-ray\": \"9cbfafd25936ac40-YYZ\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: Internal Server Error\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:132876:72)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/20_contracts/api.contracts.cy.ts:31:0)",
+                "diff": null
+              },
+              "uuid": "9eebc9c2-cb2c-4554-986c-da0f874a4914",
+              "parentUUID": "e387bc6c-f06c-4025-be88-2bdd438a125d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "e8233659-6448-4044-a128-2e99ecddfc85"
+          ],
+          "failures": [
+            "9eebc9c2-cb2c-4554-986c-da0f874a4914"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 869,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

@@ -17,6 +17,29 @@ export default function ServicesPage() {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentService, setCurrentService] = useState<Partial<Service>>({});
+    const [isDirty, setIsDirty] = useState(false);
+    const [showGuard, setShowGuard] = useState(false);
+
+    // Unsaved changes guard (Native - for tab close)
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty && isModalOpen) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty, isModalOpen]);
+
+    const handleCloseModal = () => {
+        if (isDirty) {
+            setShowGuard(true);
+        } else {
+            setIsModalOpen(false);
+            setCurrentService({});
+        }
+    };
 
     const fetchServices = async () => {
         setLoading(true);
@@ -63,6 +86,7 @@ export default function ServicesPage() {
             if (response.ok) {
                 showToast(`Service ${currentService.id ? 'updated' : 'created'} successfully!`, 'success');
                 setIsModalOpen(false);
+                setIsDirty(false);
                 fetchServices();
             } else {
                 showToast('Failed to save service', 'error');
@@ -92,15 +116,15 @@ export default function ServicesPage() {
     };
 
     return (
-        <div style={{ padding: '1rem' }}>
+        <div style={{ padding: '1rem' }} data-cy="form.service.page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Services & Pricing</h2>
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>Manage the care packages and hourly rates offered to clients.</p>
                 </div>
                 <button
-                    data-cy="btn-add-service"
-                    onClick={() => { setCurrentService({}); setIsModalOpen(true); }}
+                    data-cy="btn.service.add"
+                    onClick={() => { setCurrentService({}); setIsModalOpen(true); setIsDirty(false); }}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     + Add New Service
@@ -157,16 +181,28 @@ export default function ServicesPage() {
 
             {isModalOpen && (
                 <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }} data-cy="form-service">
+                    {showGuard && (
+                        <div data-cy="guard.unsaved.dialog" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1001, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '1rem' }}>
+                            <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '350px', textAlign: 'center' }}>
+                                <h4 style={{ margin: '0 0 1rem 0' }}>Discard Changes?</h4>
+                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>You have unsaved changes in this service. Are you sure you want to close?</p>
+                                <div style={{ display: 'flex', gap: '1rem' }}>
+                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Discard</button>
+                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }} data-cy="modal.service.container">
                         <h3 style={{ marginTop: 0 }}>{currentService.id ? 'Edit Service' : 'Add New Service'}</h3>
                         <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Name</label>
                                 <input
-                                    data-cy="inp-service-name"
+                                    data-cy="modal.service.name"
                                     type="text"
                                     value={currentService.name || ''}
-                                    onChange={(e) => setCurrentService({ ...currentService, name: e.target.value })}
+                                    onChange={(e) => { setCurrentService({ ...currentService, name: e.target.value }); setIsDirty(true); }}
                                     style={{ width: '100%', padding: '0.625rem', border: '1px solid #d1d5db', borderRadius: '0.375rem' }}
                                     required
                                 />
@@ -175,10 +211,10 @@ export default function ServicesPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Hourly Rate ($)</label>
                                     <input
-                                        data-cy="inp-service-rate"
+                                        data-cy="modal.service.rate"
                                         type="number"
                                         value={currentService.hourlyRate || ''}
-                                        onChange={(e) => setCurrentService({ ...currentService, hourlyRate: parseFloat(e.target.value) })}
+                                        onChange={(e) => { setCurrentService({ ...currentService, hourlyRate: parseFloat(e.target.value) }); setIsDirty(true); }}
                                         style={{ width: '100%', padding: '0.625rem', border: '1px solid #d1d5db', borderRadius: '0.375rem' }}
                                         required
                                     />
@@ -186,9 +222,9 @@ export default function ServicesPage() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Category</label>
                                     <select
-                                        data-cy="sel-service-category"
+                                        data-cy="modal.service.category"
                                         value={currentService.category || ''}
-                                        onChange={(e) => setCurrentService({ ...currentService, category: e.target.value })}
+                                        onChange={(e) => { setCurrentService({ ...currentService, category: e.target.value }); setIsDirty(true); }}
                                         style={{ width: '100%', padding: '0.625rem', border: '1px solid #d1d5db', borderRadius: '0.375rem' }}
                                     >
                                         <option value="Senior Care">Senior Care</option>
@@ -201,9 +237,9 @@ export default function ServicesPage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Description</label>
                                 <textarea
-                                    data-cy="inp-service-desc"
+                                    data-cy="modal.service.desc"
                                     value={currentService.description || ''}
-                                    onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })}
+                                    onChange={(e) => { setCurrentService({ ...currentService, description: e.target.value }); setIsDirty(true); }}
                                     rows={3}
                                     style={{ width: '100%', padding: '0.625rem', border: '1px solid #d1d5db', borderRadius: '0.375rem' }}
                                 />
@@ -211,8 +247,8 @@ export default function ServicesPage() {
                         </div>
 
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button type="button" data-cy="btn-cancel-service" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
-                            <button type="submit" data-cy="btn-save-service" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Save Service</button>
+                            <button type="button" data-cy="modal.service.close" onClick={handleCloseModal} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
+                            <button type="submit" data-cy="modal.service.save" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Save Service</button>
                         </div>
                     </form>
                 </div>

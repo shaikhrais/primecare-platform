@@ -160,11 +160,33 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     })}
                 </nav>
 
-                <div style={{ padding: '1.25rem', borderTop: '1px solid var(--line)', background: 'var(--bg)' }}>
+                <div style={{ padding: '1.25rem', borderTop: '1px solid var(--line)', background: 'var(--bg)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4db6ac', boxShadow: '0 0 10px #4db6ac' }}></div>
                         <p style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>{role} SESSION ACTIVE</p>
                     </div>
+
+                    <button
+                        onClick={handleLogout}
+                        data-cy="btn-logout"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            padding: '10px 0',
+                            color: '#e53935',
+                            background: 'transparent',
+                            border: 'none',
+                            width: '100%',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
+                        }}
+                    >
+                        🚪 Logout
+                    </button>
                 </div>
             </aside>
 

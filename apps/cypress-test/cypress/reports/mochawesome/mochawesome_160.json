@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-11T00:15:53.609Z",
+    "end": "2026-02-11T00:16:33.154Z",
+    "duration": 39545,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3d898c3a-c54f-4994-a823-6fc7ad1e44af",
+      "title": "",
+      "fullFile": "cypress\\e2e\\30_reliability\\auth-flows.cy.ts",
+      "file": "cypress\\e2e\\30_reliability\\auth-flows.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "910db6ee-d9f0-4459-bf61-add397660f49",
+          "title": "Authentication Reliability Flows",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Redirection: Guest accessing protected route is sent to /login",
+              "fullTitle": "Authentication Reliability Flows Redirection: Guest accessing protected route is sent to /login",
+              "timedOut": null,
+              "duration": 890,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var protectedRoute = cfg.routes.find(function (r) { return r.auth === \"staff\"; });\n    cy.visitRoute(\"ADMIN_BASE_URL\", protectedRoute.path);\n    cy.url().should(\"include\", \"/login\");\n});",
+              "err": {},
+              "uuid": "6dc97d7a-8441-40a8-b80b-70d7b20bf414",
+              "parentUUID": "910db6ee-d9f0-4459-bf61-add397660f49",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deep-Linking: Redirects back to intended page after login",
+              "fullTitle": "Authentication Reliability Flows Deep-Linking: Redirects back to intended page after login",
+              "timedOut": null,
+              "duration": 13273,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var protectedRoute = cfg.routes.find(function (r) { return r.auth === \"staff\"; });\n    cy.visitRoute(\"ADMIN_BASE_URL\", protectedRoute.path);\n    cy.loginAs(\"staff\");\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to dashboard via URL\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    cy.url().should(\"include\", \"/login\");\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-logout\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-logout\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",
+                "diff": null
+              },
+              "uuid": "27148d8e-f9e0-4d93-a30f-ee6b84e4c979",
+              "parentUUID": "910db6ee-d9f0-4459-bf61-add397660f49",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6dc97d7a-8441-40a8-b80b-70d7b20bf414"
+          ],
+          "failures": [
+            "27148d8e-f9e0-4d93-a30f-ee6b84e4c979"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 14163,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

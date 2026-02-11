@@ -19,6 +19,22 @@ export default function UserList() {
     const { showToast } = useNotification();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [inviteEmail, setInviteEmail] = useState('');
+    const [isDirty, setIsDirty] = useState(false);
+    const [showGuard, setShowGuard] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty && isModalOpen) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty, isModalOpen]);
 
     useEffect(() => {
         fetchUsers();
@@ -69,9 +85,17 @@ export default function UserList() {
         }
     };
 
-    const handleInvite = () => {
-        const email = prompt(ContentRegistry.USERS.INVITE_PROMPT);
-        if (email) showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
+    const handleInvite = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!inviteEmail) return;
+        setSubmitting(true);
+        // Simulate API call for now since prompt was a mock
+        setTimeout(() => {
+            showToast(ContentRegistry.USERS.INVITE_SUCCESS(inviteEmail), 'success');
+            setIsModalOpen(false);
+            setIsDirty(false);
+            setSubmitting(false);
+        }, 800);
     };
 
     const handleEdit = (user: User) => {
@@ -79,12 +103,12 @@ export default function UserList() {
     };
 
     return (
-        <div>
+        <div data-cy="form.user.page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.USERS.TITLE}</h2>
                 <button
-                    data-cy="btn-invite-user"
-                    onClick={handleInvite}
+                    data-cy="btn.user.invite"
+                    onClick={() => { setInviteEmail(''); setIsModalOpen(true); setIsDirty(false); }}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
                     {ContentRegistry.USERS.INVITE_BTN}
@@ -143,7 +167,7 @@ export default function UserList() {
                                             </button>
                                             {user.role === 'psw' && !user.profile?.isVerified && (
                                                 <button
-                                                    data-cy="btn-verify-user"
+                                                    data-cy="btn.user.verify"
                                                     onClick={() => handleApprove(user.id)}
                                                     style={{ color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}
                                                 >
@@ -161,6 +185,56 @@ export default function UserList() {
                     </tbody>
                 </table>
             </div>
+
+            {isModalOpen && (
+                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+                    {showGuard && (
+                        <div data-cy="guard.unsaved.dialog" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1001, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '0.5rem' }}>
+                            <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '350px', textAlign: 'center' }}>
+                                <h4 style={{ margin: '0 0 1rem 0' }}>Discard Invite?</h4>
+                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>Are you sure you want to cancel this invitation?</p>
+                                <div style={{ display: 'flex', gap: '1rem' }}>
+                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Discard</button>
+                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <form onSubmit={handleInvite} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', width: '90%', position: 'relative' }} data-cy="modal.user.invite.container">
+                        <h3 style={{ marginTop: 0 }}>Invite New User</h3>
+                        <div style={{ marginTop: '1.5rem' }}>
+                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Email Address</label>
+                            <input
+                                data-cy="modal.user.invite.email"
+                                type="email"
+                                value={inviteEmail}
+                                onChange={(e) => { setInviteEmail(e.target.value); setIsDirty(true); }}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                                required
+                                placeholder="Enter user's email..."
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+                            <button
+                                type="button"
+                                data-cy="modal.user.invite.close"
+                                onClick={() => isDirty ? setShowGuard(true) : setIsModalOpen(false)}
+                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                data-cy="modal.user.invite.save"
+                                disabled={submitting}
+                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
+                            >
+                                {submitting ? 'Sending...' : 'Send Invite'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
         </div>
     );
 }

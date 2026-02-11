@@ -1,0 +1,107 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-02-11T00:09:54.284Z",
+    "end": "2026-02-11T00:10:02.350Z",
+    "duration": 8066,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "0cd473c5-d270-45ec-b6ac-07d6f424e25f",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\marketing.routes.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "80ddf36d-6e49-4d4d-946e-826ec9a0af11",
+          "title": "Marketing Routes Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "loads every marketing page without blank screen",
+              "fullTitle": "Marketing Routes Smoke loads every marketing page without blank screen",
+              "timedOut": null,
+              "duration": 5362,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.marketing.json\").then(function (cfg) {\n    cfg.routes.forEach(function (r) {\n        cy.log(\"Testing Route: \".concat(r.key, \" -> \").concat(r.path));\n        cy.visitRoute(\"MARKETING_BASE_URL\", r.path);\n        // Professional health check\n        cy.get(\"body\").should(\"be.visible\");\n        cy.get(\"body\").should(\"not.contain\", \"Application error\");\n        cy.get(\"body\").should(\"not.contain\", \"404\");\n    });\n});",
+              "err": {},
+              "uuid": "b7f7da50-aa21-4722-a06a-93eab1230e7c",
+              "parentUUID": "80ddf36d-6e49-4d4d-946e-826ec9a0af11",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b7f7da50-aa21-4722-a06a-93eab1230e7c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5362,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

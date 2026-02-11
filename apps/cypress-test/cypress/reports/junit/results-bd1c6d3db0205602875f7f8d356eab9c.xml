@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="4.065" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:21:12" tests="0" file="cypress\e2e\00_smoke\health.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Platform Health &amp; Console Integrity" timestamp="2026-02-11T00:21:12" tests="2" time="4.045" failures="0">
+    <testcase name="Platform Health &amp; Console Integrity Boot: Admin app boot check" time="0.512" classname="Boot: Admin app boot check">
+    </testcase>
+    <testcase name="Platform Health &amp; Console Integrity Boot: Marketing app boot check" time="0.643" classname="Boot: Marketing app boot check">
+    </testcase>
+  </testsuite>
+</testsuites>

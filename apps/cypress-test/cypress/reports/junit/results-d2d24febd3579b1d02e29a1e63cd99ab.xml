@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="118.078" tests="5" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:26:07" tests="0" file="cypress\e2e\auth\role-based-auth.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="[AUTH] Role-Based Authentication" timestamp="2026-02-11T00:26:07" tests="5" time="118.067" failures="2">
+    <testcase name="[AUTH] Role-Based Authentication registers a new Client and redirects to Dashboard" time="2.042" classname="registers a new Client and redirects to Dashboard">
+    </testcase>
+    <testcase name="[AUTH] Role-Based Authentication registers a new PSW and redirects to Dashboard" time="1.341" classname="registers a new PSW and redirects to Dashboard">
+    </testcase>
+    <testcase name="[AUTH] Role-Based Authentication registers a new Staff and redirects to Dashboard" time="1.304" classname="registers a new Staff and redirects to Dashboard">
+    </testcase>
+    <testcase name="[AUTH] Role-Based Authentication logs in as Manager" time="21.102" classname="logs in as Manager">
+      <failure message="Timed out retrying after 20000ms: Expected to find element: `[data-cy=&quot;undefined&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy="undefined"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)]]></failure>
+    </testcase>
+    <testcase name="[AUTH] Role-Based Authentication logs in as Admin" time="16.590" classname="logs in as Admin">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to include &apos;/dashboard&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to include '/dashboard'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:40:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

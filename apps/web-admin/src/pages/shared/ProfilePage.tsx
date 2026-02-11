@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -8,9 +9,24 @@ export default function ProfilePage() {
     const [profile, setProfile] = useState<any>({ user: {} });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
+    const [showGuard, setShowGuard] = useState(false);
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const role = user.role;
+
+    // Unsaved changes guard (Native)
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
 
     const fetchProfile = async () => {
         setLoading(true);
@@ -55,6 +71,7 @@ export default function ProfilePage() {
             });
             if (response.ok) {
                 showToast('Profile updated successfully!', 'success');
+                setIsDirty(false);
             }
         } catch (error) {
             showToast('Failed to update profile', 'error');
@@ -66,9 +83,23 @@ export default function ProfilePage() {
     if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading profile...</div>;
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="form.profile.page">
+            {/* Unsaved Changes Guard Dialog */}
+            {showGuard && (
+                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
+                        <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
+                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes. Navigating away will discard them. Would you like to stay and save?</p>
+                        <div style={{ display: 'flex', gap: '16px' }}>
+                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', color: '#374151' }}>Leave</button>
+                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Account Profile</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.profile.header">Account Profile</h2>
                 <p style={{ color: '#6b7280' }}>Manage your personal information and preferences.</p>
             </div>
 
@@ -77,10 +108,13 @@ export default function ProfilePage() {
                     <div style={{ gridColumn: 'span 2' }}>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Full Name</label>
                         <input
-                            data-cy="inp-fullname"
+                            data-cy="form.profile.fullname"
                             type="text"
                             value={profile.fullName || ''}
-                            onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
+                            onChange={(e) => {
+                                setProfile({ ...profile, fullName: e.target.value });
+                                setIsDirty(true);
+                            }}
                             style={{ width: '100%', padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                         />
                     </div>
@@ -89,9 +123,12 @@ export default function ProfilePage() {
                         <div style={{ gridColumn: 'span 2' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Professional Bio</label>
                             <textarea
-                                data-cy="inp-bio"
+                                data-cy="form.profile.bio"
                                 value={profile.bio || ''}
-                                onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
+                                onChange={(e) => {
+                                    setProfile({ ...profile, bio: e.target.value });
+                                    setIsDirty(true);
+                                }}
                                 rows={4}
                                 style={{ width: '100%', padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                             />
@@ -101,20 +138,26 @@ export default function ProfilePage() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Address</label>
                                 <input
-                                    data-cy="inp-address"
+                                    data-cy="form.profile.address"
                                     type="text"
                                     value={profile.addressLine1 || ''}
-                                    onChange={(e) => setProfile({ ...profile, addressLine1: e.target.value })}
+                                    onChange={(e) => {
+                                        setProfile({ ...profile, addressLine1: e.target.value });
+                                        setIsDirty(true);
+                                    }}
                                     style={{ width: '100%', padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                                 />
                             </div>
                             <div>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>City</label>
                                 <input
-                                    data-cy="inp-city"
+                                    data-cy="form.profile.city"
                                     type="text"
                                     value={profile.city || ''}
-                                    onChange={(e) => setProfile({ ...profile, city: e.target.value })}
+                                    onChange={(e) => {
+                                        setProfile({ ...profile, city: e.target.value });
+                                        setIsDirty(true);
+                                    }}
                                     style={{ width: '100%', padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
                                 />
                             </div>
@@ -124,7 +167,7 @@ export default function ProfilePage() {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Email (Unchangeable)</label>
                         <input
-                            data-cy="inp-email-readonly"
+                            data-cy="form.profile.email.readonly"
                             type="email"
                             value={profile.user?.email || ''}
                             disabled
@@ -134,7 +177,7 @@ export default function ProfilePage() {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Phone</label>
                         <input
-                            data-cy="inp-phone-readonly"
+                            data-cy="form.profile.phone.readonly"
                             type="text"
                             value={profile.user?.phone || ''}
                             disabled
@@ -145,7 +188,7 @@ export default function ProfilePage() {
 
                 <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
                     <button
-                        data-cy="btn-save-profile"
+                        data-cy="form.profile.save"
                         type="submit"
                         disabled={saving}
                         style={{

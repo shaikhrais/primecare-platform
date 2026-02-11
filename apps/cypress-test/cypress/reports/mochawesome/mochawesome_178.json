@@ -1,0 +1,157 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-02-11T00:24:22.567Z",
+    "end": "2026-02-11T00:26:03.536Z",
+    "duration": 100969,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "87fa4fb5-4763-4dbb-aa7b-95baa122c575",
+      "title": "",
+      "fullFile": "cypress\\e2e\\30_reliability\\state-resilience.cy.ts",
+      "file": "cypress\\e2e\\30_reliability\\state-resilience.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e3812a9d-93ce-482d-bfac-2cb6d79e67b6",
+          "title": "State Resilience & Routing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "State: Dashboard handles 500 server error gracefully",
+              "fullTitle": "State Resilience & Routing State: Dashboard handles 500 server error gracefully",
+              "timedOut": null,
+              "duration": 7854,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept(\"GET\", DASHBOARD_API, {\n    statusCode: 500,\n    body: { message: \"Internal Server Error\" }\n}).as(\"getDashError\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\ncy.wait(\"@getDashError\");\n// Should show error fallback UI\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Failed to load dashboard\");\ncy.get(\"body\").should(\"contain\", \"Try again\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.\n\nhttps://on.cypress.io/wait",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n    at cypressErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/state-resilience.cy.ts:17:0)",
+                "diff": null
+              },
+              "uuid": "d8d10683-747f-4090-9012-fd1163563731",
+              "parentUUID": "e3812a9d-93ce-482d-bfac-2cb6d79e67b6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "State: Dashboard handles empty data state",
+              "fullTitle": "State Resilience & Routing State: Dashboard handles empty data state",
+              "timedOut": null,
+              "duration": 8757,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept(\"GET\", DASHBOARD_API, {\n    fixture: \"stubs/dashboard.empty.json\"\n}).as(\"getDashEmpty\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\ncy.wait(\"@getDashEmpty\");\n// Should show empty state message\ncy.get(\"body\").should(\"contain\", \"No recent activity to display\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashEmpty`. No request ever occurred.\n\nhttps://on.cypress.io/wait",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashEmpty`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n    at cypressErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/state-resilience.cy.ts:27:0)",
+                "diff": null
+              },
+              "uuid": "dfc46800-10c3-41c9-84f0-699007edb4d8",
+              "parentUUID": "e3812a9d-93ce-482d-bfac-2cb6d79e67b6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Routing: Unknown route displays Not Found UI",
+              "fullTitle": "State Resilience & Routing Routing: Unknown route displays Not Found UI",
+              "timedOut": null,
+              "duration": 17474,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/this-page-does-not-exist\");\n// Should see NotFound content\ncy.url().should(\"include\", \"/this-page-does-not-exist\");\ncy.get(\"h1, h2\").should(\"contain\", \"404\");\ncy.get(\"body\").should(\"contain\", \"Page Not Found\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `h1, h2`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `h1, h2`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/state-resilience.cy.ts:35:0)",
+                "diff": null
+              },
+              "uuid": "8b5334f6-b3a5-4b82-bc94-6f846dae3987",
+              "parentUUID": "e3812a9d-93ce-482d-bfac-2cb6d79e67b6",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "d8d10683-747f-4090-9012-fd1163563731",
+            "dfc46800-10c3-41c9-84f0-699007edb4d8",
+            "8b5334f6-b3a5-4b82-bc94-6f846dae3987"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 34085,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

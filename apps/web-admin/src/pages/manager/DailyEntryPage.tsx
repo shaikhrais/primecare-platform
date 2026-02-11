@@ -24,6 +24,29 @@ export default function DailyEntryPage() {
     const [notes, setNotes] = useState('');
     const [signature, setSignature] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
+    const [showGuard, setShowGuard] = useState(false);
+    const [pendingNav, setPendingNav] = useState<string | null>(null);
+
+    // Unsaved changes guard (Native)
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isDirty]);
+
+    const handleBack = () => {
+        if (isDirty) {
+            setShowGuard(true);
+        } else {
+            navigate('/manager/dashboard');
+        }
+    };
 
     // Load available clients/visits
     useEffect(() => {
@@ -84,7 +107,20 @@ export default function DailyEntryPage() {
     };
 
     return (
-        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="daily-entry-page">
+        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
+            {/* Unsaved Changes Guard Dialog */}
+            {showGuard && (
+                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ background: 'var(--bg-elev)', padding: '32px', borderRadius: '16px', border: '1px solid var(--line)', maxWidth: '400px', textAlign: 'center', color: 'var(--text)' }}>
+                        <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
+                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes. Navigating away will discard them. Would you like to stay and save?</p>
+                        <div style={{ display: 'flex', gap: '16px' }}>
+                            <button data-cy="guard.unsaved.leave" onClick={() => navigate('/manager/dashboard')} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--line)', background: 'transparent', cursor: 'pointer', color: 'var(--text)' }}>Leave</button>
+                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: 'var(--primary)', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Left Panel: Context Selection */}
             <div style={{ width: '300px', background: 'var(--bg-elev)', padding: '24px', borderRadius: '16px', border: '1px solid var(--line)' }}>
@@ -93,10 +129,13 @@ export default function DailyEntryPage() {
                 <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Client</label>
                     <select
-                        data-cy="client-select"
+                        data-cy="form.daily.client"
                         style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg-input)', color: 'var(--text)' }}
                         value={selectedClient}
-                        onChange={(e) => setSelectedClient(e.target.value)}
+                        onChange={(e) => {
+                            setSelectedClient(e.target.value);
+                            setIsDirty(true);
+                        }}
                     >
                         <option value="">Select Client...</option>
                         {clients.map(c => <option key={c.id} value={c.id}>{c?.fullName || 'Unknown Client'}</option>)}
@@ -116,7 +155,7 @@ export default function DailyEntryPage() {
             {/* Right Panel: The Form */}
             <div style={{ flex: 1, background: 'var(--bg-elev)', padding: '32px', borderRadius: '16px', border: '1px solid var(--line)', overflowY: 'auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-                    <h1 className="display-text" style={{ fontSize: '2rem', margin: 0 }}>Daily Care Entry</h1>
+                    <h1 className="display-text" style={{ fontSize: '2rem', margin: 0 }} data-cy="form.daily.header">Daily Care Entry</h1>
                     <div style={{ fontSize: '0.9rem', opacity: 0.6 }}>{new Date().toLocaleDateString()}</div>
                 </div>
 
@@ -129,10 +168,13 @@ export default function DailyEntryPage() {
                             {Object.keys(adl).map(key => (
                                 <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '12px', background: 'var(--bg)', borderRadius: '8px', border: '1px solid var(--line)' }}>
                                     <input
-                                        data-cy={`adl-${key}`}
+                                        data-cy={`form.daily.adl.${key}`}
                                         type="checkbox"
                                         checked={(adl as any)[key]}
-                                        onChange={(e) => setAdl({ ...adl, [key]: e.target.checked })}
+                                        onChange={(e) => {
+                                            setAdl({ ...adl, [key]: e.target.checked });
+                                            setIsDirty(true);
+                                        }}
                                         style={{ width: '20px', height: '20px' }}
                                     />
                                     <span style={{ textTransform: 'capitalize', fontWeight: 600 }}>{key}</span>
@@ -148,15 +190,15 @@ export default function DailyEntryPage() {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>BP</label>
-                                <input data-cy="vitals-bp" placeholder="120/80" value={vitals.bp} onChange={(e) => setVitals({ ...vitals, bp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="form.daily.vitals.bp" placeholder="120/80" value={vitals.bp} onChange={(e) => { setVitals({ ...vitals, bp: e.target.value }); setIsDirty(true); }} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Pulse</label>
-                                <input data-cy="vitals-pulse" placeholder="72" value={vitals.pulse} onChange={(e) => setVitals({ ...vitals, pulse: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="form.daily.vitals.pulse" placeholder="72" value={vitals.pulse} onChange={(e) => { setVitals({ ...vitals, pulse: e.target.value }); setIsDirty(true); }} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                             <div>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Temp</label>
-                                <input data-cy="vitals-temp" placeholder="36.5" value={vitals.temp} onChange={(e) => setVitals({ ...vitals, temp: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
+                                <input data-cy="form.daily.vitals.temp" placeholder="36.5" value={vitals.temp} onChange={(e) => { setVitals({ ...vitals, temp: e.target.value }); setIsDirty(true); }} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)' }} />
                             </div>
                         </div>
 
@@ -165,7 +207,11 @@ export default function DailyEntryPage() {
                             {[1, 2, 3, 4, 5].map(m => (
                                 <button
                                     key={m}
-                                    onClick={() => setMood(m)}
+                                    data-cy={`form.daily.mood.${m}`}
+                                    onClick={() => {
+                                        setMood(m);
+                                        setIsDirty(true);
+                                    }}
                                     style={{
                                         flex: 1,
                                         padding: '12px',
@@ -187,10 +233,13 @@ export default function DailyEntryPage() {
                 <div style={{ marginTop: '32px' }}>
                     <h3 style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>Notes & Signature</h3>
                     <textarea
-                        data-cy="notes"
+                        data-cy="form.daily.notes"
                         placeholder="Daily progress notes, observations, or incidents..."
                         value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
+                        onChange={(e) => {
+                            setNotes(e.target.value);
+                            setIsDirty(true);
+                        }}
                         style={{ width: '100%', minHeight: '120px', padding: '16px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg)', marginBottom: '24px', resize: 'vertical' }}
                     />
 
@@ -198,26 +247,36 @@ export default function DailyEntryPage() {
                         <div style={{ flex: 1, minWidth: '250px' }}>
                             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Digital Signature</label>
                             <input
-                                data-cy="signature"
+                                data-cy="form.daily.signature"
                                 placeholder="Type full name to sign"
                                 value={signature}
-                                onChange={(e) => setSignature(e.target.value)}
+                                onChange={(e) => {
+                                    setSignature(e.target.value);
+                                    setIsDirty(true);
+                                }}
                                 style={{ width: '100%', padding: '14px', borderRadius: '8px', border: '1px solid var(--line)', background: 'var(--bg)', fontFamily: 'monospace' }}
                             />
                         </div>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button
-                                onClick={() => handleSubmit(true)}
+                                onClick={() => {
+                                    setIsDirty(false);
+                                    handleSubmit(true);
+                                }}
                                 disabled={submitting}
+                                data-cy="form.daily.save"
                                 style={{ padding: '14px 24px', borderRadius: '50px', border: '1px solid var(--line)', background: 'transparent', cursor: 'pointer', fontWeight: 600 }}
                             >
                                 Save Draft
                             </button>
                             <button
-                                onClick={() => handleSubmit(false)}
+                                onClick={() => {
+                                    setIsDirty(false);
+                                    handleSubmit(false);
+                                }}
                                 disabled={submitting}
                                 className="btn btn-primary"
-                                data-cy="submit-entry"
+                                data-cy="form.daily.submit"
                                 style={{ padding: '14px 32px', borderRadius: '50px', fontWeight: 800 }}
                             >
                                 {submitting ? 'Submitting...' : 'Submit Entry'}

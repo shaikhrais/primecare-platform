@@ -21,6 +21,8 @@ import CustomerList from './pages/admin/CustomerList';
 import SupportDashboard from './pages/admin/SupportDashboard';
 import IncidentList from './pages/admin/IncidentList';
 import TimesheetList from './pages/admin/TimesheetList';
+import ClientAdmissionForm from './pages/admin/ClientAdmissionForm';
+import PswOnboardingForm from './pages/admin/PswOnboardingForm';
 import BillingPage from './pages/client/BillingPage';
 import EarningsPage from './pages/psw/EarningsPage';
 import VisitDetails from './pages/shared/VisitDetails';
@@ -73,6 +75,8 @@ function App() {
           <Route path="/support/manual" element={<AdminLayout><SupportHub /></AdminLayout>} />
           <Route path="/incidents" element={<AdminLayout roleGated={['admin', 'staff']}><IncidentList /></AdminLayout>} />
           <Route path="/timesheets" element={<AdminLayout roleGated={['admin']}><TimesheetList /></AdminLayout>} />
+          <Route path="/admin/clients/admission" element={<AdminLayout><ClientAdmissionForm /></AdminLayout>} />
+          <Route path="/admin/psw/onboarding" element={<AdminLayout><PswOnboardingForm /></AdminLayout>} />
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
 
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />

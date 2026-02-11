@@ -1,0 +1,150 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 2,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-11T00:01:15.146Z",
+    "end": "2026-02-11T00:01:53.167Z",
+    "duration": 38021,
+    "testsRegistered": 3,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3ee434b0-5a04-4ff0-bf5f-c1524332cd6d",
+      "title": "",
+      "fullFile": "cypress\\e2e\\10_security\\waf-hardening.cy.ts",
+      "file": "cypress\\e2e\\10_security\\waf-hardening.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f9f199bf-1c61-4b0b-8a4d-cee21f7b3b92",
+          "title": "Security & WAF Hardening",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "WAF: Verify Security Headers in server response",
+              "fullTitle": "Security & WAF Hardening WAF: Verify Security Headers in server response",
+              "timedOut": null,
+              "duration": 818,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n    url: Cypress.env(\"ADMIN_BASE_URL\"),\n    method: \"GET\"\n}).then(function (response) {\n    // Essential security headers\n    expect(response.headers).to.have.property(\"x-content-type-options\", \"nosniff\");\n    // We can also check for CSP or HSTS if enforced\n    // expect(response.headers).to.have.property(\"content-security-policy\");\n});",
+              "err": {},
+              "uuid": "54fe711a-36f6-4f4f-b49c-75dba45ad565",
+              "parentUUID": "f9f199bf-1c61-4b0b-8a4d-cee21f7b3b92",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Security: Auth inputs resist basic SQL Injection attempts",
+              "fullTitle": "Security & WAF Hardening Security: Auth inputs resist basic SQL Injection attempts",
+              "timedOut": null,
+              "duration": 12174,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var sqlPayload = \"' OR 1=1 --\";\ncy.getByCy(\"inp-email\").type(sqlPayload);\ncy.getByCy(\"inp-password\").type(\"wrongpassword\");\ncy.getByCy(\"btn-login\").click();\n// System should not crash and should show unauthorized\ncy.assertNoAppCrash();\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Invalid credentials\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"toast\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"toast\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/10_security/waf-hardening.cy.ts:28:0)",
+                "diff": null
+              },
+              "uuid": "891ba6f5-92e8-453a-81b2-ed5dfb78d3e4",
+              "parentUUID": "f9f199bf-1c61-4b0b-8a4d-cee21f7b3b92",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Security: Search params resist basic XSS Injection",
+              "fullTitle": "Security & WAF Hardening Security: Search params resist basic XSS Injection",
+              "timedOut": null,
+              "duration": 838,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Many apps reflect search params. We ensure it's escaped.\nvar xssPayload = \"<script>alert('xss')</script>\";\nvar encodedPayload = encodeURIComponent(xssPayload);\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/users?search=\".concat(encodedPayload));\n// Assert no alert popped or script executed (Cypress handles uncaught exceptions if script runs)\n// AND ensure the literal string is rendered safest (escaped)\ncy.get(\"body\").should(\"not.contain\", xssPayload);",
+              "err": {},
+              "uuid": "c25d7d8c-3830-4a71-b47c-740a0863876b",
+              "parentUUID": "f9f199bf-1c61-4b0b-8a4d-cee21f7b3b92",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "54fe711a-36f6-4f4f-b49c-75dba45ad565",
+            "c25d7d8c-3830-4a71-b47c-740a0863876b"
+          ],
+          "failures": [
+            "891ba6f5-92e8-453a-81b2-ed5dfb78d3e4"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 13830,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

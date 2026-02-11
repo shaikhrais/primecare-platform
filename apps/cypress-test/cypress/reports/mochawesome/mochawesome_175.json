@@ -1,0 +1,157 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-02-11T00:22:34.148Z",
+    "end": "2026-02-11T00:24:17.964Z",
+    "duration": 103816,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ca4d8cd1-0ba2-43de-be56-7c76a2f91ae9",
+      "title": "",
+      "fullFile": "cypress\\e2e\\30_reliability\\resilience.cy.ts",
+      "file": "cypress\\e2e\\30_reliability\\resilience.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0bfa0743-775d-42b7-a2f6-7b755265f8b9",
+          "title": "UI Resilience & Error Handling",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Resilience: API 500 shows error toast",
+              "fullTitle": "UI Resilience & Error Handling Resilience: API 500 shows error toast",
+              "timedOut": null,
+              "duration": 8838,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Force 500 error\ncy.intercept(\"GET\", USERS_API, {\n    statusCode: 500,\n    body: { message: \"Internal Server Error\" }\n}).as(\"getUsersError\");\ncy.visitAppRoute(\"ADMIN_BASE_URL\", \"/users\");\ncy.wait(\"@getUsersError\");\n// 2. Verify professional error handling\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Failed to load user list\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsersError`. No request ever occurred.\n\nhttps://on.cypress.io/wait",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsersError`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n    at cypressErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:15:0)",
+                "diff": null
+              },
+              "uuid": "ec24a0c2-2b7f-4ae4-8524-508d61c16059",
+              "parentUUID": "0bfa0743-775d-42b7-a2f6-7b755265f8b9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UX: Slow API shows loader/spinner",
+              "fullTitle": "UI Resilience & Error Handling UX: Slow API shows loader/spinner",
+              "timedOut": null,
+              "duration": 17929,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Intercept with 3-second delay\ncy.intercept(\"GET\", USERS_API, {\n    delay: 3000,\n    fixture: \"users.json\" // using a dummy list\n}).as(\"getUsersSlow\");\n// Use a role that would see this page\ncy.visitAppRoute(\"ADMIN_BASE_URL\", \"/users\");\n// 2. Initial state: Loader should be visible\n// Based on UserList code, it shows \"Loading users...\"\ncy.get(\"body\").should(\"contain\", \"Loading users...\");\n// 3. Eventually it should finish\ncy.wait(\"@getUsersSlow\");\ncy.get(\"body\").should(\"not.contain\", \"Loading users...\");\ncy.getByCy(\"tbl-users\").should(\"be.visible\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: expected '<body>' to contain 'Loading users...'",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected '<body>' to contain 'Loading users...'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:29:0)",
+                "diff": null
+              },
+              "uuid": "93f9fe62-d98c-4f1c-aaa7-75993372b771",
+              "parentUUID": "0bfa0743-775d-42b7-a2f6-7b755265f8b9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UX: Empty data shows 'No results' state",
+              "fullTitle": "UI Resilience & Error Handling UX: Empty data shows 'No results' state",
+              "timedOut": null,
+              "duration": 8273,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Force empty array response\ncy.intercept(\"GET\", USERS_API, {\n    statusCode: 200,\n    body: []\n}).as(\"getUsersEmpty\");\ncy.visitAppRoute(\"ADMIN_BASE_URL\", \"/users\");\ncy.wait(\"@getUsersEmpty\");\n// 2. Verify empty state message (from ContentRegistry in source)\ncy.get(\"body\").should(\"contain\", \"No users found in the system\");",
+              "err": {
+                "message": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsersEmpty`. No request ever occurred.\n\nhttps://on.cypress.io/wait",
+                "estack": "CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getUsersEmpty`. No request ever occurred.\n\nhttps://on.cypress.io/wait\n    at cypressErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.errByPath (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:76119:10)\n    at checkForXhr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135342:84)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:135368:28)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)\n    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/resilience.cy.ts:42:0)",
+                "diff": null
+              },
+              "uuid": "120a2ff8-88f9-4311-ad84-b6c80946a6d8",
+              "parentUUID": "0bfa0743-775d-42b7-a2f6-7b755265f8b9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "ec24a0c2-2b7f-4ae4-8524-508d61c16059",
+            "93f9fe62-d98c-4f1c-aaa7-75993372b771",
+            "120a2ff8-88f9-4311-ad84-b6c80946a6d8"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 35040,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

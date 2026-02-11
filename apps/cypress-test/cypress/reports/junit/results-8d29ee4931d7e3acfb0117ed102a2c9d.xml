@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="289.101" tests="10" failures="5">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:34:07" tests="0" file="cypress\e2e\40_features\daily-entry.micro.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Daily Entry Enterprise Micro-Tests" timestamp="2026-02-11T00:34:07" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Create &amp; Contract" timestamp="2026-02-11T00:34:07" tests="5" time="163.884" failures="3">
+    <testcase name="Daily Entry Enterprise Micro-Tests Create &amp; Contract DE-01: Page container and header are visible" time="17.431" classname="DE-01: Page container and header are visible">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;daily-entry-header&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="daily-entry-header"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:20:0)]]></failure>
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Create &amp; Contract DE-02: Form fields contract exists" time="17.424" classname="DE-02: Form fields contract exists">
+      <failure message="Timed out retrying after 15000ms: expected &apos;&lt;input&gt;&apos; to be &apos;visible&apos;
+
+This element `&lt;input&gt;` is not visible because its content is being clipped by one of its parent elements, which has a CSS property of overflow: `hidden`, `scroll` or `auto`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected '<input>' to be 'visible'
+
+This element `<input>` is not visible because its content is being clipped by one of its parent elements, which has a CSS property of overflow: `hidden`, `scroll` or `auto`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:24:0)]]></failure>
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Create &amp; Contract DE-03: Required field validation (signature)" time="2.410" classname="DE-03: Required field validation (signature)">
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Create &amp; Contract DE-04: Mood button interaction" time="17.575" classname="DE-04: Mood button interaction">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;mood-5&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="mood-5"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:36:0)]]></failure>
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Create &amp; Contract DE-05: ADL checkbox interaction" time="2.239" classname="DE-05: ADL checkbox interaction">
+    </testcase>
+  </testsuite>
+  <testsuite name="Drafts &amp; Resilience" timestamp="2026-02-11T00:36:51" tests="3" time="62.744" failures="1">
+    <testcase name="Daily Entry Enterprise Micro-Tests Drafts &amp; Resilience DE-06: Save Draft returns success toast" time="19.275" classname="DE-06: Save Draft returns success toast">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;save-draft&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="save-draft"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:53:0)]]></failure>
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Drafts &amp; Resilience DE-07: Unsaved changes guard (beforeunload)" time="2.295" classname="DE-07: Unsaved changes guard (beforeunload)">
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Drafts &amp; Resilience DE-08: API 500 on submit shows error toast" time="2.616" classname="DE-08: API 500 on submit shows error toast">
+    </testcase>
+  </testsuite>
+  <testsuite name="Data Integrity" timestamp="2026-02-11T00:37:54" tests="2" time="62.452" failures="1">
+    <testcase name="Daily Entry Enterprise Micro-Tests Data Integrity DE-09: Post payload contains all form fields" time="20.509" classname="DE-09: Post payload contains all form fields">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;mood-4&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="mood-4"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/daily-entry.micro.cy.ts:91:0)]]></failure>
+    </testcase>
+    <testcase name="Daily Entry Enterprise Micro-Tests Data Integrity DE-10: Multi-row ADL state preservation" time="2.757" classname="DE-10: Multi-row ADL state preservation">
+    </testcase>
+  </testsuite>
+</testsuites>

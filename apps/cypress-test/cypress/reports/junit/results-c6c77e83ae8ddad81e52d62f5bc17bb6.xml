@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="6.915" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:04:58" tests="0" file="cypress\e2e\generated\00_marketing.smoke.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Marketing Smoke" timestamp="2026-02-11T00:04:58" tests="1" time="6.903" failures="0">
+    <testcase name="Generated: Marketing Smoke loads all marketing routes" time="4.544" classname="loads all marketing routes">
+    </testcase>
+  </testsuite>
+</testsuites>

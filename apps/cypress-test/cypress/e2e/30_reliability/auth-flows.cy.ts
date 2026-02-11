@@ -33,7 +33,7 @@ describe("Authentication Reliability Flows", { tags: ["@reliability", "@smoke"] 
             cy.url().should("include", "/login");
 
             // 4. Attempt to go back to dashboard via URL
-            cy.visitAppRoute(cfg.baseUrlEnv, "/dashboard");
+            cy.visitRoute("ADMIN_BASE_URL", "/dashboard");
             cy.url().should("include", "/login");
         });
     });

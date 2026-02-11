@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="50.744" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:05:37" tests="0" file="cypress\e2e\debug\api-check.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="API Connectivity Check" timestamp="2026-02-11T00:05:37" tests="2" time="50.726" failures="1">
+    <testcase name="API Connectivity Check can reach the API root" time="0.134" classname="can reach the API root">
+    </testcase>
+    <testcase name="API Connectivity Check verifies VITE_API_URL usage in app" time="16.882" classname="verifies VITE_API_URL usage in app">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/api-check.cy.ts:16:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
