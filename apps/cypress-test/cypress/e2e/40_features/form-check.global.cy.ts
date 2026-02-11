@@ -93,6 +93,51 @@ const auditedForms = [
         dirtyField: "form.feedback.visit",
         leaveAction: "guard.unsaved.leave",
         stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Visit Completion",
+        route: "/visits/v-123/complete",
+        role: "psw",
+        container: "form.visitComplete.page",
+        dirtyField: "form.visitComplete.signature",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Booking Request",
+        route: "/client/bookings/request",
+        role: "client",
+        container: "form.booking.page",
+        dirtyField: "form.booking.date",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Support Ticket",
+        route: "/support/tickets/new",
+        role: "staff",
+        container: "form.supportTicket.page",
+        dirtyField: "form.supportTicket.subject",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Location Mgmt",
+        route: "/admin/locations/new",
+        role: "staff",
+        container: "form.location.page",
+        dirtyField: "form.location.name",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Billing Portal",
+        route: "/client/billing",
+        role: "client",
+        container: "form.billing.page",
+        dirtyField: "", // List view, no dirty guard needed for now
+        leaveAction: "",
+        stayAction: ""
     }
 ];
 

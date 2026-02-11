@@ -68,14 +68,14 @@ export default function BillingPage() {
     };
 
     return (
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }} data-cy="form.billing.page">
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Billing & Invoices</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.billing.header">Billing & Invoices</h2>
                 <p style={{ color: '#6b7280' }}>Manage your care payments and service history.</p>
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="form.billing.table">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontWeight: '600' }}>Invoice ID</th>
@@ -91,7 +91,7 @@ export default function BillingPage() {
                             <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center' }}>Loading invoices...</td></tr>
                         ) : invoices.length > 0 ? (
                             invoices.map((inv) => (
-                                <tr key={inv.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={inv.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy={`form.billing.row.${inv.id}`}>
                                     <td style={{ padding: '1rem', fontWeight: '500' }}>{inv.id.substring(0, 8)}...</td>
                                     <td style={{ padding: '1rem', color: '#6b7280' }}>{new Date(inv.createdAt).toLocaleDateString()}</td>
                                     <td style={{ padding: '1rem' }}>{inv.serviceDescription || 'Care Services'}</td>
@@ -104,14 +104,14 @@ export default function BillingPage() {
                                             backgroundColor: inv.status === 'paid' ? '#ecfdf5' : '#fef3c7',
                                             color: inv.status === 'paid' ? '#065f46' : '#92400e',
                                             textTransform: 'uppercase'
-                                        }}>
+                                        }} data-cy="form.billing.status">
                                             {inv.status}
                                         </span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
                                         {inv.status === 'pending' && (
                                             <button
-                                                data-cy="btn-pay-invoice"
+                                                data-cy="form.billing.pay"
                                                 onClick={() => handlePay(inv)}
                                                 disabled={loading}
                                                 style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}

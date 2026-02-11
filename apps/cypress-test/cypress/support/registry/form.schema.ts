@@ -95,5 +95,50 @@ export const FORM_SCHEMAS = {
             comments: { type: "string" },
             recommend: { type: "boolean" }
         }
+    },
+    VISIT_COMPLETE: {
+        type: "object",
+        required: ["tasksPerformed", "signature", "clinicalNotes"],
+        properties: {
+            tasksPerformed: { type: "array" },
+            signature: { type: "string" },
+            clinicalNotes: { type: "string" },
+            clientSatisfied: { type: "boolean" },
+            incidentReported: { type: "boolean" }
+        }
+    },
+    BOOKING_REQUEST: {
+        type: "object",
+        required: ["serviceId", "preferredDate", "preferredTime"],
+        properties: {
+            serviceId: { type: "string" },
+            preferredDate: { type: "string" },
+            preferredTime: { type: "string" },
+            urgency: { type: "string" },
+            description: { type: "string" }
+        }
+    },
+    SUPPORT_TICKET: {
+        type: "object",
+        required: ["subject", "category", "priority", "description"],
+        properties: {
+            subject: { type: "string" },
+            category: { type: "string" },
+            priority: { type: "string" },
+            description: { type: "string" },
+            contactPhone: { type: "string" }
+        }
+    },
+    LOCATION: {
+        type: "object",
+        required: ["name", "managerId", "address"],
+        properties: {
+            name: { type: "string" },
+            managerId: { type: "string" },
+            address: { type: "string" },
+            operatingHours: { type: "string" },
+            capacity: { type: "number" },
+            status: { type: "string" }
+        }
     }
 };

@@ -11,6 +11,10 @@ import Schedule from './pages/schedule/Schedule';
 import LeadsPage from './pages/leads/LeadsPage';
 import BookingsPage from './pages/client/BookingsPage';
 import ShiftsPage from './pages/psw/ShiftsPage';
+import VisitCompletionForm from './pages/shared/VisitCompletionForm';
+import BookingRequestForm from './pages/client/BookingRequestForm';
+import SupportTicketForm from './pages/shared/SupportTicketForm';
+import LocationForm from './pages/admin/LocationForm';
 import ProfilePage from './pages/shared/ProfilePage';
 import SupportHub from './pages/shared/SupportHub';
 import SettingsPage from './pages/admin/SettingsPage';
@@ -85,7 +89,11 @@ function App() {
           <Route path="/timesheets" element={<AdminLayout roleGated={['admin']}><TimesheetList /></AdminLayout>} />
           <Route path="/admin/clients/admission" element={<AdminLayout><ClientAdmissionForm /></AdminLayout>} />
           <Route path="/admin/psw/onboarding" element={<AdminLayout><PswOnboardingForm /></AdminLayout>} />
+          <Route path="/admin/locations/new" element={<AdminLayout><LocationForm /></AdminLayout>} />
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
+          <Route path="/visits/:id/complete" element={<AdminLayout><VisitCompletionForm /></AdminLayout>} />
+          <Route path="/client/bookings/request" element={<AdminLayout><BookingRequestForm /></AdminLayout>} />
+          <Route path="/support/tickets/new" element={<AdminLayout><SupportTicketForm /></AdminLayout>} />
 
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
 
