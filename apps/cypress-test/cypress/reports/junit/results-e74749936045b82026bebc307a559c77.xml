@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="248.723" tests="8" failures="4">
+  <testsuite name="Root Suite" timestamp="2026-02-11T00:51:03" tests="0" file="cypress\e2e\40_features\form-check.global.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Enterprise Form Audit" timestamp="2026-02-11T00:51:03" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Audit: Profile Update" timestamp="2026-02-11T00:51:03" tests="2" time="62.879" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="3.910" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update Layer 6: Unsaved Changes Guard Verification" time="19.564" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:78:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Daily Care Entry" timestamp="2026-02-11T00:52:06" tests="2" time="61.041" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="2.522" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 6: Unsaved Changes Guard Verification" time="19.744" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:78:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Configuration" timestamp="2026-02-11T00:53:07" tests="2" time="62.438" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="2.941" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration Layer 6: Unsaved Changes Guard Verification" time="20.031" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: expected &apos;http://localhost:5173/services&apos; to not include &apos;/services&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'http://localhost:5173/services' to not include '/services'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:92:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Admission" timestamp="2026-02-11T00:54:10" tests="2" time="62.348" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="2.577" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission Layer 6: Unsaved Changes Guard Verification" time="20.166" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:78:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
