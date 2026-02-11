@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="584.569" tests="23" failures="23">
+  <testsuite name="Root Suite" timestamp="2026-02-11T04:35:11" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T04:35:11" tests="23" time="584.534" failures="23">
+    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="16.835" classname="[ADMIN_DASHBOARD] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [USER_LIST] contains all required structural components" time="16.904" classname="[USER_LIST] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SCHEDULE] contains all required structural components" time="16.998" classname="[SCHEDULE] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [LEADS] contains all required structural components" time="17.104" classname="[LEADS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SETTINGS] contains all required structural components" time="17.206" classname="[SETTINGS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="17.271" classname="[MANAGER_DASHBOARD] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components" time="17.431" classname="[MANAGER_DAILY_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [PSW_SHIFTS] contains all required structural components" time="17.425" classname="[PSW_SHIFTS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [CLIENT_BOOKINGS] contains all required structural components" time="17.643" classname="[CLIENT_BOOKINGS] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [PROFILE] contains all required structural components" time="0.922" classname="[PROFILE] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [HOME] contains all required structural components" time="0.886" classname="[HOME] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-web.pages.dev/
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-web.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-web.pages.dev/
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-web.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/route.ts:7:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-web.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [INCIDENT_ENTRY] contains all required structural components" time="0.989" classname="[INCIDENT_ENTRY] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [TIMESHEET_ADJ] contains all required structural components" time="0.983" classname="[TIMESHEET_ADJ] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [LEAD_ENTRY] contains all required structural components" time="1.120" classname="[LEAD_ENTRY] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ROLE_EDITOR] contains all required structural components" time="0.882" classname="[ROLE_EDITOR] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [TEMPLATE_EDITOR] contains all required structural components" time="1.080" classname="[TEMPLATE_EDITOR] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [INVOICE_ENTRY] contains all required structural components" time="1.152" classname="[INVOICE_ENTRY] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [VISIT_COMPLETION] contains all required structural components" time="0.984" classname="[VISIT_COMPLETION] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [BOOKING_REQUEST] contains all required structural components" time="1.149" classname="[BOOKING_REQUEST] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SUPPORT_TICKET] contains all required structural components" time="1.006" classname="[SUPPORT_TICKET] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SHIFT_CONFIRMATION] contains all required structural components" time="12.133" classname="[SHIFT_CONFIRMATION] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [EVALUATION_FORM] contains all required structural components" time="1.063" classname="[EVALUATION_FORM] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [USER_ENTRY] contains all required structural components" time="1.115" classname="[USER_ENTRY] contains all required structural components">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://primecare-admin.pages.dev/login
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131607:74)
+    at visitFailedByErr (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131006:12)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:131606:11)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1720:18)
+    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)
+    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)
+    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)
+    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:16:0)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
