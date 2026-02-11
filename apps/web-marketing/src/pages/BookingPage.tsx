@@ -6,13 +6,13 @@ const { ContentRegistry } = MarketingRegistry;
 
 export default function BookingPage() {
     return (
-        <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }} data-cy="booking-page-container">
+        <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }} data-cy="page.container">
             <Helmet>
                 <title>{ContentRegistry.BOOKING.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#00897b' }} data-cy="booking-header">{ContentRegistry.BOOKING.TITLE}</h1>
-            <p className="lead" data-cy="booking-subtitle">{ContentRegistry.BOOKING.SUBTITLE}</p>
+            <h1 style={{ color: '#00897b' }} data-cy="page.title">{ContentRegistry.BOOKING.TITLE}</h1>
+            <p className="lead" data-cy="page.header">{ContentRegistry.BOOKING.SUBTITLE}</p>
 
             <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
                 <div>

@@ -111,6 +111,101 @@
             "key": "CHAT",
             "path": "/support/chat",
             "auth": "any"
+        },
+        {
+            "key": "USER_ENTRY",
+            "path": "/users/new",
+            "auth": "staff"
+        },
+        {
+            "key": "INCIDENT_ENTRY",
+            "path": "/incidents/new",
+            "auth": "staff"
+        },
+        {
+            "key": "TIMESHEET_ADJ",
+            "path": "/timesheets/adjust",
+            "auth": "staff"
+        },
+        {
+            "key": "LEAD_ENTRY",
+            "path": "/leads/new",
+            "auth": "staff"
+        },
+        {
+            "key": "ROLE_EDITOR",
+            "path": "/settings/roles",
+            "auth": "staff"
+        },
+        {
+            "key": "TEMPLATE_EDITOR",
+            "path": "/settings/templates",
+            "auth": "staff"
+        },
+        {
+            "key": "INVOICE_ENTRY",
+            "path": "/invoices/new",
+            "auth": "staff"
+        },
+        {
+            "key": "SHIFT_CONFIRM",
+            "path": "/shifts/confirm",
+            "auth": "psw"
+        },
+        {
+            "key": "VISIT_COMPLETE",
+            "path": "/visits/v-123/complete",
+            "auth": "psw"
+        },
+        {
+            "key": "BOOKING_REQ",
+            "path": "/client/bookings/request",
+            "auth": "client"
+        },
+        {
+            "key": "FEEDBACK",
+            "path": "/client/feedback",
+            "auth": "client"
+        },
+        {
+            "key": "EVALUATION",
+            "path": "/manager/evaluations",
+            "auth": "manager"
+        },
+        {
+            "key": "SERVICE_REVIEW",
+            "path": "/manager/service-review",
+            "auth": "manager"
+        },
+        {
+            "key": "EXPENSES",
+            "path": "/psw/expenses",
+            "auth": "psw"
+        },
+        {
+            "key": "AVAILABILITY",
+            "path": "/psw/availability",
+            "auth": "psw"
+        },
+        {
+            "key": "SUPPORT_TICKET",
+            "path": "/support/tickets/new",
+            "auth": "any"
+        },
+        {
+            "key": "CUSTOMER_ADMISSION",
+            "path": "/admin/clients/admission",
+            "auth": "staff"
+        },
+        {
+            "key": "PSW_ONBOARDING",
+            "path": "/admin/psw/onboarding",
+            "auth": "staff"
+        },
+        {
+            "key": "LOCATION_NEW",
+            "path": "/admin/locations/new",
+            "auth": "staff"
         }
     ]
 }

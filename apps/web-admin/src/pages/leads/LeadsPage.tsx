@@ -73,9 +73,9 @@ export default function LeadsPage() {
     };
 
     return (
-        <div data-cy="form.lead.page">
+        <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.LEADS.TITLE}</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.LEADS.TITLE}</h2>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
                     <button onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>

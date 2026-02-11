@@ -132,7 +132,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     </h1>
                 </div>
 
-                <nav style={{ flex: 1, padding: '1rem 0', overflowY: 'auto' }}>
+                <nav style={{ flex: 1, padding: '1rem 0', overflowY: 'auto' }} data-cy="nav.main">
                     {menuItems.map((item: MenuItem) => {
                         const isActive = location.pathname.startsWith(item.path) || (item.path === '/app' && location.pathname === '/app');
                         return (
@@ -203,7 +203,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     top: 0,
                     zIndex: 'var(--z-index-header)',
                     borderBottom: '1px solid var(--line)'
-                }} data-cy="topbar">
+                }} data-cy="page.header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <h2 style={{ fontSize: '1rem', fontWeight: 800, margin: 0, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>SYSTEM OPERATIONS</h2>
                     </div>

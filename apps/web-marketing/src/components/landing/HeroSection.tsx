@@ -23,7 +23,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-        }}>
+        }} data-cy="hero">
             <div style={{ maxWidth: '900px' }}>
                 <div
                     data-cy="hero-promo-badge"
@@ -73,7 +73,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                     <Link
                         to={RouteRegistry.BOOKING}
-                        data-cy="hero-cta-primary"
+                        data-cy="ctaBookNow"
                         style={{
                             padding: '1.25rem 2.5rem',
                             backgroundColor: 'white',

@@ -80,9 +80,9 @@ export default function ManagerDashboard() {
     );
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }} data-cy="mgr-dashboard">
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
 
-            <h1 className="display-text" style={{ marginBottom: '24px' }}>Manager Dashboard</h1>
+            <h1 className="display-text" style={{ marginBottom: '24px' }} data-cy="page.title">Manager Dashboard</h1>
 
             {/* KPI Section */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>

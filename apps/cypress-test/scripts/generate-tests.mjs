@@ -163,3 +163,100 @@ describe("Generated: Contracts", { tags: ["@contract"] }, () => {
 });
 `
 );
+// 5) Integrity Suite
+const integrity = readJson("integrity.registry.json");
+
+write(
+  "30_integrity.contracts.cy.ts",
+  commonHeader + `
+describe("Generated: Structural Integrity", { tags: ["@integrity", "@contracts"] }, () => {
+    const cfg = ${JSON.stringify(integrity)};
+    
+    cfg.pages.forEach((page: any) => {
+        it(\`[\${page.key}] contains all required structural components\`, () => {
+            cy.loginAs(page.allowedRoles[0]);
+            cy.visitRoute("ADMIN_BASE_URL", page.path);
+            
+            page.components.forEach((selector: string) => {
+                cy.log(\`Checking selector: \${selector}\`);
+                cy.getByCy(selector).should("exist");
+            });
+
+            // Check global components
+            cfg.globalComponents.forEach((selector: string) => {
+                cy.log(\`Checking global selector: \${selector}\`);
+                cy.get("body").then($body => {
+                    if ($body.find(\`[data-cy="\${selector}"]\`).length > 0) {
+                        cy.getByCy(selector).should("exist");
+                    }
+                });
+            });
+        });
+    });
+});
+`
+);
+
+write(
+  "31_integrity.rbac.cy.ts",
+  commonHeader + `
+describe("Generated: RBAC Action Visibility", { tags: ["@integrity", "@security"] }, () => {
+    const cfg = ${JSON.stringify(integrity)};
+    const roles = cfg.roles;
+
+    cfg.pages.forEach((page: any) => {
+        roles.forEach((role: string) => {
+            it(\`[\${page.key}] verifies visibility for role: \${role}\`, () => {
+                const allowed = page.allowedRoles.includes(role) || page.allowedRoles.includes("any");
+                
+                cy.clearCookies();
+                cy.clearLocalStorage();
+                if (role !== "guest") cy.loginAs(role as any);
+                
+                cy.visitRoute("ADMIN_BASE_URL", page.path, { failOnStatusCode: false });
+
+                if (!allowed) {
+                    cy.url().should("not.include", page.path);
+                } else {
+                    page.actions.forEach((action: any) => {
+                        cy.getByCy(action.key).should("be.visible");
+                    });
+                }
+            });
+        });
+    });
+});
+`
+);
+
+write(
+  "32_integrity.actions.cy.ts",
+  commonHeader + `
+describe("Generated: Action Integrity", { tags: ["@integrity", "@functional"] }, () => {
+    const cfg = ${JSON.stringify(integrity)};
+
+    cfg.pages.filter(p => p.actions.length > 0).forEach((page: any) => {
+        describe(\`Page Actions: \${page.key}\`, () => {
+            beforeEach(() => {
+                cy.loginAs(page.allowedRoles[0]);
+                cy.visitRoute("ADMIN_BASE_URL", page.path);
+            });
+
+            page.actions.forEach((action: any) => {
+                it(\`Action: \${action.key} triggers correct behavior\`, () => {
+                    if (action.type === "api") {
+                        cy.intercept(action.method, "**" + action.endpoint + "**").as("apiCall");
+                        cy.getByCy(action.key).click();
+                        cy.wait("@apiCall");
+                        cy.getByCy("toast.success").should("be.visible");
+                    } else if (action.type === "route") {
+                        cy.getByCy(action.key).click();
+                        cy.url().should("include", action.target);
+                    }
+                });
+            });
+        });
+    });
+});
+`
+);

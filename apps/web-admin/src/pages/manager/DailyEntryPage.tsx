@@ -107,7 +107,7 @@ export default function DailyEntryPage() {
     };
 
     return (
-        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
+        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="page.container">
             {/* Unsaved Changes Guard Dialog */}
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

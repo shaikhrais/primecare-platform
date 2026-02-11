@@ -44,7 +44,7 @@ export default function SettingsPage() {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="form.settings.page">
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="page.container">
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
@@ -58,8 +58,8 @@ export default function SettingsPage() {
                 </div>
             )}
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>{ContentRegistry.SETTINGS.TITLE}</h2>
-                <p style={{ color: '#6b7280' }}>{ContentRegistry.SETTINGS.SUBTITLE}</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">{ContentRegistry.SETTINGS.TITLE}</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.header">{ContentRegistry.SETTINGS.SUBTITLE}</p>
             </div>
 
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>

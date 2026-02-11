@@ -105,9 +105,9 @@ export default function UserList() {
     };
 
     return (
-        <div data-cy="form.user.page">
+        <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.USERS.TITLE}</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.USERS.TITLE}</h2>
                 <button
                     data-cy="btn.user.invite"
                     onClick={() => navigate('/users/new')}

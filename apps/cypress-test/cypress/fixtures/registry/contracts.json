@@ -44,5 +44,99 @@
         "btn-chat-widget-toggle",
         "chat-contact-name",
         "btn-chat-contact-submit"
+    ],
+    "USER_ENTRY": [
+        "form.user.page",
+        "form.user.fullName",
+        "form.user.save"
+    ],
+    "INCIDENT_ENTRY": [
+        "form.incident.page",
+        "form.incident.description",
+        "form.incident.save"
+    ],
+    "TIMESHEET_ADJ": [
+        "form.timesheet.page",
+        "form.timesheet.hours",
+        "form.timesheet.save"
+    ],
+    "LEAD_ENTRY": [
+        "form.lead.page",
+        "form.lead.fullName",
+        "form.lead.save"
+    ],
+    "ROLE_EDITOR": [
+        "form.role.page",
+        "form.role.grid",
+        "form.role.save"
+    ],
+    "TEMPLATE_EDITOR": [
+        "form.template.page",
+        "form.template.body",
+        "form.template.save"
+    ],
+    "INVOICE_ENTRY": [
+        "form.invoice.page",
+        "form.invoice.save"
+    ],
+    "SHIFT_CONFIRM": [
+        "form.shiftConfirm.page",
+        "btn.shift.accept",
+        "btn.shift.decline"
+    ],
+    "VISIT_COMPLETE": [
+        "form.visitComplete.page",
+        "form.visitComplete.signature",
+        "form.visitComplete.save"
+    ],
+    "BOOKING_REQ": [
+        "form.booking.page",
+        "form.booking.serviceType",
+        "form.booking.save"
+    ],
+    "FEEDBACK": [
+        "form.feedback.page",
+        "form.feedback.rating",
+        "form.feedback.save"
+    ],
+    "EVALUATION": [
+        "form.evaluation.page",
+        "form.evaluation.score",
+        "form.evaluation.save"
+    ],
+    "SERVICE_REVIEW": [
+        "form.serviceReview.page",
+        "form.serviceReview.comments",
+        "form.serviceReview.save"
+    ],
+    "EXPENSES": [
+        "form.expense.page",
+        "form.expense.amount",
+        "form.expense.save"
+    ],
+    "AVAILABILITY": [
+        "form.availability.page",
+        "form.availability.calendar",
+        "form.availability.save"
+    ],
+    "SUPPORT_TICKET": [
+        "form.supportTicket.page",
+        "form.supportTicket.subject",
+        "form.supportTicket.save"
+    ],
+    "CUSTOMER_ADMISSION": [
+        "form.admission.page",
+        "form.admission.clientName",
+        "form.admission.save"
+    ],
+    "PSW_ONBOARDING": [
+        "form.onboarding.page",
+        "form.onboarding.pswName",
+        "form.onboarding.save"
+    ],
+    "LOCATION_NEW": [
+        "form.location.page",
+        "form.location.name",
+        "form.location.save"
     ]
 }

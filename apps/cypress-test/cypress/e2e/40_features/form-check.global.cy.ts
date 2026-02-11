@@ -138,6 +138,78 @@ const auditedForms = [
         dirtyField: "", // List view, no dirty guard needed for now
         leaveAction: "",
         stayAction: ""
+    },
+    {
+        name: "User Entry",
+        route: "/users/new",
+        role: "staff",
+        container: "form.user.page",
+        dirtyField: "form.user.fullName",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Incident Report",
+        route: "/incidents/new",
+        role: "staff",
+        container: "form.incident.page",
+        dirtyField: "form.incident.description",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Timesheet Adjustment",
+        route: "/timesheets/adjust",
+        role: "staff",
+        container: "form.timesheet.page",
+        dirtyField: "form.timesheet.hours",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Lead Entry",
+        route: "/leads/new",
+        role: "staff",
+        container: "form.lead.page",
+        dirtyField: "form.lead.fullName",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Role Permissions",
+        route: "/settings/roles",
+        role: "staff",
+        container: "form.role.page",
+        dirtyField: "form.role.grid",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Message Templates",
+        route: "/settings/templates",
+        role: "staff",
+        container: "form.template.page",
+        dirtyField: "form.template.body",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Invoice Creation",
+        route: "/invoices/new",
+        role: "staff",
+        container: "form.invoice.page",
+        dirtyField: "", // List-based, maybe no direct dirty field yet
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Shift Confirmation",
+        route: "/shifts/confirm",
+        role: "psw",
+        container: "form.shiftConfirm.page",
+        dirtyField: "", // Action-based, no transition guard needed
+        leaveAction: "",
+        stayAction: ""
     }
 ];
 

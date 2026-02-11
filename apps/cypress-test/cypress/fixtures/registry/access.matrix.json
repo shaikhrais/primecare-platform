@@ -111,6 +111,123 @@
             "allowed": [
                 "staff"
             ]
+        },
+        {
+            "routeKey": "USER_ENTRY",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "INCIDENT_ENTRY",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "TIMESHEET_ADJ",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "LEAD_ENTRY",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "ROLE_EDITOR",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "TEMPLATE_EDITOR",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "INVOICE_ENTRY",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "SHIFT_CONFIRM",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "VISIT_COMPLETE",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "BOOKING_REQ",
+            "allowed": [
+                "client"
+            ]
+        },
+        {
+            "routeKey": "FEEDBACK",
+            "allowed": [
+                "client"
+            ]
+        },
+        {
+            "routeKey": "EVALUATION",
+            "allowed": [
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "SERVICE_REVIEW",
+            "allowed": [
+                "manager"
+            ]
+        },
+        {
+            "routeKey": "EXPENSES",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "AVAILABILITY",
+            "allowed": [
+                "psw"
+            ]
+        },
+        {
+            "routeKey": "SUPPORT_TICKET",
+            "allowed": [
+                "client",
+                "psw",
+                "manager",
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "CUSTOMER_ADMISSION",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "PSW_ONBOARDING",
+            "allowed": [
+                "staff"
+            ]
+        },
+        {
+            "routeKey": "LOCATION_NEW",
+            "allowed": [
+                "staff"
+            ]
         }
     ],
     "redirectWhenDenied": "/login"

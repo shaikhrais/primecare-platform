@@ -83,7 +83,7 @@ export default function ProfilePage() {
     if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading profile...</div>;
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="form.profile.page">
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="page.container">
             {/* Unsaved Changes Guard Dialog */}
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -99,8 +99,8 @@ export default function ProfilePage() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.profile.header">Account Profile</h2>
-                <p style={{ color: '#6b7280' }}>Manage your personal information and preferences.</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Account Profile</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.header">Manage your personal information and preferences.</p>
             </div>
 
             <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>

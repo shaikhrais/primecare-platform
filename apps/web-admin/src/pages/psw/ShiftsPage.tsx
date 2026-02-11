@@ -46,10 +46,10 @@ export default function ShiftsPage() {
     };
 
     return (
-        <div style={{ padding: '1rem' }} data-cy="psw-shifts-page">
+        <div style={{ padding: '1rem' }} data-cy="page.container">
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Shift History</h2>
-                <p style={{ color: '#6b7280' }}>Review all your assigned and completed care visits.</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">My Shift History</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.header">Review all your assigned and completed care visits.</p>
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
