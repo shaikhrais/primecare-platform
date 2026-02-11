@@ -48,12 +48,14 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
         <section style={{ padding: '6rem 2rem', backgroundColor: '#f8f9fa' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
-                    <h2 style={{
-                        fontSize: '2.5rem',
-                        textAlign: 'center',
-                        marginBottom: '1rem',
-                        color: '#333',
-                    }}>
+                    <h2
+                        data-cy="services-header"
+                        style={{
+                            fontSize: '2.5rem',
+                            textAlign: 'center',
+                            marginBottom: '1rem',
+                            color: '#333',
+                        }}>
                         Our Services
                     </h2>
                     <p style={{

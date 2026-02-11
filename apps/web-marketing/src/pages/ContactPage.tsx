@@ -41,13 +41,13 @@ export default function ContactPage() {
     };
 
     return (
-        <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '1200px', margin: '0 auto', padding: '4rem 2rem' }}>
+        <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '1200px', margin: '0 auto', padding: '4rem 2rem' }} data-cy="contact-page-container">
             <Helmet>
                 <title>{ContentRegistry.CONTACT.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>
 
-            <h1 style={{ color: '#00897b', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }}>{ContentRegistry.CONTACT.TITLE}</h1>
-            <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '3rem' }}>
+            <h1 style={{ color: '#00897b', fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem' }} data-cy="contact-header">{ContentRegistry.CONTACT.TITLE}</h1>
+            <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '3rem' }} data-cy="contact-subtitle">
                 We'd love to hear from you. Reach out with any questions or to schedule a consultation.
             </p>
 

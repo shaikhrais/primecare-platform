@@ -21,7 +21,7 @@ export default function LandingPage() {
     promoEndDate.setDate(promoEndDate.getDate() + 7);
 
     return (
-        <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }} data-cy="landing-page-container">
             <Helmet>
                 <title>{ContentRegistry.APP.NAME} - Compassionate Healthcare at Home</title>
                 <meta name="description" content="Professional home care, foot care nursing, senior support, and healthcare education services in Ontario." />

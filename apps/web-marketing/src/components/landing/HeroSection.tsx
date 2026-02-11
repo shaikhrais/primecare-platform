@@ -25,15 +25,17 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
             alignItems: 'center',
         }}>
             <div style={{ maxWidth: '900px' }}>
-                <div style={{
-                    display: 'inline-block',
-                    padding: '0.5rem 1.5rem',
-                    backgroundColor: 'rgba(255,255,255,0.2)',
-                    borderRadius: '50px',
-                    fontSize: '0.9rem',
-                    marginBottom: '2rem',
-                    backdropFilter: 'blur(10px)',
-                }}>
+                <div
+                    data-cy="hero-promo-badge"
+                    style={{
+                        display: 'inline-block',
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        borderRadius: '50px',
+                        fontSize: '0.9rem',
+                        marginBottom: '2rem',
+                        backdropFilter: 'blur(10px)',
+                    }}>
                     🎉 Limited Time Offer - 20% Off First Visit
                 </div>
 

@@ -284,10 +284,10 @@ export default function Header() {
                                 <option value="contrast" style={{ color: 'black' }}>🏁 Contrast</option>
                             </select>
                         </div>
-                        <a href="mailto:care@primecare.ca" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
+                        <a href="mailto:care@primecare.ca" data-cy="lnk-topbar-email" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
                             <span style={{ opacity: 0.7 }}>✉</span> care@primecare.ca
                         </a>
-                        <a href="tel:+14165551234" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
+                        <a href="tel:+14165551234" data-cy="lnk-topbar-phone" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
                             <span style={{ opacity: 0.7 }}>📞</span> (416) 555-1234
                         </a>
                     </div>

@@ -26,7 +26,7 @@ export function CTASection({
         }}>
             <div style={{ maxWidth: '700px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#333' }}>
+                    <h2 data-cy="cta-title" style={{ fontSize: '2rem', marginBottom: '1rem', color: '#333' }}>
                         {title}
                     </h2>
                 </AnimatedSection>
