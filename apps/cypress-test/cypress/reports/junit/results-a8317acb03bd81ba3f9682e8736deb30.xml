@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1011.747" tests="23" failures="17">
+  <testsuite name="Root Suite" timestamp="2026-02-11T02:59:25" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T02:59:25" tests="23" time="1011.702" failures="17">
+    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="8.099" classname="[ADMIN_DASHBOARD] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [USER_LIST] contains all required structural components" time="14.097" classname="[USER_LIST] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;btn.addUser&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="btn.addUser"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SCHEDULE] contains all required structural components" time="4.116" classname="[SCHEDULE] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [LEADS] contains all required structural components" time="3.021" classname="[LEADS] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SETTINGS] contains all required structural components" time="14.649" classname="[SETTINGS] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;form.settings&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="form.settings"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="5.989" classname="[MANAGER_DASHBOARD] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components" time="15.947" classname="[MANAGER_DAILY_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.title&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.title"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [PSW_SHIFTS] contains all required structural components" time="4.495" classname="[PSW_SHIFTS] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [CLIENT_BOOKINGS] contains all required structural components" time="14.553" classname="[CLIENT_BOOKINGS] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [PROFILE] contains all required structural components" time="14.212" classname="[PROFILE] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;form.profile.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="form.profile.page"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [HOME] contains all required structural components" time="11.645" classname="[HOME] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;hero&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="hero"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [INCIDENT_ENTRY] contains all required structural components" time="14.030" classname="[INCIDENT_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [TIMESHEET_ADJ] contains all required structural components" time="14.422" classname="[TIMESHEET_ADJ] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [LEAD_ENTRY] contains all required structural components" time="16.187" classname="[LEAD_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ROLE_EDITOR] contains all required structural components" time="17.605" classname="[ROLE_EDITOR] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [TEMPLATE_EDITOR] contains all required structural components" time="19.307" classname="[TEMPLATE_EDITOR] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [INVOICE_ENTRY] contains all required structural components" time="23.854" classname="[INVOICE_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [VISIT_COMPLETION] contains all required structural components" time="21.401" classname="[VISIT_COMPLETION] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [BOOKING_REQUEST] contains all required structural components" time="21.304" classname="[BOOKING_REQUEST] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SUPPORT_TICKET] contains all required structural components" time="23.036" classname="[SUPPORT_TICKET] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SHIFT_CONFIRMATION] contains all required structural components" time="20.751" classname="[SHIFT_CONFIRMATION] contains all required structural components">
+    </testcase>
+    <testcase name="Generated: Structural Integrity [EVALUATION_FORM] contains all required structural components" time="31.241" classname="[EVALUATION_FORM] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [USER_ENTRY] contains all required structural components" time="37.013" classname="[USER_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

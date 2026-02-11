@@ -121,10 +121,10 @@ export default function BookingsPage() {
     };
 
     return (
-        <div style={{ padding: '1rem' }} data-cy="client-bookings-page">
+        <div style={{ padding: '1rem' }} data-cy="page.container">
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Care Bookings</h2>
+                <div data-cy="page.header">
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">My Care Bookings</h2>
                     <p style={{ color: '#6b7280' }}>Track all your current and past care requests.</p>
                 </div>
                 <button
@@ -145,7 +145,7 @@ export default function BookingsPage() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-bookings">
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.bookings">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Service</th>
@@ -285,7 +285,7 @@ export default function BookingsPage() {
                                     Cancel
                                 </button>
                                 <button
-                                    data-cy="btn-submit-request"
+                                    data-cy="btn.requestBooking"
                                     type="submit"
                                     disabled={submitting}
                                     style={{ padding: '0.5rem 1rem', background: 'var(--pc-primary-dark)', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}

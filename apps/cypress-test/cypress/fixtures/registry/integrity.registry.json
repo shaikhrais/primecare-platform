@@ -49,7 +49,7 @@
                 "page.container",
                 "page.title",
                 "tbl.users",
-                "btn.addUser"
+                "btn.user.invite"
             ],
             "actions": [
                 {
@@ -151,7 +151,7 @@
             "components": [
                 "page.container",
                 "page.title",
-                "form.daily.page"
+                "page.header"
             ],
             "actions": [
                 {
@@ -208,7 +208,7 @@
             "components": [
                 "page.container",
                 "page.title",
-                "form.profile.page"
+                "page.header"
             ],
             "actions": [
                 {
@@ -223,6 +223,7 @@
         {
             "key": "HOME",
             "path": "/",
+            "baseUrlEnv": "MARKETING_BASE_URL",
             "allowedRoles": [
                 "guest",
                 "any"

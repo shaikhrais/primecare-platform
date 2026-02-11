@@ -154,8 +154,8 @@ export default function DailyEntryPage() {
 
             {/* Right Panel: The Form */}
             <div style={{ flex: 1, background: 'var(--bg-elev)', padding: '32px', borderRadius: '16px', border: '1px solid var(--line)', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-                    <h1 className="display-text" style={{ fontSize: '2rem', margin: 0 }} data-cy="form.daily.header">Daily Care Entry</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }} data-cy="page.header">
+                    <h1 className="display-text" style={{ fontSize: '2rem', margin: 0 }} data-cy="page.title">Daily Care Entry</h1>
                     <div style={{ fontSize: '0.9rem', opacity: 0.6 }}>{new Date().toLocaleDateString()}</div>
                 </div>
 

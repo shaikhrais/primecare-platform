@@ -174,8 +174,9 @@ describe("Generated: Structural Integrity", { tags: ["@integrity", "@contracts"]
     
     cfg.pages.forEach((page: any) => {
         it(\`[\${page.key}] contains all required structural components\`, () => {
+            const baseUrlEnv = page.baseUrlEnv || "ADMIN_BASE_URL";
             cy.loginAs(page.allowedRoles[0]);
-            cy.visitRoute("ADMIN_BASE_URL", page.path);
+            cy.visitRoute(baseUrlEnv, page.path);
             
             page.components.forEach((selector: string) => {
                 cy.log(\`Checking selector: \${selector}\`);
@@ -213,7 +214,8 @@ describe("Generated: RBAC Action Visibility", { tags: ["@integrity", "@security"
                 cy.clearLocalStorage();
                 if (role !== "guest") cy.loginAs(role as any);
                 
-                cy.visitRoute("ADMIN_BASE_URL", page.path, { failOnStatusCode: false });
+                const baseUrlEnv = page.baseUrlEnv || "ADMIN_BASE_URL";
+                cy.visitRoute(baseUrlEnv, page.path, { failOnStatusCode: false });
 
                 if (!allowed) {
                     cy.url().should("not.include", page.path);
@@ -239,7 +241,8 @@ describe("Generated: Action Integrity", { tags: ["@integrity", "@functional"] },
         describe(\`Page Actions: \${page.key}\`, () => {
             beforeEach(() => {
                 cy.loginAs(page.allowedRoles[0]);
-                cy.visitRoute("ADMIN_BASE_URL", page.path);
+                const baseUrlEnv = page.baseUrlEnv || "ADMIN_BASE_URL";
+                cy.visitRoute(baseUrlEnv, page.path);
             });
 
             page.actions.forEach((action: any) => {
