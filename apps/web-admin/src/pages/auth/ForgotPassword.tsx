@@ -45,7 +45,7 @@ export default function ForgotPassword() {
     return (
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f2f5'
-        }}>
+        }} data-cy="forgot-password-page">
             <div style={{
                 padding: '2rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px'
             }}>

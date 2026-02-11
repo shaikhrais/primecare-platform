@@ -43,7 +43,7 @@ export default function AboutPage() {
     ];
 
     return (
-        <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }} data-cy="about-page-container">
             <Helmet>
                 <title>About Us | {ContentRegistry.APP.NAME}</title>
                 <meta name="description" content="Learn about PrimeCare's mission to deliver compassionate, professional healthcare services in the comfort of your home." />

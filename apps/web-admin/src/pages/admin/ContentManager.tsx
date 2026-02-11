@@ -33,7 +33,7 @@ export default function ContentManager() {
     }, [activeTab]);
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="content-manager-page">
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Content Management</h2>
                 <p style={{ color: '#6b7280' }}>Manage blog posts and FAQ items for the marketing website.</p>
@@ -110,7 +110,7 @@ export default function ContentManager() {
                             )) : <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>No blogs found.</td></tr>
                         ) : (
                             faqs.length > 0 ? faqs.map(faq => (
-                                <tr key={faq.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={faq.id} data-cy={`faq-row-${faq.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
                                     <td style={{ padding: '1rem', fontWeight: '500' }}>{faq.question}</td>
                                     <td style={{ padding: '1rem', color: '#6b7280' }}>{faq.category}</td>
                                     <td style={{ padding: '1rem' }}>

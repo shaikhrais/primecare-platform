@@ -286,8 +286,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
                         <QuickActions role={role} />
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔔</button>
-                            <button style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔍</button>
+                            <button data-cy="btn-topbar-notifications" style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔔</button>
+                            <button data-cy="btn-topbar-search" style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔍</button>
                         </div>
                         <div style={{ height: '24px', width: '1px', background: 'var(--line)' }}></div>
                         <p style={{ margin: 0, fontSize: '0.8rem', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>

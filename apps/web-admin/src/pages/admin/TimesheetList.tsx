@@ -32,7 +32,7 @@ export default function TimesheetList() {
     if (loading) return <div>Loading timesheets...</div>;
 
     return (
-        <div>
+        <div data-cy="timesheet-list-page">
             <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Timesheet Review</h1>
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>

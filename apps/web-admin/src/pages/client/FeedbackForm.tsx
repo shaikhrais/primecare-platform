@@ -60,7 +60,7 @@ export default function FeedbackForm() {
     };
 
     return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="form.feedback.page">
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="feedback-form-page">
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>

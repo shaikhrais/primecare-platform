@@ -49,7 +49,7 @@ export default function BlogPage() {
     }, []);
 
     return (
-        <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '1000px', margin: '0 auto', padding: '4rem 2rem' }}>
+        <div style={{ fontFamily: 'system-ui, sans-serif', maxWidth: '1000px', margin: '0 auto', padding: '4rem 2rem' }} data-cy="blog-page-container">
             <Helmet>
                 <title>{ContentRegistry.BLOG.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>

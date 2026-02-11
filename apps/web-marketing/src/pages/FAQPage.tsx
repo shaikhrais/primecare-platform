@@ -40,7 +40,7 @@ export default function FAQPage() {
     ];
 
     return (
-        <div style={{ fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ fontFamily: 'system-ui, sans-serif' }} data-cy="faq-page-container">
             <Helmet>
                 <title>Frequently Asked Questions | {ContentRegistry.APP.NAME}</title>
             </Helmet>

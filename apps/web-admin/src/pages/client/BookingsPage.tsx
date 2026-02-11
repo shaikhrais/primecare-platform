@@ -121,7 +121,7 @@ export default function BookingsPage() {
     };
 
     return (
-        <div style={{ padding: '1rem' }}>
+        <div style={{ padding: '1rem' }} data-cy="client-bookings-page">
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Care Bookings</h2>

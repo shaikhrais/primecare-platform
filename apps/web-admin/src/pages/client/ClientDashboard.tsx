@@ -127,6 +127,7 @@ export default function ClientDashboard() {
                                 value={newRequest.serviceId}
                                 onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                data-cy="form.booking.service"
                                 required
                             >
                                 <option value="">-- Choose a Service --</option>
@@ -140,6 +141,7 @@ export default function ClientDashboard() {
                                 value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
                                 onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                data-cy="form.booking.datetime"
                                 required
                             />
                             <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Duration (Minutes)</label>
@@ -147,6 +149,7 @@ export default function ClientDashboard() {
                                 value={newRequest.durationMinutes}
                                 onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
                                 style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                data-cy="form.booking.duration"
                             >
                                 <option value={60}>1 Hour</option>
                                 <option value={90}>1.5 Hours</option>

@@ -37,7 +37,7 @@ export default function AdminDashboard() {
     ];
 
     return (
-        <div>
+        <div data-cy="admin-dashboard-page">
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: '0 0 0.5rem 0', color: '#111827' }}>
                     {ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME}

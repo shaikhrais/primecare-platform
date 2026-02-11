@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SupportHub() {
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="support-hub-page">
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Support Hub</h2>
                 <p style={{ color: '#6b7280' }}>How can we help you today?</p>

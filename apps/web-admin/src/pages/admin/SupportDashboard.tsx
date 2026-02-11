@@ -25,7 +25,7 @@ export default function SupportDashboard() {
     if (loading) return <div style={{ padding: '2rem' }}>Loading support tickets...</div>;
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ padding: '2rem' }} data-cy="support-dashboard-page">
             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '2rem' }}>Support Inbox</h2>
 
             <div style={{ display: 'grid', gap: '1rem' }}>

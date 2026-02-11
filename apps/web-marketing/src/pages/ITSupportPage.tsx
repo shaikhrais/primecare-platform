@@ -7,7 +7,7 @@ const { ContentRegistry, RouteRegistry } = MarketingRegistry;
 
 export default function ITSupportPage() {
     return (
-        <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', fontFamily: 'system-ui, sans-serif' }} data-cy="it-support-page">
             <Helmet>
                 <title>{ContentRegistry.SERVICES.IT_SUPPORT.TITLE} | {ContentRegistry.APP.NAME}</title>
             </Helmet>

@@ -24,7 +24,7 @@ export default function CustomerList() {
     if (loading) return <div style={{ padding: '2rem' }}>Loading customers...</div>;
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ padding: '2rem' }} data-cy="customer-list-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Customer Management</h2>
             </div>

@@ -65,7 +65,7 @@ export default function EarningsPage() {
     };
 
     return (
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }} data-cy="psw-earnings-page">
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Earnings</h2>
@@ -92,7 +92,7 @@ export default function EarningsPage() {
                             <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>Loading shift data...</td></tr>
                         ) : visits.length > 0 ? (
                             visits.map((v) => (
-                                <tr key={v.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                <tr key={v.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy="earnings-row">
                                     <td style={{ padding: '1rem' }}>{new Date(v.requestedStartAt).toLocaleDateString()}</td>
                                     <td style={{ padding: '1rem' }}>{v.service.name}</td>
                                     <td style={{ padding: '1rem' }}>{v.durationMinutes || 60} mins</td>

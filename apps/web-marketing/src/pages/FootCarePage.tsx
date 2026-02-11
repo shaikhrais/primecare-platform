@@ -7,7 +7,7 @@ const { ContentRegistry, RouteRegistry } = MarketingRegistry;
 
 export default function FootCarePage() {
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ padding: '2rem' }} data-cy="foot-care-page">
             <Helmet>
                 <title>{ContentRegistry.SERVICES.FOOT_CARE.TITLE} | {ContentRegistry.APP.NAME}</title>
                 <meta name="description" content={ContentRegistry.SERVICES.FOOT_CARE.DESCRIPTION} />

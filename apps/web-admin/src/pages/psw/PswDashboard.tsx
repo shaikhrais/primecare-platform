@@ -142,14 +142,14 @@ export default function PswDashboard() {
                     ) : shifts.length > 0 ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             {shifts.map(shift => (
-                                <div key={shift.id} style={{ padding: '1.25rem', border: '1px solid #e5e7eb', borderRadius: '0.75rem', backgroundColor: '#f9fafb' }}>
+                                <div key={shift.id} data-cy={`shift-card-${shift.id}`} style={{ padding: '12.5rem', border: '1px solid #e5e7eb', borderRadius: '0.75rem', backgroundColor: '#f9fafb' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                                        <span style={{ fontWeight: '700', fontSize: '1.1rem', color: '#004d40' }}>{shift.client.fullName}</span>
-                                        <span style={{ color: '#059669', fontWeight: '600', fontSize: '0.875rem', textTransform: 'uppercase' }}>{shift.status}</span>
+                                        <span data-cy="shift-client-name" style={{ fontWeight: '700', fontSize: '1.1rem', color: '#004d40' }}>{shift.client.fullName}</span>
+                                        <span data-cy="shift-status" style={{ color: '#059669', fontWeight: '600', fontSize: '0.875rem', textTransform: 'uppercase' }}>{shift.status}</span>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: '#4b5563' }}>
-                                        <div style={{ fontSize: '0.9rem' }}>🕒 {new Date(shift.requestedStartAt).toLocaleString()}</div>
-                                        <div style={{ fontSize: '0.9rem' }}>📍 {shift.serviceAddressLine1}</div>
+                                        <div data-cy="shift-time" style={{ fontSize: '0.9rem' }}>🕒 {new Date(shift.requestedStartAt).toLocaleString()}</div>
+                                        <div data-cy="shift-address" style={{ fontSize: '0.9rem' }}>📍 {shift.serviceAddressLine1}</div>
                                         <div style={{ fontSize: '0.9rem' }}>🏥 Service: {shift.service.name}</div>
                                     </div>
                                     <div style={{ marginTop: '1.25rem', display: 'flex', gap: '1rem' }}>
