@@ -58,9 +58,9 @@ apps/mobile-client/maestro/
 **/*.mp4
 **/*.webm
 **/.cypress-cache/
-tests/cypress/videos/
-tests/cypress/screenshots/
-tests/.cypress-cache/
+**/cypress/videos/
+**/cypress/screenshots/
+test-reports/
 **/local.properties
 **/*.log.txt
 **/build_out*.txt
