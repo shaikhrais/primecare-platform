@@ -1,19 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-// Prisma Helper
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 // Profile Update Schema
 const ProfileUpdateSchema = z.object({
@@ -51,7 +43,7 @@ app.use('*', rbacMiddleware(['client']));
  *       - bearerAuth: []
  */
 app.get('/profile', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const profile = await prisma.clientProfile.findUnique({
@@ -72,7 +64,7 @@ app.get('/profile', async (c) => {
  *       - bearerAuth: []
  */
 app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
 
@@ -101,7 +93,7 @@ app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
  *       - bearerAuth: []
  */
 app.get('/bookings', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const profile = await prisma.clientProfile.findUnique({ where: { userId } });
@@ -128,7 +120,7 @@ app.get('/bookings', async (c) => {
  *       - bearerAuth: []
  */
 app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
 
@@ -146,6 +138,8 @@ app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
         },
     });
 
+    await logAudit(prisma, userId, 'BOOK_SERVICE', 'VISIT', visit.id, { serviceId: data.serviceId });
+
     return c.json(visit, 201);
 });
 
@@ -158,7 +152,7 @@ app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
  *       - bearerAuth: []
  */
 app.get('/invoices', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const profile = await prisma.clientProfile.findUnique({ where: { userId } });
@@ -182,7 +176,7 @@ app.get('/invoices', async (c) => {
  *       - bearerAuth: []
  */
 app.get('/services', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const services = await prisma.service.findMany();
     return c.json(services);
 });

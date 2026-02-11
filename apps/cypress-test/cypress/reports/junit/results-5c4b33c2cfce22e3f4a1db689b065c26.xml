@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="615.305" tests="13" failures="13">
+  <testsuite name="Root Suite" timestamp="2026-02-11T08:40:40" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T08:40:40" tests="13" time="615.291" failures="13">
+    <testcase name="Generated: Structural Integrity [MARKETING_HOME] contains all required structural components" time="10.459" classname="[MARKETING_HOME] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;toast&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="toast"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:15:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MARKETING_CONTACT] contains all required structural components" time="10.917" classname="[MARKETING_CONTACT] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:15:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [AUTH_LOGIN] contains all required structural components" time="10.624" classname="[AUTH_LOGIN] contains all required structural components">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
+    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:15:0)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="17.866" classname="[ADMIN_DASHBOARD] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ADMIN_USERS] contains all required structural components" time="17.228" classname="[ADMIN_USERS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ADMIN_SCHEDULE] contains all required structural components" time="17.010" classname="[ADMIN_SCHEDULE] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ADMIN_SERVICES] contains all required structural components" time="17.141" classname="[ADMIN_SERVICES] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [ADMIN_SETTINGS] contains all required structural components" time="17.651" classname="[ADMIN_SETTINGS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="17.091" classname="[MANAGER_DASHBOARD] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components" time="17.556" classname="[MANAGER_DAILY_ENTRY] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [PSW_SHIFTS] contains all required structural components" time="17.087" classname="[PSW_SHIFTS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [CLIENT_BOOKINGS] contains all required structural components" time="17.088" classname="[CLIENT_BOOKINGS] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+    <testcase name="Generated: Structural Integrity [SHARED_PROFILE] contains all required structural components" time="17.356" classname="[SHARED_PROFILE] contains all required structural components">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

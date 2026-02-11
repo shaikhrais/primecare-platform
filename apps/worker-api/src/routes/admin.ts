@@ -1,18 +1,12 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient, VisitStatus } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
+import { VisitStatus } from '../../generated/client/edge';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 const AssignPswSchema = z.object({
     visitId: z.string().uuid(),
@@ -33,7 +27,7 @@ app.use('*', rbacMiddleware(['admin']));
  *     summary: List all users
  */
 app.get('/users', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const users = await prisma.user.findMany({
         select: {
             id: true,
@@ -56,7 +50,7 @@ app.get('/users', async (c) => {
  *     summary: List all visits (Scheduling)
  */
 app.get('/visits', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const visits = await prisma.visit.findMany({
         include: {
             client: { select: { fullName: true, addressLine1: true } },
@@ -75,7 +69,7 @@ app.get('/visits', async (c) => {
  *     summary: Assign PSW to Visit
  */
 app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const { visitId, pswId } = c.req.valid('json');
 
     // Verify PSW exists
@@ -90,6 +84,9 @@ app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
         },
     });
 
+    const payload = c.get('jwtPayload');
+    await logAudit(prisma, payload.sub, 'ASSIGN_PSW', 'VISIT', visitId, { pswId });
+
     return c.json(visit);
 });
 
@@ -100,7 +97,7 @@ app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
  *     summary: Dashboard Stats
  */
 app.get('/stats', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
 
     const [totalUsers, totalVisits, pendingVisits, totalLeads] = await Promise.all([
         prisma.user.count(),
@@ -124,7 +121,7 @@ app.get('/stats', async (c) => {
  *     summary: List all leads from marketing
  */
 app.get('/leads', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const leads = await prisma.lead.findMany({
         orderBy: { createdAt: 'desc' },
     });
@@ -138,7 +135,7 @@ app.get('/leads', async (c) => {
  *     summary: Update lead status
  */
 app.patch('/leads/:id', zValidator('json', z.object({ status: z.string() })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const { status } = c.req.valid('json');
 
@@ -157,7 +154,7 @@ app.patch('/leads/:id', zValidator('json', z.object({ status: z.string() })), as
  *     summary: Verify a user profile (e.g. PSW)
  */
 app.post('/users/:id/verify', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
 
     const user = await prisma.user.update({
@@ -175,7 +172,7 @@ app.post('/users/:id/verify', async (c) => {
  *     summary: Specifically approve a PSW profile
  */
 app.post('/psw/approve/:id', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const profile = await prisma.pswProfile.update({
         where: { id },
@@ -191,7 +188,7 @@ app.post('/psw/approve/:id', async (c) => {
  *     summary: List all reported incidents
  */
 app.get('/incidents', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const incidents = await prisma.incident.findMany({
         include: {
             reporter: { select: { email: true } },
@@ -206,7 +203,7 @@ app.patch('/incidents/:id', zValidator('json', z.object({
     status: z.string(),
     resolutionNotes: z.string().optional()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const data = c.req.valid('json');
     const incident = await prisma.incident.update({
@@ -226,7 +223,7 @@ app.patch('/incidents/:id', zValidator('json', z.object({
  *     summary: List all timesheets for review
  */
 app.get('/timesheets', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const timesheets = await prisma.timesheet.findMany({
         include: {
             psw: { select: { fullName: true } },
@@ -240,7 +237,7 @@ app.get('/timesheets', async (c) => {
 app.patch('/timesheets/:id', zValidator('json', z.object({
     status: z.string()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const { status } = c.req.valid('json');
     const payload = c.get('jwtPayload');
@@ -262,7 +259,7 @@ app.patch('/timesheets/:id', zValidator('json', z.object({
  *     summary: List all invoices
  */
 app.get('/invoices', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const invoices = await prisma.invoice.findMany({
         include: { client: { select: { fullName: true } } },
         orderBy: { createdAt: 'desc' }
@@ -275,7 +272,7 @@ app.post('/invoices', zValidator('json', z.object({
     total: z.number(),
     status: z.string().optional()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const invoice = await prisma.invoice.create({
         data: {
@@ -289,7 +286,7 @@ app.post('/invoices', zValidator('json', z.object({
 
 // Services CRUD
 app.get('/services', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const services = await prisma.service.findMany();
     return c.json(services);
 });
@@ -301,7 +298,7 @@ app.post('/services', zValidator('json', z.object({
     category: z.string().optional(),
     isActive: z.boolean().optional(),
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const { hourlyRate, ...rest } = c.req.valid('json');
     // Generate slug from name
     const slug = rest.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -323,7 +320,7 @@ app.put('/services/:id', zValidator('json', z.object({
     category: z.string().optional(),
     isActive: z.boolean().optional(),
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const { hourlyRate, ...data } = c.req.valid('json');
 
@@ -345,7 +342,7 @@ app.patch('/visits/:id', zValidator('json', z.object({
     requestedStartAt: z.string().datetime().optional(),
     durationMinutes: z.number().optional(),
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const data = c.req.valid('json');
 
@@ -363,7 +360,7 @@ app.patch('/visits/:id', zValidator('json', z.object({
 });
 
 app.delete('/visits/:id', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     await prisma.visit.delete({ where: { id } });
     return c.json({ success: true });
@@ -371,7 +368,7 @@ app.delete('/visits/:id', async (c) => {
 
 // Blog Management
 app.get('/blog', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: 'desc' } });
     return c.json(posts);
 });
@@ -382,7 +379,7 @@ app.post('/blog', zValidator('json', z.object({
     slug: z.string(),
     status: z.string(),
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const data = c.req.valid('json');
     // Map content to contentHtml for now or adjust schema
     const post = await prisma.blogPost.create({
@@ -398,7 +395,7 @@ app.post('/blog', zValidator('json', z.object({
 
 // FAQ Management
 app.get('/faqs', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     // Assuming model name became fAQ or FAQ in generated client. 
     // Usually camelCase of ModelName. If model is FAQ, client property is fAQ or faq.
     // We will assume fAQ as per previous error hints.
@@ -411,7 +408,7 @@ app.post('/faqs', zValidator('json', z.object({
     answer: z.string(),
     category: z.string(),
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const faq = await prisma.fAQ.create({ data });
     return c.json(faq, 201);

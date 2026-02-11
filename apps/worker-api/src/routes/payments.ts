@@ -2,10 +2,11 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import Stripe from 'stripe';
-import { Bindings } from '../bindings';
+import { Bindings, Variables } from '../bindings';
 import { authMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Auth Middleware (Client only)
 app.use('*', async (c, next) => {
@@ -38,6 +39,10 @@ app.post('/create-payment-intent', zValidator('json', PaymentIntentSchema), asyn
                 enabled: true,
             },
         });
+
+        const payload = c.get('jwtPayload');
+        const prisma = c.get('prisma');
+        await logAudit(prisma, payload.sub, 'CREATE_PAYMENT_INTENT', 'PAYMENT', paymentIntent.id, { amount, currency });
 
         return c.json({
             clientSecret: paymentIntent.client_secret,

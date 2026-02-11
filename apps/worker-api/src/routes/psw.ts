@@ -1,18 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 const CheckEventSchema = z.object({
     lat: z.number(),
@@ -42,7 +35,7 @@ app.use('*', rbacMiddleware(['psw']));
  *       - bearerAuth: []
  */
 app.get('/profile', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const profile = await prisma.pswProfile.findUnique({
@@ -64,7 +57,7 @@ app.get('/profile', async (c) => {
  *       - bearerAuth: []
  */
 app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
 
@@ -90,7 +83,7 @@ app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
  *       - bearerAuth: []
  */
 app.get('/visits', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
@@ -136,7 +129,7 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
  *       - bearerAuth: []
  */
 app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const visitId = c.req.param('id');
     const { lat, lng, accuracy } = c.req.valid('json');
@@ -186,6 +179,8 @@ app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c)
         data: { status: 'in_progress' },
     });
 
+    await logAudit(prisma, userId, 'CHECK_IN', 'VISIT', visitId, { result, lat, lng });
+
     return c.json(event);
 });
 
@@ -199,7 +194,7 @@ app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c)
  *       - bearerAuth: []
  */
 app.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const visitId = c.req.param('id');
     const { lat, lng, accuracy } = c.req.valid('json');
@@ -223,6 +218,8 @@ app.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c
         where: { id: visitId },
         data: { status: 'completed' },
     });
+
+    await logAudit(prisma, userId, 'CHECK_OUT', 'VISIT', visitId, { lat, lng });
 
     return c.json(event);
 });
@@ -250,7 +247,7 @@ app.post('/payouts/request', async (c) => {
 app.post('/visits/:id/note', zValidator('json', z.object({
     noteText: z.string().min(1)
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const visitId = c.req.param('id');
     const { noteText } = c.req.valid('json');
@@ -278,7 +275,7 @@ app.post('/visits/:id/note', zValidator('json', z.object({
 app.post('/visits/:id/checklist', zValidator('json', z.object({
     checklistJson: z.any()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const visitId = c.req.param('id');
     const { checklistJson } = c.req.valid('json');
@@ -308,7 +305,7 @@ app.post('/incidents', zValidator('json', z.object({
     type: z.string(),
     description: z.string()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const { visitId, type, description } = c.req.valid('json');
 

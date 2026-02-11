@@ -1,16 +1,8 @@
 import { Hono } from 'hono';
-import { PrismaClient } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
@@ -26,7 +18,7 @@ app.use('*', rbacMiddleware(['manager', 'admin']));
  *     summary: Manager KPI Stats
  */
 app.get('/dashboard/kpi', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
 
     // Mocking some logical counts
     // In real app, date filters would apply (e.g., today)
@@ -63,7 +55,7 @@ app.get('/dashboard/kpi', async (c) => {
  *     summary: Today's Schedule Timeline
  */
 app.get('/dashboard/today', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const tomorrow = new Date(today);

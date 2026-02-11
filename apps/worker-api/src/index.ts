@@ -2,10 +2,13 @@ import { Hono } from 'hono';
 // Force reload 2
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '../generated/client/edge';
+import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { generateToken } from './auth';
 import { cors } from 'hono/cors';
+import { secureHeaders } from 'hono/secure-headers';
+import { prismaMiddleware } from './middleware/prisma';
+import { Bindings, Variables } from './bindings';
 
 // Route Imports
 import clientApp from './routes/client';
@@ -29,7 +32,11 @@ type Bindings = {
     CHAT_SERVER: DurableObjectNamespace;
 };
 
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+
+// Security & Database Middleware
+app.use('*', secureHeaders());
+app.use('*', prismaMiddleware());
 
 // Basic SHA-256 hashing
 async function hashPassword(password: string) {
@@ -87,7 +94,7 @@ app.get('/v1/health', (c) => {
 });
 
 app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const { email, password, role } = c.req.valid('json');
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -116,24 +123,8 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
 
 app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
     const { email, password } = c.req.valid('json');
+    const prisma = c.get('prisma');
 
-    // High-priority mock for internal testing/smoke verification
-    if (password === 'Password123!') {
-        const username = email.split('@')[0];
-        const mockUser = {
-            id: 'mock-uuid-' + username,
-            email,
-            fullName: username.charAt(0).toUpperCase() + username.slice(1),
-            role: email.includes('admin') || email.includes('prime') || email.includes('staff') ? 'admin' :
-                email.includes('ops') || email.includes('manager') ? 'manager' :
-                    email.includes('psw') || email.includes('walker') ? 'psw' : 'client',
-            profile: { id: 'prof-' + username, bio: 'Mock biography for ' + username }
-        };
-        const token = await generateToken(mockUser as any, c.env.JWT_SECRET || 'fallback_secret');
-        return c.json({ user: mockUser, token });
-    }
-
-    const prisma = getPrisma(c.env.DATABASE_URL);
     const user = await prisma.user.findUnique({ where: { email } });
     const passwordHash = await hashPassword(password);
 
@@ -163,7 +154,7 @@ app.get('/v1/user/profile', async (c) => {
 });
 
 app.post('/v1/auth/forgot-password', zValidator('json', ForgotPasswordSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const { email } = c.req.valid('json');
 
     const user = await prisma.user.findUnique({ where: { email } });
@@ -187,7 +178,7 @@ app.post('/v1/auth/forgot-password', zValidator('json', ForgotPasswordSchema), a
 });
 
 app.post('/v1/auth/reset-password', zValidator('json', ResetPasswordSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const { token, newPassword } = c.req.valid('json');
 
     const user = await prisma.user.findFirst({
@@ -216,7 +207,7 @@ app.post('/v1/auth/reset-password', zValidator('json', ResetPasswordSchema), asy
 });
 
 app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const lead = await prisma.lead.create({
         data: {
@@ -231,13 +222,13 @@ app.post('/v1/public/leads', zValidator('json', LeadSchema), async (c) => {
 });
 
 app.get('/v1/public/services', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const services = await prisma.service.findMany({ where: { isActive: true } });
     return c.json(services);
 });
 
 app.get('/v1/public/blog', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const posts = await prisma.blogPost.findMany({
         where: { status: 'published' },
         orderBy: { publishedAt: 'desc' },
@@ -246,7 +237,7 @@ app.get('/v1/public/blog', async (c) => {
 });
 
 app.get('/v1/public/blog/:slug', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const slug = c.req.param('slug');
     const post = await prisma.blogPost.findUnique({ where: { slug } });
     if (!post) return c.json({ error: 'Post not found' }, 404);

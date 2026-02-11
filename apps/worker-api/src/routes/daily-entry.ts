@@ -1,18 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
@@ -41,7 +34,7 @@ const DailyEntrySchema = z.object({
  *     summary: Create or Update Daily Care Entry
  */
 app.post('/', zValidator('json', DailyEntrySchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
 
@@ -60,6 +53,8 @@ app.post('/', zValidator('json', DailyEntrySchema), async (c) => {
         },
     });
 
+    await logAudit(prisma, userId, 'CREATE_DAILY_ENTRY', 'DAILY_ENTRY', entry.id, { clientId: data.clientId });
+
     return c.json(entry, 201);
 });
 
@@ -70,7 +65,7 @@ app.post('/', zValidator('json', DailyEntrySchema), async (c) => {
  *     summary: Quick Save Draft
  */
 app.post('/draft', zValidator('json', DailyEntrySchema), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
     data.status = 'DRAFT';
@@ -100,7 +95,7 @@ app.post('/draft', zValidator('json', DailyEntrySchema), async (c) => {
  *     summary: Get history of entries
  */
 app.get('/history', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     // Managers/Admins can see all, PSW only their own? 

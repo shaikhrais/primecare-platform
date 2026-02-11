@@ -1,10 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { Bindings } from '../bindings';
+import { Bindings, Variables } from '../bindings';
 import { authMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
 app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
@@ -30,6 +31,10 @@ app.put('/upload', async (c) => {
         await bucket.put(key, body, {
             httpMetadata: { contentType },
         });
+
+        const payload = c.get('jwtPayload');
+        const prisma = c.get('prisma');
+        await logAudit(prisma, payload.sub, 'UPLOAD_FILE', 'DOCS', key, { filename: c.req.header('x-filename') || key });
 
         return c.json({ key, url: `/v1/storage/file/${key}` });
     } catch (e: any) {

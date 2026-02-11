@@ -1,18 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { PrismaClient } from '../../generated/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-const getPrisma = (database_url: string) => {
-    return new PrismaClient({
-        datasourceUrl: database_url,
-    }).$extends(withAccelerate());
-};
 
 // Middleware: Staff/Coordinator/Admin
 app.use('*', async (c, next) => {
@@ -25,7 +18,7 @@ app.use('*', rbacMiddleware(['staff', 'coordinator', 'admin']));
  * List all support threads
  */
 app.get('/tickets', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const threads = await prisma.messageThread.findMany({
         include: {
             client: { select: { fullName: true } },
@@ -44,7 +37,7 @@ app.get('/tickets', async (c) => {
  * Get messages for a thread
  */
 app.get('/tickets/:id/messages', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const messages = await prisma.message.findMany({
         where: { threadId: id },
@@ -59,7 +52,7 @@ app.get('/tickets/:id/messages', async (c) => {
 app.post('/tickets/:id/reply', zValidator('json', z.object({
     bodyText: z.string().min(1)
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const threadId = c.req.param('id');
     const { bodyText } = c.req.valid('json');
     const payload = c.get('jwtPayload');
@@ -80,7 +73,7 @@ app.post('/tickets/:id/reply', zValidator('json', z.object({
  * List all customers (clients)
  */
 app.get('/customers', async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const customers = await prisma.clientProfile.findMany({
         include: {
             user: { select: { email: true, status: true } }
@@ -97,7 +90,7 @@ app.patch('/customers/:id', zValidator('json', z.object({
     phone: z.string().optional(),
     preferences: z.any().optional()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const id = c.req.param('id');
     const data = c.req.valid('json');
 
@@ -119,7 +112,7 @@ app.post('/visits', zValidator('json', z.object({
     durationMinutes: z.number().int().positive(),
     notes: z.string().optional()
 })), async (c) => {
-    const prisma = getPrisma(c.env.DATABASE_URL);
+    const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
@@ -137,6 +130,8 @@ app.post('/visits', zValidator('json', z.object({
             managementNotes: `Created by Staff/Admin ${payload.sub}: ${data.notes || ''}`
         }
     });
+
+    await logAudit(prisma, payload.sub, 'CREATE_VISIT', 'VISIT', visit.id, { clientId: data.clientId });
 
     return c.json(visit, 201);
 });

@@ -10,4 +10,5 @@ export type Variables = {
         sub: string;
         role: string;
     };
+    prisma: any; // Ideally this would be the specific extended PrismaClient type
 };
