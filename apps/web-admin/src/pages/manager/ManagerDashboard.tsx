@@ -81,49 +81,50 @@ export default function ManagerDashboard() {
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
+            <div data-cy="mgr-dashboard">
 
-            <h1 className="display-text" style={{ marginBottom: '24px' }} data-cy="page.title">Manager Dashboard</h1>
+                <h1 className="display-text" style={{ marginBottom: '24px' }} data-cy="page.title">Manager Dashboard</h1>
 
-            {/* KPI Section */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <KPICard label="Today's Shifts" value={kpi.todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />
-                <KPICard label="Active Clients" value={kpi.activeClients} color="#4caf50" dataCy="kpi-active-clients" />
-                <KPICard label="Staff On Duty" value={kpi.staffOnDuty} color="#ff9800" dataCy="kpi-staff-on-duty" />
-                <KPICard label="Open Incidents" value={kpi.openIncidents} color="#f44336" dataCy="kpi-open-incidents" />
-            </div>
+                {/* KPI Section */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
+                    <KPICard label="Today's Shifts" value={kpi.todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />
+                    <KPICard label="Active Clients" value={kpi.activeClients} color="#4caf50" dataCy="kpi-active-clients" />
+                    <KPICard label="Staff On Duty" value={kpi.staffOnDuty} color="#ff9800" dataCy="kpi-staff-on-duty" />
+                    <KPICard label="Open Incidents" value={kpi.openIncidents} color="#f44336" dataCy="kpi-open-incidents" />
+                </div>
 
-            {/* Quick Action Grid */}
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Quick Actions</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" dataCy="qa-daily-entry" />
-                <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
-                <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} dataCy="qa-end-shift" />
-                <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} dataCy="qa-log-incident" />
-                <QuickActionCard label="View Clients" icon="👥" onClick={() => navigate('/customers')} dataCy="qa-view-clients" />
-                <QuickActionCard label="Generate Report" icon="📈" onClick={() => navigate('/reports')} dataCy="qa-generate-report" />
-            </div>
+                {/* Quick Action Grid */}
+                <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Quick Actions</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+                    <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" dataCy="qa-daily-entry" />
+                    <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
+                    <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} dataCy="qa-end-shift" />
+                    <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} dataCy="qa-log-incident" />
+                    <QuickActionCard label="View Clients" icon="👥" onClick={() => navigate('/customers')} dataCy="qa-view-clients" />
+                    <QuickActionCard label="Generate Report" icon="📈" onClick={() => navigate('/reports')} dataCy="qa-generate-report" />
+                </div>
 
-            {/* Today's Timeline */}
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Today's Timeline</h2>
-            <div style={{ background: 'var(--bg-elev)', borderRadius: '16px', padding: '20px', border: '1px solid var(--line)' }}>
-                {shifts.length === 0 ? (
-                    <p style={{ opacity: 0.6, textAlign: 'center', padding: '20px' }}>No shifts scheduled for today.</p>
-                ) : (
-                    shifts.map((shift) => (
-                        <div key={shift.id} style={{ display: 'flex', gap: '20px', padding: '16px 0', borderBottom: '1px solid var(--line)', alignItems: 'center' }}>
-                            <div style={{ fontWeight: 800, width: '80px', textAlign: 'right', color: 'var(--primary)' }}>
-                                {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {/* Today's Timeline */}
+                <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Today's Timeline</h2>
+                <div style={{ background: 'var(--bg-elev)', borderRadius: '16px', padding: '20px', border: '1px solid var(--line)' }}>
+                    {shifts.length === 0 ? (
+                        <p style={{ opacity: 0.6, textAlign: 'center', padding: '20px' }}>No shifts scheduled for today.</p>
+                    ) : (
+                        shifts.map((shift) => (
+                            <div key={shift.id} style={{ display: 'flex', gap: '20px', padding: '16px 0', borderBottom: '1px solid var(--line)', alignItems: 'center' }}>
+                                <div style={{ fontWeight: 800, width: '80px', textAlign: 'right', color: 'var(--primary)' }}>
+                                    {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontWeight: 700 }}>{shift.client?.fullName || 'Untitled Client'}</div>
+                                    <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
+                                </div>
+                                <button data-cy={`btn-view-shift-${shift.id}`} className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
                             </div>
-                            <div style={{ flex: 1 }}>
-                                <div style={{ fontWeight: 700 }}>{shift.client?.fullName || 'Untitled Client'}</div>
-                                <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
-                            </div>
-                            <button data-cy={`btn-view-shift-${shift.id}`} className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
-                        </div>
-                    ))
-                )}
-            </div>
+                        ))
+                    )}
+                </div>
 
-        </div>
-    );
+            </div>
+            );
 }

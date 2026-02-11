@@ -45,7 +45,7 @@ export default function AdminDashboard() {
                 <p style={{ color: '#6b7280', margin: 0 }}>{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }} data-cy="stats-cards">
                 {statCards.map((card, index) => (
                     <div key={index} data-cy={`stat-card-${card.label.toLowerCase().replace(/\s+/g, '-')}`} style={{
                         padding: '1.5rem',

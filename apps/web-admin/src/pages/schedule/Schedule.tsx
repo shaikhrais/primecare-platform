@@ -172,11 +172,11 @@ export default function Schedule() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} data-cy="admin-schedule-page">
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.SCHEDULE.TITLE}</h2>
-                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }}>{ContentRegistry.SCHEDULE.SUBTITLE}</p>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.SCHEDULE.TITLE}</h2>
+                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }} data-cy="page.header">{ContentRegistry.SCHEDULE.SUBTITLE}</p>
                 </div>
                 <button
                     data-cy="btn-create-visit"
@@ -194,7 +194,7 @@ export default function Schedule() {
                 boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                 padding: '1.5rem',
                 minHeight: '600px'
-            }}>
+            }} data-cy="calendar-container">
                 <Calendar
                     localizer={localizer}
                     events={events}
