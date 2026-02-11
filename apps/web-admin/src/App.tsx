@@ -31,6 +31,11 @@ import AdminLayout from './components/layout/AdminLayout';
 import ManagerLayout from './components/layout/ManagerLayout';
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import DailyEntryPage from './pages/manager/DailyEntryPage';
+import EvaluationForm from './pages/manager/EvaluationForm';
+import ServiceReviewForm from './pages/manager/ServiceReviewForm';
+import ExpenseReportForm from './pages/psw/ExpenseReportForm';
+import AvailabilityForm from './pages/psw/AvailabilityForm';
+import FeedbackForm from './pages/client/FeedbackForm';
 
 import { NotificationProvider, useNotification } from './context/NotificationContext';
 
@@ -65,6 +70,9 @@ function App() {
           <Route path="/earnings" element={<AdminLayout><EarningsPage /></AdminLayout>} />
           <Route path="/profile" element={<AdminLayout><ProfilePage /></AdminLayout>} />
           <Route path="/shifts" element={<AdminLayout><ShiftsPage /></AdminLayout>} />
+          <Route path="/psw/expenses" element={<AdminLayout><ExpenseReportForm /></AdminLayout>} />
+          <Route path="/psw/availability" element={<AdminLayout><AvailabilityForm /></AdminLayout>} />
+          <Route path="/client/feedback" element={<AdminLayout><FeedbackForm /></AdminLayout>} />
 
           {/* Staff & Admin Only */}
           <Route path="/customers" element={<AdminLayout><CustomerList /></AdminLayout>} />
@@ -84,6 +92,8 @@ function App() {
           {/* Manager Routes */}
           <Route path="/manager/dashboard" element={<ManagerLayout><ManagerDashboard /></ManagerLayout>} />
           <Route path="/manager/daily-entry" element={<ManagerLayout><DailyEntryPage /></ManagerLayout>} />
+          <Route path="/manager/evaluations" element={<ManagerLayout><EvaluationForm /></ManagerLayout>} />
+          <Route path="/manager/service-review" element={<ManagerLayout><ServiceReviewForm /></ManagerLayout>} />
           <Route path="/reports" element={<ManagerLayout><div>Reports Placeholder</div></ManagerLayout>} />
 
           {/* Fallback */}

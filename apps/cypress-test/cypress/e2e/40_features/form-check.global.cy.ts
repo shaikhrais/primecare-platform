@@ -48,6 +48,51 @@ const auditedForms = [
         dirtyField: "form.client.fullname",
         leaveAction: "guard.unsaved.leave",
         stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Staff Evaluation",
+        route: "/manager/evaluations",
+        role: "manager",
+        container: "form.evaluation.page",
+        dirtyField: "form.evaluation.staff",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Service Review",
+        route: "/manager/service-review",
+        role: "manager",
+        container: "form.serviceReview.page",
+        dirtyField: "form.serviceReview.client",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Expense Report",
+        route: "/psw/expenses",
+        role: "psw",
+        container: "form.expense.page",
+        dirtyField: "form.expense.amount",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Availability Update",
+        route: "/psw/availability",
+        role: "psw",
+        container: "form.availability.page",
+        dirtyField: "form.availability.hours",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
+    },
+    {
+        name: "Client Feedback",
+        route: "/client/feedback",
+        role: "client",
+        container: "form.feedback.page",
+        dirtyField: "form.feedback.visit",
+        leaveAction: "guard.unsaved.leave",
+        stayAction: "guard.unsaved.stay"
     }
 ];
 
