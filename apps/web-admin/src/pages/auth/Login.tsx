@@ -6,22 +6,24 @@ const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(window.location.search);
-    const roleParam = searchParams.get('role');
+    const roleParam = searchParams.get('role') || 'client';
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [selectedRole, setSelectedRole] = useState(roleParam);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const uiText = {
-        title: roleParam === 'psw' ? ContentRegistry.AUTH.LOGIN_TITLE_PSW :
-            roleParam === 'client' ? ContentRegistry.AUTH.LOGIN_TITLE_CLIENT :
-                roleParam === 'staff' ? ContentRegistry.AUTH.LOGIN_TITLE_STAFF :
+        title: selectedRole === 'psw' ? ContentRegistry.AUTH.LOGIN_TITLE_PSW :
+            selectedRole === 'client' ? ContentRegistry.AUTH.LOGIN_TITLE_CLIENT :
+                selectedRole === 'staff' ? ContentRegistry.AUTH.LOGIN_TITLE_STAFF :
                     ContentRegistry.AUTH.LOGIN_TITLE,
-        button: roleParam === 'psw' ? ContentRegistry.AUTH.BUTTON_PSW :
-            roleParam === 'client' ? ContentRegistry.AUTH.BUTTON_CLIENT :
-                roleParam === 'staff' ? ContentRegistry.AUTH.BUTTON_STAFF :
+        button: selectedRole === 'psw' ? ContentRegistry.AUTH.BUTTON_PSW :
+            selectedRole === 'client' ? ContentRegistry.AUTH.BUTTON_CLIENT :
+                selectedRole === 'staff' ? ContentRegistry.AUTH.BUTTON_STAFF :
                     ContentRegistry.AUTH.BUTTON
     };
 
@@ -45,18 +47,18 @@ export default function Login() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
 
-                // Redirection based on role or query param
-                const searchParams = new URLSearchParams(window.location.search);
-                const targetRole = searchParams.get('role');
-
-                if (targetRole && data.user.role !== targetRole) {
-                    setError(`This account is not registered as a ${targetRole}. Please use your ${data.user.role} credentials.`);
+                if (selectedRole && data.user.role !== selectedRole && !(selectedRole === 'staff' && (data.user.role === 'admin' || data.user.role === 'manager'))) {
+                    setError(`This account is not registered as a ${selectedRole}. Please use your ${data.user.role} credentials.`);
                     setLoading(false);
                     return;
                 }
 
-                if (data.user.role === 'manager') {
+                if (data.user.role === 'manager' || selectedRole === 'manager') {
                     navigate('/manager/dashboard');
+                } else if (data.user.role === 'psw') {
+                    navigate('/shifts');
+                } else if (data.user.role === 'client') {
+                    navigate('/bookings');
                 } else {
                     navigate(RouteRegistry.DASHBOARD);
                 }
@@ -88,9 +90,29 @@ export default function Login() {
                     Sign in to access your dashboard
                 </p>
 
-                {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
+                {error && <div style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
 
                 <form onSubmit={handleLogin}>
+                    <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
+                            I am logging in as:
+                        </label>
+                        <select
+                            value={selectedRole}
+                            onChange={(e) => setSelectedRole(e.target.value)}
+                            style={{
+                                width: '100%', padding: '0.6rem', border: '2px solid #059669', borderRadius: '6px',
+                                boxSizing: 'border-box', backgroundColor: '#f9fafb', fontWeight: '600', color: '#111827'
+                            }}
+                        >
+                            <option value="client">🏠 Family Member / Client</option>
+                            <option value="psw">👩‍⚕️ Caregiver / PSW</option>
+                            <option value="staff">🏢 Staff Member</option>
+                            <option value="admin">🔒 Administrator</option>
+                            <option value="manager">📊 Manager / Owner</option>
+                        </select>
+                    </div>
+
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {ContentRegistry.AUTH.EMAIL_LABEL}
@@ -133,20 +155,11 @@ export default function Login() {
                         {loading ? 'Loading...' : uiText.button}
                     </button>
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.REGISTER}?role=${roleParam || 'client'}`} style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
                             {ContentRegistry.AUTH.SIGNUP_LINK}
                         </a>
                     </div>
                 </form>
-
-                <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
-                    <p style={{ fontSize: '0.85rem', color: '#6b7280', marginBottom: '0.75rem' }}>Looking for a different portal?</p>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                        {roleParam !== 'client' && <a href="/login?role=client" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Family Portal</a>}
-                        {roleParam !== 'psw' && <a href="/login?role=psw" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Caregiver Portal</a>}
-                        {roleParam !== 'staff' && <a href="/login?role=staff" style={{ fontSize: '0.8rem', color: '#059669', textDecoration: 'none', fontWeight: '500' }}>Staff Hub</a>}
-                    </div>
-                </div>
             </div>
         </div>
     );
