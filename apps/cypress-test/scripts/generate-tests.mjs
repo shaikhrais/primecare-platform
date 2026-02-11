@@ -164,7 +164,7 @@ describe("Generated: Contracts", { tags: ["@contract"] }, () => {
 `
 );
 // 5) Integrity Suite
-const integrity = readJson("integrity.registry.json");
+const integrity = readJson("primecare.integrity.json");
 
 write(
   "30_integrity.contracts.cy.ts",
@@ -175,22 +175,19 @@ describe("Generated: Structural Integrity", { tags: ["@integrity", "@contracts"]
     cfg.pages.forEach((page: any) => {
         it(\`[\${page.key}] contains all required structural components\`, () => {
             const baseUrlEnv = page.baseUrlEnv || "ADMIN_BASE_URL";
-            cy.loginAs(page.allowedRoles[0]);
+            cy.loginAs(page.allowedRoles.includes("guest") ? "guest" : page.allowedRoles[0]);
             cy.visitRoute(baseUrlEnv, page.path);
             
-            page.components.forEach((selector: string) => {
-                cy.log(\`Checking selector: \${selector}\`);
-                cy.getByCy(selector).should("exist");
+            // Check mandatory global components
+            cfg.global.mandatory.forEach((comp: string) => {
+                cy.log(\`Checking mandatory component: \${comp}\`);
+                cy.getByCy(comp).should("exist");
             });
 
-            // Check global components
-            cfg.globalComponents.forEach((selector: string) => {
-                cy.log(\`Checking global selector: \${selector}\`);
-                cy.get("body").then($body => {
-                    if ($body.find(\`[data-cy="\${selector}"]\`).length > 0) {
-                        cy.getByCy(selector).should("exist");
-                    }
-                });
+            // Check page-specific components
+            page.components.forEach((selector: string) => {
+                cy.log(\`Checking page component: \${selector}\`);
+                cy.getByCy(selector).should("exist");
             });
         });
     });
@@ -210,18 +207,24 @@ describe("Generated: RBAC Action Visibility", { tags: ["@integrity", "@security"
             it(\`[\${page.key}] verifies visibility for role: \${role}\`, () => {
                 const allowed = page.allowedRoles.includes(role) || page.allowedRoles.includes("any");
                 
-                cy.clearCookies();
-                cy.clearLocalStorage();
+                cy.logout();
                 if (role !== "guest") cy.loginAs(role as any);
                 
                 const baseUrlEnv = page.baseUrlEnv || "ADMIN_BASE_URL";
                 cy.visitRoute(baseUrlEnv, page.path, { failOnStatusCode: false });
 
                 if (!allowed) {
-                    cy.url().should("not.include", page.path);
+                    if (role === "guest") {
+                        cy.assertRedirectToLogin();
+                    } else {
+                        // Authenticated user but not allowed on this specific page
+                        // They should be redirected away from the page.path
+                        cy.url().should("not.include", page.path);
+                    }
                 } else {
                     page.actions.forEach((action: any) => {
-                        cy.getByCy(action.key).should("be.visible");
+                        cy.log(\`Verifying action visibility: \${action.key}\`);
+                        cy.getByCy(action.selector).should("be.visible");
                     });
                 }
             });
@@ -246,17 +249,44 @@ describe("Generated: Action Integrity", { tags: ["@integrity", "@functional"] },
             });
 
             page.actions.forEach((action: any) => {
-                it(\`Action: \${action.key} triggers correct behavior\`, () => {
+                it(\`Action: \${action.key} triggers correct functional lifecycle\`, () => {
                     if (action.type === "api") {
                         cy.intercept(action.method, "**" + action.endpoint + "**").as("apiCall");
-                        cy.getByCy(action.key).click();
-                        cy.wait("@apiCall");
-                        cy.getByCy("toast.success").should("be.visible");
+                        
+                        cy.log(\`Triggering action: \${action.key}\`);
+                        cy.getByCy(action.selector).click();
+                        
+                        // Lifecycle checks
+                        cy.getByCy("state.loading").should("exist").then(() => {
+                            cy.wait("@apiCall");
+                            if (action.expectedToasts) {
+                                action.expectedToasts.forEach((t: string) => cy.getByCy(t).should("be.visible"));
+                            } else {
+                                cy.getByCy("toast.success").should("be.visible");
+                            }
+                        });
                     } else if (action.type === "route") {
-                        cy.getByCy(action.key).click();
+                        cy.log(\`Triggering navigation: \${action.key}\`);
+                        cy.getByCy(action.selector).click();
                         cy.url().should("include", action.target);
                     }
                 });
+
+                if (page.integrity === "guard.unsaved" && action.type === "api") {
+                    it(\`Action: \${action.key} enforces unsaved changes guard\`, () => {
+                        cy.log("Modifying form to trigger dirty state");
+                        // Generic input for guard test (simplified)
+                        cy.get("input").first().type("Guard Test");
+                        
+                        cy.log("Attempting to leave page");
+                        cy.getByCy("sidebar").find("a").last().click();
+                        
+                        cy.log("Verifying guard dialog");
+                        cy.getByCy("guard.unsaved.dialog").should("be.visible");
+                        cy.getByCy("guard.unsaved.stay").click();
+                        cy.getByCy("guard.unsaved.dialog").should("not.exist");
+                    });
+                }
             });
         });
     });

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="57.000" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-11T06:18:46" tests="0" file="cypress\e2e\debug_rbac.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Manual RBAC Check" timestamp="2026-02-11T06:18:46" tests="2" time="56.981" failures="1">
+    <testcase name="Manual RBAC Check checks redirect for guest on admin dashboard" time="1.762" classname="checks redirect for guest on admin dashboard">
+    </testcase>
+    <testcase name="Manual RBAC Check checks redirect for logged in user on login page" time="17.441" classname="checks redirect for logged in user on login page">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

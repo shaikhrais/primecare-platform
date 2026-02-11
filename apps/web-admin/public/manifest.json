@@ -1,0 +1,15 @@
+{
+    "name": "PrimeCare Admin",
+    "short_name": "PC Admin",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f1733",
+    "theme_color": "#0f1733",
+    "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

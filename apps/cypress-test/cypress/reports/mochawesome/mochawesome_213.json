@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-11T06:18:46.092Z",
+    "end": "2026-02-11T06:19:43.092Z",
+    "duration": 57000,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d699b466-9ec6-410d-8998-23653964428d",
+      "title": "",
+      "fullFile": "cypress\\e2e\\debug_rbac.cy.ts",
+      "file": "cypress\\e2e\\debug_rbac.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c8a42306-b951-42cb-8842-b18a25a3e822",
+          "title": "Manual RBAC Check",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "checks redirect for guest on admin dashboard",
+              "fullTitle": "Manual RBAC Check checks redirect for guest on admin dashboard",
+              "timedOut": null,
+              "duration": 1762,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.logout();\ncy.visit(\"https://primecare-admin.pages.dev/dashboard\", { failOnStatusCode: false });\ncy.url().should(\"include\", \"/login\");",
+              "err": {},
+              "uuid": "2415e527-1b2f-4256-b954-aaa2315523ec",
+              "parentUUID": "c8a42306-b951-42cb-8842-b18a25a3e822",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "checks redirect for logged in user on login page",
+              "fullTitle": "Manual RBAC Check checks redirect for logged in user on login page",
+              "timedOut": null,
+              "duration": 18101,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(\"client\");\ncy.visit(\"https://primecare-admin.pages.dev/login\", { failOnStatusCode: false });\ncy.url().should(\"not.include\", \"/login\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                "diff": null
+              },
+              "uuid": "abf1371f-dc5e-462d-9afc-274120456a90",
+              "parentUUID": "c8a42306-b951-42cb-8842-b18a25a3e822",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2415e527-1b2f-4256-b954-aaa2315523ec"
+          ],
+          "failures": [
+            "abf1371f-dc5e-462d-9afc-274120456a90"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 19863,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
