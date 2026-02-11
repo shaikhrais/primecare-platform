@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '../../App';
 
@@ -16,6 +17,7 @@ interface User {
 }
 
 export default function UserList() {
+    const navigate = useNavigate();
     const { showToast } = useNotification();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
@@ -99,7 +101,7 @@ export default function UserList() {
     };
 
     const handleEdit = (user: User) => {
-        showToast(`Editing profile for ${user.profile?.fullName || user.email}`, 'info');
+        navigate(`/users/${user.id}/edit`);
     };
 
     return (
@@ -108,7 +110,7 @@ export default function UserList() {
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.USERS.TITLE}</h2>
                 <button
                     data-cy="btn.user.invite"
-                    onClick={() => { setInviteEmail(''); setIsModalOpen(true); setIsDirty(false); }}
+                    onClick={() => navigate('/users/new')}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
                     {ContentRegistry.USERS.INVITE_BTN}

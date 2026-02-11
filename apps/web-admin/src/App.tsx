@@ -7,6 +7,7 @@ import ResetPassword from './pages/auth/ResetPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 
 import UserList from './pages/users/UserList';
+import UserEntryForm from './pages/users/UserEntryForm';
 import Schedule from './pages/schedule/Schedule';
 import LeadsPage from './pages/leads/LeadsPage';
 import BookingsPage from './pages/client/BookingsPage';
@@ -39,7 +40,14 @@ import EvaluationForm from './pages/manager/EvaluationForm';
 import ServiceReviewForm from './pages/manager/ServiceReviewForm';
 import ExpenseReportForm from './pages/psw/ExpenseReportForm';
 import AvailabilityForm from './pages/psw/AvailabilityForm';
+import ShiftConfirmation from './pages/psw/ShiftConfirmation';
 import FeedbackForm from './pages/client/FeedbackForm';
+import IncidentEntryForm from './pages/admin/IncidentEntryForm';
+import TimesheetAdjForm from './pages/admin/TimesheetAdjForm';
+import LeadEntryForm from './pages/admin/LeadEntryForm';
+import RoleEditor from './pages/admin/RoleEditor';
+import TemplateEditor from './pages/admin/TemplateEditor';
+import InvoiceEntryForm from './pages/admin/InvoiceEntryForm';
 
 import { NotificationProvider, useNotification } from './context/NotificationContext';
 
@@ -60,6 +68,8 @@ function App() {
           {/* Protected Dashboard Routes */}
           <Route path={RouteRegistry.DASHBOARD} element={<AdminLayout><Dashboard /></AdminLayout>} />
           <Route path={RouteRegistry.USERS} element={<AdminLayout><UserList /></AdminLayout>} />
+          <Route path="/users/new" element={<AdminLayout><UserEntryForm /></AdminLayout>} />
+          <Route path="/users/:id/edit" element={<AdminLayout><UserEntryForm /></AdminLayout>} />
           <Route path={RouteRegistry.SCHEDULE} element={<AdminLayout><Schedule /></AdminLayout>} />
           {/* ... existing routes ... */}
           <Route path="/leads" element={<AdminLayout><LeadsPage /></AdminLayout>} />
@@ -91,11 +101,16 @@ function App() {
           <Route path="/admin/psw/onboarding" element={<AdminLayout><PswOnboardingForm /></AdminLayout>} />
           <Route path="/admin/locations/new" element={<AdminLayout><LocationForm /></AdminLayout>} />
           <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
+          <Route path="/settings/roles" element={<AdminLayout><RoleEditor /></AdminLayout>} />
+          <Route path="/settings/templates" element={<AdminLayout><TemplateEditor /></AdminLayout>} />
+          <Route path="/incidents/new" element={<AdminLayout><IncidentEntryForm /></AdminLayout>} />
+          <Route path="/timesheets/adjust" element={<AdminLayout><TimesheetAdjForm /></AdminLayout>} />
+          <Route path="/leads/new" element={<AdminLayout><LeadEntryForm /></AdminLayout>} />
+          <Route path="/invoices/new" element={<AdminLayout><InvoiceEntryForm /></AdminLayout>} />
+          <Route path="/shifts/confirm" element={<AdminLayout><ShiftConfirmation /></AdminLayout>} />
           <Route path="/visits/:id/complete" element={<AdminLayout><VisitCompletionForm /></AdminLayout>} />
           <Route path="/client/bookings/request" element={<AdminLayout><BookingRequestForm /></AdminLayout>} />
           <Route path="/support/tickets/new" element={<AdminLayout><SupportTicketForm /></AdminLayout>} />
-
-          <Route path="/settings" element={<AdminLayout><SettingsPage /></AdminLayout>} />
 
           {/* Manager Routes */}
           <Route path="/manager/dashboard" element={<ManagerLayout><ManagerDashboard /></ManagerLayout>} />

@@ -21,6 +21,9 @@ export const ApiRegistry = {
         VISITS_ASSIGN: '/v1/admin/visits/assign',
         VISITS_UNASSIGNED: '/v1/admin/visits/unassigned',
         VISITS_UPDATE: (id: string) => `/v1/admin/visits/${id}`,
+        INCIDENTS: '/v1/admin/incidents',
+        TIMESHEETS: '/v1/admin/timesheets',
+        INVOICES: '/v1/admin/invoices',
     },
     PUBLIC: {
         LEADS: '/v1/public/leads',

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function TimesheetList() {
+    const navigate = useNavigate();
     const [timesheets, setTimesheets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -32,8 +34,17 @@ export default function TimesheetList() {
     if (loading) return <div>Loading timesheets...</div>;
 
     return (
-        <div data-cy="timesheet-list-page">
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Timesheet Review</h1>
+        <div style={{ padding: '2rem' }} data-cy="timesheet-list-page">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>Timesheet Review</h2>
+                <button
+                    data-cy="btn.timesheet.adjust"
+                    onClick={() => navigate('/timesheets/adjust')}
+                    style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
+                >
+                    Manual Adjustment
+                </button>
+            </div>
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ backgroundColor: '#f9fafb' }}>

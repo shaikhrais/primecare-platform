@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { ContentRegistry } = AdminRegistry;
 
 export default function SettingsPage() {
+    const navigate = useNavigate();
     const { showToast } = useNotification();
     const [settings, setSettings] = useState({
         emailAlerts: true,
@@ -108,6 +110,28 @@ export default function SettingsPage() {
                             <option>30 Minutes</option>
                             <option>1 Hour</option>
                         </select>
+                    </div>
+                </div>
+
+                <div style={{ marginBottom: '2.5rem' }}>
+                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>System Administration</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <button
+                            data-cy="btn.nav.roles"
+                            onClick={() => navigate('/settings/roles')}
+                            style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
+                        >
+                            <div style={{ fontWeight: '600' }}>Role Permissions</div>
+                            <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Define custom access grids.</div>
+                        </button>
+                        <button
+                            data-cy="btn.nav.templates"
+                            onClick={() => navigate('/settings/templates')}
+                            style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
+                        >
+                            <div style={{ fontWeight: '600' }}>Message Templates</div>
+                            <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Edit automated notifications.</div>
+                        </button>
                     </div>
                 </div>
 

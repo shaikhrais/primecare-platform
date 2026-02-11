@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function IncidentList() {
+    const navigate = useNavigate();
     const [incidents, setIncidents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,8 +64,17 @@ export default function IncidentList() {
     if (loading) return <div>Loading incidents...</div>;
 
     return (
-        <div data-cy="form.incident.page">
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Reported Incidents</h1>
+        <div style={{ padding: '2rem' }} data-cy="incident-list-page">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>Incident Reports</h2>
+                <button
+                    data-cy="btn.incident.report"
+                    onClick={() => navigate('/incidents/new')}
+                    style={{ padding: '0.625rem 1.25rem', backgroundColor: '#e11d48', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
+                >
+                    Report Incident
+                </button>
+            </div>
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }} data-cy="tbl-incidents">
                     <thead style={{ backgroundColor: '#f9fafb' }}>
