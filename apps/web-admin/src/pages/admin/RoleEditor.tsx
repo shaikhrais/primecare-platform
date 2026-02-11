@@ -40,7 +40,7 @@ export default function RoleEditor() {
                     </div>
                 </div>
             )}
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Role Permission Editor</h2>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }} data-cy="page.title">Role Permission Editor</h2>
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }} data-cy="form.role.grid">
                 {permissions.map(p => (
                     <div key={p.key} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0', borderBottom: '1px solid #f3f4f6' }}>

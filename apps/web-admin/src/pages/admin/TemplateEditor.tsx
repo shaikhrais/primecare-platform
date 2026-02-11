@@ -27,7 +27,7 @@ export default function TemplateEditor() {
                     </div>
                 </div>
             )}
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Email Template Editor</h2>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }} data-cy="page.title">Email Template Editor</h2>
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <label style={{ display: 'block', marginBottom: '1rem', color: '#6b7280' }}>Variables: {"{{userName}}, {{date}}, {{service}}"}</label>
                 <textarea

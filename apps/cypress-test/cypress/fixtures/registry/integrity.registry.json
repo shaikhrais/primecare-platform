@@ -244,6 +244,255 @@
                     "type": "route"
                 }
             ]
+        },
+        {
+            "key": "INCIDENT_ENTRY",
+            "path": "/incidents/new",
+            "allowedRoles": [
+                "staff",
+                "manager"
+            ],
+            "components": [
+                "page.container",
+                "page.header",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.incident.save",
+                    "endpoint": "/incidents",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "TIMESHEET_ADJ",
+            "path": "/timesheets/adjust",
+            "allowedRoles": [
+                "staff"
+            ],
+            "components": [
+                "page.container",
+                "page.header",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.timesheet.save",
+                    "endpoint": "/timesheets/adjust",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "LEAD_ENTRY",
+            "path": "/leads/new",
+            "allowedRoles": [
+                "staff",
+                "manager"
+            ],
+            "components": [
+                "page.container",
+                "page.header",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.lead.save",
+                    "endpoint": "/leads",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "ROLE_EDITOR",
+            "path": "/admin/roles",
+            "allowedRoles": [
+                "staff"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.role.save",
+                    "endpoint": "/admin/roles/permissions",
+                    "type": "api",
+                    "method": "PATCH",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "TEMPLATE_EDITOR",
+            "path": "/admin/templates",
+            "allowedRoles": [
+                "staff"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.template.save",
+                    "endpoint": "/admin/templates",
+                    "type": "api",
+                    "method": "PATCH",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "INVOICE_ENTRY",
+            "path": "/invoices/new",
+            "allowedRoles": [
+                "staff"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.invoice.save",
+                    "endpoint": "/invoices",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "VISIT_COMPLETION",
+            "path": "/visits/complete",
+            "allowedRoles": [
+                "psw"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.visitComplete.save",
+                    "endpoint": "/visits/complete",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "BOOKING_REQUEST",
+            "path": "/bookings/new",
+            "allowedRoles": [
+                "client"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.booking.save",
+                    "endpoint": "/bookings",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "SUPPORT_TICKET",
+            "path": "/support/tickets/new",
+            "allowedRoles": [
+                "staff",
+                "manager",
+                "psw",
+                "client"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.supportTicket.save",
+                    "endpoint": "/support/tickets",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "SHIFT_CONFIRMATION",
+            "path": "/shifts/confirm",
+            "allowedRoles": [
+                "psw"
+            ],
+            "components": [
+                "page.container",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "btn.shift.accept",
+                    "endpoint": "/shifts/confirm",
+                    "type": "api",
+                    "method": "POST"
+                }
+            ]
+        },
+        {
+            "key": "EVALUATION_FORM",
+            "path": "/manager/evaluations/new",
+            "allowedRoles": [
+                "manager"
+            ],
+            "components": [
+                "page.container",
+                "page.header",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.evaluation.save",
+                    "endpoint": "/evaluations",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
+        },
+        {
+            "key": "USER_ENTRY",
+            "path": "/users/new",
+            "allowedRoles": [
+                "staff"
+            ],
+            "components": [
+                "page.container",
+                "page.header",
+                "page.title"
+            ],
+            "actions": [
+                {
+                    "key": "form.user.save",
+                    "endpoint": "/users",
+                    "type": "api",
+                    "method": "POST",
+                    "integrity": "guard.unsaved"
+                }
+            ]
         }
     ],
     "globalComponents": [

@@ -62,7 +62,7 @@ export default function SettingsPage() {
                 <p style={{ color: '#6b7280' }} data-cy="page.header">{ContentRegistry.SETTINGS.SUBTITLE}</p>
             </div>
 
-            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }} data-cy="form.settings">
                 <div style={{ marginBottom: '2.5rem' }}>
                     <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{ContentRegistry.SETTINGS.NOTIFICATIONS.TITLE}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>

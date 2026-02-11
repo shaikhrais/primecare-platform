@@ -85,7 +85,7 @@ export default function VisitCompletionForm() {
             )}
 
             <div style={{ marginBottom: '2.5rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="form.visitComplete.header">Finalize Visit Report</h2>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Finalize Visit Report</h2>
                 <p style={{ color: '#6b7280' }}>Record tasks performed and capture electronic signature for Visit #{id}.</p>
             </div>
 

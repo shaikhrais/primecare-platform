@@ -106,8 +106,8 @@ export default function UserEntryForm() {
                 </div>
             )}
 
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>{id ? 'Edit User' : 'Create New User'}</h2>
+            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{id ? 'Edit User' : 'Create New User'}</h2>
                 <p style={{ color: '#6b7280' }}>Manage system access and profile details.</p>
             </div>
 

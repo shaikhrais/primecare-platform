@@ -1,0 +1,107 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-02-11T02:54:56.581Z",
+    "end": "2026-02-11T02:56:35.822Z",
+    "duration": 99241,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f830e25d-d7e1-4e1d-9a62-b3ee746dbaea",
+      "title": "",
+      "fullFile": "cypress\\e2e\\generated\\01_admin.smoke.cy.ts",
+      "file": "cypress\\e2e\\generated\\01_admin.smoke.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c17d901d-6b29-443e-a6a2-7424f25f0aa2",
+          "title": "Generated: Admin Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "guest routes load and protected routes redirect",
+              "fullTitle": "Generated: Admin Smoke guest routes load and protected routes redirect",
+              "timedOut": null,
+              "duration": 98868,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var baseUrl = Cypress.env(cfg.baseUrlEnv);\n    expect(baseUrl).to.exist;\n    cfg.routes.forEach(function (r) {\n        cy.log(\"Checking route as guest: \".concat(r.key));\n        // Ensure clean state for guest check\n        cy.clearLocalStorage();\n        cy.clearCookies();\n        cy.visitRoute(cfg.baseUrlEnv, r.path);\n        if (r.auth && r.auth !== \"guest\" && r.auth !== \"any\") {\n            cy.assertRedirectToLogin();\n        }\n        else {\n            cy.assertNoAppCrash();\n        }\n    });\n});",
+              "err": {},
+              "uuid": "dabe4043-16c7-4354-ba9b-bf7170433978",
+              "parentUUID": "c17d901d-6b29-443e-a6a2-7424f25f0aa2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "dabe4043-16c7-4354-ba9b-bf7170433978"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 98868,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

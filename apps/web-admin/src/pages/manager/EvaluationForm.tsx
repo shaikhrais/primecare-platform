@@ -60,7 +60,7 @@ export default function EvaluationForm() {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }} data-cy="form.evaluation.page">
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }} data-cy="page.container">
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
@@ -74,8 +74,8 @@ export default function EvaluationForm() {
                 </div>
             )}
 
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.evaluation.header">Staff Performance Evaluation</h2>
+            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Staff Performance Evaluation</h2>
                 <p style={{ color: '#6b7280' }}>Conduct a formal performance and compliance review for care staff.</p>
             </div>
 

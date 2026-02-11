@@ -74,7 +74,7 @@ export default function BookingRequestForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="form.booking.header">Request New Service</h2>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Request New Service</h2>
                 <p style={{ color: '#6b7280' }}>Submit a request for our care coordinators to schedule a new visit.</p>
             </div>
 

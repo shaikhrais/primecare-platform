@@ -27,7 +27,7 @@ export default function InvoiceEntryForm() {
                     </div>
                 </div>
             )}
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Create Invoice</h2>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }} data-cy="page.title">Create Invoice</h2>
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 {items.map((item, idx) => (
                     <div key={item.id} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }} data-cy="form.invoice.lineItem">

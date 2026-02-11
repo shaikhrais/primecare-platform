@@ -1,0 +1,326 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 11,
+    "passes": 4,
+    "pending": 0,
+    "failures": 7,
+    "start": "2026-02-11T02:47:28.718Z",
+    "end": "2026-02-11T02:54:10.639Z",
+    "duration": 401921,
+    "testsRegistered": 11,
+    "passPercent": 36.36363636363637,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8fbc4f4b-aa54-4f0f-a3ed-2d883f0e5cbb",
+      "title": "",
+      "fullFile": "cypress\\e2e\\generated\\30_integrity.contracts.cy.ts",
+      "file": "cypress\\e2e\\generated\\30_integrity.contracts.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+          "title": "Generated: Structural Integrity",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "[ADMIN_DASHBOARD] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components",
+              "timedOut": null,
+              "duration": 12599,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"inp-email\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"inp-email\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",
+                "diff": null
+              },
+              "uuid": "1e9d8403-09ac-45f7-bdaa-44d39b2f8e01",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[USER_LIST] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [USER_LIST] contains all required structural components",
+              "timedOut": null,
+              "duration": 12312,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"inp-email\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"inp-email\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",
+                "diff": null
+              },
+              "uuid": "ebe8de1c-f314-4769-855f-01ec435b5851",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[SCHEDULE] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [SCHEDULE] contains all required structural components",
+              "timedOut": null,
+              "duration": 19360,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {},
+              "uuid": "7267be7d-4b4a-4833-b8cb-88debf233dae",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[LEADS] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [LEADS] contains all required structural components",
+              "timedOut": null,
+              "duration": 6579,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {},
+              "uuid": "6b8f905f-3e02-482e-abfa-52cee18fa5ed",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[SETTINGS] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [SETTINGS] contains all required structural components",
+              "timedOut": null,
+              "duration": 18925,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"form.settings\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"form.settings\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)",
+                "diff": null
+              },
+              "uuid": "af5b49f4-4c85-4a83-bfaa-f6864b088ad9",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[MANAGER_DASHBOARD] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components",
+              "timedOut": null,
+              "duration": 7245,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {},
+              "uuid": "1aec1165-f04d-4261-9808-79e021b8ef64",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[MANAGER_DAILY_ENTRY] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components",
+              "timedOut": null,
+              "duration": 20063,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"page.title\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"page.title\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)",
+                "diff": null
+              },
+              "uuid": "6726d455-655e-4c9e-b18f-8eea6d748849",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[PSW_SHIFTS] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [PSW_SHIFTS] contains all required structural components",
+              "timedOut": null,
+              "duration": 8574,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {},
+              "uuid": "62566a6c-e0e1-4715-8188-b296737faf3c",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[CLIENT_BOOKINGS] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [CLIENT_BOOKINGS] contains all required structural components",
+              "timedOut": null,
+              "duration": 19919,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"page.container\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"page.container\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)",
+                "diff": null
+              },
+              "uuid": "8eb4e411-d396-4d28-9209-71b5122ab7f1",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[PROFILE] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [PROFILE] contains all required structural components",
+              "timedOut": null,
+              "duration": 22897,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"form.profile.page\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"form.profile.page\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)",
+                "diff": null
+              },
+              "uuid": "7667bc76-6402-4e37-b859-a44a8bfd86ee",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[HOME] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [HOME] contains all required structural components",
+              "timedOut": null,
+              "duration": 14052,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(page.allowedRoles[0]);\ncy.visitRoute(\"ADMIN_BASE_URL\", page.path);\npage.components.forEach(function (selector) {\n    cy.log(\"Checking selector: \".concat(selector));\n    cy.getByCy(selector).should(\"exist\");\n});\n// Check global components\ncfg.globalComponents.forEach(function (selector) {\n    cy.log(\"Checking global selector: \".concat(selector));\n    cy.get(\"body\").then(function ($body) {\n        if ($body.find(\"[data-cy=\\\"\".concat(selector, \"\\\"]\")).length > 0) {\n            cy.getByCy(selector).should(\"exist\");\n        }\n    });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"hero\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"hero\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)",
+                "diff": null
+              },
+              "uuid": "69272a4d-e83c-4c98-a893-e5a22b99b349",
+              "parentUUID": "fd4035c0-fd62-4f2d-99e2-e419ba4223ae",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7267be7d-4b4a-4833-b8cb-88debf233dae",
+            "6b8f905f-3e02-482e-abfa-52cee18fa5ed",
+            "1aec1165-f04d-4261-9808-79e021b8ef64",
+            "62566a6c-e0e1-4715-8188-b296737faf3c"
+          ],
+          "failures": [
+            "1e9d8403-09ac-45f7-bdaa-44d39b2f8e01",
+            "ebe8de1c-f314-4769-855f-01ec435b5851",
+            "af5b49f4-4c85-4a83-bfaa-f6864b088ad9",
+            "6726d455-655e-4c9e-b18f-8eea6d748849",
+            "8eb4e411-d396-4d28-9209-71b5122ab7f1",
+            "7667bc76-6402-4e37-b859-a44a8bfd86ee",
+            "69272a4d-e83c-4c98-a893-e5a22b99b349"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 162525,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

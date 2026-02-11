@@ -73,8 +73,8 @@ export default function IncidentEntryForm() {
                 </div>
             )}
 
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>Report New Incident</h2>
+            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Report New Incident</h2>
                 <p style={{ color: '#6b7280' }}>Document clinical or operational incidents for audit.</p>
             </div>
 

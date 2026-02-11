@@ -17,9 +17,9 @@ export default function ShiftConfirmation() {
     };
 
     return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="form.shiftConfirm.page">
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="page.container">
             <div style={{ backgroundColor: 'white', padding: '2.5rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>New Shift Available</h2>
+                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }} data-cy="page.title">New Shift Available</h2>
                 <p style={{ color: '#6b7280', marginBottom: '2rem' }}>You have been assigned a new visit for Client Sarah Miller tomorrow at 9:00 AM.</p>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <button

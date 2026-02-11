@@ -1,0 +1,1506 @@
+{
+  "stats": {
+    "suites": 23,
+    "tests": 33,
+    "passes": 0,
+    "pending": 0,
+    "failures": 33,
+    "start": "2026-02-11T02:17:29.015Z",
+    "end": "2026-02-11T02:59:29.788Z",
+    "duration": 2520773,
+    "testsRegistered": 44,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 11,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "f2b32d91-d54d-4c38-ae5b-100cc93afa6d",
+      "title": "",
+      "fullFile": "cypress\\e2e\\40_features\\form-check.global.cy.ts",
+      "file": "cypress\\e2e\\40_features\\form-check.global.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "43de224f-5716-46f0-8c51-efdbc355afe9",
+          "title": "Global Enterprise Form Audit",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "a264a6ca-c588-4af4-be32-350afcc39c46",
+              "title": "Form Audit: Profile Update",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Profile Update Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 17686,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "f84f06cc-92e9-4c9b-8add-44b454e60d32",
+                  "parentUUID": "a264a6ca-c588-4af4-be32-350afcc39c46",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Profile Update Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "63209d3f-c52a-44af-98ca-1e731d147c01",
+                  "parentUUID": "a264a6ca-c588-4af4-be32-350afcc39c46",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "f84f06cc-92e9-4c9b-8add-44b454e60d32"
+              ],
+              "pending": [],
+              "skipped": [
+                "63209d3f-c52a-44af-98ca-1e731d147c01"
+              ],
+              "duration": 17686,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "0dcaad33-76cb-42cd-9e21-54f3ab982261",
+              "title": "Form Audit: Daily Care Entry",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18675,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "66db6555-6caa-4df0-94f7-1095327dc89b",
+                  "parentUUID": "0dcaad33-76cb-42cd-9e21-54f3ab982261",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "29e266a3-74d6-48a6-986d-ae879cb07f5b",
+                  "parentUUID": "0dcaad33-76cb-42cd-9e21-54f3ab982261",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "66db6555-6caa-4df0-94f7-1095327dc89b"
+              ],
+              "pending": [],
+              "skipped": [
+                "29e266a3-74d6-48a6-986d-ae879cb07f5b"
+              ],
+              "duration": 18675,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "258b3baa-5961-4747-a437-96e19022bec0",
+              "title": "Form Audit: Service Configuration",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Service Configuration Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 17736,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "5d08e381-4378-4f04-b67c-dde8c2a9769d",
+                  "parentUUID": "258b3baa-5961-4747-a437-96e19022bec0",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Service Configuration Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "baa625a0-72fc-4181-9539-c921d73afdf1",
+                  "parentUUID": "258b3baa-5961-4747-a437-96e19022bec0",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "5d08e381-4378-4f04-b67c-dde8c2a9769d"
+              ],
+              "pending": [],
+              "skipped": [
+                "baa625a0-72fc-4181-9539-c921d73afdf1"
+              ],
+              "duration": 17736,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "be6e3654-da57-44c0-ac12-d53625fcc34e",
+              "title": "Form Audit: Client Admission",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Client Admission Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 17685,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "24512858-7c31-4c2c-b164-7b5544197e06",
+                  "parentUUID": "be6e3654-da57-44c0-ac12-d53625fcc34e",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Client Admission Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "90690776-0638-4532-92e6-05bd3b4d9e88",
+                  "parentUUID": "be6e3654-da57-44c0-ac12-d53625fcc34e",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "24512858-7c31-4c2c-b164-7b5544197e06"
+              ],
+              "pending": [],
+              "skipped": [
+                "90690776-0638-4532-92e6-05bd3b4d9e88"
+              ],
+              "duration": 17685,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "ca05df87-33b1-4071-842e-66fc9524433c",
+              "title": "Form Audit: Staff Evaluation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Staff Evaluation Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18157,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "163e560a-541a-42c7-81c1-213ef399611f",
+                  "parentUUID": "ca05df87-33b1-4071-842e-66fc9524433c",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Staff Evaluation Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "57e63fe9-40b3-49f0-976c-b846c70410dc",
+                  "parentUUID": "ca05df87-33b1-4071-842e-66fc9524433c",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "163e560a-541a-42c7-81c1-213ef399611f"
+              ],
+              "pending": [],
+              "skipped": [
+                "57e63fe9-40b3-49f0-976c-b846c70410dc"
+              ],
+              "duration": 18157,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "fbc2bc1e-bdf7-4ba7-80ba-2a4c94b4f108",
+              "title": "Form Audit: Service Review",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Service Review Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18744,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "dbac95b7-109d-4ebd-ac03-31e4237655cb",
+                  "parentUUID": "fbc2bc1e-bdf7-4ba7-80ba-2a4c94b4f108",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Service Review Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "eb5012b2-25ae-46b4-abbc-6989bd907510",
+                  "parentUUID": "fbc2bc1e-bdf7-4ba7-80ba-2a4c94b4f108",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "dbac95b7-109d-4ebd-ac03-31e4237655cb"
+              ],
+              "pending": [],
+              "skipped": [
+                "eb5012b2-25ae-46b4-abbc-6989bd907510"
+              ],
+              "duration": 18744,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "a6be2824-58ef-4948-a3c6-afcbae5418ce",
+              "title": "Form Audit: Expense Report",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Expense Report Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18468,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "d96becf4-1f0a-4088-8eb7-18e1e2d6a296",
+                  "parentUUID": "a6be2824-58ef-4948-a3c6-afcbae5418ce",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Expense Report Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "121d1e57-c109-4ea5-b5ae-fab01d12865d",
+                  "parentUUID": "a6be2824-58ef-4948-a3c6-afcbae5418ce",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "d96becf4-1f0a-4088-8eb7-18e1e2d6a296"
+              ],
+              "pending": [],
+              "skipped": [
+                "121d1e57-c109-4ea5-b5ae-fab01d12865d"
+              ],
+              "duration": 18468,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "96f70c3b-82e0-4495-9556-3692195bf103",
+              "title": "Form Audit: Availability Update",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Availability Update Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18478,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "bd6d279d-a32f-4050-acd5-ac4d443034fa",
+                  "parentUUID": "96f70c3b-82e0-4495-9556-3692195bf103",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Availability Update Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "65c2436b-091c-44d1-a9ca-8eaa121fcf0a",
+                  "parentUUID": "96f70c3b-82e0-4495-9556-3692195bf103",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "bd6d279d-a32f-4050-acd5-ac4d443034fa"
+              ],
+              "pending": [],
+              "skipped": [
+                "65c2436b-091c-44d1-a9ca-8eaa121fcf0a"
+              ],
+              "duration": 18478,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "fb23d8a3-8a45-4e6f-a10f-f8e8fdae5add",
+              "title": "Form Audit: Client Feedback",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Client Feedback Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18558,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "567b7004-f579-4a1c-bde1-436aa82fc59b",
+                  "parentUUID": "fb23d8a3-8a45-4e6f-a10f-f8e8fdae5add",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Client Feedback Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "48c1bbb7-3036-4e47-a5c2-c2264df13ec8",
+                  "parentUUID": "fb23d8a3-8a45-4e6f-a10f-f8e8fdae5add",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "567b7004-f579-4a1c-bde1-436aa82fc59b"
+              ],
+              "pending": [],
+              "skipped": [
+                "48c1bbb7-3036-4e47-a5c2-c2264df13ec8"
+              ],
+              "duration": 18558,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "320f4419-9cb5-496e-a4d6-d0de8a7f5759",
+              "title": "Form Audit: Visit Completion",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Visit Completion Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18287,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "c48b5dec-1ae6-4434-92ab-682b5eefcb55",
+                  "parentUUID": "320f4419-9cb5-496e-a4d6-d0de8a7f5759",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Visit Completion Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "b605bfbe-84e7-4241-9c4e-1fe786726c52",
+                  "parentUUID": "320f4419-9cb5-496e-a4d6-d0de8a7f5759",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "c48b5dec-1ae6-4434-92ab-682b5eefcb55"
+              ],
+              "pending": [],
+              "skipped": [
+                "b605bfbe-84e7-4241-9c4e-1fe786726c52"
+              ],
+              "duration": 18287,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "b11c8ac2-b36b-4b46-acc5-c8d52bafd3ad",
+              "title": "Form Audit: Booking Request",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Booking Request Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 18516,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)",
+                    "diff": null
+                  },
+                  "uuid": "6790ce56-7a4c-484b-99b8-696ccf9e91c0",
+                  "parentUUID": "b11c8ac2-b36b-4b46-acc5-c8d52bafd3ad",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Booking Request Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 0,
+                  "state": "skipped",
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {},
+                  "uuid": "fe0461bb-6c04-46a5-ad57-440a8799336e",
+                  "parentUUID": "b11c8ac2-b36b-4b46-acc5-c8d52bafd3ad",
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "6790ce56-7a4c-484b-99b8-696ccf9e91c0"
+              ],
+              "pending": [],
+              "skipped": [
+                "fe0461bb-6c04-46a5-ad57-440a8799336e"
+              ],
+              "duration": 18516,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "eeedd4ce-cf76-48d9-bb31-bda25bc4208c",
+              "title": "Form Audit: Support Ticket",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Support Ticket Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 20590,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.supportTicket.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.supportTicket.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "5aab5363-a431-4b8d-9fb1-00b02defc3b2",
+                  "parentUUID": "eeedd4ce-cf76-48d9-bb31-bda25bc4208c",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Support Ticket Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 23969,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.supportTicket.subject\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.supportTicket.subject\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "2e002398-5071-4df4-9b6b-78798da71945",
+                  "parentUUID": "eeedd4ce-cf76-48d9-bb31-bda25bc4208c",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "5aab5363-a431-4b8d-9fb1-00b02defc3b2",
+                "2e002398-5071-4df4-9b6b-78798da71945"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 44559,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "6f54e5e5-d312-4d0a-8bbf-d1e1a917fc23",
+              "title": "Form Audit: Location Mgmt",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Location Mgmt Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 23514,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.location.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.location.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "93d86b20-2931-45fc-8f22-f567d321e327",
+                  "parentUUID": "6f54e5e5-d312-4d0a-8bbf-d1e1a917fc23",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Location Mgmt Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 29854,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.location.name\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.location.name\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "8bda9332-4240-4055-8135-29f1273de7e7",
+                  "parentUUID": "6f54e5e5-d312-4d0a-8bbf-d1e1a917fc23",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "93d86b20-2931-45fc-8f22-f567d321e327",
+                "8bda9332-4240-4055-8135-29f1273de7e7"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 53368,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "5a80a28e-8a30-4c15-a6b0-6058db0a8a8f",
+              "title": "Form Audit: Billing Portal",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Billing Portal Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 28058,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.billing.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.billing.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "d7ee520a-b964-43d9-8218-99c8fa66c2d5",
+                  "parentUUID": "5a80a28e-8a30-4c15-a6b0-6058db0a8a8f",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Billing Portal Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 28846,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "0a16093e-6822-4bc7-a615-fec9986a2c51",
+                  "parentUUID": "5a80a28e-8a30-4c15-a6b0-6058db0a8a8f",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "d7ee520a-b964-43d9-8218-99c8fa66c2d5",
+                "0a16093e-6822-4bc7-a615-fec9986a2c51"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 56904,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "a05d38a5-6104-4afb-ae0a-52f7ae18988c",
+              "title": "Form Audit: User Entry",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: User Entry Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 31617,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.user.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.user.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "d406a4bf-5eb8-48ba-9642-0869cdce941c",
+                  "parentUUID": "a05d38a5-6104-4afb-ae0a-52f7ae18988c",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: User Entry Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 28323,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.user.fullName\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.user.fullName\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "07722d60-ee3e-4fbb-9c00-8bd02c52adc4",
+                  "parentUUID": "a05d38a5-6104-4afb-ae0a-52f7ae18988c",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "d406a4bf-5eb8-48ba-9642-0869cdce941c",
+                "07722d60-ee3e-4fbb-9c00-8bd02c52adc4"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 59940,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "928c1c47-97fe-44be-980c-02f88a908e9a",
+              "title": "Form Audit: Incident Report",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Incident Report Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 27461,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.incident.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.incident.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "8c166e16-7d1f-4576-9752-1b73d9a3dd58",
+                  "parentUUID": "928c1c47-97fe-44be-980c-02f88a908e9a",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Incident Report Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 29823,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.incident.description\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.incident.description\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "e2914d73-51ef-4cad-97c8-4c744e21a7a4",
+                  "parentUUID": "928c1c47-97fe-44be-980c-02f88a908e9a",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "8c166e16-7d1f-4576-9752-1b73d9a3dd58",
+                "e2914d73-51ef-4cad-97c8-4c744e21a7a4"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 57284,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "eb7d2dec-418f-4f6b-83af-6498af9d7595",
+              "title": "Form Audit: Timesheet Adjustment",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Timesheet Adjustment Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 29519,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.timesheet.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.timesheet.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "f8accd37-7f36-412e-8ce9-450ae9aa5583",
+                  "parentUUID": "eb7d2dec-418f-4f6b-83af-6498af9d7595",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Timesheet Adjustment Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 26247,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.timesheet.hours\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.timesheet.hours\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "d98fb77c-670c-4a32-b12a-fa2a5b2c404d",
+                  "parentUUID": "eb7d2dec-418f-4f6b-83af-6498af9d7595",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "f8accd37-7f36-412e-8ce9-450ae9aa5583",
+                "d98fb77c-670c-4a32-b12a-fa2a5b2c404d"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 55766,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "f1a192d1-58d9-43b3-864f-da1ca395d47d",
+              "title": "Form Audit: Lead Entry",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Lead Entry Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 33638,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.lead.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.lead.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "db425377-fa82-4af1-82d6-583a53cda3b9",
+                  "parentUUID": "f1a192d1-58d9-43b3-864f-da1ca395d47d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Lead Entry Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 32497,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.lead.fullName\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.lead.fullName\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "90aa02f3-cb01-4650-8001-881267aa2bed",
+                  "parentUUID": "f1a192d1-58d9-43b3-864f-da1ca395d47d",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "db425377-fa82-4af1-82d6-583a53cda3b9",
+                "90aa02f3-cb01-4650-8001-881267aa2bed"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 66135,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "10c7c99d-d2b2-42e9-8446-3f10a9a97877",
+              "title": "Form Audit: Role Permissions",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Role Permissions Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 34746,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.role.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.role.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "9414d8b1-be36-4ed9-9a93-b1728118cab8",
+                  "parentUUID": "10c7c99d-d2b2-42e9-8446-3f10a9a97877",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Role Permissions Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 41973,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.role.grid\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.role.grid\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "c373a3ea-1021-485c-b3f0-65f657f0f1c6",
+                  "parentUUID": "10c7c99d-d2b2-42e9-8446-3f10a9a97877",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "9414d8b1-be36-4ed9-9a93-b1728118cab8",
+                "c373a3ea-1021-485c-b3f0-65f657f0f1c6"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 76719,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "e0dea3d2-a86e-486b-b405-40d0621e4845",
+              "title": "Form Audit: Message Templates",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Message Templates Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 54763,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.template.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.template.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "b8ab284e-f27d-4ee0-9eff-cc46ddef1821",
+                  "parentUUID": "e0dea3d2-a86e-486b-b405-40d0621e4845",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Message Templates Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 43812,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.template.body\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.template.body\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "1af3829a-b689-45cc-ac1b-b01889dc7e7a",
+                  "parentUUID": "e0dea3d2-a86e-486b-b405-40d0621e4845",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "b8ab284e-f27d-4ee0-9eff-cc46ddef1821",
+                "1af3829a-b689-45cc-ac1b-b01889dc7e7a"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 98575,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "2a8bf392-6afe-4e21-a43f-f6ddf70e68e8",
+              "title": "Form Audit: Invoice Creation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Invoice Creation Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 31606,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.invoice.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.invoice.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "43ab9be3-4659-4000-bba5-b65db1e7380c",
+                  "parentUUID": "2a8bf392-6afe-4e21-a43f-f6ddf70e68e8",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Invoice Creation Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 26785,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "26ead4ac-fc10-4f5b-afc3-f67c50801f60",
+                  "parentUUID": "2a8bf392-6afe-4e21-a43f-f6ddf70e68e8",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "43ab9be3-4659-4000-bba5-b65db1e7380c",
+                "26ead4ac-fc10-4f5b-afc3-f67c50801f60"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 58391,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "21d6146a-1b9c-4c46-b7d0-02ef677e5383",
+              "title": "Form Audit: Shift Confirmation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Layer 1 & 2: Structural & Contract Integrity",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Shift Confirmation Layer 1 & 2: Structural & Contract Integrity",
+                  "timedOut": null,
+                  "duration": 27768,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "var target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.shiftConfirm.page\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"form.shiftConfirm.page\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:226:0)",
+                    "diff": null
+                  },
+                  "uuid": "19d65e43-4d6f-4d3b-b35b-3f90c3f27cd5",
+                  "parentUUID": "21d6146a-1b9c-4c46-b7d0-02ef677e5383",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Layer 6: Unsaved Changes Guard Verification",
+                  "fullTitle": "Global Enterprise Form Audit Form Audit: Shift Confirmation Layer 6: Unsaved Changes Guard Verification",
+                  "timedOut": null,
+                  "duration": 26217,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// 1. Make the form dirty\ncy.get(byCy(form.dirtyField)).type(\"Enterprise Test Change\");\n// 2. Attempt to leave/close\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    // Navigate away via browser-like behavior (going back or clicking another link is harder in Cy, so we use the page's own back mechanism if available or use cy.visit to another page)\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\n// 3. Verify Guard Dialog\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"be.visible\");\n// 4. Verify \"Stay\" behavior\ncy.get(byCy(form.stayAction)).click();\ncy.get(byCy(\"guard.unsaved.dialog\")).should(\"not.exist\");\nvar target = form.modalContainer || form.container;\ncy.get(byCy(target)).should(\"be.visible\");\n// 5. Verify \"Leave\" behavior\nif (form.closeAction) {\n    cy.get(byCy(form.closeAction)).click();\n}\nelse {\n    cy.visit(\"\".concat(Cypress.env(\"ADMIN_BASE_URL\"), \"/dashboard\"), { failOnStatusCode: false });\n}\ncy.get(byCy(form.leaveAction)).click({ force: true });\ncy.url().should(\"not.include\", form.route);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=\"\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/form-check.global.cy.ts:230:0)",
+                    "diff": null
+                  },
+                  "uuid": "fa375616-94a8-4bc9-8b0c-a5caed0da64f",
+                  "parentUUID": "21d6146a-1b9c-4c46-b7d0-02ef677e5383",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "19d65e43-4d6f-4d3b-b35b-3f90c3f27cd5",
+                "fa375616-94a8-4bc9-8b0c-a5caed0da64f"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 53985,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

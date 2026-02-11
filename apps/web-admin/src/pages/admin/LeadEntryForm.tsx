@@ -42,8 +42,8 @@ export default function LeadEntryForm() {
                 </div>
             )}
 
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>New Lead Entry</h2>
+            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">New Lead Entry</h2>
                 <p style={{ color: '#6b7280' }}>Record an offline inquiry.</p>
             </div>
 
