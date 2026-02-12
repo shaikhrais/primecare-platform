@@ -94,8 +94,8 @@ export default function MessagingPortal() {
             <div style={{ padding: '1.25rem', backgroundColor: 'var(--pc-primary-dark)', color: 'white', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>P</div>
                 <div>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem' }}>PrimeCare Support</h3>
-                    <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>Online • Usually responds in minutes</span>
+                    <h3 style={{ margin: 0, fontSize: '1.1rem' }} data-cy="page.title">PrimeCare Support</h3>
+                    <span style={{ fontSize: '0.75rem', opacity: 0.8 }} data-cy="page.subtitle">Online • Usually responds in minutes</span>
                 </div>
             </div>
 

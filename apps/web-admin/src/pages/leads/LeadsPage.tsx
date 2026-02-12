@@ -79,6 +79,7 @@ export default function LeadsPage() {
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.LEADS.TITLE}</h2>
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }} data-cy="page.subtitle">Track and follow up with potential clients and inquiries.</p>
                 </div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
                     <button onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>
                         {loading ? ContentRegistry.LEADS.ACTIONS.REFRESHING : ContentRegistry.LEADS.ACTIONS.REFRESH}

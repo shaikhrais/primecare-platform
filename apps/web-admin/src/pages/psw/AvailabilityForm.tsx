@@ -90,8 +90,8 @@ export default function AvailabilityForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.availability.header">Schedule Availability</h2>
-                <p style={{ color: '#6b7280' }}>Manage your working hours and preferred shift times.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Schedule Availability</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage your working hours and preferred shift times.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

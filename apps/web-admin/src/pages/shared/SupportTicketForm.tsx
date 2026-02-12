@@ -75,7 +75,7 @@ export default function SupportTicketForm() {
 
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Contact Helpdesk</h2>
-                <p style={{ color: '#6b7280' }}>Open a support ticket for technical issues or clinical inquiries.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Open a support ticket for technical issues or clinical inquiries.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

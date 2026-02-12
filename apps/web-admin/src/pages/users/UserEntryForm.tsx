@@ -99,7 +99,7 @@ export default function UserEntryForm() {
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{id ? 'Edit User' : 'Create New User'}</h2>
-                <p style={{ color: '#6b7280' }}>Manage system access and profile details.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage system access and profile details.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

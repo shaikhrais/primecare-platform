@@ -100,7 +100,7 @@ export default function ProfilePage() {
 
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Account Profile</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.header">Manage your personal information and preferences.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage your personal information and preferences.</p>
             </div>
 
             <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>

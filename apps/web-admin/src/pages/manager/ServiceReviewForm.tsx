@@ -74,8 +74,8 @@ export default function ServiceReviewForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.serviceReview.header">Internal Service Review</h2>
-                <p style={{ color: '#6b7280' }}>Audit service delivery and client satisfaction for quality assurance.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Internal Service Review</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Audit service delivery and client satisfaction for quality assurance.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

@@ -76,7 +76,7 @@ export default function EvaluationForm() {
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Staff Performance Evaluation</h2>
-                <p style={{ color: '#6b7280' }}>Conduct a formal performance and compliance review for care staff.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Conduct a formal performance and compliance review for care staff.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

@@ -68,8 +68,8 @@ export default function EarningsPage() {
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '1rem' }} data-cy="psw-earnings-page">
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>My Earnings</h2>
-                    <p style={{ color: '#6b7280' }}>Track your revenue from completed care shifts.</p>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">My Earnings</h2>
+                    <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Track your revenue from completed care shifts.</p>
                 </div>
                 <div style={{ backgroundColor: '#ecfdf5', padding: '1.5rem', borderRadius: '1rem', textAlign: 'right', border: '1px solid #c2ffd9' }}>
                     <span style={{ fontSize: '0.875rem', color: '#065f46', textTransform: 'uppercase', fontWeight: 'bold' }}>Total Withdrawable</span>

@@ -40,8 +40,8 @@ export default function VisitDetails() {
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="visit-details-page">
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Visit Profile</h2>
-                <p style={{ color: '#6b7280' }}>Tracking ID: <span data-cy="visit-id">{visit.id}</span></p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Visit Profile</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Tracking ID: <span data-cy="visit-id">{visit.id}</span></p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
