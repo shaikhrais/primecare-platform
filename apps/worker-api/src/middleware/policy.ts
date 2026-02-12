@@ -6,7 +6,7 @@ export type Resource = 'Visit' | 'User' | 'ClientProfile' | 'PswProfile' | 'Invo
 
 export interface PolicyContext {
     userId: string;
-    role: string;
+    roles: string[];
     tenantId: string;
     prisma: any;
 }
@@ -20,18 +20,20 @@ export const policyMiddleware = () => {
 
         const ctx: PolicyContext = {
             userId: payload.sub,
-            role: payload.role,
+            roles: payload.roles,
             tenantId: payload.tenantId,
             prisma
         };
 
         const can = async (action: Action, resource: Resource, resourceId?: string) => {
             // Admins bypass policy checks (Global override)
-            if (ctx.role === 'admin' || ctx.role === 'staff') return true;
+            if (ctx.roles.includes('admin') || ctx.roles.includes('staff')) return true;
 
             switch (resource) {
                 case 'User':
                     if (resourceId === ctx.userId) return true;
+                    // Only admins can update other users' roles (handled by admin bypass above, 
+                    // but we can be explicit if needed)
                     break;
 
                 case 'ClientProfile':
@@ -49,13 +51,13 @@ export const policyMiddleware = () => {
                     const visit = await prisma.visit.findUnique({ where: { id: resourceId } });
                     if (!visit) return false;
 
-                    if (ctx.role === 'client') {
+                    if (ctx.roles.includes('client')) {
                         const client = await prisma.clientProfile.findUnique({ where: { userId: ctx.userId } });
-                        return visit.clientId === client?.id;
+                        if (visit.clientId === client?.id) return true;
                     }
-                    if (ctx.role === 'psw') {
+                    if (ctx.roles.includes('psw')) {
                         const psw = await prisma.pswProfile.findUnique({ where: { userId: ctx.userId } });
-                        return visit.assignedPswId === psw?.id;
+                        if (visit.assignedPswId === psw?.id) return true;
                     }
                     break;
 

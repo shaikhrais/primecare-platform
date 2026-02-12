@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import QuickActions from '../dashboard/QuickActions';
+import RoleSwitcher from './RoleSwitcher';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -26,17 +27,17 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const getUser = () => {
         try {
             const userStr = localStorage.getItem('user');
-            if (!userStr || userStr === 'undefined') return { role: 'client' };
+            if (!userStr || userStr === 'undefined') return { roles: ['client'], activeRole: 'client' };
             const u = JSON.parse(userStr);
             return u;
         } catch (e) {
-            return { role: 'client' };
+            return { roles: ['client'], activeRole: 'client' };
         }
     };
 
     const user = getUser();
     const token = localStorage.getItem('token');
-    const role = user.role || 'client';
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
@@ -139,6 +140,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                         );
                     })}
                 </nav>
+
+                <RoleSwitcher />
 
                 <div className="sidebar-footer">
                     <div className="pill">

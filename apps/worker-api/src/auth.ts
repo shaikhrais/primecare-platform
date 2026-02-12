@@ -9,10 +9,12 @@ export const authMiddleware = (secret: string) => {
 export const rbacMiddleware = (allowedRoles: Role[]) => {
     return async (c: Context, next: Next) => {
         const payload = c.get('jwtPayload');
-        const userRole = payload?.role as Role;
-        console.log('RBAC Check:', { payload, userRole, allowedRoles });
+        const userRoles = payload?.roles as Role[] || [];
+        console.log('RBAC Check:', { payload, userRoles, allowedRoles });
 
-        if (!userRole || !allowedRoles.includes(userRole)) {
+        const hasAccess = userRoles.some(role => allowedRoles.includes(role));
+
+        if (!hasAccess) {
             return c.json({ error: 'Forbidden: Insufficient permissions' }, 403);
         }
 
@@ -20,10 +22,11 @@ export const rbacMiddleware = (allowedRoles: Role[]) => {
     };
 };
 
-export const generateToken = async (user: { id: string; role: Role; tenantId: string }, secret: string) => {
+export const generateToken = async (user: { id: string; roles: Role[]; tenantId: string }, secret: string, activeRole?: Role) => {
     const payload = {
         sub: user.id,
-        role: user.role,
+        roles: user.roles,
+        activeRole: activeRole || user.roles[0],
         tenantId: user.tenantId,
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
     };

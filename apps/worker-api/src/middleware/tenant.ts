@@ -18,16 +18,15 @@ const TENANT_AWARE_MODELS = [
 export const tenantMiddleware = () => {
     return createMiddleware<{ Bindings: Bindings; Variables: Variables }>(async (c, next) => {
         const payload = c.get('jwtPayload');
-        const role = payload?.role;
+        const roles = payload?.roles || [];
         const tenantId = payload?.tenantId;
 
         if (!payload?.sub) return c.json({ error: 'Unauthorized' }, 401);
 
         const prisma = c.get('prisma');
 
-        // Admins and Staff bypass global tenant isolation if they don't have a tenantId 
-        // OR we can allow them to see everything. For now, let's say they bypass if role is admin/staff.
-        if (role === 'admin' || role === 'staff') {
+        // Admins and Staff bypass global tenant isolation
+        if (roles.includes('admin') || roles.includes('staff')) {
             await next();
             return;
         }

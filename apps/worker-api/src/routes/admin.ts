@@ -34,7 +34,7 @@ app.get('/users', async (c) => {
         select: {
             id: true,
             email: true,
-            role: true,
+            roles: true,
             status: true,
             createdAt: true,
             clientProfile: { select: { fullName: true } },
@@ -173,6 +173,37 @@ app.post('/users/:id/verify', async (c) => {
         where: { id },
         data: { status: 'verified' },
     });
+
+    return c.json(user);
+});
+
+/**
+ * @openapi
+ * /v1/admin/users/:id:
+ *   patch:
+ *     summary: Update user roles (Admin only)
+ */
+app.patch('/users/:id', zValidator('json', z.object({
+    roles: z.array(z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'manager']))
+})), async (c) => {
+    const prisma = c.get('prisma');
+    const id = c.req.param('id');
+    const { roles } = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    const user = await prisma.user.update({
+        where: { id },
+        data: { roles: roles as any },
+    });
+
+    await logAudit(
+        prisma,
+        payload.sub,
+        'UPDATE_USER_ROLES',
+        'User',
+        id,
+        { roles }
+    );
 
     return c.json(user);
 });

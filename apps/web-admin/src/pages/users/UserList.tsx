@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 interface User {
     id: string;
     email: string;
-    role: string;
+    roles: string[];
     profile?: {
         fullName: string;
         isVerified?: boolean;
@@ -55,9 +55,9 @@ export default function UserList() {
                 const mapped = data.map((u: any) => ({
                     id: u.id,
                     email: u.email,
-                    role: u.role,
+                    roles: u.roles || (u.role ? [u.role] : []),
                     profile: {
-                        fullName: u.PswProfile?.fullName || u.ClientProfile?.fullName || 'Untitled User',
+                        fullName: u.pswProfile?.fullName || u.clientProfile?.fullName || u.profile?.fullName || 'Untitled User',
                         isVerified: u.status === 'verified'
                     }
                 }));
@@ -138,16 +138,20 @@ export default function UserList() {
                                         <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="user-email">{user.email}</div>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        <span data-cy="user-role" style={{
-                                            padding: '0.25rem 0.625rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: '600',
-                                            backgroundColor: user.role === 'psw' ? '#e0f2fe' : user.role === 'admin' ? '#fef3c7' : '#f3f4f6',
-                                            color: user.role === 'psw' ? '#0369a1' : user.role === 'admin' ? '#92400e' : '#374151'
-                                        }}>
-                                            {user.role.toUpperCase()}
-                                        </span>
+                                        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                                            {user.roles.map(r => (
+                                                <span key={r} data-cy="user-role" style={{
+                                                    padding: '0.25rem 0.625rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: '600',
+                                                    backgroundColor: r === 'psw' ? '#e0f2fe' : r === 'admin' ? '#fef3c7' : '#f3f4f6',
+                                                    color: r === 'psw' ? '#0369a1' : r === 'admin' ? '#92400e' : '#374151'
+                                                }}>
+                                                    {r.toUpperCase()}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        {user.role === 'psw' ? (
+                                        {user.roles.includes('psw') ? (
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 <span data-cy="user-verification-icon" style={{ color: user.profile?.isVerified ? '#059669' : '#d97706', fontSize: '1.2rem' }}>
                                                     {user.profile?.isVerified ? '✅' : '⏳'}
@@ -167,7 +171,7 @@ export default function UserList() {
                                             >
                                                 {ContentRegistry.USERS.EDIT_BTN}
                                             </button>
-                                            {user.role === 'psw' && !user.profile?.isVerified && (
+                                            {user.roles.includes('psw') && !user.profile?.isVerified && (
                                                 <button
                                                     data-cy="btn.user.verify"
                                                     onClick={() => handleApprove(user.id)}

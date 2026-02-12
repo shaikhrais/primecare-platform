@@ -122,7 +122,7 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
         data: {
             email,
             passwordHash,
-            role: role as any,
+            roles: [role] as any,
             tenantId: tenant.id
         },
     });
@@ -162,10 +162,33 @@ app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
 
     const token = await generateToken({
         id: user.id,
-        role: user.role as any,
+        roles: user.roles as any,
         tenantId: user.tenantId
     }, c.env.JWT_SECRET || 'fallback_secret');
     return c.json({ user, token });
+});
+
+app.post('/v1/auth/switch-role', async (c) => {
+    const payload = c.get('jwtPayload');
+    if (!payload) return c.json({ error: 'Unauthorized' }, 401);
+
+    const { targetRole } = await c.req.json();
+    const prisma = c.get('prisma');
+
+    if (!payload.roles.includes(targetRole)) {
+        return c.json({ error: 'Forbidden: Role not assigned to user' }, 403);
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: payload.sub } });
+    if (!user) return c.json({ error: 'User not found' }, 404);
+
+    const token = await generateToken({
+        id: user.id,
+        roles: user.roles as any,
+        tenantId: user.tenantId
+    }, c.env.JWT_SECRET || 'fallback_secret', targetRole as any);
+
+    return c.json({ token, activeRole: targetRole });
 });
 
 app.get('/v1/user/profile', async (c) => {
@@ -179,7 +202,7 @@ app.get('/v1/user/profile', async (c) => {
         id: 'mock-user-profile',
         email: 'admin.prime@primecare.ca',
         fullName: 'Admin Prime',
-        role: 'admin',
+        roles: ['admin'],
         profile: { bio: 'Mock admin bio' },
         user: { email: 'admin.prime@primecare.ca', phone: '555-0199' }
     });

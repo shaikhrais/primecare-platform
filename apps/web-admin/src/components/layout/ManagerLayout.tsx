@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import GlobalQuickActionBar from './GlobalQuickActionBar';
 import SideFloatingButton from './SideFloatingButton';
+import RoleSwitcher from './RoleSwitcher';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;
@@ -15,8 +16,8 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
     const navigate = useNavigate();
     const userStr = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { role: 'client' };
-    const role = user.role || 'client';
+    const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { roles: ['client'], activeRole: 'client' };
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
     React.useEffect(() => {
         if (!token) {
@@ -67,6 +68,8 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                         );
                     })}
                 </nav>
+
+                <RoleSwitcher />
 
                 <div className="sidebar-footer">
                     <div className="pill">

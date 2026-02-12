@@ -9,7 +9,8 @@ export type Bindings = {
 export type Variables = {
     jwtPayload: {
         sub: string;
-        role: string;
+        roles: string[];
+        activeRole: string;
         tenantId: string;
     };
     prisma: any;

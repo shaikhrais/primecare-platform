@@ -17,7 +17,7 @@ export default function UserEntryForm() {
 
     const [formData, setFormData] = useState({
         email: '',
-        role: 'staff',
+        roles: ['staff'] as string[],
         fullName: '',
         phone: '',
         status: 'active',
@@ -39,7 +39,7 @@ export default function UserEntryForm() {
                         const data = await response.json();
                         setFormData({
                             email: data.email || '',
-                            role: data.role || 'staff',
+                            roles: data.roles || (data.role ? [data.role] : ['staff']),
                             fullName: data.profile?.fullName || '',
                             phone: data.phone || '',
                             status: data.status || 'active',
@@ -135,19 +135,27 @@ export default function UserEntryForm() {
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                         />
                     </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>System Role</label>
-                        <select
-                            data-cy="form.user.role"
-                            value={formData.role}
-                            onChange={(e) => { setFormData({ ...formData, role: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                            <option value="psw">PSW</option>
-                            <option value="client">Client</option>
-                        </select>
+                    <div style={{ gridColumn: 'span 2' }}>
+                        <label style={{ display: 'block', marginBottom: '0.8rem', fontWeight: 600 }}>System Roles</label>
+                        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}>
+                            {['admin', 'staff', 'manager', 'psw', 'client', 'coordinator', 'finance'].map(role => (
+                                <label key={role} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.roles.includes(role)}
+                                        onChange={(e) => {
+                                            const newRoles = e.target.checked
+                                                ? [...formData.roles, role]
+                                                : formData.roles.filter(r => r !== role);
+                                            setFormData({ ...formData, roles: newRoles });
+                                            setIsDirty(true);
+                                        }}
+                                        style={{ width: '18px', height: '18px', accentColor: '#004d40' }}
+                                    />
+                                    {role.charAt(0).toUpperCase() + role.slice(1)}
+                                </label>
+                            ))}
+                        </div>
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Account Status</label>
@@ -164,7 +172,7 @@ export default function UserEntryForm() {
                     </div>
 
                     {/* Role-Specific: PSW */}
-                    {formData.role === 'psw' && (
+                    {formData.roles.includes('psw') && (
                         <div style={{ gridColumn: 'span 2' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>SIN (Social Insurance Number)</label>
                             <input
@@ -178,7 +186,7 @@ export default function UserEntryForm() {
                     )}
 
                     {/* Role-Specific: Client */}
-                    {formData.role === 'client' && (
+                    {formData.roles.includes('client') && (
                         <div style={{ gridColumn: 'span 2' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Billing Account #</label>
                             <input

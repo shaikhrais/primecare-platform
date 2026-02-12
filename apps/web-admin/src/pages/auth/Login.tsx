@@ -47,11 +47,15 @@ export default function Login() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
 
-                if (selectedRole && data.user.role !== selectedRole && !(selectedRole === 'staff' && (data.user.role === 'admin' || data.user.role === 'manager'))) {
-                    setError(`This account is not registered as a ${selectedRole}. Please use your ${data.user.role} credentials.`);
+                if (selectedRole && !data.user.roles.includes(selectedRole) && !(selectedRole === 'staff' && (data.user.roles.includes('admin') || data.user.roles.includes('manager')))) {
+                    setError(`This account is not registered as a ${selectedRole}. Please use your ${data.user.roles.join(' or ')} credentials.`);
                     setLoading(false);
                     return;
                 }
+
+                // Save active role choice
+                const userWithActiveRole = { ...data.user, activeRole: selectedRole };
+                localStorage.setItem('user', JSON.stringify(userWithActiveRole));
 
                 if (data.user.role === 'manager' || selectedRole === 'manager') {
                     navigate('/manager/dashboard');
