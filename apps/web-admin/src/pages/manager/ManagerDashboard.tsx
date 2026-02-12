@@ -79,7 +79,7 @@ export default function ManagerDashboard() {
 
                 <div style={{ marginBottom: '2.5rem' }}>
                     <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">Manager Dashboard</h1>
-                    <p className="sub" style={{ margin: 0 }}>Operational overview and rapid metrics</p>
+                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">Operational overview and rapid metrics</p>
                 </div>
 
                 {/* KPI Section */}
@@ -91,7 +91,7 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* Quick Action Grid */}
-                <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Quick Actions</h2>
+                <h2 data-cy="section.quick-actions" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Quick Actions</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
                     <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} dataCy="qa-daily-entry" />
                     <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
@@ -102,20 +102,20 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* Today's Timeline */}
-                <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Today's Timeline</h2>
+                <h2 data-cy="section.timeline" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Today's Timeline</h2>
                 <div className="pc-card">
                     <div className="pc-card-b" style={{ padding: '0 24px' }}>
                         {shifts.length === 0 ? (
-                            <p style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>No shifts scheduled for today.</p>
+                            <p data-cy="timeline-empty-message" style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>No shifts scheduled for today.</p>
                         ) : (
                             shifts.map((shift) => (
-                                <div key={shift.id} style={{ display: 'flex', gap: '20px', padding: '20px 0', borderBottom: '1px solid var(--card-border)', alignItems: 'center' }}>
+                                <div key={shift.id} data-cy="timeline-item" style={{ display: 'flex', gap: '20px', padding: '20px 0', borderBottom: '1px solid var(--card-border)', alignItems: 'center' }}>
                                     <div style={{ fontWeight: 900, width: '90px', textAlign: 'right', color: 'var(--brand-500)', fontSize: '0.9rem' }}>
                                         {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <div style={{ fontWeight: 900, color: 'var(--text-100)', fontSize: '1.05rem' }}>{shift.client?.fullName || 'Untitled Client'}</div>
-                                        <div style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : <span style={{ color: 'var(--brand-500)' }}>Unassigned</span>}</div>
+                                        <div data-cy="timeline-client-name" style={{ fontWeight: 900, color: 'var(--text-100)', fontSize: '1.05rem' }}>{shift.client?.fullName || 'Untitled Client'}</div>
+                                        <div data-cy="timeline-details" style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : <span style={{ color: 'var(--brand-500)' }}>Unassigned</span>}</div>
                                     </div>
                                     <button data-cy={`btn-view-shift-${shift.id}`} className="btn" style={{ padding: '8px 16px', fontSize: '13px' }} onClick={() => navigate(`/visits/${shift.id}`)}>View Details</button>
                                 </div>

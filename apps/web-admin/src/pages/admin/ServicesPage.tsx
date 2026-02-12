@@ -117,10 +117,10 @@ export default function ServicesPage() {
 
     return (
         <div style={{ padding: '1rem' }} data-cy="form.service.page">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }} data-cy="page.header">
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Services & Pricing</h2>
-                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>Manage the care packages and hourly rates offered to clients.</p>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">Services & Pricing</h2>
+                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }} data-cy="page.subtitle">Manage the care packages and hourly rates offered to clients.</p>
                 </div>
                 <button
                     data-cy="btn.service.add"

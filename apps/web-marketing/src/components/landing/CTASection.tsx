@@ -33,7 +33,7 @@ export function CTASection({
                 </AnimatedSection>
 
                 <AnimatedSection animation="fadeInUp" delay={0.1}>
-                    <p style={{ fontSize: '1.25rem', color: 'var(--text-300)', marginBottom: '3.5rem', lineHeight: '1.6' }}>
+                    <p data-cy="cta-subtitle" style={{ fontSize: '1.25rem', color: 'var(--text-300)', marginBottom: '3.5rem', lineHeight: '1.6' }}>
                         {subtitle}
                     </p>
                 </AnimatedSection>

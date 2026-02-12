@@ -105,9 +105,16 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Help Desk', path: '/support', icon: '❓' },
     ];
 
-    const menuItems = role === 'admin' ? adminMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
+    const rnMenu: MenuItem[] = [
+        { label: 'Clinical Dashboard', path: '/rn/dashboard', icon: '🩺' },
+        { label: 'Clients admission', path: '/admin/clients/admission', icon: '📝' },
+        { label: 'Incident List', path: '/incidents', icon: '🚨' },
+        { label: 'Profile', path: '/profile', icon: '👤' },
+    ];
 
-    const portalTitle = role === 'admin' ? 'Admin' : role === 'psw' ? 'Caregiver' : role === 'staff' ? 'Staff' : 'Family';
+    const menuItems = role === 'admin' ? adminMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
+
+    const portalTitle = role === 'admin' ? 'Admin' : role === 'rn' ? 'Nurse' : role === 'psw' ? 'Caregiver' : role === 'staff' ? 'Staff' : 'Family';
 
     const handleLogout = async () => {
         try {

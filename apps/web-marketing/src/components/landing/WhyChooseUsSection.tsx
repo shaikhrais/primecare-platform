@@ -15,7 +15,7 @@ export function WhyChooseUsSection() {
                     alignItems: 'center',
                 }}>
                     <AnimatedSection animation="slideRight">
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#333' }}>
+                        <h2 data-cy="why-choose-us-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#333' }}>
                             {ContentRegistry.WHY_CHOOSE_US.TITLE}
                         </h2>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

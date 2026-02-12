@@ -52,6 +52,8 @@ export default function RoleSwitcher() {
                 // Redirect based on new role
                 if (targetRole === 'manager') {
                     navigate('/manager/dashboard');
+                } else if (targetRole === 'rn') {
+                    navigate('/rn/dashboard');
                 } else if (targetRole === 'psw') {
                     navigate('/shifts');
                 } else if (targetRole === 'admin') {
@@ -136,7 +138,7 @@ export default function RoleSwitcher() {
                             fontSize: '1.3rem',
                             filter: role === user.activeRole ? 'drop-shadow(0 0 5px rgba(255,255,255,0.5))' : 'none'
                         }}>
-                            {role === 'admin' ? '🔒' : role === 'manager' ? '📊' : role === 'psw' ? '👨‍⚕️' : '🏠'}
+                            {role === 'admin' ? '🔒' : role === 'manager' ? '📊' : role === 'rn' ? '🩺' : role === 'psw' ? '👨‍⚕️' : '🏠'}
                         </span>
                         <span>{role.charAt(0).toUpperCase() + role.slice(1)}</span>
                     </button>

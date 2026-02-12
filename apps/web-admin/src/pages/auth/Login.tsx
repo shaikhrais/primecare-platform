@@ -94,7 +94,7 @@ export default function Login() {
                     Sign in to access your dashboard
                 </p>
 
-                {error && <div style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
+                {error && <div data-cy="login-error" style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
 
                 <form onSubmit={handleLogin}>
                     <div style={{ marginBottom: '1.5rem' }}>
@@ -102,6 +102,7 @@ export default function Login() {
                             I am logging in as:
                         </label>
                         <select
+                            data-cy="sel-role"
                             value={selectedRole}
                             onChange={(e) => setSelectedRole(e.target.value)}
                             style={{
@@ -144,7 +145,7 @@ export default function Login() {
                         />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
-                        <a href="/forgot-password" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
                             Forgot password?
                         </a>
                     </div>
@@ -159,7 +160,7 @@ export default function Login() {
                         {loading ? 'Loading...' : uiText.button}
                     </button>
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} data-cy="link-register" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
                             {ContentRegistry.AUTH.SIGNUP_LINK}
                         </a>
                     </div>

@@ -15,7 +15,7 @@ export function MissionSection() {
         }}>
             <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
+                    <h2 data-cy="mission-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
                         {ContentRegistry.ABOUT.MISSION}
                     </h2>
                 </AnimatedSection>

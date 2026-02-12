@@ -120,8 +120,8 @@ export default function PswDashboard() {
         <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }}>{ContentRegistry.PSW_DASHBOARD.TITLE}</h1>
-                    <p className="sub" style={{ margin: 0 }}>{ContentRegistry.PSW_DASHBOARD.SUBTITLE}</p>
+                    <h1 data-cy="page.title" style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }}>{ContentRegistry.PSW_DASHBOARD.TITLE}</h1>
+                    <p data-cy="page.subtitle" className="sub" style={{ margin: 0 }}>{ContentRegistry.PSW_DASHBOARD.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <button
@@ -136,7 +136,7 @@ export default function PswDashboard() {
 
             <div className="grid">
                 <div className="pc-card strip">
-                    <div className="pc-card-h">{ContentRegistry.PSW_DASHBOARD.SECTION_SHIFTS}</div>
+                    <div data-cy="section.shifts" className="pc-card-h">{ContentRegistry.PSW_DASHBOARD.SECTION_SHIFTS}</div>
                     <div className="pc-card-b">
                         {loading ? (
                             <p style={{ color: 'var(--text-300)' }}>Loading your upcoming visits...</p>
@@ -148,7 +148,7 @@ export default function PswDashboard() {
                                             <span data-cy="shift-client-name" style={{ fontWeight: '900', fontSize: '1.1rem', color: 'var(--brand-500)', letterSpacing: '.2px' }}>{shift.client.fullName}</span>
                                             <span data-cy="shift-status" style={{ color: 'var(--success-600)', fontWeight: '900', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '1px', background: 'rgba(24, 160, 127, 0.1)', padding: '4px 10px', borderRadius: '8px' }}>{shift.status}</span>
                                         </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: 'var(--text-200)' }}>
+                                        <div data-cy="shift-details" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: 'var(--text-200)' }}>
                                             <div data-cy="shift-time" style={{ fontSize: '0.9rem' }}>🕒 {new Date(shift.requestedStartAt).toLocaleString()}</div>
                                             <div data-cy="shift-address" style={{ fontSize: '0.9rem' }}>📍 {shift.serviceAddressLine1}</div>
                                             <div style={{ fontSize: '0.9rem' }}>🏥 Service: {shift.service.name}</div>
@@ -176,13 +176,13 @@ export default function PswDashboard() {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div className="pc-card">
+                    <div data-cy="section.notes" className="pc-card">
                         <div className="pc-card-h">Shift Notes & Requirements</div>
                         <div className="pc-card-b">
                             <p style={{ fontSize: '0.875rem', margin: 0 }}>Please ensure you have all necessary supplies for diabetic foot care visits and record your notes immediately after visit completion.</p>
                         </div>
                     </div>
-                    <div className="pc-card" style={{ border: '1px solid var(--success-600)', background: 'rgba(24, 160, 127, 0.05)' }}>
+                    <div data-cy="section.compliance" className="pc-card" style={{ border: '1px solid var(--success-600)', background: 'rgba(24, 160, 127, 0.05)' }}>
                         <div className="pc-card-h" style={{ color: 'var(--success-600)' }}>Compliance Status</div>
                         <div className="pc-card-b">
                             <p style={{ fontSize: '0.875rem', color: 'var(--text-100)', margin: 0 }}>✅ Your certifications are up to date. Next renewal: June 2026.</p>

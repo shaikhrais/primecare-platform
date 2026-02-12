@@ -8,9 +8,11 @@ export const ContentRegistry = {
         LOGIN_TITLE_CLIENT: 'Client Portal Login',
         LOGIN_TITLE_STAFF: 'Staff Portal Login',
         LOGIN_TITLE_PSW: 'Caregiver Portal Login',
+        LOGIN_TITLE_RN: 'Registered Nurse Portal Login',
         BUTTON: 'Sign in',
         BUTTON_CLIENT: 'Sign In as Client',
         BUTTON_PSW: 'Sign In as Caregiver',
+        BUTTON_RN: 'Sign In as RN',
         BUTTON_STAFF: 'Sign In as Staff',
         EMAIL_LABEL: 'Email address',
         PASSWORD_LABEL: 'Password',
@@ -46,6 +48,16 @@ export const ContentRegistry = {
         BUTTON_FULL_SCHEDULE: 'View Full Schedule',
         SECTION_SHIFTS: 'Shift Schedule',
         NO_SHIFTS: 'You have no shifts scheduled at this time.',
+    },
+    RN_DASHBOARD: {
+        TITLE: 'Clinical Care Management',
+        SUBTITLE: 'Supervise care plans, review daily entries, and manage clinical outcomes.',
+        QUICK_ACTIONS: 'Clinical Oversight',
+        STATS: {
+            PENDING_CARE_PLANS: 'Care Plans to Review',
+            DAILY_REVIEWS: 'Daily Entries to Verify',
+            SUPERVISED_PSWS: 'PSWs Under Supervision',
+        }
     },
     USERS: {
         TITLE: 'Users & Healthcare Workers',
@@ -128,6 +140,7 @@ export const ContentRegistry = {
         ADMIN: 'Administrator',
         STAFF: 'Staff Member',
         PSW: 'Personal Support Worker',
+        RN: 'Registered Nurse',
         CLIENT: 'Client',
     }
 } as const;

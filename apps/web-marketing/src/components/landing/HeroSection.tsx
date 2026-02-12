@@ -43,7 +43,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                     🎉 LIMITED TIME: 20% OFF FIRST VISIT
                 </div>
 
-                <h1 style={{
+                <h1 data-cy="hero-title" style={{
                     fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
                     marginBottom: '1.5rem',
                     fontWeight: '900',
@@ -55,7 +55,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                     {ContentRegistry.HERO.TITLE}
                 </h1>
 
-                <p style={{
+                <p data-cy="hero-subtitle" style={{
                     fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)',
                     marginBottom: '3rem',
                     opacity: 1,
@@ -70,7 +70,7 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                 </p>
 
                 {/* Countdown Timer */}
-                <div style={{ marginBottom: '3.5rem' }}>
+                <div data-cy="hero-timer" style={{ marginBottom: '3.5rem' }}>
                     <p style={{ marginBottom: '1.2rem', fontSize: '1rem', fontWeight: 700, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--brand-500)' }}>Offer ends in:</p>
                     <CountdownTimer targetDate={promoEndDate} />
                 </div>

@@ -38,6 +38,7 @@ import ManagerDashboard from './pages/manager/ManagerDashboard';
 import DailyEntryPage from './pages/manager/DailyEntryPage';
 import EvaluationForm from './pages/manager/EvaluationForm';
 import ServiceReviewForm from './pages/manager/ServiceReviewForm';
+import RnDashboard from './pages/rn/RnDashboard';
 import ExpenseReportForm from './pages/psw/ExpenseReportForm';
 import AvailabilityForm from './pages/psw/AvailabilityForm';
 import ShiftConfirmation from './pages/psw/ShiftConfirmation';
@@ -119,6 +120,7 @@ function App() {
           <Route path="/manager/daily-entry" element={<ManagerLayout><DailyEntryPage /></ManagerLayout>} />
           <Route path="/manager/evaluations" element={<ManagerLayout><EvaluationForm /></ManagerLayout>} />
           <Route path="/manager/service-review" element={<ManagerLayout><ServiceReviewForm /></ManagerLayout>} />
+          <Route path="/rn/dashboard" element={<AdminLayout><RnDashboard /></AdminLayout>} />
           <Route path="/reports" element={<ManagerLayout><div>Reports Placeholder</div></ManagerLayout>} />
 
           {/* Fallback */}
