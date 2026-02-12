@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../context/NotificationContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface GlobalQuickActionBarProps {
     role: string;

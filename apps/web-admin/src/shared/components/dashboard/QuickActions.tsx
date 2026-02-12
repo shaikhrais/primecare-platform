@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '../../context/NotificationContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface QuickActionsProps {
     role: string;

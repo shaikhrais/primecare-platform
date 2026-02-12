@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../context/NotificationContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function DailyEntryPage() {
     const navigate = useNavigate();

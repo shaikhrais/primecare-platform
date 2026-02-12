@@ -3,28 +3,14 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
 // Guards
-import { RequireRole } from './guards/RequireRole';
+import RequireRole from '@/shared/rbac/RequireRole';
 
-// Layouts
-import AdminLayout from '../shared/components/layout/AdminLayout';
-import ManagerLayout from '../shared/components/layout/ManagerLayout';
-
-// Shared/Auth Pages (to be moved eventually)
-// import RnRoutes from './routes/rn';
-// import ManagerRoutes from './routes/manager';
-// import PswRoutes from './routes/psw';
-// import ClientRoutes from './routes/client';
-import AdminRoutes from './routes/admin';
-// import StaffRoutes from './routes/staff';
+// Route Groups
 import AuthRoutes from './routes/auth';
-// import SharedRoutes from './routes/shared';
+import AdminRoutes from './routes/admin';
 
 const { RouteRegistry } = AdminRegistry;
 
-/**
- * Main Application Router
- * This is the entry point for all role-based routing.
- */
 export const AppRouter: React.FC = () => {
     return (
         <Routes>
@@ -42,9 +28,51 @@ export const AppRouter: React.FC = () => {
                     </RequireRole>
                 }
             />
-            <Route path="/" element={<div>Root</div>} />
+
+            {/* Role Specific Routes */}
+            <Route
+                path="/rn/*"
+                element={
+                    <RequireRole allowedRoles={['rn']}>
+                        <AdminRoutes />
+                    </RequireRole>
+                }
+            />
+
+            <Route
+                path="/psw/*"
+                element={
+                    <RequireRole allowedRoles={['psw']}>
+                        <AdminRoutes />
+                    </RequireRole>
+                }
+            />
+
+            <Route
+                path="/staff/*"
+                element={
+                    <RequireRole allowedRoles={['staff']}>
+                        <AdminRoutes />
+                    </RequireRole>
+                }
+            />
+
+            <Route
+                path="/client/*"
+                element={
+                    <RequireRole allowedRoles={['client']}>
+                        <AdminRoutes />
+                    </RequireRole>
+                }
+            />
+
+            {/* Shared Dashboard redirect */}
+            <Route path="/dashboard" element={<Navigate to="/app" replace />} />
+            <Route path="/app/*" element={<AdminRoutes />} />
+
+            {/* Fallback */}
+            <Route path="/" element={<Navigate to={RouteRegistry.DASHBOARD} replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );
 };
-
-export default AppRouter;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../context/NotificationContext';
-import { apiClient } from '../../../../../shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function ClientAdmissionForm() {
     const { showToast } = useNotification();

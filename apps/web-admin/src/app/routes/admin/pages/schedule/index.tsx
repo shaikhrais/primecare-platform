@@ -4,7 +4,7 @@ import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '../../context/NotificationContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useNotification } from '../../context/NotificationContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '../../../../../shared/utils/apiClient';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ContentRegistry, DataRegistry } = AdminRegistry;
 
