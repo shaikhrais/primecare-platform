@@ -1,4 +1,4 @@
-import { Role } from '../../generated/client/edge';
+import { Role } from '../../../generated/client/edge';
 import { Permission } from './permissions';
 
 export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {

@@ -4,7 +4,8 @@ import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../bindings';
 import { LoginSchema, RegisterSchema } from './auth.validation';
-import { hashPassword, generateToken, generateRefreshToken } from './auth.service';
+import { generateToken, generateRefreshToken } from './auth.service';
+import { hashPassword } from '../_shared/utils/crypto';
 
 const auth = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 

@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { Bindings, Variables } from '../../bindings';
-import { logAudit } from '../../utils/audit';
+import { logAudit } from '../../_shared/utils/audit';
 
 const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 

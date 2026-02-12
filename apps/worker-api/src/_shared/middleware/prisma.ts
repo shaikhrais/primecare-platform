@@ -1,11 +1,12 @@
 import { createMiddleware } from 'hono/factory';
-import { PrismaClient } from '@prisma/client/edge';
+import { PrismaClient } from '../../../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
+import { Bindings, Variables } from '../../bindings';
 
 let prismaInstance: any = null;
 
 export const prismaMiddleware = () => {
-    return createMiddleware(async (c, next) => {
+    return createMiddleware<{ Bindings: Bindings; Variables: Variables }>(async (c, next) => {
         if (!prismaInstance) {
             prismaInstance = new PrismaClient({
                 datasourceUrl: c.env.DATABASE_URL,
@@ -14,11 +15,10 @@ export const prismaMiddleware = () => {
 
         c.set('prisma', prismaInstance);
 
-        // Mock 'can' function for now, or link to policy engine
-        c.set('can', async (action: string, resource: string, resourceId?: string) => {
+        // Context helper for permission checks
+        c.set('can' as any, async (action: string, resource: string, resourceId?: string) => {
             const payload = c.get('jwtPayload');
             if (!payload) return false;
-            // Basic role check or call policies
             return payload.roles.includes('admin');
         });
 

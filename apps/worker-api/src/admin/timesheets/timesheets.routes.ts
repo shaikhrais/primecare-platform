@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings, Variables } from '../../bindings';
-import { logAudit } from '../../utils/audit';
+import { logAudit } from '../../_shared/utils/audit';
 
 const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 

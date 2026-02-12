@@ -1,16 +1,11 @@
 import { sign } from 'hono/jwt';
 import { Role } from '../../generated/client/edge';
+import { hashPassword } from '../_shared/utils/crypto';
 
 /**
  * Basic SHA-256 hashing.
- * Note: For production, consider using a more robust algorithm like Argon2 if supported by the environment.
  */
-export async function hashPassword(password: string) {
-    const msgUint8 = new TextEncoder().encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
+// Removed local hashPassword and using shared crypto utility
 
 export const generateToken = async (user: { id: string; roles: Role[]; tenantId: string }, secret: string, activeRole?: Role, expiresInMinutes: number = 60) => {
     const payload = {

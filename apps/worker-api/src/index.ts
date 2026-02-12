@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
-import { prismaMiddleware } from './middleware/prisma';
+import { prismaMiddleware } from './_shared/middleware/prisma';
 import { errorHandler } from './_shared/middleware/errors';
 import { Bindings, Variables } from './bindings';
 
