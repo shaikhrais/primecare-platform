@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="280.308" tests="6" failures="6">
+  <testsuite name="Root Suite" timestamp="2026-02-12T19:15:27" tests="0" file="cypress\e2e\debug\auth_check.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Auth Debug" timestamp="2026-02-12T19:15:27" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Testing password: Password123!" timestamp="2026-02-12T19:15:27" tests="2" time="93.664" failures="2">
+    <testcase name="Auth Debug Testing password: Password123! should login admin.a@primecare.ca with Password123!" time="15.434" classname="should login admin.a@primecare.ca with Password123!">
+      <failure message="Timed out retrying after 15000ms: expected 401 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -401
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Auth Debug Testing password: Password123! should login staff.a@primecare.ca with Password123!" time="15.679" classname="should login staff.a@primecare.ca with Password123!">
+      <failure message="Timed out retrying after 15000ms: expected 401 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -401
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Testing password: admin" timestamp="2026-02-12T19:17:01" tests="2" time="92.706" failures="2">
+    <testcase name="Auth Debug Testing password: admin should login admin.a@primecare.ca with admin" time="15.316" classname="should login admin.a@primecare.ca with admin">
+      <failure message="Timed out retrying after 15000ms: expected 400 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 400 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -400
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Auth Debug Testing password: admin should login staff.a@primecare.ca with admin" time="15.365" classname="should login staff.a@primecare.ca with admin">
+      <failure message="Timed out retrying after 15000ms: expected 400 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 400 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -400
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Testing password: 12345678" timestamp="2026-02-12T19:18:34" tests="2" time="93.919" failures="2">
+    <testcase name="Auth Debug Testing password: 12345678 should login admin.a@primecare.ca with 12345678" time="15.465" classname="should login admin.a@primecare.ca with 12345678">
+      <failure message="Timed out retrying after 15000ms: expected 401 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -401
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Auth Debug Testing password: 12345678 should login staff.a@primecare.ca with 12345678" time="15.882" classname="should login staff.a@primecare.ca with 12345678">
+      <failure message="Timed out retrying after 15000ms: expected 401 to equal 200" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:13:21)
+
+      + expected - actual
+
+      -401
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

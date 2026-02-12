@@ -1,0 +1,285 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 6,
+    "passes": 0,
+    "pending": 0,
+    "failures": 6,
+    "start": "2026-02-12T19:10:58.377Z",
+    "end": "2026-02-12T19:14:55.702Z",
+    "duration": 237325,
+    "testsRegistered": 6,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "017c4b76-3abe-4734-8be2-8b3f68b7cb0c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\debug\\auth_check.cy.ts",
+      "file": "cypress\\e2e\\debug\\auth_check.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3e6306da-0605-4fb7-832c-3e34e94832e9",
+          "title": "Auth Debug",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "e8a403db-a397-4031-92a4-19686c1881ff",
+              "title": "Testing password: admin123",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should login admin.a@primecare.ca with admin123",
+                  "fullTitle": "Auth Debug Testing password: admin123 should login admin.a@primecare.ca with admin123",
+                  "timedOut": null,
+                  "duration": 404,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"admin123\" }\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 54\n}\nBody: {\"email\":\"admin.a@primecare.ca\",\"password\":\"admin123\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"date\": \"Thu, 12 Feb 2026 19:11:44 GMT\",\n  \"content-type\": \"application/json\",\n  \"content-length\": \"31\",\n  \"connection\": \"keep-alive\",\n  \"cf-ray\": \"9cce64bf3c29f78f-EWR\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"vary\": \"Origin, Accept-Encoding\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length,X-Kinde-Status\",\n  \"cross-origin-opener-policy\": \"same-origin\",\n  \"cross-origin-resource-policy\": \"same-origin\",\n  \"origin-agent-cluster\": \"?1\",\n  \"referrer-policy\": \"no-referrer\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-download-options\": \"noopen\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"x-permitted-cross-domain-policies\": \"none\",\n  \"x-xss-protection\": \"0\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v4?s=sJYYZ2rq51pQl0GGT%2Bk6Hd5wd%2Bo4v0eZO519xQ4i%2F2KtMUn2Jepv8GvYWWg6QibknLTHrFD4BoNGUViT7ier4So8ArjbFQQIP8UeuvcODxvojoe6GTRcBra0iY%2FjYxj7G8tIYVg%2BjP4rlpiarvUFaLS43ErhLxXIbvCMZG6z0IxAeZd5luLR\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"error\": \"Invalid credentials\"\n}\n\n\nhttps://on.cypress.io/request",
+                    "estack": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 54\n}\nBody: {\"email\":\"admin.a@primecare.ca\",\"password\":\"admin123\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"date\": \"Thu, 12 Feb 2026 19:11:44 GMT\",\n  \"content-type\": \"application/json\",\n  \"content-length\": \"31\",\n  \"connection\": \"keep-alive\",\n  \"cf-ray\": \"9cce64bf3c29f78f-EWR\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"vary\": \"Origin, Accept-Encoding\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length,X-Kinde-Status\",\n  \"cross-origin-opener-policy\": \"same-origin\",\n  \"cross-origin-resource-policy\": \"same-origin\",\n  \"origin-agent-cluster\": \"?1\",\n  \"referrer-policy\": \"no-referrer\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-download-options\": \"noopen\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"x-permitted-cross-domain-policies\": \"none\",\n  \"x-xss-protection\": \"0\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v4?s=sJYYZ2rq51pQl0GGT%2Bk6Hd5wd%2Bo4v0eZO519xQ4i%2F2KtMUn2Jepv8GvYWWg6QibknLTHrFD4BoNGUViT7ier4So8ArjbFQQIP8UeuvcODxvojoe6GTRcBra0iY%2FjYxj7G8tIYVg%2BjP4rlpiarvUFaLS43ErhLxXIbvCMZG6z0IxAeZd5luLR\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"error\": \"Invalid credentials\"\n}\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:132876:72)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:7:0)",
+                    "diff": null
+                  },
+                  "uuid": "88d3516f-a085-4fe9-b9c2-0be605351a67",
+                  "parentUUID": "e8a403db-a397-4031-92a4-19686c1881ff",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should login staff.a@primecare.ca with admin123",
+                  "fullTitle": "Auth Debug Testing password: admin123 should login staff.a@primecare.ca with admin123",
+                  "timedOut": null,
+                  "duration": 437,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"admin123\" }\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 54\n}\nBody: {\"email\":\"staff.a@primecare.ca\",\"password\":\"admin123\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"date\": \"Thu, 12 Feb 2026 19:11:46 GMT\",\n  \"content-type\": \"application/json\",\n  \"content-length\": \"31\",\n  \"connection\": \"keep-alive\",\n  \"cf-ray\": \"9cce64c96c55f78f-EWR\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"vary\": \"Origin, Accept-Encoding\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length,X-Kinde-Status\",\n  \"cross-origin-opener-policy\": \"same-origin\",\n  \"cross-origin-resource-policy\": \"same-origin\",\n  \"origin-agent-cluster\": \"?1\",\n  \"referrer-policy\": \"no-referrer\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-download-options\": \"noopen\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"x-permitted-cross-domain-policies\": \"none\",\n  \"x-xss-protection\": \"0\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v4?s=8LEaxU1zUljdSglEuy8qK6vfOBarDm1yASb%2FdF5odCXvHrDvy7GuzrpIVz2zghI4Rgwj7ASUGcSed%2Fwl7siMLNCKjzwU7R3qTxRqI%2FRoVW2mChP4wyBzM3sE9E%2F9YvFc5TjXUU0nCNCuURIn709UHWFCJ8rm00gT565NUd2eIIdTv4xosbhN\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"error\": \"Invalid credentials\"\n}\n\n\nhttps://on.cypress.io/request",
+                    "estack": "CypressError: `cy.request()` failed on:\n\nhttps://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 54\n}\nBody: {\"email\":\"staff.a@primecare.ca\",\"password\":\"admin123\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"date\": \"Thu, 12 Feb 2026 19:11:46 GMT\",\n  \"content-type\": \"application/json\",\n  \"content-length\": \"31\",\n  \"connection\": \"keep-alive\",\n  \"cf-ray\": \"9cce64c96c55f78f-EWR\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"vary\": \"Origin, Accept-Encoding\",\n  \"access-control-allow-credentials\": \"true\",\n  \"access-control-expose-headers\": \"Content-Length,X-Kinde-Status\",\n  \"cross-origin-opener-policy\": \"same-origin\",\n  \"cross-origin-resource-policy\": \"same-origin\",\n  \"origin-agent-cluster\": \"?1\",\n  \"referrer-policy\": \"no-referrer\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-download-options\": \"noopen\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"x-permitted-cross-domain-policies\": \"none\",\n  \"x-xss-protection\": \"0\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v4?s=8LEaxU1zUljdSglEuy8qK6vfOBarDm1yASb%2FdF5odCXvHrDvy7GuzrpIVz2zghI4Rgwj7ASUGcSed%2Fwl7siMLNCKjzwU7R3qTxRqI%2FRoVW2mChP4wyBzM3sE9E%2F9YvFc5TjXUU0nCNCuURIn709UHWFCJ8rm00gT565NUd2eIIdTv4xosbhN\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"error\": \"Invalid credentials\"\n}\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:132876:72)\n    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)\n    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)\n    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)\n    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)\n    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)\n    at _drainQueueStep (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2430:12)\n    at _drainQueue (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2423:9)\n    at Async._drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2439:5)\n    at Async.drainQueues (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:2309:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:7:0)",
+                    "diff": null
+                  },
+                  "uuid": "c09bc3a2-6825-4810-9c60-49c31506044c",
+                  "parentUUID": "e8a403db-a397-4031-92a4-19686c1881ff",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "88d3516f-a085-4fe9-b9c2-0be605351a67",
+                "c09bc3a2-6825-4810-9c60-49c31506044c"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 841,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "f9903ec9-d11c-4878-a887-95b3470644d4",
+              "title": "Testing password: password",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should login admin.a@primecare.ca with password",
+                  "fullTitle": "Auth Debug Testing password: password should login admin.a@primecare.ca with password",
+                  "timedOut": null,
+                  "duration": 15469,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"password\" },\n    failOnStatusCode: false\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:23:17)",
+                    "diff": "- 401\n+ 200\n"
+                  },
+                  "uuid": "7e3b417c-4ff7-4843-80fa-c1583f3f3884",
+                  "parentUUID": "f9903ec9-d11c-4878-a887-95b3470644d4",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should login staff.a@primecare.ca with password",
+                  "fullTitle": "Auth Debug Testing password: password should login staff.a@primecare.ca with password",
+                  "timedOut": null,
+                  "duration": 15676,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"password\" },\n    failOnStatusCode: false\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:23:17)",
+                    "diff": "- 401\n+ 200\n"
+                  },
+                  "uuid": "36e020fa-fb21-4d40-84a5-1588fb1d7a7a",
+                  "parentUUID": "f9903ec9-d11c-4878-a887-95b3470644d4",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "7e3b417c-4ff7-4843-80fa-c1583f3f3884",
+                "36e020fa-fb21-4d40-84a5-1588fb1d7a7a"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 31145,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "45b2908c-ff39-4e76-a9f2-f35f6ce6a56d",
+              "title": "Testing password: Password123!",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should login admin.a@primecare.ca with Password123!",
+                  "fullTitle": "Auth Debug Testing password: Password123! should login admin.a@primecare.ca with Password123!",
+                  "timedOut": null,
+                  "duration": 15476,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"Password123!\" },\n    failOnStatusCode: false\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:35:17)",
+                    "diff": "- 401\n+ 200\n"
+                  },
+                  "uuid": "af455f7d-2899-4bbb-9bd8-2350bc861499",
+                  "parentUUID": "45b2908c-ff39-4e76-a9f2-f35f6ce6a56d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should login staff.a@primecare.ca with Password123!",
+                  "fullTitle": "Auth Debug Testing password: Password123! should login staff.a@primecare.ca with Password123!",
+                  "timedOut": null,
+                  "duration": 16342,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n    method: \"POST\",\n    url: \"https://primecare-api.itpro-mohammed.workers.dev/v1/auth/login\",\n    body: { email: \"\".concat(role, \".a@primecare.ca\"), password: \"Password123!\" },\n    failOnStatusCode: false\n}).its(\"status\").should(\"equal\", 200);",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 401 to equal 200\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/debug/auth_check.cy.ts:35:17)",
+                    "diff": "- 401\n+ 200\n"
+                  },
+                  "uuid": "ea881651-e52a-432b-8551-7ddc7df6cd72",
+                  "parentUUID": "45b2908c-ff39-4e76-a9f2-f35f6ce6a56d",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "af455f7d-2899-4bbb-9bd8-2350bc861499",
+                "ea881651-e52a-432b-8551-7ddc7df6cd72"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 31818,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
