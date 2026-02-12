@@ -32,6 +32,9 @@ Cypress.Commands.add("loginAs", (role: Role) => {
         const baseUrl = Cypress.env("ADMIN_BASE_URL") || Cypress.config("baseUrl");
         cy.visit(`${baseUrl}/login`);
 
+        // Select the role in the dropdown to avoid "Not registered as X" error
+        cy.getByCy("sel-role").select(role);
+
         cy.getByCy("inp-email").clear().type(u.email);
         cy.getByCy("inp-password").clear().type(u.password, { log: false });
         cy.getByCy("btn-login").click();

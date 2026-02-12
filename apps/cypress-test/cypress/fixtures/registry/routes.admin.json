@@ -14,62 +14,57 @@
         },
         {
             "key": "DASHBOARD",
-            "path": "/dashboard",
+            "path": "/admin/dashboard",
             "auth": "staff"
         },
         {
             "key": "USERS",
-            "path": "/users",
+            "path": "/admin/users",
             "auth": "staff"
         },
         {
             "key": "SCHEDULE",
-            "path": "/schedule",
+            "path": "/admin/schedule",
             "auth": "staff"
         },
         {
             "key": "LEADS",
-            "path": "/leads",
+            "path": "/admin/leads",
             "auth": "staff"
         },
         {
             "key": "SERVICES",
-            "path": "/services",
+            "path": "/admin/services",
             "auth": "staff"
         },
         {
             "key": "CONTENT",
-            "path": "/content",
+            "path": "/admin/content",
             "auth": "staff"
         },
         {
             "key": "AUDITS",
-            "path": "/audits",
-            "auth": "staff"
-        },
-        {
-            "key": "CUSTOMERS",
-            "path": "/customers",
+            "path": "/admin/audits",
             "auth": "staff"
         },
         {
             "key": "SUPPORT",
-            "path": "/support",
+            "path": "/admin/support",
             "auth": "staff"
         },
         {
             "key": "INCIDENTS",
-            "path": "/incidents",
+            "path": "/admin/incidents",
             "auth": "staff"
         },
         {
             "key": "TIMESHEETS",
-            "path": "/timesheets",
+            "path": "/admin/timesheets",
             "auth": "staff"
         },
         {
             "key": "SETTINGS",
-            "path": "/settings",
+            "path": "/admin/settings",
             "auth": "staff"
         },
         {
@@ -84,127 +79,42 @@
         },
         {
             "key": "BOOKINGS",
-            "path": "/bookings",
+            "path": "/client/bookings",
             "auth": "client"
         },
         {
             "key": "BILLING",
-            "path": "/billing",
+            "path": "/client/billing",
             "auth": "client"
         },
         {
             "key": "EARNINGS",
-            "path": "/earnings",
+            "path": "/psw/earnings",
             "auth": "psw"
         },
         {
             "key": "SHIFTS",
-            "path": "/shifts",
+            "path": "/psw/schedule",
             "auth": "psw"
         },
         {
             "key": "PROFILE",
-            "path": "/profile",
+            "path": "/admin/profile",
             "auth": "any"
         },
         {
             "key": "CHAT",
-            "path": "/support/chat",
-            "auth": "any"
-        },
-        {
-            "key": "USER_ENTRY",
-            "path": "/users/new",
-            "auth": "staff"
-        },
-        {
-            "key": "INCIDENT_ENTRY",
-            "path": "/incidents/new",
-            "auth": "staff"
-        },
-        {
-            "key": "TIMESHEET_ADJ",
-            "path": "/timesheets/adjust",
-            "auth": "staff"
-        },
-        {
-            "key": "LEAD_ENTRY",
-            "path": "/leads/new",
-            "auth": "staff"
-        },
-        {
-            "key": "ROLE_EDITOR",
-            "path": "/settings/roles",
-            "auth": "staff"
-        },
-        {
-            "key": "TEMPLATE_EDITOR",
-            "path": "/settings/templates",
-            "auth": "staff"
-        },
-        {
-            "key": "INVOICE_ENTRY",
-            "path": "/invoices/new",
-            "auth": "staff"
-        },
-        {
-            "key": "SHIFT_CONFIRM",
-            "path": "/shifts/confirm",
-            "auth": "psw"
-        },
-        {
-            "key": "VISIT_COMPLETE",
-            "path": "/visits/v-123/complete",
-            "auth": "psw"
-        },
-        {
-            "key": "BOOKING_REQ",
-            "path": "/client/bookings/request",
-            "auth": "client"
-        },
-        {
-            "key": "FEEDBACK",
-            "path": "/client/feedback",
-            "auth": "client"
-        },
-        {
-            "key": "EVALUATION",
-            "path": "/manager/evaluations",
-            "auth": "manager"
-        },
-        {
-            "key": "SERVICE_REVIEW",
-            "path": "/manager/service-review",
-            "auth": "manager"
-        },
-        {
-            "key": "EXPENSES",
-            "path": "/psw/expenses",
-            "auth": "psw"
-        },
-        {
-            "key": "AVAILABILITY",
-            "path": "/psw/availability",
-            "auth": "psw"
-        },
-        {
-            "key": "SUPPORT_TICKET",
-            "path": "/support/tickets/new",
+            "path": "/admin/support/chat",
             "auth": "any"
         },
         {
             "key": "CUSTOMER_ADMISSION",
-            "path": "/admin/clients/admission",
+            "path": "/admin/admission",
             "auth": "staff"
         },
         {
             "key": "PSW_ONBOARDING",
-            "path": "/admin/psw/onboarding",
-            "auth": "staff"
-        },
-        {
-            "key": "LOCATION_NEW",
-            "path": "/admin/locations/new",
+            "path": "/admin/onboarding",
             "auth": "staff"
         }
     ]
