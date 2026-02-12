@@ -83,13 +83,13 @@ export default function AdminDashboard() {
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Manage assignments</div>
                                 </button>
                             </Link>
-                            <Link to="/leads" style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
+                            <Link to={RouteRegistry.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>Review Leads</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Respond to inquiries</div>
                                 </button>
                             </Link>
-                            <Link to="/settings" style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
+                            <Link to={RouteRegistry.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>System Config</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>App adjustments</div>

@@ -15,9 +15,7 @@ export const AppRouter: React.FC = () => {
     return (
         <Routes>
             {/* Auth Routes */}
-            <Route path="/auth/*" element={<AuthRoutes />} />
-            <Route path={RouteRegistry.LOGIN} element={<Navigate to="/auth/login" replace />} />
-            <Route path={RouteRegistry.REGISTER} element={<Navigate to="/auth/register" replace />} />
+            <Route path="/*" element={<AuthRoutes />} />
 
             {/* Admin Routes */}
             <Route
@@ -29,49 +27,8 @@ export const AppRouter: React.FC = () => {
                 }
             />
 
-            {/* Role Specific Routes */}
-            <Route
-                path="/rn/*"
-                element={
-                    <RequireRole allowedRoles={['rn']}>
-                        <AdminRoutes />
-                    </RequireRole>
-                }
-            />
-
-            <Route
-                path="/psw/*"
-                element={
-                    <RequireRole allowedRoles={['psw']}>
-                        <AdminRoutes />
-                    </RequireRole>
-                }
-            />
-
-            <Route
-                path="/staff/*"
-                element={
-                    <RequireRole allowedRoles={['staff']}>
-                        <AdminRoutes />
-                    </RequireRole>
-                }
-            />
-
-            <Route
-                path="/client/*"
-                element={
-                    <RequireRole allowedRoles={['client']}>
-                        <AdminRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* Shared Dashboard redirect */}
-            <Route path="/dashboard" element={<Navigate to="/app" replace />} />
-            <Route path="/app/*" element={<AdminRoutes />} />
-
             {/* Fallback */}
-            <Route path="/" element={<Navigate to={RouteRegistry.DASHBOARD} replace />} />
+            <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

@@ -72,14 +72,14 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
         { label: 'Users & PSWs', path: RouteRegistry.USERS, icon: '👥' },
         { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-        { label: 'Incidents', path: '/incidents', icon: '🚨' },
-        { label: 'Timesheets', path: '/timesheets', icon: '⏰' },
-        { label: 'Invoices', path: '/billing', icon: '💳' },
-        { label: 'Lead Inquiries', path: '/leads', icon: '📥' },
-        { label: 'Services', path: '/services', icon: '💰' },
-        { label: 'Call Audits', path: '/audits', icon: '🎙️' },
-        { label: 'Content', path: '/content', icon: '📝' },
-        { label: 'Settings', path: '/settings', icon: '⚙️' },
+        { label: 'Incidents', path: RouteRegistry.INCIDENTS, icon: '🚨' },
+        { label: 'Timesheets', path: RouteRegistry.TIMESHEETS, icon: '⏰' },
+        { label: 'Lead Inquiries', path: RouteRegistry.LEADS, icon: '📥' },
+        { label: 'Services', path: RouteRegistry.SERVICES, icon: '💰' },
+        { label: 'Call Audits', path: RouteRegistry.AUDITS, icon: '🎙️' },
+        { label: 'Content', path: RouteRegistry.CONTENT, icon: '📝' },
+        { label: 'Settings', path: RouteRegistry.SETTINGS, icon: '⚙️' },
+        { label: 'Support', path: RouteRegistry.SUPPORT, icon: '💬' },
     ];
 
     const clientMenu = [
