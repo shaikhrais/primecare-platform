@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="215.424" tests="6" failures="4">
+  <testsuite name="Root Suite" timestamp="2026-02-12T18:21:26" tests="0" file="cypress\e2e\00_smoke\smoke_connectivity.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Connectivity Verification" timestamp="2026-02-12T18:21:26" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Marketing Application Connectivity" timestamp="2026-02-12T18:21:26" tests="1" time="6.895" failures="0">
+    <testcase name="Global Connectivity Verification Marketing Application Connectivity verifies all marketing routes load successfully without errors" time="4.052" classname="verifies all marketing routes load successfully without errors">
+    </testcase>
+  </testsuite>
+  <testsuite name="Admin Application Connectivity" timestamp="2026-02-12T18:21:33" tests="5" time="208.497" failures="4">
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: staff" time="17.355" classname="verifies authorized admin routes for role: staff">
+      <failure message="Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`&lt;button data-cy=&quot;btn-login&quot; type=&quot;submit&quot; style=&quot;width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;&quot;&gt;Sign In...&lt;/button&gt;`
+
+is being covered by another element:
+
+`&lt;p style=&quot;margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;&quot;&gt;We use ...&lt;/p&gt;`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with" type="CypressError"><![CDATA[CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`<button data-cy="btn-login" type="submit" style="width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;">Sign In...</button>`
+
+is being covered by another element:
+
+`<p style="margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;">We use ...</p>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+    at ensureIsDescendent (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112915:68)
+    at ensureDescendents (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112966:5)
+    at ensureDescendentsAndScroll (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112972:14)
+    at ensureElIsNotCovered (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113103:5)
+    at runAllChecks (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113302:52)
+    at retryActionability (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113339:16)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:0)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: psw" time="17.350" classname="verifies authorized admin routes for role: psw">
+      <failure message="Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`&lt;button data-cy=&quot;btn-login&quot; type=&quot;submit&quot; style=&quot;width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;&quot;&gt;Sign In...&lt;/button&gt;`
+
+is being covered by another element:
+
+`&lt;p style=&quot;margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;&quot;&gt;We use ...&lt;/p&gt;`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with" type="CypressError"><![CDATA[CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`<button data-cy="btn-login" type="submit" style="width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;">Sign In...</button>`
+
+is being covered by another element:
+
+`<p style="margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;">We use ...</p>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+    at ensureIsDescendent (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112915:68)
+    at ensureDescendents (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112966:5)
+    at ensureDescendentsAndScroll (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112972:14)
+    at ensureElIsNotCovered (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113103:5)
+    at runAllChecks (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113302:52)
+    at retryActionability (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113339:16)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:0)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: client" time="17.332" classname="verifies authorized admin routes for role: client">
+      <failure message="Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`&lt;button data-cy=&quot;btn-login&quot; type=&quot;submit&quot; style=&quot;width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;&quot;&gt;Sign In...&lt;/button&gt;`
+
+is being covered by another element:
+
+`&lt;p style=&quot;margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;&quot;&gt;We use ...&lt;/p&gt;`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with" type="CypressError"><![CDATA[CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:
+
+`<button data-cy="btn-login" type="submit" style="width: 100%; padding: 0.75rem; background-color: rgb(5, 150, 105); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;">Sign In...</button>`
+
+is being covered by another element:
+
+`<p style="margin: 0.25rem 0px 0px; font-size: 0.875rem; color: rgb(75, 85, 99); line-height: 1.5;">We use ...</p>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+    at ensureIsDescendent (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112915:68)
+    at ensureDescendents (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112966:5)
+    at ensureDescendentsAndScroll (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:112972:14)
+    at ensureElIsNotCovered (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113103:5)
+    at runAllChecks (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113302:52)
+    at retryActionability (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:113339:16)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:0)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: rn" time="16.012" classname="verifies authorized admin routes for role: rn">
+      <failure message="Timed out retrying after 15000ms: `cy.select()` failed because it could not find a single `&lt;option&gt;` with value, index, or text matching: `rn`
+
+https://on.cypress.io/select" type="CypressError"><![CDATA[CypressError: Timed out retrying after 15000ms: `cy.select()` failed because it could not find a single `<option>` with value, index, or text matching: `rn`
+
+https://on.cypress.io/select
+    at getOptions (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:114180:72)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)
+    at retryOptions (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:114212:70)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise.attempt.Promise.try (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:4338:29)
+    at whenStable (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143744:68)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:143685:14)
+    at tryCatcher (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1830:23)
+    at Promise._settlePromiseFromHandler (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1542:31)
+    at Promise._settlePromise (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1599:18)
+    at Promise._settlePromise0 (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1644:10)
+    at Promise._settlePromises (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1724:18)
+    at Promise._fulfill (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:1668:18)
+    at <unknown> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:5473:46)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:18:0)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies guest access to login/register in admin portal" time="1.247" classname="verifies guest access to login/register in admin portal">
+    </testcase>
+  </testsuite>
+</testsuites>

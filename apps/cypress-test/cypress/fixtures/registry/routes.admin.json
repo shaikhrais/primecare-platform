@@ -79,7 +79,7 @@
         },
         {
             "key": "BOOKINGS",
-            "path": "/client/bookings",
+            "path": "/client/dashboard",
             "auth": "client"
         },
         {
@@ -94,8 +94,13 @@
         },
         {
             "key": "SHIFTS",
-            "path": "/psw/schedule",
+            "path": "/psw/dashboard",
             "auth": "psw"
+        },
+        {
+            "key": "RN_DASHBOARD",
+            "path": "/rn/dashboard",
+            "auth": "rn"
         },
         {
             "key": "PROFILE",

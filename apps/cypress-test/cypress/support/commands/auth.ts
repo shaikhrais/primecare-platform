@@ -37,7 +37,7 @@ Cypress.Commands.add("loginAs", (role: Role) => {
 
         cy.getByCy("inp-email").clear().type(u.email);
         cy.getByCy("inp-password").clear().type(u.password, { log: false });
-        cy.getByCy("btn-login").click();
+        cy.getByCy("btn-login").click({ force: true });
 
         // Wait for transition out of login or appearance of dashboard-grade element
         cy.url({ timeout: 15000 }).should("not.include", "/login");

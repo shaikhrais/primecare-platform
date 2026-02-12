@@ -63,6 +63,8 @@ export default function Login() {
                     navigate('/shifts');
                 } else if (data.user.role === 'client') {
                     navigate('/bookings');
+                } else if (data.user.role === 'rn') {
+                    navigate('/rn/dashboard');
                 } else {
                     navigate(RouteRegistry.DASHBOARD);
                 }
@@ -112,6 +114,7 @@ export default function Login() {
                         >
                             <option value="client">🏠 Family Member / Client</option>
                             <option value="psw">👩‍⚕️ Caregiver / PSW</option>
+                            <option value="rn">🩺 Registered Nurse / RN</option>
                             <option value="staff">🏢 Staff Member</option>
                             <option value="admin">🔒 Administrator</option>
                             <option value="manager">📊 Manager / Owner</option>
