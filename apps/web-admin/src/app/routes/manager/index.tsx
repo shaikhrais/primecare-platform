@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 // Layouts
-import ManagerLayout from '../../shared/components/layout/ManagerLayout';
+import ManagerLayout from '../../../shared/components/layout/ManagerLayout';
 
 // Pages
 import Dashboard from './pages/dashboard';

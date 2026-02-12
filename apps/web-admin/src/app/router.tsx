@@ -6,8 +6,8 @@ import { AdminRegistry } from 'prime-care-shared';
 import { RequireRole } from './guards/RequireRole';
 
 // Layouts
-import AdminLayout from '../components/layout/AdminLayout';
-import ManagerLayout from '../components/layout/ManagerLayout';
+import AdminLayout from '../shared/components/layout/AdminLayout';
+import ManagerLayout from '../shared/components/layout/ManagerLayout';
 
 // Shared/Auth Pages (to be moved eventually)
 import RnRoutes from './routes/rn';
