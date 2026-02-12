@@ -20,10 +20,11 @@ export const rbacMiddleware = (allowedRoles: Role[]) => {
     };
 };
 
-export const generateToken = async (user: { id: string; role: Role }, secret: string) => {
+export const generateToken = async (user: { id: string; role: Role; tenantId: string }, secret: string) => {
     const payload = {
         sub: user.id,
         role: user.role,
+        tenantId: user.tenantId,
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
     };
     return await sign(payload, secret);

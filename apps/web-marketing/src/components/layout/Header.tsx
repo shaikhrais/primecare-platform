@@ -252,37 +252,8 @@ export default function Header() {
                             )}
                         </button>
 
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', padding: '4px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                            <span style={{ fontSize: '0.7rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 800 }}>Mode</span>
-                            <select
-                                id="themePick"
-                                data-cy="theme-selector"
-                                defaultValue={localStorage.getItem('psw_theme') || 'midnight'}
-                                onChange={(e) => {
-                                    const v = e.target.value;
-                                    document.documentElement.setAttribute('data-theme', v);
-                                    localStorage.setItem('psw_theme', v);
-                                }}
-                                style={{
-                                    height: '24px',
-                                    borderRadius: '6px',
-                                    border: 'none',
-                                    background: 'transparent',
-                                    color: 'white',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 700,
-                                    cursor: 'pointer',
-                                    outline: 'none',
-                                    appearance: 'none',
-                                    paddingRight: '10px'
-                                }}
-                            >
-                                <option value="midnight" style={{ color: 'black' }}>🌌 Midnight</option>
-                                <option value="light" style={{ color: 'black' }}>☀️ Light</option>
-                                <option value="ocean" style={{ color: 'black' }}>🌊 Ocean</option>
-                                <option value="grape" style={{ color: 'black' }}>🍇 Grape</option>
-                                <option value="contrast" style={{ color: 'black' }}>🏁 Contrast</option>
-                            </select>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(46, 196, 182, 0.15)', padding: '4px 14px', borderRadius: '10px', border: '1px solid var(--brand-500)' }}>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--brand-500)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 900 }}>Verified Site</span>
                         </div>
                         <a href="mailto:care@primecare.ca" data-cy="lnk-topbar-email" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
                             <span style={{ opacity: 0.7 }}>✉</span> care@primecare.ca

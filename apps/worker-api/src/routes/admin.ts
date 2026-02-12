@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { VisitStatus } from '../../generated/client/edge';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { tenantMiddleware } from '../middleware/tenant';
 import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
@@ -18,6 +19,7 @@ app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
     await middleware(c, next);
 });
+app.use('*', tenantMiddleware());
 app.use('*', rbacMiddleware(['admin']));
 
 /**
@@ -76,16 +78,26 @@ app.post('/visits/assign', zValidator('json', AssignPswSchema), async (c) => {
     const psw = await prisma.pswProfile.findUnique({ where: { id: pswId } });
     if (!psw) return c.json({ error: 'PSW not found' }, 404);
 
-    const visit = await prisma.visit.update({
-        where: { id: visitId },
-        data: {
-            assignedPswId: pswId,
-            status: 'scheduled',
-        },
-    });
-
     const payload = c.get('jwtPayload');
-    await logAudit(prisma, payload.sub, 'ASSIGN_PSW', 'VISIT', visitId, { pswId });
+
+    const [visit] = await prisma.$transaction([
+        prisma.visit.update({
+            where: { id: visitId },
+            data: {
+                assignedPswId: pswId,
+                status: 'scheduled',
+            },
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: payload.sub,
+                action: 'ASSIGN_PSW',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                metadataJson: { pswId },
+            }
+        })
+    ]);
 
     return c.json(visit);
 });
@@ -241,14 +253,27 @@ app.patch('/timesheets/:id', zValidator('json', z.object({
     const id = c.req.param('id');
     const { status } = c.req.valid('json');
     const payload = c.get('jwtPayload');
-    const timesheet = await prisma.timesheet.update({
-        where: { id },
-        data: {
-            status: status as any,
-            reviewedBy: payload.sub,
-            reviewedAt: new Date()
-        }
-    });
+
+    const [timesheet] = await prisma.$transaction([
+        prisma.timesheet.update({
+            where: { id },
+            data: {
+                status: status as any,
+                reviewedBy: payload.sub,
+                reviewedAt: new Date()
+            }
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: payload.sub,
+                action: 'REVIEW_TIMESHEET',
+                resourceType: 'TIMESHEET',
+                resourceId: id,
+                metadataJson: { status },
+            }
+        })
+    ]);
+
     return c.json(timesheet);
 });
 

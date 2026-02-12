@@ -113,76 +113,50 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--bg)', fontFamily: 'var(--pc-font-main)', color: 'var(--text)' }}>
+        <div className="app">
             {/* Sidebar */}
-            <aside className="glass-effect" style={{
-                width: 'var(--sidebar-width)',
-                backgroundColor: 'var(--bg-elev)',
-                color: 'var(--text)',
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'fixed',
-                height: '100vh',
-                zIndex: 'var(--z-index-sidebar)',
-                borderRight: '1px solid var(--line)'
-            }} data-cy="sidebar">
-                <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--line)' }}>
-                    <h1 style={{ fontSize: '1.25rem', fontWeight: 900, margin: 0, color: 'var(--primary)', fontFamily: 'var(--pc-font-display)', letterSpacing: '-0.03em' }}>
-                        PrimeCare <span style={{ color: 'var(--text)', fontWeight: 500 }}>{portalTitle}</span>
+            <aside className="pc-sidebar" data-cy="sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: '14px 10px 18px' }}>
+                    <h1 style={{ fontSize: '22px', fontWeight: 800, margin: 0, letterSpacing: '.2px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: 'var(--brand-500)' }}>PrimeCare</span>
+                        <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.9em' }}>{portalTitle}</span>
                     </h1>
                 </div>
 
-                <nav style={{ flex: 1, padding: '1rem 0', overflowY: 'auto' }} data-cy="nav.main">
+                <nav className="nav" style={{ flex: 1, padding: '10px 0', overflowY: 'auto' }} data-cy="nav.main">
                     {menuItems.map((item: MenuItem) => {
                         const isActive = location.pathname.startsWith(item.path) || (item.path === '/app' && location.pathname === '/app');
                         return (
                             <Link
                                 key={item.path}
                                 to={item.path}
+                                className={`pc-nav-link ${isActive ? 'active' : ''}`}
                                 data-cy={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.75rem',
-                                    padding: '0.85rem 1.5rem',
-                                    textDecoration: 'none',
-                                    color: isActive ? 'var(--text)' : 'var(--text-muted)',
-                                    backgroundColor: isActive ? 'var(--line)' : 'transparent',
-                                    borderLeft: isActive ? '4px solid var(--primary)' : '4px solid transparent',
-                                    transition: 'var(--pc-transition)',
-                                    marginBottom: '4px'
-                                }}
                             >
-                                <span style={{ fontSize: '1.4rem', opacity: isActive ? 1 : 0.6 }}>{item.icon}</span>
-                                <span style={{ fontWeight: isActive ? 800 : 500, fontSize: '0.95rem' }}>{item.label}</span>
+                                <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                                <span style={{ fontWeight: isActive ? 700 : 500 }}>{item.label}</span>
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div style={{ padding: '1.25rem', borderTop: '1px solid var(--line)', background: 'var(--bg)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4db6ac', boxShadow: '0 0 10px #4db6ac' }}></div>
-                        <p style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>{role} SESSION ACTIVE</p>
+                <div className="sidebar-footer">
+                    <div className="pill">
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)', boxShadow: '0 0 10px var(--brand-500)' }}></div>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>{role} ONLINE</span>
                     </div>
 
                     <button
                         onClick={handleLogout}
+                        className="btn btn-danger"
                         data-cy="btn-logout"
                         style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '10px',
-                            padding: '10px 0',
-                            color: '#e53935',
-                            background: 'transparent',
-                            border: 'none',
                             width: '100%',
-                            cursor: 'pointer',
-                            fontSize: '0.9rem',
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em'
+                            justifyContent: 'center',
+                            marginTop: '8px'
                         }}
                     >
                         🚪 Logout
@@ -192,113 +166,57 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
             {/* Main Content */}
             <main style={{ flex: 1, marginLeft: 'var(--sidebar-width)', display: 'flex', flexDirection: 'column' }}>
-                {/* Header */}
-                <header className="glass-effect" style={{
-                    height: 'var(--header-height)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '0 2rem',
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 'var(--z-index-header)',
-                    borderBottom: '1px solid var(--line)'
-                }} data-cy="page.header">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <h2 style={{ fontSize: '1rem', fontWeight: 800, margin: 0, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>SYSTEM OPERATIONS</h2>
-                    </div>
+                <div style={{ padding: '28px 32px 36px' }}>
+                    {/* Topbar */}
+                    <header className="pc-topbar" data-cy="page.header">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <span className="title" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2.5px', opacity: 0.8 }}>
+                                System Operations
+                            </span>
+                        </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                        {/* Full Screen Toggle */}
-                        <button
-                            onClick={toggleFullscreen}
-                            title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-                            style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '12px',
-                                border: '1px solid var(--line)',
-                                background: 'var(--bg-elev)',
-                                color: 'var(--text)',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '1.2rem',
-                                transition: 'var(--pc-transition)',
-                                boxShadow: 'var(--shadow-sm)'
-                            }}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            {isFullscreen ? (
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
-                                </svg>
-                            ) : (
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-                                </svg>
-                            )}
-                        </button>
-
-                        {/* Theme Switcher */}
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.75rem',
-                            background: 'var(--bg-input)',
-                            padding: '6px 16px',
-                            borderRadius: 'var(--radius-md)',
-                            border: '1px solid var(--line)',
-                            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
-                        }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Mode</span>
-                            <select
-                                id="themePick"
-                                defaultValue={localStorage.getItem('psw_theme') || 'midnight'}
-                                onChange={(e) => {
-                                    const v = e.target.value;
-                                    document.documentElement.setAttribute('data-theme', v);
-                                    localStorage.setItem('psw_theme', v);
-                                }}
+                        <div className="right">
+                            {/* Full Screen Toggle */}
+                            <button
+                                onClick={toggleFullscreen}
+                                className="btn"
                                 style={{
-                                    height: '28px',
-                                    borderRadius: '8px',
-                                    border: 'none',
-                                    background: 'transparent',
-                                    color: 'var(--text)',
-                                    fontSize: '0.9rem',
-                                    fontWeight: 800,
-                                    cursor: 'pointer',
-                                    outline: 'none',
-                                    appearance: 'none',
-                                    paddingRight: '10px'
+                                    width: '44px',
+                                    height: '44px',
+                                    padding: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
                                 }}
                             >
-                                <option value="midnight">🌌 Midnight</option>
-                                <option value="light">☀️ Light</option>
-                                <option value="ocean">🌊 Ocean</option>
-                                <option value="grape">🍇 Grape</option>
-                                <option value="contrast">🏁 Contrast</option>
-                            </select>
-                        </div>
+                                {isFullscreen ? (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+                                    </svg>
+                                ) : (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                                    </svg>
+                                )}
+                            </button>
 
-                        <QuickActions role={role} />
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button data-cy="btn-topbar-notifications" style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔔</button>
-                            <button data-cy="btn-topbar-search" style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid var(--line)', background: 'var(--bg-elev)', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', transition: 'var(--pc-transition)' }}>🔍</button>
+                            <div className="chip">
+                                📅 {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                            </div>
+
+                            <QuickActions role={role} />
+
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <button className="btn" style={{ width: '44px', height: '44px', padding: 0 }}>🔔</button>
+                                <button className="btn" style={{ width: '44px', height: '44px', padding: 0 }}>🔍</button>
+                            </div>
                         </div>
-                        <div style={{ height: '24px', width: '1px', background: 'var(--line)' }}></div>
-                        <p style={{ margin: 0, fontSize: '0.8rem', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-                        </p>
+                    </header>
+
+                    {/* Page Content */}
+                    <div style={{ marginTop: '2rem' }}>
+                        {children}
                     </div>
-                </header>
-
-                {/* Page Content */}
-                <div style={{ padding: '2rem', flex: 1 }}>
-                    {children}
                 </div>
             </main >
         </div >

@@ -22,16 +22,18 @@ const defaultStats: Stat[] = [
 export function StatsSection({ stats = defaultStats }: StatsSectionProps) {
     return (
         <section style={{
-            padding: '5rem 2rem',
-            backgroundColor: '#00897b',
+            padding: '7rem 2rem',
+            backgroundColor: 'var(--bg-850)',
             color: 'white',
+            borderTop: '1px solid var(--card-border)',
+            borderBottom: '1px solid var(--card-border)',
         }}>
             <div style={{
                 maxWidth: '1200px',
                 margin: '0 auto',
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '3rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: '4rem',
                 textAlign: 'center',
             }}>
                 {stats.map((stat, index) => (
@@ -41,10 +43,10 @@ export function StatsSection({ stats = defaultStats }: StatsSectionProps) {
                         animation="scaleUp"
                         delay={index * 0.15}
                     >
-                        <div style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                        <div style={{ fontSize: '4.5rem', fontWeight: 900, marginBottom: '0.75rem', color: 'var(--brand-500)', letterSpacing: '-2px' }}>
                             <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                         </div>
-                        <div style={{ fontSize: '1rem', opacity: 0.9 }}>{stat.label}</div>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-300)', textTransform: 'uppercase', letterSpacing: '3px' }}>{stat.label}</div>
                     </AnimatedSection>
                 ))}
             </div>

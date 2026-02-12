@@ -3,6 +3,7 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { tenantMiddleware } from '../middleware/tenant';
 import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
@@ -12,6 +13,7 @@ app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
     await middleware(c, next);
 });
+app.use('*', tenantMiddleware());
 app.use('*', rbacMiddleware(['staff', 'coordinator', 'admin']));
 
 /**

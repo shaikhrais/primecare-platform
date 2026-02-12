@@ -3,6 +3,8 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { tenantMiddleware } from '../middleware/tenant';
+import { policyMiddleware } from '../middleware/policy';
 import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
@@ -23,6 +25,8 @@ app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
     await middleware(c, next);
 });
+app.use('*', tenantMiddleware());
+app.use('*', policyMiddleware());
 app.use('*', rbacMiddleware(['psw']));
 
 // GET Profile
@@ -60,6 +64,14 @@ app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
+
+    const can = c.get('can');
+    const profileExists = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profileExists) return c.json({ error: 'Profile not found' }, 404);
+
+    if (!(await can('update', 'PswProfile', profileExists.id))) {
+        return c.json({ error: 'Forbidden' }, 403);
+    }
 
     const profile = await prisma.pswProfile.update({
         where: { userId },
@@ -162,24 +174,34 @@ app.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c)
         }
     }
 
-    const event = await prisma.visitCheckEvent.create({
-        data: {
-            visitId,
-            pswId: profile.id,
-            eventType: 'check_in',
-            lat,
-            lng,
-            accuracyM: accuracy,
-            result,
-        },
-    });
-
-    await prisma.visit.update({
-        where: { id: visitId },
-        data: { status: 'in_progress' },
-    });
-
-    await logAudit(prisma, userId, 'CHECK_IN', 'VISIT', visitId, { result, lat, lng });
+    const [event] = await prisma.$transaction([
+        prisma.visitCheckEvent.create({
+            data: {
+                visitId,
+                pswId: profile.id,
+                eventType: 'check_in',
+                lat,
+                lng,
+                accuracyM: accuracy,
+                result,
+                tenantId: profile.tenantId
+            },
+        }),
+        prisma.visit.update({
+            where: { id: visitId },
+            data: { status: 'in_progress' },
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: userId,
+                action: 'CHECK_IN',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                metadataJson: { result, lat, lng },
+                tenantId: profile.tenantId
+            }
+        })
+    ]);
 
     return c.json(event);
 });
@@ -202,24 +224,34 @@ app.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    const event = await prisma.visitCheckEvent.create({
-        data: {
-            visitId,
-            pswId: profile.id,
-            eventType: 'check_out',
-            lat,
-            lng,
-            accuracyM: accuracy,
-            result: 'success',
-        },
-    });
-
-    await prisma.visit.update({
-        where: { id: visitId },
-        data: { status: 'completed' },
-    });
-
-    await logAudit(prisma, userId, 'CHECK_OUT', 'VISIT', visitId, { lat, lng });
+    const [event] = await prisma.$transaction([
+        prisma.visitCheckEvent.create({
+            data: {
+                visitId,
+                pswId: profile.id,
+                eventType: 'check_out',
+                lat,
+                lng,
+                accuracyM: accuracy,
+                result: 'success',
+                tenantId: profile.tenantId
+            },
+        }),
+        prisma.visit.update({
+            where: { id: visitId },
+            data: { status: 'completed' },
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: userId,
+                action: 'CHECK_OUT',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                metadataJson: { lat, lng },
+                tenantId: profile.tenantId
+            }
+        })
+    ]);
 
     return c.json(event);
 });

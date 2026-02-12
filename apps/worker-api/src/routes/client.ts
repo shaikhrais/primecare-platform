@@ -3,6 +3,8 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings, Variables } from '../bindings';
 import { authMiddleware, rbacMiddleware } from '../auth';
+import { tenantMiddleware } from '../middleware/tenant';
+import { policyMiddleware } from '../middleware/policy';
 import { logAudit } from '../utils/audit';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
@@ -32,6 +34,8 @@ app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
     await middleware(c, next);
 });
+app.use('*', tenantMiddleware());
+app.use('*', policyMiddleware());
 app.use('*', rbacMiddleware(['client']));
 
 /**
@@ -67,6 +71,14 @@ app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
+
+    const can = c.get('can');
+    const profileExists = await prisma.clientProfile.findUnique({ where: { userId } });
+    if (!profileExists) return c.json({ error: 'Profile not found' }, 404);
+
+    if (!(await can('update', 'ClientProfile', profileExists.id))) {
+        return c.json({ error: 'Forbidden' }, 403);
+    }
 
     const profile = await prisma.clientProfile.update({
         where: { userId },

@@ -5,7 +5,8 @@ export const logAudit = async (
     resourceType: string,
     resourceId?: string,
     metadata?: any,
-    ipAddress?: string
+    ipAddress?: string,
+    options: { throwOnError?: boolean } = {}
 ) => {
     try {
         await prisma.auditLog.create({
@@ -20,6 +21,8 @@ export const logAudit = async (
         });
     } catch (error) {
         console.error('Audit Logging Failed:', error);
-        // We don't throw here to avoid blocking the main request
+        if (options.throwOnError) {
+            throw error;
+        }
     }
 };

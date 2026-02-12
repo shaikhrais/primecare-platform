@@ -10,13 +10,9 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: var(--font-family);
-  background:
-    radial-gradient(1100px 600px at 10% -10%, var(--glow-1), transparent 60%),
-    radial-gradient(900px 500px at 85% 0%, var(--glow-2), transparent 55%),
-    radial-gradient(800px 600px at 70% 120%, var(--glow-3), transparent 60%),
-    var(--bg);
-  color: var(--text);
+  font-family: var(--pc-font-main);
+  background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
+  color: var(--text-100);
   -webkit-font-smoothing: antialiased;
 }
 

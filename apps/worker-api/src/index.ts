@@ -25,12 +25,7 @@ import managerApp from './routes/manager';
 import { DurableObject } from 'cloudflare:workers';
 export { ChatServer } from './durable_objects/ChatServer';
 
-type Bindings = {
-    DATABASE_URL: string;
-    JWT_SECRET: string;
-    DOCS_BUCKET: R2Bucket;
-    CHAT_SERVER: DurableObjectNamespace;
-};
+// Redundant type declaration removed
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -72,6 +67,8 @@ const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
     role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance']),
+    tenantName: z.string().optional(),
+    tenantSlug: z.string().optional(),
 });
 
 const getPrisma = (database_url: string) => {
@@ -95,10 +92,29 @@ app.get('/v1/health', (c) => {
 
 app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
     const prisma = c.get('prisma');
-    const { email, password, role } = c.req.valid('json');
+    const { email, password, role, tenantName, tenantSlug } = c.req.valid('json');
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) return c.json({ error: 'User already exists' }, 400);
+
+    // Find or create tenant
+    let tenant;
+    if (tenantSlug) {
+        tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug } });
+    }
+
+    if (!tenant) {
+        const slug = tenantSlug || 'default';
+        tenant = await prisma.tenant.upsert({
+            where: { slug: slug },
+            update: {},
+            create: {
+                name: tenantName || 'Default Tenant',
+                slug: slug,
+                status: 'active'
+            }
+        });
+    }
 
     const passwordHash = await hashPassword(password);
 
@@ -107,17 +123,29 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
             email,
             passwordHash,
             role: role as any,
+            tenantId: tenant.id
         },
     });
 
     if (role === 'client') {
-        await prisma.clientProfile.create({ data: { userId: user.id, fullName: email.split('@')[0] } });
+        await prisma.clientProfile.create({
+            data: {
+                userId: user.id,
+                fullName: email.split('@')[0],
+                tenantId: tenant.id
+            }
+        });
     } else if (role === 'psw') {
-        await prisma.pswProfile.create({ data: { userId: user.id, fullName: email.split('@')[0] } });
+        await prisma.pswProfile.create({
+            data: {
+                userId: user.id,
+                fullName: email.split('@')[0],
+                tenantId: tenant.id
+            }
+        });
     }
-    // Note: 'staff' and 'admin' roles don't have separate profile models in current schema.
 
-    const token = await generateToken(user, c.env.JWT_SECRET || 'fallback_secret');
+    const token = await generateToken({ ...user, tenantId: tenant.id }, c.env.JWT_SECRET || 'fallback_secret');
     return c.json({ user, token }, 201);
 });
 
@@ -132,7 +160,11 @@ app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
         return c.json({ error: 'Invalid credentials' }, 401);
     }
 
-    const token = await generateToken(user, c.env.JWT_SECRET || 'fallback_secret');
+    const token = await generateToken({
+        id: user.id,
+        role: user.role as any,
+        tenantId: user.tenantId
+    }, c.env.JWT_SECRET || 'fallback_secret');
     return c.json({ user, token });
 });
 

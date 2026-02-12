@@ -97,17 +97,17 @@ export default function ClientDashboard() {
     };
 
     return (
-        <div>
-            {/* ... header ... */}
+        <div data-cy="page.container">
+            {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.CLIENT_DASHBOARD.TITLE}</h2>
-                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }}>{ContentRegistry.CLIENT_DASHBOARD.TITLE}</h1>
+                    <p className="sub" style={{ margin: 0 }}>{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
                 </div>
                 <button
                     data-cy="btn-request-care"
+                    className="btn btn-primary"
                     onClick={() => setIsModalOpen(true)}
-                    style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST}
                 </button>
@@ -117,49 +117,55 @@ export default function ClientDashboard() {
             {/* Keeping existing booking list logic as minimal refactor requested on structure/constants */}
 
             {isModalOpen && (
-                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    <form onSubmit={handleSubmitRequest} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }}>
-                        <h3 style={{ marginTop: 0 }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE}</h3>
-                        <p style={{ color: '#6b7280' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE}</p>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
-                            <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Select Care Service</label>
-                            <select
-                                value={newRequest.serviceId}
-                                onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
-                                style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                                data-cy="form.booking.service"
-                                required
-                            >
-                                <option value="">-- Choose a Service --</option>
-                                {services.map(s => (
-                                    <option key={s.id} value={s.id}>{s.name} (${parseFloat(s.baseRateHourly).toFixed(2)}/hr)</option>
-                                ))}
-                            </select>
-                            <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Preferred Date & Time</label>
-                            <input
-                                type="datetime-local"
-                                value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
-                                onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
-                                style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                                data-cy="form.booking.datetime"
-                                required
-                            />
-                            <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Duration (Minutes)</label>
-                            <select
-                                value={newRequest.durationMinutes}
-                                onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
-                                style={{ padding: '0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                                data-cy="form.booking.duration"
-                            >
-                                <option value={60}>1 Hour</option>
-                                <option value={90}>1.5 Hours</option>
-                                <option value={120}>2 Hours</option>
-                                <option value={180}>3 Hours</option>
-                            </select>
+                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }}>
+                    <form onSubmit={handleSubmitRequest} className="pc-card" style={{ padding: '2.5rem', maxWidth: '500px', width: '90%', border: '1px solid var(--brand-500)' }}>
+                        <h3 className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE}</h3>
+                        <p style={{ color: 'var(--text-300)', marginBottom: '2rem' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE}</p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Select Care Service</label>
+                                <select
+                                    value={newRequest.serviceId}
+                                    onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                                    data-cy="form.booking.service"
+                                    required
+                                >
+                                    <option value="" style={{ background: '#12233C' }}>-- Choose a Service --</option>
+                                    {services.map(s => (
+                                        <option key={s.id} value={s.id} style={{ background: '#12233C' }}>{s.name} (${parseFloat(s.baseRateHourly).toFixed(2)}/hr)</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Preferred Date & Time</label>
+                                <input
+                                    type="datetime-local"
+                                    value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
+                                    onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                                    data-cy="form.booking.datetime"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Duration (Minutes)</label>
+                                <select
+                                    value={newRequest.durationMinutes}
+                                    onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                                    data-cy="form.booking.duration"
+                                >
+                                    <option value={60} style={{ background: '#12233C' }}>1 Hour</option>
+                                    <option value={90} style={{ background: '#12233C' }}>1.5 Hours</option>
+                                    <option value={120} style={{ background: '#12233C' }}>2 Hours</option>
+                                    <option value={180} style={{ background: '#12233C' }}>3 Hours</option>
+                                </select>
+                            </div>
                         </div>
-                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button data-cy="btn-modal-cancel" type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem' }}>Cancel</button>
-                            <button data-cy="btn-modal-submit" type="submit" style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600' }}>Submit Request</button>
+                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem' }}>
+                            <button data-cy="btn-modal-cancel" type="button" className="btn" onClick={() => setIsModalOpen(false)} style={{ flex: 1 }}>Cancel</button>
+                            <button data-cy="btn-modal-submit" type="submit" className="btn btn-primary" style={{ flex: 1 }}>Submit Request</button>
                         </div>
                     </form>
                 </div>

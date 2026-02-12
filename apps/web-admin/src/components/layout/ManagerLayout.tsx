@@ -41,90 +41,70 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg)' }}>
+        <div className="app">
+            {/* Sidebar */}
+            <aside className="pc-sidebar" data-cy="sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: '14px 10px 18px' }}>
+                    <h1 style={{ fontSize: '20px', fontWeight: 900, margin: 0, letterSpacing: '.2px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: 'var(--brand-500)' }}>Manager</span>
+                        <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.8em' }}>Portal</span>
+                    </h1>
+                </div>
 
-            {/* 1. Global Quick Action Bar (Fixed Top) */}
-            <div style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
-                <GlobalQuickActionBar role={role} />
-            </div>
+                <nav className="nav" style={{ flex: 1, padding: '10px 0', overflowY: 'auto' }} data-cy="nav.main">
+                    {menuItems.map((item) => {
+                        const isActive = location.pathname.startsWith(item.path);
+                        return (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`pc-nav-link ${isActive ? 'active' : ''}`}
+                                data-cy={`menu-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                            >
+                                <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                                <span style={{ fontWeight: isActive ? 700 : 500 }}>{item.label}</span>
+                            </Link>
+                        );
+                    })}
+                </nav>
 
-            <div style={{ display: 'flex', flex: 1 }}>
-
-                {/* 2. Sidebar (Below Action Bar) */}
-                <aside style={{
-                    width: '240px',
-                    backgroundColor: 'var(--bg-elev)',
-                    borderRight: '1px solid var(--line)',
-                    position: 'sticky',
-                    top: '50px', // Below text bar
-                    height: 'calc(100vh - 50px)',
-                    overflowY: 'auto'
-                }} data-cy="sidebar">
-                    <div style={{ padding: '20px' }}>
-                        <h2 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--primary)' }}>PSW Manager</h2>
-                        <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{user.email}</p>
+                <div className="sidebar-footer">
+                    <div className="pill">
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)', boxShadow: '0 0 10px var(--brand-500)' }}></div>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>MGR ONLINE</span>
                     </div>
 
-                    <nav style={{ padding: '0 10px' }}>
-                        {menuItems.map((item) => {
-                            const isActive = location.pathname.startsWith(item.path);
-                            return (
-                                <Link
-                                    key={item.path}
-                                    to={item.path}
-                                    data-cy={`menu-${item.label.toLowerCase().replace(/\s/g, '-')}`}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '10px',
-                                        padding: '12px 16px',
-                                        color: isActive ? 'var(--primary)' : 'var(--text)',
-                                        background: isActive ? 'var(--bg-active)' : 'transparent',
-                                        borderRadius: '8px',
-                                        textDecoration: 'none',
-                                        marginBottom: '4px',
-                                        fontWeight: isActive ? 600 : 400
-                                    }}
-                                >
-                                    <span>{item.icon}</span>
-                                    {item.label}
-                                </Link>
-                            );
-                        })}
+                    <button
+                        onClick={handleLogout}
+                        className="btn btn-danger"
+                        data-cy="btn-logout"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            width: '100%',
+                            justifyContent: 'center',
+                            marginTop: '8px'
+                        }}
+                    >
+                        🚪 Logout
+                    </button>
+                </div>
+            </aside>
 
-                        <div style={{ height: '1px', background: 'var(--line)', margin: '10px 0' }}></div>
+            {/* Main Content */}
+            <main style={{ flex: 1, marginLeft: 'var(--sidebar-width)', display: 'flex', flexDirection: 'column' }}>
+                {/* Global Action Bar Integrated as Topbar */}
+                <header className="pc-topbar" style={{ margin: '28px 32px 0' }}>
+                    <GlobalQuickActionBar role={role} />
+                </header>
 
-                        <button
-                            onClick={handleLogout}
-                            data-cy="btn-logout"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                padding: '12px 16px',
-                                color: '#e53935',
-                                background: 'transparent',
-                                border: 'none',
-                                width: '100%',
-                                cursor: 'pointer',
-                                fontSize: '1rem'
-                            }}
-                        >
-                            <span>🚪</span> Logout
-                        </button>
-                    </nav>
-                </aside>
-
-                {/* 3. Main Content Area */}
-                <main style={{ flex: 1, padding: '24px' }}>
+                <div style={{ padding: '28px 32px 36px', flex: 1 }}>
                     {children}
-                </main>
+                </div>
+            </main>
 
-            </div>
-
-            {/* 4. Floating Action Button */}
             <SideFloatingButton />
-
         </div>
     );
 }

@@ -3,12 +3,15 @@ export type Bindings = {
     JWT_SECRET: string;
     DOCS_BUCKET: R2Bucket;
     STRIPE_SECRET_KEY: string;
+    CHAT_SERVER: DurableObjectNamespace;
 };
 
 export type Variables = {
     jwtPayload: {
         sub: string;
         role: string;
+        tenantId: string;
     };
-    prisma: any; // Ideally this would be the specific extended PrismaClient type
+    prisma: any;
+    can: (action: string, resource: string, resourceId?: string) => Promise<boolean>;
 };

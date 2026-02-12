@@ -20,44 +20,39 @@ export function CTASection({
 }: CTASectionProps) {
     return (
         <section style={{
-            padding: '4rem 2rem',
-            backgroundColor: 'white',
+            padding: '8rem 2rem',
+            backgroundColor: 'var(--bg-800)',
             textAlign: 'center',
+            borderTop: '1px solid var(--card-border)'
         }}>
-            <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
-                    <h2 data-cy="cta-title" style={{ fontSize: '2rem', marginBottom: '1rem', color: '#333' }}>
+                    <h2 data-cy="cta-title" style={{ fontSize: '3.2rem', fontWeight: 900, marginBottom: '1.5rem', color: 'var(--text-100)', letterSpacing: '-1.5px' }}>
                         {title}
                     </h2>
                 </AnimatedSection>
 
                 <AnimatedSection animation="fadeInUp" delay={0.1}>
-                    <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: '2rem' }}>
+                    <p style={{ fontSize: '1.25rem', color: 'var(--text-300)', marginBottom: '3.5rem', lineHeight: '1.6' }}>
                         {subtitle}
                     </p>
                 </AnimatedSection>
 
                 <AnimatedSection animation="fadeInUp" delay={0.2}>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
                         <Link
                             to={primaryCTA.link}
                             data-cy="cta-primary"
                             style={{
-                                padding: '1rem 2rem',
-                                backgroundColor: '#00897b',
-                                color: 'white',
+                                padding: '1.4rem 3.5rem',
+                                backgroundColor: 'var(--brand-500)',
+                                color: 'var(--bg-900)',
                                 textDecoration: 'none',
-                                borderRadius: '8px',
-                                fontWeight: 'bold',
-                                transition: 'transform 0.2s, box-shadow 0.2s',
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-3px)';
-                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,77,64,0.3)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = 'none';
+                                borderRadius: '50px',
+                                fontWeight: 900,
+                                fontSize: '1.1rem',
+                                boxShadow: '0 8px 30px rgba(46, 196, 182, 0.4)',
+                                transition: 'var(--pc-transition)'
                             }}
                         >
                             {primaryCTA.text}
@@ -66,22 +61,23 @@ export function CTASection({
                             to={secondaryCTA.link}
                             data-cy="cta-secondary"
                             style={{
-                                padding: '1rem 2rem',
-                                backgroundColor: 'white',
-                                color: '#00897b',
+                                padding: '1.4rem 3.5rem',
+                                backgroundColor: 'transparent',
+                                color: 'var(--text-100)',
                                 textDecoration: 'none',
-                                borderRadius: '8px',
-                                fontWeight: 'bold',
-                                border: '2px solid #00897b',
-                                transition: 'all 0.2s',
+                                borderRadius: '50px',
+                                fontWeight: 900,
+                                fontSize: '1.1rem',
+                                border: '2px solid rgba(255,255,255,0.2)',
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#00897b';
-                                e.currentTarget.style.color = 'white';
+                                e.currentTarget.style.borderColor = 'var(--text-100)';
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'white';
-                                e.currentTarget.style.color = '#00897b';
+                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                                e.currentTarget.style.background = 'transparent';
                             }}
                         >
                             {secondaryCTA.text}

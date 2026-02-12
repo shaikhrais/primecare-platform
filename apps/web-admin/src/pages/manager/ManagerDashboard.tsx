@@ -48,42 +48,39 @@ export default function ManagerDashboard() {
         fetchData();
     }, []);
 
-    const QuickActionCard = ({ label, icon, onClick, color = 'var(--bg-elev)', dataCy }: any) => (
+    const QuickActionCard = ({ label, icon, onClick, dataCy }: any) => (
         <div
+            className="pc-card"
             data-cy={dataCy}
             onClick={onClick}
             style={{
-                backgroundColor: color,
                 padding: '24px',
-                borderRadius: '16px',
-                border: '1px solid var(--line)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '16px',
-                cursor: 'pointer',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+                cursor: 'pointer'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
             <div style={{ fontSize: '2.5rem' }}>{icon}</div>
-            <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>{label}</div>
+            <div style={{ fontWeight: 900, fontSize: '1.2rem', color: 'var(--brand-500)', letterSpacing: '.2px' }}>{label}</div>
         </div>
     );
 
     const KPICard = ({ label, value, color, dataCy }: any) => (
-        <div data-cy={dataCy} style={{ padding: '20px', borderRadius: '12px', background: 'var(--bg-elev)', borderLeft: `5px solid ${color}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase' }}>{label}</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text)' }}>{value}</div>
+        <div className="pc-card" data-cy={dataCy} style={{ padding: '20px', borderLeft: `4px solid ${color}` }}>
+            <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{label}</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{value}</div>
         </div>
     );
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
+        <div data-cy="page.container">
             <div data-cy="mgr-dashboard">
 
-                <h1 className="display-text" style={{ marginBottom: '24px' }} data-cy="page.title">Manager Dashboard</h1>
+                <div style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">Manager Dashboard</h1>
+                    <p className="sub" style={{ margin: 0 }}>Operational overview and rapid metrics</p>
+                </div>
 
                 {/* KPI Section */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
@@ -94,9 +91,9 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* Quick Action Grid */}
-                <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Quick Actions</h2>
+                <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Quick Actions</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                    <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} color="var(--primary-light)" dataCy="qa-daily-entry" />
+                    <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} dataCy="qa-daily-entry" />
                     <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
                     <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} dataCy="qa-end-shift" />
                     <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} dataCy="qa-log-incident" />
@@ -105,24 +102,26 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* Today's Timeline */}
-                <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', opacity: 0.8 }}>Today's Timeline</h2>
-                <div style={{ background: 'var(--bg-elev)', borderRadius: '16px', padding: '20px', border: '1px solid var(--line)' }}>
-                    {shifts.length === 0 ? (
-                        <p style={{ opacity: 0.6, textAlign: 'center', padding: '20px' }}>No shifts scheduled for today.</p>
-                    ) : (
-                        shifts.map((shift) => (
-                            <div key={shift.id} style={{ display: 'flex', gap: '20px', padding: '16px 0', borderBottom: '1px solid var(--line)', alignItems: 'center' }}>
-                                <div style={{ fontWeight: 800, width: '80px', textAlign: 'right', color: 'var(--primary)' }}>
-                                    {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Today's Timeline</h2>
+                <div className="pc-card">
+                    <div className="pc-card-b" style={{ padding: '0 24px' }}>
+                        {shifts.length === 0 ? (
+                            <p style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>No shifts scheduled for today.</p>
+                        ) : (
+                            shifts.map((shift) => (
+                                <div key={shift.id} style={{ display: 'flex', gap: '20px', padding: '20px 0', borderBottom: '1px solid var(--card-border)', alignItems: 'center' }}>
+                                    <div style={{ fontWeight: 900, width: '90px', textAlign: 'right', color: 'var(--brand-500)', fontSize: '0.9rem' }}>
+                                        {new Date(shift.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: 900, color: 'var(--text-100)', fontSize: '1.05rem' }}>{shift.client?.fullName || 'Untitled Client'}</div>
+                                        <div style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : <span style={{ color: 'var(--brand-500)' }}>Unassigned</span>}</div>
+                                    </div>
+                                    <button data-cy={`btn-view-shift-${shift.id}`} className="btn" style={{ padding: '8px 16px', fontSize: '13px' }} onClick={() => navigate(`/visits/${shift.id}`)}>View Details</button>
                                 </div>
-                                <div style={{ flex: 1 }}>
-                                    <div style={{ fontWeight: 700 }}>{shift.client?.fullName || 'Untitled Client'}</div>
-                                    <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>{shift.service?.name || 'General Service'} • {shift.psw ? shift.psw.fullName : 'Unassigned'}</div>
-                                </div>
-                                <button data-cy={`btn-view-shift-${shift.id}`} className="btn btn-sm" onClick={() => navigate(`/visits/${shift.id}`)}>View</button>
-                            </div>
-                        ))
-                    )}
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

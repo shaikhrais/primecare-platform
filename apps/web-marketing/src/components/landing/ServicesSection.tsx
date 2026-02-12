@@ -45,35 +45,38 @@ const defaultServices: Service[] = [
 
 export function ServicesSection({ services = defaultServices }: ServicesSectionProps) {
     return (
-        <section style={{ padding: '6rem 2rem', backgroundColor: '#f8f9fa' }}>
+        <section style={{ padding: '8rem 2rem', backgroundColor: 'var(--bg-900)' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
                     <h2
                         data-cy="services-header"
                         style={{
-                            fontSize: '2.5rem',
+                            fontSize: '3rem',
                             textAlign: 'center',
                             marginBottom: '1rem',
-                            color: '#333',
+                            fontWeight: 900,
+                            color: 'var(--text-100)',
+                            letterSpacing: '-1px'
                         }}>
-                        Our Services
+                        Our Core Solutions
                     </h2>
                     <p style={{
                         textAlign: 'center',
-                        fontSize: '1.2rem',
-                        color: '#666',
-                        marginBottom: '4rem',
-                        maxWidth: '600px',
-                        margin: '0 auto 4rem auto',
+                        fontSize: '1.25rem',
+                        color: 'var(--text-300)',
+                        marginBottom: '5rem',
+                        maxWidth: '700px',
+                        margin: '0 auto 5rem auto',
+                        lineHeight: '1.6'
                     }}>
-                        Comprehensive healthcare solutions tailored to your unique needs
+                        Premium healthcare services powered by compassion and advanced healthcare technology.
                     </p>
                 </AnimatedSection>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gap: '2rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '2.5rem'
                 }}>
                     {services.map((service, index) => (
                         <AnimatedSection
@@ -87,30 +90,34 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                                 style={{ textDecoration: 'none', display: 'block', height: '100%' }}
                             >
                                 <div style={{
-                                    backgroundColor: 'white',
-                                    padding: '2.5rem',
-                                    borderRadius: '16px',
-                                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                                    transition: 'transform 0.3s, box-shadow 0.3s',
+                                    backgroundColor: 'var(--bg-800)',
+                                    padding: '3rem 2.5rem',
+                                    borderRadius: '24px',
+                                    border: '1px solid var(--card-border)',
+                                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                                     height: '100%',
                                     cursor: 'pointer',
+                                    position: 'relative',
+                                    overflow: 'hidden'
                                 }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(-8px)';
-                                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)';
+                                        e.currentTarget.style.transform = 'translateY(-12px)';
+                                        e.currentTarget.style.borderColor = 'var(--brand-500)';
+                                        e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(46, 196, 182, 0.1)';
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+                                        e.currentTarget.style.borderColor = 'var(--card-border)';
+                                        e.currentTarget.style.boxShadow = 'none';
                                     }}
                                 >
-                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{service.icon}</div>
-                                    <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: '#00897b' }}>
+                                    <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem', display: 'inline-block' }}>{service.icon}</div>
+                                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: '1rem', color: 'var(--text-100)', letterSpacing: '.2px' }}>
                                         {service.title}
                                     </h3>
-                                    <p style={{ color: '#666', lineHeight: '1.7' }}>{service.description}</p>
-                                    <div style={{ marginTop: '1.5rem', color: '#00897b', fontWeight: 'bold' }}>
-                                        Learn More →
+                                    <p style={{ color: 'var(--text-300)', lineHeight: '1.8', fontSize: '1rem' }}>{service.description}</p>
+                                    <div style={{ marginTop: '2rem', color: 'var(--brand-500)', fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        Explore Service <span style={{ transition: 'transform 0.3s' }}>→</span>
                                     </div>
                                 </div>
                             </Link>
