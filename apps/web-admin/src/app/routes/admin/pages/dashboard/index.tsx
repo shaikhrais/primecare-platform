@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '../../../../../shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
 export default function AdminDashboard() {
+    const { showToast } = useNotification();
     const [stats, setStats] = useState({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0 });
     const [loading, setLoading] = useState(true);
 

@@ -21,6 +21,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
       "prime-care-shared": [
         "../../packages/shared/src/index.ts"
       ]

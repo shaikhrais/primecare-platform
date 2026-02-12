@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../App';
+import { useNotification } from '../../context/NotificationContext';
 
 export default function ShiftConfirmation() {
     const navigate = useNavigate();

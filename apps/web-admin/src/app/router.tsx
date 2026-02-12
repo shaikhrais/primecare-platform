@@ -10,14 +10,14 @@ import AdminLayout from '../shared/components/layout/AdminLayout';
 import ManagerLayout from '../shared/components/layout/ManagerLayout';
 
 // Shared/Auth Pages (to be moved eventually)
-import RnRoutes from './routes/rn';
-import ManagerRoutes from './routes/manager';
-import PswRoutes from './routes/psw';
-import ClientRoutes from './routes/client';
+// import RnRoutes from './routes/rn';
+// import ManagerRoutes from './routes/manager';
+// import PswRoutes from './routes/psw';
+// import ClientRoutes from './routes/client';
 import AdminRoutes from './routes/admin';
-import StaffRoutes from './routes/staff';
+// import StaffRoutes from './routes/staff';
 import AuthRoutes from './routes/auth';
-import SharedRoutes from './routes/shared';
+// import SharedRoutes from './routes/shared';
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -42,67 +42,7 @@ export const AppRouter: React.FC = () => {
                     </RequireRole>
                 }
             />
-
-            {/* Manager Routes */}
-            <Route
-                path="/manager/*"
-                element={
-                    <RequireRole allowedRoles={['manager', 'admin']}>
-                        <ManagerRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* RN Routes */}
-            <Route
-                path="/rn/*"
-                element={
-                    <RequireRole allowedRoles={['rn', 'admin']}>
-                        <RnRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* PSW Routes */}
-            <Route
-                path="/psw/*"
-                element={
-                    <RequireRole allowedRoles={['psw', 'admin']}>
-                        <PswRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* Client Routes */}
-            <Route
-                path="/client/*"
-                element={
-                    <RequireRole allowedRoles={['client', 'admin']}>
-                        <ClientRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* Staff Routes */}
-            <Route
-                path="/staff/*"
-                element={
-                    <RequireRole allowedRoles={['staff', 'admin']}>
-                        <StaffRoutes />
-                    </RequireRole>
-                }
-            />
-
-            {/* Shared Routes */}
-            <Route path="/app/*" element={<SharedRoutes />} />
-
-            {/* Legacy/Common Mappings */}
-            <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
-            <Route path="/support" element={<Navigate to="/app/support" replace />} />
-            <Route path="/messaging" element={<Navigate to="/app/messaging" replace />} />
-
-            {/* Fallback */}
-            <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="/" element={<div>Root</div>} />
         </Routes>
     );
 };

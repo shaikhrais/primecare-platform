@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      '@': resolve(__dirname, './src'),
       'prime-care-shared': resolve(__dirname, '../../packages/shared/src/index.ts'),
     },
   },

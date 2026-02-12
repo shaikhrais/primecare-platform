@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import QuickActions from '../dashboard/QuickActions';
-import RoleSwitcher from './RoleSwitcher';
-import NotificationHub from './NotificationHub';
+import QuickActions from '@/shared/components/dashboard/QuickActions';
+import RoleSwitcher from '@/shared/components/layout/RoleSwitcher';
+import NotificationHub from '@/shared/components/layout/NotificationHub';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -74,7 +74,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
         { label: 'Incidents', path: '/incidents', icon: '🚨' },
         { label: 'Timesheets', path: '/timesheets', icon: '⏰' },
-        { label: 'Invoices', path: '/billing', icon: '💳' }, // Reuse billing as invoices list for now
+        { label: 'Invoices', path: '/billing', icon: '💳' },
         { label: 'Lead Inquiries', path: '/leads', icon: '📥' },
         { label: 'Services', path: '/services', icon: '💰' },
         { label: 'Call Audits', path: '/audits', icon: '🎙️' },

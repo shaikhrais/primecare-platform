@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../App';
+import { useNotification } from '../../context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { ContentRegistry } = AdminRegistry;
