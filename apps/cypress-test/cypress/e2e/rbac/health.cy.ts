@@ -1,4 +1,4 @@
-/// <reference path="../support/index.d.ts" />
+/// <reference path="../../support/index.d.ts" />
 
 /**
  * Quality & Health Suite

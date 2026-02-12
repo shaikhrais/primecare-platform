@@ -1,4 +1,5 @@
-/// <reference path="../../support/index.d.ts" />
+/// <reference path="../../../support/index.d.ts" />
+import { SELECTORS } from "../../../support/selectors";
 
 /**
  * SEO & Responsive Suite

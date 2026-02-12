@@ -1,4 +1,4 @@
-/// <reference path="../../support/index.d.ts" />
+/// <reference path="../../../support/index.d.ts" />
 describe("Marketing Routes Smoke", { tags: ["@smoke", "@marketing"] }, () => {
     it("loads every marketing page without blank screen", () => {
         cy.fixture("registry/routes.marketing.json").then((cfg) => {

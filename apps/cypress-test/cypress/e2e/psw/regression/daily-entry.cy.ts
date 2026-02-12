@@ -1,5 +1,5 @@
-/// <reference path="../../support/index.d.ts" />
-import { SELECTORS } from "../../support/selectors";
+/// <reference path="../../../support/index.d.ts" />
+import { SELECTORS } from "../../../support/selectors";
 
 const DE = SELECTORS.MANAGER.DAILY_ENTRY;
 const byCy = (v: string) => `[data-cy="${v}"]`;
