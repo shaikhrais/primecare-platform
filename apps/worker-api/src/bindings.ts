@@ -13,6 +13,10 @@ export type Variables = {
         activeRole: string;
         tenantId: string;
     };
+    user: {
+        id: string;
+        role: string;
+    };
     prisma: any;
     can: (action: string, resource: string, resourceId?: string) => Promise<boolean>;
 };

@@ -16,6 +16,7 @@ enum Role {
   staff
   admin
   finance
+  rn
 }
 
 enum DocStatus {
@@ -75,7 +76,8 @@ enum InvoiceStatus {
 
 model User {
   id               String    @id @default(uuid())
-  role             Role
+  tenantId         String    @map("tenant_id")
+  roles            Role[]    @default([client])
   email            String    @unique
   phone            String?
   passwordHash     String    @map("password_hash")
@@ -86,6 +88,7 @@ model User {
   createdAt        DateTime  @default(now()) @map("created_at")
   updatedAt        DateTime  @updatedAt @map("updated_at")
 
+  tenant             Tenant            @relation(fields: [tenantId], references: [id])
   clientProfile      ClientProfile?
   pswProfile         PswProfile?
   verifiedDocs       PswDocument[]     @relation("VerifiedBy")
@@ -96,12 +99,39 @@ model User {
   blogPosts          BlogPost[]
   VisitCheckEvent    VisitCheckEvent[]
   DailyEntry         DailyEntry[]
+  notifications      Notification[]
 
+  @@index([tenantId])
   @@map("users")
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  status    String   @default("active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users          User[]
+  clientProfiles ClientProfile[]
+  pswProfiles    PswProfile[]
+  visits         Visit[]
+  services       Service[]
+  auditLogs      AuditLog[]
+  dailyEntries   DailyEntry[]
+  incidents      Incident[]
+  timesheets     Timesheet[]
+  invoices       Invoice[]
+  messageThreads MessageThread[]
+  notifications  Notification[]
+
+  @@map("tenants")
 }
 
 model ClientProfile {
   id             String    @id @default(uuid())
+  tenantId       String    @map("tenant_id")
   userId         String    @unique @map("user_id")
   fullName       String    @map("full_name")
   dob            DateTime?
@@ -115,20 +145,25 @@ model ClientProfile {
   emergencyName  String?   @map("emergency_contact_name")
   emergencyPhone String?   @map("emergency_contact_phone")
   preferences    Json?     @map("preferences_json")
+  carePlan       Json?     @map("care_plan_json")
+  riskLevel      String?   @map("risk_level")
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
   user           User            @relation(fields: [userId], references: [id])
   visits         Visit[]
   invoices       Invoice[]
   messageThreads MessageThread[]
   DailyEntry     DailyEntry[]
 
+  @@index([tenantId])
   @@map("client_profiles")
 }
 
 model PswProfile {
   id           String    @id @default(uuid())
+  tenantId     String    @map("tenant_id")
   userId       String    @unique @map("user_id")
   fullName     String    @map("full_name")
   bio          String?
@@ -140,6 +175,7 @@ model PswProfile {
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
+  tenant         Tenant            @relation(fields: [tenantId], references: [id])
   user           User              @relation(fields: [userId], references: [id])
   documents      PswDocument[]
   assignedVisits Visit[]
@@ -149,11 +185,13 @@ model PswProfile {
   timesheets     Timesheet[]
   messageThreads MessageThread[]
 
+  @@index([tenantId])
   @@map("psw_profiles")
 }
 
 model Visit {
   id                  String       @id @default(uuid())
+  tenantId            String       @map("tenant_id")
   clientId            String       @map("client_id")
   serviceId           String       @map("service_id")
   requestedStartAt    DateTime     @map("requested_start_at")
@@ -173,6 +211,7 @@ model Visit {
   createdAt           DateTime     @default(now()) @map("created_at")
   updatedAt           DateTime     @updatedAt @map("updated_at")
 
+  tenant         Tenant            @relation(fields: [tenantId], references: [id])
   client         ClientProfile     @relation(fields: [clientId], references: [id])
   service        Service           @relation(fields: [serviceId], references: [id])
   psw            PswProfile?       @relation(fields: [assignedPswId], references: [id])
@@ -183,11 +222,13 @@ model Visit {
   timesheetItems TimesheetItem[]
   DailyEntry     DailyEntry[]
 
+  @@index([tenantId])
   @@map("visits")
 }
 
 model Service {
   id             String   @id @default(uuid())
+  tenantId       String   @map("tenant_id")
   name           String
   slug           String   @unique
   description    String?
@@ -195,8 +236,11 @@ model Service {
   isActive       Boolean? @default(true) @map("is_active")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
-  visits         Visit[]
 
+  tenant Tenant  @relation(fields: [tenantId], references: [id])
+  visits Visit[]
+
+  @@index([tenantId])
   @@map("services")
 }
 
@@ -253,6 +297,7 @@ model VisitChecklist {
 
 model Incident {
   id              String          @id @default(uuid())
+  tenantId        String          @map("tenant_id")
   visitId         String?         @map("visit_id")
   reporterUserId  String          @map("reporter_user_id")
   type            IncidentType
@@ -262,14 +307,17 @@ model Incident {
   createdAt       DateTime        @default(now()) @map("created_at")
   updatedAt       DateTime        @updatedAt @map("updated_at")
 
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
   visit    Visit? @relation(fields: [visitId], references: [id])
   reporter User   @relation("Reporter", fields: [reporterUserId], references: [id])
 
+  @@index([tenantId])
   @@map("incidents")
 }
 
 model Timesheet {
   id           String           @id @default(uuid())
+  tenantId     String           @map("tenant_id")
   pswId        String           @map("psw_id")
   weekId       String           @map("week_id")
   totalMinutes Int?             @default(0) @map("total_minutes")
@@ -280,10 +328,12 @@ model Timesheet {
   createdAt    DateTime         @default(now()) @map("created_at")
   updatedAt    DateTime         @updatedAt @map("updated_at")
 
+  tenant   Tenant          @relation(fields: [tenantId], references: [id])
   psw      PswProfile      @relation(fields: [pswId], references: [id])
   reviewer User?           @relation("ReviewedBy", fields: [reviewedBy], references: [id])
   items    TimesheetItem[]
 
+  @@index([tenantId])
   @@map("timesheets")
 }
 
@@ -302,6 +352,7 @@ model TimesheetItem {
 
 model Invoice {
   id              String         @id @default(uuid())
+  tenantId        String         @map("tenant_id")
   clientId        String         @map("client_id")
   status          InvoiceStatus? @default(draft)
   currency        String?        @default("CAD")
@@ -312,9 +363,11 @@ model Invoice {
   createdAt       DateTime       @default(now()) @map("created_at")
   updatedAt       DateTime       @updatedAt @map("updated_at")
 
+  tenant   Tenant        @relation(fields: [tenantId], references: [id])
   client   ClientProfile @relation(fields: [clientId], references: [id])
   payments Payment[]
 
+  @@index([tenantId])
   @@map("invoices")
 }
 
@@ -334,15 +387,18 @@ model Payment {
 
 model MessageThread {
   id         String   @id @default(uuid())
+  tenantId   String   @map("tenant_id")
   threadType String   @map("thread_type")
   clientId   String?  @map("client_id")
   pswId      String?  @map("psw_id")
   createdAt  DateTime @default(now()) @map("created_at")
 
+  tenant   Tenant         @relation(fields: [tenantId], references: [id])
   client   ClientProfile? @relation(fields: [clientId], references: [id])
   psw      PswProfile?    @relation(fields: [pswId], references: [id])
   messages Message[]
 
+  @@index([tenantId])
   @@map("messages_threads")
 }
 
@@ -361,6 +417,7 @@ model Message {
 
 model AuditLog {
   id           String   @id @default(uuid())
+  tenantId     String   @map("tenant_id")
   actorUserId  String?  @map("actor_user_id")
   action       String
   resourceType String   @map("resource_type")
@@ -369,8 +426,10 @@ model AuditLog {
   ipAddress    String?  @map("ip_address")
   createdAt    DateTime @default(now()) @map("created_at")
 
-  actor User? @relation(fields: [actorUserId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  actor  User?  @relation(fields: [actorUserId], references: [id])
 
+  @@index([tenantId])
   @@map("audit_logs")
 }
 
@@ -445,6 +504,7 @@ enum DailyEntryStatus {
 
 model DailyEntry {
   id         String           @id @default(uuid())
+  tenantId   String           @map("tenant_id")
   clientId   String           @map("client_id")
   staffId    String           @map("staff_id")
   visitId    String?          @map("visit_id")
@@ -458,9 +518,31 @@ model DailyEntry {
   createdAt  DateTime         @default(now()) @map("created_at")
   updatedAt  DateTime         @updatedAt @map("updated_at")
 
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
   client ClientProfile @relation(fields: [clientId], references: [id])
   staff  User          @relation(fields: [staffId], references: [id])
   visit  Visit?        @relation(fields: [visitId], references: [id])
 
+  @@index([tenantId])
   @@map("daily_entries")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  tenantId  String   @map("tenant_id")
+  userId    String   @map("user_id")
+  title     String
+  message   String
+  type      String   @default("info")
+  role      String?
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@map("notifications")
 }

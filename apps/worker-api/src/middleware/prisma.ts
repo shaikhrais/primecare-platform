@@ -13,6 +13,15 @@ export const prismaMiddleware = () => {
         }
 
         c.set('prisma', prismaInstance);
+
+        // Mock 'can' function for now, or link to policy engine
+        c.set('can', async (action: string, resource: string, resourceId?: string) => {
+            const payload = c.get('jwtPayload');
+            if (!payload) return false;
+            // Basic role check or call policies
+            return payload.roles.includes('admin');
+        });
+
         await next();
     });
 };

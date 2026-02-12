@@ -124,7 +124,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  role: 'role',
+  tenantId: 'tenantId',
+  roles: 'roles',
   email: 'email',
   phone: 'phone',
   passwordHash: 'passwordHash',
@@ -136,8 +137,18 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TenantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ClientProfileScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   fullName: 'fullName',
   dob: 'dob',
@@ -151,12 +162,15 @@ exports.Prisma.ClientProfileScalarFieldEnum = {
   emergencyName: 'emergencyName',
   emergencyPhone: 'emergencyPhone',
   preferences: 'preferences',
+  carePlan: 'carePlan',
+  riskLevel: 'riskLevel',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PswProfileScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   fullName: 'fullName',
   bio: 'bio',
@@ -171,6 +185,7 @@ exports.Prisma.PswProfileScalarFieldEnum = {
 
 exports.Prisma.VisitScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   clientId: 'clientId',
   serviceId: 'serviceId',
   requestedStartAt: 'requestedStartAt',
@@ -193,6 +208,7 @@ exports.Prisma.VisitScalarFieldEnum = {
 
 exports.Prisma.ServiceScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   slug: 'slug',
   description: 'description',
@@ -239,6 +255,7 @@ exports.Prisma.VisitChecklistScalarFieldEnum = {
 
 exports.Prisma.IncidentScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   visitId: 'visitId',
   reporterUserId: 'reporterUserId',
   type: 'type',
@@ -251,6 +268,7 @@ exports.Prisma.IncidentScalarFieldEnum = {
 
 exports.Prisma.TimesheetScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   pswId: 'pswId',
   weekId: 'weekId',
   totalMinutes: 'totalMinutes',
@@ -272,6 +290,7 @@ exports.Prisma.TimesheetItemScalarFieldEnum = {
 
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   clientId: 'clientId',
   status: 'status',
   currency: 'currency',
@@ -295,6 +314,7 @@ exports.Prisma.PaymentScalarFieldEnum = {
 
 exports.Prisma.MessageThreadScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   threadType: 'threadType',
   clientId: 'clientId',
   pswId: 'pswId',
@@ -311,6 +331,7 @@ exports.Prisma.MessageScalarFieldEnum = {
 
 exports.Prisma.AuditLogScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   actorUserId: 'actorUserId',
   action: 'action',
   resourceType: 'resourceType',
@@ -373,6 +394,7 @@ exports.Prisma.FAQScalarFieldEnum = {
 
 exports.Prisma.DailyEntryScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   clientId: 'clientId',
   staffId: 'staffId',
   visitId: 'visitId',
@@ -383,6 +405,19 @@ exports.Prisma.DailyEntryScalarFieldEnum = {
   notes: 'notes',
   signature: 'signature',
   status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  role: 'role',
+  isRead: 'isRead',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -423,7 +458,8 @@ exports.Role = exports.$Enums.Role = {
   coordinator: 'coordinator',
   staff: 'staff',
   admin: 'admin',
-  finance: 'finance'
+  finance: 'finance',
+  rn: 'rn'
 };
 
 exports.VisitStatus = exports.$Enums.VisitStatus = {
@@ -488,6 +524,7 @@ exports.DailyEntryStatus = exports.$Enums.DailyEntryStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Tenant: 'Tenant',
   ClientProfile: 'ClientProfile',
   PswProfile: 'PswProfile',
   Visit: 'Visit',
@@ -507,7 +544,8 @@ exports.Prisma.ModelName = {
   BlogPost: 'BlogPost',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
-  DailyEntry: 'DailyEntry'
+  DailyEntry: 'DailyEntry',
+  Notification: 'Notification'
 };
 
 /**

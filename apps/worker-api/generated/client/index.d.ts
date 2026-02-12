@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Tenant
+ * 
+ */
+export type Tenant = $Result.DefaultSelection<Prisma.$TenantPayload>
+/**
  * Model ClientProfile
  * 
  */
@@ -118,6 +123,11 @@ export type FAQ = $Result.DefaultSelection<Prisma.$FAQPayload>
  * 
  */
 export type DailyEntry = $Result.DefaultSelection<Prisma.$DailyEntryPayload>
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
 
 /**
  * Enums
@@ -130,7 +140,8 @@ export namespace $Enums {
   coordinator: 'coordinator',
   staff: 'staff',
   admin: 'admin',
-  finance: 'finance'
+  finance: 'finance',
+  rn: 'rn'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -398,6 +409,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
+   * `prisma.tenant`: Exposes CRUD operations for the **Tenant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tenants
+    * const tenants = await prisma.tenant.findMany()
+    * ```
+    */
+  get tenant(): Prisma.TenantDelegate<ExtArgs>;
+
+  /**
    * `prisma.clientProfile`: Exposes CRUD operations for the **ClientProfile** model.
     * Example usage:
     * ```ts
@@ -596,6 +617,16 @@ export class PrismaClient<
     * ```
     */
   get dailyEntry(): Prisma.DailyEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1038,6 +1069,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Tenant: 'Tenant',
     ClientProfile: 'ClientProfile',
     PswProfile: 'PswProfile',
     Visit: 'Visit',
@@ -1057,7 +1089,8 @@ export namespace Prisma {
     BlogPost: 'BlogPost',
     PswDocument: 'PswDocument',
     FAQ: 'FAQ',
-    DailyEntry: 'DailyEntry'
+    DailyEntry: 'DailyEntry',
+    Notification: 'Notification'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1073,7 +1106,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry"
+      modelProps: "user" | "tenant" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry" | "notification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1144,6 +1177,76 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tenant: {
+        payload: Prisma.$TenantPayload<ExtArgs>
+        fields: Prisma.TenantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          findMany: {
+            args: Prisma.TenantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>[]
+          }
+          create: {
+            args: Prisma.TenantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          createMany: {
+            args: Prisma.TenantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          update: {
+            args: Prisma.TenantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TenantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenant>
+          }
+          groupBy: {
+            args: Prisma.TenantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantCountAggregateOutputType> | number
           }
         }
       }
@@ -2547,6 +2650,76 @@ export namespace Prisma {
           }
         }
       }
+      Notification: {
+        payload: Prisma.$NotificationPayload<ExtArgs>
+        fields: Prisma.NotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          update: {
+            args: Prisma.NotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification>
+          }
+          groupBy: {
+            args: Prisma.NotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2716,6 +2889,7 @@ export namespace Prisma {
     blogPosts: number
     VisitCheckEvent: number
     DailyEntry: number
+    notifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2727,6 +2901,7 @@ export namespace Prisma {
     blogPosts?: boolean | UserCountOutputTypeCountBlogPostsArgs
     VisitCheckEvent?: boolean | UserCountOutputTypeCountVisitCheckEventArgs
     DailyEntry?: boolean | UserCountOutputTypeCountDailyEntryArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
   // Custom InputTypes
@@ -2794,6 +2969,143 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DailyEntryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+
+  /**
+   * Count Type TenantCountOutputType
+   */
+
+  export type TenantCountOutputType = {
+    users: number
+    clientProfiles: number
+    pswProfiles: number
+    visits: number
+    services: number
+    auditLogs: number
+    dailyEntries: number
+    incidents: number
+    timesheets: number
+    invoices: number
+    messageThreads: number
+    notifications: number
+  }
+
+  export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | TenantCountOutputTypeCountUsersArgs
+    clientProfiles?: boolean | TenantCountOutputTypeCountClientProfilesArgs
+    pswProfiles?: boolean | TenantCountOutputTypeCountPswProfilesArgs
+    visits?: boolean | TenantCountOutputTypeCountVisitsArgs
+    services?: boolean | TenantCountOutputTypeCountServicesArgs
+    auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
+    dailyEntries?: boolean | TenantCountOutputTypeCountDailyEntriesArgs
+    incidents?: boolean | TenantCountOutputTypeCountIncidentsArgs
+    timesheets?: boolean | TenantCountOutputTypeCountTimesheetsArgs
+    invoices?: boolean | TenantCountOutputTypeCountInvoicesArgs
+    messageThreads?: boolean | TenantCountOutputTypeCountMessageThreadsArgs
+    notifications?: boolean | TenantCountOutputTypeCountNotificationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCountOutputType
+     */
+    select?: TenantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountClientProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientProfileWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPswProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PswProfileWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountVisitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VisitWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDailyEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyEntryWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountIncidentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IncidentWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountTimesheetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TimesheetWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountMessageThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageThreadWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
 
@@ -3156,7 +3468,7 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    role: $Enums.Role | null
+    tenantId: string | null
     email: string | null
     phone: string | null
     passwordHash: string | null
@@ -3170,7 +3482,7 @@ export namespace Prisma {
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    role: $Enums.Role | null
+    tenantId: string | null
     email: string | null
     phone: string | null
     passwordHash: string | null
@@ -3184,7 +3496,8 @@ export namespace Prisma {
 
   export type UserCountAggregateOutputType = {
     id: number
-    role: number
+    tenantId: number
+    roles: number
     email: number
     phone: number
     passwordHash: number
@@ -3200,7 +3513,7 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    role?: true
+    tenantId?: true
     email?: true
     phone?: true
     passwordHash?: true
@@ -3214,7 +3527,7 @@ export namespace Prisma {
 
   export type UserMaxAggregateInputType = {
     id?: true
-    role?: true
+    tenantId?: true
     email?: true
     phone?: true
     passwordHash?: true
@@ -3228,7 +3541,8 @@ export namespace Prisma {
 
   export type UserCountAggregateInputType = {
     id?: true
-    role?: true
+    tenantId?: true
+    roles?: true
     email?: true
     phone?: true
     passwordHash?: true
@@ -3315,7 +3629,8 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    role: $Enums.Role
+    tenantId: string
+    roles: $Enums.Role[]
     email: string
     phone: string | null
     passwordHash: string
@@ -3346,7 +3661,8 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    role?: boolean
+    tenantId?: boolean
+    roles?: boolean
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
@@ -3356,6 +3672,7 @@ export namespace Prisma {
     lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     clientProfile?: boolean | User$clientProfileArgs<ExtArgs>
     pswProfile?: boolean | User$pswProfileArgs<ExtArgs>
     verifiedDocs?: boolean | User$verifiedDocsArgs<ExtArgs>
@@ -3366,12 +3683,14 @@ export namespace Prisma {
     blogPosts?: boolean | User$blogPostsArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
     DailyEntry?: boolean | User$DailyEntryArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    role?: boolean
+    tenantId?: boolean
+    roles?: boolean
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
@@ -3381,11 +3700,13 @@ export namespace Prisma {
     lastLoginAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    role?: boolean
+    tenantId?: boolean
+    roles?: boolean
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
@@ -3398,6 +3719,7 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     clientProfile?: boolean | User$clientProfileArgs<ExtArgs>
     pswProfile?: boolean | User$pswProfileArgs<ExtArgs>
     verifiedDocs?: boolean | User$verifiedDocsArgs<ExtArgs>
@@ -3408,13 +3730,17 @@ export namespace Prisma {
     blogPosts?: boolean | User$blogPostsArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
     DailyEntry?: boolean | User$DailyEntryArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       clientProfile: Prisma.$ClientProfilePayload<ExtArgs> | null
       pswProfile: Prisma.$PswProfilePayload<ExtArgs> | null
       verifiedDocs: Prisma.$PswDocumentPayload<ExtArgs>[]
@@ -3425,10 +3751,12 @@ export namespace Prisma {
       blogPosts: Prisma.$BlogPostPayload<ExtArgs>[]
       VisitCheckEvent: Prisma.$VisitCheckEventPayload<ExtArgs>[]
       DailyEntry: Prisma.$DailyEntryPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      role: $Enums.Role
+      tenantId: string
+      roles: $Enums.Role[]
       email: string
       phone: string | null
       passwordHash: string
@@ -3802,6 +4130,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     clientProfile<T extends User$clientProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$clientProfileArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     pswProfile<T extends User$pswProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$pswProfileArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     verifiedDocs<T extends User$verifiedDocsArgs<ExtArgs> = {}>(args?: Subset<T, User$verifiedDocsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswDocumentPayload<ExtArgs>, T, "findMany"> | Null>
@@ -3812,6 +4141,7 @@ export namespace Prisma {
     blogPosts<T extends User$blogPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$blogPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogPostPayload<ExtArgs>, T, "findMany"> | Null>
     VisitCheckEvent<T extends User$VisitCheckEventArgs<ExtArgs> = {}>(args?: Subset<T, User$VisitCheckEventArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitCheckEventPayload<ExtArgs>, T, "findMany"> | Null>
     DailyEntry<T extends User$DailyEntryArgs<ExtArgs> = {}>(args?: Subset<T, User$DailyEntryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3842,7 +4172,8 @@ export namespace Prisma {
    */ 
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly role: FieldRef<"User", 'Role'>
+    readonly tenantId: FieldRef<"User", 'String'>
+    readonly roles: FieldRef<"User", 'Role[]'>
     readonly email: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
@@ -4073,6 +4404,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4356,6 +4691,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4367,6 +4722,1230 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tenant
+   */
+
+  export type AggregateTenant = {
+    _count: TenantCountAggregateOutputType | null
+    _min: TenantMinAggregateOutputType | null
+    _max: TenantMaxAggregateOutputType | null
+  }
+
+  export type TenantMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TenantMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TenantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tenant to aggregate.
+     */
+    where?: TenantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tenants to fetch.
+     */
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tenants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tenants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tenants
+    **/
+    _count?: true | TenantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantMaxAggregateInputType
+  }
+
+  export type GetTenantAggregateType<T extends TenantAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenant[P]>
+      : GetScalarType<T[P], AggregateTenant[P]>
+  }
+
+
+
+
+  export type TenantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantWhereInput
+    orderBy?: TenantOrderByWithAggregationInput | TenantOrderByWithAggregationInput[]
+    by: TenantScalarFieldEnum[] | TenantScalarFieldEnum
+    having?: TenantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantCountAggregateInputType | true
+    _min?: TenantMinAggregateInputType
+    _max?: TenantMaxAggregateInputType
+  }
+
+  export type TenantGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TenantCountAggregateOutputType | null
+    _min: TenantMinAggregateOutputType | null
+    _max: TenantMaxAggregateOutputType | null
+  }
+
+  type GetTenantGroupByPayload<T extends TenantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    users?: boolean | Tenant$usersArgs<ExtArgs>
+    clientProfiles?: boolean | Tenant$clientProfilesArgs<ExtArgs>
+    pswProfiles?: boolean | Tenant$pswProfilesArgs<ExtArgs>
+    visits?: boolean | Tenant$visitsArgs<ExtArgs>
+    services?: boolean | Tenant$servicesArgs<ExtArgs>
+    auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
+    dailyEntries?: boolean | Tenant$dailyEntriesArgs<ExtArgs>
+    incidents?: boolean | Tenant$incidentsArgs<ExtArgs>
+    timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
+    invoices?: boolean | Tenant$invoicesArgs<ExtArgs>
+    messageThreads?: boolean | Tenant$messageThreadsArgs<ExtArgs>
+    notifications?: boolean | Tenant$notificationsArgs<ExtArgs>
+    _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenant"]>
+
+  export type TenantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["tenant"]>
+
+  export type TenantSelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Tenant$usersArgs<ExtArgs>
+    clientProfiles?: boolean | Tenant$clientProfilesArgs<ExtArgs>
+    pswProfiles?: boolean | Tenant$pswProfilesArgs<ExtArgs>
+    visits?: boolean | Tenant$visitsArgs<ExtArgs>
+    services?: boolean | Tenant$servicesArgs<ExtArgs>
+    auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
+    dailyEntries?: boolean | Tenant$dailyEntriesArgs<ExtArgs>
+    incidents?: boolean | Tenant$incidentsArgs<ExtArgs>
+    timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
+    invoices?: boolean | Tenant$invoicesArgs<ExtArgs>
+    messageThreads?: boolean | Tenant$messageThreadsArgs<ExtArgs>
+    notifications?: boolean | Tenant$notificationsArgs<ExtArgs>
+    _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tenant"
+    objects: {
+      users: Prisma.$UserPayload<ExtArgs>[]
+      clientProfiles: Prisma.$ClientProfilePayload<ExtArgs>[]
+      pswProfiles: Prisma.$PswProfilePayload<ExtArgs>[]
+      visits: Prisma.$VisitPayload<ExtArgs>[]
+      services: Prisma.$ServicePayload<ExtArgs>[]
+      auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      dailyEntries: Prisma.$DailyEntryPayload<ExtArgs>[]
+      incidents: Prisma.$IncidentPayload<ExtArgs>[]
+      timesheets: Prisma.$TimesheetPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
+      messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tenant"]>
+    composites: {}
+  }
+
+  type TenantGetPayload<S extends boolean | null | undefined | TenantDefaultArgs> = $Result.GetResult<Prisma.$TenantPayload, S>
+
+  type TenantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TenantFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TenantCountAggregateInputType | true
+    }
+
+  export interface TenantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tenant'], meta: { name: 'Tenant' } }
+    /**
+     * Find zero or one Tenant that matches the filter.
+     * @param {TenantFindUniqueArgs} args - Arguments to find a Tenant
+     * @example
+     * // Get one Tenant
+     * const tenant = await prisma.tenant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantFindUniqueArgs>(args: SelectSubset<T, TenantFindUniqueArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Tenant that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TenantFindUniqueOrThrowArgs} args - Arguments to find a Tenant
+     * @example
+     * // Get one Tenant
+     * const tenant = await prisma.tenant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Tenant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantFindFirstArgs} args - Arguments to find a Tenant
+     * @example
+     * // Get one Tenant
+     * const tenant = await prisma.tenant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantFindFirstArgs>(args?: SelectSubset<T, TenantFindFirstArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Tenant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantFindFirstOrThrowArgs} args - Arguments to find a Tenant
+     * @example
+     * // Get one Tenant
+     * const tenant = await prisma.tenant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Tenants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tenants
+     * const tenants = await prisma.tenant.findMany()
+     * 
+     * // Get first 10 Tenants
+     * const tenants = await prisma.tenant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantWithIdOnly = await prisma.tenant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantFindManyArgs>(args?: SelectSubset<T, TenantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Tenant.
+     * @param {TenantCreateArgs} args - Arguments to create a Tenant.
+     * @example
+     * // Create one Tenant
+     * const Tenant = await prisma.tenant.create({
+     *   data: {
+     *     // ... data to create a Tenant
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantCreateArgs>(args: SelectSubset<T, TenantCreateArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Tenants.
+     * @param {TenantCreateManyArgs} args - Arguments to create many Tenants.
+     * @example
+     * // Create many Tenants
+     * const tenant = await prisma.tenant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantCreateManyArgs>(args?: SelectSubset<T, TenantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tenants and returns the data saved in the database.
+     * @param {TenantCreateManyAndReturnArgs} args - Arguments to create many Tenants.
+     * @example
+     * // Create many Tenants
+     * const tenant = await prisma.tenant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tenants and only return the `id`
+     * const tenantWithIdOnly = await prisma.tenant.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Tenant.
+     * @param {TenantDeleteArgs} args - Arguments to delete one Tenant.
+     * @example
+     * // Delete one Tenant
+     * const Tenant = await prisma.tenant.delete({
+     *   where: {
+     *     // ... filter to delete one Tenant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantDeleteArgs>(args: SelectSubset<T, TenantDeleteArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Tenant.
+     * @param {TenantUpdateArgs} args - Arguments to update one Tenant.
+     * @example
+     * // Update one Tenant
+     * const tenant = await prisma.tenant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantUpdateArgs>(args: SelectSubset<T, TenantUpdateArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Tenants.
+     * @param {TenantDeleteManyArgs} args - Arguments to filter Tenants to delete.
+     * @example
+     * // Delete a few Tenants
+     * const { count } = await prisma.tenant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantDeleteManyArgs>(args?: SelectSubset<T, TenantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tenants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tenants
+     * const tenant = await prisma.tenant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantUpdateManyArgs>(args: SelectSubset<T, TenantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Tenant.
+     * @param {TenantUpsertArgs} args - Arguments to update or create a Tenant.
+     * @example
+     * // Update or create a Tenant
+     * const tenant = await prisma.tenant.upsert({
+     *   create: {
+     *     // ... data to create a Tenant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tenant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantUpsertArgs>(args: SelectSubset<T, TenantUpsertArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Tenants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCountArgs} args - Arguments to filter Tenants to count.
+     * @example
+     * // Count the number of Tenants
+     * const count = await prisma.tenant.count({
+     *   where: {
+     *     // ... the filter for the Tenants we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantCountArgs>(
+      args?: Subset<T, TenantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tenant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantAggregateArgs>(args: Subset<T, TenantAggregateArgs>): Prisma.PrismaPromise<GetTenantAggregateType<T>>
+
+    /**
+     * Group by Tenant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantGroupByArgs['orderBy'] }
+        : { orderBy?: TenantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tenant model
+   */
+  readonly fields: TenantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tenant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
+    clientProfiles<T extends Tenant$clientProfilesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$clientProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findMany"> | Null>
+    pswProfiles<T extends Tenant$pswProfilesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$pswProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findMany"> | Null>
+    visits<T extends Tenant$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
+    services<T extends Tenant$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany"> | Null>
+    auditLogs<T extends Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyEntries<T extends Tenant$dailyEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dailyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    incidents<T extends Tenant$incidentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$incidentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany"> | Null>
+    timesheets<T extends Tenant$timesheetsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$timesheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetPayload<ExtArgs>, T, "findMany"> | Null>
+    invoices<T extends Tenant$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany"> | Null>
+    messageThreads<T extends Tenant$messageThreadsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany"> | Null>
+    notifications<T extends Tenant$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tenant model
+   */ 
+  interface TenantFieldRefs {
+    readonly id: FieldRef<"Tenant", 'String'>
+    readonly name: FieldRef<"Tenant", 'String'>
+    readonly slug: FieldRef<"Tenant", 'String'>
+    readonly status: FieldRef<"Tenant", 'String'>
+    readonly createdAt: FieldRef<"Tenant", 'DateTime'>
+    readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tenant findUnique
+   */
+  export type TenantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter, which Tenant to fetch.
+     */
+    where: TenantWhereUniqueInput
+  }
+
+  /**
+   * Tenant findUniqueOrThrow
+   */
+  export type TenantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter, which Tenant to fetch.
+     */
+    where: TenantWhereUniqueInput
+  }
+
+  /**
+   * Tenant findFirst
+   */
+  export type TenantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter, which Tenant to fetch.
+     */
+    where?: TenantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tenants to fetch.
+     */
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tenants.
+     */
+    cursor?: TenantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tenants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tenants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tenants.
+     */
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant findFirstOrThrow
+   */
+  export type TenantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter, which Tenant to fetch.
+     */
+    where?: TenantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tenants to fetch.
+     */
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tenants.
+     */
+    cursor?: TenantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tenants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tenants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tenants.
+     */
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant findMany
+   */
+  export type TenantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter, which Tenants to fetch.
+     */
+    where?: TenantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tenants to fetch.
+     */
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tenants.
+     */
+    cursor?: TenantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tenants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tenants.
+     */
+    skip?: number
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant create
+   */
+  export type TenantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tenant.
+     */
+    data: XOR<TenantCreateInput, TenantUncheckedCreateInput>
+  }
+
+  /**
+   * Tenant createMany
+   */
+  export type TenantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tenants.
+     */
+    data: TenantCreateManyInput | TenantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tenant createManyAndReturn
+   */
+  export type TenantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Tenants.
+     */
+    data: TenantCreateManyInput | TenantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tenant update
+   */
+  export type TenantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tenant.
+     */
+    data: XOR<TenantUpdateInput, TenantUncheckedUpdateInput>
+    /**
+     * Choose, which Tenant to update.
+     */
+    where: TenantWhereUniqueInput
+  }
+
+  /**
+   * Tenant updateMany
+   */
+  export type TenantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tenants.
+     */
+    data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyInput>
+    /**
+     * Filter which Tenants to update
+     */
+    where?: TenantWhereInput
+  }
+
+  /**
+   * Tenant upsert
+   */
+  export type TenantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tenant to update in case it exists.
+     */
+    where: TenantWhereUniqueInput
+    /**
+     * In case the Tenant found by the `where` argument doesn't exist, create a new Tenant with this data.
+     */
+    create: XOR<TenantCreateInput, TenantUncheckedCreateInput>
+    /**
+     * In case the Tenant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantUpdateInput, TenantUncheckedUpdateInput>
+  }
+
+  /**
+   * Tenant delete
+   */
+  export type TenantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    /**
+     * Filter which Tenant to delete.
+     */
+    where: TenantWhereUniqueInput
+  }
+
+  /**
+   * Tenant deleteMany
+   */
+  export type TenantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tenants to delete
+     */
+    where?: TenantWhereInput
+  }
+
+  /**
+   * Tenant.users
+   */
+  export type Tenant$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.clientProfiles
+   */
+  export type Tenant$clientProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientProfile
+     */
+    select?: ClientProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientProfileInclude<ExtArgs> | null
+    where?: ClientProfileWhereInput
+    orderBy?: ClientProfileOrderByWithRelationInput | ClientProfileOrderByWithRelationInput[]
+    cursor?: ClientProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClientProfileScalarFieldEnum | ClientProfileScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.pswProfiles
+   */
+  export type Tenant$pswProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswProfile
+     */
+    select?: PswProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswProfileInclude<ExtArgs> | null
+    where?: PswProfileWhereInput
+    orderBy?: PswProfileOrderByWithRelationInput | PswProfileOrderByWithRelationInput[]
+    cursor?: PswProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PswProfileScalarFieldEnum | PswProfileScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.visits
+   */
+  export type Tenant$visitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Visit
+     */
+    select?: VisitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VisitInclude<ExtArgs> | null
+    where?: VisitWhereInput
+    orderBy?: VisitOrderByWithRelationInput | VisitOrderByWithRelationInput[]
+    cursor?: VisitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VisitScalarFieldEnum | VisitScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.services
+   */
+  export type Tenant$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.auditLogs
+   */
+  export type Tenant$auditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    cursor?: AuditLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.dailyEntries
+   */
+  export type Tenant$dailyEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyEntry
+     */
+    select?: DailyEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyEntryInclude<ExtArgs> | null
+    where?: DailyEntryWhereInput
+    orderBy?: DailyEntryOrderByWithRelationInput | DailyEntryOrderByWithRelationInput[]
+    cursor?: DailyEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyEntryScalarFieldEnum | DailyEntryScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.incidents
+   */
+  export type Tenant$incidentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Incident
+     */
+    select?: IncidentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncidentInclude<ExtArgs> | null
+    where?: IncidentWhereInput
+    orderBy?: IncidentOrderByWithRelationInput | IncidentOrderByWithRelationInput[]
+    cursor?: IncidentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IncidentScalarFieldEnum | IncidentScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.timesheets
+   */
+  export type Tenant$timesheetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Timesheet
+     */
+    select?: TimesheetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TimesheetInclude<ExtArgs> | null
+    where?: TimesheetWhereInput
+    orderBy?: TimesheetOrderByWithRelationInput | TimesheetOrderByWithRelationInput[]
+    cursor?: TimesheetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TimesheetScalarFieldEnum | TimesheetScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.invoices
+   */
+  export type Tenant$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.messageThreads
+   */
+  export type Tenant$messageThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageThread
+     */
+    select?: MessageThreadSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageThreadInclude<ExtArgs> | null
+    where?: MessageThreadWhereInput
+    orderBy?: MessageThreadOrderByWithRelationInput | MessageThreadOrderByWithRelationInput[]
+    cursor?: MessageThreadWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageThreadScalarFieldEnum | MessageThreadScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.notifications
+   */
+  export type Tenant$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant without action
+   */
+  export type TenantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
   }
 
 
@@ -4394,6 +5973,7 @@ export namespace Prisma {
 
   export type ClientProfileMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     userId: string | null
     fullName: string | null
     dob: Date | null
@@ -4406,12 +5986,14 @@ export namespace Prisma {
     lng: number | null
     emergencyName: string | null
     emergencyPhone: string | null
+    riskLevel: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ClientProfileMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     userId: string | null
     fullName: string | null
     dob: Date | null
@@ -4424,12 +6006,14 @@ export namespace Prisma {
     lng: number | null
     emergencyName: string | null
     emergencyPhone: string | null
+    riskLevel: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ClientProfileCountAggregateOutputType = {
     id: number
+    tenantId: number
     userId: number
     fullName: number
     dob: number
@@ -4443,6 +6027,8 @@ export namespace Prisma {
     emergencyName: number
     emergencyPhone: number
     preferences: number
+    carePlan: number
+    riskLevel: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4461,6 +6047,7 @@ export namespace Prisma {
 
   export type ClientProfileMinAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     dob?: true
@@ -4473,12 +6060,14 @@ export namespace Prisma {
     lng?: true
     emergencyName?: true
     emergencyPhone?: true
+    riskLevel?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ClientProfileMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     dob?: true
@@ -4491,12 +6080,14 @@ export namespace Prisma {
     lng?: true
     emergencyName?: true
     emergencyPhone?: true
+    riskLevel?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ClientProfileCountAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     dob?: true
@@ -4510,6 +6101,8 @@ export namespace Prisma {
     emergencyName?: true
     emergencyPhone?: true
     preferences?: true
+    carePlan?: true
+    riskLevel?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4603,6 +6196,7 @@ export namespace Prisma {
 
   export type ClientProfileGroupByOutputType = {
     id: string
+    tenantId: string
     userId: string
     fullName: string
     dob: Date | null
@@ -4616,6 +6210,8 @@ export namespace Prisma {
     emergencyName: string | null
     emergencyPhone: string | null
     preferences: JsonValue | null
+    carePlan: JsonValue | null
+    riskLevel: string | null
     createdAt: Date
     updatedAt: Date
     _count: ClientProfileCountAggregateOutputType | null
@@ -4641,6 +6237,7 @@ export namespace Prisma {
 
   export type ClientProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     dob?: boolean
@@ -4654,8 +6251,11 @@ export namespace Prisma {
     emergencyName?: boolean
     emergencyPhone?: boolean
     preferences?: boolean
+    carePlan?: boolean
+    riskLevel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
@@ -4666,6 +6266,7 @@ export namespace Prisma {
 
   export type ClientProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     dob?: boolean
@@ -4679,13 +6280,17 @@ export namespace Prisma {
     emergencyName?: boolean
     emergencyPhone?: boolean
     preferences?: boolean
+    carePlan?: boolean
+    riskLevel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientProfile"]>
 
   export type ClientProfileSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     dob?: boolean
@@ -4699,11 +6304,14 @@ export namespace Prisma {
     emergencyName?: boolean
     emergencyPhone?: boolean
     preferences?: boolean
+    carePlan?: boolean
+    riskLevel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type ClientProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
@@ -4712,12 +6320,14 @@ export namespace Prisma {
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClientProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ClientProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ClientProfile"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
       visits: Prisma.$VisitPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
@@ -4726,6 +6336,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       userId: string
       fullName: string
       dob: Date | null
@@ -4739,6 +6350,8 @@ export namespace Prisma {
       emergencyName: string | null
       emergencyPhone: string | null
       preferences: Prisma.JsonValue | null
+      carePlan: Prisma.JsonValue | null
+      riskLevel: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["clientProfile"]>
@@ -5105,6 +6718,7 @@ export namespace Prisma {
    */
   export interface Prisma__ClientProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     visits<T extends ClientProfile$visitsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
     invoices<T extends ClientProfile$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany"> | Null>
@@ -5140,6 +6754,7 @@ export namespace Prisma {
    */ 
   interface ClientProfileFieldRefs {
     readonly id: FieldRef<"ClientProfile", 'String'>
+    readonly tenantId: FieldRef<"ClientProfile", 'String'>
     readonly userId: FieldRef<"ClientProfile", 'String'>
     readonly fullName: FieldRef<"ClientProfile", 'String'>
     readonly dob: FieldRef<"ClientProfile", 'DateTime'>
@@ -5153,6 +6768,8 @@ export namespace Prisma {
     readonly emergencyName: FieldRef<"ClientProfile", 'String'>
     readonly emergencyPhone: FieldRef<"ClientProfile", 'String'>
     readonly preferences: FieldRef<"ClientProfile", 'Json'>
+    readonly carePlan: FieldRef<"ClientProfile", 'Json'>
+    readonly riskLevel: FieldRef<"ClientProfile", 'String'>
     readonly createdAt: FieldRef<"ClientProfile", 'DateTime'>
     readonly updatedAt: FieldRef<"ClientProfile", 'DateTime'>
   }
@@ -5579,6 +7196,7 @@ export namespace Prisma {
 
   export type PswProfileMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     userId: string | null
     fullName: string | null
     bio: string | null
@@ -5590,6 +7208,7 @@ export namespace Prisma {
 
   export type PswProfileMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     userId: string | null
     fullName: string | null
     bio: string | null
@@ -5601,6 +7220,7 @@ export namespace Prisma {
 
   export type PswProfileCountAggregateOutputType = {
     id: number
+    tenantId: number
     userId: number
     fullName: number
     bio: number
@@ -5617,6 +7237,7 @@ export namespace Prisma {
 
   export type PswProfileMinAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     bio?: true
@@ -5628,6 +7249,7 @@ export namespace Prisma {
 
   export type PswProfileMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     bio?: true
@@ -5639,6 +7261,7 @@ export namespace Prisma {
 
   export type PswProfileCountAggregateInputType = {
     id?: true
+    tenantId?: true
     userId?: true
     fullName?: true
     bio?: true
@@ -5726,6 +7349,7 @@ export namespace Prisma {
 
   export type PswProfileGroupByOutputType = {
     id: string
+    tenantId: string
     userId: string
     fullName: string
     bio: string | null
@@ -5757,6 +7381,7 @@ export namespace Prisma {
 
   export type PswProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     bio?: boolean
@@ -5767,6 +7392,7 @@ export namespace Prisma {
     approvedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     documents?: boolean | PswProfile$documentsArgs<ExtArgs>
     assignedVisits?: boolean | PswProfile$assignedVisitsArgs<ExtArgs>
@@ -5780,6 +7406,7 @@ export namespace Prisma {
 
   export type PswProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     bio?: boolean
@@ -5790,11 +7417,13 @@ export namespace Prisma {
     approvedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pswProfile"]>
 
   export type PswProfileSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     userId?: boolean
     fullName?: boolean
     bio?: boolean
@@ -5808,6 +7437,7 @@ export namespace Prisma {
   }
 
   export type PswProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     documents?: boolean | PswProfile$documentsArgs<ExtArgs>
     assignedVisits?: boolean | PswProfile$assignedVisitsArgs<ExtArgs>
@@ -5819,12 +7449,14 @@ export namespace Prisma {
     _count?: boolean | PswProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PswProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PswProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PswProfile"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
       documents: Prisma.$PswDocumentPayload<ExtArgs>[]
       assignedVisits: Prisma.$VisitPayload<ExtArgs>[]
@@ -5836,6 +7468,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       userId: string
       fullName: string
       bio: string | null
@@ -6210,6 +7843,7 @@ export namespace Prisma {
    */
   export interface Prisma__PswProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     documents<T extends PswProfile$documentsArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswDocumentPayload<ExtArgs>, T, "findMany"> | Null>
     assignedVisits<T extends PswProfile$assignedVisitsArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$assignedVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
@@ -6248,6 +7882,7 @@ export namespace Prisma {
    */ 
   interface PswProfileFieldRefs {
     readonly id: FieldRef<"PswProfile", 'String'>
+    readonly tenantId: FieldRef<"PswProfile", 'String'>
     readonly userId: FieldRef<"PswProfile", 'String'>
     readonly fullName: FieldRef<"PswProfile", 'String'>
     readonly bio: FieldRef<"PswProfile", 'String'>
@@ -6756,6 +8391,7 @@ export namespace Prisma {
 
   export type VisitMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     serviceId: string | null
     requestedStartAt: Date | null
@@ -6778,6 +8414,7 @@ export namespace Prisma {
 
   export type VisitMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     serviceId: string | null
     requestedStartAt: Date | null
@@ -6800,6 +8437,7 @@ export namespace Prisma {
 
   export type VisitCountAggregateOutputType = {
     id: number
+    tenantId: number
     clientId: number
     serviceId: number
     requestedStartAt: number
@@ -6836,6 +8474,7 @@ export namespace Prisma {
 
   export type VisitMinAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     serviceId?: true
     requestedStartAt?: true
@@ -6858,6 +8497,7 @@ export namespace Prisma {
 
   export type VisitMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     serviceId?: true
     requestedStartAt?: true
@@ -6880,6 +8520,7 @@ export namespace Prisma {
 
   export type VisitCountAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     serviceId?: true
     requestedStartAt?: true
@@ -6989,6 +8630,7 @@ export namespace Prisma {
 
   export type VisitGroupByOutputType = {
     id: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date
@@ -7030,6 +8672,7 @@ export namespace Prisma {
 
   export type VisitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     serviceId?: boolean
     requestedStartAt?: boolean
@@ -7048,6 +8691,7 @@ export namespace Prisma {
     cancellationReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     psw?: boolean | Visit$pswArgs<ExtArgs>
@@ -7062,6 +8706,7 @@ export namespace Prisma {
 
   export type VisitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     serviceId?: boolean
     requestedStartAt?: boolean
@@ -7080,6 +8725,7 @@ export namespace Prisma {
     cancellationReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     psw?: boolean | Visit$pswArgs<ExtArgs>
@@ -7087,6 +8733,7 @@ export namespace Prisma {
 
   export type VisitSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     serviceId?: boolean
     requestedStartAt?: boolean
@@ -7108,6 +8755,7 @@ export namespace Prisma {
   }
 
   export type VisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     psw?: boolean | Visit$pswArgs<ExtArgs>
@@ -7120,6 +8768,7 @@ export namespace Prisma {
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     psw?: boolean | Visit$pswArgs<ExtArgs>
@@ -7128,6 +8777,7 @@ export namespace Prisma {
   export type $VisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Visit"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       client: Prisma.$ClientProfilePayload<ExtArgs>
       service: Prisma.$ServicePayload<ExtArgs>
       psw: Prisma.$PswProfilePayload<ExtArgs> | null
@@ -7140,6 +8790,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       clientId: string
       serviceId: string
       requestedStartAt: Date
@@ -7522,6 +9173,7 @@ export namespace Prisma {
    */
   export interface Prisma__VisitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     psw<T extends Visit$pswArgs<ExtArgs> = {}>(args?: Subset<T, Visit$pswArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -7561,6 +9213,7 @@ export namespace Prisma {
    */ 
   interface VisitFieldRefs {
     readonly id: FieldRef<"Visit", 'String'>
+    readonly tenantId: FieldRef<"Visit", 'String'>
     readonly clientId: FieldRef<"Visit", 'String'>
     readonly serviceId: FieldRef<"Visit", 'String'>
     readonly requestedStartAt: FieldRef<"Visit", 'DateTime'>
@@ -8068,6 +9721,7 @@ export namespace Prisma {
 
   export type ServiceMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     name: string | null
     slug: string | null
     description: string | null
@@ -8079,6 +9733,7 @@ export namespace Prisma {
 
   export type ServiceMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     name: string | null
     slug: string | null
     description: string | null
@@ -8090,6 +9745,7 @@ export namespace Prisma {
 
   export type ServiceCountAggregateOutputType = {
     id: number
+    tenantId: number
     name: number
     slug: number
     description: number
@@ -8111,6 +9767,7 @@ export namespace Prisma {
 
   export type ServiceMinAggregateInputType = {
     id?: true
+    tenantId?: true
     name?: true
     slug?: true
     description?: true
@@ -8122,6 +9779,7 @@ export namespace Prisma {
 
   export type ServiceMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     name?: true
     slug?: true
     description?: true
@@ -8133,6 +9791,7 @@ export namespace Prisma {
 
   export type ServiceCountAggregateInputType = {
     id?: true
+    tenantId?: true
     name?: true
     slug?: true
     description?: true
@@ -8231,6 +9890,7 @@ export namespace Prisma {
 
   export type ServiceGroupByOutputType = {
     id: string
+    tenantId: string
     name: string
     slug: string
     description: string | null
@@ -8261,6 +9921,7 @@ export namespace Prisma {
 
   export type ServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     name?: boolean
     slug?: boolean
     description?: boolean
@@ -8268,12 +9929,14 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visits?: boolean | Service$visitsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     name?: boolean
     slug?: boolean
     description?: boolean
@@ -8281,10 +9944,12 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     name?: boolean
     slug?: boolean
     description?: boolean
@@ -8295,18 +9960,23 @@ export namespace Prisma {
   }
 
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visits?: boolean | Service$visitsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
 
   export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Service"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       visits: Prisma.$VisitPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       name: string
       slug: string
       description: string | null
@@ -8678,6 +10348,7 @@ export namespace Prisma {
    */
   export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     visits<T extends Service$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Service$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8709,6 +10380,7 @@ export namespace Prisma {
    */ 
   interface ServiceFieldRefs {
     readonly id: FieldRef<"Service", 'String'>
+    readonly tenantId: FieldRef<"Service", 'String'>
     readonly name: FieldRef<"Service", 'String'>
     readonly slug: FieldRef<"Service", 'String'>
     readonly description: FieldRef<"Service", 'String'>
@@ -8937,6 +10609,10 @@ export namespace Prisma {
      */
     data: ServiceCreateManyInput | ServiceCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -12088,6 +13764,7 @@ export namespace Prisma {
 
   export type IncidentMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     visitId: string | null
     reporterUserId: string | null
     type: $Enums.IncidentType | null
@@ -12100,6 +13777,7 @@ export namespace Prisma {
 
   export type IncidentMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     visitId: string | null
     reporterUserId: string | null
     type: $Enums.IncidentType | null
@@ -12112,6 +13790,7 @@ export namespace Prisma {
 
   export type IncidentCountAggregateOutputType = {
     id: number
+    tenantId: number
     visitId: number
     reporterUserId: number
     type: number
@@ -12126,6 +13805,7 @@ export namespace Prisma {
 
   export type IncidentMinAggregateInputType = {
     id?: true
+    tenantId?: true
     visitId?: true
     reporterUserId?: true
     type?: true
@@ -12138,6 +13818,7 @@ export namespace Prisma {
 
   export type IncidentMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     visitId?: true
     reporterUserId?: true
     type?: true
@@ -12150,6 +13831,7 @@ export namespace Prisma {
 
   export type IncidentCountAggregateInputType = {
     id?: true
+    tenantId?: true
     visitId?: true
     reporterUserId?: true
     type?: true
@@ -12235,6 +13917,7 @@ export namespace Prisma {
 
   export type IncidentGroupByOutputType = {
     id: string
+    tenantId: string
     visitId: string | null
     reporterUserId: string
     type: $Enums.IncidentType
@@ -12264,6 +13947,7 @@ export namespace Prisma {
 
   export type IncidentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     visitId?: boolean
     reporterUserId?: boolean
     type?: boolean
@@ -12272,12 +13956,14 @@ export namespace Prisma {
     resolutionNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visit?: boolean | Incident$visitArgs<ExtArgs>
     reporter?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["incident"]>
 
   export type IncidentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     visitId?: boolean
     reporterUserId?: boolean
     type?: boolean
@@ -12286,12 +13972,14 @@ export namespace Prisma {
     resolutionNotes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visit?: boolean | Incident$visitArgs<ExtArgs>
     reporter?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["incident"]>
 
   export type IncidentSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     visitId?: boolean
     reporterUserId?: boolean
     type?: boolean
@@ -12303,10 +13991,12 @@ export namespace Prisma {
   }
 
   export type IncidentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visit?: boolean | Incident$visitArgs<ExtArgs>
     reporter?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type IncidentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visit?: boolean | Incident$visitArgs<ExtArgs>
     reporter?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -12314,11 +14004,13 @@ export namespace Prisma {
   export type $IncidentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Incident"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       visit: Prisma.$VisitPayload<ExtArgs> | null
       reporter: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       visitId: string | null
       reporterUserId: string
       type: $Enums.IncidentType
@@ -12691,6 +14383,7 @@ export namespace Prisma {
    */
   export interface Prisma__IncidentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     visit<T extends Incident$visitArgs<ExtArgs> = {}>(args?: Subset<T, Incident$visitArgs<ExtArgs>>): Prisma__VisitClient<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     reporter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -12723,6 +14416,7 @@ export namespace Prisma {
    */ 
   interface IncidentFieldRefs {
     readonly id: FieldRef<"Incident", 'String'>
+    readonly tenantId: FieldRef<"Incident", 'String'>
     readonly visitId: FieldRef<"Incident", 'String'>
     readonly reporterUserId: FieldRef<"Incident", 'String'>
     readonly type: FieldRef<"Incident", 'IncidentType'>
@@ -13100,6 +14794,7 @@ export namespace Prisma {
 
   export type TimesheetMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     pswId: string | null
     weekId: string | null
     totalMinutes: number | null
@@ -13113,6 +14808,7 @@ export namespace Prisma {
 
   export type TimesheetMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     pswId: string | null
     weekId: string | null
     totalMinutes: number | null
@@ -13126,6 +14822,7 @@ export namespace Prisma {
 
   export type TimesheetCountAggregateOutputType = {
     id: number
+    tenantId: number
     pswId: number
     weekId: number
     totalMinutes: number
@@ -13149,6 +14846,7 @@ export namespace Prisma {
 
   export type TimesheetMinAggregateInputType = {
     id?: true
+    tenantId?: true
     pswId?: true
     weekId?: true
     totalMinutes?: true
@@ -13162,6 +14860,7 @@ export namespace Prisma {
 
   export type TimesheetMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     pswId?: true
     weekId?: true
     totalMinutes?: true
@@ -13175,6 +14874,7 @@ export namespace Prisma {
 
   export type TimesheetCountAggregateInputType = {
     id?: true
+    tenantId?: true
     pswId?: true
     weekId?: true
     totalMinutes?: true
@@ -13275,6 +14975,7 @@ export namespace Prisma {
 
   export type TimesheetGroupByOutputType = {
     id: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes: number | null
@@ -13307,6 +15008,7 @@ export namespace Prisma {
 
   export type TimesheetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     pswId?: boolean
     weekId?: boolean
     totalMinutes?: boolean
@@ -13316,6 +15018,7 @@ export namespace Prisma {
     reviewedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     psw?: boolean | PswProfileDefaultArgs<ExtArgs>
     reviewer?: boolean | Timesheet$reviewerArgs<ExtArgs>
     items?: boolean | Timesheet$itemsArgs<ExtArgs>
@@ -13324,6 +15027,7 @@ export namespace Prisma {
 
   export type TimesheetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     pswId?: boolean
     weekId?: boolean
     totalMinutes?: boolean
@@ -13333,12 +15037,14 @@ export namespace Prisma {
     reviewedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     psw?: boolean | PswProfileDefaultArgs<ExtArgs>
     reviewer?: boolean | Timesheet$reviewerArgs<ExtArgs>
   }, ExtArgs["result"]["timesheet"]>
 
   export type TimesheetSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     pswId?: boolean
     weekId?: boolean
     totalMinutes?: boolean
@@ -13351,12 +15057,14 @@ export namespace Prisma {
   }
 
   export type TimesheetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     psw?: boolean | PswProfileDefaultArgs<ExtArgs>
     reviewer?: boolean | Timesheet$reviewerArgs<ExtArgs>
     items?: boolean | Timesheet$itemsArgs<ExtArgs>
     _count?: boolean | TimesheetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TimesheetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     psw?: boolean | PswProfileDefaultArgs<ExtArgs>
     reviewer?: boolean | Timesheet$reviewerArgs<ExtArgs>
   }
@@ -13364,12 +15072,14 @@ export namespace Prisma {
   export type $TimesheetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Timesheet"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       psw: Prisma.$PswProfilePayload<ExtArgs>
       reviewer: Prisma.$UserPayload<ExtArgs> | null
       items: Prisma.$TimesheetItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       pswId: string
       weekId: string
       totalMinutes: number | null
@@ -13743,6 +15453,7 @@ export namespace Prisma {
    */
   export interface Prisma__TimesheetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     psw<T extends PswProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PswProfileDefaultArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     reviewer<T extends Timesheet$reviewerArgs<ExtArgs> = {}>(args?: Subset<T, Timesheet$reviewerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     items<T extends Timesheet$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Timesheet$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetItemPayload<ExtArgs>, T, "findMany"> | Null>
@@ -13776,6 +15487,7 @@ export namespace Prisma {
    */ 
   interface TimesheetFieldRefs {
     readonly id: FieldRef<"Timesheet", 'String'>
+    readonly tenantId: FieldRef<"Timesheet", 'String'>
     readonly pswId: FieldRef<"Timesheet", 'String'>
     readonly weekId: FieldRef<"Timesheet", 'String'>
     readonly totalMinutes: FieldRef<"Timesheet", 'Int'>
@@ -15151,6 +16863,7 @@ export namespace Prisma {
 
   export type InvoiceMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     status: $Enums.InvoiceStatus | null
     currency: string | null
@@ -15164,6 +16877,7 @@ export namespace Prisma {
 
   export type InvoiceMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     status: $Enums.InvoiceStatus | null
     currency: string | null
@@ -15177,6 +16891,7 @@ export namespace Prisma {
 
   export type InvoiceCountAggregateOutputType = {
     id: number
+    tenantId: number
     clientId: number
     status: number
     currency: number
@@ -15204,6 +16919,7 @@ export namespace Prisma {
 
   export type InvoiceMinAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     status?: true
     currency?: true
@@ -15217,6 +16933,7 @@ export namespace Prisma {
 
   export type InvoiceMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     status?: true
     currency?: true
@@ -15230,6 +16947,7 @@ export namespace Prisma {
 
   export type InvoiceCountAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     status?: true
     currency?: true
@@ -15330,6 +17048,7 @@ export namespace Prisma {
 
   export type InvoiceGroupByOutputType = {
     id: string
+    tenantId: string
     clientId: string
     status: $Enums.InvoiceStatus | null
     currency: string | null
@@ -15362,6 +17081,7 @@ export namespace Prisma {
 
   export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     status?: boolean
     currency?: boolean
@@ -15371,6 +17091,7 @@ export namespace Prisma {
     stripeInvoiceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -15378,6 +17099,7 @@ export namespace Prisma {
 
   export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     status?: boolean
     currency?: boolean
@@ -15387,11 +17109,13 @@ export namespace Prisma {
     stripeInvoiceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     status?: boolean
     currency?: boolean
@@ -15404,22 +17128,26 @@ export namespace Prisma {
   }
 
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
   }
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       client: Prisma.$ClientProfilePayload<ExtArgs>
       payments: Prisma.$PaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       clientId: string
       status: $Enums.InvoiceStatus | null
       currency: string | null
@@ -15793,6 +17521,7 @@ export namespace Prisma {
    */
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -15825,6 +17554,7 @@ export namespace Prisma {
    */ 
   interface InvoiceFieldRefs {
     readonly id: FieldRef<"Invoice", 'String'>
+    readonly tenantId: FieldRef<"Invoice", 'String'>
     readonly clientId: FieldRef<"Invoice", 'String'>
     readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
     readonly currency: FieldRef<"Invoice", 'String'>
@@ -17189,6 +18919,7 @@ export namespace Prisma {
 
   export type MessageThreadMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     threadType: string | null
     clientId: string | null
     pswId: string | null
@@ -17197,6 +18928,7 @@ export namespace Prisma {
 
   export type MessageThreadMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     threadType: string | null
     clientId: string | null
     pswId: string | null
@@ -17205,6 +18937,7 @@ export namespace Prisma {
 
   export type MessageThreadCountAggregateOutputType = {
     id: number
+    tenantId: number
     threadType: number
     clientId: number
     pswId: number
@@ -17215,6 +18948,7 @@ export namespace Prisma {
 
   export type MessageThreadMinAggregateInputType = {
     id?: true
+    tenantId?: true
     threadType?: true
     clientId?: true
     pswId?: true
@@ -17223,6 +18957,7 @@ export namespace Prisma {
 
   export type MessageThreadMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     threadType?: true
     clientId?: true
     pswId?: true
@@ -17231,6 +18966,7 @@ export namespace Prisma {
 
   export type MessageThreadCountAggregateInputType = {
     id?: true
+    tenantId?: true
     threadType?: true
     clientId?: true
     pswId?: true
@@ -17312,6 +19048,7 @@ export namespace Prisma {
 
   export type MessageThreadGroupByOutputType = {
     id: string
+    tenantId: string
     threadType: string
     clientId: string | null
     pswId: string | null
@@ -17337,10 +19074,12 @@ export namespace Prisma {
 
   export type MessageThreadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     threadType?: boolean
     clientId?: boolean
     pswId?: boolean
     createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | MessageThread$clientArgs<ExtArgs>
     psw?: boolean | MessageThread$pswArgs<ExtArgs>
     messages?: boolean | MessageThread$messagesArgs<ExtArgs>
@@ -17349,16 +19088,19 @@ export namespace Prisma {
 
   export type MessageThreadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     threadType?: boolean
     clientId?: boolean
     pswId?: boolean
     createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | MessageThread$clientArgs<ExtArgs>
     psw?: boolean | MessageThread$pswArgs<ExtArgs>
   }, ExtArgs["result"]["messageThread"]>
 
   export type MessageThreadSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     threadType?: boolean
     clientId?: boolean
     pswId?: boolean
@@ -17366,12 +19108,14 @@ export namespace Prisma {
   }
 
   export type MessageThreadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | MessageThread$clientArgs<ExtArgs>
     psw?: boolean | MessageThread$pswArgs<ExtArgs>
     messages?: boolean | MessageThread$messagesArgs<ExtArgs>
     _count?: boolean | MessageThreadCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MessageThreadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | MessageThread$clientArgs<ExtArgs>
     psw?: boolean | MessageThread$pswArgs<ExtArgs>
   }
@@ -17379,12 +19123,14 @@ export namespace Prisma {
   export type $MessageThreadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MessageThread"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       client: Prisma.$ClientProfilePayload<ExtArgs> | null
       psw: Prisma.$PswProfilePayload<ExtArgs> | null
       messages: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       threadType: string
       clientId: string | null
       pswId: string | null
@@ -17753,6 +19499,7 @@ export namespace Prisma {
    */
   export interface Prisma__MessageThreadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     client<T extends MessageThread$clientArgs<ExtArgs> = {}>(args?: Subset<T, MessageThread$clientArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     psw<T extends MessageThread$pswArgs<ExtArgs> = {}>(args?: Subset<T, MessageThread$pswArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     messages<T extends MessageThread$messagesArgs<ExtArgs> = {}>(args?: Subset<T, MessageThread$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
@@ -17786,6 +19533,7 @@ export namespace Prisma {
    */ 
   interface MessageThreadFieldRefs {
     readonly id: FieldRef<"MessageThread", 'String'>
+    readonly tenantId: FieldRef<"MessageThread", 'String'>
     readonly threadType: FieldRef<"MessageThread", 'String'>
     readonly clientId: FieldRef<"MessageThread", 'String'>
     readonly pswId: FieldRef<"MessageThread", 'String'>
@@ -19123,6 +20871,7 @@ export namespace Prisma {
 
   export type AuditLogMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     actorUserId: string | null
     action: string | null
     resourceType: string | null
@@ -19133,6 +20882,7 @@ export namespace Prisma {
 
   export type AuditLogMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     actorUserId: string | null
     action: string | null
     resourceType: string | null
@@ -19143,6 +20893,7 @@ export namespace Prisma {
 
   export type AuditLogCountAggregateOutputType = {
     id: number
+    tenantId: number
     actorUserId: number
     action: number
     resourceType: number
@@ -19156,6 +20907,7 @@ export namespace Prisma {
 
   export type AuditLogMinAggregateInputType = {
     id?: true
+    tenantId?: true
     actorUserId?: true
     action?: true
     resourceType?: true
@@ -19166,6 +20918,7 @@ export namespace Prisma {
 
   export type AuditLogMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     actorUserId?: true
     action?: true
     resourceType?: true
@@ -19176,6 +20929,7 @@ export namespace Prisma {
 
   export type AuditLogCountAggregateInputType = {
     id?: true
+    tenantId?: true
     actorUserId?: true
     action?: true
     resourceType?: true
@@ -19260,6 +21014,7 @@ export namespace Prisma {
 
   export type AuditLogGroupByOutputType = {
     id: string
+    tenantId: string
     actorUserId: string | null
     action: string
     resourceType: string
@@ -19288,6 +21043,7 @@ export namespace Prisma {
 
   export type AuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     actorUserId?: boolean
     action?: boolean
     resourceType?: boolean
@@ -19295,11 +21051,13 @@ export namespace Prisma {
     metadataJson?: boolean
     ipAddress?: boolean
     createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | AuditLog$actorArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
 
   export type AuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     actorUserId?: boolean
     action?: boolean
     resourceType?: boolean
@@ -19307,11 +21065,13 @@ export namespace Prisma {
     metadataJson?: boolean
     ipAddress?: boolean
     createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | AuditLog$actorArgs<ExtArgs>
   }, ExtArgs["result"]["auditLog"]>
 
   export type AuditLogSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     actorUserId?: boolean
     action?: boolean
     resourceType?: boolean
@@ -19322,19 +21082,23 @@ export namespace Prisma {
   }
 
   export type AuditLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | AuditLog$actorArgs<ExtArgs>
   }
   export type AuditLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | AuditLog$actorArgs<ExtArgs>
   }
 
   export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AuditLog"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       actor: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       actorUserId: string | null
       action: string
       resourceType: string
@@ -19706,6 +21470,7 @@ export namespace Prisma {
    */
   export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     actor<T extends AuditLog$actorArgs<ExtArgs> = {}>(args?: Subset<T, AuditLog$actorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -19737,6 +21502,7 @@ export namespace Prisma {
    */ 
   interface AuditLogFieldRefs {
     readonly id: FieldRef<"AuditLog", 'String'>
+    readonly tenantId: FieldRef<"AuditLog", 'String'>
     readonly actorUserId: FieldRef<"AuditLog", 'String'>
     readonly action: FieldRef<"AuditLog", 'String'>
     readonly resourceType: FieldRef<"AuditLog", 'String'>
@@ -23999,6 +25765,7 @@ export namespace Prisma {
 
   export type DailyEntryMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     staffId: string | null
     visitId: string | null
@@ -24012,6 +25779,7 @@ export namespace Prisma {
 
   export type DailyEntryMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     clientId: string | null
     staffId: string | null
     visitId: string | null
@@ -24025,6 +25793,7 @@ export namespace Prisma {
 
   export type DailyEntryCountAggregateOutputType = {
     id: number
+    tenantId: number
     clientId: number
     staffId: number
     visitId: number
@@ -24051,6 +25820,7 @@ export namespace Prisma {
 
   export type DailyEntryMinAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     staffId?: true
     visitId?: true
@@ -24064,6 +25834,7 @@ export namespace Prisma {
 
   export type DailyEntryMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     staffId?: true
     visitId?: true
@@ -24077,6 +25848,7 @@ export namespace Prisma {
 
   export type DailyEntryCountAggregateInputType = {
     id?: true
+    tenantId?: true
     clientId?: true
     staffId?: true
     visitId?: true
@@ -24180,6 +25952,7 @@ export namespace Prisma {
 
   export type DailyEntryGroupByOutputType = {
     id: string
+    tenantId: string
     clientId: string
     staffId: string
     visitId: string | null
@@ -24215,6 +25988,7 @@ export namespace Prisma {
 
   export type DailyEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     staffId?: boolean
     visitId?: boolean
@@ -24227,6 +26001,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     staff?: boolean | UserDefaultArgs<ExtArgs>
     visit?: boolean | DailyEntry$visitArgs<ExtArgs>
@@ -24234,6 +26009,7 @@ export namespace Prisma {
 
   export type DailyEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     staffId?: boolean
     visitId?: boolean
@@ -24246,6 +26022,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     staff?: boolean | UserDefaultArgs<ExtArgs>
     visit?: boolean | DailyEntry$visitArgs<ExtArgs>
@@ -24253,6 +26030,7 @@ export namespace Prisma {
 
   export type DailyEntrySelectScalar = {
     id?: boolean
+    tenantId?: boolean
     clientId?: boolean
     staffId?: boolean
     visitId?: boolean
@@ -24268,11 +26046,13 @@ export namespace Prisma {
   }
 
   export type DailyEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     staff?: boolean | UserDefaultArgs<ExtArgs>
     visit?: boolean | DailyEntry$visitArgs<ExtArgs>
   }
   export type DailyEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     staff?: boolean | UserDefaultArgs<ExtArgs>
     visit?: boolean | DailyEntry$visitArgs<ExtArgs>
@@ -24281,12 +26061,14 @@ export namespace Prisma {
   export type $DailyEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DailyEntry"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       client: Prisma.$ClientProfilePayload<ExtArgs>
       staff: Prisma.$UserPayload<ExtArgs>
       visit: Prisma.$VisitPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       clientId: string
       staffId: string
       visitId: string | null
@@ -24663,6 +26445,7 @@ export namespace Prisma {
    */
   export interface Prisma__DailyEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     staff<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     visit<T extends DailyEntry$visitArgs<ExtArgs> = {}>(args?: Subset<T, DailyEntry$visitArgs<ExtArgs>>): Prisma__VisitClient<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -24696,6 +26479,7 @@ export namespace Prisma {
    */ 
   interface DailyEntryFieldRefs {
     readonly id: FieldRef<"DailyEntry", 'String'>
+    readonly tenantId: FieldRef<"DailyEntry", 'String'>
     readonly clientId: FieldRef<"DailyEntry", 'String'>
     readonly staffId: FieldRef<"DailyEntry", 'String'>
     readonly visitId: FieldRef<"DailyEntry", 'String'>
@@ -25056,6 +26840,1005 @@ export namespace Prisma {
 
 
   /**
+   * Model Notification
+   */
+
+  export type AggregateNotification = {
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  export type NotificationMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    role: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    role: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    userId: number
+    title: number
+    message: number
+    type: number
+    role: number
+    isRead: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    role?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    role?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    role?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notification to aggregate.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type GetNotificationAggregateType<T extends NotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification[P]>
+      : GetScalarType<T[P], AggregateNotification[P]>
+  }
+
+
+
+
+  export type NotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithAggregationInput | NotificationOrderByWithAggregationInput[]
+    by: NotificationScalarFieldEnum[] | NotificationScalarFieldEnum
+    having?: NotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationCountAggregateInputType | true
+    _min?: NotificationMinAggregateInputType
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type NotificationGroupByOutputType = {
+    id: string
+    tenantId: string
+    userId: string
+    title: string
+    message: string
+    type: string
+    role: string | null
+    isRead: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  type GetNotificationGroupByPayload<T extends NotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    role?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    role?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    role?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notification"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      userId: string
+      title: string
+      message: string
+      type: string
+      role: string | null
+      isRead: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notification"]>
+    composites: {}
+  }
+
+  type NotificationGetPayload<S extends boolean | null | undefined | NotificationDefaultArgs> = $Result.GetResult<Prisma.$NotificationPayload, S>
+
+  type NotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<NotificationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NotificationCountAggregateInputType | true
+    }
+
+  export interface NotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notification'], meta: { name: 'Notification' } }
+    /**
+     * Find zero or one Notification that matches the filter.
+     * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationFindUniqueArgs>(args: SelectSubset<T, NotificationFindUniqueArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Notification that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {NotificationFindUniqueOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationFindFirstArgs>(args?: SelectSubset<T, NotificationFindFirstArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notification.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationWithIdOnly = await prisma.notification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationFindManyArgs>(args?: SelectSubset<T, NotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Notification.
+     * @param {NotificationCreateArgs} args - Arguments to create a Notification.
+     * @example
+     * // Create one Notification
+     * const Notification = await prisma.notification.create({
+     *   data: {
+     *     // ... data to create a Notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationCreateArgs>(args: SelectSubset<T, NotificationCreateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Notification.
+     * @param {NotificationDeleteArgs} args - Arguments to delete one Notification.
+     * @example
+     * // Delete one Notification
+     * const Notification = await prisma.notification.delete({
+     *   where: {
+     *     // ... filter to delete one Notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeleteArgs>(args: SelectSubset<T, NotificationDeleteArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Notification.
+     * @param {NotificationUpdateArgs} args - Arguments to update one Notification.
+     * @example
+     * // Update one Notification
+     * const notification = await prisma.notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationUpdateArgs>(args: SelectSubset<T, NotificationUpdateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeleteManyArgs>(args?: SelectSubset<T, NotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationUpdateManyArgs>(args: SelectSubset<T, NotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Notification.
+     * @param {NotificationUpsertArgs} args - Arguments to update or create a Notification.
+     * @example
+     * // Update or create a Notification
+     * const notification = await prisma.notification.upsert({
+     *   create: {
+     *     // ... data to create a Notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationUpsertArgs>(args: SelectSubset<T, NotificationUpsertArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notification.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationCountArgs>(
+      args?: Subset<T, NotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationAggregateArgs>(args: Subset<T, NotificationAggregateArgs>): Prisma.PrismaPromise<GetNotificationAggregateType<T>>
+
+    /**
+     * Group by Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notification model
+   */ 
+  interface NotificationFieldRefs {
+    readonly id: FieldRef<"Notification", 'String'>
+    readonly tenantId: FieldRef<"Notification", 'String'>
+    readonly userId: FieldRef<"Notification", 'String'>
+    readonly title: FieldRef<"Notification", 'String'>
+    readonly message: FieldRef<"Notification", 'String'>
+    readonly type: FieldRef<"Notification", 'String'>
+    readonly role: FieldRef<"Notification", 'String'>
+    readonly isRead: FieldRef<"Notification", 'Boolean'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
+    readonly updatedAt: FieldRef<"Notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notification findUnique
+   */
+  export type NotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findUniqueOrThrow
+   */
+  export type NotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findFirst
+   */
+  export type NotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findFirstOrThrow
+   */
+  export type NotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findMany
+   */
+  export type NotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification create
+   */
+  export type NotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notification.
+     */
+    data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+  }
+
+  /**
+   * Notification createMany
+   */
+  export type NotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notification createManyAndReturn
+   */
+  export type NotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification update
+   */
+  export type NotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notification.
+     */
+    data: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+    /**
+     * Choose, which Notification to update.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification updateMany
+   */
+  export type NotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * Notification upsert
+   */
+  export type NotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notification to update in case it exists.
+     */
+    where: NotificationWhereUniqueInput
+    /**
+     * In case the Notification found by the `where` argument doesn't exist, create a new Notification with this data.
+     */
+    create: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+    /**
+     * In case the Notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * Notification delete
+   */
+  export type NotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter which Notification to delete.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification deleteMany
+   */
+  export type NotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * Notification without action
+   */
+  export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25071,7 +27854,8 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    role: 'role',
+    tenantId: 'tenantId',
+    roles: 'roles',
     email: 'email',
     phone: 'phone',
     passwordHash: 'passwordHash',
@@ -25086,8 +27870,21 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const TenantScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
+
+
   export const ClientProfileScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     userId: 'userId',
     fullName: 'fullName',
     dob: 'dob',
@@ -25101,6 +27898,8 @@ export namespace Prisma {
     emergencyName: 'emergencyName',
     emergencyPhone: 'emergencyPhone',
     preferences: 'preferences',
+    carePlan: 'carePlan',
+    riskLevel: 'riskLevel',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -25110,6 +27909,7 @@ export namespace Prisma {
 
   export const PswProfileScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     userId: 'userId',
     fullName: 'fullName',
     bio: 'bio',
@@ -25127,6 +27927,7 @@ export namespace Prisma {
 
   export const VisitScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     clientId: 'clientId',
     serviceId: 'serviceId',
     requestedStartAt: 'requestedStartAt',
@@ -25152,6 +27953,7 @@ export namespace Prisma {
 
   export const ServiceScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     name: 'name',
     slug: 'slug',
     description: 'description',
@@ -25210,6 +28012,7 @@ export namespace Prisma {
 
   export const IncidentScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     visitId: 'visitId',
     reporterUserId: 'reporterUserId',
     type: 'type',
@@ -25225,6 +28028,7 @@ export namespace Prisma {
 
   export const TimesheetScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     pswId: 'pswId',
     weekId: 'weekId',
     totalMinutes: 'totalMinutes',
@@ -25252,6 +28056,7 @@ export namespace Prisma {
 
   export const InvoiceScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     clientId: 'clientId',
     status: 'status',
     currency: 'currency',
@@ -25281,6 +28086,7 @@ export namespace Prisma {
 
   export const MessageThreadScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     threadType: 'threadType',
     clientId: 'clientId',
     pswId: 'pswId',
@@ -25303,6 +28109,7 @@ export namespace Prisma {
 
   export const AuditLogScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     actorUserId: 'actorUserId',
     action: 'action',
     resourceType: 'resourceType',
@@ -25380,6 +28187,7 @@ export namespace Prisma {
 
   export const DailyEntryScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     clientId: 'clientId',
     staffId: 'staffId',
     visitId: 'visitId',
@@ -25395,6 +28203,22 @@ export namespace Prisma {
   };
 
   export type DailyEntryScalarFieldEnum = (typeof DailyEntryScalarFieldEnum)[keyof typeof DailyEntryScalarFieldEnum]
+
+
+  export const NotificationScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    type: 'type',
+    role: 'role',
+    isRead: 'isRead',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -25465,16 +28289,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Role'
+   * Reference to a field of type 'Role[]'
    */
-  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
   /**
-   * Reference to a field of type 'Role[]'
+   * Reference to a field of type 'Role'
    */
-  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
     
 
 
@@ -25682,7 +28506,8 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    role?: EnumRoleFilter<"User"> | $Enums.Role
+    tenantId?: StringFilter<"User"> | string
+    roles?: EnumRoleNullableListFilter<"User">
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
@@ -25692,6 +28517,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     clientProfile?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
     pswProfile?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
     verifiedDocs?: PswDocumentListRelationFilter
@@ -25702,11 +28528,13 @@ export namespace Prisma {
     blogPosts?: BlogPostListRelationFilter
     VisitCheckEvent?: VisitCheckEventListRelationFilter
     DailyEntry?: DailyEntryListRelationFilter
+    notifications?: NotificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    role?: SortOrder
+    tenantId?: SortOrder
+    roles?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
@@ -25716,6 +28544,7 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     clientProfile?: ClientProfileOrderByWithRelationInput
     pswProfile?: PswProfileOrderByWithRelationInput
     verifiedDocs?: PswDocumentOrderByRelationAggregateInput
@@ -25726,6 +28555,7 @@ export namespace Prisma {
     blogPosts?: BlogPostOrderByRelationAggregateInput
     VisitCheckEvent?: VisitCheckEventOrderByRelationAggregateInput
     DailyEntry?: DailyEntryOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -25734,7 +28564,8 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    role?: EnumRoleFilter<"User"> | $Enums.Role
+    tenantId?: StringFilter<"User"> | string
+    roles?: EnumRoleNullableListFilter<"User">
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
     status?: StringNullableFilter<"User"> | string | null
@@ -25743,6 +28574,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     clientProfile?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
     pswProfile?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
     verifiedDocs?: PswDocumentListRelationFilter
@@ -25753,11 +28585,13 @@ export namespace Prisma {
     blogPosts?: BlogPostListRelationFilter
     VisitCheckEvent?: VisitCheckEventListRelationFilter
     DailyEntry?: DailyEntryListRelationFilter
+    notifications?: NotificationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    role?: SortOrder
+    tenantId?: SortOrder
+    roles?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrder
@@ -25777,7 +28611,8 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    tenantId?: StringWithAggregatesFilter<"User"> | string
+    roles?: EnumRoleNullableListFilter<"User">
     email?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordHash?: StringWithAggregatesFilter<"User"> | string
@@ -25789,11 +28624,105 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type TenantWhereInput = {
+    AND?: TenantWhereInput | TenantWhereInput[]
+    OR?: TenantWhereInput[]
+    NOT?: TenantWhereInput | TenantWhereInput[]
+    id?: StringFilter<"Tenant"> | string
+    name?: StringFilter<"Tenant"> | string
+    slug?: StringFilter<"Tenant"> | string
+    status?: StringFilter<"Tenant"> | string
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    users?: UserListRelationFilter
+    clientProfiles?: ClientProfileListRelationFilter
+    pswProfiles?: PswProfileListRelationFilter
+    visits?: VisitListRelationFilter
+    services?: ServiceListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
+    dailyEntries?: DailyEntryListRelationFilter
+    incidents?: IncidentListRelationFilter
+    timesheets?: TimesheetListRelationFilter
+    invoices?: InvoiceListRelationFilter
+    messageThreads?: MessageThreadListRelationFilter
+    notifications?: NotificationListRelationFilter
+  }
+
+  export type TenantOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    users?: UserOrderByRelationAggregateInput
+    clientProfiles?: ClientProfileOrderByRelationAggregateInput
+    pswProfiles?: PswProfileOrderByRelationAggregateInput
+    visits?: VisitOrderByRelationAggregateInput
+    services?: ServiceOrderByRelationAggregateInput
+    auditLogs?: AuditLogOrderByRelationAggregateInput
+    dailyEntries?: DailyEntryOrderByRelationAggregateInput
+    incidents?: IncidentOrderByRelationAggregateInput
+    timesheets?: TimesheetOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
+    messageThreads?: MessageThreadOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
+  }
+
+  export type TenantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: TenantWhereInput | TenantWhereInput[]
+    OR?: TenantWhereInput[]
+    NOT?: TenantWhereInput | TenantWhereInput[]
+    name?: StringFilter<"Tenant"> | string
+    status?: StringFilter<"Tenant"> | string
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    users?: UserListRelationFilter
+    clientProfiles?: ClientProfileListRelationFilter
+    pswProfiles?: PswProfileListRelationFilter
+    visits?: VisitListRelationFilter
+    services?: ServiceListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
+    dailyEntries?: DailyEntryListRelationFilter
+    incidents?: IncidentListRelationFilter
+    timesheets?: TimesheetListRelationFilter
+    invoices?: InvoiceListRelationFilter
+    messageThreads?: MessageThreadListRelationFilter
+    notifications?: NotificationListRelationFilter
+  }, "id" | "slug">
+
+  export type TenantOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TenantCountOrderByAggregateInput
+    _max?: TenantMaxOrderByAggregateInput
+    _min?: TenantMinOrderByAggregateInput
+  }
+
+  export type TenantScalarWhereWithAggregatesInput = {
+    AND?: TenantScalarWhereWithAggregatesInput | TenantScalarWhereWithAggregatesInput[]
+    OR?: TenantScalarWhereWithAggregatesInput[]
+    NOT?: TenantScalarWhereWithAggregatesInput | TenantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tenant"> | string
+    name?: StringWithAggregatesFilter<"Tenant"> | string
+    slug?: StringWithAggregatesFilter<"Tenant"> | string
+    status?: StringWithAggregatesFilter<"Tenant"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
+  }
+
   export type ClientProfileWhereInput = {
     AND?: ClientProfileWhereInput | ClientProfileWhereInput[]
     OR?: ClientProfileWhereInput[]
     NOT?: ClientProfileWhereInput | ClientProfileWhereInput[]
     id?: StringFilter<"ClientProfile"> | string
+    tenantId?: StringFilter<"ClientProfile"> | string
     userId?: StringFilter<"ClientProfile"> | string
     fullName?: StringFilter<"ClientProfile"> | string
     dob?: DateTimeNullableFilter<"ClientProfile"> | Date | string | null
@@ -25807,8 +28736,11 @@ export namespace Prisma {
     emergencyName?: StringNullableFilter<"ClientProfile"> | string | null
     emergencyPhone?: StringNullableFilter<"ClientProfile"> | string | null
     preferences?: JsonNullableFilter<"ClientProfile">
+    carePlan?: JsonNullableFilter<"ClientProfile">
+    riskLevel?: StringNullableFilter<"ClientProfile"> | string | null
     createdAt?: DateTimeFilter<"ClientProfile"> | Date | string
     updatedAt?: DateTimeFilter<"ClientProfile"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
     visits?: VisitListRelationFilter
     invoices?: InvoiceListRelationFilter
@@ -25818,6 +28750,7 @@ export namespace Prisma {
 
   export type ClientProfileOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     dob?: SortOrderInput | SortOrder
@@ -25831,8 +28764,11 @@ export namespace Prisma {
     emergencyName?: SortOrderInput | SortOrder
     emergencyPhone?: SortOrderInput | SortOrder
     preferences?: SortOrderInput | SortOrder
+    carePlan?: SortOrderInput | SortOrder
+    riskLevel?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     visits?: VisitOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
@@ -25846,6 +28782,7 @@ export namespace Prisma {
     AND?: ClientProfileWhereInput | ClientProfileWhereInput[]
     OR?: ClientProfileWhereInput[]
     NOT?: ClientProfileWhereInput | ClientProfileWhereInput[]
+    tenantId?: StringFilter<"ClientProfile"> | string
     fullName?: StringFilter<"ClientProfile"> | string
     dob?: DateTimeNullableFilter<"ClientProfile"> | Date | string | null
     addressLine1?: StringNullableFilter<"ClientProfile"> | string | null
@@ -25858,8 +28795,11 @@ export namespace Prisma {
     emergencyName?: StringNullableFilter<"ClientProfile"> | string | null
     emergencyPhone?: StringNullableFilter<"ClientProfile"> | string | null
     preferences?: JsonNullableFilter<"ClientProfile">
+    carePlan?: JsonNullableFilter<"ClientProfile">
+    riskLevel?: StringNullableFilter<"ClientProfile"> | string | null
     createdAt?: DateTimeFilter<"ClientProfile"> | Date | string
     updatedAt?: DateTimeFilter<"ClientProfile"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
     visits?: VisitListRelationFilter
     invoices?: InvoiceListRelationFilter
@@ -25869,6 +28809,7 @@ export namespace Prisma {
 
   export type ClientProfileOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     dob?: SortOrderInput | SortOrder
@@ -25882,6 +28823,8 @@ export namespace Prisma {
     emergencyName?: SortOrderInput | SortOrder
     emergencyPhone?: SortOrderInput | SortOrder
     preferences?: SortOrderInput | SortOrder
+    carePlan?: SortOrderInput | SortOrder
+    riskLevel?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ClientProfileCountOrderByAggregateInput
@@ -25896,6 +28839,7 @@ export namespace Prisma {
     OR?: ClientProfileScalarWhereWithAggregatesInput[]
     NOT?: ClientProfileScalarWhereWithAggregatesInput | ClientProfileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ClientProfile"> | string
+    tenantId?: StringWithAggregatesFilter<"ClientProfile"> | string
     userId?: StringWithAggregatesFilter<"ClientProfile"> | string
     fullName?: StringWithAggregatesFilter<"ClientProfile"> | string
     dob?: DateTimeNullableWithAggregatesFilter<"ClientProfile"> | Date | string | null
@@ -25909,6 +28853,8 @@ export namespace Prisma {
     emergencyName?: StringNullableWithAggregatesFilter<"ClientProfile"> | string | null
     emergencyPhone?: StringNullableWithAggregatesFilter<"ClientProfile"> | string | null
     preferences?: JsonNullableWithAggregatesFilter<"ClientProfile">
+    carePlan?: JsonNullableWithAggregatesFilter<"ClientProfile">
+    riskLevel?: StringNullableWithAggregatesFilter<"ClientProfile"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ClientProfile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ClientProfile"> | Date | string
   }
@@ -25918,6 +28864,7 @@ export namespace Prisma {
     OR?: PswProfileWhereInput[]
     NOT?: PswProfileWhereInput | PswProfileWhereInput[]
     id?: StringFilter<"PswProfile"> | string
+    tenantId?: StringFilter<"PswProfile"> | string
     userId?: StringFilter<"PswProfile"> | string
     fullName?: StringFilter<"PswProfile"> | string
     bio?: StringNullableFilter<"PswProfile"> | string | null
@@ -25928,6 +28875,7 @@ export namespace Prisma {
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
     updatedAt?: DateTimeFilter<"PswProfile"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
     documents?: PswDocumentListRelationFilter
     assignedVisits?: VisitListRelationFilter
@@ -25940,6 +28888,7 @@ export namespace Prisma {
 
   export type PswProfileOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     bio?: SortOrderInput | SortOrder
@@ -25950,6 +28899,7 @@ export namespace Prisma {
     approvedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     documents?: PswDocumentOrderByRelationAggregateInput
     assignedVisits?: VisitOrderByRelationAggregateInput
@@ -25966,6 +28916,7 @@ export namespace Prisma {
     AND?: PswProfileWhereInput | PswProfileWhereInput[]
     OR?: PswProfileWhereInput[]
     NOT?: PswProfileWhereInput | PswProfileWhereInput[]
+    tenantId?: StringFilter<"PswProfile"> | string
     fullName?: StringFilter<"PswProfile"> | string
     bio?: StringNullableFilter<"PswProfile"> | string | null
     languages?: StringNullableListFilter<"PswProfile">
@@ -25975,6 +28926,7 @@ export namespace Prisma {
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
     updatedAt?: DateTimeFilter<"PswProfile"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
     documents?: PswDocumentListRelationFilter
     assignedVisits?: VisitListRelationFilter
@@ -25987,6 +28939,7 @@ export namespace Prisma {
 
   export type PswProfileOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     bio?: SortOrderInput | SortOrder
@@ -26007,6 +28960,7 @@ export namespace Prisma {
     OR?: PswProfileScalarWhereWithAggregatesInput[]
     NOT?: PswProfileScalarWhereWithAggregatesInput | PswProfileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PswProfile"> | string
+    tenantId?: StringWithAggregatesFilter<"PswProfile"> | string
     userId?: StringWithAggregatesFilter<"PswProfile"> | string
     fullName?: StringWithAggregatesFilter<"PswProfile"> | string
     bio?: StringNullableWithAggregatesFilter<"PswProfile"> | string | null
@@ -26024,6 +28978,7 @@ export namespace Prisma {
     OR?: VisitWhereInput[]
     NOT?: VisitWhereInput | VisitWhereInput[]
     id?: StringFilter<"Visit"> | string
+    tenantId?: StringFilter<"Visit"> | string
     clientId?: StringFilter<"Visit"> | string
     serviceId?: StringFilter<"Visit"> | string
     requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
@@ -26042,6 +28997,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableFilter<"Visit"> | string | null
     createdAt?: DateTimeFilter<"Visit"> | Date | string
     updatedAt?: DateTimeFilter<"Visit"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
     psw?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
@@ -26055,6 +29011,7 @@ export namespace Prisma {
 
   export type VisitOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
@@ -26073,6 +29030,7 @@ export namespace Prisma {
     cancellationReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     client?: ClientProfileOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
     psw?: PswProfileOrderByWithRelationInput
@@ -26089,6 +29047,7 @@ export namespace Prisma {
     AND?: VisitWhereInput | VisitWhereInput[]
     OR?: VisitWhereInput[]
     NOT?: VisitWhereInput | VisitWhereInput[]
+    tenantId?: StringFilter<"Visit"> | string
     clientId?: StringFilter<"Visit"> | string
     serviceId?: StringFilter<"Visit"> | string
     requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
@@ -26107,6 +29066,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableFilter<"Visit"> | string | null
     createdAt?: DateTimeFilter<"Visit"> | Date | string
     updatedAt?: DateTimeFilter<"Visit"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
     psw?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
@@ -26120,6 +29080,7 @@ export namespace Prisma {
 
   export type VisitOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
@@ -26150,6 +29111,7 @@ export namespace Prisma {
     OR?: VisitScalarWhereWithAggregatesInput[]
     NOT?: VisitScalarWhereWithAggregatesInput | VisitScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Visit"> | string
+    tenantId?: StringWithAggregatesFilter<"Visit"> | string
     clientId?: StringWithAggregatesFilter<"Visit"> | string
     serviceId?: StringWithAggregatesFilter<"Visit"> | string
     requestedStartAt?: DateTimeWithAggregatesFilter<"Visit"> | Date | string
@@ -26175,6 +29137,7 @@ export namespace Prisma {
     OR?: ServiceWhereInput[]
     NOT?: ServiceWhereInput | ServiceWhereInput[]
     id?: StringFilter<"Service"> | string
+    tenantId?: StringFilter<"Service"> | string
     name?: StringFilter<"Service"> | string
     slug?: StringFilter<"Service"> | string
     description?: StringNullableFilter<"Service"> | string | null
@@ -26182,11 +29145,13 @@ export namespace Prisma {
     isActive?: BoolNullableFilter<"Service"> | boolean | null
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visits?: VisitListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -26194,6 +29159,7 @@ export namespace Prisma {
     isActive?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     visits?: VisitOrderByRelationAggregateInput
   }
 
@@ -26203,17 +29169,20 @@ export namespace Prisma {
     AND?: ServiceWhereInput | ServiceWhereInput[]
     OR?: ServiceWhereInput[]
     NOT?: ServiceWhereInput | ServiceWhereInput[]
+    tenantId?: StringFilter<"Service"> | string
     name?: StringFilter<"Service"> | string
     description?: StringNullableFilter<"Service"> | string | null
     baseRateHourly?: DecimalNullableFilter<"Service"> | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolNullableFilter<"Service"> | boolean | null
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visits?: VisitListRelationFilter
   }, "id" | "slug">
 
   export type ServiceOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -26233,6 +29202,7 @@ export namespace Prisma {
     OR?: ServiceScalarWhereWithAggregatesInput[]
     NOT?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Service"> | string
+    tenantId?: StringWithAggregatesFilter<"Service"> | string
     name?: StringWithAggregatesFilter<"Service"> | string
     slug?: StringWithAggregatesFilter<"Service"> | string
     description?: StringNullableWithAggregatesFilter<"Service"> | string | null
@@ -26481,6 +29451,7 @@ export namespace Prisma {
     OR?: IncidentWhereInput[]
     NOT?: IncidentWhereInput | IncidentWhereInput[]
     id?: StringFilter<"Incident"> | string
+    tenantId?: StringFilter<"Incident"> | string
     visitId?: StringNullableFilter<"Incident"> | string | null
     reporterUserId?: StringFilter<"Incident"> | string
     type?: EnumIncidentTypeFilter<"Incident"> | $Enums.IncidentType
@@ -26489,12 +29460,14 @@ export namespace Prisma {
     resolutionNotes?: StringNullableFilter<"Incident"> | string | null
     createdAt?: DateTimeFilter<"Incident"> | Date | string
     updatedAt?: DateTimeFilter<"Incident"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
     reporter?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type IncidentOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     visitId?: SortOrderInput | SortOrder
     reporterUserId?: SortOrder
     type?: SortOrder
@@ -26503,6 +29476,7 @@ export namespace Prisma {
     resolutionNotes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     visit?: VisitOrderByWithRelationInput
     reporter?: UserOrderByWithRelationInput
   }
@@ -26512,6 +29486,7 @@ export namespace Prisma {
     AND?: IncidentWhereInput | IncidentWhereInput[]
     OR?: IncidentWhereInput[]
     NOT?: IncidentWhereInput | IncidentWhereInput[]
+    tenantId?: StringFilter<"Incident"> | string
     visitId?: StringNullableFilter<"Incident"> | string | null
     reporterUserId?: StringFilter<"Incident"> | string
     type?: EnumIncidentTypeFilter<"Incident"> | $Enums.IncidentType
@@ -26520,12 +29495,14 @@ export namespace Prisma {
     resolutionNotes?: StringNullableFilter<"Incident"> | string | null
     createdAt?: DateTimeFilter<"Incident"> | Date | string
     updatedAt?: DateTimeFilter<"Incident"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
     reporter?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
   export type IncidentOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     visitId?: SortOrderInput | SortOrder
     reporterUserId?: SortOrder
     type?: SortOrder
@@ -26544,6 +29521,7 @@ export namespace Prisma {
     OR?: IncidentScalarWhereWithAggregatesInput[]
     NOT?: IncidentScalarWhereWithAggregatesInput | IncidentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Incident"> | string
+    tenantId?: StringWithAggregatesFilter<"Incident"> | string
     visitId?: StringNullableWithAggregatesFilter<"Incident"> | string | null
     reporterUserId?: StringWithAggregatesFilter<"Incident"> | string
     type?: EnumIncidentTypeWithAggregatesFilter<"Incident"> | $Enums.IncidentType
@@ -26559,6 +29537,7 @@ export namespace Prisma {
     OR?: TimesheetWhereInput[]
     NOT?: TimesheetWhereInput | TimesheetWhereInput[]
     id?: StringFilter<"Timesheet"> | string
+    tenantId?: StringFilter<"Timesheet"> | string
     pswId?: StringFilter<"Timesheet"> | string
     weekId?: StringFilter<"Timesheet"> | string
     totalMinutes?: IntNullableFilter<"Timesheet"> | number | null
@@ -26568,6 +29547,7 @@ export namespace Prisma {
     reviewedAt?: DateTimeNullableFilter<"Timesheet"> | Date | string | null
     createdAt?: DateTimeFilter<"Timesheet"> | Date | string
     updatedAt?: DateTimeFilter<"Timesheet"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
     reviewer?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     items?: TimesheetItemListRelationFilter
@@ -26575,6 +29555,7 @@ export namespace Prisma {
 
   export type TimesheetOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     pswId?: SortOrder
     weekId?: SortOrder
     totalMinutes?: SortOrderInput | SortOrder
@@ -26584,6 +29565,7 @@ export namespace Prisma {
     reviewedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     psw?: PswProfileOrderByWithRelationInput
     reviewer?: UserOrderByWithRelationInput
     items?: TimesheetItemOrderByRelationAggregateInput
@@ -26594,6 +29576,7 @@ export namespace Prisma {
     AND?: TimesheetWhereInput | TimesheetWhereInput[]
     OR?: TimesheetWhereInput[]
     NOT?: TimesheetWhereInput | TimesheetWhereInput[]
+    tenantId?: StringFilter<"Timesheet"> | string
     pswId?: StringFilter<"Timesheet"> | string
     weekId?: StringFilter<"Timesheet"> | string
     totalMinutes?: IntNullableFilter<"Timesheet"> | number | null
@@ -26603,6 +29586,7 @@ export namespace Prisma {
     reviewedAt?: DateTimeNullableFilter<"Timesheet"> | Date | string | null
     createdAt?: DateTimeFilter<"Timesheet"> | Date | string
     updatedAt?: DateTimeFilter<"Timesheet"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
     reviewer?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     items?: TimesheetItemListRelationFilter
@@ -26610,6 +29594,7 @@ export namespace Prisma {
 
   export type TimesheetOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     pswId?: SortOrder
     weekId?: SortOrder
     totalMinutes?: SortOrderInput | SortOrder
@@ -26631,6 +29616,7 @@ export namespace Prisma {
     OR?: TimesheetScalarWhereWithAggregatesInput[]
     NOT?: TimesheetScalarWhereWithAggregatesInput | TimesheetScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Timesheet"> | string
+    tenantId?: StringWithAggregatesFilter<"Timesheet"> | string
     pswId?: StringWithAggregatesFilter<"Timesheet"> | string
     weekId?: StringWithAggregatesFilter<"Timesheet"> | string
     totalMinutes?: IntNullableWithAggregatesFilter<"Timesheet"> | number | null
@@ -26707,6 +29693,7 @@ export namespace Prisma {
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     id?: StringFilter<"Invoice"> | string
+    tenantId?: StringFilter<"Invoice"> | string
     clientId?: StringFilter<"Invoice"> | string
     status?: EnumInvoiceStatusNullableFilter<"Invoice"> | $Enums.InvoiceStatus | null
     currency?: StringNullableFilter<"Invoice"> | string | null
@@ -26716,12 +29703,14 @@ export namespace Prisma {
     stripeInvoiceId?: StringNullableFilter<"Invoice"> | string | null
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     payments?: PaymentListRelationFilter
   }
 
   export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     status?: SortOrderInput | SortOrder
     currency?: SortOrderInput | SortOrder
@@ -26731,6 +29720,7 @@ export namespace Prisma {
     stripeInvoiceId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     client?: ClientProfileOrderByWithRelationInput
     payments?: PaymentOrderByRelationAggregateInput
   }
@@ -26740,6 +29730,7 @@ export namespace Prisma {
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    tenantId?: StringFilter<"Invoice"> | string
     clientId?: StringFilter<"Invoice"> | string
     status?: EnumInvoiceStatusNullableFilter<"Invoice"> | $Enums.InvoiceStatus | null
     currency?: StringNullableFilter<"Invoice"> | string | null
@@ -26749,12 +29740,14 @@ export namespace Prisma {
     stripeInvoiceId?: StringNullableFilter<"Invoice"> | string | null
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     payments?: PaymentListRelationFilter
   }, "id">
 
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     status?: SortOrderInput | SortOrder
     currency?: SortOrderInput | SortOrder
@@ -26776,6 +29769,7 @@ export namespace Prisma {
     OR?: InvoiceScalarWhereWithAggregatesInput[]
     NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invoice"> | string
+    tenantId?: StringWithAggregatesFilter<"Invoice"> | string
     clientId?: StringWithAggregatesFilter<"Invoice"> | string
     status?: EnumInvoiceStatusNullableWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus | null
     currency?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
@@ -26859,10 +29853,12 @@ export namespace Prisma {
     OR?: MessageThreadWhereInput[]
     NOT?: MessageThreadWhereInput | MessageThreadWhereInput[]
     id?: StringFilter<"MessageThread"> | string
+    tenantId?: StringFilter<"MessageThread"> | string
     threadType?: StringFilter<"MessageThread"> | string
     clientId?: StringNullableFilter<"MessageThread"> | string | null
     pswId?: StringNullableFilter<"MessageThread"> | string | null
     createdAt?: DateTimeFilter<"MessageThread"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
     psw?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
     messages?: MessageListRelationFilter
@@ -26870,10 +29866,12 @@ export namespace Prisma {
 
   export type MessageThreadOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     threadType?: SortOrder
     clientId?: SortOrderInput | SortOrder
     pswId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     client?: ClientProfileOrderByWithRelationInput
     psw?: PswProfileOrderByWithRelationInput
     messages?: MessageOrderByRelationAggregateInput
@@ -26884,10 +29882,12 @@ export namespace Prisma {
     AND?: MessageThreadWhereInput | MessageThreadWhereInput[]
     OR?: MessageThreadWhereInput[]
     NOT?: MessageThreadWhereInput | MessageThreadWhereInput[]
+    tenantId?: StringFilter<"MessageThread"> | string
     threadType?: StringFilter<"MessageThread"> | string
     clientId?: StringNullableFilter<"MessageThread"> | string | null
     pswId?: StringNullableFilter<"MessageThread"> | string | null
     createdAt?: DateTimeFilter<"MessageThread"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileNullableRelationFilter, ClientProfileWhereInput> | null
     psw?: XOR<PswProfileNullableRelationFilter, PswProfileWhereInput> | null
     messages?: MessageListRelationFilter
@@ -26895,6 +29895,7 @@ export namespace Prisma {
 
   export type MessageThreadOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     threadType?: SortOrder
     clientId?: SortOrderInput | SortOrder
     pswId?: SortOrderInput | SortOrder
@@ -26909,6 +29910,7 @@ export namespace Prisma {
     OR?: MessageThreadScalarWhereWithAggregatesInput[]
     NOT?: MessageThreadScalarWhereWithAggregatesInput | MessageThreadScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MessageThread"> | string
+    tenantId?: StringWithAggregatesFilter<"MessageThread"> | string
     threadType?: StringWithAggregatesFilter<"MessageThread"> | string
     clientId?: StringNullableWithAggregatesFilter<"MessageThread"> | string | null
     pswId?: StringNullableWithAggregatesFilter<"MessageThread"> | string | null
@@ -26978,6 +29980,7 @@ export namespace Prisma {
     OR?: AuditLogWhereInput[]
     NOT?: AuditLogWhereInput | AuditLogWhereInput[]
     id?: StringFilter<"AuditLog"> | string
+    tenantId?: StringFilter<"AuditLog"> | string
     actorUserId?: StringNullableFilter<"AuditLog"> | string | null
     action?: StringFilter<"AuditLog"> | string
     resourceType?: StringFilter<"AuditLog"> | string
@@ -26985,11 +29988,13 @@ export namespace Prisma {
     metadataJson?: JsonNullableFilter<"AuditLog">
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type AuditLogOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     actorUserId?: SortOrderInput | SortOrder
     action?: SortOrder
     resourceType?: SortOrder
@@ -26997,6 +30002,7 @@ export namespace Prisma {
     metadataJson?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     actor?: UserOrderByWithRelationInput
   }
 
@@ -27005,6 +30011,7 @@ export namespace Prisma {
     AND?: AuditLogWhereInput | AuditLogWhereInput[]
     OR?: AuditLogWhereInput[]
     NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    tenantId?: StringFilter<"AuditLog"> | string
     actorUserId?: StringNullableFilter<"AuditLog"> | string | null
     action?: StringFilter<"AuditLog"> | string
     resourceType?: StringFilter<"AuditLog"> | string
@@ -27012,11 +30019,13 @@ export namespace Prisma {
     metadataJson?: JsonNullableFilter<"AuditLog">
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type AuditLogOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     actorUserId?: SortOrderInput | SortOrder
     action?: SortOrder
     resourceType?: SortOrder
@@ -27034,6 +30043,7 @@ export namespace Prisma {
     OR?: AuditLogScalarWhereWithAggregatesInput[]
     NOT?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"AuditLog"> | string
+    tenantId?: StringWithAggregatesFilter<"AuditLog"> | string
     actorUserId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     action?: StringWithAggregatesFilter<"AuditLog"> | string
     resourceType?: StringWithAggregatesFilter<"AuditLog"> | string
@@ -27360,6 +30370,7 @@ export namespace Prisma {
     OR?: DailyEntryWhereInput[]
     NOT?: DailyEntryWhereInput | DailyEntryWhereInput[]
     id?: StringFilter<"DailyEntry"> | string
+    tenantId?: StringFilter<"DailyEntry"> | string
     clientId?: StringFilter<"DailyEntry"> | string
     staffId?: StringFilter<"DailyEntry"> | string
     visitId?: StringNullableFilter<"DailyEntry"> | string | null
@@ -27372,6 +30383,7 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFilter<"DailyEntry"> | $Enums.DailyEntryStatus
     createdAt?: DateTimeFilter<"DailyEntry"> | Date | string
     updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     staff?: XOR<UserRelationFilter, UserWhereInput>
     visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
@@ -27379,6 +30391,7 @@ export namespace Prisma {
 
   export type DailyEntryOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     staffId?: SortOrder
     visitId?: SortOrderInput | SortOrder
@@ -27391,6 +30404,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     client?: ClientProfileOrderByWithRelationInput
     staff?: UserOrderByWithRelationInput
     visit?: VisitOrderByWithRelationInput
@@ -27401,6 +30415,7 @@ export namespace Prisma {
     AND?: DailyEntryWhereInput | DailyEntryWhereInput[]
     OR?: DailyEntryWhereInput[]
     NOT?: DailyEntryWhereInput | DailyEntryWhereInput[]
+    tenantId?: StringFilter<"DailyEntry"> | string
     clientId?: StringFilter<"DailyEntry"> | string
     staffId?: StringFilter<"DailyEntry"> | string
     visitId?: StringNullableFilter<"DailyEntry"> | string | null
@@ -27413,6 +30428,7 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFilter<"DailyEntry"> | $Enums.DailyEntryStatus
     createdAt?: DateTimeFilter<"DailyEntry"> | Date | string
     updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     staff?: XOR<UserRelationFilter, UserWhereInput>
     visit?: XOR<VisitNullableRelationFilter, VisitWhereInput> | null
@@ -27420,6 +30436,7 @@ export namespace Prisma {
 
   export type DailyEntryOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     staffId?: SortOrder
     visitId?: SortOrderInput | SortOrder
@@ -27444,6 +30461,7 @@ export namespace Prisma {
     OR?: DailyEntryScalarWhereWithAggregatesInput[]
     NOT?: DailyEntryScalarWhereWithAggregatesInput | DailyEntryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"DailyEntry"> | string
+    tenantId?: StringWithAggregatesFilter<"DailyEntry"> | string
     clientId?: StringWithAggregatesFilter<"DailyEntry"> | string
     staffId?: StringWithAggregatesFilter<"DailyEntry"> | string
     visitId?: StringNullableWithAggregatesFilter<"DailyEntry"> | string | null
@@ -27458,9 +30476,92 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"DailyEntry"> | Date | string
   }
 
+  export type NotificationWhereInput = {
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    tenantId?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    role?: StringNullableFilter<"Notification"> | string | null
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    updatedAt?: DateTimeFilter<"Notification"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    role?: SortOrderInput | SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    tenantId?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    role?: StringNullableFilter<"Notification"> | string | null
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    updatedAt?: DateTimeFilter<"Notification"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type NotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    role?: SortOrderInput | SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NotificationCountOrderByAggregateInput
+    _max?: NotificationMaxOrderByAggregateInput
+    _min?: NotificationMinOrderByAggregateInput
+  }
+
+  export type NotificationScalarWhereWithAggregatesInput = {
+    AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    OR?: NotificationScalarWhereWithAggregatesInput[]
+    NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Notification"> | string
+    tenantId?: StringWithAggregatesFilter<"Notification"> | string
+    userId?: StringWithAggregatesFilter<"Notification"> | string
+    title?: StringWithAggregatesFilter<"Notification"> | string
+    message?: StringWithAggregatesFilter<"Notification"> | string
+    type?: StringWithAggregatesFilter<"Notification"> | string
+    role?: StringNullableWithAggregatesFilter<"Notification"> | string | null
+    isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -27470,6 +30571,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -27480,11 +30582,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -27504,11 +30608,12 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -27518,6 +30623,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -27528,11 +30634,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -27552,11 +30660,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -27570,7 +30680,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -27584,7 +30694,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -27592,6 +30703,117 @@ export namespace Prisma {
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27610,8 +30832,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
@@ -27621,6 +30846,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -27634,6 +30860,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
@@ -27656,8 +30884,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
@@ -27667,6 +30898,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27680,6 +30912,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
@@ -27690,6 +30924,7 @@ export namespace Prisma {
 
   export type ClientProfileCreateManyInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -27703,6 +30938,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27721,12 +30958,15 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientProfileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27740,6 +30980,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27755,6 +30997,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -27767,6 +31010,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -27797,6 +31041,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -27809,6 +31054,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27830,6 +31076,7 @@ export namespace Prisma {
 
   export type PswProfileCreateManyInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -27857,6 +31104,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27886,6 +31134,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -27899,6 +31148,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -27942,6 +31192,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -27955,6 +31206,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27983,6 +31235,7 @@ export namespace Prisma {
 
   export type VisitCreateManyInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -28024,6 +31277,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28053,11 +31307,13 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutServicesInput
     visits?: VisitCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
     id?: string
+    tenantId: string
     name: string
     slug: string
     description?: string | null
@@ -28077,11 +31333,13 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutServicesNestedInput
     visits?: VisitUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28094,6 +31352,7 @@ export namespace Prisma {
 
   export type ServiceCreateManyInput = {
     id?: string
+    tenantId: string
     name: string
     slug: string
     description?: string | null
@@ -28116,6 +31375,7 @@ export namespace Prisma {
 
   export type ServiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28371,12 +31631,14 @@ export namespace Prisma {
     resolutionNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutIncidentsInput
     visit?: VisitCreateNestedOneWithoutIncidentsInput
     reporter: UserCreateNestedOneWithoutReportedIncidentsInput
   }
 
   export type IncidentUncheckedCreateInput = {
     id?: string
+    tenantId: string
     visitId?: string | null
     reporterUserId: string
     type: $Enums.IncidentType
@@ -28395,12 +31657,14 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutIncidentsNestedInput
     visit?: VisitUpdateOneWithoutIncidentsNestedInput
     reporter?: UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   }
 
   export type IncidentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     reporterUserId?: StringFieldUpdateOperationsInput | string
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
@@ -28413,6 +31677,7 @@ export namespace Prisma {
 
   export type IncidentCreateManyInput = {
     id?: string
+    tenantId: string
     visitId?: string | null
     reporterUserId: string
     type: $Enums.IncidentType
@@ -28435,6 +31700,7 @@ export namespace Prisma {
 
   export type IncidentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     reporterUserId?: StringFieldUpdateOperationsInput | string
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
@@ -28454,6 +31720,7 @@ export namespace Prisma {
     reviewedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTimesheetsInput
     psw: PswProfileCreateNestedOneWithoutTimesheetsInput
     reviewer?: UserCreateNestedOneWithoutReviewedTimesheetsInput
     items?: TimesheetItemCreateNestedManyWithoutTimesheetInput
@@ -28461,6 +31728,7 @@ export namespace Prisma {
 
   export type TimesheetUncheckedCreateInput = {
     id?: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes?: number | null
@@ -28482,6 +31750,7 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTimesheetsNestedInput
     psw?: PswProfileUpdateOneRequiredWithoutTimesheetsNestedInput
     reviewer?: UserUpdateOneWithoutReviewedTimesheetsNestedInput
     items?: TimesheetItemUpdateManyWithoutTimesheetNestedInput
@@ -28489,6 +31758,7 @@ export namespace Prisma {
 
   export type TimesheetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     pswId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28503,6 +31773,7 @@ export namespace Prisma {
 
   export type TimesheetCreateManyInput = {
     id?: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes?: number | null
@@ -28527,6 +31798,7 @@ export namespace Prisma {
 
   export type TimesheetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     pswId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28602,12 +31874,14 @@ export namespace Prisma {
     stripeInvoiceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutInvoicesInput
     client: ClientProfileCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateInput = {
     id?: string
+    tenantId: string
     clientId: string
     status?: $Enums.InvoiceStatus | null
     currency?: string | null
@@ -28630,12 +31904,14 @@ export namespace Prisma {
     stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28650,6 +31926,7 @@ export namespace Prisma {
 
   export type InvoiceCreateManyInput = {
     id?: string
+    tenantId: string
     clientId: string
     status?: $Enums.InvoiceStatus | null
     currency?: string | null
@@ -28675,6 +31952,7 @@ export namespace Prisma {
 
   export type InvoiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28759,6 +32037,7 @@ export namespace Prisma {
     id?: string
     threadType: string
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessageThreadsInput
     client?: ClientProfileCreateNestedOneWithoutMessageThreadsInput
     psw?: PswProfileCreateNestedOneWithoutMessageThreadsInput
     messages?: MessageCreateNestedManyWithoutThreadInput
@@ -28766,6 +32045,7 @@ export namespace Prisma {
 
   export type MessageThreadUncheckedCreateInput = {
     id?: string
+    tenantId: string
     threadType: string
     clientId?: string | null
     pswId?: string | null
@@ -28777,6 +32057,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessageThreadsNestedInput
     client?: ClientProfileUpdateOneWithoutMessageThreadsNestedInput
     psw?: PswProfileUpdateOneWithoutMessageThreadsNestedInput
     messages?: MessageUpdateManyWithoutThreadNestedInput
@@ -28784,6 +32065,7 @@ export namespace Prisma {
 
   export type MessageThreadUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28793,6 +32075,7 @@ export namespace Prisma {
 
   export type MessageThreadCreateManyInput = {
     id?: string
+    tenantId: string
     threadType: string
     clientId?: string | null
     pswId?: string | null
@@ -28807,6 +32090,7 @@ export namespace Prisma {
 
   export type MessageThreadUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28875,11 +32159,13 @@ export namespace Prisma {
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
     ipAddress?: string | null
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAuditLogsInput
     actor?: UserCreateNestedOneWithoutAuditLogsInput
   }
 
   export type AuditLogUncheckedCreateInput = {
     id?: string
+    tenantId: string
     actorUserId?: string | null
     action: string
     resourceType: string
@@ -28897,11 +32183,13 @@ export namespace Prisma {
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAuditLogsNestedInput
     actor?: UserUpdateOneWithoutAuditLogsNestedInput
   }
 
   export type AuditLogUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     resourceType?: StringFieldUpdateOperationsInput | string
@@ -28913,6 +32201,7 @@ export namespace Prisma {
 
   export type AuditLogCreateManyInput = {
     id?: string
+    tenantId: string
     actorUserId?: string | null
     action: string
     resourceType: string
@@ -28934,6 +32223,7 @@ export namespace Prisma {
 
   export type AuditLogUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     action?: StringFieldUpdateOperationsInput | string
     resourceType?: StringFieldUpdateOperationsInput | string
@@ -29308,6 +32598,7 @@ export namespace Prisma {
     status?: $Enums.DailyEntryStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyEntriesInput
     client: ClientProfileCreateNestedOneWithoutDailyEntryInput
     staff: UserCreateNestedOneWithoutDailyEntryInput
     visit?: VisitCreateNestedOneWithoutDailyEntryInput
@@ -29315,6 +32606,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedCreateInput = {
     id?: string
+    tenantId: string
     clientId: string
     staffId: string
     visitId?: string | null
@@ -29340,6 +32632,7 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyEntriesNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
     staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
     visit?: VisitUpdateOneWithoutDailyEntryNestedInput
@@ -29347,6 +32640,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29363,6 +32657,7 @@ export namespace Prisma {
 
   export type DailyEntryCreateManyInput = {
     id?: string
+    tenantId: string
     clientId: string
     staffId: string
     visitId?: string | null
@@ -29392,6 +32687,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29402,6 +32698,95 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     signature?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationsInput
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationsNestedInput
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManyInput = {
+    id?: string
+    tenantId: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29421,11 +32806,12 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  export type EnumRoleNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    has?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -29463,6 +32849,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type TenantRelationFilter = {
+    is?: TenantWhereInput
+    isNot?: TenantWhereInput
   }
 
   export type ClientProfileNullableRelationFilter = {
@@ -29523,6 +32914,12 @@ export namespace Prisma {
     none?: DailyEntryWhereInput
   }
 
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -29560,9 +32957,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
+    tenantId?: SortOrder
+    roles?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
@@ -29576,7 +32978,7 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
+    tenantId?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
@@ -29590,7 +32992,7 @@ export namespace Prisma {
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    role?: SortOrder
+    tenantId?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
@@ -29618,16 +33020,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -29676,6 +33068,103 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type ClientProfileListRelationFilter = {
+    every?: ClientProfileWhereInput
+    some?: ClientProfileWhereInput
+    none?: ClientProfileWhereInput
+  }
+
+  export type PswProfileListRelationFilter = {
+    every?: PswProfileWhereInput
+    some?: PswProfileWhereInput
+    none?: PswProfileWhereInput
+  }
+
+  export type VisitListRelationFilter = {
+    every?: VisitWhereInput
+    some?: VisitWhereInput
+    none?: VisitWhereInput
+  }
+
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
+  }
+
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
+  }
+
+  export type MessageThreadListRelationFilter = {
+    every?: MessageThreadWhereInput
+    some?: MessageThreadWhereInput
+    none?: MessageThreadWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClientProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PswProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VisitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageThreadOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TenantCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -29714,38 +33203,9 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type VisitListRelationFilter = {
-    every?: VisitWhereInput
-    some?: VisitWhereInput
-    none?: VisitWhereInput
-  }
-
-  export type InvoiceListRelationFilter = {
-    every?: InvoiceWhereInput
-    some?: InvoiceWhereInput
-    none?: InvoiceWhereInput
-  }
-
-  export type MessageThreadListRelationFilter = {
-    every?: MessageThreadWhereInput
-    some?: MessageThreadWhereInput
-    none?: MessageThreadWhereInput
-  }
-
-  export type VisitOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type InvoiceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MessageThreadOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ClientProfileCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     dob?: SortOrder
@@ -29759,6 +33219,8 @@ export namespace Prisma {
     emergencyName?: SortOrder
     emergencyPhone?: SortOrder
     preferences?: SortOrder
+    carePlan?: SortOrder
+    riskLevel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -29770,6 +33232,7 @@ export namespace Prisma {
 
   export type ClientProfileMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     dob?: SortOrder
@@ -29782,12 +33245,14 @@ export namespace Prisma {
     lng?: SortOrder
     emergencyName?: SortOrder
     emergencyPhone?: SortOrder
+    riskLevel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ClientProfileMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     dob?: SortOrder
@@ -29800,6 +33265,7 @@ export namespace Prisma {
     lng?: SortOrder
     emergencyName?: SortOrder
     emergencyPhone?: SortOrder
+    riskLevel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -29885,6 +33351,7 @@ export namespace Prisma {
 
   export type PswProfileCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     bio?: SortOrder
@@ -29899,6 +33366,7 @@ export namespace Prisma {
 
   export type PswProfileMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     bio?: SortOrder
@@ -29910,6 +33378,7 @@ export namespace Prisma {
 
   export type PswProfileMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     userId?: SortOrder
     fullName?: SortOrder
     bio?: SortOrder
@@ -29967,6 +33436,7 @@ export namespace Prisma {
 
   export type VisitCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
@@ -29995,6 +33465,7 @@ export namespace Prisma {
 
   export type VisitMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
@@ -30017,6 +33488,7 @@ export namespace Prisma {
 
   export type VisitMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
@@ -30087,6 +33559,7 @@ export namespace Prisma {
 
   export type ServiceCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -30102,6 +33575,7 @@ export namespace Prisma {
 
   export type ServiceMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -30113,6 +33587,7 @@ export namespace Prisma {
 
   export type ServiceMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -30384,6 +33859,7 @@ export namespace Prisma {
 
   export type IncidentCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     visitId?: SortOrder
     reporterUserId?: SortOrder
     type?: SortOrder
@@ -30396,6 +33872,7 @@ export namespace Prisma {
 
   export type IncidentMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     visitId?: SortOrder
     reporterUserId?: SortOrder
     type?: SortOrder
@@ -30408,6 +33885,7 @@ export namespace Prisma {
 
   export type IncidentMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     visitId?: SortOrder
     reporterUserId?: SortOrder
     type?: SortOrder
@@ -30458,6 +33936,7 @@ export namespace Prisma {
 
   export type TimesheetCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     pswId?: SortOrder
     weekId?: SortOrder
     totalMinutes?: SortOrder
@@ -30475,6 +33954,7 @@ export namespace Prisma {
 
   export type TimesheetMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     pswId?: SortOrder
     weekId?: SortOrder
     totalMinutes?: SortOrder
@@ -30488,6 +33968,7 @@ export namespace Prisma {
 
   export type TimesheetMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     pswId?: SortOrder
     weekId?: SortOrder
     totalMinutes?: SortOrder
@@ -30585,6 +34066,7 @@ export namespace Prisma {
 
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     status?: SortOrder
     currency?: SortOrder
@@ -30604,6 +34086,7 @@ export namespace Prisma {
 
   export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     status?: SortOrder
     currency?: SortOrder
@@ -30617,6 +34100,7 @@ export namespace Prisma {
 
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     status?: SortOrder
     currency?: SortOrder
@@ -30689,6 +34173,7 @@ export namespace Prisma {
 
   export type MessageThreadCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     threadType?: SortOrder
     clientId?: SortOrder
     pswId?: SortOrder
@@ -30697,6 +34182,7 @@ export namespace Prisma {
 
   export type MessageThreadMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     threadType?: SortOrder
     clientId?: SortOrder
     pswId?: SortOrder
@@ -30705,6 +34191,7 @@ export namespace Prisma {
 
   export type MessageThreadMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     threadType?: SortOrder
     clientId?: SortOrder
     pswId?: SortOrder
@@ -30742,6 +34229,7 @@ export namespace Prisma {
 
   export type AuditLogCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     actorUserId?: SortOrder
     action?: SortOrder
     resourceType?: SortOrder
@@ -30753,6 +34241,7 @@ export namespace Prisma {
 
   export type AuditLogMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     actorUserId?: SortOrder
     action?: SortOrder
     resourceType?: SortOrder
@@ -30763,6 +34252,7 @@ export namespace Prisma {
 
   export type AuditLogMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     actorUserId?: SortOrder
     action?: SortOrder
     resourceType?: SortOrder
@@ -30950,6 +34440,7 @@ export namespace Prisma {
 
   export type DailyEntryCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     staffId?: SortOrder
     visitId?: SortOrder
@@ -30970,6 +34461,7 @@ export namespace Prisma {
 
   export type DailyEntryMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     staffId?: SortOrder
     visitId?: SortOrder
@@ -30983,6 +34475,7 @@ export namespace Prisma {
 
   export type DailyEntryMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     clientId?: SortOrder
     staffId?: SortOrder
     visitId?: SortOrder
@@ -31006,6 +34499,55 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
     _max?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+  }
+
+  export type NotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCreaterolesInput = {
+    set: $Enums.Role[]
+  }
+
+  export type TenantCreateNestedOneWithoutUsersInput = {
+    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
+    connect?: TenantWhereUniqueInput
   }
 
   export type ClientProfileCreateNestedOneWithoutUserInput = {
@@ -31076,6 +34618,13 @@ export namespace Prisma {
     connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
   }
 
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type ClientProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput
@@ -31144,12 +34693,20 @@ export namespace Prisma {
     connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
   }
 
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
+  export type UserUpdaterolesInput = {
+    set?: $Enums.Role[]
+    push?: $Enums.Role | $Enums.Role[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -31162,6 +34719,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type TenantUpdateOneRequiredWithoutUsersNestedInput = {
+    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
+    upsert?: TenantUpsertWithoutUsersInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutUsersInput, TenantUpdateWithoutUsersInput>, TenantUncheckedUpdateWithoutUsersInput>
   }
 
   export type ClientProfileUpdateOneWithoutUserNestedInput = {
@@ -31296,6 +34861,20 @@ export namespace Prisma {
     deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type ClientProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<ClientProfileCreateWithoutUserInput, ClientProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput
@@ -31428,6 +35007,530 @@ export namespace Prisma {
     deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
   }
 
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type UserCreateNestedManyWithoutTenantInput = {
+    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
+    createMany?: UserCreateManyTenantInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type ClientProfileCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput> | ClientProfileCreateWithoutTenantInput[] | ClientProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutTenantInput | ClientProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: ClientProfileCreateManyTenantInputEnvelope
+    connect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+  }
+
+  export type PswProfileCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput> | PswProfileCreateWithoutTenantInput[] | PswProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswProfileCreateOrConnectWithoutTenantInput | PswProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: PswProfileCreateManyTenantInputEnvelope
+    connect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+  }
+
+  export type VisitCreateNestedManyWithoutTenantInput = {
+    create?: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput> | VisitCreateWithoutTenantInput[] | VisitUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutTenantInput | VisitCreateOrConnectWithoutTenantInput[]
+    createMany?: VisitCreateManyTenantInputEnvelope
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type ServiceCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput> | ServiceCreateWithoutTenantInput[] | ServiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutTenantInput | ServiceCreateOrConnectWithoutTenantInput[]
+    createMany?: ServiceCreateManyTenantInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
+  export type AuditLogCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
+    createMany?: AuditLogCreateManyTenantInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type DailyEntryCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput> | DailyEntryCreateWithoutTenantInput[] | DailyEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutTenantInput | DailyEntryCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyEntryCreateManyTenantInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+  }
+
+  export type IncidentCreateNestedManyWithoutTenantInput = {
+    create?: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput> | IncidentCreateWithoutTenantInput[] | IncidentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IncidentCreateOrConnectWithoutTenantInput | IncidentCreateOrConnectWithoutTenantInput[]
+    createMany?: IncidentCreateManyTenantInputEnvelope
+    connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+  }
+
+  export type TimesheetCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput> | TimesheetCreateWithoutTenantInput[] | TimesheetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TimesheetCreateOrConnectWithoutTenantInput | TimesheetCreateOrConnectWithoutTenantInput[]
+    createMany?: TimesheetCreateManyTenantInputEnvelope
+    connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+  }
+
+  export type InvoiceCreateNestedManyWithoutTenantInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type MessageThreadCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput> | MessageThreadCreateWithoutTenantInput[] | MessageThreadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageThreadCreateOrConnectWithoutTenantInput | MessageThreadCreateOrConnectWithoutTenantInput[]
+    createMany?: MessageThreadCreateManyTenantInputEnvelope
+    connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationCreateManyTenantInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
+    createMany?: UserCreateManyTenantInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type ClientProfileUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput> | ClientProfileCreateWithoutTenantInput[] | ClientProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutTenantInput | ClientProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: ClientProfileCreateManyTenantInputEnvelope
+    connect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+  }
+
+  export type PswProfileUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput> | PswProfileCreateWithoutTenantInput[] | PswProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswProfileCreateOrConnectWithoutTenantInput | PswProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: PswProfileCreateManyTenantInputEnvelope
+    connect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+  }
+
+  export type VisitUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput> | VisitCreateWithoutTenantInput[] | VisitUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutTenantInput | VisitCreateOrConnectWithoutTenantInput[]
+    createMany?: VisitCreateManyTenantInputEnvelope
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type ServiceUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput> | ServiceCreateWithoutTenantInput[] | ServiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutTenantInput | ServiceCreateOrConnectWithoutTenantInput[]
+    createMany?: ServiceCreateManyTenantInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
+  export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
+    createMany?: AuditLogCreateManyTenantInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type DailyEntryUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput> | DailyEntryCreateWithoutTenantInput[] | DailyEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutTenantInput | DailyEntryCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyEntryCreateManyTenantInputEnvelope
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+  }
+
+  export type IncidentUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput> | IncidentCreateWithoutTenantInput[] | IncidentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IncidentCreateOrConnectWithoutTenantInput | IncidentCreateOrConnectWithoutTenantInput[]
+    createMany?: IncidentCreateManyTenantInputEnvelope
+    connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+  }
+
+  export type TimesheetUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput> | TimesheetCreateWithoutTenantInput[] | TimesheetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TimesheetCreateOrConnectWithoutTenantInput | TimesheetCreateOrConnectWithoutTenantInput[]
+    createMany?: TimesheetCreateManyTenantInputEnvelope
+    connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type MessageThreadUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput> | MessageThreadCreateWithoutTenantInput[] | MessageThreadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageThreadCreateOrConnectWithoutTenantInput | MessageThreadCreateOrConnectWithoutTenantInput[]
+    createMany?: MessageThreadCreateManyTenantInputEnvelope
+    connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationCreateManyTenantInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type UserUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutTenantInput | UserUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: UserCreateManyTenantInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutTenantInput | UserUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutTenantInput | UserUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ClientProfileUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput> | ClientProfileCreateWithoutTenantInput[] | ClientProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutTenantInput | ClientProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: ClientProfileUpsertWithWhereUniqueWithoutTenantInput | ClientProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ClientProfileCreateManyTenantInputEnvelope
+    set?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    disconnect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    delete?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    connect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    update?: ClientProfileUpdateWithWhereUniqueWithoutTenantInput | ClientProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ClientProfileUpdateManyWithWhereWithoutTenantInput | ClientProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ClientProfileScalarWhereInput | ClientProfileScalarWhereInput[]
+  }
+
+  export type PswProfileUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput> | PswProfileCreateWithoutTenantInput[] | PswProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswProfileCreateOrConnectWithoutTenantInput | PswProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: PswProfileUpsertWithWhereUniqueWithoutTenantInput | PswProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PswProfileCreateManyTenantInputEnvelope
+    set?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    disconnect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    delete?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    connect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    update?: PswProfileUpdateWithWhereUniqueWithoutTenantInput | PswProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PswProfileUpdateManyWithWhereWithoutTenantInput | PswProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PswProfileScalarWhereInput | PswProfileScalarWhereInput[]
+  }
+
+  export type VisitUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput> | VisitCreateWithoutTenantInput[] | VisitUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutTenantInput | VisitCreateOrConnectWithoutTenantInput[]
+    upsert?: VisitUpsertWithWhereUniqueWithoutTenantInput | VisitUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: VisitCreateManyTenantInputEnvelope
+    set?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    disconnect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    delete?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    update?: VisitUpdateWithWhereUniqueWithoutTenantInput | VisitUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: VisitUpdateManyWithWhereWithoutTenantInput | VisitUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
+  }
+
+  export type ServiceUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput> | ServiceCreateWithoutTenantInput[] | ServiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutTenantInput | ServiceCreateOrConnectWithoutTenantInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutTenantInput | ServiceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ServiceCreateManyTenantInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutTenantInput | ServiceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutTenantInput | ServiceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
+  export type AuditLogUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutTenantInput | AuditLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AuditLogCreateManyTenantInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutTenantInput | AuditLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutTenantInput | AuditLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type DailyEntryUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput> | DailyEntryCreateWithoutTenantInput[] | DailyEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutTenantInput | DailyEntryCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutTenantInput | DailyEntryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyEntryCreateManyTenantInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutTenantInput | DailyEntryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutTenantInput | DailyEntryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
+  export type IncidentUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput> | IncidentCreateWithoutTenantInput[] | IncidentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IncidentCreateOrConnectWithoutTenantInput | IncidentCreateOrConnectWithoutTenantInput[]
+    upsert?: IncidentUpsertWithWhereUniqueWithoutTenantInput | IncidentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: IncidentCreateManyTenantInputEnvelope
+    set?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    disconnect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    delete?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    update?: IncidentUpdateWithWhereUniqueWithoutTenantInput | IncidentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: IncidentUpdateManyWithWhereWithoutTenantInput | IncidentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: IncidentScalarWhereInput | IncidentScalarWhereInput[]
+  }
+
+  export type TimesheetUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput> | TimesheetCreateWithoutTenantInput[] | TimesheetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TimesheetCreateOrConnectWithoutTenantInput | TimesheetCreateOrConnectWithoutTenantInput[]
+    upsert?: TimesheetUpsertWithWhereUniqueWithoutTenantInput | TimesheetUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TimesheetCreateManyTenantInputEnvelope
+    set?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    disconnect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    delete?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    update?: TimesheetUpdateWithWhereUniqueWithoutTenantInput | TimesheetUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TimesheetUpdateManyWithWhereWithoutTenantInput | TimesheetUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TimesheetScalarWhereInput | TimesheetScalarWhereInput[]
+  }
+
+  export type InvoiceUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutTenantInput | InvoiceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutTenantInput | InvoiceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutTenantInput | InvoiceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type MessageThreadUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput> | MessageThreadCreateWithoutTenantInput[] | MessageThreadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageThreadCreateOrConnectWithoutTenantInput | MessageThreadCreateOrConnectWithoutTenantInput[]
+    upsert?: MessageThreadUpsertWithWhereUniqueWithoutTenantInput | MessageThreadUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MessageThreadCreateManyTenantInputEnvelope
+    set?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    disconnect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    delete?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    update?: MessageThreadUpdateWithWhereUniqueWithoutTenantInput | MessageThreadUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MessageThreadUpdateManyWithWhereWithoutTenantInput | MessageThreadUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutTenantInput | NotificationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationCreateManyTenantInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutTenantInput | NotificationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutTenantInput | NotificationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutTenantInput | UserUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: UserCreateManyTenantInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutTenantInput | UserUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutTenantInput | UserUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ClientProfileUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput> | ClientProfileCreateWithoutTenantInput[] | ClientProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutTenantInput | ClientProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: ClientProfileUpsertWithWhereUniqueWithoutTenantInput | ClientProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ClientProfileCreateManyTenantInputEnvelope
+    set?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    disconnect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    delete?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    connect?: ClientProfileWhereUniqueInput | ClientProfileWhereUniqueInput[]
+    update?: ClientProfileUpdateWithWhereUniqueWithoutTenantInput | ClientProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ClientProfileUpdateManyWithWhereWithoutTenantInput | ClientProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ClientProfileScalarWhereInput | ClientProfileScalarWhereInput[]
+  }
+
+  export type PswProfileUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput> | PswProfileCreateWithoutTenantInput[] | PswProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswProfileCreateOrConnectWithoutTenantInput | PswProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: PswProfileUpsertWithWhereUniqueWithoutTenantInput | PswProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PswProfileCreateManyTenantInputEnvelope
+    set?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    disconnect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    delete?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    connect?: PswProfileWhereUniqueInput | PswProfileWhereUniqueInput[]
+    update?: PswProfileUpdateWithWhereUniqueWithoutTenantInput | PswProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PswProfileUpdateManyWithWhereWithoutTenantInput | PswProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PswProfileScalarWhereInput | PswProfileScalarWhereInput[]
+  }
+
+  export type VisitUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput> | VisitCreateWithoutTenantInput[] | VisitUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutTenantInput | VisitCreateOrConnectWithoutTenantInput[]
+    upsert?: VisitUpsertWithWhereUniqueWithoutTenantInput | VisitUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: VisitCreateManyTenantInputEnvelope
+    set?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    disconnect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    delete?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    update?: VisitUpdateWithWhereUniqueWithoutTenantInput | VisitUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: VisitUpdateManyWithWhereWithoutTenantInput | VisitUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput> | ServiceCreateWithoutTenantInput[] | ServiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutTenantInput | ServiceCreateOrConnectWithoutTenantInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutTenantInput | ServiceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ServiceCreateManyTenantInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutTenantInput | ServiceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutTenantInput | ServiceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
+  export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutTenantInput | AuditLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AuditLogCreateManyTenantInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutTenantInput | AuditLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutTenantInput | AuditLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput> | DailyEntryCreateWithoutTenantInput[] | DailyEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyEntryCreateOrConnectWithoutTenantInput | DailyEntryCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyEntryUpsertWithWhereUniqueWithoutTenantInput | DailyEntryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyEntryCreateManyTenantInputEnvelope
+    set?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    disconnect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    delete?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    connect?: DailyEntryWhereUniqueInput | DailyEntryWhereUniqueInput[]
+    update?: DailyEntryUpdateWithWhereUniqueWithoutTenantInput | DailyEntryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyEntryUpdateManyWithWhereWithoutTenantInput | DailyEntryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
+  }
+
+  export type IncidentUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput> | IncidentCreateWithoutTenantInput[] | IncidentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IncidentCreateOrConnectWithoutTenantInput | IncidentCreateOrConnectWithoutTenantInput[]
+    upsert?: IncidentUpsertWithWhereUniqueWithoutTenantInput | IncidentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: IncidentCreateManyTenantInputEnvelope
+    set?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    disconnect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    delete?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+    update?: IncidentUpdateWithWhereUniqueWithoutTenantInput | IncidentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: IncidentUpdateManyWithWhereWithoutTenantInput | IncidentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: IncidentScalarWhereInput | IncidentScalarWhereInput[]
+  }
+
+  export type TimesheetUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput> | TimesheetCreateWithoutTenantInput[] | TimesheetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TimesheetCreateOrConnectWithoutTenantInput | TimesheetCreateOrConnectWithoutTenantInput[]
+    upsert?: TimesheetUpsertWithWhereUniqueWithoutTenantInput | TimesheetUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TimesheetCreateManyTenantInputEnvelope
+    set?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    disconnect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    delete?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+    update?: TimesheetUpdateWithWhereUniqueWithoutTenantInput | TimesheetUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TimesheetUpdateManyWithWhereWithoutTenantInput | TimesheetUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TimesheetScalarWhereInput | TimesheetScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutTenantInput | InvoiceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutTenantInput | InvoiceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutTenantInput | InvoiceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type MessageThreadUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput> | MessageThreadCreateWithoutTenantInput[] | MessageThreadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MessageThreadCreateOrConnectWithoutTenantInput | MessageThreadCreateOrConnectWithoutTenantInput[]
+    upsert?: MessageThreadUpsertWithWhereUniqueWithoutTenantInput | MessageThreadUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MessageThreadCreateManyTenantInputEnvelope
+    set?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    disconnect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    delete?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    connect?: MessageThreadWhereUniqueInput | MessageThreadWhereUniqueInput[]
+    update?: MessageThreadUpdateWithWhereUniqueWithoutTenantInput | MessageThreadUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MessageThreadUpdateManyWithWhereWithoutTenantInput | MessageThreadUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutTenantInput | NotificationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationCreateManyTenantInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutTenantInput | NotificationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutTenantInput | NotificationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutClientProfilesInput = {
+    create?: XOR<TenantCreateWithoutClientProfilesInput, TenantUncheckedCreateWithoutClientProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutClientProfilesInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutClientProfileInput = {
     create?: XOR<UserCreateWithoutClientProfileInput, UserUncheckedCreateWithoutClientProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutClientProfileInput
@@ -31496,6 +35599,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type TenantUpdateOneRequiredWithoutClientProfilesNestedInput = {
+    create?: XOR<TenantCreateWithoutClientProfilesInput, TenantUncheckedCreateWithoutClientProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutClientProfilesInput
+    upsert?: TenantUpsertWithoutClientProfilesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutClientProfilesInput, TenantUpdateWithoutClientProfilesInput>, TenantUncheckedUpdateWithoutClientProfilesInput>
   }
 
   export type UserUpdateOneRequiredWithoutClientProfileNestedInput = {
@@ -31626,6 +35737,12 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type TenantCreateNestedOneWithoutPswProfilesInput = {
+    create?: XOR<TenantCreateWithoutPswProfilesInput, TenantUncheckedCreateWithoutPswProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPswProfilesInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutPswProfileInput = {
     create?: XOR<UserCreateWithoutPswProfileInput, UserUncheckedCreateWithoutPswProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutPswProfileInput
@@ -31742,6 +35859,14 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type TenantUpdateOneRequiredWithoutPswProfilesNestedInput = {
+    create?: XOR<TenantCreateWithoutPswProfilesInput, TenantUncheckedCreateWithoutPswProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPswProfilesInput
+    upsert?: TenantUpsertWithoutPswProfilesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPswProfilesInput, TenantUpdateWithoutPswProfilesInput>, TenantUncheckedUpdateWithoutPswProfilesInput>
   }
 
   export type UserUpdateOneRequiredWithoutPswProfileNestedInput = {
@@ -31948,6 +36073,12 @@ export namespace Prisma {
     deleteMany?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
   }
 
+  export type TenantCreateNestedOneWithoutVisitsInput = {
+    create?: XOR<TenantCreateWithoutVisitsInput, TenantUncheckedCreateWithoutVisitsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutVisitsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type ClientProfileCreateNestedOneWithoutVisitsInput = {
     create?: XOR<ClientProfileCreateWithoutVisitsInput, ClientProfileUncheckedCreateWithoutVisitsInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutVisitsInput
@@ -32060,6 +36191,14 @@ export namespace Prisma {
 
   export type NullableEnumVisitStatusFieldUpdateOperationsInput = {
     set?: $Enums.VisitStatus | null
+  }
+
+  export type TenantUpdateOneRequiredWithoutVisitsNestedInput = {
+    create?: XOR<TenantCreateWithoutVisitsInput, TenantUncheckedCreateWithoutVisitsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutVisitsInput
+    upsert?: TenantUpsertWithoutVisitsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutVisitsInput, TenantUpdateWithoutVisitsInput>, TenantUncheckedUpdateWithoutVisitsInput>
   }
 
   export type ClientProfileUpdateOneRequiredWithoutVisitsNestedInput = {
@@ -32256,6 +36395,12 @@ export namespace Prisma {
     deleteMany?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
   }
 
+  export type TenantCreateNestedOneWithoutServicesInput = {
+    create?: XOR<TenantCreateWithoutServicesInput, TenantUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutServicesInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type VisitCreateNestedManyWithoutServiceInput = {
     create?: XOR<VisitCreateWithoutServiceInput, VisitUncheckedCreateWithoutServiceInput> | VisitCreateWithoutServiceInput[] | VisitUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: VisitCreateOrConnectWithoutServiceInput | VisitCreateOrConnectWithoutServiceInput[]
@@ -32280,6 +36425,14 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type TenantUpdateOneRequiredWithoutServicesNestedInput = {
+    create?: XOR<TenantCreateWithoutServicesInput, TenantUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutServicesInput
+    upsert?: TenantUpsertWithoutServicesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutServicesInput, TenantUpdateWithoutServicesInput>, TenantUncheckedUpdateWithoutServicesInput>
   }
 
   export type VisitUpdateManyWithoutServiceNestedInput = {
@@ -32418,6 +36571,12 @@ export namespace Prisma {
     update?: XOR<XOR<PswProfileUpdateToOneWithWhereWithoutChecklistsInput, PswProfileUpdateWithoutChecklistsInput>, PswProfileUncheckedUpdateWithoutChecklistsInput>
   }
 
+  export type TenantCreateNestedOneWithoutIncidentsInput = {
+    create?: XOR<TenantCreateWithoutIncidentsInput, TenantUncheckedCreateWithoutIncidentsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutIncidentsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type VisitCreateNestedOneWithoutIncidentsInput = {
     create?: XOR<VisitCreateWithoutIncidentsInput, VisitUncheckedCreateWithoutIncidentsInput>
     connectOrCreate?: VisitCreateOrConnectWithoutIncidentsInput
@@ -32438,6 +36597,14 @@ export namespace Prisma {
     set?: $Enums.IncidentStatus | null
   }
 
+  export type TenantUpdateOneRequiredWithoutIncidentsNestedInput = {
+    create?: XOR<TenantCreateWithoutIncidentsInput, TenantUncheckedCreateWithoutIncidentsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutIncidentsInput
+    upsert?: TenantUpsertWithoutIncidentsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutIncidentsInput, TenantUpdateWithoutIncidentsInput>, TenantUncheckedUpdateWithoutIncidentsInput>
+  }
+
   export type VisitUpdateOneWithoutIncidentsNestedInput = {
     create?: XOR<VisitCreateWithoutIncidentsInput, VisitUncheckedCreateWithoutIncidentsInput>
     connectOrCreate?: VisitCreateOrConnectWithoutIncidentsInput
@@ -32454,6 +36621,12 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutReportedIncidentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportedIncidentsInput, UserUpdateWithoutReportedIncidentsInput>, UserUncheckedUpdateWithoutReportedIncidentsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutTimesheetsInput = {
+    create?: XOR<TenantCreateWithoutTimesheetsInput, TenantUncheckedCreateWithoutTimesheetsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTimesheetsInput
+    connect?: TenantWhereUniqueInput
   }
 
   export type PswProfileCreateNestedOneWithoutTimesheetsInput = {
@@ -32492,6 +36665,14 @@ export namespace Prisma {
 
   export type NullableEnumTimesheetStatusFieldUpdateOperationsInput = {
     set?: $Enums.TimesheetStatus | null
+  }
+
+  export type TenantUpdateOneRequiredWithoutTimesheetsNestedInput = {
+    create?: XOR<TenantCreateWithoutTimesheetsInput, TenantUncheckedCreateWithoutTimesheetsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTimesheetsInput
+    upsert?: TenantUpsertWithoutTimesheetsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTimesheetsInput, TenantUpdateWithoutTimesheetsInput>, TenantUncheckedUpdateWithoutTimesheetsInput>
   }
 
   export type PswProfileUpdateOneRequiredWithoutTimesheetsNestedInput = {
@@ -32568,6 +36749,12 @@ export namespace Prisma {
     update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutTimesheetItemsInput, VisitUpdateWithoutTimesheetItemsInput>, VisitUncheckedUpdateWithoutTimesheetItemsInput>
   }
 
+  export type TenantCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutInvoicesInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type ClientProfileCreateNestedOneWithoutInvoicesInput = {
     create?: XOR<ClientProfileCreateWithoutInvoicesInput, ClientProfileUncheckedCreateWithoutInvoicesInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutInvoicesInput
@@ -32590,6 +36777,14 @@ export namespace Prisma {
 
   export type NullableEnumInvoiceStatusFieldUpdateOperationsInput = {
     set?: $Enums.InvoiceStatus | null
+  }
+
+  export type TenantUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutInvoicesInput
+    upsert?: TenantUpsertWithoutInvoicesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutInvoicesInput, TenantUpdateWithoutInvoicesInput>, TenantUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type ClientProfileUpdateOneRequiredWithoutInvoicesNestedInput = {
@@ -32642,6 +36837,12 @@ export namespace Prisma {
     update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutPaymentsInput, InvoiceUpdateWithoutPaymentsInput>, InvoiceUncheckedUpdateWithoutPaymentsInput>
   }
 
+  export type TenantCreateNestedOneWithoutMessageThreadsInput = {
+    create?: XOR<TenantCreateWithoutMessageThreadsInput, TenantUncheckedCreateWithoutMessageThreadsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMessageThreadsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type ClientProfileCreateNestedOneWithoutMessageThreadsInput = {
     create?: XOR<ClientProfileCreateWithoutMessageThreadsInput, ClientProfileUncheckedCreateWithoutMessageThreadsInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutMessageThreadsInput
@@ -32666,6 +36867,14 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutThreadInput | MessageCreateOrConnectWithoutThreadInput[]
     createMany?: MessageCreateManyThreadInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutMessageThreadsNestedInput = {
+    create?: XOR<TenantCreateWithoutMessageThreadsInput, TenantUncheckedCreateWithoutMessageThreadsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMessageThreadsInput
+    upsert?: TenantUpsertWithoutMessageThreadsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutMessageThreadsInput, TenantUpdateWithoutMessageThreadsInput>, TenantUncheckedUpdateWithoutMessageThreadsInput>
   }
 
   export type ClientProfileUpdateOneWithoutMessageThreadsNestedInput = {
@@ -32744,10 +36953,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
+  export type TenantCreateNestedOneWithoutAuditLogsInput = {
+    create?: XOR<TenantCreateWithoutAuditLogsInput, TenantUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAuditLogsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutAuditLogsInput = {
     create?: XOR<UserCreateWithoutAuditLogsInput, UserUncheckedCreateWithoutAuditLogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAuditLogsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutAuditLogsNestedInput = {
+    create?: XOR<TenantCreateWithoutAuditLogsInput, TenantUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAuditLogsInput
+    upsert?: TenantUpsertWithoutAuditLogsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAuditLogsInput, TenantUpdateWithoutAuditLogsInput>, TenantUncheckedUpdateWithoutAuditLogsInput>
   }
 
   export type UserUpdateOneWithoutAuditLogsNestedInput = {
@@ -32810,6 +37033,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVerifiedDocsInput, UserUpdateWithoutVerifiedDocsInput>, UserUncheckedUpdateWithoutVerifiedDocsInput>
   }
 
+  export type TenantCreateNestedOneWithoutDailyEntriesInput = {
+    create?: XOR<TenantCreateWithoutDailyEntriesInput, TenantUncheckedCreateWithoutDailyEntriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyEntriesInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type ClientProfileCreateNestedOneWithoutDailyEntryInput = {
     create?: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
     connectOrCreate?: ClientProfileCreateOrConnectWithoutDailyEntryInput
@@ -32830,6 +37059,14 @@ export namespace Prisma {
 
   export type EnumDailyEntryStatusFieldUpdateOperationsInput = {
     set?: $Enums.DailyEntryStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutDailyEntriesNestedInput = {
+    create?: XOR<TenantCreateWithoutDailyEntriesInput, TenantUncheckedCreateWithoutDailyEntriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyEntriesInput
+    upsert?: TenantUpsertWithoutDailyEntriesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDailyEntriesInput, TenantUpdateWithoutDailyEntriesInput>, TenantUncheckedUpdateWithoutDailyEntriesInput>
   }
 
   export type ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput = {
@@ -32858,6 +37095,34 @@ export namespace Prisma {
     update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutDailyEntryInput, VisitUpdateWithoutDailyEntryInput>, VisitUncheckedUpdateWithoutDailyEntryInput>
   }
 
+  export type TenantCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationsInput
+    upsert?: TenantUpsertWithoutNotificationsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationsInput, TenantUpdateWithoutNotificationsInput>, TenantUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -32870,13 +37135,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -32941,16 +37199,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33329,6 +37577,51 @@ export namespace Prisma {
     _max?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
   }
 
+  export type TenantCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutUsersInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+  }
+
   export type ClientProfileCreateWithoutUserInput = {
     id?: string
     fullName: string
@@ -33343,8 +37636,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
@@ -33353,6 +37649,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateWithoutUserInput = {
     id?: string
+    tenantId: string
     fullName: string
     dob?: Date | string | null
     addressLine1?: string | null
@@ -33365,6 +37662,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
@@ -33389,6 +37688,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
@@ -33400,6 +37700,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutUserInput = {
     id?: string
+    tenantId: string
     fullName: string
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
@@ -33465,11 +37766,13 @@ export namespace Prisma {
     resolutionNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutIncidentsInput
     visit?: VisitCreateNestedOneWithoutIncidentsInput
   }
 
   export type IncidentUncheckedCreateWithoutReporterInput = {
     id?: string
+    tenantId: string
     visitId?: string | null
     type: $Enums.IncidentType
     description: string
@@ -33498,12 +37801,14 @@ export namespace Prisma {
     reviewedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTimesheetsInput
     psw: PswProfileCreateNestedOneWithoutTimesheetsInput
     items?: TimesheetItemCreateNestedManyWithoutTimesheetInput
   }
 
   export type TimesheetUncheckedCreateWithoutReviewerInput = {
     id?: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes?: number | null
@@ -33557,10 +37862,12 @@ export namespace Prisma {
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
     ipAddress?: string | null
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAuditLogsInput
   }
 
   export type AuditLogUncheckedCreateWithoutActorInput = {
     id?: string
+    tenantId: string
     action: string
     resourceType: string
     resourceId?: string | null
@@ -33678,12 +37985,14 @@ export namespace Prisma {
     status?: $Enums.DailyEntryStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyEntriesInput
     client: ClientProfileCreateNestedOneWithoutDailyEntryInput
     visit?: VisitCreateNestedOneWithoutDailyEntryInput
   }
 
   export type DailyEntryUncheckedCreateWithoutStaffInput = {
     id?: string
+    tenantId: string
     clientId: string
     visitId?: string | null
     adlData: JsonNullValueInput | InputJsonValue
@@ -33705,6 +38014,91 @@ export namespace Prisma {
   export type DailyEntryCreateManyStaffInputEnvelope = {
     data: DailyEntryCreateManyStaffInput | DailyEntryCreateManyStaffInput[]
     skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    tenantId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutUsersInput = {
+    update: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
+    create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutUsersInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type TenantUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutUserInput = {
@@ -33732,8 +38126,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
@@ -33742,6 +38139,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33754,6 +38152,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
@@ -33784,6 +38184,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
@@ -33795,6 +38196,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
@@ -33866,6 +38268,7 @@ export namespace Prisma {
     OR?: IncidentScalarWhereInput[]
     NOT?: IncidentScalarWhereInput | IncidentScalarWhereInput[]
     id?: StringFilter<"Incident"> | string
+    tenantId?: StringFilter<"Incident"> | string
     visitId?: StringNullableFilter<"Incident"> | string | null
     reporterUserId?: StringFilter<"Incident"> | string
     type?: EnumIncidentTypeFilter<"Incident"> | $Enums.IncidentType
@@ -33897,6 +38300,7 @@ export namespace Prisma {
     OR?: TimesheetScalarWhereInput[]
     NOT?: TimesheetScalarWhereInput | TimesheetScalarWhereInput[]
     id?: StringFilter<"Timesheet"> | string
+    tenantId?: StringFilter<"Timesheet"> | string
     pswId?: StringFilter<"Timesheet"> | string
     weekId?: StringFilter<"Timesheet"> | string
     totalMinutes?: IntNullableFilter<"Timesheet"> | number | null
@@ -33956,6 +38360,7 @@ export namespace Prisma {
     OR?: AuditLogScalarWhereInput[]
     NOT?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
     id?: StringFilter<"AuditLog"> | string
+    tenantId?: StringFilter<"AuditLog"> | string
     actorUserId?: StringNullableFilter<"AuditLog"> | string | null
     action?: StringFilter<"AuditLog"> | string
     resourceType?: StringFilter<"AuditLog"> | string
@@ -34060,6 +38465,7 @@ export namespace Prisma {
     OR?: DailyEntryScalarWhereInput[]
     NOT?: DailyEntryScalarWhereInput | DailyEntryScalarWhereInput[]
     id?: StringFilter<"DailyEntry"> | string
+    tenantId?: StringFilter<"DailyEntry"> | string
     clientId?: StringFilter<"DailyEntry"> | string
     staffId?: StringFilter<"DailyEntry"> | string
     visitId?: StringNullableFilter<"DailyEntry"> | string | null
@@ -34074,9 +38480,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"DailyEntry"> | Date | string
   }
 
-  export type UserCreateWithoutClientProfileInput = {
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    tenantId?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    role?: StringNullableFilter<"Notification"> | string | null
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    updatedAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
+  export type UserCreateWithoutTenantInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -34086,6 +38524,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
     reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
@@ -34095,11 +38534,899 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTenantInput = {
+    id?: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTenantInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
+  }
+
+  export type UserCreateManyTenantInputEnvelope = {
+    data: UserCreateManyTenantInput | UserCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ClientProfileCreateWithoutTenantInput = {
+    id?: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutClientProfileInput
+    visits?: VisitCreateNestedManyWithoutClientInput
+    invoices?: InvoiceCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileCreateOrConnectWithoutTenantInput = {
+    where: ClientProfileWhereUniqueInput
+    create: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ClientProfileCreateManyTenantInputEnvelope = {
+    data: ClientProfileCreateManyTenantInput | ClientProfileCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PswProfileCreateWithoutTenantInput = {
+    id?: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPswProfileInput
+    documents?: PswDocumentCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
+    notes?: VisitNoteCreateNestedManyWithoutPswInput
+    checklists?: VisitChecklistCreateNestedManyWithoutPswInput
+    timesheets?: TimesheetCreateNestedManyWithoutPswInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: PswDocumentUncheckedCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutPswInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileCreateOrConnectWithoutTenantInput = {
+    where: PswProfileWhereUniqueInput
+    create: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PswProfileCreateManyTenantInputEnvelope = {
+    data: PswProfileCreateManyTenantInput | PswProfileCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VisitCreateWithoutTenantInput = {
+    id?: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutVisitsInput
+    service: ServiceCreateNestedOneWithoutVisitsInput
+    psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
+    incidents?: IncidentCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitCreateOrConnectWithoutTenantInput = {
+    where: VisitWhereUniqueInput
+    create: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput>
+  }
+
+  export type VisitCreateManyTenantInputEnvelope = {
+    data: VisitCreateManyTenantInput | VisitCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    baseRateHourly?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    visits?: VisitCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    baseRateHourly?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    visits?: VisitUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutTenantInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ServiceCreateManyTenantInputEnvelope = {
+    data: ServiceCreateManyTenantInput | ServiceCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AuditLogCreateWithoutTenantInput = {
+    id?: string
+    action: string
+    resourceType: string
+    resourceId?: string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: string | null
+    createdAt?: Date | string
+    actor?: UserCreateNestedOneWithoutAuditLogsInput
+  }
+
+  export type AuditLogUncheckedCreateWithoutTenantInput = {
+    id?: string
+    actorUserId?: string | null
+    action: string
+    resourceType: string
+    resourceId?: string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogCreateOrConnectWithoutTenantInput = {
+    where: AuditLogWhereUniqueInput
+    create: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AuditLogCreateManyTenantInputEnvelope = {
+    data: AuditLogCreateManyTenantInput | AuditLogCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyEntryCreateWithoutTenantInput = {
+    id?: string
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutDailyEntryInput
+    staff: UserCreateNestedOneWithoutDailyEntryInput
+    visit?: VisitCreateNestedOneWithoutDailyEntryInput
+  }
+
+  export type DailyEntryUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyEntryCreateOrConnectWithoutTenantInput = {
+    where: DailyEntryWhereUniqueInput
+    create: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyEntryCreateManyTenantInputEnvelope = {
+    data: DailyEntryCreateManyTenantInput | DailyEntryCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type IncidentCreateWithoutTenantInput = {
+    id?: string
+    type: $Enums.IncidentType
+    description: string
+    status?: $Enums.IncidentStatus | null
+    resolutionNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    visit?: VisitCreateNestedOneWithoutIncidentsInput
+    reporter: UserCreateNestedOneWithoutReportedIncidentsInput
+  }
+
+  export type IncidentUncheckedCreateWithoutTenantInput = {
+    id?: string
+    visitId?: string | null
+    reporterUserId: string
+    type: $Enums.IncidentType
+    description: string
+    status?: $Enums.IncidentStatus | null
+    resolutionNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IncidentCreateOrConnectWithoutTenantInput = {
+    where: IncidentWhereUniqueInput
+    create: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type IncidentCreateManyTenantInputEnvelope = {
+    data: IncidentCreateManyTenantInput | IncidentCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TimesheetCreateWithoutTenantInput = {
+    id?: string
+    weekId: string
+    totalMinutes?: number | null
+    status?: $Enums.TimesheetStatus | null
+    submittedAt?: Date | string | null
+    reviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    psw: PswProfileCreateNestedOneWithoutTimesheetsInput
+    reviewer?: UserCreateNestedOneWithoutReviewedTimesheetsInput
+    items?: TimesheetItemCreateNestedManyWithoutTimesheetInput
+  }
+
+  export type TimesheetUncheckedCreateWithoutTenantInput = {
+    id?: string
+    pswId: string
+    weekId: string
+    totalMinutes?: number | null
+    status?: $Enums.TimesheetStatus | null
+    submittedAt?: Date | string | null
+    reviewedBy?: string | null
+    reviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: TimesheetItemUncheckedCreateNestedManyWithoutTimesheetInput
+  }
+
+  export type TimesheetCreateOrConnectWithoutTenantInput = {
+    where: TimesheetWhereUniqueInput
+    create: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TimesheetCreateManyTenantInputEnvelope = {
+    data: TimesheetCreateManyTenantInput | TimesheetCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InvoiceCreateWithoutTenantInput = {
+    id?: string
+    status?: $Enums.InvoiceStatus | null
+    currency?: string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    tax?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutInvoicesInput
+    payments?: PaymentCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    status?: $Enums.InvoiceStatus | null
+    currency?: string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    tax?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutTenantInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type InvoiceCreateManyTenantInputEnvelope = {
+    data: InvoiceCreateManyTenantInput | InvoiceCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageThreadCreateWithoutTenantInput = {
+    id?: string
+    threadType: string
+    createdAt?: Date | string
+    client?: ClientProfileCreateNestedOneWithoutMessageThreadsInput
+    psw?: PswProfileCreateNestedOneWithoutMessageThreadsInput
+    messages?: MessageCreateNestedManyWithoutThreadInput
+  }
+
+  export type MessageThreadUncheckedCreateWithoutTenantInput = {
+    id?: string
+    threadType: string
+    clientId?: string | null
+    pswId?: string | null
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutThreadInput
+  }
+
+  export type MessageThreadCreateOrConnectWithoutTenantInput = {
+    where: MessageThreadWhereUniqueInput
+    create: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MessageThreadCreateManyTenantInputEnvelope = {
+    data: MessageThreadCreateManyTenantInput | MessageThreadCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutTenantInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationCreateManyTenantInputEnvelope = {
+    data: NotificationCreateManyTenantInput | NotificationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutTenantInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
+    create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutTenantInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutTenantInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    tenantId?: StringFilter<"User"> | string
+    roles?: EnumRoleNullableListFilter<"User">
+    email?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
+    passwordHash?: StringFilter<"User"> | string
+    status?: StringNullableFilter<"User"> | string | null
+    resetToken?: StringNullableFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
+    lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }
+
+  export type ClientProfileUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ClientProfileWhereUniqueInput
+    update: XOR<ClientProfileUpdateWithoutTenantInput, ClientProfileUncheckedUpdateWithoutTenantInput>
+    create: XOR<ClientProfileCreateWithoutTenantInput, ClientProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ClientProfileUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ClientProfileWhereUniqueInput
+    data: XOR<ClientProfileUpdateWithoutTenantInput, ClientProfileUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ClientProfileUpdateManyWithWhereWithoutTenantInput = {
+    where: ClientProfileScalarWhereInput
+    data: XOR<ClientProfileUpdateManyMutationInput, ClientProfileUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ClientProfileScalarWhereInput = {
+    AND?: ClientProfileScalarWhereInput | ClientProfileScalarWhereInput[]
+    OR?: ClientProfileScalarWhereInput[]
+    NOT?: ClientProfileScalarWhereInput | ClientProfileScalarWhereInput[]
+    id?: StringFilter<"ClientProfile"> | string
+    tenantId?: StringFilter<"ClientProfile"> | string
+    userId?: StringFilter<"ClientProfile"> | string
+    fullName?: StringFilter<"ClientProfile"> | string
+    dob?: DateTimeNullableFilter<"ClientProfile"> | Date | string | null
+    addressLine1?: StringNullableFilter<"ClientProfile"> | string | null
+    addressLine2?: StringNullableFilter<"ClientProfile"> | string | null
+    city?: StringNullableFilter<"ClientProfile"> | string | null
+    province?: StringNullableFilter<"ClientProfile"> | string | null
+    postalCode?: StringNullableFilter<"ClientProfile"> | string | null
+    lat?: FloatNullableFilter<"ClientProfile"> | number | null
+    lng?: FloatNullableFilter<"ClientProfile"> | number | null
+    emergencyName?: StringNullableFilter<"ClientProfile"> | string | null
+    emergencyPhone?: StringNullableFilter<"ClientProfile"> | string | null
+    preferences?: JsonNullableFilter<"ClientProfile">
+    carePlan?: JsonNullableFilter<"ClientProfile">
+    riskLevel?: StringNullableFilter<"ClientProfile"> | string | null
+    createdAt?: DateTimeFilter<"ClientProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientProfile"> | Date | string
+  }
+
+  export type PswProfileUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PswProfileWhereUniqueInput
+    update: XOR<PswProfileUpdateWithoutTenantInput, PswProfileUncheckedUpdateWithoutTenantInput>
+    create: XOR<PswProfileCreateWithoutTenantInput, PswProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PswProfileUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PswProfileWhereUniqueInput
+    data: XOR<PswProfileUpdateWithoutTenantInput, PswProfileUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PswProfileUpdateManyWithWhereWithoutTenantInput = {
+    where: PswProfileScalarWhereInput
+    data: XOR<PswProfileUpdateManyMutationInput, PswProfileUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PswProfileScalarWhereInput = {
+    AND?: PswProfileScalarWhereInput | PswProfileScalarWhereInput[]
+    OR?: PswProfileScalarWhereInput[]
+    NOT?: PswProfileScalarWhereInput | PswProfileScalarWhereInput[]
+    id?: StringFilter<"PswProfile"> | string
+    tenantId?: StringFilter<"PswProfile"> | string
+    userId?: StringFilter<"PswProfile"> | string
+    fullName?: StringFilter<"PswProfile"> | string
+    bio?: StringNullableFilter<"PswProfile"> | string | null
+    languages?: StringNullableListFilter<"PswProfile">
+    serviceAreas?: StringNullableListFilter<"PswProfile">
+    availability?: JsonNullableFilter<"PswProfile">
+    isApproved?: BoolFilter<"PswProfile"> | boolean
+    approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
+    createdAt?: DateTimeFilter<"PswProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"PswProfile"> | Date | string
+  }
+
+  export type VisitUpsertWithWhereUniqueWithoutTenantInput = {
+    where: VisitWhereUniqueInput
+    update: XOR<VisitUpdateWithoutTenantInput, VisitUncheckedUpdateWithoutTenantInput>
+    create: XOR<VisitCreateWithoutTenantInput, VisitUncheckedCreateWithoutTenantInput>
+  }
+
+  export type VisitUpdateWithWhereUniqueWithoutTenantInput = {
+    where: VisitWhereUniqueInput
+    data: XOR<VisitUpdateWithoutTenantInput, VisitUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type VisitUpdateManyWithWhereWithoutTenantInput = {
+    where: VisitScalarWhereInput
+    data: XOR<VisitUpdateManyMutationInput, VisitUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type VisitScalarWhereInput = {
+    AND?: VisitScalarWhereInput | VisitScalarWhereInput[]
+    OR?: VisitScalarWhereInput[]
+    NOT?: VisitScalarWhereInput | VisitScalarWhereInput[]
+    id?: StringFilter<"Visit"> | string
+    tenantId?: StringFilter<"Visit"> | string
+    clientId?: StringFilter<"Visit"> | string
+    serviceId?: StringFilter<"Visit"> | string
+    requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
+    durationMinutes?: IntFilter<"Visit"> | number
+    status?: EnumVisitStatusNullableFilter<"Visit"> | $Enums.VisitStatus | null
+    assignedPswId?: StringNullableFilter<"Visit"> | string | null
+    serviceAddressLine1?: StringNullableFilter<"Visit"> | string | null
+    serviceAddressLine2?: StringNullableFilter<"Visit"> | string | null
+    serviceCity?: StringNullableFilter<"Visit"> | string | null
+    serviceProvince?: StringNullableFilter<"Visit"> | string | null
+    servicePostalCode?: StringNullableFilter<"Visit"> | string | null
+    serviceLat?: FloatNullableFilter<"Visit"> | number | null
+    serviceLng?: FloatNullableFilter<"Visit"> | number | null
+    clientNotes?: StringNullableFilter<"Visit"> | string | null
+    coordinatorNotes?: StringNullableFilter<"Visit"> | string | null
+    cancellationReason?: StringNullableFilter<"Visit"> | string | null
+    createdAt?: DateTimeFilter<"Visit"> | Date | string
+    updatedAt?: DateTimeFilter<"Visit"> | Date | string
+  }
+
+  export type ServiceUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutTenantInput, ServiceUncheckedUpdateWithoutTenantInput>
+    create: XOR<ServiceCreateWithoutTenantInput, ServiceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ServiceUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutTenantInput, ServiceUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ServiceUpdateManyWithWhereWithoutTenantInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ServiceScalarWhereInput = {
+    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    OR?: ServiceScalarWhereInput[]
+    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    id?: StringFilter<"Service"> | string
+    tenantId?: StringFilter<"Service"> | string
+    name?: StringFilter<"Service"> | string
+    slug?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    baseRateHourly?: DecimalNullableFilter<"Service"> | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolNullableFilter<"Service"> | boolean | null
+    createdAt?: DateTimeFilter<"Service"> | Date | string
+    updatedAt?: DateTimeFilter<"Service"> | Date | string
+  }
+
+  export type AuditLogUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AuditLogWhereUniqueInput
+    update: XOR<AuditLogUpdateWithoutTenantInput, AuditLogUncheckedUpdateWithoutTenantInput>
+    create: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AuditLogUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AuditLogWhereUniqueInput
+    data: XOR<AuditLogUpdateWithoutTenantInput, AuditLogUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AuditLogUpdateManyWithWhereWithoutTenantInput = {
+    where: AuditLogScalarWhereInput
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DailyEntryUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DailyEntryWhereUniqueInput
+    update: XOR<DailyEntryUpdateWithoutTenantInput, DailyEntryUncheckedUpdateWithoutTenantInput>
+    create: XOR<DailyEntryCreateWithoutTenantInput, DailyEntryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyEntryUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DailyEntryWhereUniqueInput
+    data: XOR<DailyEntryUpdateWithoutTenantInput, DailyEntryUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DailyEntryUpdateManyWithWhereWithoutTenantInput = {
+    where: DailyEntryScalarWhereInput
+    data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type IncidentUpsertWithWhereUniqueWithoutTenantInput = {
+    where: IncidentWhereUniqueInput
+    update: XOR<IncidentUpdateWithoutTenantInput, IncidentUncheckedUpdateWithoutTenantInput>
+    create: XOR<IncidentCreateWithoutTenantInput, IncidentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type IncidentUpdateWithWhereUniqueWithoutTenantInput = {
+    where: IncidentWhereUniqueInput
+    data: XOR<IncidentUpdateWithoutTenantInput, IncidentUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type IncidentUpdateManyWithWhereWithoutTenantInput = {
+    where: IncidentScalarWhereInput
+    data: XOR<IncidentUpdateManyMutationInput, IncidentUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TimesheetUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TimesheetWhereUniqueInput
+    update: XOR<TimesheetUpdateWithoutTenantInput, TimesheetUncheckedUpdateWithoutTenantInput>
+    create: XOR<TimesheetCreateWithoutTenantInput, TimesheetUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TimesheetUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TimesheetWhereUniqueInput
+    data: XOR<TimesheetUpdateWithoutTenantInput, TimesheetUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TimesheetUpdateManyWithWhereWithoutTenantInput = {
+    where: TimesheetScalarWhereInput
+    data: XOR<TimesheetUpdateManyMutationInput, TimesheetUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutTenantInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutTenantInput, InvoiceUncheckedUpdateWithoutTenantInput>
+    create: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutTenantInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutTenantInput, InvoiceUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutTenantInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    tenantId?: StringFilter<"Invoice"> | string
+    clientId?: StringFilter<"Invoice"> | string
+    status?: EnumInvoiceStatusNullableFilter<"Invoice"> | $Enums.InvoiceStatus | null
+    currency?: StringNullableFilter<"Invoice"> | string | null
+    subtotal?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
+    tax?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
+    total?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: StringNullableFilter<"Invoice"> | string | null
+    createdAt?: DateTimeFilter<"Invoice"> | Date | string
+    updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+  }
+
+  export type MessageThreadUpsertWithWhereUniqueWithoutTenantInput = {
+    where: MessageThreadWhereUniqueInput
+    update: XOR<MessageThreadUpdateWithoutTenantInput, MessageThreadUncheckedUpdateWithoutTenantInput>
+    create: XOR<MessageThreadCreateWithoutTenantInput, MessageThreadUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MessageThreadUpdateWithWhereUniqueWithoutTenantInput = {
+    where: MessageThreadWhereUniqueInput
+    data: XOR<MessageThreadUpdateWithoutTenantInput, MessageThreadUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type MessageThreadUpdateManyWithWhereWithoutTenantInput = {
+    where: MessageThreadScalarWhereInput
+    data: XOR<MessageThreadUpdateManyMutationInput, MessageThreadUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type MessageThreadScalarWhereInput = {
+    AND?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
+    OR?: MessageThreadScalarWhereInput[]
+    NOT?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
+    id?: StringFilter<"MessageThread"> | string
+    tenantId?: StringFilter<"MessageThread"> | string
+    threadType?: StringFilter<"MessageThread"> | string
+    clientId?: StringNullableFilter<"MessageThread"> | string | null
+    pswId?: StringNullableFilter<"MessageThread"> | string | null
+    createdAt?: DateTimeFilter<"MessageThread"> | Date | string
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutTenantInput, NotificationUncheckedUpdateWithoutTenantInput>
+    create: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutTenantInput, NotificationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutTenantInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TenantCreateWithoutClientProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutClientProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutClientProfilesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutClientProfilesInput, TenantUncheckedCreateWithoutClientProfilesInput>
+  }
+
+  export type UserCreateWithoutClientProfileInput = {
+    id?: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -34118,6 +39445,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -34142,6 +39470,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -34154,6 +39483,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutClientInput = {
     id?: string
+    tenantId: string
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
@@ -34199,11 +39529,13 @@ export namespace Prisma {
     stripeInvoiceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutClientInput = {
     id?: string
+    tenantId: string
     status?: $Enums.InvoiceStatus | null
     currency?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
@@ -34229,12 +39561,14 @@ export namespace Prisma {
     id?: string
     threadType: string
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessageThreadsInput
     psw?: PswProfileCreateNestedOneWithoutMessageThreadsInput
     messages?: MessageCreateNestedManyWithoutThreadInput
   }
 
   export type MessageThreadUncheckedCreateWithoutClientInput = {
     id?: string
+    tenantId: string
     threadType: string
     pswId?: string | null
     createdAt?: Date | string
@@ -34262,12 +39596,14 @@ export namespace Prisma {
     status?: $Enums.DailyEntryStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyEntriesInput
     staff: UserCreateNestedOneWithoutDailyEntryInput
     visit?: VisitCreateNestedOneWithoutDailyEntryInput
   }
 
   export type DailyEntryUncheckedCreateWithoutClientInput = {
     id?: string
+    tenantId: string
     staffId: string
     visitId?: string | null
     adlData: JsonNullValueInput | InputJsonValue
@@ -34291,6 +39627,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutClientProfilesInput = {
+    update: XOR<TenantUpdateWithoutClientProfilesInput, TenantUncheckedUpdateWithoutClientProfilesInput>
+    create: XOR<TenantCreateWithoutClientProfilesInput, TenantUncheckedCreateWithoutClientProfilesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutClientProfilesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutClientProfilesInput, TenantUncheckedUpdateWithoutClientProfilesInput>
+  }
+
+  export type TenantUpdateWithoutClientProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutClientProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type UserUpsertWithoutClientProfileInput = {
     update: XOR<UserUpdateWithoutClientProfileInput, UserUncheckedUpdateWithoutClientProfileInput>
     create: XOR<UserCreateWithoutClientProfileInput, UserUncheckedCreateWithoutClientProfileInput>
@@ -34304,7 +39691,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutClientProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -34314,6 +39701,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
     reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
@@ -34323,11 +39711,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -34346,6 +39736,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutClientInput = {
@@ -34364,31 +39755,6 @@ export namespace Prisma {
     data: XOR<VisitUpdateManyMutationInput, VisitUncheckedUpdateManyWithoutClientInput>
   }
 
-  export type VisitScalarWhereInput = {
-    AND?: VisitScalarWhereInput | VisitScalarWhereInput[]
-    OR?: VisitScalarWhereInput[]
-    NOT?: VisitScalarWhereInput | VisitScalarWhereInput[]
-    id?: StringFilter<"Visit"> | string
-    clientId?: StringFilter<"Visit"> | string
-    serviceId?: StringFilter<"Visit"> | string
-    requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
-    durationMinutes?: IntFilter<"Visit"> | number
-    status?: EnumVisitStatusNullableFilter<"Visit"> | $Enums.VisitStatus | null
-    assignedPswId?: StringNullableFilter<"Visit"> | string | null
-    serviceAddressLine1?: StringNullableFilter<"Visit"> | string | null
-    serviceAddressLine2?: StringNullableFilter<"Visit"> | string | null
-    serviceCity?: StringNullableFilter<"Visit"> | string | null
-    serviceProvince?: StringNullableFilter<"Visit"> | string | null
-    servicePostalCode?: StringNullableFilter<"Visit"> | string | null
-    serviceLat?: FloatNullableFilter<"Visit"> | number | null
-    serviceLng?: FloatNullableFilter<"Visit"> | number | null
-    clientNotes?: StringNullableFilter<"Visit"> | string | null
-    coordinatorNotes?: StringNullableFilter<"Visit"> | string | null
-    cancellationReason?: StringNullableFilter<"Visit"> | string | null
-    createdAt?: DateTimeFilter<"Visit"> | Date | string
-    updatedAt?: DateTimeFilter<"Visit"> | Date | string
-  }
-
   export type InvoiceUpsertWithWhereUniqueWithoutClientInput = {
     where: InvoiceWhereUniqueInput
     update: XOR<InvoiceUpdateWithoutClientInput, InvoiceUncheckedUpdateWithoutClientInput>
@@ -34403,22 +39769,6 @@ export namespace Prisma {
   export type InvoiceUpdateManyWithWhereWithoutClientInput = {
     where: InvoiceScalarWhereInput
     data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutClientInput>
-  }
-
-  export type InvoiceScalarWhereInput = {
-    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-    OR?: InvoiceScalarWhereInput[]
-    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-    id?: StringFilter<"Invoice"> | string
-    clientId?: StringFilter<"Invoice"> | string
-    status?: EnumInvoiceStatusNullableFilter<"Invoice"> | $Enums.InvoiceStatus | null
-    currency?: StringNullableFilter<"Invoice"> | string | null
-    subtotal?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
-    tax?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
-    total?: DecimalNullableFilter<"Invoice"> | Decimal | DecimalJsLike | number | string | null
-    stripeInvoiceId?: StringNullableFilter<"Invoice"> | string | null
-    createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    updatedAt?: DateTimeFilter<"Invoice"> | Date | string
   }
 
   export type MessageThreadUpsertWithWhereUniqueWithoutClientInput = {
@@ -34437,17 +39787,6 @@ export namespace Prisma {
     data: XOR<MessageThreadUpdateManyMutationInput, MessageThreadUncheckedUpdateManyWithoutClientInput>
   }
 
-  export type MessageThreadScalarWhereInput = {
-    AND?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
-    OR?: MessageThreadScalarWhereInput[]
-    NOT?: MessageThreadScalarWhereInput | MessageThreadScalarWhereInput[]
-    id?: StringFilter<"MessageThread"> | string
-    threadType?: StringFilter<"MessageThread"> | string
-    clientId?: StringNullableFilter<"MessageThread"> | string | null
-    pswId?: StringNullableFilter<"MessageThread"> | string | null
-    createdAt?: DateTimeFilter<"MessageThread"> | Date | string
-  }
-
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
     where: DailyEntryWhereUniqueInput
     update: XOR<DailyEntryUpdateWithoutClientInput, DailyEntryUncheckedUpdateWithoutClientInput>
@@ -34464,9 +39803,54 @@ export namespace Prisma {
     data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutClientInput>
   }
 
+  export type TenantCreateWithoutPswProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPswProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPswProfilesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPswProfilesInput, TenantUncheckedCreateWithoutPswProfilesInput>
+  }
+
   export type UserCreateWithoutPswProfileInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -34476,6 +39860,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
     reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
@@ -34485,11 +39870,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -34508,6 +39895,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -34566,6 +39954,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -34578,6 +39967,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutPswInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -34716,12 +40106,14 @@ export namespace Prisma {
     reviewedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTimesheetsInput
     reviewer?: UserCreateNestedOneWithoutReviewedTimesheetsInput
     items?: TimesheetItemCreateNestedManyWithoutTimesheetInput
   }
 
   export type TimesheetUncheckedCreateWithoutPswInput = {
     id?: string
+    tenantId: string
     weekId: string
     totalMinutes?: number | null
     status?: $Enums.TimesheetStatus | null
@@ -34747,12 +40139,14 @@ export namespace Prisma {
     id?: string
     threadType: string
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessageThreadsInput
     client?: ClientProfileCreateNestedOneWithoutMessageThreadsInput
     messages?: MessageCreateNestedManyWithoutThreadInput
   }
 
   export type MessageThreadUncheckedCreateWithoutPswInput = {
     id?: string
+    tenantId: string
     threadType: string
     clientId?: string | null
     createdAt?: Date | string
@@ -34769,6 +40163,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutPswProfilesInput = {
+    update: XOR<TenantUpdateWithoutPswProfilesInput, TenantUncheckedUpdateWithoutPswProfilesInput>
+    create: XOR<TenantCreateWithoutPswProfilesInput, TenantUncheckedCreateWithoutPswProfilesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutPswProfilesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutPswProfilesInput, TenantUncheckedUpdateWithoutPswProfilesInput>
+  }
+
+  export type TenantUpdateWithoutPswProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPswProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type UserUpsertWithoutPswProfileInput = {
     update: XOR<UserUpdateWithoutPswProfileInput, UserUncheckedUpdateWithoutPswProfileInput>
     create: XOR<UserCreateWithoutPswProfileInput, UserUncheckedCreateWithoutPswProfileInput>
@@ -34782,7 +40227,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutPswProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -34792,6 +40237,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
     reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
@@ -34801,11 +40247,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -34824,6 +40272,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswDocumentUpsertWithWhereUniqueWithoutPswInput = {
@@ -34960,6 +40409,51 @@ export namespace Prisma {
     data: XOR<MessageThreadUpdateManyMutationInput, MessageThreadUncheckedUpdateManyWithoutPswInput>
   }
 
+  export type TenantCreateWithoutVisitsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutVisitsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutVisitsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutVisitsInput, TenantUncheckedCreateWithoutVisitsInput>
+  }
+
   export type ClientProfileCreateWithoutVisitsInput = {
     id?: string
     fullName: string
@@ -34974,8 +40468,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     user: UserCreateNestedOneWithoutClientProfileInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
@@ -34984,6 +40481,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateWithoutVisitsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -34997,6 +40495,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
@@ -35018,10 +40518,12 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutServicesInput
   }
 
   export type ServiceUncheckedCreateWithoutVisitsInput = {
     id?: string
+    tenantId: string
     name: string
     slug: string
     description?: string | null
@@ -35047,6 +40549,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
@@ -35058,6 +40561,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutAssignedVisitsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -35183,11 +40687,13 @@ export namespace Prisma {
     resolutionNotes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutIncidentsInput
     reporter: UserCreateNestedOneWithoutReportedIncidentsInput
   }
 
   export type IncidentUncheckedCreateWithoutVisitInput = {
     id?: string
+    tenantId: string
     reporterUserId: string
     type: $Enums.IncidentType
     description: string
@@ -35242,12 +40748,14 @@ export namespace Prisma {
     status?: $Enums.DailyEntryStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyEntriesInput
     client: ClientProfileCreateNestedOneWithoutDailyEntryInput
     staff: UserCreateNestedOneWithoutDailyEntryInput
   }
 
   export type DailyEntryUncheckedCreateWithoutVisitInput = {
     id?: string
+    tenantId: string
     clientId: string
     staffId: string
     adlData: JsonNullValueInput | InputJsonValue
@@ -35269,6 +40777,57 @@ export namespace Prisma {
   export type DailyEntryCreateManyVisitInputEnvelope = {
     data: DailyEntryCreateManyVisitInput | DailyEntryCreateManyVisitInput[]
     skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutVisitsInput = {
+    update: XOR<TenantUpdateWithoutVisitsInput, TenantUncheckedUpdateWithoutVisitsInput>
+    create: XOR<TenantCreateWithoutVisitsInput, TenantUncheckedCreateWithoutVisitsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutVisitsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutVisitsInput, TenantUncheckedUpdateWithoutVisitsInput>
+  }
+
+  export type TenantUpdateWithoutVisitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutVisitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutVisitsInput = {
@@ -35296,8 +40855,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
@@ -35306,6 +40868,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateWithoutVisitsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35319,6 +40882,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
@@ -35346,10 +40911,12 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutServicesNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutVisitsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35381,6 +40948,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
@@ -35392,6 +40960,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutAssignedVisitsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35517,6 +41086,51 @@ export namespace Prisma {
     data: XOR<DailyEntryUpdateManyMutationInput, DailyEntryUncheckedUpdateManyWithoutVisitInput>
   }
 
+  export type TenantCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutServicesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutServicesInput, TenantUncheckedCreateWithoutServicesInput>
+  }
+
   export type VisitCreateWithoutServiceInput = {
     id?: string
     requestedStartAt: Date | string
@@ -35534,6 +41148,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -35546,6 +41161,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutServiceInput = {
     id?: string
+    tenantId: string
     clientId: string
     requestedStartAt: Date | string
     durationMinutes: number
@@ -35581,6 +41197,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutServicesInput = {
+    update: XOR<TenantUpdateWithoutServicesInput, TenantUncheckedUpdateWithoutServicesInput>
+    create: XOR<TenantCreateWithoutServicesInput, TenantUncheckedCreateWithoutServicesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutServicesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutServicesInput, TenantUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type TenantUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
     where: VisitWhereUniqueInput
     update: XOR<VisitUpdateWithoutServiceInput, VisitUncheckedUpdateWithoutServiceInput>
@@ -35614,6 +41281,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -35626,6 +41294,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutCheckEventsInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -35667,6 +41336,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -35678,6 +41348,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutCheckEventsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -35703,7 +41374,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutVisitCheckEventInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -35713,6 +41384,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -35722,11 +41394,13 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -35745,6 +41419,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -35780,6 +41455,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -35792,6 +41468,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutCheckEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35839,6 +41516,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -35850,6 +41528,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutCheckEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35881,7 +41560,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutVisitCheckEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -35891,6 +41570,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -35900,11 +41580,13 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -35923,6 +41605,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VisitCreateWithoutNotesInput = {
@@ -35942,6 +41625,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -35954,6 +41638,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutNotesInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -35995,6 +41680,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -36006,6 +41692,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutNotesInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -36057,6 +41744,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -36069,6 +41757,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36116,6 +41805,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -36127,6 +41817,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36162,6 +41853,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -36174,6 +41866,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutChecklistsInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -36215,6 +41908,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -36226,6 +41920,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutChecklistsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -36277,6 +41972,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -36289,6 +41985,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutChecklistsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36336,6 +42033,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -36347,6 +42045,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutChecklistsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36363,6 +42062,51 @@ export namespace Prisma {
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutPswNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutPswNestedInput
+  }
+
+  export type TenantCreateWithoutIncidentsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutIncidentsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutIncidentsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutIncidentsInput, TenantUncheckedCreateWithoutIncidentsInput>
   }
 
   export type VisitCreateWithoutIncidentsInput = {
@@ -36382,6 +42126,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -36394,6 +42139,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutIncidentsInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -36426,7 +42172,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReportedIncidentsInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -36436,6 +42182,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -36445,11 +42192,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -36468,11 +42217,63 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutReportedIncidentsInput, UserUncheckedCreateWithoutReportedIncidentsInput>
+  }
+
+  export type TenantUpsertWithoutIncidentsInput = {
+    update: XOR<TenantUpdateWithoutIncidentsInput, TenantUncheckedUpdateWithoutIncidentsInput>
+    create: XOR<TenantCreateWithoutIncidentsInput, TenantUncheckedCreateWithoutIncidentsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutIncidentsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutIncidentsInput, TenantUncheckedUpdateWithoutIncidentsInput>
+  }
+
+  export type TenantUpdateWithoutIncidentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutIncidentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -36503,6 +42304,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -36515,6 +42317,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36553,7 +42356,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReportedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -36563,6 +42366,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -36572,11 +42376,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -36595,6 +42401,52 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutTimesheetsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutTimesheetsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutTimesheetsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutTimesheetsInput, TenantUncheckedCreateWithoutTimesheetsInput>
   }
 
   export type PswProfileCreateWithoutTimesheetsInput = {
@@ -36608,6 +42460,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -36619,6 +42472,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutTimesheetsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -36644,7 +42498,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReviewedTimesheetsInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -36654,6 +42508,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -36663,11 +42518,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -36686,6 +42543,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -36717,6 +42575,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutTimesheetsInput = {
+    update: XOR<TenantUpdateWithoutTimesheetsInput, TenantUncheckedUpdateWithoutTimesheetsInput>
+    create: XOR<TenantCreateWithoutTimesheetsInput, TenantUncheckedCreateWithoutTimesheetsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutTimesheetsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutTimesheetsInput, TenantUncheckedUpdateWithoutTimesheetsInput>
+  }
+
+  export type TenantUpdateWithoutTimesheetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutTimesheetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type PswProfileUpsertWithoutTimesheetsInput = {
     update: XOR<PswProfileUpdateWithoutTimesheetsInput, PswProfileUncheckedUpdateWithoutTimesheetsInput>
     create: XOR<PswProfileCreateWithoutTimesheetsInput, PswProfileUncheckedCreateWithoutTimesheetsInput>
@@ -36739,6 +42648,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -36750,6 +42660,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutTimesheetsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36781,7 +42692,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReviewedTimesheetsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -36791,6 +42702,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -36800,11 +42712,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -36823,6 +42737,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TimesheetItemUpsertWithWhereUniqueWithoutTimesheetInput = {
@@ -36850,12 +42765,14 @@ export namespace Prisma {
     reviewedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTimesheetsInput
     psw: PswProfileCreateNestedOneWithoutTimesheetsInput
     reviewer?: UserCreateNestedOneWithoutReviewedTimesheetsInput
   }
 
   export type TimesheetUncheckedCreateWithoutItemsInput = {
     id?: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes?: number | null
@@ -36889,6 +42806,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -36901,6 +42819,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutTimesheetItemsInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -36951,12 +42870,14 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTimesheetsNestedInput
     psw?: PswProfileUpdateOneRequiredWithoutTimesheetsNestedInput
     reviewer?: UserUpdateOneWithoutReviewedTimesheetsNestedInput
   }
 
   export type TimesheetUncheckedUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     pswId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -36996,6 +42917,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -37008,6 +42930,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutTimesheetItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37033,6 +42956,51 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
   }
 
+  export type TenantCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutInvoicesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+  }
+
   export type ClientProfileCreateWithoutInvoicesInput = {
     id?: string
     fullName: string
@@ -37047,8 +43015,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
@@ -37057,6 +43028,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateWithoutInvoicesInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -37070,6 +43042,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
@@ -37110,6 +43084,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutInvoicesInput = {
+    update: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type TenantUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type ClientProfileUpsertWithoutInvoicesInput = {
     update: XOR<ClientProfileUpdateWithoutInvoicesInput, ClientProfileUncheckedUpdateWithoutInvoicesInput>
     create: XOR<ClientProfileCreateWithoutInvoicesInput, ClientProfileUncheckedCreateWithoutInvoicesInput>
@@ -37135,8 +43160,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
@@ -37145,6 +43173,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateWithoutInvoicesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37158,6 +43187,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
@@ -37204,11 +43235,13 @@ export namespace Prisma {
     stripeInvoiceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutInvoicesInput
     client: ClientProfileCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateWithoutPaymentsInput = {
     id?: string
+    tenantId: string
     clientId: string
     status?: $Enums.InvoiceStatus | null
     currency?: string | null
@@ -37246,11 +43279,13 @@ export namespace Prisma {
     stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37260,6 +43295,51 @@ export namespace Prisma {
     stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCreateWithoutMessageThreadsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutMessageThreadsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutMessageThreadsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutMessageThreadsInput, TenantUncheckedCreateWithoutMessageThreadsInput>
   }
 
   export type ClientProfileCreateWithoutMessageThreadsInput = {
@@ -37276,8 +43356,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
@@ -37286,6 +43369,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateWithoutMessageThreadsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -37299,6 +43383,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
@@ -37322,6 +43408,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     documents?: PswDocumentCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
@@ -37333,6 +43420,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutMessageThreadsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -37380,6 +43468,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantUpsertWithoutMessageThreadsInput = {
+    update: XOR<TenantUpdateWithoutMessageThreadsInput, TenantUncheckedUpdateWithoutMessageThreadsInput>
+    create: XOR<TenantCreateWithoutMessageThreadsInput, TenantUncheckedCreateWithoutMessageThreadsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutMessageThreadsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutMessageThreadsInput, TenantUncheckedUpdateWithoutMessageThreadsInput>
+  }
+
+  export type TenantUpdateWithoutMessageThreadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type ClientProfileUpsertWithoutMessageThreadsInput = {
     update: XOR<ClientProfileUpdateWithoutMessageThreadsInput, ClientProfileUncheckedUpdateWithoutMessageThreadsInput>
     create: XOR<ClientProfileCreateWithoutMessageThreadsInput, ClientProfileUncheckedCreateWithoutMessageThreadsInput>
@@ -37405,8 +43544,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
@@ -37415,6 +43557,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateWithoutMessageThreadsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37428,6 +43571,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
@@ -37457,6 +43602,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     documents?: PswDocumentUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
@@ -37468,6 +43614,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutMessageThreadsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37506,12 +43653,14 @@ export namespace Prisma {
     id?: string
     threadType: string
     createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMessageThreadsInput
     client?: ClientProfileCreateNestedOneWithoutMessageThreadsInput
     psw?: PswProfileCreateNestedOneWithoutMessageThreadsInput
   }
 
   export type MessageThreadUncheckedCreateWithoutMessagesInput = {
     id?: string
+    tenantId: string
     threadType: string
     clientId?: string | null
     pswId?: string | null
@@ -37525,7 +43674,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutSentMessagesInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37535,6 +43684,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -37544,11 +43694,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37567,6 +43719,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -37589,12 +43742,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessageThreadsNestedInput
     client?: ClientProfileUpdateOneWithoutMessageThreadsNestedInput
     psw?: PswProfileUpdateOneWithoutMessageThreadsNestedInput
   }
 
   export type MessageThreadUncheckedUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37614,7 +43769,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSentMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37624,6 +43779,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -37633,11 +43789,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37656,11 +43814,57 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutAuditLogsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAuditLogsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAuditLogsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAuditLogsInput, TenantUncheckedCreateWithoutAuditLogsInput>
   }
 
   export type UserCreateWithoutAuditLogsInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37670,6 +43874,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -37679,11 +43884,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37702,11 +43909,63 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAuditLogsInput, UserUncheckedCreateWithoutAuditLogsInput>
+  }
+
+  export type TenantUpsertWithoutAuditLogsInput = {
+    update: XOR<TenantUpdateWithoutAuditLogsInput, TenantUncheckedUpdateWithoutAuditLogsInput>
+    create: XOR<TenantCreateWithoutAuditLogsInput, TenantUncheckedCreateWithoutAuditLogsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAuditLogsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAuditLogsInput, TenantUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type TenantUpdateWithoutAuditLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAuditLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -37722,7 +43981,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37732,6 +43991,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -37741,11 +44001,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37764,11 +44026,12 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBlogPostsInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37778,6 +44041,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -37787,11 +44051,13 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37810,6 +44076,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -37830,7 +44097,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBlogPostsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37840,6 +44107,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -37849,11 +44117,13 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -37872,6 +44142,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -37885,6 +44156,7 @@ export namespace Prisma {
     approvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
     user: UserCreateNestedOneWithoutPswProfileInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
@@ -37896,6 +44168,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedCreateWithoutDocumentsInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     bio?: string | null
@@ -37921,7 +44194,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutVerifiedDocsInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37931,6 +44204,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
@@ -37940,11 +44214,13 @@ export namespace Prisma {
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -37963,6 +44239,7 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -37992,6 +44269,7 @@ export namespace Prisma {
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
@@ -38003,6 +44281,7 @@ export namespace Prisma {
 
   export type PswProfileUncheckedUpdateWithoutDocumentsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38034,7 +44313,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutVerifiedDocsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -38044,6 +44323,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
@@ -38053,11 +44333,13 @@ export namespace Prisma {
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -38076,6 +44358,52 @@ export namespace Prisma {
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutDailyEntriesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDailyEntriesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDailyEntriesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDailyEntriesInput, TenantUncheckedCreateWithoutDailyEntriesInput>
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -38092,8 +44420,11 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
     user: UserCreateNestedOneWithoutClientProfileInput
     visits?: VisitCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
@@ -38102,6 +44433,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedCreateWithoutDailyEntryInput = {
     id?: string
+    tenantId: string
     userId: string
     fullName: string
     dob?: Date | string | null
@@ -38115,6 +44447,8 @@ export namespace Prisma {
     emergencyName?: string | null
     emergencyPhone?: string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
@@ -38129,7 +44463,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutDailyEntryInput = {
     id?: string
-    role: $Enums.Role
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -38139,6 +44473,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
     clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
     pswProfile?: PswProfileCreateNestedOneWithoutUserInput
     verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
@@ -38148,11 +44483,13 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
     id?: string
-    role: $Enums.Role
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
     email: string
     phone?: string | null
     passwordHash: string
@@ -38171,6 +44508,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -38195,6 +44533,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
@@ -38207,6 +44546,7 @@ export namespace Prisma {
 
   export type VisitUncheckedCreateWithoutDailyEntryInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -38237,6 +44577,57 @@ export namespace Prisma {
     create: XOR<VisitCreateWithoutDailyEntryInput, VisitUncheckedCreateWithoutDailyEntryInput>
   }
 
+  export type TenantUpsertWithoutDailyEntriesInput = {
+    update: XOR<TenantUpdateWithoutDailyEntriesInput, TenantUncheckedUpdateWithoutDailyEntriesInput>
+    create: XOR<TenantCreateWithoutDailyEntriesInput, TenantUncheckedCreateWithoutDailyEntriesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDailyEntriesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDailyEntriesInput, TenantUncheckedUpdateWithoutDailyEntriesInput>
+  }
+
+  export type TenantUpdateWithoutDailyEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type ClientProfileUpsertWithoutDailyEntryInput = {
     update: XOR<ClientProfileUpdateWithoutDailyEntryInput, ClientProfileUncheckedUpdateWithoutDailyEntryInput>
     create: XOR<ClientProfileCreateWithoutDailyEntryInput, ClientProfileUncheckedCreateWithoutDailyEntryInput>
@@ -38262,8 +44653,11 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
     user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
@@ -38272,6 +44666,7 @@ export namespace Prisma {
 
   export type ClientProfileUncheckedUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38285,6 +44680,8 @@ export namespace Prisma {
     emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
@@ -38305,7 +44702,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -38315,6 +44712,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
     pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
     verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
@@ -38324,11 +44722,13 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -38347,6 +44747,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -38377,6 +44778,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
@@ -38389,6 +44791,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutDailyEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38414,6 +44817,218 @@ export namespace Prisma {
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
   }
 
+  export type TenantCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutNotificationsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type TenantUpsertWithoutNotificationsInput = {
+    update: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type TenantUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
   export type PswDocumentCreateManyVerifierInput = {
     id?: string
     pswId: string
@@ -38428,6 +45043,7 @@ export namespace Prisma {
 
   export type IncidentCreateManyReporterInput = {
     id?: string
+    tenantId: string
     visitId?: string | null
     type: $Enums.IncidentType
     description: string
@@ -38439,6 +45055,7 @@ export namespace Prisma {
 
   export type TimesheetCreateManyReviewerInput = {
     id?: string
+    tenantId: string
     pswId: string
     weekId: string
     totalMinutes?: number | null
@@ -38458,6 +45075,7 @@ export namespace Prisma {
 
   export type AuditLogCreateManyActorInput = {
     id?: string
+    tenantId: string
     action: string
     resourceType: string
     resourceId?: string | null
@@ -38502,6 +45120,7 @@ export namespace Prisma {
 
   export type DailyEntryCreateManyStaffInput = {
     id?: string
+    tenantId: string
     clientId: string
     visitId?: string | null
     adlData: JsonNullValueInput | InputJsonValue
@@ -38511,6 +45130,18 @@ export namespace Prisma {
     notes?: string | null
     signature?: string | null
     status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    tenantId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38559,11 +45190,13 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutIncidentsNestedInput
     visit?: VisitUpdateOneWithoutIncidentsNestedInput
   }
 
   export type IncidentUncheckedUpdateWithoutReporterInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
     description?: StringFieldUpdateOperationsInput | string
@@ -38575,6 +45208,7 @@ export namespace Prisma {
 
   export type IncidentUncheckedUpdateManyWithoutReporterInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
     description?: StringFieldUpdateOperationsInput | string
@@ -38593,12 +45227,14 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTimesheetsNestedInput
     psw?: PswProfileUpdateOneRequiredWithoutTimesheetsNestedInput
     items?: TimesheetItemUpdateManyWithoutTimesheetNestedInput
   }
 
   export type TimesheetUncheckedUpdateWithoutReviewerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     pswId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38612,6 +45248,7 @@ export namespace Prisma {
 
   export type TimesheetUncheckedUpdateManyWithoutReviewerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     pswId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
@@ -38651,10 +45288,12 @@ export namespace Prisma {
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAuditLogsNestedInput
   }
 
   export type AuditLogUncheckedUpdateWithoutActorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38665,6 +45304,7 @@ export namespace Prisma {
 
   export type AuditLogUncheckedUpdateManyWithoutActorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38786,12 +45426,14 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyEntriesNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
     visit?: VisitUpdateOneWithoutDailyEntryNestedInput
   }
 
   export type DailyEntryUncheckedUpdateWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     adlData?: JsonNullValueInput | InputJsonValue
@@ -38807,6 +45449,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedUpdateManyWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     adlData?: JsonNullValueInput | InputJsonValue
@@ -38820,8 +45463,777 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyTenantInput = {
+    id?: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClientProfileCreateManyTenantInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PswProfileCreateManyTenantInput = {
+    id?: string
+    userId: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VisitCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceCreateManyTenantInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    baseRateHourly?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AuditLogCreateManyTenantInput = {
+    id?: string
+    actorUserId?: string | null
+    action: string
+    resourceType: string
+    resourceId?: string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DailyEntryCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    staffId: string
+    visitId?: string | null
+    adlData: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: string | null
+    signature?: string | null
+    status?: $Enums.DailyEntryStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IncidentCreateManyTenantInput = {
+    id?: string
+    visitId?: string | null
+    reporterUserId: string
+    type: $Enums.IncidentType
+    description: string
+    status?: $Enums.IncidentStatus | null
+    resolutionNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TimesheetCreateManyTenantInput = {
+    id?: string
+    pswId: string
+    weekId: string
+    totalMinutes?: number | null
+    status?: $Enums.TimesheetStatus | null
+    submittedAt?: Date | string | null
+    reviewedBy?: string | null
+    reviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvoiceCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    status?: $Enums.InvoiceStatus | null
+    currency?: string | null
+    subtotal?: Decimal | DecimalJsLike | number | string | null
+    tax?: Decimal | DecimalJsLike | number | string | null
+    total?: Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageThreadCreateManyTenantInput = {
+    id?: string
+    threadType: string
+    clientId?: string | null
+    pswId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateManyTenantInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    role?: string | null
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClientProfileUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
+    visits?: VisitUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    carePlan?: NullableJsonNullValueInput | InputJsonValue
+    riskLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PswProfileUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
+    documents?: PswDocumentUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
+    notes?: VisitNoteUpdateManyWithoutPswNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
+    timesheets?: TimesheetUpdateManyWithoutPswNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutPswNestedInput
+  }
+
+  export type PswProfileUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: PswDocumentUncheckedUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutPswNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutPswNestedInput
+  }
+
+  export type PswProfileUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    availability?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VisitUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    baseRateHourly?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visits?: VisitUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    baseRateHourly?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visits?: VisitUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    baseRateHourly?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    resourceType?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneWithoutAuditLogsNestedInput
+  }
+
+  export type AuditLogUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    resourceType?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    resourceType?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
+    staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
+    visit?: VisitUpdateOneWithoutDailyEntryNestedInput
+  }
+
+  export type DailyEntryUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyEntryUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    staffId?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    adlData?: JsonNullValueInput | InputJsonValue
+    medication?: NullableJsonNullValueInput | InputJsonValue
+    mood?: NullableIntFieldUpdateOperationsInput | number | null
+    vitals?: NullableJsonNullValueInput | InputJsonValue
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IncidentUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
+    description?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visit?: VisitUpdateOneWithoutIncidentsNestedInput
+    reporter?: UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
+  }
+
+  export type IncidentUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterUserId?: StringFieldUpdateOperationsInput | string
+    type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
+    description?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IncidentUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterUserId?: StringFieldUpdateOperationsInput | string
+    type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
+    description?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumIncidentStatusFieldUpdateOperationsInput | $Enums.IncidentStatus | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TimesheetUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weekId?: StringFieldUpdateOperationsInput | string
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableEnumTimesheetStatusFieldUpdateOperationsInput | $Enums.TimesheetStatus | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    psw?: PswProfileUpdateOneRequiredWithoutTimesheetsNestedInput
+    reviewer?: UserUpdateOneWithoutReviewedTimesheetsNestedInput
+    items?: TimesheetItemUpdateManyWithoutTimesheetNestedInput
+  }
+
+  export type TimesheetUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    weekId?: StringFieldUpdateOperationsInput | string
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableEnumTimesheetStatusFieldUpdateOperationsInput | $Enums.TimesheetStatus | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: TimesheetItemUncheckedUpdateManyWithoutTimesheetNestedInput
+  }
+
+  export type TimesheetUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    weekId?: StringFieldUpdateOperationsInput | string
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: NullableEnumTimesheetStatusFieldUpdateOperationsInput | $Enums.TimesheetStatus | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tax?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutInvoicesNestedInput
+    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tax?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    tax?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    total?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageThreadUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    threadType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneWithoutMessageThreadsNestedInput
+    psw?: PswProfileUpdateOneWithoutMessageThreadsNestedInput
+    messages?: MessageUpdateManyWithoutThreadNestedInput
+  }
+
+  export type MessageThreadUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    threadType?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutThreadNestedInput
+  }
+
+  export type MessageThreadUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    threadType?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VisitCreateManyClientInput = {
     id?: string
+    tenantId: string
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
@@ -38843,6 +46255,7 @@ export namespace Prisma {
 
   export type InvoiceCreateManyClientInput = {
     id?: string
+    tenantId: string
     status?: $Enums.InvoiceStatus | null
     currency?: string | null
     subtotal?: Decimal | DecimalJsLike | number | string | null
@@ -38855,6 +46268,7 @@ export namespace Prisma {
 
   export type MessageThreadCreateManyClientInput = {
     id?: string
+    tenantId: string
     threadType: string
     pswId?: string | null
     createdAt?: Date | string
@@ -38862,6 +46276,7 @@ export namespace Prisma {
 
   export type DailyEntryCreateManyClientInput = {
     id?: string
+    tenantId: string
     staffId: string
     visitId?: string | null
     adlData: JsonNullValueInput | InputJsonValue
@@ -38892,6 +46307,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -38904,6 +46320,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
@@ -38931,6 +46348,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateManyWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
@@ -38960,11 +46378,13 @@ export namespace Prisma {
     stripeInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -38978,6 +46398,7 @@ export namespace Prisma {
 
   export type InvoiceUncheckedUpdateManyWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     status?: NullableEnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     subtotal?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -38992,12 +46413,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessageThreadsNestedInput
     psw?: PswProfileUpdateOneWithoutMessageThreadsNestedInput
     messages?: MessageUpdateManyWithoutThreadNestedInput
   }
 
   export type MessageThreadUncheckedUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39006,6 +46429,7 @@ export namespace Prisma {
 
   export type MessageThreadUncheckedUpdateManyWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     pswId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39022,12 +46446,14 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyEntriesNestedInput
     staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
     visit?: VisitUpdateOneWithoutDailyEntryNestedInput
   }
 
   export type DailyEntryUncheckedUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     adlData?: JsonNullValueInput | InputJsonValue
@@ -39043,6 +46469,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedUpdateManyWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     visitId?: NullableStringFieldUpdateOperationsInput | string | null
     adlData?: JsonNullValueInput | InputJsonValue
@@ -39070,6 +46497,7 @@ export namespace Prisma {
 
   export type VisitCreateManyPswInput = {
     id?: string
+    tenantId: string
     clientId: string
     serviceId: string
     requestedStartAt: Date | string
@@ -39123,6 +46551,7 @@ export namespace Prisma {
 
   export type TimesheetCreateManyPswInput = {
     id?: string
+    tenantId: string
     weekId: string
     totalMinutes?: number | null
     status?: $Enums.TimesheetStatus | null
@@ -39135,6 +46564,7 @@ export namespace Prisma {
 
   export type MessageThreadCreateManyPswInput = {
     id?: string
+    tenantId: string
     threadType: string
     clientId?: string | null
     createdAt?: Date | string
@@ -39193,6 +46623,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -39205,6 +46636,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39232,6 +46664,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateManyWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39356,12 +46789,14 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTimesheetsNestedInput
     reviewer?: UserUpdateOneWithoutReviewedTimesheetsNestedInput
     items?: TimesheetItemUpdateManyWithoutTimesheetNestedInput
   }
 
   export type TimesheetUncheckedUpdateWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     status?: NullableEnumTimesheetStatusFieldUpdateOperationsInput | $Enums.TimesheetStatus | null
@@ -39375,6 +46810,7 @@ export namespace Prisma {
 
   export type TimesheetUncheckedUpdateManyWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     weekId?: StringFieldUpdateOperationsInput | string
     totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     status?: NullableEnumTimesheetStatusFieldUpdateOperationsInput | $Enums.TimesheetStatus | null
@@ -39389,12 +46825,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMessageThreadsNestedInput
     client?: ClientProfileUpdateOneWithoutMessageThreadsNestedInput
     messages?: MessageUpdateManyWithoutThreadNestedInput
   }
 
   export type MessageThreadUncheckedUpdateWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39403,6 +46841,7 @@ export namespace Prisma {
 
   export type MessageThreadUncheckedUpdateManyWithoutPswInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     threadType?: StringFieldUpdateOperationsInput | string
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39442,6 +46881,7 @@ export namespace Prisma {
 
   export type IncidentCreateManyVisitInput = {
     id?: string
+    tenantId: string
     reporterUserId: string
     type: $Enums.IncidentType
     description: string
@@ -39460,6 +46900,7 @@ export namespace Prisma {
 
   export type DailyEntryCreateManyVisitInput = {
     id?: string
+    tenantId: string
     clientId: string
     staffId: string
     adlData: JsonNullValueInput | InputJsonValue
@@ -39577,11 +47018,13 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutIncidentsNestedInput
     reporter?: UserUpdateOneRequiredWithoutReportedIncidentsNestedInput
   }
 
   export type IncidentUncheckedUpdateWithoutVisitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     reporterUserId?: StringFieldUpdateOperationsInput | string
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
     description?: StringFieldUpdateOperationsInput | string
@@ -39593,6 +47036,7 @@ export namespace Prisma {
 
   export type IncidentUncheckedUpdateManyWithoutVisitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     reporterUserId?: StringFieldUpdateOperationsInput | string
     type?: EnumIncidentTypeFieldUpdateOperationsInput | $Enums.IncidentType
     description?: StringFieldUpdateOperationsInput | string
@@ -39634,12 +47078,14 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyEntriesNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutDailyEntryNestedInput
     staff?: UserUpdateOneRequiredWithoutDailyEntryNestedInput
   }
 
   export type DailyEntryUncheckedUpdateWithoutVisitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     adlData?: JsonNullValueInput | InputJsonValue
@@ -39655,6 +47101,7 @@ export namespace Prisma {
 
   export type DailyEntryUncheckedUpdateManyWithoutVisitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     staffId?: StringFieldUpdateOperationsInput | string
     adlData?: JsonNullValueInput | InputJsonValue
@@ -39670,6 +47117,7 @@ export namespace Prisma {
 
   export type VisitCreateManyServiceInput = {
     id?: string
+    tenantId: string
     clientId: string
     requestedStartAt: Date | string
     durationMinutes: number
@@ -39706,6 +47154,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -39718,6 +47167,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
@@ -39745,6 +47195,7 @@ export namespace Prisma {
 
   export type VisitUncheckedUpdateManyWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     clientId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
@@ -39866,6 +47317,10 @@ export namespace Prisma {
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use TenantCountOutputTypeDefaultArgs instead
+     */
+    export type TenantCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TenantCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ClientProfileCountOutputTypeDefaultArgs instead
      */
     export type ClientProfileCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
@@ -39897,6 +47352,10 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TenantDefaultArgs instead
+     */
+    export type TenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TenantDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClientProfileDefaultArgs instead
      */
@@ -39977,6 +47436,10 @@ export namespace Prisma {
      * @deprecated Use DailyEntryDefaultArgs instead
      */
     export type DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NotificationDefaultArgs instead
+     */
+    export type NotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NotificationDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
