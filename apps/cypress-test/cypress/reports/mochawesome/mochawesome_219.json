@@ -1,0 +1,258 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 6,
+    "passes": 2,
+    "pending": 0,
+    "failures": 4,
+    "start": "2026-02-12T18:55:01.589Z",
+    "end": "2026-02-12T18:58:40.326Z",
+    "duration": 218737,
+    "testsRegistered": 6,
+    "passPercent": 33.33333333333333,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "394561e9-88aa-4483-8db1-268057278eb8",
+      "title": "",
+      "fullFile": "cypress\\e2e\\00_smoke\\smoke_connectivity.cy.ts",
+      "file": "cypress\\e2e\\00_smoke\\smoke_connectivity.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f5c7cdd2-a1e8-4385-84ca-888d9da42b37",
+          "title": "Global Connectivity Verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "1bdf2c1f-965f-407a-b3d5-0fe75d673306",
+              "title": "Marketing Application Connectivity",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "verifies all marketing routes load successfully without errors",
+                  "fullTitle": "Global Connectivity Verification Marketing Application Connectivity verifies all marketing routes load successfully without errors",
+                  "timedOut": null,
+                  "duration": 3704,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "this.marketingRoutes.routes.forEach(function (route) {\n    cy.log(\"Testing Marketing Route: \".concat(route.key, \" -> \").concat(route.path));\n    // Visit the marketing route\n    cy.visitRoute(\"MARKETING_BASE_URL\", route.path);\n    // Critical Connectivity Assertions\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"Application error\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Ensure page is not empty (contains at least some content)\n    cy.get(\"#root\").should(\"not.be.empty\");\n});",
+                  "err": {},
+                  "uuid": "4ad61f7e-1248-406d-a7d6-d91c7f7a8ff6",
+                  "parentUUID": "1bdf2c1f-965f-407a-b3d5-0fe75d673306",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "4ad61f7e-1248-406d-a7d6-d91c7f7a8ff6"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 3704,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "d3335d8c-8788-466c-93b6-8449e56828c2",
+              "title": "Admin Application Connectivity",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "verifies authorized admin routes for role: staff",
+                  "fullTitle": "Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: staff",
+                  "timedOut": null,
+                  "duration": 17392,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.loginAs(role);\nvar authorizedRoutes = this.adminRoutes.routes.filter(function (r) {\n    return r.auth === role || r.auth === \"any\" || (role === \"staff\" && [\"staff\", \"any\"].includes(r.auth));\n});\nauthorizedRoutes.forEach(function (route) {\n    cy.log(\"Testing Admin Route [\".concat(role, \"]: \").concat(route.key, \" -> \").concat(route.path));\n    // Visit the admin route (using absolute path as registered in RouteRegistry)\n    cy.visitAppRoute(\"ADMIN_BASE_URL\", route.path);\n    // Critical Connectivity Assertions\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"Application error\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Verify sidebar presence for authenticated sessions (indicator of successful layout load)\n    cy.getByCy(\"sidebar\").should(\"exist\");\n    // Ensure page body is not empty\n    cy.get(\"main\").should(\"exist\").and(\"not.be.empty\");\n});\n// Clear session for next role\ncy.logout();",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:23:33)",
+                    "diff": null
+                  },
+                  "uuid": "06eb0b54-8a3a-4df6-ae29-864908cbfed6",
+                  "parentUUID": "d3335d8c-8788-466c-93b6-8449e56828c2",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "verifies authorized admin routes for role: psw",
+                  "fullTitle": "Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: psw",
+                  "timedOut": null,
+                  "duration": 17396,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.loginAs(role);\nvar authorizedRoutes = this.adminRoutes.routes.filter(function (r) {\n    return r.auth === role || r.auth === \"any\" || (role === \"staff\" && [\"staff\", \"any\"].includes(r.auth));\n});\nauthorizedRoutes.forEach(function (route) {\n    cy.log(\"Testing Admin Route [\".concat(role, \"]: \").concat(route.key, \" -> \").concat(route.path));\n    // Visit the admin route (using absolute path as registered in RouteRegistry)\n    cy.visitAppRoute(\"ADMIN_BASE_URL\", route.path);\n    // Critical Connectivity Assertions\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"Application error\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Verify sidebar presence for authenticated sessions (indicator of successful layout load)\n    cy.getByCy(\"sidebar\").should(\"exist\");\n    // Ensure page body is not empty\n    cy.get(\"main\").should(\"exist\").and(\"not.be.empty\");\n});\n// Clear session for next role\ncy.logout();",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:23:33)",
+                    "diff": null
+                  },
+                  "uuid": "7c313b46-b985-4990-b740-d3d3980bb4aa",
+                  "parentUUID": "d3335d8c-8788-466c-93b6-8449e56828c2",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "verifies authorized admin routes for role: client",
+                  "fullTitle": "Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: client",
+                  "timedOut": null,
+                  "duration": 17694,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.loginAs(role);\nvar authorizedRoutes = this.adminRoutes.routes.filter(function (r) {\n    return r.auth === role || r.auth === \"any\" || (role === \"staff\" && [\"staff\", \"any\"].includes(r.auth));\n});\nauthorizedRoutes.forEach(function (route) {\n    cy.log(\"Testing Admin Route [\".concat(role, \"]: \").concat(route.key, \" -> \").concat(route.path));\n    // Visit the admin route (using absolute path as registered in RouteRegistry)\n    cy.visitAppRoute(\"ADMIN_BASE_URL\", route.path);\n    // Critical Connectivity Assertions\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"Application error\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Verify sidebar presence for authenticated sessions (indicator of successful layout load)\n    cy.getByCy(\"sidebar\").should(\"exist\");\n    // Ensure page body is not empty\n    cy.get(\"main\").should(\"exist\").and(\"not.be.empty\");\n});\n// Clear session for next role\ncy.logout();",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:23:33)",
+                    "diff": null
+                  },
+                  "uuid": "45296c45-7cea-4e8b-a063-6fc7ba3253a6",
+                  "parentUUID": "d3335d8c-8788-466c-93b6-8449e56828c2",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "verifies authorized admin routes for role: rn",
+                  "fullTitle": "Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: rn",
+                  "timedOut": null,
+                  "duration": 17537,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.loginAs(role);\nvar authorizedRoutes = this.adminRoutes.routes.filter(function (r) {\n    return r.auth === role || r.auth === \"any\" || (role === \"staff\" && [\"staff\", \"any\"].includes(r.auth));\n});\nauthorizedRoutes.forEach(function (route) {\n    cy.log(\"Testing Admin Route [\".concat(role, \"]: \").concat(route.key, \" -> \").concat(route.path));\n    // Visit the admin route (using absolute path as registered in RouteRegistry)\n    cy.visitAppRoute(\"ADMIN_BASE_URL\", route.path);\n    // Critical Connectivity Assertions\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"Application error\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Verify sidebar presence for authenticated sessions (indicator of successful layout load)\n    cy.getByCy(\"sidebar\").should(\"exist\");\n    // Ensure page body is not empty\n    cy.get(\"main\").should(\"exist\").and(\"not.be.empty\");\n});\n// Clear session for next role\ncy.logout();",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:23:33)",
+                    "diff": null
+                  },
+                  "uuid": "91db8d4a-2675-4502-9959-c56ffeeccaba",
+                  "parentUUID": "d3335d8c-8788-466c-93b6-8449e56828c2",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "verifies guest access to login/register in admin portal",
+                  "fullTitle": "Global Connectivity Verification Admin Application Connectivity verifies guest access to login/register in admin portal",
+                  "timedOut": null,
+                  "duration": 985,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "var guestRoutes = this.adminRoutes.routes.filter(function (r) { return r.auth === \"guest\"; });\nguestRoutes.forEach(function (route) {\n    cy.log(\"Testing Admin Guest Route: \".concat(route.key, \" -> \").concat(route.path));\n    cy.visitAppRoute(\"ADMIN_BASE_URL\", route.path);\n    cy.get(\"body\").should(\"be.visible\");\n    cy.get(\"body\").should(\"not.contain\", \"404\");\n    // Login page should have the logo or email input\n    if (route.key === \"LOGIN\") {\n        cy.getByCy(\"inp-email\").should(\"be.visible\");\n    }\n});",
+                  "err": {},
+                  "uuid": "0dbc86f1-ccc8-4a3c-b47b-cf806c3cc114",
+                  "parentUUID": "d3335d8c-8788-466c-93b6-8449e56828c2",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "0dbc86f1-ccc8-4a3c-b47b-cf806c3cc114"
+              ],
+              "failures": [
+                "06eb0b54-8a3a-4df6-ae29-864908cbfed6",
+                "7c313b46-b985-4990-b740-d3d3980bb4aa",
+                "45296c45-7cea-4e8b-a063-6fc7ba3253a6",
+                "91db8d4a-2675-4502-9959-c56ffeeccaba"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 71004,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

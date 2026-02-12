@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.563" tests="6" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-12T19:10:19" tests="0" file="cypress\e2e\debug\auth_check.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Auth Debug" timestamp="2026-02-12T19:10:19" tests="6" time="1.550" failures="0">
+    <testcase name="Auth Debug tries login for admin.a@primecare.ca with password: admin123" time="0.560" classname="tries login for admin.a@primecare.ca with password: admin123">
+    </testcase>
+    <testcase name="Auth Debug tries login for staff.a@primecare.ca with password: admin123" time="0.185" classname="tries login for staff.a@primecare.ca with password: admin123">
+    </testcase>
+    <testcase name="Auth Debug tries login for admin.a@primecare.ca with password: password" time="0.157" classname="tries login for admin.a@primecare.ca with password: password">
+    </testcase>
+    <testcase name="Auth Debug tries login for staff.a@primecare.ca with password: password" time="0.152" classname="tries login for staff.a@primecare.ca with password: password">
+    </testcase>
+    <testcase name="Auth Debug tries login for admin.a@primecare.ca with password: Password123!" time="0.188" classname="tries login for admin.a@primecare.ca with password: Password123!">
+    </testcase>
+    <testcase name="Auth Debug tries login for staff.a@primecare.ca with password: Password123!" time="0.167" classname="tries login for staff.a@primecare.ca with password: Password123!">
+    </testcase>
+  </testsuite>
+</testsuites>

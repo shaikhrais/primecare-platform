@@ -32,6 +32,13 @@ Cypress.Commands.add("loginAs", (role: Role) => {
         const baseUrl = Cypress.env("ADMIN_BASE_URL") || Cypress.config("baseUrl");
         cy.visit(`${baseUrl}/login`);
 
+        // Handle Cookie Consent if it appears
+        cy.get("body").then(($body) => {
+            if ($body.find('button:contains("Accept All")').length > 0) {
+                cy.contains("button", "Accept All").click();
+            }
+        });
+
         // Select the role in the dropdown to avoid "Not registered as X" error
         cy.getByCy("sel-role").select(role);
 

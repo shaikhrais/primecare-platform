@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="213.290" tests="6" failures="4">
+  <testsuite name="Root Suite" timestamp="2026-02-12T19:02:46" tests="0" file="cypress\e2e\00_smoke\smoke_connectivity.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Connectivity Verification" timestamp="2026-02-12T19:02:46" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Marketing Application Connectivity" timestamp="2026-02-12T19:02:46" tests="1" time="5.900" failures="0">
+    <testcase name="Global Connectivity Verification Marketing Application Connectivity verifies all marketing routes load successfully without errors" time="3.478" classname="verifies all marketing routes load successfully without errors">
+    </testcase>
+  </testsuite>
+  <testsuite name="Admin Application Connectivity" timestamp="2026-02-12T19:02:52" tests="5" time="207.375" failures="4">
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: staff" time="16.825" classname="verifies authorized admin routes for role: staff">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: psw" time="16.973" classname="verifies authorized admin routes for role: psw">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: client" time="16.877" classname="verifies authorized admin routes for role: client">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies authorized admin routes for role: rn" time="17.119" classname="verifies authorized admin routes for role: rn">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+    <testcase name="Global Connectivity Verification Admin Application Connectivity verifies guest access to login/register in admin portal" time="0.756" classname="verifies guest access to login/register in admin portal">
+    </testcase>
+  </testsuite>
+</testsuites>

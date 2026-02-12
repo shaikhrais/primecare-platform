@@ -1,22 +1,26 @@
 {
     "client": {
-        "email": "family.portal@primecare.ca",
-        "password": "Password123!"
+        "email": "client.a@primecare.ca",
+        "password": "admin123"
     },
     "psw": {
-        "email": "walker.john@primecare.ca",
-        "password": "Password123!"
+        "email": "psw.a@primecare.ca",
+        "password": "admin123"
     },
     "manager": {
-        "email": "ops.manager@primecare.ca",
-        "password": "Password123!"
+        "email": "manager.a@primecare.ca",
+        "password": "admin123"
     },
     "staff": {
-        "email": "admin.prime@primecare.ca",
-        "password": "Password123!"
+        "email": "staff.a@primecare.ca",
+        "password": "admin123"
     },
     "rn": {
-        "email": "rn.prime@primecare.ca",
-        "password": "Password123!"
+        "email": "rn.a@primecare.ca",
+        "password": "admin123"
+    },
+    "admin": {
+        "email": "admin.a@primecare.ca",
+        "password": "admin123"
     }
 }
