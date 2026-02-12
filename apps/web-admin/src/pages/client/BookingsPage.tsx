@@ -125,7 +125,7 @@ export default function BookingsPage() {
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div data-cy="page.header">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">My Care Bookings</h2>
-                    <p style={{ color: '#6b7280' }}>Track all your current and past care requests.</p>
+                    <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Track all your current and past care requests.</p>
                 </div>
                 <button
                     data-cy="btn-request-care"

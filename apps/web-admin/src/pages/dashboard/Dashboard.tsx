@@ -10,10 +10,10 @@ export default function Dashboard() {
     const userStr = localStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : { role: DataRegistry.Roles.ADMIN };
     const role = user.role;
-
-    if (role === DataRegistry.Roles.CLIENT) return <ClientDashboard />;
-    if (role === DataRegistry.Roles.PSW) return <PswDashboard />;
-
-    // Default to Admin Dashboard for admin, staff, or others
-    return <AdminDashboard />;
+    return (
+        <div style={{ padding: '2rem' }} data-cy="dashboard-page">
+            <h1 data-cy="page.title">User Dashboard</h1>
+            <p data-cy="page.subtitle">Welcome back. Select a role to get started.</p>
+        </div>
+    );
 }

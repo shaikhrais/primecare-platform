@@ -75,8 +75,8 @@ export default function FeedbackForm() {
             )}
 
             <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.feedback.header">Care Experience Feedback</h2>
-                <p style={{ color: '#6b7280' }}>Your feedback helps us provide better care for you and your loved ones.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Care Experience Feedback</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Your feedback helps us provide better care for you and your loved ones.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

@@ -101,8 +101,8 @@ export default function ClientDashboard() {
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }}>{ContentRegistry.CLIENT_DASHBOARD.TITLE}</h1>
-                    <p className="sub" style={{ margin: 0 }}>{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">{ContentRegistry.CLIENT_DASHBOARD.TITLE}</h1>
+                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
                 </div>
                 <button
                     data-cy="btn-request-care"
