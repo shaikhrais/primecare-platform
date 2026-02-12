@@ -8,6 +8,430 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id                 String            @id @default(uuid())
+  email              String            @unique
+  phone              String?
+  passwordHash       String            @map("password_hash")
+  status             String?           @default("active")
+  resetToken         String?
+  resetTokenExpiry   DateTime?
+  lastLoginAt        DateTime?         @map("last_login_at")
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+  tenantId           String            @map("tenant_id")
+  roles              Role[]            @default([client])
+  auditLogs          AuditLog[]
+  blogPosts          BlogPost[]
+  clientProfile      ClientProfile?
+  DailyEntry         DailyEntry[]
+  reportedIncidents  Incident[]        @relation("Reporter")
+  sentMessages       Message[]
+  verifiedDocs       PswDocument[]     @relation("VerifiedBy")
+  pswProfile         PswProfile?
+  reviewedTimesheets Timesheet[]       @relation("ReviewedBy")
+  tenant             Tenant            @relation(fields: [tenantId], references: [id])
+  VisitCheckEvent    VisitCheckEvent[]
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Tenant {
+  id             String          @id @default(uuid())
+  name           String
+  slug           String          @unique
+  status         String          @default("active")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  auditLogs      AuditLog[]
+  clientProfiles ClientProfile[]
+  dailyEntries   DailyEntry[]
+  incidents      Incident[]
+  invoices       Invoice[]
+  messageThreads MessageThread[]
+  pswProfiles    PswProfile[]
+  services       Service[]
+  timesheets     Timesheet[]
+  users          User[]
+  visits         Visit[]
+
+  @@map("tenants")
+}
+
+model ClientProfile {
+  id             String          @id @default(uuid())
+  userId         String          @unique @map("user_id")
+  fullName       String          @map("full_name")
+  dob            DateTime?
+  addressLine1   String?         @map("address_line1")
+  addressLine2   String?         @map("address_line2")
+  city           String?
+  province       String?
+  postalCode     String?         @map("postal_code")
+  lat            Float?
+  lng            Float?
+  emergencyName  String?         @map("emergency_contact_name")
+  emergencyPhone String?         @map("emergency_contact_phone")
+  preferences    Json?           @map("preferences_json")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  tenantId       String          @map("tenant_id")
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  user           User            @relation(fields: [userId], references: [id])
+  DailyEntry     DailyEntry[]
+  invoices       Invoice[]
+  messageThreads MessageThread[]
+  visits         Visit[]
+
+  @@index([tenantId])
+  @@map("client_profiles")
+}
+
+model PswProfile {
+  id             String            @id @default(uuid())
+  userId         String            @unique @map("user_id")
+  fullName       String            @map("full_name")
+  bio            String?
+  languages      String[]
+  serviceAreas   String[]          @map("service_areas")
+  availability   Json?             @map("availability_json")
+  isApproved     Boolean           @default(false) @map("is_approved")
+  approvedAt     DateTime?         @map("approved_at")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+  tenantId       String            @map("tenant_id")
+  messageThreads MessageThread[]
+  documents      PswDocument[]
+  tenant         Tenant            @relation(fields: [tenantId], references: [id])
+  user           User              @relation(fields: [userId], references: [id])
+  timesheets     Timesheet[]
+  checkEvents    VisitCheckEvent[]
+  checklists     VisitChecklist[]
+  notes          VisitNote[]
+  assignedVisits Visit[]
+
+  @@index([tenantId])
+  @@map("psw_profiles")
+}
+
+model Visit {
+  id                  String            @id @default(uuid())
+  clientId            String            @map("client_id")
+  serviceId           String            @map("service_id")
+  requestedStartAt    DateTime          @map("requested_start_at")
+  durationMinutes     Int               @map("duration_minutes")
+  status              VisitStatus?      @default(requested)
+  assignedPswId       String?           @map("assigned_psw_id")
+  serviceAddressLine1 String?           @map("service_address_line1")
+  serviceAddressLine2 String?           @map("service_address_line2")
+  serviceCity         String?           @map("service_city")
+  serviceProvince     String?           @map("service_province")
+  servicePostalCode   String?           @map("service_postal_code")
+  serviceLat          Float?            @map("service_lat")
+  serviceLng          Float?            @map("service_lng")
+  clientNotes         String?           @map("client_notes")
+  coordinatorNotes    String?           @map("coordinator_notes")
+  cancellationReason  String?           @map("cancellation_reason")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+  tenantId            String            @map("tenant_id")
+  DailyEntry          DailyEntry[]
+  incidents           Incident[]
+  timesheetItems      TimesheetItem[]
+  checkEvents         VisitCheckEvent[]
+  checklists          VisitChecklist[]
+  notes               VisitNote[]
+  psw                 PswProfile?       @relation(fields: [assignedPswId], references: [id])
+  client              ClientProfile     @relation(fields: [clientId], references: [id])
+  service             Service           @relation(fields: [serviceId], references: [id])
+  tenant              Tenant            @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("visits")
+}
+
+model Service {
+  id             String   @id @default(uuid())
+  name           String
+  slug           String   @unique
+  description    String?
+  baseRateHourly Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
+  isActive       Boolean? @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  tenantId       String   @map("tenant_id")
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+  visits         Visit[]
+
+  @@index([tenantId])
+  @@map("services")
+}
+
+model VisitCheckEvent {
+  id                String      @id @default(uuid())
+  visitId           String      @map("visit_id")
+  pswId             String      @map("psw_id")
+  eventType         EventType   @map("event_type")
+  lat               Float?
+  lng               Float?
+  accuracyM         Float?      @map("accuracy_m")
+  computedDistanceM Float?      @map("computed_distance_m")
+  deviceTimeIso     DateTime?   @map("device_time_iso")
+  serverTime        DateTime?   @default(now()) @map("server_time")
+  result            EventResult
+  rejectReason      String?     @map("reject_reason")
+  isOverride        Boolean?    @default(false) @map("is_override")
+  overrideByUserId  String?     @map("override_by_user_id")
+  overrideReason    String?     @map("override_reason")
+  createdAt         DateTime    @default(now()) @map("created_at")
+  overriddenBy      User?       @relation(fields: [overrideByUserId], references: [id])
+  pswProfile        PswProfile  @relation(fields: [pswId], references: [id])
+  visit             Visit       @relation(fields: [visitId], references: [id])
+
+  @@map("visit_check_events")
+}
+
+model VisitNote {
+  id        String     @id @default(uuid())
+  visitId   String     @map("visit_id")
+  pswId     String     @map("psw_id")
+  noteText  String     @map("note_text")
+  createdAt DateTime   @default(now()) @map("created_at")
+  psw       PswProfile @relation(fields: [pswId], references: [id])
+  visit     Visit      @relation(fields: [visitId], references: [id])
+
+  @@map("visit_notes")
+}
+
+model VisitChecklist {
+  id            String     @id @default(uuid())
+  visitId       String     @map("visit_id")
+  pswId         String     @map("psw_id")
+  checklistJson Json       @map("checklist_json")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  psw           PswProfile @relation(fields: [pswId], references: [id])
+  visit         Visit      @relation(fields: [visitId], references: [id])
+
+  @@map("visit_checklists")
+}
+
+model Incident {
+  id              String          @id @default(uuid())
+  visitId         String?         @map("visit_id")
+  reporterUserId  String          @map("reporter_user_id")
+  type            IncidentType
+  description     String
+  status          IncidentStatus? @default(open)
+  resolutionNotes String?         @map("resolution_notes")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  tenantId        String          @map("tenant_id")
+  reporter        User            @relation("Reporter", fields: [reporterUserId], references: [id])
+  tenant          Tenant          @relation(fields: [tenantId], references: [id])
+  visit           Visit?          @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("incidents")
+}
+
+model Timesheet {
+  id           String           @id @default(uuid())
+  pswId        String           @map("psw_id")
+  weekId       String           @map("week_id")
+  totalMinutes Int?             @default(0) @map("total_minutes")
+  status       TimesheetStatus? @default(draft)
+  submittedAt  DateTime?        @map("submitted_at")
+  reviewedBy   String?          @map("reviewed_by")
+  reviewedAt   DateTime?        @map("reviewed_at")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+  tenantId     String           @map("tenant_id")
+  items        TimesheetItem[]
+  psw          PswProfile       @relation(fields: [pswId], references: [id])
+  reviewer     User?            @relation("ReviewedBy", fields: [reviewedBy], references: [id])
+  tenant       Tenant           @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("timesheets")
+}
+
+model TimesheetItem {
+  id          String    @id @default(uuid())
+  timesheetId String    @map("timesheet_id")
+  visitId     String    @map("visit_id")
+  minutes     Int
+  createdAt   DateTime  @default(now()) @map("created_at")
+  timesheet   Timesheet @relation(fields: [timesheetId], references: [id])
+  visit       Visit     @relation(fields: [visitId], references: [id])
+
+  @@map("timesheet_items")
+}
+
+model Invoice {
+  id              String         @id @default(uuid())
+  clientId        String         @map("client_id")
+  status          InvoiceStatus? @default(draft)
+  currency        String?        @default("CAD")
+  subtotal        Decimal?       @db.Decimal(10, 2)
+  tax             Decimal?       @db.Decimal(10, 2)
+  total           Decimal?       @db.Decimal(10, 2)
+  stripeInvoiceId String?        @map("stripe_invoice_id")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  tenantId        String         @map("tenant_id")
+  client          ClientProfile  @relation(fields: [clientId], references: [id])
+  tenant          Tenant         @relation(fields: [tenantId], references: [id])
+  payments        Payment[]
+
+  @@index([tenantId])
+  @@map("invoices")
+}
+
+model Payment {
+  id                    String   @id @default(uuid())
+  invoiceId             String   @map("invoice_id")
+  stripePaymentIntentId String?  @map("stripe_payment_intent_id")
+  amount                Decimal? @db.Decimal(10, 2)
+  status                String?
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+  invoice               Invoice  @relation(fields: [invoiceId], references: [id])
+
+  @@map("payments")
+}
+
+model MessageThread {
+  id         String         @id @default(uuid())
+  threadType String         @map("thread_type")
+  clientId   String?        @map("client_id")
+  pswId      String?        @map("psw_id")
+  createdAt  DateTime       @default(now()) @map("created_at")
+  tenantId   String         @map("tenant_id")
+  messages   Message[]
+  client     ClientProfile? @relation(fields: [clientId], references: [id])
+  psw        PswProfile?    @relation(fields: [pswId], references: [id])
+  tenant     Tenant         @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("messages_threads")
+}
+
+model Message {
+  id           String        @id @default(uuid())
+  threadId     String        @map("thread_id")
+  senderUserId String        @map("sender_user_id")
+  bodyText     String        @map("body_text")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  sender       User          @relation(fields: [senderUserId], references: [id])
+  thread       MessageThread @relation(fields: [threadId], references: [id])
+
+  @@map("messages")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  actorUserId  String?  @map("actor_user_id")
+  action       String
+  resourceType String   @map("resource_type")
+  resourceId   String?  @map("resource_id")
+  metadataJson Json?    @map("metadata_json")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+  tenantId     String   @map("tenant_id")
+  actor        User?    @relation(fields: [actorUserId], references: [id])
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("audit_logs")
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  fullName  String   @map("full_name")
+  email     String
+  phone     String?
+  message   String?
+  source    String
+  status    String?  @default("new")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("leads")
+}
+
+model BlogPost {
+  id                String    @id @default(uuid())
+  title             String
+  slug              String    @unique
+  excerpt           String?
+  contentHtml       String?   @map("content_html")
+  status            String?   @default("draft")
+  publishedAt       DateTime? @map("published_at")
+  authorUserId      String?   @map("author_user_id")
+  featureImageDocId String?   @map("feature_image_doc_id")
+  seoTitle          String?   @map("seo_title")
+  seoDescription    String?   @map("seo_description")
+  canonicalUrl      String?   @map("canonical_url")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  author            User?     @relation(fields: [authorUserId], references: [id])
+
+  @@map("blog_posts")
+}
+
+model PswDocument {
+  id         String     @id @default(uuid())
+  pswId      String     @map("psw_id")
+  docType    String     @map("doc_type")
+  fileKey    String     @map("file_key")
+  status     DocStatus? @default(pending)
+  expiryDate DateTime?  @map("expiry_date")
+  verifiedBy String?    @map("verified_by")
+  verifiedAt DateTime?  @map("verified_at")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+  psw        PswProfile @relation(fields: [pswId], references: [id])
+  verifier   User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+
+  @@map("psw_documents")
+}
+
+model FAQ {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  category  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("faqs")
+}
+
+model DailyEntry {
+  id         String           @id @default(uuid())
+  tenantId   String           @map("tenant_id")
+  clientId   String           @map("client_id")
+  staffId    String           @map("staff_id")
+  visitId    String?          @map("visit_id")
+  adlData    Json             @map("adl_data")
+  medication Json?
+  mood       Int?
+  vitals     Json?
+  notes      String?
+  signature  String?
+  status     DailyEntryStatus @default(DRAFT)
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+  client     ClientProfile    @relation(fields: [clientId], references: [id])
+  staff      User             @relation(fields: [staffId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  visit      Visit?           @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("daily_entries")
+}
+
 enum Role {
   manager
   client
@@ -16,7 +440,6 @@ enum Role {
   staff
   admin
   finance
-  rn
 }
 
 enum DocStatus {
@@ -74,475 +497,7 @@ enum InvoiceStatus {
   void
 }
 
-model User {
-  id               String    @id @default(uuid())
-  tenantId         String    @map("tenant_id")
-  roles            Role[]    @default([client])
-  email            String    @unique
-  phone            String?
-  passwordHash     String    @map("password_hash")
-  status           String?   @default("active")
-  resetToken       String?
-  resetTokenExpiry DateTime?
-  lastLoginAt      DateTime? @map("last_login_at")
-  createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime  @updatedAt @map("updated_at")
-
-  tenant             Tenant            @relation(fields: [tenantId], references: [id])
-  clientProfile      ClientProfile?
-  pswProfile         PswProfile?
-  verifiedDocs       PswDocument[]     @relation("VerifiedBy")
-  reportedIncidents  Incident[]        @relation("Reporter")
-  reviewedTimesheets Timesheet[]       @relation("ReviewedBy")
-  sentMessages       Message[]
-  auditLogs          AuditLog[]
-  blogPosts          BlogPost[]
-  VisitCheckEvent    VisitCheckEvent[]
-  DailyEntry         DailyEntry[]
-  notifications      Notification[]
-
-  @@index([tenantId])
-  @@map("users")
-}
-
-model Tenant {
-  id        String   @id @default(uuid())
-  name      String
-  slug      String   @unique
-  status    String   @default("active")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  users          User[]
-  clientProfiles ClientProfile[]
-  pswProfiles    PswProfile[]
-  visits         Visit[]
-  services       Service[]
-  auditLogs      AuditLog[]
-  dailyEntries   DailyEntry[]
-  incidents      Incident[]
-  timesheets     Timesheet[]
-  invoices       Invoice[]
-  messageThreads MessageThread[]
-  notifications  Notification[]
-
-  @@map("tenants")
-}
-
-model ClientProfile {
-  id             String    @id @default(uuid())
-  tenantId       String    @map("tenant_id")
-  userId         String    @unique @map("user_id")
-  fullName       String    @map("full_name")
-  dob            DateTime?
-  addressLine1   String?   @map("address_line1")
-  addressLine2   String?   @map("address_line2")
-  city           String?
-  province       String?
-  postalCode     String?   @map("postal_code")
-  lat            Float?
-  lng            Float?
-  emergencyName  String?   @map("emergency_contact_name")
-  emergencyPhone String?   @map("emergency_contact_phone")
-  preferences    Json?     @map("preferences_json")
-  carePlan       Json?     @map("care_plan_json")
-  riskLevel      String?   @map("risk_level")
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
-
-  tenant         Tenant          @relation(fields: [tenantId], references: [id])
-  user           User            @relation(fields: [userId], references: [id])
-  visits         Visit[]
-  invoices       Invoice[]
-  messageThreads MessageThread[]
-  DailyEntry     DailyEntry[]
-
-  @@index([tenantId])
-  @@map("client_profiles")
-}
-
-model PswProfile {
-  id           String    @id @default(uuid())
-  tenantId     String    @map("tenant_id")
-  userId       String    @unique @map("user_id")
-  fullName     String    @map("full_name")
-  bio          String?
-  languages    String[]
-  serviceAreas String[]  @map("service_areas")
-  availability Json?     @map("availability_json")
-  isApproved   Boolean   @default(false) @map("is_approved")
-  approvedAt   DateTime? @map("approved_at")
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
-
-  tenant         Tenant            @relation(fields: [tenantId], references: [id])
-  user           User              @relation(fields: [userId], references: [id])
-  documents      PswDocument[]
-  assignedVisits Visit[]
-  checkEvents    VisitCheckEvent[]
-  notes          VisitNote[]
-  checklists     VisitChecklist[]
-  timesheets     Timesheet[]
-  messageThreads MessageThread[]
-
-  @@index([tenantId])
-  @@map("psw_profiles")
-}
-
-model Visit {
-  id                  String       @id @default(uuid())
-  tenantId            String       @map("tenant_id")
-  clientId            String       @map("client_id")
-  serviceId           String       @map("service_id")
-  requestedStartAt    DateTime     @map("requested_start_at")
-  durationMinutes     Int          @map("duration_minutes")
-  status              VisitStatus? @default(requested)
-  assignedPswId       String?      @map("assigned_psw_id")
-  serviceAddressLine1 String?      @map("service_address_line1")
-  serviceAddressLine2 String?      @map("service_address_line2")
-  serviceCity         String?      @map("service_city")
-  serviceProvince     String?      @map("service_province")
-  servicePostalCode   String?      @map("service_postal_code")
-  serviceLat          Float?       @map("service_lat")
-  serviceLng          Float?       @map("service_lng")
-  clientNotes         String?      @map("client_notes")
-  coordinatorNotes    String?      @map("coordinator_notes")
-  cancellationReason  String?      @map("cancellation_reason")
-  createdAt           DateTime     @default(now()) @map("created_at")
-  updatedAt           DateTime     @updatedAt @map("updated_at")
-
-  tenant         Tenant            @relation(fields: [tenantId], references: [id])
-  client         ClientProfile     @relation(fields: [clientId], references: [id])
-  service        Service           @relation(fields: [serviceId], references: [id])
-  psw            PswProfile?       @relation(fields: [assignedPswId], references: [id])
-  checkEvents    VisitCheckEvent[]
-  notes          VisitNote[]
-  checklists     VisitChecklist[]
-  incidents      Incident[]
-  timesheetItems TimesheetItem[]
-  DailyEntry     DailyEntry[]
-
-  @@index([tenantId])
-  @@map("visits")
-}
-
-model Service {
-  id             String   @id @default(uuid())
-  tenantId       String   @map("tenant_id")
-  name           String
-  slug           String   @unique
-  description    String?
-  baseRateHourly Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
-  isActive       Boolean? @default(true) @map("is_active")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant  @relation(fields: [tenantId], references: [id])
-  visits Visit[]
-
-  @@index([tenantId])
-  @@map("services")
-}
-
-model VisitCheckEvent {
-  id                String      @id @default(uuid())
-  visitId           String      @map("visit_id")
-  pswId             String      @map("psw_id")
-  eventType         EventType   @map("event_type")
-  lat               Float?
-  lng               Float?
-  accuracyM         Float?      @map("accuracy_m")
-  computedDistanceM Float?      @map("computed_distance_m")
-  deviceTimeIso     DateTime?   @map("device_time_iso")
-  serverTime        DateTime?   @default(now()) @map("server_time")
-  result            EventResult
-  rejectReason      String?     @map("reject_reason")
-  isOverride        Boolean?    @default(false) @map("is_override")
-  overrideByUserId  String?     @map("override_by_user_id")
-  overrideReason    String?     @map("override_reason")
-  createdAt         DateTime    @default(now()) @map("created_at")
-
-  visit        Visit      @relation(fields: [visitId], references: [id])
-  pswProfile   PswProfile @relation(fields: [pswId], references: [id])
-  overriddenBy User?      @relation(fields: [overrideByUserId], references: [id])
-
-  @@map("visit_check_events")
-}
-
-model VisitNote {
-  id        String   @id @default(uuid())
-  visitId   String   @map("visit_id")
-  pswId     String   @map("psw_id")
-  noteText  String   @map("note_text")
-  createdAt DateTime @default(now()) @map("created_at")
-
-  visit Visit      @relation(fields: [visitId], references: [id])
-  psw   PswProfile @relation(fields: [pswId], references: [id])
-
-  @@map("visit_notes")
-}
-
-model VisitChecklist {
-  id            String   @id @default(uuid())
-  visitId       String   @map("visit_id")
-  pswId         String   @map("psw_id")
-  checklistJson Json     @map("checklist_json")
-  createdAt     DateTime @default(now()) @map("created_at")
-
-  visit Visit      @relation(fields: [visitId], references: [id])
-  psw   PswProfile @relation(fields: [pswId], references: [id])
-
-  @@map("visit_checklists")
-}
-
-model Incident {
-  id              String          @id @default(uuid())
-  tenantId        String          @map("tenant_id")
-  visitId         String?         @map("visit_id")
-  reporterUserId  String          @map("reporter_user_id")
-  type            IncidentType
-  description     String
-  status          IncidentStatus? @default(open)
-  resolutionNotes String?         @map("resolution_notes")
-  createdAt       DateTime        @default(now()) @map("created_at")
-  updatedAt       DateTime        @updatedAt @map("updated_at")
-
-  tenant   Tenant @relation(fields: [tenantId], references: [id])
-  visit    Visit? @relation(fields: [visitId], references: [id])
-  reporter User   @relation("Reporter", fields: [reporterUserId], references: [id])
-
-  @@index([tenantId])
-  @@map("incidents")
-}
-
-model Timesheet {
-  id           String           @id @default(uuid())
-  tenantId     String           @map("tenant_id")
-  pswId        String           @map("psw_id")
-  weekId       String           @map("week_id")
-  totalMinutes Int?             @default(0) @map("total_minutes")
-  status       TimesheetStatus? @default(draft)
-  submittedAt  DateTime?        @map("submitted_at")
-  reviewedBy   String?          @map("reviewed_by")
-  reviewedAt   DateTime?        @map("reviewed_at")
-  createdAt    DateTime         @default(now()) @map("created_at")
-  updatedAt    DateTime         @updatedAt @map("updated_at")
-
-  tenant   Tenant          @relation(fields: [tenantId], references: [id])
-  psw      PswProfile      @relation(fields: [pswId], references: [id])
-  reviewer User?           @relation("ReviewedBy", fields: [reviewedBy], references: [id])
-  items    TimesheetItem[]
-
-  @@index([tenantId])
-  @@map("timesheets")
-}
-
-model TimesheetItem {
-  id          String   @id @default(uuid())
-  timesheetId String   @map("timesheet_id")
-  visitId     String   @map("visit_id")
-  minutes     Int
-  createdAt   DateTime @default(now()) @map("created_at")
-
-  timesheet Timesheet @relation(fields: [timesheetId], references: [id])
-  visit     Visit     @relation(fields: [visitId], references: [id])
-
-  @@map("timesheet_items")
-}
-
-model Invoice {
-  id              String         @id @default(uuid())
-  tenantId        String         @map("tenant_id")
-  clientId        String         @map("client_id")
-  status          InvoiceStatus? @default(draft)
-  currency        String?        @default("CAD")
-  subtotal        Decimal?       @db.Decimal(10, 2)
-  tax             Decimal?       @db.Decimal(10, 2)
-  total           Decimal?       @db.Decimal(10, 2)
-  stripeInvoiceId String?        @map("stripe_invoice_id")
-  createdAt       DateTime       @default(now()) @map("created_at")
-  updatedAt       DateTime       @updatedAt @map("updated_at")
-
-  tenant   Tenant        @relation(fields: [tenantId], references: [id])
-  client   ClientProfile @relation(fields: [clientId], references: [id])
-  payments Payment[]
-
-  @@index([tenantId])
-  @@map("invoices")
-}
-
-model Payment {
-  id                    String   @id @default(uuid())
-  invoiceId             String   @map("invoice_id")
-  stripePaymentIntentId String?  @map("stripe_payment_intent_id")
-  amount                Decimal? @db.Decimal(10, 2)
-  status                String?
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
-
-  invoice Invoice @relation(fields: [invoiceId], references: [id])
-
-  @@map("payments")
-}
-
-model MessageThread {
-  id         String   @id @default(uuid())
-  tenantId   String   @map("tenant_id")
-  threadType String   @map("thread_type")
-  clientId   String?  @map("client_id")
-  pswId      String?  @map("psw_id")
-  createdAt  DateTime @default(now()) @map("created_at")
-
-  tenant   Tenant         @relation(fields: [tenantId], references: [id])
-  client   ClientProfile? @relation(fields: [clientId], references: [id])
-  psw      PswProfile?    @relation(fields: [pswId], references: [id])
-  messages Message[]
-
-  @@index([tenantId])
-  @@map("messages_threads")
-}
-
-model Message {
-  id           String   @id @default(uuid())
-  threadId     String   @map("thread_id")
-  senderUserId String   @map("sender_user_id")
-  bodyText     String   @map("body_text")
-  createdAt    DateTime @default(now()) @map("created_at")
-
-  thread MessageThread @relation(fields: [threadId], references: [id])
-  sender User          @relation(fields: [senderUserId], references: [id])
-
-  @@map("messages")
-}
-
-model AuditLog {
-  id           String   @id @default(uuid())
-  tenantId     String   @map("tenant_id")
-  actorUserId  String?  @map("actor_user_id")
-  action       String
-  resourceType String   @map("resource_type")
-  resourceId   String?  @map("resource_id")
-  metadataJson Json?    @map("metadata_json")
-  ipAddress    String?  @map("ip_address")
-  createdAt    DateTime @default(now()) @map("created_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
-  actor  User?  @relation(fields: [actorUserId], references: [id])
-
-  @@index([tenantId])
-  @@map("audit_logs")
-}
-
-model Lead {
-  id        String   @id @default(uuid())
-  fullName  String   @map("full_name")
-  email     String
-  phone     String?
-  message   String?
-  source    String
-  status    String?  @default("new")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("leads")
-}
-
-model BlogPost {
-  id                String    @id @default(uuid())
-  title             String
-  slug              String    @unique
-  excerpt           String?
-  contentHtml       String?   @map("content_html")
-  status            String?   @default("draft")
-  publishedAt       DateTime? @map("published_at")
-  authorUserId      String?   @map("author_user_id")
-  featureImageDocId String?   @map("feature_image_doc_id")
-  seoTitle          String?   @map("seo_title")
-  seoDescription    String?   @map("seo_description")
-  canonicalUrl      String?   @map("canonical_url")
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @updatedAt @map("updated_at")
-
-  author User? @relation(fields: [authorUserId], references: [id])
-
-  @@map("blog_posts")
-}
-
-model PswDocument {
-  id         String     @id @default(uuid())
-  pswId      String     @map("psw_id")
-  docType    String     @map("doc_type")
-  fileKey    String     @map("file_key")
-  status     DocStatus? @default(pending)
-  expiryDate DateTime?  @map("expiry_date")
-  verifiedBy String?    @map("verified_by")
-  verifiedAt DateTime?  @map("verified_at")
-  createdAt  DateTime   @default(now()) @map("created_at")
-  updatedAt  DateTime   @updatedAt @map("updated_at")
-
-  psw      PswProfile @relation(fields: [pswId], references: [id])
-  verifier User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
-
-  @@map("psw_documents")
-}
-
-model FAQ {
-  id        String   @id @default(uuid())
-  question  String
-  answer    String
-  category  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("faqs")
-}
-
 enum DailyEntryStatus {
   DRAFT
   SUBMITTED
-}
-
-model DailyEntry {
-  id         String           @id @default(uuid())
-  tenantId   String           @map("tenant_id")
-  clientId   String           @map("client_id")
-  staffId    String           @map("staff_id")
-  visitId    String?          @map("visit_id")
-  adlData    Json             @map("adl_data")
-  medication Json?
-  mood       Int?
-  vitals     Json?
-  notes      String?
-  signature  String?
-  status     DailyEntryStatus @default(DRAFT)
-  createdAt  DateTime         @default(now()) @map("created_at")
-  updatedAt  DateTime         @updatedAt @map("updated_at")
-
-  tenant Tenant        @relation(fields: [tenantId], references: [id])
-  client ClientProfile @relation(fields: [clientId], references: [id])
-  staff  User          @relation(fields: [staffId], references: [id])
-  visit  Visit?        @relation(fields: [visitId], references: [id])
-
-  @@index([tenantId])
-  @@map("daily_entries")
-}
-
-model Notification {
-  id        String   @id @default(uuid())
-  tenantId  String   @map("tenant_id")
-  userId    String   @map("user_id")
-  title     String
-  message   String
-  type      String   @default("info")
-  role      String?
-  isRead    Boolean  @default(false) @map("is_read")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
-
-  @@index([tenantId])
-  @@index([userId])
-  @@map("notifications")
 }

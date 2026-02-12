@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="52.791" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-12T21:41:42" tests="0" file="cypress\e2e\admin\regression\tables.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin Table Interactions" timestamp="2026-02-12T21:41:42" tests="2" time="52.773" failures="1">
+    <testcase name="Admin Table Interactions &quot;before each&quot; hook for &quot;Leads Table: Status update transition&quot;" time="17.174" classname="&quot;before each&quot; hook for &quot;Leads Table: Status update transition&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

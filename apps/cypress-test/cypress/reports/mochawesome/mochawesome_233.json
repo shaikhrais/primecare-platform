@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-02-12T21:41:42.263Z",
+    "end": "2026-02-12T21:42:35.054Z",
+    "duration": 52791,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 1,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "eef88a36-973e-4af7-b63d-5ce2fd83b138",
+      "title": "",
+      "fullFile": "cypress\\e2e\\admin\\regression\\tables.cy.ts",
+      "file": "cypress\\e2e\\admin\\regression\\tables.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "6f6292ef-1526-4287-84f3-e3df6b8249a8",
+          "title": "Admin Table Interactions",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Leads Table: Status update transition",
+              "fullTitle": "Admin Table Interactions Leads Table: Status update transition",
+              "timedOut": null,
+              "duration": 17656,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var LEADS_API = \"**/api/admin/leads\";\nvar LEAD_ID = \"lead-123\";\n// 1. Stub initial leads\ncy.intercept(\"GET\", LEADS_API, [\n    { id: LEAD_ID, fullName: \"John Lead\", email: \"john@lead.com\", status: \"new\", createdAt: new Date().toISOString() }\n]).as(\"getLeads\");\ncy.visitAppRoute(\"ADMIN_BASE_URL\", \"/leads\");\ncy.wait(\"@getLeads\");\n// 2. Intercept the patch request\ncy.intercept(\"PATCH\", \"**/api/admin/leads/\".concat(LEAD_ID), {\n    statusCode: 200,\n    body: { success: true }\n}).as(\"updateStatus\");\n// 3. Trigger transition to 'contacted'\ncy.getByCy(\"btn-lead-contacted\").click();\ncy.wait(\"@updateStatus\");\n// 4. Verify UI update\ncy.getByCy(\"lead-status\").should(\"contain\", \"contacted\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)",
+                "diff": null
+              },
+              "uuid": "3b10f0d1-72d6-4c3b-84a4-4475324630a4",
+              "parentUUID": "6f6292ef-1526-4287-84f3-e3df6b8249a8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Users Table: ID Verification flow (PSW)",
+              "fullTitle": "Admin Table Interactions Users Table: ID Verification flow (PSW)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var USERS_API = \"**/api/admin/users\";\nvar USER_ID = \"psw-456\";\ncy.intercept(\"GET\", USERS_API, [\n    {\n        id: USER_ID, email: \"walker@primecare.ca\", role: \"psw\", status: \"pending\",\n        PswProfile: { fullName: \"John Walker\" }\n    }\n]).as(\"getUsers\");\ncy.visitAppRoute(\"ADMIN_BASE_URL\", \"/users\");\ncy.wait(\"@getUsers\");\ncy.intercept(\"POST\", \"**/api/admin/users/verify/\".concat(USER_ID), {\n    statusCode: 200,\n    body: { success: true }\n}).as(\"verifyUser\");\n// Approved icon should change from ⏳ to ✅\ncy.getByCy(\"user-verification-icon\").should(\"contain\", \"⏳\");\ncy.getByCy(\"btn-verify-user\").click();\ncy.wait(\"@verifyUser\");\ncy.getByCy(\"user-verification-icon\").should(\"contain\", \"✅\");\ncy.getByCy(\"toast\").should(\"contain\", \"verified successfully\");",
+              "err": {},
+              "uuid": "6580c211-a232-4248-9cfb-1f43738508ce",
+              "parentUUID": "6f6292ef-1526-4287-84f3-e3df6b8249a8",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "3b10f0d1-72d6-4c3b-84a4-4475324630a4"
+          ],
+          "pending": [],
+          "skipped": [
+            "6580c211-a232-4248-9cfb-1f43738508ce"
+          ],
+          "duration": 17656,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

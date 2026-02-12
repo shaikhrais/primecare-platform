@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1254.332" tests="44" failures="22">
+  <testsuite name="Root Suite" timestamp="2026-02-12T21:19:12" tests="0" file="cypress\e2e\admin\regression\forms.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Enterprise Form Audit" timestamp="2026-02-12T21:19:12" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Audit: Profile Update" timestamp="2026-02-12T21:19:12" tests="2" time="54.062" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="17.680" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Daily Care Entry" timestamp="2026-02-12T21:20:06" tests="2" time="53.374" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="17.848" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Configuration" timestamp="2026-02-12T21:21:00" tests="2" time="54.276" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.365" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Admission" timestamp="2026-02-12T21:21:54" tests="2" time="54.467" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.303" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Staff Evaluation" timestamp="2026-02-12T21:22:49" tests="2" time="55.337" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Staff Evaluation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.699" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Review" timestamp="2026-02-12T21:23:44" tests="2" time="55.511" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Review &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.735" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Expense Report" timestamp="2026-02-12T21:24:39" tests="2" time="56.180" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Expense Report &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.671" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Availability Update" timestamp="2026-02-12T21:25:36" tests="2" time="55.387" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Availability Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.709" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Feedback" timestamp="2026-02-12T21:26:31" tests="2" time="56.317" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Feedback &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.244" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Visit Completion" timestamp="2026-02-12T21:27:27" tests="2" time="56.439" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Visit Completion &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.330" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Booking Request" timestamp="2026-02-12T21:28:24" tests="2" time="57.018" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Booking Request &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.436" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Support Ticket" timestamp="2026-02-12T21:29:21" tests="2" time="56.566" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Support Ticket &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="18.925" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Support Ticket`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Support Ticket`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Location Mgmt" timestamp="2026-02-12T21:30:17" tests="2" time="57.024" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Location Mgmt &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.294" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Location Mgmt`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Location Mgmt`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Billing Portal" timestamp="2026-02-12T21:31:14" tests="2" time="57.560" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Billing Portal &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.344" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Billing Portal`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Billing Portal`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: User Entry" timestamp="2026-02-12T21:32:12" tests="2" time="57.932" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: User Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.452" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: User Entry`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: User Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Incident Report" timestamp="2026-02-12T21:33:10" tests="2" time="58.908" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Incident Report &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.032" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Incident Report`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Incident Report`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Timesheet Adjustment" timestamp="2026-02-12T21:34:09" tests="2" time="58.390" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Timesheet Adjustment &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.413" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Timesheet Adjus...`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Timesheet Adjus...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Lead Entry" timestamp="2026-02-12T21:35:07" tests="2" time="59.476" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Lead Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.155" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Lead Entry`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Lead Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Role Permissions" timestamp="2026-02-12T21:36:07" tests="2" time="59.453" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Role Permissions &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.912" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Role Permissions`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Role Permissions`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Message Templates" timestamp="2026-02-12T21:37:06" tests="2" time="59.823" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Message Templates &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.263" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Message Templates`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Message Templates`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Invoice Creation" timestamp="2026-02-12T21:38:06" tests="2" time="60.070" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Invoice Creation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.857" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Shift Confirmation" timestamp="2026-02-12T21:39:06" tests="2" time="60.708" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Shift Confirmation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.420" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:29:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
