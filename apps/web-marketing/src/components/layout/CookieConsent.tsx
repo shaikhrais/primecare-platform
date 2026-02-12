@@ -18,7 +18,7 @@ const CookieConsent: React.FC = () => {
     if (!isVisible) return null;
 
     return (
-        <div style={{
+        <div data-cy="cookie-consent-bar" style={{
             position: 'fixed',
             bottom: '1.5rem',
             right: '1.5rem',
@@ -73,6 +73,7 @@ const CookieConsent: React.FC = () => {
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
                 <button
+                    data-cy="btn-cookie-essential"
                     onClick={() => handleAccept('essential')}
                     style={{
                         padding: '0.4rem 0.8rem',
@@ -89,6 +90,7 @@ const CookieConsent: React.FC = () => {
                     Essential Only
                 </button>
                 <button
+                    data-cy="btn-cookie-accept"
                     onClick={() => handleAccept('all')}
                     style={{
                         padding: '0.4rem 0.8rem',

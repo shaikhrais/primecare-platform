@@ -36,10 +36,10 @@ const defaultTestimonials: Testimonial[] = [
 
 export function TestimonialsSection({ testimonials = defaultTestimonials }: TestimonialsSectionProps) {
     return (
-        <section style={{ padding: '6rem 2rem', backgroundColor: '#f0f9f8' }}>
+        <section style={{ padding: '6rem 2rem', backgroundColor: '#f0f9f8' }} data-cy="testimonials-section">
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <AnimatedSection animation="fadeInUp">
-                    <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem', color: '#333' }}>
+                    <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '1rem', color: '#333' }} data-cy="testimonials-header">
                         What Our Clients Say
                     </h2>
                     <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666', marginBottom: '4rem' }}>

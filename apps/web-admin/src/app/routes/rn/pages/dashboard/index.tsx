@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
+// We could also move the API logic here if it was more complex
+// import { fetchRnStats } from './api';
+
 const { ContentRegistry } = AdminRegistry;
 
 interface KPIData {
@@ -18,7 +21,14 @@ interface ClinicalTask {
     targetName: string;
 }
 
-export default function RnDashboard() {
+const KPICard = ({ label, value, color, dataCy }: any) => (
+    <div className="pc-card" data-cy={dataCy} style={{ padding: '20px', borderLeft: `4px solid ${color}` }}>
+        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{label}</div>
+        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{value}</div>
+    </div>
+);
+
+export const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const [stats, setStats] = useState<KPIData>({ pendingCarePlans: 0, dailyReviewsNeed: 0, supervisedPswCount: 0 });
     const [tasks, setTasks] = useState<ClinicalTask[]>([]);
@@ -27,10 +37,7 @@ export default function RnDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const headers = { 'Authorization': `Bearer ${token}` };
-
-                // Mocking data for now as per dashboard pattern
+                // Mocking data for now
                 setStats({
                     pendingCarePlans: 5,
                     dailyReviewsNeed: 12,
@@ -52,12 +59,7 @@ export default function RnDashboard() {
         fetchData();
     }, []);
 
-    const KPICard = ({ label, value, color, dataCy }: any) => (
-        <div className="pc-card" data-cy={dataCy} style={{ padding: '20px', borderLeft: `4px solid ${color}` }}>
-            <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{label}</div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{value}</div>
-        </div>
-    );
+    if (loading) return <div>Loading Clinical Data...</div>;
 
     return (
         <div data-cy="page.container">
@@ -98,4 +100,6 @@ export default function RnDashboard() {
             </div>
         </div>
     );
-}
+};
+
+export default Dashboard;
