@@ -83,10 +83,10 @@ export default function ContentManager() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ textAlign: 'left', color: '#6b7280', fontSize: '0.875rem', borderBottom: '1px solid #f3f4f6' }}>
-                            <th style={{ padding: '1rem' }}>{activeTab === 'blogs' ? 'Title' : 'Question'}</th>
-                            <th style={{ padding: '1rem' }}>{activeTab === 'blogs' ? 'Date' : 'Category'}</th>
-                            <th style={{ padding: '1rem' }}>Status</th>
-                            <th style={{ padding: '1rem' }}>Actions</th>
+                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-title">{activeTab === 'blogs' ? 'Title' : 'Question'}</th>
+                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-meta">{activeTab === 'blogs' ? 'Date' : 'Category'}</th>
+                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-status">Status</th>
+                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,10 +111,10 @@ export default function ContentManager() {
                         ) : (
                             faqs.length > 0 ? faqs.map(faq => (
                                 <tr key={faq.id} data-cy={`faq-row-${faq.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                    <td style={{ padding: '1rem', fontWeight: '500' }}>{faq.question}</td>
-                                    <td style={{ padding: '1rem', color: '#6b7280' }}>{faq.category}</td>
+                                    <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="faq-question">{faq.question}</td>
+                                    <td style={{ padding: '1rem', color: '#6b7280' }} data-cy="faq-category">{faq.category}</td>
                                     <td style={{ padding: '1rem' }}>
-                                        <span style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#065f46', fontSize: '0.75rem' }}>Active</span>
+                                        <span data-cy="faq-status" style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#065f46', fontSize: '0.75rem' }}>Active</span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
                                         <button style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>

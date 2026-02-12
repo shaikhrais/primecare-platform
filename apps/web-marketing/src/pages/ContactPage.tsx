@@ -136,13 +136,13 @@ export default function ContactPage() {
                     <h2 style={{ color: '#333', marginBottom: '1.5rem' }}>Contact Information</h2>
 
                     <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }}>Email</h3>
-                        <a href="mailto:info@primecare.ca" style={{ color: '#00897b', fontSize: '1.1rem' }}>info@primecare.ca</a>
+                        <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }} data-cy="info-email-label">Email</h3>
+                        <a href="mailto:info@primecare.ca" style={{ color: '#00897b', fontSize: '1.1rem' }} data-cy="info-email-value">info@primecare.ca</a>
                     </div>
 
                     <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }}>Phone</h3>
-                        <a href="tel:+14165551234" style={{ color: '#00897b', fontSize: '1.1rem' }}>+1 (416) 555-1234</a>
+                        <h3 style={{ fontSize: '1rem', color: '#666', marginBottom: '0.5rem' }} data-cy="info-phone-label">Phone</h3>
+                        <a href="tel:+14165551234" style={{ color: '#00897b', fontSize: '1.1rem' }} data-cy="info-phone-value">+1 (416) 555-1234</a>
                     </div>
 
                     <div style={{ marginBottom: '2rem' }}>

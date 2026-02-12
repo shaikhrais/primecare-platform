@@ -138,7 +138,7 @@ export default function ClientAdmissionForm() {
                         />
                     </div>
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Medical Notes / Primary Concern</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }} data-cy="lbl-client-notes">Medical Notes / Primary Concern</label>
                         <textarea
                             data-cy="form.client.notes"
                             value={formData.medicalNotes}

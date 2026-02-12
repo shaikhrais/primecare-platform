@@ -56,7 +56,7 @@ export default function SupportDashboard() {
                             </div>
                         </div>
                         <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>
+                            <div style={{ fontSize: '0.75rem', color: '#9ca3af' }} data-cy="support-ticket-date">
                                 {new Date(thread.createdAt).toLocaleDateString()}
                             </div>
                             <span style={{
@@ -66,7 +66,7 @@ export default function SupportDashboard() {
                                 backgroundColor: '#f0fdf4',
                                 padding: '0.25rem 0.5rem',
                                 borderRadius: '0.25rem'
-                            }}>
+                            }} data-cy="support-ticket-status">
                                 Open
                             </span>
                         </div>

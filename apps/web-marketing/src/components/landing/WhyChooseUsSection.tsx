@@ -25,7 +25,7 @@ export function WhyChooseUsSection() {
                                     animation="fadeInUp"
                                     delay={0.2 + index * 0.15}
                                 >
-                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }} data-cy={`why-choose-us-point-${index}`}>
                                         <div style={{
                                             width: '40px',
                                             height: '40px',
@@ -41,10 +41,10 @@ export function WhyChooseUsSection() {
                                             ✓
                                         </div>
                                         <div>
-                                            <h4 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#333' }}>
+                                            <h4 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#333' }} data-cy={`why-choose-us-point-title-${index}`}>
                                                 {point.title}
                                             </h4>
-                                            <p style={{ color: '#666', lineHeight: '1.6' }}>{point.text}</p>
+                                            <p style={{ color: '#666', lineHeight: '1.6' }} data-cy={`why-choose-us-point-text-${index}`}>{point.text}</p>
                                         </div>
                                     </div>
                                 </AnimatedSection>

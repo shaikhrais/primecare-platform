@@ -80,8 +80,8 @@ export default function LeadsPage() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }} data-cy="page.subtitle">Track and follow up with potential clients and inquiries.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
-                    <button onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>
+                    <button data-cy="btn-export-leads" style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
+                    <button data-cy="btn-refresh-leads" onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>
                         {loading ? ContentRegistry.LEADS.ACTIONS.REFRESHING : ContentRegistry.LEADS.ACTIONS.REFRESH}
                     </button>
                 </div>
@@ -91,11 +91,11 @@ export default function LeadsPage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.leads">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>User</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>Inquiry</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>Status</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>Date</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>Actions</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }} data-cy="tbl-leads-header-user">User</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }} data-cy="tbl-leads-header-inquiry">Inquiry</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }} data-cy="tbl-leads-header-status">Status</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }} data-cy="tbl-leads-header-date">Date</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }} data-cy="tbl-leads-header-actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody style={{ backgroundColor: 'white' }}>

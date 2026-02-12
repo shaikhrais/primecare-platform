@@ -20,6 +20,7 @@ function Dropdown({ label, items }: DropdownProps) {
             onMouseLeave={() => { setIsOpen(false); setActiveSubmenu(null); }}
         >
             <span
+                data-cy={`nav-dropdown-${label.toLowerCase().replace(/\s+/g, '-')}`}
                 style={{
                     cursor: 'pointer',
                     color: 'var(--text)',
@@ -287,6 +288,7 @@ export default function Header() {
                     <img
                         src="/logo.png"
                         alt="PrimeCare Logo"
+                        data-cy="logo-img"
                         style={{ height: 'clamp(50px, 6vw, 70px)', width: 'auto', transition: 'var(--pc-transition)' }}
                     />
                 </Link>

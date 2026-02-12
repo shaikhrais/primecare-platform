@@ -21,7 +21,7 @@ export function MissionSection() {
                 </AnimatedSection>
 
                 <AnimatedSection animation="fadeInUp" delay={0.2}>
-                    <p style={{ fontSize: '1.3rem', lineHeight: '1.8', opacity: 0.95, marginBottom: '3rem' }}>
+                    <p style={{ fontSize: '1.3rem', lineHeight: '1.8', opacity: 0.95, marginBottom: '3rem' }} data-cy="mission-text">
                         {ContentRegistry.ABOUT.MISSION_TEXT}
                     </p>
                 </AnimatedSection>

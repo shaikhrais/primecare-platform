@@ -23,18 +23,18 @@ export default function LoginPage() {
 
                     <div style={{ marginTop: '10px', fontSize: '0.9rem', color: '#64748b' }}>
                         Looking for a different portal? <br />
-                        <a href="/caregiver-login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }}>Caregiver Login</a>
+                        <a href="/caregiver-login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }} data-cy="link-caregiver-portal">Caregiver Login</a>
                         <span style={{ margin: '0 8px', opacity: 0.5 }}>•</span>
-                        <a href="/staff-login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }}>Staff Login</a>
+                        <a href="/staff-login" style={{ color: '#00897b', textDecoration: 'none', fontWeight: '600' }} data-cy="link-staff-portal">Staff Login</a>
                     </div>
 
                     <div style={{ marginTop: '40px', borderTop: '1px solid #e2e8f0', paddingTop: '40px' }}>
                         <p style={{ fontWeight: 'bold', color: '#334155', marginBottom: '20px' }}>Download the Mobile App</p>
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                            <button style={{ backgroundColor: '#1e293b', color: 'white', padding: '10px 20px', borderRadius: '6px', border: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <button style={{ backgroundColor: '#1e293b', color: 'white', padding: '10px 20px', borderRadius: '6px', border: 'none', display: 'flex', alignItems: 'center', gap: '10px' }} data-cy="btn-app-store">
                                 🍎 App Store
                             </button>
-                            <button style={{ backgroundColor: '#1e293b', color: 'white', padding: '10px 20px', borderRadius: '6px', border: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <button style={{ backgroundColor: '#1e293b', color: 'white', padding: '10px 20px', borderRadius: '6px', border: 'none', display: 'flex', alignItems: 'center', gap: '10px' }} data-cy="btn-google-play">
                                 🤖 Google Play
                             </button>
                         </div>

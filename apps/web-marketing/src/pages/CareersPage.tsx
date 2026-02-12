@@ -178,11 +178,11 @@ export default function CareersPage() {
                                         <div>
                                             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: '#333' }}>{job.title}</h3>
                                             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.875rem', color: '#666' }}>
-                                                <span>📍 {job.location}</span>
-                                                <span>🏢 {job.department}</span>
-                                                <span>⏰ {job.type}</span>
+                                                <span data-cy="job-location">📍 {job.location}</span>
+                                                <span data-cy="job-dept">🏢 {job.department}</span>
+                                                <span data-cy="job-type">⏰ {job.type}</span>
                                             </div>
-                                            <p style={{ marginTop: '1rem', color: '#666' }}>{job.description}</p>
+                                            <p style={{ marginTop: '1rem', color: '#666' }} data-cy="job-desc">{job.description}</p>
                                         </div>
                                         <Link
                                             to={`/careers/apply/${job.id}`}

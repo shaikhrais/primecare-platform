@@ -219,6 +219,7 @@ export default function Schedule() {
                         <div style={{ marginTop: '1.5rem' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{ContentRegistry.SCHEDULE.MODAL.SELECT_PSW}</label>
                             <select
+                                data-cy="modal-select-psw"
                                 value={assignedPswId}
                                 onChange={(e) => setAssignedPswId(e.target.value)}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}

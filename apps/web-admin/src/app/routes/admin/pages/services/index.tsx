@@ -135,11 +135,11 @@ export default function ServicesPage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-services">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
-                            <th style={{ padding: '1rem', fontWeight: '600' }}>Service Name</th>
-                            <th style={{ padding: '1rem', fontWeight: '600' }}>Category</th>
-                            <th style={{ padding: '1rem', fontWeight: '600' }}>Hourly Rate</th>
-                            <th style={{ padding: '1rem', fontWeight: '600' }}>Description</th>
-                            <th style={{ padding: '1rem', fontWeight: '600' }}>Actions</th>
+                            <th style={{ padding: '1rem', fontWeight: '600' }} data-cy="tbl-services-header-name">Service Name</th>
+                            <th style={{ padding: '1rem', fontWeight: '600' }} data-cy="tbl-services-header-category">Category</th>
+                            <th style={{ padding: '1rem', fontWeight: '600' }} data-cy="tbl-services-header-rate">Hourly Rate</th>
+                            <th style={{ padding: '1rem', fontWeight: '600' }} data-cy="tbl-services-header-desc">Description</th>
+                            <th style={{ padding: '1rem', fontWeight: '600' }} data-cy="tbl-services-header-actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,12 +148,12 @@ export default function ServicesPage() {
                         ) : services.length > 0 ? (
                             services.map((service) => (
                                 <tr key={service.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy={`row-service-${service.id}`}>
-                                    <td style={{ padding: '1rem', fontWeight: '500' }}>{service.name}</td>
+                                    <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="service-name">{service.name}</td>
                                     <td style={{ padding: '1rem' }}>
-                                        <span style={{ backgroundColor: '#f3f4f6', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.75rem' }}>{service.category}</span>
+                                        <span style={{ backgroundColor: '#f3f4f6', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.75rem' }} data-cy="service-category">{service.category}</span>
                                     </td>
-                                    <td style={{ padding: '1rem', fontWeight: '600' }}>${service.hourlyRate}/hr</td>
-                                    <td style={{ padding: '1rem', color: '#6b7280', fontSize: '0.875rem', maxWidth: '300px' }}>{service.description}</td>
+                                    <td style={{ padding: '1rem', fontWeight: '600' }} data-cy="service-rate">${service.hourlyRate}/hr</td>
+                                    <td style={{ padding: '1rem', color: '#6b7280', fontSize: '0.875rem', maxWidth: '300px' }} data-cy="service-desc">{service.description}</td>
                                     <td style={{ padding: '1rem' }}>
                                         <button
                                             data-cy={`btn-edit-service-${service.id}`}

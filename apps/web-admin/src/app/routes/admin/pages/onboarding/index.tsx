@@ -155,8 +155,8 @@ export default function PswOnboardingForm() {
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Certifications</label>
                         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} data-cy="form.psw.certifications">
                             {['PSW Certified', 'First Aid', 'CPR', 'Vulnerable Sector Check'].map(cert => (
-                                <label key={cert} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', background: '#f9fafb', borderRadius: '0.375rem', cursor: 'pointer' }}>
-                                    <input type="checkbox" checked={formData.certifications.includes(cert)} onChange={() => handleCertChange(cert)} />
+                                <label key={cert} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', background: '#f9fafb', borderRadius: '0.375rem', cursor: 'pointer' }} data-cy={`lbl-psw-cert-${cert.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    <input type="checkbox" checked={formData.certifications.includes(cert)} onChange={() => handleCertChange(cert)} data-cy={`chk-psw-cert-${cert.toLowerCase().replace(/\s+/g, '-')}`} />
                                     {cert}
                                 </label>
                             ))}

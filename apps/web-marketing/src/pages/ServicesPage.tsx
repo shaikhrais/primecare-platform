@@ -132,7 +132,7 @@ export default function ServicesPage() {
                                     lineHeight: '1.8',
                                     fontSize: '1.1rem',
                                     marginBottom: '1.5rem',
-                                }}>
+                                }} data-cy={`service-desc-${service.id}`}>
                                     {service.description}
                                 </p>
 
@@ -143,14 +143,14 @@ export default function ServicesPage() {
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(2, 1fr)',
                                     gap: '0.75rem',
-                                }}>
+                                }} data-cy={`service-features-${service.id}`}>
                                     {service.features.map((feature, i) => (
                                         <li key={i} style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '0.5rem',
                                             color: '#444',
-                                        }}>
+                                        }} data-cy={`service-feature-${i}`}>
                                             <span style={{ color: '#00897b' }}>✓</span>
                                             {feature}
                                         </li>

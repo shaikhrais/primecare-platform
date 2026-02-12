@@ -80,7 +80,7 @@ export default function AboutPage() {
                         <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#00897b' }}>
                             {ContentRegistry.ABOUT.MISSION}
                         </h2>
-                        <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#444', marginBottom: '2rem' }}>
+                        <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#444', marginBottom: '2rem' }} data-cy="about-mission-text">
                             {ContentRegistry.ABOUT.MISSION_TEXT}
                         </p>
                         <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#666' }}>

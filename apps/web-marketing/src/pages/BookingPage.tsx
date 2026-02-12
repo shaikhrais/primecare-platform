@@ -16,7 +16,7 @@ export default function BookingPage() {
 
             <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
                 <div>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Full Name</label>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }} data-cy="lbl-name">Full Name</label>
                     <input data-cy="inp-name" type="text" style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc' }} />
                 </div>
 
