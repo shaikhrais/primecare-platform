@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiClient } from '../../utils/apiClient';
 
 export default function PswOnboardingForm() {
     const { showToast } = useNotification();
@@ -46,15 +45,7 @@ export default function PswOnboardingForm() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/admin/psw/onboard`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            const response = await apiClient.post('/v1/admin/psw/onboard', formData);
 
             if (response.ok) {
                 showToast('PSW onboarded successfully!', 'success');

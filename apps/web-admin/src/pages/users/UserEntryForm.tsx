@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from '../../App';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '../../utils/apiClient';
 
 const { ApiRegistry, ContentRegistry, DataRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
 
 export default function UserEntryForm() {
     const { id } = useParams();
@@ -31,10 +31,7 @@ export default function UserEntryForm() {
         if (id) {
             const fetchUser = async () => {
                 try {
-                    const token = localStorage.getItem('token');
-                    const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.USERS}/${id}`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
+                    const response = await apiClient.get(`${ApiRegistry.ADMIN.USERS}/${id}`);
                     if (response.ok) {
                         const data = await response.json();
                         setFormData({
@@ -62,16 +59,10 @@ export default function UserEntryForm() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
             const method = id ? 'PATCH' : 'POST';
-            const endpoint = id ? `${API_URL}${ApiRegistry.ADMIN.USERS}/${id}` : `${API_URL}${ApiRegistry.ADMIN.USERS}`;
 
-            const response = await fetch(endpoint, {
+            const response = await apiClient.request(`${id ? ApiRegistry.ADMIN.USERS + '/' + id : ApiRegistry.ADMIN.USERS}`, {
                 method,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify(formData)
             });
 

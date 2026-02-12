@@ -8,6 +8,7 @@
         "deploy": "wrangler deploy",
         "prisma:generate": "prisma generate",
         "prisma:push": "prisma db push",
+        "prisma:seed": "ts-node prisma/seed.ts",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {

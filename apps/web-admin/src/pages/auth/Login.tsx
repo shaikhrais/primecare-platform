@@ -38,13 +38,13 @@ export default function Login() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
+                credentials: 'include'
             });
 
             if (response.ok) {
                 const data = await response.json();
 
-                // Save auth state
-                localStorage.setItem('token', data.token);
+                // Save auth state (No longer saving token to localStorage for security)
                 localStorage.setItem('user', JSON.stringify(data.user));
 
                 if (selectedRole && !data.user.roles.includes(selectedRole) && !(selectedRole === 'staff' && (data.user.roles.includes('admin') || data.user.roles.includes('manager')))) {

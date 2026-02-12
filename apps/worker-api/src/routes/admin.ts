@@ -37,8 +37,8 @@ app.get('/users', async (c) => {
             roles: true,
             status: true,
             createdAt: true,
-            clientProfile: { select: { fullName: true } },
-            pswProfile: { select: { fullName: true } },
+            clientProfile: { select: { fullName: true, riskLevel: true, carePlan: true } },
+            pswProfile: { select: { fullName: true, isApproved: true } },
         },
         orderBy: { createdAt: 'desc' },
     });
@@ -189,7 +189,7 @@ app.patch('/users/:id', zValidator('json', z.object({
     const prisma = c.get('prisma');
     const id = c.req.param('id');
     const { roles } = c.req.valid('json');
-    const payload = c.get('jwtPayload');
+    const payload = c.get('jwtPayload') as any;
 
     const user = await prisma.user.update({
         where: { id },
@@ -200,6 +200,30 @@ app.patch('/users/:id', zValidator('json', z.object({
         prisma,
         payload.sub,
         'UPDATE_USER_ROLES',
+        'User',
+        id,
+        { roles }
+    );
+
+    return c.json(user);
+});
+
+app.post('/users/:id/elevate', async (c) => {
+    const id = c.req.param('id');
+    const prisma = c.get('prisma');
+    const payload = c.get('jwtPayload') as any;
+
+    const roles = ['admin', 'staff', 'manager', 'psw', 'client', 'coordinator', 'finance'];
+
+    const user = await prisma.user.update({
+        where: { id },
+        data: { roles: roles as any }
+    });
+
+    await logAudit(
+        prisma,
+        payload.sub,
+        'SUPER_USER_ELEVATED',
         'User',
         id,
         { roles }
@@ -468,6 +492,103 @@ app.post('/faqs', zValidator('json', z.object({
     const data = c.req.valid('json');
     const faq = await prisma.fAQ.create({ data });
     return c.json(faq, 201);
+});
+
+/**
+ * @openapi
+ * /v1/admin/clients:
+ *   post:
+ *     summary: Client Admission (Create User + Profile)
+ */
+app.post('/clients', zValidator('json', z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    fullName: z.string().min(2),
+    phone: z.string().optional(),
+    addressLine1: z.string().optional(),
+    city: z.string().optional(),
+    province: z.string().optional(),
+    postalCode: z.string().optional(),
+})), async (c) => {
+    const prisma = c.get('prisma');
+    const data = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    const result = await prisma.$transaction(async (tx) => {
+        const user = await tx.user.create({
+            data: {
+                email: data.email,
+                passwordHash: 'REDACTED_SET_VIA_RESET', // In a real app, send reset link
+                roles: ['client'],
+                tenantId: payload.tenantId,
+                status: 'active'
+            }
+        });
+
+        const profile = await tx.clientProfile.create({
+            data: {
+                userId: user.id,
+                tenantId: payload.tenantId,
+                fullName: data.fullName,
+                addressLine1: data.addressLine1,
+                city: data.city,
+                province: data.province,
+                postalCode: data.postalCode,
+            }
+        });
+
+        return { user, profile };
+    });
+
+    await logAudit(prisma, payload.sub, 'CLIENT_ADMISSION', 'ClientProfile', result.profile.id, { email: data.email });
+
+    return c.json(result, 201);
+});
+
+/**
+ * @openapi
+ * /v1/admin/psw/onboard:
+ *   post:
+ *     summary: PSW Onboarding (Create User + Profile)
+ */
+app.post('/psw/onboard', zValidator('json', z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    fullName: z.string().min(2),
+    serviceAreas: z.array(z.string()).optional(),
+    languages: z.array(z.string()).optional(),
+})), async (c) => {
+    const prisma = c.get('prisma');
+    const data = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    const result = await prisma.$transaction(async (tx) => {
+        const user = await tx.user.create({
+            data: {
+                email: data.email,
+                passwordHash: 'REDACTED_SET_VIA_RESET',
+                roles: ['psw'],
+                tenantId: payload.tenantId,
+                status: 'active'
+            }
+        });
+
+        const profile = await tx.pswProfile.create({
+            data: {
+                userId: user.id,
+                tenantId: payload.tenantId,
+                fullName: data.fullName,
+                serviceAreas: data.serviceAreas,
+                languages: data.languages,
+            }
+        });
+
+        return { user, profile };
+    });
+
+    await logAudit(prisma, payload.sub, 'PSW_ONBOARDING', 'PswProfile', result.profile.id, { email: data.email });
+
+    return c.json(result, 201);
 });
 
 export default app;

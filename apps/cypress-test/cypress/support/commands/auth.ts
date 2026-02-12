@@ -1,7 +1,7 @@
 
 import { SELECTORS } from "../selectors";
 
-type Role = "guest" | "client" | "psw" | "manager" | "staff";
+type Role = "guest" | "client" | "psw" | "manager" | "staff" | "rn";
 
 export { };
 

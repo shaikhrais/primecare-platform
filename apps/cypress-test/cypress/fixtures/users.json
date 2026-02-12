@@ -14,5 +14,9 @@
     "staff": {
         "email": "admin.prime@primecare.ca",
         "password": "Password123!"
+    },
+    "rn": {
+        "email": "rn.prime@primecare.ca",
+        "password": "Password123!"
     }
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '../../utils/apiClient';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AdminDashboard() {
     const [stats, setStats] = useState({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0 });
@@ -12,10 +12,7 @@ export default function AdminDashboard() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.STATS}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const response = await apiClient.get(ApiRegistry.ADMIN.STATS);
                 if (response.ok) {
                     const data = await response.json();
                     setStats(data);

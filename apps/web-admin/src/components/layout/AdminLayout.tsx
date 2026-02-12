@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import QuickActions from '../dashboard/QuickActions';
 import RoleSwitcher from './RoleSwitcher';
+import NotificationHub from './NotificationHub';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -36,8 +37,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     };
 
     const user = getUser();
-    const token = localStorage.getItem('token');
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
@@ -55,7 +56,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
     // Auth & Role Guard
     React.useEffect(() => {
-        if (!token) {
+        const currentUser = localStorage.getItem('user');
+        if (!currentUser || currentUser === 'undefined') {
             navigate(RouteRegistry.LOGIN);
             return;
         }
@@ -64,7 +66,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
             // Redirect to home dashboard if unauthorized
             navigate(RouteRegistry.DASHBOARD);
         }
-    }, [token, navigate, role, roleGated]);
+    }, [navigate, role, roleGated]);
 
     const adminMenu = [
         { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
@@ -107,8 +109,15 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
     const portalTitle = role === 'admin' ? 'Admin' : role === 'psw' ? 'Caregiver' : role === 'staff' ? 'Staff' : 'Family';
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
+    const handleLogout = async () => {
+        try {
+            await fetch(`${API_URL}/v1/auth/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+        } catch (e) {
+            console.error('Logout API call failed', e);
+        }
         localStorage.removeItem('user');
         navigate(RouteRegistry.LOGIN);
     };
@@ -209,8 +218,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
                             <QuickActions role={role} />
 
-                            <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                <button className="btn" style={{ width: '44px', height: '44px', padding: 0 }}>🔔</button>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                <NotificationHub />
                                 <button className="btn" style={{ width: '44px', height: '44px', padding: 0 }}>🔍</button>
                             </div>
                         </div>

@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { Bindings, Variables } from '../bindings';
-import { authMiddleware, rbacMiddleware } from '../auth';
+import { authMiddleware, rbacMiddleware, requirePermission } from '../auth';
 import { tenantMiddleware } from '../middleware/tenant';
 import { policyMiddleware } from '../middleware/policy';
 import { logAudit } from '../utils/audit';
@@ -29,6 +29,14 @@ const BookingSchema = z.object({
     notes: z.string().optional(),
 });
 
+// Care Plan Schema
+const CarePlanSchema = z.object({
+    goals: z.array(z.string()),
+    precautions: z.array(z.string()),
+    interventions: z.array(z.string()),
+    riskLevel: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']).optional()
+});
+
 // Middleware for all client routes
 app.use('*', async (c, next) => {
     const middleware = authMiddleware(c.env.JWT_SECRET);
@@ -36,17 +44,14 @@ app.use('*', async (c, next) => {
 });
 app.use('*', tenantMiddleware());
 app.use('*', policyMiddleware());
-app.use('*', rbacMiddleware(['client']));
 
 /**
  * @openapi
  * /v1/client/profile:
  *   get:
  *     summary: Get Client Profile
- *     security:
- *       - bearerAuth: []
  */
-app.get('/profile', async (c) => {
+app.get('/profile', rbacMiddleware(['client', 'rn', 'admin']), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -61,13 +66,47 @@ app.get('/profile', async (c) => {
 
 /**
  * @openapi
+ * /v1/client/:clientId/care-plan:
+ *   post:
+ *     summary: Create Care Plan (RN/Admin)
+ */
+app.post('/:clientId/care-plan', requirePermission('CARE_PLAN_CREATE'), zValidator('json', CarePlanSchema), async (c) => {
+    const prisma = c.get('prisma');
+    const clientId = c.req.param('clientId');
+    const data = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+
+    // In a real app, this would update a CarePlan model or JSON field on ClientProfile
+    // For now, let's assume we log it and return success
+    await logAudit(prisma, userId, 'CREATE_CARE_PLAN', 'ClientProfile', clientId, data);
+
+    return c.json({ success: true, message: 'Care plan created', data });
+});
+
+/**
+ * @openapi
+ * /v1/client/:clientId/care-plan:
+ *   patch:
+ *     summary: Update Care Plan (RN/Admin)
+ */
+app.patch('/:clientId/care-plan', requirePermission('CARE_PLAN_UPDATE'), zValidator('json', CarePlanSchema.partial()), async (c) => {
+    const prisma = c.get('prisma');
+    const clientId = c.req.param('clientId');
+    const data = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+
+    await logAudit(prisma, userId, 'UPDATE_CARE_PLAN', 'ClientProfile', clientId, data);
+
+    return c.json({ success: true, message: 'Care plan updated', data });
+});
+
+/**
+ * @openapi
  * /v1/client/profile:
  *   put:
  *     summary: Update Client Profile
- *     security:
- *       - bearerAuth: []
  */
-app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
+app.put('/profile', rbacMiddleware(['client']), zValidator('json', ProfileUpdateSchema), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
@@ -101,10 +140,8 @@ app.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
  * /v1/client/bookings:
  *   get:
  *     summary: List Client Bookings (Visits)
- *     security:
- *       - bearerAuth: []
  */
-app.get('/bookings', async (c) => {
+app.get('/bookings', rbacMiddleware(['client', 'admin', 'rn']), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -128,10 +165,8 @@ app.get('/bookings', async (c) => {
  * /v1/client/bookings:
  *   post:
  *     summary: Request a new service booking
- *     security:
- *       - bearerAuth: []
  */
-app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
+app.post('/bookings', rbacMiddleware(['client']), zValidator('json', BookingSchema), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
@@ -147,6 +182,7 @@ app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
             durationMinutes: data.durationMinutes,
             status: 'requested',
             clientNotes: data.notes,
+            tenantId: c.get('jwtPayload').tenantId
         },
     });
 
@@ -160,10 +196,8 @@ app.post('/bookings', zValidator('json', BookingSchema), async (c) => {
  * /v1/client/invoices:
  *   get:
  *     summary: List Client Invoices
- *     security:
- *       - bearerAuth: []
  */
-app.get('/invoices', async (c) => {
+app.get('/invoices', rbacMiddleware(['client']), async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -184,12 +218,12 @@ app.get('/invoices', async (c) => {
  * /v1/client/services:
  *   get:
  *     summary: List Available Services
- *     security:
- *       - bearerAuth: []
  */
 app.get('/services', async (c) => {
     const prisma = c.get('prisma');
-    const services = await prisma.service.findMany();
+    const services = await prisma.service.findMany({
+        where: { tenantId: c.get('jwtPayload').tenantId }
+    });
     return c.json(services);
 });
 

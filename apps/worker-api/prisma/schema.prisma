@@ -15,6 +15,7 @@ enum Role {
   staff
   admin
   finance
+  rn
 }
 
 enum DocStatus {
@@ -97,6 +98,7 @@ model User {
   blogPosts          BlogPost[]
   VisitCheckEvent    VisitCheckEvent[]
   DailyEntry         DailyEntry[]
+  notifications      Notification[]
 
   @@index([tenantId])
   @@map("users")
@@ -121,6 +123,7 @@ model Tenant {
   timesheets      Timesheet[]
   invoices        Invoice[]
   messageThreads  MessageThread[]
+  notifications   Notification[]
 
   @@map("tenants")
 }
@@ -141,6 +144,8 @@ model ClientProfile {
   emergencyName  String?   @map("emergency_contact_name")
   emergencyPhone String?   @map("emergency_contact_phone")
   preferences    Json?     @map("preferences_json")
+  carePlan       Json?     @map("care_plan_json")
+  riskLevel      String?   @map("risk_level")
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
@@ -519,4 +524,24 @@ model DailyEntry {
 
   @@index([tenantId])
   @@map("daily_entries")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  tenantId  String   @map("tenant_id")
+  userId    String   @map("user_id")
+  title     String
+  message   String
+  type      String   @default("info")
+  role      String?
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@map("notifications")
 }

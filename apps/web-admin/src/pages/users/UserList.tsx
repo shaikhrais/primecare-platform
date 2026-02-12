@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '../../App';
+import { apiClient } from '../../utils/apiClient';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -45,10 +46,7 @@ export default function UserList() {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.USERS}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await apiClient.get(ApiRegistry.ADMIN.USERS);
             if (response.ok) {
                 const data = await response.json();
                 // Map API response to UI model
@@ -73,11 +71,7 @@ export default function UserList() {
 
     const handleApprove = async (id: string) => {
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.ADMIN.USERS_VERIFY(id)}`, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await apiClient.post(ApiRegistry.ADMIN.USERS_VERIFY(id));
             if (response.ok) {
                 setUsers(prev => prev.map(u => u.id === id ? { ...u, profile: { ...u.profile!, isVerified: true } } : u));
                 showToast('User extracted and verified successfully', 'success');

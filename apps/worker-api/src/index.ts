@@ -4,8 +4,10 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import { generateToken } from './auth';
+import { generateToken, generateRefreshToken } from './auth';
+import { verify } from 'hono/jwt';
 import { cors } from 'hono/cors';
+import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { secureHeaders } from 'hono/secure-headers';
 import { prismaMiddleware } from './middleware/prisma';
 import { Bindings, Variables } from './bindings';
@@ -21,6 +23,7 @@ import voiceApp from './routes/voice';
 import staffApp from './routes/staff';
 import dailyEntryApp from './routes/daily-entry';
 import managerApp from './routes/manager';
+import rnApp from './routes/rn';
 
 import { DurableObject } from 'cloudflare:workers';
 export { ChatServer } from './durable_objects/ChatServer';
@@ -66,7 +69,7 @@ const ResetPasswordSchema = z.object({
 const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
-    role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance']),
+    role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'rn']),
     tenantName: z.string().optional(),
     tenantSlug: z.string().optional(),
 });
@@ -77,18 +80,26 @@ const getPrisma = (database_url: string) => {
     }).$extends(withAccelerate());
 };
 
-app.use('*', cors({
-    origin: '*',
-    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'],
-    exposeHeaders: ['Content-Length'],
-    maxAge: 600,
-    credentials: true,
-}));
-
 app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString() });
 });
+
+app.use('*', cors({
+    origin: (origin) => {
+        // In production, strictly match against allowed domains
+        // For development, allow localhost and common worker domains
+        if (!origin) return null;
+        if (origin.includes('localhost') || origin.includes('pages.dev') || origin.includes('workers.dev')) {
+            return origin;
+        }
+        return null;
+    },
+    allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
+    maxAge: 600,
+    credentials: true,
+}));
 
 app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
     const prisma = c.get('prisma');
@@ -145,8 +156,26 @@ app.post('/v1/auth/register', zValidator('json', RegisterSchema), async (c) => {
         });
     }
 
-    const token = await generateToken({ ...user, tenantId: tenant.id }, c.env.JWT_SECRET || 'fallback_secret');
-    return c.json({ user, token }, 201);
+    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, c.env.JWT_SECRET || 'fallback_secret');
+    const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
+
+    setCookie(c, 'accessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+        maxAge: 60 * 60 * 24, // 1 day
+        path: '/'
+    });
+
+    setCookie(c, 'refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: '/v1/auth/refresh'
+    });
+
+    return c.json({ user, token: accessToken }, 201);
 });
 
 app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
@@ -160,12 +189,31 @@ app.post('/v1/auth/login', zValidator('json', LoginSchema), async (c) => {
         return c.json({ error: 'Invalid credentials' }, 401);
     }
 
-    const token = await generateToken({
+    const accessToken = await generateToken({
         id: user.id,
         roles: user.roles as any,
         tenantId: user.tenantId
     }, c.env.JWT_SECRET || 'fallback_secret');
-    return c.json({ user, token });
+
+    const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
+
+    setCookie(c, 'accessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+        maxAge: 60 * 60 * 24, // 1 day
+        path: '/'
+    });
+
+    setCookie(c, 'refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: '/v1/auth/refresh'
+    });
+
+    return c.json({ user, token: accessToken });
 });
 
 app.post('/v1/auth/switch-role', async (c) => {
@@ -188,7 +236,53 @@ app.post('/v1/auth/switch-role', async (c) => {
         tenantId: user.tenantId
     }, c.env.JWT_SECRET || 'fallback_secret', targetRole as any);
 
+    setCookie(c, 'accessToken', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+        maxAge: 60 * 60 * 24,
+        path: '/'
+    });
+
     return c.json({ token, activeRole: targetRole });
+});
+
+app.post('/v1/auth/refresh', async (c) => {
+    const refreshToken = getCookie(c, 'refreshToken');
+    if (!refreshToken) return c.json({ error: 'No refresh token' }, 401);
+
+    const prisma = c.get('prisma');
+
+    try {
+        const payload = await verify(refreshToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
+        const user = await prisma.user.findUnique({ where: { id: payload.sub as string } });
+
+        if (!user) return c.json({ error: 'User not found' }, 401);
+
+        const accessToken = await generateToken({
+            id: user.id,
+            roles: user.roles as any,
+            tenantId: user.tenantId
+        }, c.env.JWT_SECRET || 'fallback_secret');
+
+        setCookie(c, 'accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+            maxAge: 60 * 60 * 24,
+            path: '/'
+        });
+
+        return c.json({ token: accessToken });
+    } catch (e) {
+        return c.json({ error: 'Invalid refresh token' }, 401);
+    }
+});
+
+app.post('/v1/auth/logout', (c) => {
+    deleteCookie(c, 'accessToken');
+    deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh' });
+    return c.json({ success: true });
 });
 
 app.get('/v1/user/profile', async (c) => {
@@ -332,6 +426,7 @@ app.route('/v1/payments', paymentApp);
 app.route('/v1/staff', staffApp);
 app.route('/v1/daily-entry', dailyEntryApp);
 app.route('/v1/manager', managerApp);
+app.route('/v1/rn', rnApp);
 
 app.get('/ws/chat', async (c) => {
     const upgradeHeader = c.req.header('Upgrade');

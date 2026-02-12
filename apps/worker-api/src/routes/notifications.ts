@@ -30,4 +30,34 @@ app.post('/register-device', zValidator('json', RegisterDeviceSchema), async (c)
     return c.json({ success: true });
 });
 
+app.get('/', async (c) => {
+    const prisma = c.get('prisma');
+    const payload = c.get('jwtPayload') as any;
+    if (!payload) return c.json({ error: 'Unauthorized' }, 401);
+
+    const userId = payload.sub;
+
+    const notifications = await prisma.notification.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        take: 50
+    });
+
+    return c.json(notifications);
+});
+
+app.patch('/:id/read', async (c) => {
+    const prisma = c.get('prisma');
+    const id = c.req.param('id');
+    const payload = c.get('jwtPayload') as any;
+    if (!payload) return c.json({ error: 'Unauthorized' }, 401);
+
+    const notification = await prisma.notification.update({
+        where: { id, userId: payload.sub },
+        data: { isRead: true }
+    });
+
+    return c.json(notification);
+});
+
 export default app;

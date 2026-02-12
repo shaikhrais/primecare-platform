@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiClient } from '../../utils/apiClient';
 
 export default function ClientAdmissionForm() {
     const { showToast } = useNotification();
@@ -37,15 +36,7 @@ export default function ClientAdmissionForm() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/admin/clients`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            const response = await apiClient.post('/v1/admin/clients', formData);
 
             if (response.ok) {
                 showToast('Client admitted successfully!', 'success');

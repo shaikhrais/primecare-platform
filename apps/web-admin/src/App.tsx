@@ -50,6 +50,7 @@ import TemplateEditor from './pages/admin/TemplateEditor';
 import InvoiceEntryForm from './pages/admin/InvoiceEntryForm';
 
 import { NotificationProvider, useNotification } from './context/NotificationContext';
+import CookieConsent from './components/ui/CookieConsent';
 
 const { RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -58,6 +59,7 @@ export { useNotification };
 function App() {
   return (
     <NotificationProvider>
+      <CookieConsent />
       <BrowserRouter>
         <Routes>
           <Route path={RouteRegistry.LOGIN} element={<Login />} />

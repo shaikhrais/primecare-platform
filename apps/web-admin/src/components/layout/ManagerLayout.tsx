@@ -3,6 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import GlobalQuickActionBar from './GlobalQuickActionBar';
 import SideFloatingButton from './SideFloatingButton';
 import RoleSwitcher from './RoleSwitcher';
+import NotificationHub from './NotificationHub';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;
@@ -15,15 +16,16 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const userStr = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
     const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { roles: ['client'], activeRole: 'client' };
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
+    const API_URL = import.meta.env.VITE_API_URL;
 
     React.useEffect(() => {
-        if (!token) {
+        const currentUser = localStorage.getItem('user');
+        if (!currentUser || currentUser === 'undefined') {
             navigate(RouteRegistry.LOGIN);
         }
-    }, [token, navigate]);
+    }, [navigate]);
 
     const menuItems = [
         { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' },
@@ -98,8 +100,9 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
             {/* Main Content */}
             <main style={{ flex: 1, marginLeft: 'var(--sidebar-width)', display: 'flex', flexDirection: 'column' }}>
                 {/* Global Action Bar Integrated as Topbar */}
-                <header className="pc-topbar" style={{ margin: '28px 32px 0' }}>
+                <header className="pc-topbar" style={{ margin: '28px 32px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <GlobalQuickActionBar role={role} />
+                    <NotificationHub />
                 </header>
 
                 <div style={{ padding: '28px 32px 36px', flex: 1 }}>
