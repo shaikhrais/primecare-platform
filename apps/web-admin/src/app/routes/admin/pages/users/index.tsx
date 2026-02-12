@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '../../App';
-import { apiClient } from '../../utils/apiClient';
+import { apiClient } from '../../../../../shared/utils/apiClient';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;

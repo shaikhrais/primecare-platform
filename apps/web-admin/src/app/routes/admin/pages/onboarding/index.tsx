@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App';
-import { apiClient } from '../../utils/apiClient';
+import { apiClient } from '../../../../../shared/utils/apiClient';
 
 export default function PswOnboardingForm() {
     const { showToast } = useNotification();
