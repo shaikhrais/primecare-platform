@@ -77,8 +77,8 @@ export default function PswOnboardingForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="form.psw.header">PSW Professional Onboarding</h2>
-                <p style={{ color: '#6b7280' }}>Register a new Personal Support Worker and verify credentials.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">PSW Professional Onboarding</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Register a new Personal Support Worker and verify credentials.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
@@ -168,6 +168,7 @@ export default function PswOnboardingForm() {
                     <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                        data-cy="btn-cancel"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
                         Cancel

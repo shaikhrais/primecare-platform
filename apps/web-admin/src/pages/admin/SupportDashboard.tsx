@@ -26,7 +26,7 @@ export default function SupportDashboard() {
 
     return (
         <div style={{ padding: '2rem' }} data-cy="support-dashboard-page">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '2rem' }}>Support Inbox</h2>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '2rem' }} data-cy="page.title">Support Inbox</h2>
 
             <div style={{ display: 'grid', gap: '1rem' }}>
                 {threads.map((thread) => (

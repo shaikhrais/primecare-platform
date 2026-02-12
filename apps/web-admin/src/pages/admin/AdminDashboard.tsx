@@ -39,7 +39,7 @@ export default function AdminDashboard() {
                 <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
                     {ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME}
                 </h1>
-                <p className="sub" style={{ margin: 0 }}>{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
+                <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }} data-cy="stats-cards">
@@ -103,15 +103,15 @@ export default function AdminDashboard() {
                     </div>
                     <div className="pc-card-b">
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }} data-cy="status-item-api">
                                 <span style={{ color: 'var(--text-200)' }}>Worker API Status</span>
                                 <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● Healthy</span>
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }} data-cy="status-item-client-app">
                                 <span style={{ color: 'var(--text-200)' }}>Mobile Client App</span>
                                 <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● v1.0.4 Online</span>
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0' }} data-cy="status-item-psw-app">
                                 <span style={{ color: 'var(--text-200)' }}>Mobile PSW App</span>
                                 <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● v1.0.4 Online</span>
                             </div>

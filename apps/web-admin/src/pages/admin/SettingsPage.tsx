@@ -59,7 +59,7 @@ export default function SettingsPage() {
             )}
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">{ContentRegistry.SETTINGS.TITLE}</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.header">{ContentRegistry.SETTINGS.SUBTITLE}</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.SETTINGS.SUBTITLE}</p>
             </div>
 
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }} data-cy="form.settings">

@@ -66,7 +66,7 @@ export default function IncidentList() {
     return (
         <div style={{ padding: '2rem' }} data-cy="incident-list-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>Incident Reports</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">Incident Reports</h2>
                 <button
                     data-cy="btn.incident.report"
                     onClick={() => navigate('/incidents/new')}

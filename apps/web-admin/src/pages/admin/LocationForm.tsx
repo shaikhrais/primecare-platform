@@ -75,8 +75,8 @@ export default function LocationForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="form.location.header">Facility & Location Manager</h2>
-                <p style={{ color: '#6b7280' }}>Configure care facilities, clinics, and regional operating hubs.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Facility & Location Manager</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Configure care facilities, clinics, and regional operating hubs.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
@@ -134,6 +134,7 @@ export default function LocationForm() {
                     <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                        data-cy="btn-cancel"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
                         Cancel

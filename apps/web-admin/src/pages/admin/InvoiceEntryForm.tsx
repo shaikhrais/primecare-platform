@@ -32,11 +32,13 @@ export default function InvoiceEntryForm() {
                 {items.map((item, idx) => (
                     <div key={item.id} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }} data-cy="form.invoice.lineItem">
                         <input
+                            data-cy="inp-desc"
                             placeholder="Description"
                             onChange={() => setIsDirty(true)}
                             style={{ flex: 1, padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem' }}
                         />
                         <input
+                            data-cy="inp-amount"
                             type="number"
                             placeholder="Amount"
                             onChange={() => setIsDirty(true)}
@@ -54,6 +56,7 @@ export default function InvoiceEntryForm() {
                     <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                        data-cy="btn-cancel"
                         style={{ padding: '0.75rem 1.5rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
                         Cancel

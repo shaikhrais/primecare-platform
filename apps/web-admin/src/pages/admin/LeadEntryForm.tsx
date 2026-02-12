@@ -44,7 +44,7 @@ export default function LeadEntryForm() {
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">New Lead Entry</h2>
-                <p style={{ color: '#6b7280' }}>Record an offline inquiry.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Record an offline inquiry.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>

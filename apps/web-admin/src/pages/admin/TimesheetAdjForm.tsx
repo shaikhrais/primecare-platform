@@ -45,7 +45,7 @@ export default function TimesheetAdjForm() {
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">Timesheet Adjustment</h2>
-                <p style={{ color: '#6b7280' }}>Correct reported hours for payroll.</p>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Correct reported hours for payroll.</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
@@ -75,6 +75,14 @@ export default function TimesheetAdjForm() {
                 </div>
 
                 <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+                    <button
+                        type="button"
+                        onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                        data-cy="btn-cancel"
+                        style={{ padding: '0.75rem 1.5rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
+                    >
+                        Cancel
+                    </button>
                     <button
                         type="submit"
                         disabled={submitting}

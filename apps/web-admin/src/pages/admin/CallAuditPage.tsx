@@ -10,8 +10,8 @@ export default function CallAuditPage() {
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="call-audit-page">
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Voice Call Audits</h2>
-                <p style={{ color: '#6b7280' }}>Review AI summaries and audio logs from marketing chat inquiries.</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Voice Call Audits</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Review AI summaries and audio logs from marketing chat inquiries.</p>
             </div>
 
             <div style={{ display: 'grid', gap: '1.5rem' }}>

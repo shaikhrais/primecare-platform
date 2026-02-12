@@ -124,6 +124,7 @@ export default function IncidentEntryForm() {
                     <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                        data-cy="btn-cancel"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
                         Cancel

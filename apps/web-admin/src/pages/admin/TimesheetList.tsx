@@ -36,7 +36,7 @@ export default function TimesheetList() {
     return (
         <div style={{ padding: '2rem' }} data-cy="timesheet-list-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>Timesheet Review</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">Timesheet Review</h2>
                 <button
                     data-cy="btn.timesheet.adjust"
                     onClick={() => navigate('/timesheets/adjust')}
