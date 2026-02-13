@@ -10,6 +10,13 @@ import ManagerLayout from '@/shared/components/layout/ManagerLayout';
 import RequireRole from '@/shared/rbac/RequireRole';
 
 // Pages
+import Profile from './routes/shared/pages/profile';
+import SupportHub from './routes/shared/pages/support-hub';
+import SupportTicket from './routes/shared/pages/support-ticket';
+import Messaging from './routes/shared/pages/messaging';
+import VisitCompletion from './routes/shared/pages/visit-completion';
+import VisitDetails from './routes/shared/pages/visit-details';
+
 import AuthRoutes from './routes/auth';
 import AdminRoutes from './routes/admin';
 import PswRoutes from './routes/psw';
@@ -144,39 +151,16 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* Shared Protected Routes (Profile, Support) */}
-                <Route
-                    path="/profile/*"
-                    element={
-                        <AdminLayout>
-                            <SharedRoutes />
-                        </AdminLayout>
-                    }
-                />
-                <Route
-                    path="/support/*"
-                    element={
-                        <AdminLayout>
-                            <SharedRoutes />
-                        </AdminLayout>
-                    }
-                />
-                <Route
-                    path="/messaging/*"
-                    element={
-                        <AdminLayout>
-                            <SharedRoutes />
-                        </AdminLayout>
-                    }
-                />
-                <Route
-                    path="/visits/*"
-                    element={
-                        <AdminLayout>
-                            <SharedRoutes />
-                        </AdminLayout>
-                    }
-                />
+                {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
+                <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />
+                <Route path="/support" element={<AdminLayout><SupportHub /></AdminLayout>} />
+                <Route path="/support/tickets/new" element={<AdminLayout><SupportTicket /></AdminLayout>} />
+                <Route path="/messaging" element={<AdminLayout><Messaging /></AdminLayout>} />
+                <Route path="/visits/:id" element={<AdminLayout><VisitDetails /></AdminLayout>} />
+                <Route path="/visits/:id/complete" element={<AdminLayout><VisitCompletion /></AdminLayout>} />
+
+                {/* Shared routes fallback for legacy/test paths */}
+                <Route path="/shared/*" element={<AdminLayout><SharedRoutes /></AdminLayout>} />
 
                 {/* Fallback & Home */}
                 <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
