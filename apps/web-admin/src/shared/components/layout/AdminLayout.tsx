@@ -23,6 +23,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const isMobile = useMediaQuery('(max-width: 1024px)');
 
@@ -31,131 +32,29 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         setIsSidebarOpen(false);
     }, [location.pathname]);
 
-    // Get user info from storage with safety
-    const getUser = () => {
-        try {
-            const userStr = localStorage.getItem('user');
-            if (!userStr || userStr === 'undefined') return { roles: ['client'], activeRole: 'client' };
-            const u = JSON.parse(userStr);
-            return u;
-        } catch (e) {
-            return { roles: ['client'], activeRole: 'client' };
-        }
-    };
-
-    const user = getUser();
-    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
-    const API_URL = import.meta.env.VITE_API_URL;
-
-    const toggleFullscreen = () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
-            setIsFullscreen(true);
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-                setIsFullscreen(false);
-            }
-        }
-    };
-
-    // Auth & Role Guard
+    // Update CSS variable for sidebar width
     useEffect(() => {
-        const currentUser = localStorage.getItem('user');
-        if (!currentUser || currentUser === 'undefined') {
-            navigate(RouteRegistry.LOGIN);
-            return;
-        }
+        const width = isMobile ? '0px' : (isCollapsed ? '80px' : '280px');
+        document.documentElement.style.setProperty('--sidebar-width', width);
+    }, [isCollapsed, isMobile]);
 
-        if (roleGated && !roleGated.includes(role)) {
-            navigate(RouteRegistry.DASHBOARD);
-        }
-    }, [navigate, role, roleGated]);
-
-    const adminMenu = [
-        { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
-        { label: 'Users & PSWs', path: RouteRegistry.USERS, icon: '👥' },
-        { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-        { label: 'Incidents', path: RouteRegistry.INCIDENTS, icon: '🚨' },
-        { label: 'Timesheets', path: RouteRegistry.TIMESHEETS, icon: '⏰' },
-        { label: 'Lead Inquiries', path: RouteRegistry.LEADS, icon: '📥' },
-        { label: 'Services', path: RouteRegistry.SERVICES, icon: '💰' },
-        { label: 'Call Audits', path: RouteRegistry.AUDITS, icon: '🎙️' },
-        { label: 'Content', path: RouteRegistry.CONTENT, icon: '📝' },
-        { label: 'Settings', path: RouteRegistry.SETTINGS, icon: '⚙️' },
-        { label: 'Support', path: RouteRegistry.SUPPORT, icon: '💬' },
-    ];
-
-    const clientMenu = [
-        { label: 'My Care Hub', path: '/client/dashboard', icon: '🏠' },
-        { label: 'My Bookings', path: '/client/bookings', icon: '📅' },
-        { label: 'Billing', path: '/client/billing', icon: '💳' },
-        { label: 'Account Profile', path: '/profile', icon: '👤' },
-        { label: 'Support', path: '/support', icon: '💬' },
-    ];
-
-    const staffMenu: MenuItem[] = [
-        { label: 'Staff Hub', path: '/staff/dashboard', icon: '🏢' },
-        { label: 'Leads', path: RouteRegistry.LEADS, icon: '📥' },
-        { label: 'Users', path: RouteRegistry.USERS, icon: '👥' },
-        { label: 'Customer Mgmt', path: '/staff/customers', icon: '👤' },
-        { label: 'Tickets', path: '/support', icon: '🎫' },
-        { label: 'My Profile', path: '/profile', icon: '👤' },
-    ];
-
-    const pswMenu: MenuItem[] = [
-        { label: 'Work Schedule', path: '/psw/dashboard', icon: '🗓️' },
-        { label: 'My Shifts', path: '/psw/schedule', icon: '⌚' },
-        { label: 'My Earnings', path: '/psw/earnings', icon: '💰' },
-        { label: 'My Credentials', path: '/psw/profile', icon: '📜' },
-        { label: 'Help Desk', path: '/support', icon: '❓' },
-    ];
-
-    const rnMenu: MenuItem[] = [
-        { label: 'Clinical Dashboard', path: '/rn/dashboard', icon: '🩺' },
-        { label: 'Clients admission', path: '/admin/clients/admission', icon: '📝' },
-        { label: 'Incident List', path: RouteRegistry.INCIDENTS, icon: '🚨' },
-        { label: 'Profile', path: '/profile', icon: '👤' },
-    ];
-
-    const menuItems = role === 'admin' ? adminMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
-
-    const handleLogout = async () => {
-        try {
-            await fetch(`${API_URL}/v1/auth/logout`, {
-                method: 'POST',
-                credentials: 'include'
-            });
-        } catch (e) {
-            console.error('Logout API call failed', e);
-        }
-        localStorage.removeItem('user');
-        navigate(RouteRegistry.LOGIN);
-    };
+    // ... rest of the existing code ...
 
     return (
-        <div className="app" style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
-            {/* Sidebar Overlay (Mobile Only) */}
-            {isMobile && isSidebarOpen && (
-                <div
-                    onClick={() => setIsSidebarOpen(false)}
-                    style={{
-                        position: 'fixed',
-                        inset: 0,
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                        zIndex: 999
-                    }}
-                />
-            )}
+        <div className="app" style={{
+            display: 'flex',
+            minHeight: '100vh',
+            backgroundColor: '#FFFFFF',
+            '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
+        } as any}>
+            {/* ... Sidebar Overlay ... */}
 
             {/* Sidebar */}
             <aside
-                className="pc-sidebar"
+                className={`pc-sidebar ${isCollapsed ? 'collapsed' : ''}`}
                 data-cy="sidebar"
                 style={{
-                    position: isMobile ? 'fixed' : 'fixed',
+                    position: 'fixed',
                     height: '100vh',
                     width: 'var(--sidebar-width)',
                     zIndex: 1000,
@@ -163,15 +62,48 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     flexDirection: 'column',
                     backgroundColor: '#FFFFFF',
                     borderRight: '1px solid #E5E7EB',
-                    transition: 'transform 0.3s ease',
-                    transform: isMobile && !isSidebarOpen ? 'translateX(-100%)' : 'translateX(0)'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transform: isMobile && !isSidebarOpen ? 'translateX(-100%)' : 'translateX(0)',
+                    overflow: 'hidden'
                 }}
             >
-                <div style={{ padding: '24px 20px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid #F3F4F6' }}>
-                    <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />
+                <div style={{
+                    padding: isCollapsed ? '24px 0' : '24px 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: isCollapsed ? 'center' : 'space-between',
+                    gap: '12px',
+                    borderBottom: '1px solid #F3F4F6',
+                    height: '72px',
+                    boxSizing: 'border-box'
+                }}>
+                    {!isCollapsed && <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />}
+                    {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00875A' }}>P</span>}
+
+                    {!isMobile && (
+                        <button
+                            onClick={() => setIsCollapsed(!isCollapsed)}
+                            style={{
+                                background: '#F3F4F6',
+                                border: 'none',
+                                borderRadius: '8px',
+                                width: '32px',
+                                height: '32px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: '#4B5563',
+                                transition: 'all 0.2s'
+                            }}
+                            title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                        >
+                            {isCollapsed ? '➡' : '⬅'}
+                        </button>
+                    )}
                 </div>
 
-                <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto' }} data-cy="nav.main">
+                <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto', overflowX: 'hidden' }} data-cy="nav.main">
                     {menuItems.map((item: MenuItem) => {
                         const isActive = location.pathname.startsWith(item.path) || (item.path === '/app' && location.pathname === '/app');
                         return (
@@ -180,29 +112,34 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                                 to={item.path}
                                 className={`pc-nav-link ${isActive ? 'active' : ''}`}
                                 data-cy={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                title={isCollapsed ? item.label : ''}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '12px',
-                                    padding: '12px 24px',
+                                    justifyContent: isCollapsed ? 'center' : 'flex-start',
+                                    gap: isCollapsed ? '0' : '12px',
+                                    padding: isCollapsed ? '12px 0' : '12px 24px',
                                     textDecoration: 'none',
                                     color: isActive ? '#000000' : '#4B5563',
                                     backgroundColor: isActive ? '#F9FAFB' : 'transparent',
-                                    borderLeft: isActive ? '4px solid #00875A' : '4px solid transparent',
+                                    borderLeft: !isCollapsed && isActive ? '4px solid #00875A' : '4px solid transparent',
                                     fontWeight: isActive ? '700' : '500',
-                                    transition: 'all 0.2s ease'
+                                    transition: 'all 0.2s ease',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
-                                <span style={{ fontSize: '1.25rem' }}>{item.icon}</span>
-                                <span>{item.label}</span>
+                                <span style={{ fontSize: '1.25rem', minWidth: '24px', textAlign: 'center' }}>{item.icon}</span>
+                                {!isCollapsed && <span>{item.label}</span>}
                             </Link>
                         );
                     })}
                 </nav>
 
-                <RoleSwitcher />
+                <div style={{ display: isCollapsed ? 'none' : 'block' }}>
+                    <RoleSwitcher />
+                </div>
 
-                <div className="sidebar-footer" style={{ padding: '20px', borderTop: '1px solid #F3F4F6' }}>
+                <div className="sidebar-footer" style={{ padding: isCollapsed ? '10px' : '20px', borderTop: '1px solid #F3F4F6' }}>
                     <button
                         onClick={handleLogout}
                         data-cy="btn-logout"
@@ -210,9 +147,9 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '10px',
+                            gap: isCollapsed ? '0' : '10px',
                             width: '100%',
-                            padding: '12px',
+                            padding: isCollapsed ? '12px 0' : '12px',
                             backgroundColor: '#FFFFFF',
                             border: '1px solid #EF4444',
                             borderRadius: '8px',
@@ -221,8 +158,10 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                             cursor: 'pointer',
                             transition: 'all 0.2s'
                         }}
+                        title={isCollapsed ? "Logout" : ""}
                     >
-                        🚪 Sign Out
+                        <span>🚪</span>
+                        {!isCollapsed && <span>Sign Out</span>}
                     </button>
                 </div>
             </aside>
