@@ -44,7 +44,8 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
 
-                // Save auth state (No longer saving token to localStorage for security)
+                // Save auth state
+                localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
 
                 if (selectedRole && !data.user.roles.includes(selectedRole) && !(selectedRole === 'staff' && (data.user.roles.includes('admin') || data.user.roles.includes('manager')))) {
