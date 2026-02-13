@@ -89,18 +89,18 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     ];
 
     const clientMenu = [
-        { label: 'My Care Hub', path: RouteRegistry.DASHBOARD, icon: '🏠' },
-        { label: 'My Bookings', path: '/bookings', icon: '📅' },
-        { label: 'Billing', path: '/billing', icon: '💳' },
+        { label: 'My Care Hub', path: '/client/dashboard', icon: '🏠' },
+        { label: 'My Bookings', path: '/client/bookings', icon: '📅' },
+        { label: 'Billing', path: '/client/billing', icon: '💳' },
         { label: 'Account Profile', path: '/profile', icon: '👤' },
         { label: 'Support', path: '/support', icon: '💬' },
     ];
 
     const staffMenu: MenuItem[] = [
-        { label: 'Staff Hub', path: RouteRegistry.DASHBOARD, icon: '🏢' },
+        { label: 'Staff Hub', path: '/staff/dashboard', icon: '🏢' },
         { label: 'Leads', path: RouteRegistry.LEADS, icon: '📥' },
         { label: 'Users', path: RouteRegistry.USERS, icon: '👥' },
-        { label: 'Customer Mgmt', path: '/customers', icon: '👤' },
+        { label: 'Customer Mgmt', path: '/staff/customers', icon: '👤' },
         { label: 'Tickets', path: '/support', icon: '🎫' },
         { label: 'My Profile', path: '/profile', icon: '👤' },
     ];
@@ -110,13 +110,13 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'My Shifts', path: '/psw/schedule', icon: '⌚' },
         { label: 'My Earnings', path: '/psw/earnings', icon: '💰' },
         { label: 'My Credentials', path: '/psw/profile', icon: '📜' },
-        { label: 'Help Desk', path: '/psw/support', icon: '❓' },
+        { label: 'Help Desk', path: '/support', icon: '❓' },
     ];
 
     const rnMenu: MenuItem[] = [
         { label: 'Clinical Dashboard', path: '/rn/dashboard', icon: '🩺' },
         { label: 'Clients admission', path: '/admin/clients/admission', icon: '📝' },
-        { label: 'Incident List', path: '/incidents', icon: '🚨' },
+        { label: 'Incident List', path: RouteRegistry.INCIDENTS, icon: '🚨' },
         { label: 'Profile', path: '/profile', icon: '👤' },
     ];
 
