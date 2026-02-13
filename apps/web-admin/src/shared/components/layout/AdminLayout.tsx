@@ -320,8 +320,13 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                                 </svg>
                             </button>
                         )}
-                        {!isMobile && <img src="/logo.png" alt="PrimeCare" style={{ height: '32px', width: 'auto' }} />}
-                        <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB', display: isMobile ? 'none' : 'block' }}></div>
+
+                        {/* Only show logo in topbar if sidebar is hidden (mobile) or collapsed (mini-mode) */}
+                        {(isMobile || isCollapsed) && <img src="/logo.png" alt="PrimeCare" style={{ height: '32px', width: 'auto' }} />}
+
+                        {/* Only show vertical divider if logo is present */}
+                        {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
+
                         <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111827' }}>
                             {role === 'admin' ? 'Administration' :
                                 role === 'psw' ? 'Caregiver Portal' :
