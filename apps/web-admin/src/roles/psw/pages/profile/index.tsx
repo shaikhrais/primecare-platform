@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AdminLayout from '../../../../shared/components/layout/AdminLayout';
 import { Breadcrumb } from '../../components/Breadcrumb';
 import { SecureSessionGuard } from '../../components/SecureSessionGuard';
 
@@ -8,106 +7,105 @@ export default function ProfilePage() {
 
     return (
         <SecureSessionGuard allowedRoles={['psw', 'admin']}>
-            <AdminLayout>
-                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', animation: 'fadeIn 0.5s ease-out' }}>
-                    <div style={{ flex: 1 }}>
-                        <Breadcrumb />
-                        <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '2.5rem', fontWeight: 900, color: '#111827' }}>Profile</h1>
-                        <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontWeight: 500 }}>Manage your personal information and security settings</p>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem', alignItems: 'start' }}>
-                        {/* --- LEFT COLUMN: OVERVIEW & TABS --- */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                            <div style={{
-                                padding: '32px',
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '24px',
-                                border: '1px solid #E5E7EB',
-                                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
-                                textAlign: 'center'
-                            }}>
-                                <div style={{
-                                    width: '120px',
-                                    height: '120px',
-                                    backgroundColor: '#00875A',
-                                    borderRadius: '50%',
-                                    margin: '0 auto 20px auto',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '3rem',
-                                    color: 'white',
-                                    fontWeight: 900,
-                                    boxShadow: '0 10px 15px -3px rgba(0, 135, 90, 0.3)'
-                                }}>
-                                    JD
-                                </div>
-                                <h2 style={{ margin: '0 0 4px 0', fontSize: '1.5rem', fontWeight: 900 }}>John Doe</h2>
-                                <div style={{
-                                    display: 'inline-block',
-                                    padding: '4px 12px',
-                                    backgroundColor: '#E6F4EF',
-                                    color: '#00875A',
-                                    borderRadius: '20px',
-                                    fontSize: '0.8rem',
-                                    fontWeight: 800,
-                                    textTransform: 'uppercase',
-                                    marginBottom: '16px'
-                                }}>
-                                    Personal Support Worker
-                                </div>
-                                <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '16px', color: '#6B7280', fontSize: '0.9rem' }}>
-                                    john.doe@primecare.com<br />
-                                    Joined March 2024
-                                </div>
-                            </div>
-
-                            <div style={{
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '24px',
-                                border: '1px solid #E5E7EB',
-                                overflow: 'hidden'
-                            }}>
-                                {['Personal', 'Security', 'Notifications', 'Documents'].map(section => (
-                                    <button
-                                        key={section}
-                                        onClick={() => setActiveSection(section)}
-                                        style={{
-                                            width: '100%',
-                                            padding: '20px 24px',
-                                            textAlign: 'left',
-                                            border: 'none',
-                                            background: activeSection === section ? '#F9FAFB' : 'transparent',
-                                            borderLeft: activeSection === section ? '4px solid #00875A' : '4px solid transparent',
-                                            color: activeSection === section ? '#00875A' : '#111827',
-                                            fontWeight: 800,
-                                            fontSize: '1rem',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s'
-                                        }}
-                                    >
-                                        {section}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* --- RIGHT COLUMN: ACTIVE SECTION FORM --- */}
-                        <div style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: '40px',
-                            borderRadius: '24px',
-                            border: '1px solid #E5E7EB',
-                            minHeight: '600px',
-                            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)'
-                        }}>
-                            <SectionContent activeSection={activeSection} />
-                        </div>
-                    </div>
+            <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', animation: 'fadeIn 0.5s ease-out' }}>
+                <div style={{ flex: 1 }}>
+                    <Breadcrumb />
+                    <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '2.5rem', fontWeight: 900, color: '#111827' }}>Profile</h1>
+                    <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontWeight: 500 }}>Manage your personal information and security settings</p>
                 </div>
 
-                <style>{`
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem', alignItems: 'start' }}>
+                    {/* --- LEFT COLUMN: OVERVIEW & TABS --- */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                        <div style={{
+                            padding: '32px',
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '24px',
+                            border: '1px solid #E5E7EB',
+                            boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
+                            textAlign: 'center'
+                        }}>
+                            <div style={{
+                                width: '120px',
+                                height: '120px',
+                                backgroundColor: '#00875A',
+                                borderRadius: '50%',
+                                margin: '0 auto 20px auto',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '3rem',
+                                color: 'white',
+                                fontWeight: 900,
+                                boxShadow: '0 10px 15px -3px rgba(0, 135, 90, 0.3)'
+                            }}>
+                                JD
+                            </div>
+                            <h2 style={{ margin: '0 0 4px 0', fontSize: '1.5rem', fontWeight: 900 }}>John Doe</h2>
+                            <div style={{
+                                display: 'inline-block',
+                                padding: '4px 12px',
+                                backgroundColor: '#E6F4EF',
+                                color: '#00875A',
+                                borderRadius: '20px',
+                                fontSize: '0.8rem',
+                                fontWeight: 800,
+                                textTransform: 'uppercase',
+                                marginBottom: '16px'
+                            }}>
+                                Personal Support Worker
+                            </div>
+                            <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '16px', color: '#6B7280', fontSize: '0.9rem' }}>
+                                john.doe@primecare.com<br />
+                                Joined March 2024
+                            </div>
+                        </div>
+
+                        <div style={{
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '24px',
+                            border: '1px solid #E5E7EB',
+                            overflow: 'hidden'
+                        }}>
+                            {['Personal', 'Security', 'Notifications', 'Documents'].map(section => (
+                                <button
+                                    key={section}
+                                    onClick={() => setActiveSection(section)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '20px 24px',
+                                        textAlign: 'left',
+                                        border: 'none',
+                                        background: activeSection === section ? '#F9FAFB' : 'transparent',
+                                        borderLeft: activeSection === section ? '4px solid #00875A' : '4px solid transparent',
+                                        color: activeSection === section ? '#00875A' : '#111827',
+                                        fontWeight: 800,
+                                        fontSize: '1rem',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                >
+                                    {section}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* --- RIGHT COLUMN: ACTIVE SECTION FORM --- */}
+                    <div style={{
+                        backgroundColor: '#FFFFFF',
+                        padding: '40px',
+                        borderRadius: '24px',
+                        border: '1px solid #E5E7EB',
+                        minHeight: '600px',
+                        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)'
+                    }}>
+                        <SectionContent activeSection={activeSection} />
+                    </div>
+                </div>
+            </div>
+
+            <style>{`
                     @keyframes fadeIn {
                         from { opacity: 0; transform: translateY(10px); }
                         to { opacity: 1; transform: translateY(0); }
@@ -117,8 +115,8 @@ export default function ProfilePage() {
                         outline: none;
                     }
                 `}</style>
-            </AdminLayout>
-        </SecureSessionGuard>
+        </AdminLayout>
+        </SecureSessionGuard >
     );
 }
 
