@@ -22,54 +22,12 @@ import ShiftConfirmation from './pages/shift-confirmation';
 const PswRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route
-                path="dashboard"
-                element={
-                    <AdminLayout>
-                        <PswDashboardEnterprise />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="schedule"
-                element={
-                    <AdminLayout>
-                        <Schedule />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="availability"
-                element={
-                    <AdminLayout>
-                        <Availability />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="earnings"
-                element={
-                    <AdminLayout>
-                        <EarningsPage />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="expenses"
-                element={
-                    <AdminLayout>
-                        <Expenses />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="profile"
-                element={
-                    <AdminLayout>
-                        <ProfilePage />
-                    </AdminLayout>
-                }
-            />
+            <Route path="dashboard" element={<PswDashboardEnterprise />} />
+            <Route path="schedule" element={<Schedule />} />
+            <Route path="availability" element={<Availability />} />
+            <Route path="earnings" element={<EarningsPage />} />
+            <Route path="expenses" element={<Expenses />} />
+            <Route path="profile" element={<ProfilePage />} />
         </Routes>
     );
 };

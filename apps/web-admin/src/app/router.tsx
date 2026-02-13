@@ -2,6 +2,9 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
+// Layouts
+import AdminLayout from '@/shared/components/layout/AdminLayout';
+
 // Guards
 import RequireRole from '@/shared/rbac/RequireRole';
 
@@ -51,7 +54,9 @@ export const AppRouter: React.FC = () => {
                 path="/psw/*"
                 element={
                     <RequireRole allowedRoles={['psw']}>
-                        <PswRoutes />
+                        <AdminLayout>
+                            <PswRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />

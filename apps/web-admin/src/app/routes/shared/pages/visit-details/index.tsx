@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { apiClient } from '@/shared/utils/apiClient';
 
 export default function VisitDetails() {

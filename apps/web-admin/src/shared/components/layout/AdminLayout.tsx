@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
 import RoleSwitcher from '@/shared/components/layout/RoleSwitcher';
@@ -318,6 +318,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                 </header>
 
                 <div style={{ flex: 1, padding: isMobile ? '16px' : '24px' }}>
+                    <Outlet />
                     {children}
                 </div>
             </main>
