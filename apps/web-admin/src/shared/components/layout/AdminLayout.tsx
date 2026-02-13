@@ -375,7 +375,6 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                 </header>
 
                 <div style={{ flex: 1, padding: isMobile ? '16px' : '24px' }}>
-                    <Outlet />
                     {children}
                 </div>
             </main>

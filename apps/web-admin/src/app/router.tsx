@@ -68,21 +68,16 @@ export const AppRouter: React.FC = () => {
     return (
         <ErrorBoundary>
             <Routes>
-                {/* Auth Routes */}
-                <Route path="/*" element={<AuthRoutes />} />
+                {/* Auth Routes - No Layout */}
+                <Route path="/login/*" element={<AuthRoutes />} />
+                <Route path="/register/*" element={<AuthRoutes />} />
+                <Route path="/forgot-password/*" element={<AuthRoutes />} />
+                <Route path="/reset-password/*" element={<AuthRoutes />} />
 
-                {/* Shared Routes */}
+                {/* Redirects */}
                 <Route path="/shifts" element={<ShiftsRedirect />} />
-                <Route
-                    path="/*"
-                    element={
-                        <AdminLayout>
-                            <SharedRoutes />
-                        </AdminLayout>
-                    }
-                />
 
-                {/* Admin/Operations Routes */}
+                {/* Role Specific Routes with Layout */}
                 <Route
                     path="/admin/*"
                     element={
@@ -94,7 +89,6 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* Staff Specific Routes */}
                 <Route
                     path="/staff/*"
                     element={
@@ -106,7 +100,6 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* PSW Routes */}
                 <Route
                     path="/psw/*"
                     element={
@@ -118,7 +111,6 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* Client Routes */}
                 <Route
                     path="/client/*"
                     element={
@@ -130,7 +122,6 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* Manager Routes */}
                 <Route
                     path="/manager/*"
                     element={
@@ -142,7 +133,6 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* RN Routes */}
                 <Route
                     path="/rn/*"
                     element={
@@ -154,10 +144,44 @@ export const AppRouter: React.FC = () => {
                     }
                 />
 
-                {/* Fallback */}
+                {/* Shared Protected Routes (Profile, Support) */}
+                <Route
+                    path="/profile/*"
+                    element={
+                        <AdminLayout>
+                            <SharedRoutes />
+                        </AdminLayout>
+                    }
+                />
+                <Route
+                    path="/support/*"
+                    element={
+                        <AdminLayout>
+                            <SharedRoutes />
+                        </AdminLayout>
+                    }
+                />
+                <Route
+                    path="/messaging/*"
+                    element={
+                        <AdminLayout>
+                            <SharedRoutes />
+                        </AdminLayout>
+                    }
+                />
+                <Route
+                    path="/visits/*"
+                    element={
+                        <AdminLayout>
+                            <SharedRoutes />
+                        </AdminLayout>
+                    }
+                />
+
+                {/* Fallback & Home */}
                 <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
 
-                {/* Catch-all 404 */}
+                {/* Catch-all 404 (Outside Layout) */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </ErrorBoundary>
