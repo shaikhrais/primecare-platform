@@ -9,7 +9,7 @@ import { QuickActionPanel } from '../components/QuickActionPanel';
 import { UpcomingVisitsList } from '../components/UpcomingVisitsList';
 import { ConnectionStatusBanner } from '../components/ConnectionStatusBanner';
 import { VitalsSummaryChart } from '../components/VitalsSummaryChart';
-import { Breadcrumb } from '../components/Breadcrumb';
+import { DashboardStats } from '../components/DashboardStats';
 
 const { ApiRegistry } = AdminRegistry;
 import { apiClient } from '@/shared/utils/apiClient';
@@ -77,29 +77,31 @@ export default function PswDashboardEnterprise() {
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '2rem',
-                    paddingBottom: '3rem',
-                    animation: 'fadeIn 0.5s ease-out'
+                    gap: '2.5rem',
+                    paddingBottom: '4rem',
+                    animation: 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
             >
-                <Breadcrumb />
+                {/* Hero Section: Welcome & Key Stats */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    <WelcomeCard
+                        userName={user?.fullName?.split(' ')[0] || 'Caregiver'}
+                        shiftCount={shifts?.length || 0}
+                    />
+                    <DashboardStats />
+                </div>
 
-                <WelcomeCard
-                    userName={user?.fullName?.split(' ')[0] || 'Caregiver'}
-                    shiftCount={shifts?.length || 0}
-                />
-
-                {/* --- COMPONENT BOARD GRID --- */}
+                {/* --- BENTO BOX GRID --- */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                    gap: '2rem',
-                    alignItems: 'start'
+                    gridTemplateColumns: 'repeat(12, 1fr)',
+                    gridAutoRows: 'min-content',
+                    gap: '2rem'
                 }}>
-                    {/* Primary Column: Shifts & Vitals */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    {/* Active Shift Card - Spans 8 columns on desktop */}
+                    <div style={{ gridColumn: 'span 8', gridRow: 'span 1' }}>
                         {loading ? (
-                            <div style={{ padding: '60px', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB' }}>
+                            <div style={{ padding: '64px', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB' }}>
                                 <div style={{ marginBottom: '16px', color: '#00875A', fontSize: '1.5rem', fontWeight: 800 }}>Loading visits...</div>
                                 <div style={{ color: '#6B7280' }}>Preparing your enterprise workspace</div>
                             </div>
@@ -115,80 +117,122 @@ export default function PswDashboardEnterprise() {
                                 />
                             </div>
                         ) : (
-                            <div style={{ padding: '48px', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB' }}>
-                                <p style={{ color: '#6B7280', margin: 0, fontWeight: 600 }}>No shifts scheduled today.</p>
+                            <div style={{ padding: '64px', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎉</div>
+                                <p style={{ color: '#111827', margin: 0, fontWeight: 900, fontSize: '1.25rem' }}>You're all set for now!</p>
+                                <p style={{ color: '#6B7280', marginTop: '8px' }}>No shifts scheduled for the rest of today.</p>
                             </div>
                         )}
+                    </div>
+
+                    {/* Quick Actions Panel - Spans 4 columns */}
+                    <div style={{ gridColumn: 'span 4', gridRow: 'span 1' }}>
+                        <QuickActionPanel />
+                    </div>
+
+                    {/* Vitals Chart - Spans 7 columns */}
+                    <div style={{ gridColumn: 'span 7' }}>
                         <VitalsSummaryChart />
                     </div>
 
-                    {/* Secondary Column: Actions & Upcoming */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                        <QuickActionPanel />
+                    {/* Upcoming Visits - Spans 5 columns */}
+                    <div style={{ gridColumn: 'span 5' }}>
                         <UpcomingVisitsList visits={upcomingVisits} onItemClick={(id: string) => navigate(`/visits/${id}`)} />
                     </div>
 
-                    {/* Tertiary Column: Compliance & Insights (Visible on wide screens) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    {/* Compliance Status - Spans 4 columns */}
+                    <div style={{ gridColumn: 'span 4' }}>
                         <div style={{
                             padding: '32px',
                             backgroundColor: '#E6F4EF',
                             border: '1px solid #00875A',
                             borderRadius: '24px',
-                            boxShadow: '0 4px 6px -1px rgba(0, 135, 90, 0.1)'
+                            height: '100%',
+                            boxSizing: 'border-box',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between'
                         }}>
-                            <h4 style={{ margin: '0 0 12px 0', fontSize: '0.9rem', fontWeight: 900, color: '#00875A', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                                🛡️ Compliance Status
-                            </h4>
-                            <p style={{ margin: 0, fontSize: '1rem', fontWeight: 700, lineHeight: 1.5 }}>
-                                All certifications are **active** and up to date.<br />
-                                <span style={{ fontSize: '0.8rem', opacity: 0.7, fontWeight: 500 }}>Refreshed 2 days ago.</span>
-                            </p>
+                            <div>
+                                <h4 style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: 900, color: '#00875A', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                    🛡️ Compliance
+                                </h4>
+                                <p style={{ margin: 0, fontSize: '1.25rem', fontWeight: 900, lineHeight: 1.4, color: '#064E3B' }}>
+                                    Your certifications are <span style={{ color: '#059669' }}>fully active</span>.
+                                </p>
+                            </div>
                             <button style={{
-                                marginTop: '20px',
-                                background: '#00875A',
+                                marginTop: '24px',
+                                background: '#059669',
                                 color: 'white',
                                 border: 'none',
-                                padding: '10px 16px',
-                                borderRadius: '12px',
+                                padding: '14px 20px',
+                                borderRadius: '16px',
                                 fontWeight: 800,
-                                fontSize: '0.85rem',
-                                cursor: 'pointer'
+                                fontSize: '0.9rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)'
                             }}>
-                                View Certificates
+                                Review Documents
                             </button>
                         </div>
+                    </div>
 
+                    {/* Monthly Summary - Spans 8 columns */}
+                    <div style={{ gridColumn: 'span 8' }}>
                         <div style={{
                             padding: '32px',
                             backgroundColor: '#000000',
                             borderRadius: '24px',
-                            color: '#FFFFFF'
+                            color: '#FFFFFF',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            height: '100%',
+                            boxSizing: 'border-box'
                         }}>
-                            <h4 style={{ margin: '0 0 12px 0', fontSize: '0.8rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase' }}>
-                                Monthly Summary
-                            </h4>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', gap: '4rem', alignItems: 'center' }}>
                                 <div>
-                                    <div style={{ fontSize: '1.75rem', fontWeight: 900 }}>42</div>
-                                    <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>Visits Completed</div>
+                                    <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
+                                        Monthly Visits
+                                    </h4>
+                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>42</div>
                                 </div>
-                                <div style={{ height: '40px', width: '2px', background: 'rgba(255,255,255,0.1)' }}></div>
+                                <div style={{ height: '60px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
                                 <div>
-                                    <div style={{ fontSize: '1.75rem', fontWeight: 900 }}>128.5</div>
-                                    <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>Hours Worked</div>
+                                    <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
+                                        Hours Logged
+                                    </h4>
+                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>128.5 <span style={{ fontSize: '1rem', opacity: 0.5 }}>hrs</span></div>
                                 </div>
+                                <div style={{ height: '60px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
+                                <div>
+                                    <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
+                                        Care Score
+                                    </h4>
+                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>98%</div>
+                                </div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ color: '#00875A', fontWeight: 800, fontSize: '0.9rem' }}>Legendary Performance</div>
+                                <div style={{ fontSize: '0.75rem', opacity: 0.5 }}>You're in the top 5% this month</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <style>{`
+                <style dangerouslySetInnerHTML={{
+                    __html: `
                     @keyframes fadeIn {
-                        from { opacity: 0; transform: translateY(10px); }
+                        from { opacity: 0; transform: translateY(20px); }
                         to { opacity: 1; transform: translateY(0); }
                     }
-                `}</style>
+                    @media (max-width: 1280px) {
+                        div[data-cy="page.container"] > div { grid-template-columns: 1fr !important; }
+                        div[data-cy="page.container"] > div > div { grid-column: span 1 !important; }
+                    }
+                ` }} />
             </div>
         </SecureSessionGuard>
     );

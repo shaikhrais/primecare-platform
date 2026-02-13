@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
-import RoleSwitcher from '@/shared/components/layout/RoleSwitcher';
+import DevPerspectiveSwitcher from '@/shared/components/layout/DevPerspectiveSwitcher';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
@@ -25,12 +25,18 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [currentTime, setCurrentTime] = useState(new Date());
     const isMobile = useMediaQuery('(max-width: 1024px)');
 
-    // Close sidebar on navigation (mobile)
     useEffect(() => {
         setIsSidebarOpen(false);
     }, [location.pathname]);
+
+    // Header Clock
+    useEffect(() => {
+        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     // Update CSS variable for sidebar width
     useEffect(() => {
@@ -142,23 +148,27 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         navigate(RouteRegistry.LOGIN);
     };
 
+    const containerStyle = {
+        display: 'flex',
+        minHeight: '100vh',
+        backgroundColor: '#FFFFFF',
+        '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
+    } as any;
+
+    const overlayStyle = {
+        position: 'fixed' as const,
+        inset: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        zIndex: 999
+    };
+
     return (
-        <div className="app" style={{
-            display: 'flex',
-            minHeight: '100vh',
-            backgroundColor: '#FFFFFF',
-            '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
-        } as any}>
+        <div className="app" style={containerStyle}>
             {/* Sidebar Overlay (Mobile Only) */}
             {isMobile && isSidebarOpen && (
                 <div
                     onClick={() => setIsSidebarOpen(false)}
-                    style={{
-                        position: 'fixed',
-                        inset: 0,
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                        zIndex: 999
-                    }}
+                    style={overlayStyle}
                 />
             )}
 
@@ -193,27 +203,6 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     {!isCollapsed && <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />}
                     {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00875A' }}>P</span>}
 
-                    {!isMobile && (
-                        <button
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            style={{
-                                background: '#F3F4F6',
-                                border: 'none',
-                                borderRadius: '8px',
-                                width: '32px',
-                                height: '32px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                color: '#4B5563',
-                                transition: 'all 0.2s'
-                            }}
-                            title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-                        >
-                            {isCollapsed ? '➡' : '⬅'}
-                        </button>
-                    )}
                 </div>
 
                 <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto', overflowX: 'hidden' }} data-cy="nav.main">
@@ -249,7 +238,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                 </nav>
 
                 <div style={{ display: isCollapsed ? 'none' : 'block' }}>
-                    <RoleSwitcher />
+                    <DevPerspectiveSwitcher />
                 </div>
 
                 <div className="sidebar-footer" style={{ padding: isCollapsed ? '10px' : '20px', borderTop: '1px solid #F3F4F6' }}>
@@ -302,18 +291,30 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     zIndex: 900
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        {/* Mobile Toggle */}
                         {isMobile && (
                             <button
                                 onClick={() => setIsSidebarOpen(true)}
+                                data-cy="btn-drawer-toggle-mobile"
                                 style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    padding: '8px',
+                                    background: '#F9FAFB',
+                                    border: '1px solid #E5E7EB',
+                                    padding: '10px',
+                                    borderRadius: '8px',
                                     cursor: 'pointer',
-                                    marginRight: '8px'
+                                    marginRight: '8px',
+                                    color: '#111827',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.2s',
+                                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
                                 }}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F3F4F6'}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
+                                title="Open Sidebar"
                             >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                                     <line x1="3" y1="12" x2="21" y2="12"></line>
                                     <line x1="3" y1="6" x2="21" y2="6"></line>
                                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -321,23 +322,72 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                             </button>
                         )}
 
-                        {/* Only show logo in topbar if sidebar is hidden (mobile) or collapsed (mini-mode) */}
+                        {/* Desktop Toggle (when collapsed or to allow collapsing from top) */}
+                        {!isMobile && (
+                            <button
+                                onClick={() => setIsCollapsed(!isCollapsed)}
+                                data-cy="btn-drawer-toggle-desktop"
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    padding: '8px',
+                                    cursor: 'pointer',
+                                    color: '#6B7280',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.2s'
+                                }}
+                                title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                                </svg>
+                            </button>
+                        )}
+
+                        {/* Logo in topbar when sidebar can't show it */}
                         {(isMobile || isCollapsed) && <img src="/logo.png" alt="PrimeCare" style={{ height: '32px', width: 'auto' }} />}
 
                         {/* Only show vertical divider if logo is present */}
                         {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
 
-                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111827' }}>
-                            {role === 'admin' ? 'Administration' :
-                                role === 'psw' ? 'Caregiver Portal' :
-                                    role === 'client' ? 'Family Hub' :
-                                        role === 'rn' ? 'Clinical Panel' : 'Staff Workspace'}
-                        </span>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: '0.875rem', fontWeight: 900, color: '#111827', textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>
+                                {role === 'admin' ? 'Administration' :
+                                    role === 'psw' ? 'Caregiver Portal' :
+                                        role === 'client' ? 'Family Hub' :
+                                            role === 'rn' ? 'Clinical Panel' : 'Staff Workspace'}
+                            </span>
+                            {!isMobile && (
+                                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#6B7280', marginTop: '2px' }}>
+                                    Logged in as <span style={{ color: '#00875A' }}>{user.fullName || user.email}</span>
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         {!isMobile && (
                             <>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '6px 16px',
+                                    backgroundColor: '#000000',
+                                    color: 'white',
+                                    borderRadius: '12px',
+                                    fontSize: '0.9rem',
+                                    fontWeight: 900,
+                                    marginRight: '8px',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                                }}>
+                                    <span style={{ opacity: 0.7 }}>🕒</span>
+                                    {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
+                                </div>
                                 <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title="Search">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <circle cx="11" cy="11" r="8"></circle>

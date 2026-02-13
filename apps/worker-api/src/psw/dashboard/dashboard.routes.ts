@@ -9,6 +9,7 @@ const ProfileUpdateSchema = z.object({
     bio: z.string().optional(),
     languages: z.array(z.string()).optional(),
     serviceAreas: z.array(z.string()).optional(),
+    address: z.string().optional(),
 });
 
 // GET Profile
@@ -45,6 +46,7 @@ r.put('/profile', zValidator('json', ProfileUpdateSchema), async (c) => {
             bio: data.bio,
             languages: data.languages,
             serviceAreas: data.serviceAreas,
+            address: data.address,
         },
     });
 

@@ -17,7 +17,12 @@ import Messaging from './routes/shared/pages/messaging';
 import VisitCompletion from './routes/shared/pages/visit-completion';
 import VisitDetails from './routes/shared/pages/visit-details';
 
-import AuthRoutes from './routes/auth';
+// Auth Pages
+import Login from './routes/auth/pages/login';
+import Register from './routes/auth/pages/register';
+import ForgotPassword from './routes/auth/pages/forgot-password';
+import ResetPassword from './routes/auth/pages/reset-password';
+
 import AdminRoutes from './routes/admin';
 import PswRoutes from './routes/psw';
 import ClientRoutes from './routes/client';
@@ -76,10 +81,10 @@ export const AppRouter: React.FC = () => {
         <ErrorBoundary>
             <Routes>
                 {/* Auth Routes - No Layout */}
-                <Route path="/login/*" element={<AuthRoutes />} />
-                <Route path="/register/*" element={<AuthRoutes />} />
-                <Route path="/forgot-password/*" element={<AuthRoutes />} />
-                <Route path="/reset-password/*" element={<AuthRoutes />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
 
                 {/* Redirects */}
                 <Route path="/shifts" element={<ShiftsRedirect />} />

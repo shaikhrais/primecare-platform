@@ -124,8 +124,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
-  roles: 'roles',
   email: 'email',
   phone: 'phone',
   passwordHash: 'passwordHash',
@@ -134,7 +132,9 @@ exports.Prisma.UserScalarFieldEnum = {
   resetTokenExpiry: 'resetTokenExpiry',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+  roles: 'roles'
 };
 
 exports.Prisma.TenantScalarFieldEnum = {
@@ -148,7 +148,6 @@ exports.Prisma.TenantScalarFieldEnum = {
 
 exports.Prisma.ClientProfileScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   userId: 'userId',
   fullName: 'fullName',
   dob: 'dob',
@@ -162,15 +161,13 @@ exports.Prisma.ClientProfileScalarFieldEnum = {
   emergencyName: 'emergencyName',
   emergencyPhone: 'emergencyPhone',
   preferences: 'preferences',
-  carePlan: 'carePlan',
-  riskLevel: 'riskLevel',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.PswProfileScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   userId: 'userId',
   fullName: 'fullName',
   bio: 'bio',
@@ -180,12 +177,13 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  address: 'address',
+  avatarUrl: 'avatarUrl',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.VisitScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   clientId: 'clientId',
   serviceId: 'serviceId',
   requestedStartAt: 'requestedStartAt',
@@ -203,19 +201,20 @@ exports.Prisma.VisitScalarFieldEnum = {
   coordinatorNotes: 'coordinatorNotes',
   cancellationReason: 'cancellationReason',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   name: 'name',
   slug: 'slug',
   description: 'description',
   baseRateHourly: 'baseRateHourly',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.VisitCheckEventScalarFieldEnum = {
@@ -255,7 +254,6 @@ exports.Prisma.VisitChecklistScalarFieldEnum = {
 
 exports.Prisma.IncidentScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   visitId: 'visitId',
   reporterUserId: 'reporterUserId',
   type: 'type',
@@ -263,12 +261,12 @@ exports.Prisma.IncidentScalarFieldEnum = {
   status: 'status',
   resolutionNotes: 'resolutionNotes',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.TimesheetScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   pswId: 'pswId',
   weekId: 'weekId',
   totalMinutes: 'totalMinutes',
@@ -277,7 +275,8 @@ exports.Prisma.TimesheetScalarFieldEnum = {
   reviewedBy: 'reviewedBy',
   reviewedAt: 'reviewedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.TimesheetItemScalarFieldEnum = {
@@ -290,7 +289,6 @@ exports.Prisma.TimesheetItemScalarFieldEnum = {
 
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   clientId: 'clientId',
   status: 'status',
   currency: 'currency',
@@ -299,7 +297,8 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   total: 'total',
   stripeInvoiceId: 'stripeInvoiceId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -314,11 +313,11 @@ exports.Prisma.PaymentScalarFieldEnum = {
 
 exports.Prisma.MessageThreadScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   threadType: 'threadType',
   clientId: 'clientId',
   pswId: 'pswId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
@@ -331,14 +330,14 @@ exports.Prisma.MessageScalarFieldEnum = {
 
 exports.Prisma.AuditLogScalarFieldEnum = {
   id: 'id',
-  tenantId: 'tenantId',
   actorUserId: 'actorUserId',
   action: 'action',
   resourceType: 'resourceType',
   resourceId: 'resourceId',
   metadataJson: 'metadataJson',
   ipAddress: 'ipAddress',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.LeadScalarFieldEnum = {
@@ -405,19 +404,6 @@ exports.Prisma.DailyEntryScalarFieldEnum = {
   notes: 'notes',
   signature: 'signature',
   status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.NotificationScalarFieldEnum = {
-  id: 'id',
-  tenantId: 'tenantId',
-  userId: 'userId',
-  title: 'title',
-  message: 'message',
-  type: 'type',
-  role: 'role',
-  isRead: 'isRead',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -544,8 +530,7 @@ exports.Prisma.ModelName = {
   BlogPost: 'BlogPost',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
-  DailyEntry: 'DailyEntry',
-  Notification: 'Notification'
+  DailyEntry: 'DailyEntry'
 };
 
 /**

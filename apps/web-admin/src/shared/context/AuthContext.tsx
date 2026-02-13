@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -28,9 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const refreshSession = async () => {
         try {
-            const response = await fetch(`${API_URL}/v1/auth/whoami`, {
-                credentials: 'include', // Ensure cookies are sent
-            });
+            const response = await apiClient.get('/v1/auth/whoami');
 
             if (response.ok) {
                 const data = await response.json();

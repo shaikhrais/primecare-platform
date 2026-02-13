@@ -13,6 +13,7 @@ import staffModule from './staff/staff.module';
 import rnModule from './rn/rn.module';
 import pswModule from './psw/psw.module';
 import clientModule from './client/client.module';
+import userModule from './user/user.routes';
 import systemModule from './system/system.module';
 
 import { ChatServer } from './durable_objects/ChatServer';
@@ -54,6 +55,7 @@ app.route('/v1/staff', staffModule);
 app.route('/v1/rn', rnModule);
 app.route('/v1/psw', pswModule);
 app.route('/v1/client', clientModule);
+app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 
 // 5. Public Marketing Lead Support (Moved to a public endpoint if needed, or tucked into a module)

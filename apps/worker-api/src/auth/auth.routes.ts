@@ -6,6 +6,8 @@ import { Bindings, Variables } from '../bindings';
 import { LoginSchema, RegisterSchema } from './auth.validation';
 import { generateToken, generateRefreshToken } from './auth.service';
 import { hashPassword } from '../_shared/utils/crypto';
+import { requireAuth } from '../_shared/middleware/auth';
+import { requireRole } from '../_shared/middleware/rbac';
 
 const auth = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -194,14 +196,28 @@ auth.post('/logout', (c) => {
 });
 
 auth.get('/whoami', async (c) => {
-    const payload = c.get('jwtPayload');
-    if (!payload && !getCookie(c, 'accessToken')) {
+    // 1. Check if middleware already set the payload
+    const payload = c.get('jwtPayload') as any;
+    let userId: string | undefined = payload?.sub;
+
+    // 2. Fallback: Manual check (similar to requireAuth) if payload is missing
+    if (!userId) {
+        const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
+        if (accessToken) {
+            try {
+                const decoded = await verify(accessToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
+                userId = decoded.sub as string;
+            } catch (e) {
+                return c.json({ error: 'Unauthorized', message: 'Invalid or expired session' }, 401);
+            }
+        }
+    }
+
+    if (!userId) {
         return c.json({ error: 'Not authenticated' }, 401);
     }
 
     const prisma = c.get('prisma');
-    const userId = payload?.sub || (await verify(getCookie(c, 'accessToken')!, c.env.JWT_SECRET || 'fallback_secret')).sub;
-
     const user = await prisma.user.findUnique({
         where: { id: userId as string },
         select: { id: true, email: true, roles: true, tenantId: true }
@@ -209,6 +225,50 @@ auth.get('/whoami', async (c) => {
 
     if (!user) return c.json({ error: 'User not found' }, 404);
     return c.json({ user });
+});
+
+auth.post('/impersonate', async (c) => {
+    const secret = c.env.JWT_SECRET || 'fallback_secret';
+    // 1. Manually trigger auth & role check (since we are inside the auth module which is usually public)
+    const authMiddleware = requireAuth(secret);
+    let authPassed = false;
+    await authMiddleware(c, async () => { authPassed = true; });
+    if (!authPassed) return; // requireAuth already sent 401 if failed
+
+    const roleMiddleware = requireRole(['admin']);
+    let rolePassed = false;
+    await roleMiddleware(c, async () => { rolePassed = true; });
+    if (!rolePassed) return; // requireRole already sent 403 if failed
+
+    const { targetUserId } = await c.req.json();
+    const prisma = c.get('prisma');
+
+    const targetUser = await prisma.user.findUnique({
+        where: { id: targetUserId }
+    });
+
+    if (!targetUser) return c.json({ error: 'Target user not found' }, 404);
+
+    const accessToken = await generateToken(targetUser, secret);
+    const refreshToken = await generateRefreshToken(targetUser.id, secret);
+
+    setCookie(c, 'accessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        maxAge: 60 * 60 * 24, // 1 day
+        path: '/'
+    });
+
+    setCookie(c, 'refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: '/v1/auth/refresh'
+    });
+
+    return c.json({ user: targetUser, token: accessToken });
 });
 
 export default auth;

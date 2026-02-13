@@ -19,6 +19,8 @@ r.post('/register-device', zValidator('json', RegisterDeviceSchema), async (c) =
 r.get('/', async (c) => {
     const prisma = c.get('prisma');
     const payload = c.get('jwtPayload');
+    if (!payload?.sub) return c.json({ error: 'Unauthorized' }, 401);
+
     const userId = payload.sub;
 
     const notifications = await prisma.notification.findMany({

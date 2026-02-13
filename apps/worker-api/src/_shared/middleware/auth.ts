@@ -6,23 +6,45 @@ import { jwt } from 'hono/jwt';
  */
 export const requireAuth = (secret: string) => {
     return async (c: Context, next: Next) => {
-        const middleware = jwt({
+        // 1. Try Cookie-based JWT
+        const cookieMiddleware = jwt({
             secret,
             alg: 'HS256',
             cookie: 'accessToken'
         });
 
-        await middleware(c, async () => {
-            const payload = c.get('jwtPayload');
-            if (payload) {
-                // Map sub to id and roles to role (primary current role)
-                c.set('user' as any, {
-                    id: payload.sub,
-                    role: payload.activeRole || payload.roles[0]
-                });
+        let authError: any = null;
+        try {
+            await cookieMiddleware(c, async () => { });
+        } catch (e) {
+            authError = e;
+        }
+
+        // 2. If cookie fails or missing, try Header-based JWT
+        if (!c.get('jwtPayload')) {
+            const headerMiddleware = jwt({
+                secret,
+                alg: 'HS256'
+            });
+            try {
+                await headerMiddleware(c, async () => { });
+            } catch (e) {
+                authError = e;
             }
-            await next();
+        }
+
+        const payload = c.get('jwtPayload');
+        if (!payload) {
+            return c.json({ error: 'Unauthorized', message: authError?.message || 'Valid session not found' }, 401);
+        }
+
+        // Map sub to id and roles to role (primary current role)
+        c.set('user' as any, {
+            id: payload.sub,
+            role: payload.activeRole || payload.roles[0]
         });
+
+        await next();
     };
 };
 

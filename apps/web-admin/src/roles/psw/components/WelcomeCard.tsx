@@ -13,51 +13,73 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = ({ userName, shiftCount }
         <div
             data-cy="welcome-card"
             style={{
-                padding: '32px',
-                background: 'linear-gradient(135deg, #000000 0%, #111827 100%)',
+                padding: '48px',
+                background: 'linear-gradient(225deg, #000000 0%, #064E3B 100%)',
                 color: '#FFFFFF',
-                borderRadius: '24px',
+                borderRadius: '32px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '12px',
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                gap: '16px',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
             }}
         >
-            {/* Abstract Background Pattern */}
+            {/* Immersive Background Effects */}
             <div style={{
                 position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                background: 'radial-gradient(circle, rgba(0, 135, 90, 0.2) 0%, transparent 70%)',
+                top: '-10%',
+                right: '-5%',
+                width: '400px',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(0, 135, 90, 0.15) 0%, transparent 70%)',
                 borderRadius: '50%',
+                filter: 'blur(40px)',
+                pointerEvents: 'none'
+            }} />
+            <div style={{
+                position: 'absolute',
+                bottom: '-20%',
+                left: '10%',
+                width: '300px',
+                height: '300px',
+                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%)',
+                borderRadius: '50%',
+                filter: 'blur(30px)',
                 pointerEvents: 'none'
             }} />
 
-            <h2 style={{ margin: 0, fontSize: '2rem', fontWeight: 900, letterSpacing: '-0.5px' }}>
-                {ContentRegistry.PSW_DASHBOARD.TITLE}, <span style={{ color: '#00875A' }}>{userName}</span>! 👋
-            </h2>
-            <p style={{ margin: 0, opacity: 0.8, fontSize: '1.25rem', fontWeight: 500 }}>
-                You have <strong style={{ color: '#FFFFFF' }}>{shiftCount} visits</strong> scheduled for today.
-            </p>
-            <div style={{ marginTop: '20px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <div style={{
-                    padding: '6px 16px',
-                    background: 'rgba(0, 135, 90, 0.15)',
-                    border: '1px solid rgba(0, 135, 90, 0.3)',
-                    borderRadius: '20px',
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
-                    color: '#00C985',
-                    backdropFilter: 'blur(4px)'
-                }}>
-                    Next: 10:30 AM
-                </div>
-                <div style={{ fontSize: '0.9rem', color: '#9CA3AF', fontWeight: 600 }}>
-                    Client: Margaret W.
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                <h2 style={{ margin: 0, fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', lineHeight: 1.1 }}>
+                    {ContentRegistry.PSW_DASHBOARD.TITLE}, <br />
+                    <span style={{
+                        background: 'linear-gradient(to right, #00C985, #FFFFFF)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontSize: '3rem'
+                    }}>{userName}</span>! 👋
+                </h2>
+                <p style={{ margin: '16px 0 0 0', opacity: 0.9, fontSize: '1.25rem', fontWeight: 500, maxWidth: '600px', lineHeight: 1.5 }}>
+                    Your enterprise caregiver command center is ready. You have <strong style={{ color: '#00C985', fontSize: '1.4rem' }}>{shiftCount} visits</strong> scheduled for your shift today.
+                </p>
+
+                <div style={{ marginTop: '32px', display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <div style={{
+                        padding: '10px 20px',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: '16px',
+                        fontSize: '0.95rem',
+                        fontWeight: 700,
+                        color: '#FFFFFF',
+                        backdropFilter: 'blur(8px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        <span style={{ color: '#00C985' }}>●</span> Ready for Check-in
+                    </div>
                 </div>
             </div>
         </div>
