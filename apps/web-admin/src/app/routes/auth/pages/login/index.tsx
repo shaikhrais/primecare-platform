@@ -5,8 +5,11 @@ import { AdminRegistry } from 'prime-care-shared';
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
+import { useAuth } from '@/shared/context/AuthContext';
+
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -15,6 +18,7 @@ export default function Login() {
     // New Multi-Role States
     const [authStep, setAuthStep] = useState<'login' | 'select-role'>('login');
     const [tempUser, setTempUser] = useState<any>(null);
+    const [tempToken, setTempToken] = useState<string | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,17 +35,17 @@ export default function Login() {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token);
 
                 const roles = data.user.roles || [data.user.role];
 
                 if (roles.length > 1) {
                     setTempUser(data.user);
+                    setTempToken(data.token);
                     setAuthStep('select-role');
                     setLoading(false);
                 } else {
                     const activeRole = roles[0];
-                    finalizeLogin(data.user, activeRole);
+                    finalizeLogin(data.user, activeRole, data.token);
                 }
             } else {
                 const data = await response.json();
@@ -54,9 +58,9 @@ export default function Login() {
         }
     };
 
-    const finalizeLogin = (user: any, activeRole: string) => {
+    const finalizeLogin = (user: any, activeRole: string, token: string) => {
         const userWithActiveRole = { ...user, activeRole };
-        localStorage.setItem('user', JSON.stringify(userWithActiveRole));
+        login(userWithActiveRole, token);
 
         if (activeRole === 'manager') {
             navigate('/manager/dashboard');
@@ -93,7 +97,7 @@ export default function Login() {
                             <button
                                 key={role}
                                 data-cy={`btn-select-role-${role}`}
-                                onClick={() => finalizeLogin(tempUser, role)}
+                                onClick={() => finalizeLogin(tempUser, role, tempToken!)}
                                 style={{
                                     padding: '1rem',
                                     borderRadius: '8px',

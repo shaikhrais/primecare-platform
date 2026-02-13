@@ -193,4 +193,22 @@ auth.post('/logout', (c) => {
     return c.json({ success: true });
 });
 
+auth.get('/whoami', async (c) => {
+    const payload = c.get('jwtPayload');
+    if (!payload && !getCookie(c, 'accessToken')) {
+        return c.json({ error: 'Not authenticated' }, 401);
+    }
+
+    const prisma = c.get('prisma');
+    const userId = payload?.sub || (await verify(getCookie(c, 'accessToken')!, c.env.JWT_SECRET || 'fallback_secret')).sub;
+
+    const user = await prisma.user.findUnique({
+        where: { id: userId as string },
+        select: { id: true, email: true, roles: true, tenantId: true }
+    });
+
+    if (!user) return c.json({ error: 'User not found' }, 404);
+    return c.json({ user });
+});
+
 export default auth;

@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { useNavigate } from 'react-router-dom';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function VisitDetails() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [visit, setVisit] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const role = user.role;
+    const userStr = localStorage.getItem('user');
+    const user = JSON.parse(userStr || '{}');
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
     useEffect(() => {
         const fetchVisit = async () => {
             try {
-                const token = localStorage.getItem('token');
                 let endpoint = '/v1/admin/visits';
                 if (role === 'client') endpoint = '/v1/client/bookings';
-                if (role === 'psw') endpoint = '/v1/psw/visits';
+                if (role === 'psw') endpoint = '/v1/psw/schedule/visits';
 
-                const res = await fetch(`${API_URL}${endpoint}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const data = await res.json();
-                const found = data.find((v: any) => v.id === id);
-                setVisit(found);
+                const response = await apiClient.get(endpoint);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (Array.isArray(data)) {
+                        const found = data.find((v: any) => v.id === id);
+                        setVisit(found);
+                    }
+                }
             } catch (err) {
-                console.error(err);
+                console.error('Fetch visit details failed:', err);
             } finally {
                 setLoading(false);
             }

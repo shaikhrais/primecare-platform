@@ -25,6 +25,8 @@ import LeadsNew from './pages/leads-new';
 import InvoicesNew from './pages/invoices-new';
 import TimesheetAdjustment from './pages/timesheet-adjustment';
 
+import EarningsPage from './pages/earnings';
+
 /**
  * Admin Routes
  * Base path: /admin
@@ -35,6 +37,7 @@ const AdminRoutes: React.FC = () => {
             <Route path="dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
             <Route path="users" element={<AdminLayout><Users /></AdminLayout>} />
             <Route path="schedule" element={<AdminLayout><Schedule /></AdminLayout>} />
+            <Route path="earnings" element={<AdminLayout><EarningsPage /></AdminLayout>} />
             <Route path="incidents" element={<AdminLayout><Incidents /></AdminLayout>} />
             <Route path="timesheets" element={<AdminLayout><Timesheets /></AdminLayout>} />
             <Route path="leads" element={<AdminLayout><Leads /></AdminLayout>} />

@@ -6,9 +6,12 @@ import AdminLayout from '../../../shared/components/layout/AdminLayout';
 
 // Pages
 import Dashboard from './pages/dashboard';
+import PswDashboardEnterprise from '../../../roles/psw/dashboard';
+import ShiftsPage from '../../../roles/psw/pages/shifts';
+import EarningsPage from '../../../roles/psw/pages/earnings';
+import ProfilePage from '../../../roles/psw/pages/profile';
 import Schedule from './pages/schedule';
 import Availability from './pages/availability';
-import Earnings from './pages/earnings';
 import Expenses from './pages/expenses';
 import ShiftConfirmation from './pages/shift-confirmation';
 
@@ -23,7 +26,7 @@ const PswRoutes: React.FC = () => {
                 path="dashboard"
                 element={
                     <AdminLayout>
-                        <Dashboard />
+                        <PswDashboardEnterprise />
                     </AdminLayout>
                 }
             />
@@ -47,7 +50,7 @@ const PswRoutes: React.FC = () => {
                 path="earnings"
                 element={
                     <AdminLayout>
-                        <Earnings />
+                        <EarningsPage />
                     </AdminLayout>
                 }
             />
@@ -60,10 +63,10 @@ const PswRoutes: React.FC = () => {
                 }
             />
             <Route
-                path="shift-confirmation"
+                path="profile"
                 element={
                     <AdminLayout>
-                        <ShiftConfirmation />
+                        <ProfilePage />
                     </AdminLayout>
                 }
             />

@@ -106,11 +106,11 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     ];
 
     const pswMenu: MenuItem[] = [
-        { label: 'Work Schedule', path: RouteRegistry.DASHBOARD, icon: '🗓️' },
-        { label: 'My Shifts', path: '/shifts', icon: '⌚' },
-        { label: 'My Earnings', path: '/earnings', icon: '💰' },
-        { label: 'My Credentials', path: '/profile', icon: '📜' },
-        { label: 'Help Desk', path: '/support', icon: '❓' },
+        { label: 'Work Schedule', path: '/psw/dashboard', icon: '🗓️' },
+        { label: 'My Shifts', path: '/psw/schedule', icon: '⌚' },
+        { label: 'My Earnings', path: '/psw/earnings', icon: '💰' },
+        { label: 'My Credentials', path: '/psw/profile', icon: '📜' },
+        { label: 'Help Desk', path: '/psw/support', icon: '❓' },
     ];
 
     const rnMenu: MenuItem[] = [

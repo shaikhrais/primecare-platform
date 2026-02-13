@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useAuth } from '@/shared/context/AuthContext';
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -9,41 +10,25 @@ interface RequireRoleProps {
     allowedRoles: string[];
 }
 
-/**
- * RequireRole Guard
- * Enforces role-based access control at the route level.
- * Centralizes user/role fetching from localStorage/cookies.
- */
 export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles }) => {
     const location = useLocation();
+    const { user, loading } = useAuth();
 
-    // Get user info from storage with safety
-    const getUser = () => {
-        try {
-            const userStr = localStorage.getItem('user');
-            if (!userStr || userStr === 'undefined') return null;
-            return JSON.parse(userStr);
-        } catch (e) {
-            return null;
-        }
-    };
-
-    const user = getUser();
+    if (loading) {
+        return null; // Silent while checking session
+    }
 
     if (!user) {
-        // Redirect to login if not authenticated
         return <Navigate to={RouteRegistry.LOGIN} state={{ from: location }} replace />;
     }
 
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
-    // Global Admin Visibility: Admins can view any dashboard
-    if (user.roles?.includes('admin') || user.role === 'admin') {
+    if (user.roles?.includes('admin')) {
         return <>{children}</>;
     }
 
     if (!allowedRoles.includes(role)) {
-        // Redirect to login or a safe page to avoid loops
         return <Navigate to={RouteRegistry.LOGIN} replace />;
     }
 

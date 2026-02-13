@@ -36,10 +36,14 @@ export const ApiRegistry = {
         SERVICES: '/v1/client/services',
     },
     PSW: {
-        VISITS: '/v1/psw/visits',
-        CHECK_IN: (id: string) => `/v1/psw/visits/${id}/check-in`,
-        CHECK_OUT: (id: string) => `/v1/psw/visits/${id}/check-out`,
-        PAYOUT_REQUEST: '/v1/psw/payouts/request',
+        VISITS: '/v1/psw/schedule/visits',
+        CHECK_IN: (id: string) => `/v1/psw/schedule/visits/${id}/check-in`,
+        CHECK_OUT: (id: string) => `/v1/psw/schedule/visits/${id}/check-out`,
+        PAYOUT_REQUEST: '/v1/psw/schedule/payouts/request',
+    },
+    SYSTEM: {
+        NOTIFICATIONS: '/v1/system/notifications',
+        MARK_READ: (id: string) => `/v1/system/notifications/${id}/read`,
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',

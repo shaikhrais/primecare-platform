@@ -29,7 +29,15 @@ export const SecureSessionGuard: React.FC<SecureSessionGuardProps> = ({ children
                 if (user.roles && user.roles.includes('admin')) {
                     return;
                 }
-                navigate(RouteRegistry.DASHBOARD);
+
+                // Redirect to role-specific dashboard to avoid generic fallback loops
+                if (role === 'psw') {
+                    navigate('/psw/dashboard');
+                } else if (role === 'rn') {
+                    navigate('/rn/dashboard');
+                } else {
+                    navigate(RouteRegistry.DASHBOARD);
+                }
             }
         };
 

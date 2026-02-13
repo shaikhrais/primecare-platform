@@ -10,23 +10,27 @@ interface Shift {
     status: string;
 }
 
+import { useNavigate } from 'react-router-dom';
+import { apiClient } from '@/shared/utils/apiClient';
+
 export default function ShiftsPage() {
-    const [shifts, setShifts] = useState<Shift[]>([]);
+    const navigate = useNavigate();
+    const [shifts, setShifts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchShifts = async () => {
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/psw/visits`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const response = await apiClient.get('/v1/psw/schedule/visits');
             if (response.ok) {
                 const data = await response.json();
-                setShifts(data);
+                setShifts(Array.isArray(data) ? data : []);
+            } else {
+                setShifts([]);
             }
         } catch (error) {
             console.error('Failed to fetch shifts', error);
+            setShifts([]);
         } finally {
             setLoading(false);
         }
@@ -37,7 +41,7 @@ export default function ShiftsPage() {
     }, []);
 
     const getStatusStyle = (status: string) => {
-        switch (status.toLowerCase()) {
+        switch ((status || '').toLowerCase()) {
             case 'scheduled': return { color: '#0369a1', bg: '#e0f2fe' };
             case 'in_progress': return { color: '#065f46', bg: '#ecfdf5' };
             case 'completed': return { color: '#1e293b', bg: '#f1f5f9' };
@@ -72,15 +76,20 @@ export default function ShiftsPage() {
                             shifts.map((shift) => {
                                 const style = getStatusStyle(shift.status);
                                 return (
-                                    <tr key={shift.id} data-cy={`shift-row-${shift.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                        <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="shift-client">{shift.client.fullName}</td>
+                                    <tr
+                                        key={shift.id}
+                                        onClick={() => navigate(`/visits/${shift.id}`)}
+                                        data-cy={`shift-row-${shift.id}`}
+                                        style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer' }}
+                                    >
+                                        <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="shift-client">{shift.client?.fullName || 'Unknown'}</td>
                                         <td style={{ padding: '1rem', color: '#4b5563', fontSize: '0.875rem' }}>
-                                            {shift.client.addressLine1}, {shift.client.city}
+                                            {shift.client?.addressLine1 || 'N/A'}, {shift.client?.city || ''}
                                         </td>
                                         <td style={{ padding: '1rem', color: '#4b5563' }} data-cy="shift-date">
-                                            {new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                                            {shift.requestedStartAt ? new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : 'TBD'}
                                         </td>
-                                        <td style={{ padding: '1rem', color: '#4b5563' }} data-cy="shift-service">{shift.service.name}</td>
+                                        <td style={{ padding: '1rem', color: '#4b5563' }} data-cy="shift-service">{shift.service?.name || 'Standard'}</td>
                                         <td style={{ padding: '1rem' }}>
                                             <span data-cy="shift-status" style={{
                                                 padding: '0.25rem 0.625rem',

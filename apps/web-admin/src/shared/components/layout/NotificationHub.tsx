@@ -18,7 +18,7 @@ export default function NotificationHub() {
     const fetchNotifications = async () => {
         setLoading(true);
         try {
-            const response = await apiClient.get('/v1/notifications');
+            const response = await apiClient.get('/v1/system/notifications');
             if (response.ok) {
                 const data = await response.json();
                 setNotifications(data);
@@ -38,7 +38,7 @@ export default function NotificationHub() {
 
     const markAsRead = async (id: string) => {
         try {
-            await apiClient.patch(`/v1/notifications/${id}/read`);
+            await apiClient.patch(`/v1/system/notifications/${id}/read`);
             setNotifications(notifications.map((n: Notification) => n.id === id ? { ...n, isRead: true } : n));
         } catch (err) {
             console.error('Error marking as read:', err);
