@@ -8,12 +8,12 @@ export default function ShiftConfirmation() {
 
     const handleAccept = () => {
         showToast('Shift accepted!', 'success');
-        navigate('/shifts');
+        navigate('/psw/schedule');
     };
 
     const handleDecline = () => {
         showToast('Shift declined', 'info');
-        navigate('/shifts');
+        navigate('/psw/schedule');
     };
 
     return (
