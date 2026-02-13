@@ -28,21 +28,21 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '1rem 1.5rem',
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        borderRadius: '12px',
-        minWidth: '80px',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+        padding: '0.75rem 1.25rem',
+        backgroundColor: '#F9FAFB',
+        borderRadius: '6px',
+        minWidth: '70px',
+        border: '1px solid var(--line)'
     };
 
     return (
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             {Object.entries(timeLeft).map(([unit, value]) => (
                 <div key={unit} style={timeBoxStyle}>
-                    <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#00897b' }}>
+                    <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-500)' }}>
                         {String(value).padStart(2, '0')}
                     </span>
-                    <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#666', letterSpacing: '1px' }}>
+                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--text-300)', fontWeight: 700 }}>
                         {unit}
                     </span>
                 </div>

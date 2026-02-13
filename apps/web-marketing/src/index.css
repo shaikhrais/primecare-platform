@@ -4,6 +4,17 @@
   /* Marketing Site Orchestration */
   font-family: var(--pc-font-main);
   line-height: var(--line-height-normal);
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --container-max: 1280px;
 }
 
 body {
@@ -11,8 +22,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   font-family: var(--pc-font-main);
-  background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
-  color: var(--text-100);
+  background: #FFFFFF;
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -21,8 +32,8 @@ h2,
 h3,
 h4,
 .display-text {
-  font-family: var(--font-display);
-  font-weight: var(--weight-black);
+  font-family: var(--pc-font-display);
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text);
 }

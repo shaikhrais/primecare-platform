@@ -37,17 +37,18 @@ function Dropdown({ label, items }: DropdownProps) {
             </span>
 
             {isOpen && (
-                <div className="glass-effect" style={{
+                <div style={{
                     position: 'absolute',
                     top: '100%',
                     left: 0,
-                    backgroundColor: 'var(--bg-elev)',
-                    minWidth: '240px',
-                    boxShadow: 'var(--shadow-lg)',
-                    borderRadius: '12px',
-                    padding: '0.75rem 0',
+                    backgroundColor: 'var(--bg-900)',
+                    minWidth: '220px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                    borderRadius: '8px',
+                    padding: '0.5rem 0',
                     zIndex: 1000,
                     border: '1px solid var(--line)',
+                    marginTop: '0.5rem'
                 }}>
                     {items.map((item, index) => (
                         <div
@@ -94,15 +95,15 @@ function Dropdown({ label, items }: DropdownProps) {
 
                             {/* Submenu */}
                             {item.submenu && activeSubmenu === index && (
-                                <div className="glass-effect" style={{
+                                <div style={{
                                     position: 'absolute',
                                     top: 0,
-                                    left: '100%',
-                                    backgroundColor: 'var(--bg-elev)',
-                                    minWidth: '220px',
-                                    boxShadow: 'var(--shadow-lg)',
-                                    borderRadius: '12px',
-                                    padding: '0.75rem 0',
+                                    left: 'calc(100% + 5px)',
+                                    backgroundColor: 'var(--bg-900)',
+                                    minWidth: '200px',
+                                    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                                    borderRadius: '8px',
+                                    padding: '0.5rem 0',
                                     border: '1px solid var(--line)',
                                 }}>
                                     {item.submenu.map((subitem, subindex) => (
@@ -195,22 +196,22 @@ export default function Header() {
     };
 
     return (
-        <header className="glass-effect" style={{
+        <header style={{
             position: 'sticky',
             top: 0,
             zIndex: 1000,
-            backgroundColor: 'rgba(255,255,255,0.1)',
-            backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+            backgroundColor: '#FFFFFF',
+            borderBottom: '1px solid var(--line)',
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)'
         }}>
             {/* Top Bar - High Utility */}
             <div style={{
-                backgroundColor: 'var(--primary-dark)',
-                color: 'white',
-                padding: '0.6rem var(--space-4)',
+                backgroundColor: 'var(--bg-800)',
+                color: 'var(--text-300)',
+                padding: '0.5rem var(--space-8)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
+                borderBottom: '1px solid var(--line)'
             }}>
                 <div style={{
                     maxWidth: 'var(--container-max)',
@@ -228,17 +229,17 @@ export default function Header() {
                             onClick={toggleFullscreen}
                             title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                             style={{
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '8px',
-                                border: '1px solid rgba(255,255,255,0.2)',
-                                background: 'rgba(255,255,255,0.1)',
-                                color: 'white',
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '6px',
+                                border: '1px solid var(--line)',
+                                background: '#FFFFFF',
+                                color: 'var(--text)',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1rem',
+                                fontSize: '0.9rem',
                                 transition: 'var(--pc-transition)'
                             }}
                         >
@@ -253,22 +254,22 @@ export default function Header() {
                             )}
                         </button>
 
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(46, 196, 182, 0.15)', padding: '4px 14px', borderRadius: '10px', border: '1px solid var(--brand-500)' }}>
-                            <span style={{ fontSize: '0.7rem', color: 'var(--brand-500)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 900 }}>Verified Site</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(0, 135, 90, 0.05)', padding: '4px 12px', borderRadius: '4px', border: '1px solid var(--brand-500)' }}>
+                            <span style={{ fontSize: '0.65rem', color: 'var(--brand-500)', textTransform: 'uppercase', letterSpacing: '0.05rem', fontWeight: 800 }}>Verified Site</span>
                         </div>
-                        <a href="mailto:care@primecare.ca" data-cy="lnk-topbar-email" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
-                            <span style={{ opacity: 0.7 }}>✉</span> care@primecare.ca
+                        <a href="mailto:care@primecare.ca" data-cy="lnk-topbar-email" style={{ color: 'var(--text-300)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ opacity: 0.6 }}>✉</span> care@primecare.ca
                         </a>
-                        <a href="tel:+14165551234" data-cy="lnk-topbar-phone" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.9 }}>
-                            <span style={{ opacity: 0.7 }}>📞</span> (416) 555-1234
+                        <a href="tel:+14165551234" data-cy="lnk-topbar-phone" style={{ color: 'var(--text-300)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ opacity: 0.6 }}>📞</span> (416) 555-1234
                         </a>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <Link to={RouteRegistry.LOGIN} data-cy="link-family-portal" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Family Portal</Link>
-                        <span style={{ opacity: 0.3 }}>|</span>
-                        <Link to="/caregiver-login" data-cy="link-caregiver-portal" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Caregiver Portal</Link>
-                        <span style={{ opacity: 0.3 }}>|</span>
-                        <Link to={RouteRegistry.LOGIN_STAFF} data-cy="link-staff-hub" style={{ color: 'white', textDecoration: 'none', opacity: 0.9 }}>Staff Hub</Link>
+                    <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+                        <Link to={RouteRegistry.LOGIN} data-cy="link-family-portal" style={{ color: 'var(--text-300)', textDecoration: 'none' }}>Family Portal</Link>
+                        <span style={{ opacity: 0.2, color: 'var(--text-300)' }}>|</span>
+                        <Link to="/caregiver-login" data-cy="link-caregiver-portal" style={{ color: 'var(--text-300)', textDecoration: 'none' }}>Caregiver Portal</Link>
+                        <span style={{ opacity: 0.2, color: 'var(--text-300)' }}>|</span>
+                        <Link to={RouteRegistry.LOGIN_STAFF} data-cy="link-staff-hub" style={{ color: 'var(--text-300)', textDecoration: 'none' }}>Staff Hub</Link>
                     </div>
                 </div>
             </div>
@@ -277,11 +278,11 @@ export default function Header() {
             <div style={{
                 maxWidth: 'var(--container-max)',
                 margin: '0 auto',
-                padding: '0.75rem var(--space-4)',
+                padding: '0 var(--space-8)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                height: 'var(--header-height)',
+                height: '80px',
             }}>
                 {/* Logo */}
                 <Link to={RouteRegistry.HOME} data-cy="logo-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
@@ -289,7 +290,7 @@ export default function Header() {
                         src="/logo.png"
                         alt="PrimeCare Logo"
                         data-cy="logo-img"
-                        style={{ height: 'clamp(50px, 6vw, 70px)', width: 'auto', transition: 'var(--pc-transition)' }}
+                        style={{ height: '54px', width: 'auto', transition: 'var(--pc-transition)' }}
                     />
                 </Link>
 
@@ -297,7 +298,7 @@ export default function Header() {
                 <nav className="desktop-nav" style={{ display: 'none', gap: 'var(--space-6)', alignItems: 'center' }}>
                     <style>{`
                         @media (min-width: 1024px) { 
-                            .desktop-nav { display: flex !important; } 
+                            .desktop-nav { display: flex !important; margin-left: auto; } 
                             .mobile-toggle { display: none !important; } 
                         }
                     `}</style>
@@ -319,11 +320,12 @@ export default function Header() {
                         data-cy="btn-book-assessment"
                         className="btn btn-primary"
                         style={{
-                            padding: '0.7rem 1.75rem',
-                            borderRadius: '50px',
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '4px',
                             textDecoration: 'none',
-                            fontWeight: 800,
-                            fontSize: '0.95rem',
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            marginLeft: '1rem'
                         }}
                     >
                         Book Assessment

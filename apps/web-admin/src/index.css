@@ -22,13 +22,9 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: var(--font-family);
+  font-family: var(--pc-font-main);
   color: var(--text);
-  background:
-    radial-gradient(1100px 600px at 10% -10%, var(--glow-1), transparent 60%),
-    radial-gradient(900px 500px at 85% 0%, var(--glow-2), transparent 55%),
-    radial-gradient(800px 600px at 70% 120%, var(--glow-3), transparent 60%),
-    var(--bg);
+  background-color: var(--bg);
 }
 
 h1,
@@ -36,9 +32,9 @@ h2,
 h3,
 h4,
 .display-text {
-  font-family: var(--font-display);
-  font-weight: var(--weight-black);
-  letter-spacing: -0.02em;
+  font-family: var(--pc-font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text);
 }
 
@@ -53,9 +49,9 @@ h4,
 
 ::-webkit-scrollbar-thumb {
   background: var(--line-bold);
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--brand-500);
 }

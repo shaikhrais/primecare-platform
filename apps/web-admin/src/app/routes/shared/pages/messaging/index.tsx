@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { webChatService } from '../../services/WebChatService';
+import { webChatService } from '../../../../../services/WebChatService';
 
 interface ChatMessage {
     id: number | string;

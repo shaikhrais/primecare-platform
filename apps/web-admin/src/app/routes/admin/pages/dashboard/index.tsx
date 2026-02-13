@@ -29,19 +29,19 @@ export default function AdminDashboard() {
     }, []);
 
     const statCards = [
-        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_USERS, value: stats.totalUsers, color: '#004d40', icon: '👥' },
-        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.NEW_INQUIRIES, value: stats.totalLeads, color: '#2563eb', icon: '📥' },
-        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.PENDING_VISITS, value: stats.pendingVisits, color: '#f59e0b', icon: '📝' },
-        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_VISITS, value: stats.totalVisits, color: '#ef4444', icon: '📋' },
+        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_USERS, value: stats.totalUsers, icon: '👥' },
+        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.NEW_INQUIRIES, value: stats.totalLeads, icon: '📥' },
+        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.PENDING_VISITS, value: stats.pendingVisits, icon: '📝' },
+        { label: ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_VISITS, value: stats.totalVisits, icon: '📋' },
     ];
 
     return (
         <div data-cy="page.container">
             <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                <h1 style={{ margin: '0 0 6px 0', fontSize: '32px', color: 'var(--text)' }} data-cy="page.title">
                     {ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME}
                 </h1>
-                <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
+                <p style={{ margin: 0, opacity: 0.6 }} data-cy="page.subtitle">{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }} data-cy="stats-cards">
@@ -53,10 +53,10 @@ export default function AdminDashboard() {
                         gap: '0.5rem'
                     }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ color: 'var(--text-300)', fontSize: '0.875rem', fontWeight: '500' }}>{card.label}</span>
+                            <span style={{ color: 'var(--text-300)', fontSize: '0.875rem', fontWeight: '600' }}>{card.label}</span>
                             <span style={{ fontSize: '1.25rem' }}>{card.icon}</span>
                         </div>
-                        <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-500)', letterSpacing: '1px' }}>
+                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-500)' }}>
                             {card.value}
                         </div>
                     </div>
@@ -72,25 +72,25 @@ export default function AdminDashboard() {
                     <div className="pc-card-b">
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
                             <Link to={RouteRegistry.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
-                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
+                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{ContentRegistry.USERS.TITLE}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Check certifications</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
-                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
+                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>View Schedule</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Manage assignments</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
-                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
+                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>Review Leads</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Respond to inquiries</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
-                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: 'rgba(255,255,255,.03)' }}>
+                                <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>System Config</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>App adjustments</div>
                                 </button>

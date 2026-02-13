@@ -92,26 +92,17 @@ export default function QuickActions({ role }: QuickActionsProps) {
                         padding: '0.5rem 1rem',
                         borderRadius: '8px',
                         border: isCrisisMode ? '1px solid #ef4444' : '1px solid var(--line)',
-                        backgroundColor: isCrisisMode ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg-elev)',
+                        backgroundColor: isCrisisMode ? '#fef2f2' : 'var(--bg-elev)',
                         color: isCrisisMode ? '#ef4444' : 'var(--text)',
                         cursor: 'pointer',
                         fontWeight: 700,
-                        fontSize: '0.85rem',
-                        transition: 'all 0.2s',
-                        animation: isCrisisMode ? 'pulse 2s infinite' : 'none'
+                        fontSize: '0.85rem'
                     }}
                 >
                     <span style={{ fontSize: '1.1rem' }}>{isCrisisMode ? '🚨' : '🛡️'}</span>
                     {isLoading ? 'Wait...' : isCrisisMode ? 'CRISIS ACTIVE' : 'Crisis Mode'}
                 </button>
             )}
-            <style>{`
-                @keyframes pulse {
-                    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-                    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-                    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-                }
-            `}</style>
         </div>
     );
 }

@@ -82,10 +82,10 @@ export default function Login() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f2f5'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)'
         }}>
             <div style={{
-                padding: '2.5rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', width: '100%', maxWidth: '400px', border: '1px solid #f3f4f6'
+                padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)'
             }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
@@ -109,8 +109,8 @@ export default function Login() {
                             value={selectedRole}
                             onChange={(e) => setSelectedRole(e.target.value)}
                             style={{
-                                width: '100%', padding: '0.6rem', border: '2px solid #059669', borderRadius: '6px',
-                                boxSizing: 'border-box', backgroundColor: '#f9fafb', fontWeight: '600', color: '#111827'
+                                width: '100%', padding: '0.6rem', border: '1px solid var(--brand-500)', borderRadius: '4px',
+                                boxSizing: 'border-box', backgroundColor: '#F9FAFB', fontWeight: '600', color: 'var(--text)'
                             }}
                         >
                             <option value="client">🏠 Family Member / Client</option>
@@ -149,7 +149,7 @@ export default function Login() {
                         />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
-                        <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             Forgot password?
                         </a>
                     </div>
@@ -158,13 +158,13 @@ export default function Login() {
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.75rem', backgroundColor: '#059669', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer'
+                            width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {loading ? 'Loading...' : uiText.button}
                     </button>
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} data-cy="link-register" style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} data-cy="link-register" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             {ContentRegistry.AUTH.SIGNUP_LINK}
                         </a>
                     </div>

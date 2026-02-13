@@ -15,7 +15,7 @@ export function WhyChooseUsSection() {
                     alignItems: 'center',
                 }}>
                     <AnimatedSection animation="slideRight">
-                        <h2 data-cy="why-choose-us-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#333' }}>
+                        <h2 data-cy="why-choose-us-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--text)', fontWeight: 800 }}>
                             {ContentRegistry.WHY_CHOOSE_US.TITLE}
                         </h2>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -29,22 +29,23 @@ export function WhyChooseUsSection() {
                                         <div style={{
                                             width: '40px',
                                             height: '40px',
-                                            backgroundColor: '#e0f2f1',
+                                            backgroundColor: 'var(--bg-800)',
                                             borderRadius: '50%',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             flexShrink: 0,
-                                            color: '#00897b',
+                                            color: 'var(--brand-500)',
                                             fontWeight: 'bold',
+                                            border: '1px solid var(--line)'
                                         }}>
                                             ✓
                                         </div>
                                         <div>
-                                            <h4 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#333' }} data-cy={`why-choose-us-point-title-${index}`}>
+                                            <h4 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--text)', fontWeight: 700 }} data-cy={`why-choose-us-point-title-${index}`}>
                                                 {point.title}
                                             </h4>
-                                            <p style={{ color: '#666', lineHeight: '1.6' }} data-cy={`why-choose-us-point-text-${index}`}>{point.text}</p>
+                                            <p style={{ color: 'var(--text-300)', lineHeight: '1.6' }} data-cy={`why-choose-us-point-text-${index}`}>{point.text}</p>
                                         </div>
                                     </div>
                                 </AnimatedSection>
@@ -58,8 +59,9 @@ export function WhyChooseUsSection() {
                             alt="Caregiver with senior"
                             style={{
                                 width: '100%',
-                                borderRadius: '20px',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+                                borderRadius: '16px',
+                                border: '1px solid var(--line)',
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                             }}
                         />
                     </AnimatedSection>

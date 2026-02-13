@@ -12,13 +12,13 @@ interface HeroSectionProps {
 export function HeroSection({ promoEndDate }: HeroSectionProps) {
     return (
         <header style={{
-            background: `linear-gradient(135deg, rgba(11, 18, 32, 0.94) 0%, rgba(14, 33, 64, 0.88) 100%), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80')`,
+            background: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            color: 'white',
+            color: 'var(--text)',
             padding: '8rem 2rem',
             textAlign: 'center',
-            minHeight: '85vh',
+            minHeight: '80vh',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -27,68 +27,62 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
             <div style={{ maxWidth: '950px' }}>
                 <div
                     data-cy="hero-promo-badge"
+                    className="chip"
                     style={{
                         display: 'inline-block',
-                        padding: '0.6rem 2rem',
-                        backgroundColor: 'rgba(46, 196, 182, 0.15)',
-                        border: '1px solid var(--brand-500)',
-                        borderRadius: '50px',
-                        fontSize: '0.95rem',
-                        fontWeight: 700,
+                        backgroundColor: '#F3F4F6',
                         color: 'var(--brand-500)',
-                        marginBottom: '2.5rem',
-                        backdropFilter: 'blur(10px)',
-                        letterSpacing: '0.5px'
+                        marginBottom: '2rem',
+                        fontSize: '0.9rem',
+                        fontWeight: 700,
+                        padding: '6px 16px',
+                        borderRadius: '4px'
                     }}>
                     🎉 LIMITED TIME: 20% OFF FIRST VISIT
                 </div>
 
                 <h1 data-cy="hero-title" style={{
-                    fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
-                    marginBottom: '1.5rem',
-                    fontWeight: '900',
+                    fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+                    marginBottom: '1.2rem',
+                    fontWeight: '800',
                     lineHeight: '1.1',
-                    textShadow: '0 4px 20px rgba(0,0,0,0.5)',
-                    letterSpacing: '-0.04em',
-                    color: 'var(--text-100)'
+                    letterSpacing: '-0.02em',
+                    color: 'var(--text)'
                 }}>
                     {ContentRegistry.HERO.TITLE}
                 </h1>
 
                 <p data-cy="hero-subtitle" style={{
-                    fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)',
-                    marginBottom: '3rem',
-                    opacity: 1,
+                    fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                    marginBottom: '2.5rem',
                     lineHeight: '1.6',
-                    maxWidth: '750px',
-                    margin: '0 auto 3rem auto',
-                    textShadow: '0 2px 8px rgba(0,0,0,0.4)',
+                    maxWidth: '700px',
+                    margin: '0 auto 2.5rem auto',
                     fontWeight: 500,
-                    color: 'var(--text-200)'
+                    color: 'var(--text-300)'
                 }}>
                     {ContentRegistry.HERO.SUBTITLE}
                 </p>
 
                 {/* Countdown Timer */}
-                <div data-cy="hero-timer" style={{ marginBottom: '3.5rem' }}>
-                    <p style={{ marginBottom: '1.2rem', fontSize: '1rem', fontWeight: 700, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--brand-500)' }}>Offer ends in:</p>
+                <div data-cy="hero-timer" style={{ marginBottom: '3rem' }}>
+                    <p style={{ marginBottom: '1rem', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--brand-500)' }}>Offer ends in:</p>
                     <CountdownTimer targetDate={promoEndDate} />
                 </div>
 
                 {/* CTA Buttons */}
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                     <Link
                         to={RouteRegistry.BOOKING}
                         data-cy="ctaBookNow"
                         style={{
-                            padding: '1.4rem 3.5rem',
+                            padding: '1.2rem 3rem',
                             backgroundColor: 'var(--brand-500)',
-                            color: 'var(--bg-900)',
+                            color: 'white',
                             textDecoration: 'none',
-                            borderRadius: '50px',
-                            fontSize: '1.15rem',
-                            fontWeight: '900',
-                            boxShadow: '0 8px 30px rgba(46, 196, 182, 0.4)',
+                            borderRadius: '4px',
+                            fontSize: '1.1rem',
+                            fontWeight: '700',
                             transition: 'var(--pc-transition)'
                         }}
                     >
@@ -98,15 +92,14 @@ export function HeroSection({ promoEndDate }: HeroSectionProps) {
                         to={RouteRegistry.SERVICES}
                         data-cy="hero-cta-secondary"
                         style={{
-                            padding: '1.4rem 3.5rem',
-                            backgroundColor: 'transparent',
-                            color: 'white',
+                            padding: '1.2rem 3rem',
+                            backgroundColor: '#FFFFFF',
+                            color: 'var(--text)',
                             textDecoration: 'none',
-                            borderRadius: '50px',
-                            fontSize: '1.15rem',
-                            fontWeight: '900',
-                            border: '2px solid rgba(255,255,255,0.3)',
-                            backdropFilter: 'blur(5px)',
+                            borderRadius: '4px',
+                            fontSize: '1.1rem',
+                            fontWeight: '700',
+                            border: '1px solid var(--line)',
                             transition: 'var(--pc-transition)'
                         }}
                     >

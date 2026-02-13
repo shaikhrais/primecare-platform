@@ -90,19 +90,17 @@ export default function NotificationHub() {
                     right: 0,
                     width: '320px',
                     maxHeight: '400px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    borderRadius: '16px',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+                    background: '#FFFFFF',
+                    borderRadius: '8px',
+                    border: '1px solid var(--line)',
+                    boxShadow: 'var(--shadow-lg)',
                     zIndex: 1000,
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column'
                 }}>
-                    <div style={{ padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: 800, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>Notifications</span>
+                    <div style={{ padding: '16px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 700, fontSize: '14px' }}>Notifications</span>
                         {loading && <span style={{ fontSize: '10px', opacity: 0.5 }}>Syncing...</span>}
                     </div>
 
@@ -118,10 +116,10 @@ export default function NotificationHub() {
                                     onClick={() => markAsRead(n.id)}
                                     style={{
                                         padding: '12px 16px',
-                                        borderBottom: '1px solid rgba(255,255,255,0.03)',
+                                        borderBottom: '1px solid var(--line)',
                                         cursor: 'pointer',
-                                        background: n.isRead ? 'transparent' : 'rgba(5, 150, 105, 0.05)',
-                                        transition: 'all 0.2s'
+                                        background: n.isRead ? 'transparent' : '#f0fdf4',
+                                        transition: 'background 0.1s'
                                     }}
                                 >
                                     <div style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>

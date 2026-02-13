@@ -10,26 +10,27 @@ interface TestimonialCardProps {
 export function TestimonialCard({ quote, author, role, image }: TestimonialCardProps) {
     return (
         <div style={{
-            backgroundColor: 'white',
-            padding: '2rem',
-            borderRadius: '16px',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+            backgroundColor: 'var(--bg-800)',
+            padding: '2.5rem',
+            borderRadius: '12px',
+            border: '1px solid var(--line)',
             display: 'flex',
             flexDirection: 'column',
             gap: '1.5rem',
+            height: '100%'
         }}>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#444', fontStyle: 'italic' }}>
+            <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text)', fontStyle: 'italic' }}>
                 "{quote}"
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
                 <img
                     src={image}
                     alt={author}
-                    style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }}
+                    style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--line)' }}
                 />
                 <div>
-                    <div style={{ fontWeight: 'bold', color: '#333' }}>{author}</div>
-                    <div style={{ fontSize: '0.875rem', color: '#666' }}>{role}</div>
+                    <div style={{ fontWeight: '700', color: 'var(--text)', fontSize: '0.95rem' }}>{author}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>{role}</div>
                 </div>
             </div>
         </div>

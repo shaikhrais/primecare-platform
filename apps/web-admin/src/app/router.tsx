@@ -13,6 +13,7 @@ import ClientRoutes from './routes/client';
 import ManagerRoutes from './routes/manager';
 import RnRoutes from './routes/rn';
 import StaffRoutes from './routes/staff';
+import SharedRoutes from './routes/shared';
 
 const { RouteRegistry } = AdminRegistry;
 

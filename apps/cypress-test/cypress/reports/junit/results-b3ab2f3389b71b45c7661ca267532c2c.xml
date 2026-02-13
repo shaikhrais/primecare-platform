@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="6447.032" tests="44" failures="36">
+  <testsuite name="Root Suite" timestamp="2026-02-13T00:51:49" tests="0" file="cypress\e2e\admin\regression\forms.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Enterprise Form Audit" timestamp="2026-02-13T00:51:49" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Audit: Profile Update" timestamp="2026-02-13T00:51:49" tests="2" time="121.016" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="19.220" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.profile.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.profile.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update Layer 6: Unsaved Changes Guard Verification" time="19.957" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.profile.fullname&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.profile.fullname"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Daily Care Entry" timestamp="2026-02-13T00:53:50" tests="2" time="122.018" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="19.489" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.daily.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.daily.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry Layer 6: Unsaved Changes Guard Verification" time="21.721" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:241:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Configuration" timestamp="2026-02-13T00:55:52" tests="2" time="58.667" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="19.140" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;btn.service.add&quot;]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="btn.service.add"]`, but never found it.
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:222:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Admission" timestamp="2026-02-13T00:56:51" tests="2" time="118.960" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="20.183" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.client.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.client.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission Layer 6: Unsaved Changes Guard Verification" time="19.906" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.client.fullname&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.client.fullname"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Staff Evaluation" timestamp="2026-02-13T00:58:50" tests="2" time="131.712" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Staff Evaluation Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="20.587" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.evaluation.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.evaluation.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Staff Evaluation Layer 6: Unsaved Changes Guard Verification" time="23.797" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:241:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Review" timestamp="2026-02-13T01:01:02" tests="2" time="71.781" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Review Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="3.237" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Review Layer 6: Unsaved Changes Guard Verification" time="23.296" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;guard.unsaved.dialog&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="guard.unsaved.dialog"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:241:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Expense Report" timestamp="2026-02-13T01:02:14" tests="2" time="94.961" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Expense Report Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="7.152" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Expense Report &quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;" time="27.804" classname="&quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:24:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Availability Update" timestamp="2026-02-13T01:03:49" tests="2" time="63.199" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Availability Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="20.492" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:24:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Feedback" timestamp="2026-02-13T01:04:52" tests="2" time="68.278" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Feedback &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="21.555" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:24:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Visit Completion" timestamp="2026-02-13T01:06:00" tests="2" time="146.611" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Visit Completion Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="25.358" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.visitComplete.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.visitComplete.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Visit Completion &quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;" time="22.844" classname="&quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:24:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Booking Request" timestamp="2026-02-13T01:08:27" tests="2" time="153.194" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Booking Request Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="26.600" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.booking.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.booking.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Booking Request &quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;" time="26.882" classname="&quot;before each&quot; hook for &quot;Layer 6: Unsaved Changes Guard Verification&quot;">
+      <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:24:33)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Support Ticket" timestamp="2026-02-13T01:11:00" tests="2" time="350.693" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Support Ticket Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="27.948" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.supportTicket.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.supportTicket.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Support Ticket Layer 6: Unsaved Changes Guard Verification" time="96.251" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.supportTicket.subject&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.supportTicket.subject"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Location Mgmt" timestamp="2026-02-13T01:16:51" tests="2" time="436.925" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Location Mgmt Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="63.928" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.location.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.location.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Location Mgmt Layer 6: Unsaved Changes Guard Verification" time="74.674" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.location.name&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.location.name"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Billing Portal" timestamp="2026-02-13T01:24:07" tests="2" time="231.145" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Billing Portal Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="45.209" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Billing Portal Layer 6: Unsaved Changes Guard Verification" time="75.044" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy=""]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: User Entry" timestamp="2026-02-13T01:27:59" tests="2" time="391.229" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: User Entry Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="68.106" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.user.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.user.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: User Entry Layer 6: Unsaved Changes Guard Verification" time="60.768" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.user.fullName&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.user.fullName"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Incident Report" timestamp="2026-02-13T01:34:30" tests="2" time="621.200" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Incident Report Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="60.484" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.incident.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.incident.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Incident Report Layer 6: Unsaved Changes Guard Verification" time="119.146" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.incident.description&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.incident.description"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Timesheet Adjustment" timestamp="2026-02-13T01:44:51" tests="2" time="886.023" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Timesheet Adjustment Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="147.303" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.timesheet.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.timesheet.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Timesheet Adjustment Layer 6: Unsaved Changes Guard Verification" time="146.882" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.timesheet.hours&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.timesheet.hours"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Lead Entry" timestamp="2026-02-13T01:59:37" tests="2" time="713.548" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Lead Entry Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="159.303" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.lead.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.lead.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Lead Entry Layer 6: Unsaved Changes Guard Verification" time="90.705" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.lead.fullName&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.lead.fullName"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Role Permissions" timestamp="2026-02-13T02:11:31" tests="2" time="802.330" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Role Permissions Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="153.325" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.role.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.role.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Role Permissions Layer 6: Unsaved Changes Guard Verification" time="102.095" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.role.grid&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.role.grid"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Message Templates" timestamp="2026-02-13T02:24:53" tests="2" time="565.889" failures="2">
+    <testcase name="Global Enterprise Form Audit Form Audit: Message Templates Layer 1 &amp; 2: Structural &amp; Contract Integrity" time="79.830" classname="Layer 1 &amp; 2: Structural &amp; Contract Integrity">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.template.page&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.template.page"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:227:0)]]></failure>
+    </testcase>
+    <testcase name="Global Enterprise Form Audit Form Audit: Message Templates Layer 6: Unsaved Changes Guard Verification" time="98.853" classname="Layer 6: Unsaved Changes Guard Verification">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-cy=&quot;form.template.body&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-cy="form.template.body"]`, but never found it.
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/forms.cy.ts:231:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Invoice Creation" timestamp="2026-02-13T02:34:19" tests="2" time="232.053" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Invoice Creation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="102.798" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Browser Console Error: {}
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`" type="Error"><![CDATA[Error: Browser Console Error: {}
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Shift Confirmation" timestamp="2026-02-13T02:38:11" tests="2" time="65.487" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Shift Confirmation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="17.561" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="Browser Console Error: {}
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`" type="Error"><![CDATA[Error: Browser Console Error: {}
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

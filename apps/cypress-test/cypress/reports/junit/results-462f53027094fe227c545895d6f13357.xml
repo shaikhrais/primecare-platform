@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="9.300" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-13T02:43:47" tests="0" file="cypress\e2e\admin\regression\validation.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Validation Micro-tests" timestamp="2026-02-13T02:43:47" tests="2" time="9.261" failures="2">
+    <testcase name="Form Validation Micro-tests Login Form: Required fields and email format" time="1.403" classname="Login Form: Required fields and email format">
+      <failure message="Browser Console Error: {}" type="Error"><![CDATA[Error: Browser Console Error: {}
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+    <testcase name="Form Validation Micro-tests Register Form: Password mismatch validation" time="1.473" classname="Register Form: Password mismatch validation">
+      <failure message="Browser Console Error: {}" type="Error"><![CDATA[Error: Browser Console Error: {}
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

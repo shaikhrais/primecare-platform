@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="8.631" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-13T02:44:27" tests="0" file="cypress\e2e\admin\smoke\components.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Components &amp; Interactions" timestamp="2026-02-13T02:44:27" tests="2" time="8.600" failures="2">
+    <testcase name="Global Components &amp; Interactions Notifications: Toast stacking and dismissal" time="1.464" classname="Notifications: Toast stacking and dismissal">
+      <failure message="Browser Console Error: {}" type="Error"><![CDATA[Error: Browser Console Error: {}
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+    <testcase name="Global Components &amp; Interactions QuickActions: Role-based visibility in Topbar" time="1.330" classname="QuickActions: Role-based visibility in Topbar">
+      <failure message="Browser Console Error: {}" type="Error"><![CDATA[Error: Browser Console Error: {}
+    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\support\e2e.ts:359:15)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,134 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-02-13T02:42:21.511Z",
+    "end": "2026-02-13T02:42:36.058Z",
+    "duration": 14547,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "268f4065-10a4-4266-ae51-7069fd1b95a4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\admin\\smoke\\components.cy.ts",
+      "file": "cypress\\e2e\\admin\\smoke\\components.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c70d62de-f270-41a3-8630-9330bea7a236",
+          "title": "Global Components & Interactions",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Notifications: Toast stacking and dismissal",
+              "fullTitle": "Global Components & Interactions Notifications: Toast stacking and dismissal",
+              "timedOut": null,
+              "duration": 2238,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(\"staff\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n// Trigger multiple actions that might cause toasts (simulated via events or just checking existence)\n// For testing purposes, we assume certain clicks trigger toasts\n// Mock a success toast trigger via internal notify event if possible, \n// or just verify single toast behavior on a known action (like login or status change)\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/leads\");\ncy.getByCy(\"btn-lead-contacted\").first().click();\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"updated successfully\");\n// Success state usually auto-dismisses after 5s\ncy.getByCy(\"toast\", { timeout: 6000 }).should(\"not.exist\");",
+              "err": {
+                "message": "Error: Browser Console Error: {}",
+                "estack": "Error: Browser Console Error: {}\n    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\\support\\e2e.ts:359:15)",
+                "diff": null
+              },
+              "uuid": "ff998611-fba6-4abf-93db-d97527f5bec4",
+              "parentUUID": "c70d62de-f270-41a3-8630-9330bea7a236",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "QuickActions: Role-based visibility in Topbar",
+              "fullTitle": "Global Components & Interactions QuickActions: Role-based visibility in Topbar",
+              "timedOut": null,
+              "duration": 3428,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var roles = [\"staff\", \"manager\", \"psw\"];\nroles.forEach(function (role) {\n    cy.loginAs(role);\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    if (role === \"staff\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"exist\");\n    }\n    else if (role === \"psw\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"not.exist\");\n    }\n    cy.logout();\n});",
+              "err": {
+                "message": "Error: Browser Console Error: {}",
+                "estack": "Error: Browser Console Error: {}\n    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\\support\\e2e.ts:359:15)",
+                "diff": null
+              },
+              "uuid": "d58c4d77-f13f-419f-8286-8974aa6044cc",
+              "parentUUID": "c70d62de-f270-41a3-8630-9330bea7a236",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "ff998611-fba6-4abf-93db-d97527f5bec4",
+            "d58c4d77-f13f-419f-8286-8974aa6044cc"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 5666,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

@@ -54,8 +54,8 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                             fontSize: '3rem',
                             textAlign: 'center',
                             marginBottom: '1rem',
-                            fontWeight: 900,
-                            color: 'var(--text-100)',
+                            fontWeight: 800,
+                            color: 'var(--text)',
                             letterSpacing: '-1px'
                         }}>
                         Our Core Solutions
@@ -92,22 +92,22 @@ export function ServicesSection({ services = defaultServices }: ServicesSectionP
                                 <div style={{
                                     backgroundColor: 'var(--bg-800)',
                                     padding: '3rem 2.5rem',
-                                    borderRadius: '24px',
-                                    border: '1px solid var(--card-border)',
-                                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                                    borderRadius: '16px',
+                                    border: '1px solid var(--line)',
+                                    transition: 'all 0.3s ease',
                                     height: '100%',
                                     cursor: 'pointer',
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(-12px)';
+                                        e.currentTarget.style.transform = 'translateY(-8px)';
                                         e.currentTarget.style.borderColor = 'var(--brand-500)';
-                                        e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(46, 196, 182, 0.1)';
+                                        e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.borderColor = 'var(--card-border)';
+                                        e.currentTarget.style.borderColor = 'var(--line)';
                                         e.currentTarget.style.boxShadow = 'none';
                                     }}
                                 >

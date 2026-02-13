@@ -1,0 +1,134 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-02-13T02:39:30.481Z",
+    "end": "2026-02-13T02:41:06.608Z",
+    "duration": 96127,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "54dae453-3068-4231-bd49-76d662732132",
+      "title": "",
+      "fullFile": "cypress\\e2e\\admin\\regression\\seo.cy.ts",
+      "file": "cypress\\e2e\\admin\\regression\\seo.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1f59378f-aea5-4a7a-821a-b31352bdaef2",
+          "title": "SEO & Responsive Verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "SEO: Verify Title, Meta Description and H1 tags",
+              "fullTitle": "SEO & Responsive Verification SEO: Verify Title, Meta Description and H1 tags",
+              "timedOut": null,
+              "duration": 16820,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "MARKETING_URLS.forEach(function (page) {\n    cy.visitRoute(\"MARKETING_BASE_URL\", page.path);\n    // 1. Title check\n    cy.title().should(\"eq\", page.title);\n    // 2. Meta description presence\n    cy.get('meta[name=\"description\"]').should(\"have.attr\", \"content\").and(\"not.be.empty\");\n    // 3. Single H1 check\n    cy.get(\"h1\").should(\"have.length\", 1).and(\"contain\", page.h1);\n    // 4. OG Tags (Essentials)\n    cy.get('meta[property=\"og:title\"]').should(\"exist\");\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: expected 'PrimeCare Health Services - Compassionate Healthcare at Home' to equal 'PrimeCare - Compassionate Care Solutions'",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'PrimeCare Health Services - Compassionate Healthcare at Home' to equal 'PrimeCare - Compassionate Care Solutions'\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/seo.cy.ts:17:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/seo.cy.ts:14:0)",
+                "diff": "- 'PrimeCare Health Services - Compassionate Healthcare at Home'\n+ 'PrimeCare - Compassionate Care Solutions'\n"
+              },
+              "uuid": "40603ba9-4d78-471b-b79e-b0f56eeecfe7",
+              "parentUUID": "1f59378f-aea5-4a7a-821a-b31352bdaef2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Responsive: Mobile menu visibility at 375x667",
+              "fullTitle": "SEO & Responsive Verification Responsive: Mobile menu visibility at 375x667",
+              "timedOut": null,
+              "duration": 11595,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.viewport(\"iphone-6\");\ncy.visitRoute(\"MARKETING_BASE_URL\", \"/\");\n// 1. Desktop Nav should be hidden\ncy.getByCy(\"desktop-nav\").should(\"not.be.visible\");\n// 2. Mobile trigger should be visible\ncy.getByCy(\"mobile-menu-trigger\").should(\"be.visible\").click();\n// 3. Mobile menu should expand\ncy.getByCy(\"mobile-menu\").should(\"be.visible\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"desktop-nav\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"desktop-nav\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/regression/seo.cy.ts:30:0)",
+                "diff": null
+              },
+              "uuid": "f62e9fae-b559-45db-b0ee-9b3338575115",
+              "parentUUID": "1f59378f-aea5-4a7a-821a-b31352bdaef2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "40603ba9-4d78-471b-b79e-b0f56eeecfe7",
+            "f62e9fae-b559-45db-b0ee-9b3338575115"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 28415,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

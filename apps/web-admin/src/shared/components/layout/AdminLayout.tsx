@@ -135,10 +135,10 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         <div className="app">
             {/* Sidebar */}
             <aside className="pc-sidebar" data-cy="sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '14px 10px 18px' }}>
-                    <h1 style={{ fontSize: '22px', fontWeight: 800, margin: 0, letterSpacing: '.2px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ padding: '16px 12px' }}>
+                    <h1 style={{ fontSize: '20px', fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{ color: 'var(--brand-500)' }}>PrimeCare</span>
-                        <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.9em' }}>{portalTitle}</span>
+                        <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.85em' }}>{portalTitle}</span>
                     </h1>
                 </div>
 
@@ -163,8 +163,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
                 <div className="sidebar-footer">
                     <div className="pill">
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)', boxShadow: '0 0 10px var(--brand-500)' }}></div>
-                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>{role} ONLINE</span>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)' }}></div>
+                        <span>{role} ONLINE</span>
                     </div>
 
                     <button
@@ -187,11 +187,11 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
             {/* Main Content */}
             <main style={{ flex: 1, marginLeft: 'var(--sidebar-width)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '28px 32px 36px' }}>
+                <div style={{ padding: '24px' }}>
                     {/* Topbar */}
                     <header className="pc-topbar" data-cy="page.header">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                            <span className="title" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2.5px', opacity: 0.8 }}>
+                            <span className="title" style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.6 }}>
                                 System Operations
                             </span>
                         </div>

@@ -1,0 +1,134 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-02-13T02:43:55.639Z",
+    "end": "2026-02-13T02:44:04.850Z",
+    "duration": 9211,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b00f742a-c1cc-4485-b6e1-b0fb482597ae",
+      "title": "",
+      "fullFile": "cypress\\e2e\\admin\\regression\\validation.cy.ts",
+      "file": "cypress\\e2e\\admin\\regression\\validation.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ff003a29-58bf-4396-b602-8104d31b5f82",
+          "title": "Form Validation Micro-tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Login Form: Required fields and email format",
+              "fullTitle": "Form Validation Micro-tests Login Form: Required fields and email format",
+              "timedOut": null,
+              "duration": 1473,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitAppRoute(\"ADMIN_BASE_URL\", \"/login\");\n// 1. Submit empty form\ncy.getByCy(\"btn-login\").click();\n// Check for browser validation or custom error\n// Since it's using standard HTML5 input required in most cases\ncy.get('input[type=\"email\"]:invalid').should('exist');\n// 2. Invalid email format\ncy.getByCy(\"inp-email\").type(\"not-an-email\");\ncy.getByCy(\"inp-password\").type(\"password\");\ncy.getByCy(\"btn-login\").click();\ncy.get('input[type=\"email\"]:invalid').should('exist');\n// 3. Valid but incorrect credentials (401 handled)\ncy.intercept(\"POST\", \"**/api/auth/login\", {\n    statusCode: 401,\n    body: { message: \"Invalid credentials\" }\n}).as(\"loginAttempt\");\ncy.getByCy(\"inp-email\").clear().type(\"test@example.com\");\ncy.getByCy(\"btn-login\").click();\ncy.wait(\"@loginAttempt\");\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Invalid credentials\");",
+              "err": {
+                "message": "Error: Browser Console Error: {}",
+                "estack": "Error: Browser Console Error: {}\n    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\\support\\e2e.ts:359:15)",
+                "diff": null
+              },
+              "uuid": "dfcde408-21d1-471c-820d-7f10173b55c2",
+              "parentUUID": "ff003a29-58bf-4396-b602-8104d31b5f82",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Register Form: Password mismatch validation",
+              "fullTitle": "Form Validation Micro-tests Register Form: Password mismatch validation",
+              "timedOut": null,
+              "duration": 1398,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitAppRoute(\"ADMIN_BASE_URL\", \"/register\");\ncy.getByCy(\"inp-email\").type(\"newuser@test.com\");\ncy.getByCy(\"inp-password\").type(\"Password123!\");\ncy.getByCy(\"inp-confirm-password\").type(\"MismatchingPassword!\");\ncy.getByCy(\"btn-register\").click();\n// Should show error toast or field error\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"Passwords do not match\");",
+              "err": {
+                "message": "Error: Browser Console Error: {}",
+                "estack": "Error: Browser Console Error: {}\n    at console.eval (https://primecare-admin.pages.dev/__cypress/tests?p=cypress\\support\\e2e.ts:359:15)",
+                "diff": null
+              },
+              "uuid": "2b45e600-25bb-4fd7-b66e-6dc0f700a02c",
+              "parentUUID": "ff003a29-58bf-4396-b602-8104d31b5f82",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "dfcde408-21d1-471c-820d-7f10173b55c2",
+            "2b45e600-25bb-4fd7-b66e-6dc0f700a02c"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2871,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
