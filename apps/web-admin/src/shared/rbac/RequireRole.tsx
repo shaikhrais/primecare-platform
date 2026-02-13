@@ -1,14 +1,4 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
-import { useAuth } from '@/shared/context/AuthContext';
-
-const { RouteRegistry } = AdminRegistry;
-
-interface RequireRoleProps {
-    children: React.ReactNode;
-    allowedRoles: string[];
-}
+import Unauthorized from '../routes/shared/pages/error/Unauthorized';
 
 export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles }) => {
     const location = useLocation();
@@ -29,7 +19,7 @@ export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles
     }
 
     if (!allowedRoles.includes(role)) {
-        return <Navigate to={RouteRegistry.LOGIN} replace />;
+        return <Unauthorized />;
     }
 
     return <>{children}</>;
