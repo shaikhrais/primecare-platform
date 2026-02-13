@@ -9,7 +9,7 @@ import ManagerLayout from '@/shared/components/layout/ManagerLayout';
 // Guards
 import RequireRole from '@/shared/rbac/RequireRole';
 
-// Route Groups
+// Pages
 import AuthRoutes from './routes/auth';
 import AdminRoutes from './routes/admin';
 import PswRoutes from './routes/psw';
@@ -19,9 +19,40 @@ import RnRoutes from './routes/rn';
 import StaffRoutes from './routes/staff';
 import SharedRoutes from './routes/shared';
 
+// Error Pages
+import NotFound from './routes/shared/pages/error/NotFound';
+
 const { RouteRegistry } = AdminRegistry;
 
 import { useAuth } from '@/shared/context/AuthContext';
+
+// Simple Error Boundary Component
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
+    constructor(props: { children: React.ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError() {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error: any, errorInfo: any) {
+        console.error("Global Error Boundary caught an error:", error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div style={{ padding: '2rem', textAlign: 'center' }}>
+                    <h1>Something went wrong.</h1>
+                    <button onClick={() => window.location.href = '/'}>Go Home</button>
+                </div>
+            );
+        }
+        return this.props.children;
+    }
+}
 
 const ShiftsRedirect: React.FC = () => {
     const { user, loading } = useAuth();
@@ -35,96 +66,100 @@ const ShiftsRedirect: React.FC = () => {
 
 export const AppRouter: React.FC = () => {
     return (
-        <Routes>
-            {/* Auth Routes */}
-            <Route path="/*" element={<AuthRoutes />} />
+        <ErrorBoundary>
+            <Routes>
+                {/* Auth Routes */}
+                <Route path="/*" element={<AuthRoutes />} />
 
-            {/* Shared Routes */}
-            <Route path="/shifts" element={<ShiftsRedirect />} />
-            <Route
-                path="/*"
-                element={
-                    <AdminLayout>
-                        <SharedRoutes />
-                    </AdminLayout>
-                }
-            />
-
-            {/* Admin/Operations Routes */}
-            <Route
-                path="/admin/*"
-                element={
-                    <RequireRole allowedRoles={['admin', 'staff']}>
+                {/* Shared Routes */}
+                <Route path="/shifts" element={<ShiftsRedirect />} />
+                <Route
+                    path="/*"
+                    element={
                         <AdminLayout>
-                            <AdminRoutes />
+                            <SharedRoutes />
                         </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                    }
+                />
 
-            {/* Staff Specific Routes */}
-            <Route
-                path="/staff/*"
-                element={
-                    <RequireRole allowedRoles={['staff', 'admin']}>
-                        <AdminLayout>
-                            <StaffRoutes />
-                        </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                {/* Admin/Operations Routes */}
+                <Route
+                    path="/admin/*"
+                    element={
+                        <RequireRole allowedRoles={['admin', 'staff']}>
+                            <AdminLayout>
+                                <AdminRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
 
-            {/* PSW Routes */}
-            <Route
-                path="/psw/*"
-                element={
-                    <RequireRole allowedRoles={['psw']}>
-                        <AdminLayout>
-                            <PswRoutes />
-                        </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                {/* Staff Specific Routes */}
+                <Route
+                    path="/staff/*"
+                    element={
+                        <RequireRole allowedRoles={['staff', 'admin']}>
+                            <AdminLayout>
+                                <StaffRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
 
-            {/* Client Routes */}
-            <Route
-                path="/client/*"
-                element={
-                    <RequireRole allowedRoles={['client']}>
-                        <AdminLayout>
-                            <ClientRoutes />
-                        </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                {/* PSW Routes */}
+                <Route
+                    path="/psw/*"
+                    element={
+                        <RequireRole allowedRoles={['psw']}>
+                            <AdminLayout>
+                                <PswRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
 
-            {/* Manager Routes */}
-            <Route
-                path="/manager/*"
-                element={
-                    <RequireRole allowedRoles={['manager']}>
-                        <AdminLayout>
-                            <ManagerRoutes />
-                        </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                {/* Client Routes */}
+                <Route
+                    path="/client/*"
+                    element={
+                        <RequireRole allowedRoles={['client']}>
+                            <AdminLayout>
+                                <ClientRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
 
-            {/* RN Routes */}
-            <Route
-                path="/rn/*"
-                element={
-                    <RequireRole allowedRoles={['rn']}>
-                        <AdminLayout>
-                            <RnRoutes />
-                        </AdminLayout>
-                    </RequireRole>
-                }
-            />
+                {/* Manager Routes */}
+                <Route
+                    path="/manager/*"
+                    element={
+                        <RequireRole allowedRoles={['manager']}>
+                            <AdminLayout>
+                                <ManagerRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
 
-            {/* Fallback */}
-            <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+                {/* RN Routes */}
+                <Route
+                    path="/rn/*"
+                    element={
+                        <RequireRole allowedRoles={['rn']}>
+                            <AdminLayout>
+                                <RnRoutes />
+                            </AdminLayout>
+                        </RequireRole>
+                    }
+                />
+
+                {/* Fallback */}
+                <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+
+                {/* Catch-all 404 */}
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </ErrorBoundary>
     );
 };
