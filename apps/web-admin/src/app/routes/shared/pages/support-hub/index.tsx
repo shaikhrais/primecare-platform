@@ -36,7 +36,7 @@ export default function SupportHub() {
                 <p style={{ opacity: 0.8, maxWidth: '600px', margin: '0 auto', marginBottom: '2rem' }}>Connect with our care coordination team instantly through our secure messaging portal.</p>
                 <button
                     data-cy="btn-open-messaging"
-                    onClick={() => window.location.href = '/support'}
+                    onClick={() => window.location.href = '/support/tickets/new'}
                     style={{ padding: '0.75rem 2rem', backgroundColor: 'white', color: 'var(--pc-primary-dark)', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >
                     Open Messaging Portal

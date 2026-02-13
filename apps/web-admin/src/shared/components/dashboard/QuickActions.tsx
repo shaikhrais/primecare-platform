@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface QuickActionsProps {
@@ -6,6 +7,7 @@ interface QuickActionsProps {
 }
 
 export default function QuickActions({ role }: QuickActionsProps) {
+    const navigate = useNavigate();
     const { showToast } = useNotification();
     const [isCrisisMode, setIsCrisisMode] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -49,31 +51,60 @@ export default function QuickActions({ role }: QuickActionsProps) {
         }
     };
 
-    if (role !== 'admin') return null;
+    if (!['admin', 'staff', 'manager'].includes(role)) return null;
+
+    const handleAddUser = () => {
+        navigate('/admin/users');
+    };
 
     return (
-        <button
-            data-cy="btn-crisis-mode"
-            onClick={toggleCrisisMode}
-            disabled={isLoading}
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px',
-                border: isCrisisMode ? '1px solid #ef4444' : '1px solid var(--line)',
-                backgroundColor: isCrisisMode ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg-elev)',
-                color: isCrisisMode ? '#ef4444' : 'var(--text)',
-                cursor: 'pointer',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                transition: 'all 0.2s',
-                animation: isCrisisMode ? 'pulse 2s infinite' : 'none'
-            }}
-        >
-            <span style={{ fontSize: '1.1rem' }}>{isCrisisMode ? '🚨' : '🛡️'}</span>
-            {isLoading ? 'Wait...' : isCrisisMode ? 'CRISIS ACTIVE' : 'Crisis Mode'}
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button
+                data-cy="btn-quick-add-user"
+                onClick={handleAddUser}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '8px',
+                    border: '1px solid var(--line)',
+                    backgroundColor: 'var(--bg-elev)',
+                    color: 'var(--text)',
+                    cursor: 'pointer',
+                    fontWeight: 700,
+                    fontSize: '0.85rem'
+                }}
+            >
+                <span style={{ fontSize: '1.1rem' }}>👤</span>
+                Add User
+            </button>
+
+            {role === 'admin' && (
+                <button
+                    data-cy="btn-crisis-mode"
+                    onClick={toggleCrisisMode}
+                    disabled={isLoading}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '8px',
+                        border: isCrisisMode ? '1px solid #ef4444' : '1px solid var(--line)',
+                        backgroundColor: isCrisisMode ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg-elev)',
+                        color: isCrisisMode ? '#ef4444' : 'var(--text)',
+                        cursor: 'pointer',
+                        fontWeight: 700,
+                        fontSize: '0.85rem',
+                        transition: 'all 0.2s',
+                        animation: isCrisisMode ? 'pulse 2s infinite' : 'none'
+                    }}
+                >
+                    <span style={{ fontSize: '1.1rem' }}>{isCrisisMode ? '🚨' : '🛡️'}</span>
+                    {isLoading ? 'Wait...' : isCrisisMode ? 'CRISIS ACTIVE' : 'Crisis Mode'}
+                </button>
+            )}
             <style>{`
                 @keyframes pulse {
                     0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
@@ -81,6 +112,6 @@ export default function QuickActions({ role }: QuickActionsProps) {
                     100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
                 }
             `}</style>
-        </button>
+        </div>
     );
 }

@@ -18,6 +18,12 @@ import Audits from './pages/audits';
 import Support from './pages/support';
 import Admission from './pages/admission';
 import Onboarding from './pages/onboarding';
+import Locations from './pages/locations';
+import UsersNew from './pages/users-new';
+import IncidentsNew from './pages/incidents-new';
+import LeadsNew from './pages/leads-new';
+import InvoicesNew from './pages/invoices-new';
+import TimesheetAdjustment from './pages/timesheet-adjustment';
 
 /**
  * Admin Routes
@@ -39,6 +45,12 @@ const AdminRoutes: React.FC = () => {
             <Route path="support" element={<AdminLayout><Support /></AdminLayout>} />
             <Route path="admission" element={<AdminLayout><Admission /></AdminLayout>} />
             <Route path="onboarding" element={<AdminLayout><Onboarding /></AdminLayout>} />
+            <Route path="locations/new" element={<AdminLayout><Locations /></AdminLayout>} />
+            <Route path="users/new" element={<AdminLayout><UsersNew /></AdminLayout>} />
+            <Route path="incidents/new" element={<AdminLayout><IncidentsNew /></AdminLayout>} />
+            <Route path="leads/new" element={<AdminLayout><LeadsNew /></AdminLayout>} />
+            <Route path="invoices/new" element={<AdminLayout><InvoicesNew /></AdminLayout>} />
+            <Route path="timesheets/adjust" element={<AdminLayout><TimesheetAdjustment /></AdminLayout>} />
         </Routes>
     );
 };

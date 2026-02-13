@@ -22,6 +22,9 @@ export const AppRouter: React.FC = () => {
             {/* Auth Routes */}
             <Route path="/*" element={<AuthRoutes />} />
 
+            {/* Shared Routes */}
+            <Route path="/*" element={<SharedRoutes />} />
+
             {/* Admin/Operations Routes */}
             <Route
                 path="/admin/*"

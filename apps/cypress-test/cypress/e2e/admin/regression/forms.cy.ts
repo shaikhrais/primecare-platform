@@ -31,7 +31,7 @@ const auditedForms = [
     },
     {
         name: "Service Configuration",
-        route: "/services",
+        route: "/admin/services",
         role: "staff",
         container: "form.service.page",
         triggerModal: "btn.service.add",
@@ -43,7 +43,7 @@ const auditedForms = [
     },
     {
         name: "Client Admission",
-        route: "/admin/clients/admission",
+        route: "/admin/admission",
         role: "staff",
         container: "form.client.page",
         dirtyField: "form.client.fullname",
@@ -64,7 +64,7 @@ const auditedForms = [
         route: "/manager/service-review",
         role: "manager",
         container: "form.serviceReview.page",
-        dirtyField: "form.serviceReview.client",
+        dirtyField: "form.serviceReview.notes",
         leaveAction: "guard.unsaved.leave",
         stayAction: "guard.unsaved.stay"
     },
@@ -106,7 +106,7 @@ const auditedForms = [
     },
     {
         name: "Booking Request",
-        route: "/client/bookings/request",
+        route: "/client/request-booking",
         role: "client",
         container: "form.booking.page",
         dirtyField: "form.booking.date",
@@ -142,7 +142,7 @@ const auditedForms = [
     },
     {
         name: "User Entry",
-        route: "/users/new",
+        route: "/admin/users/new",
         role: "staff",
         container: "form.user.page",
         dirtyField: "form.user.fullName",
@@ -151,7 +151,7 @@ const auditedForms = [
     },
     {
         name: "Incident Report",
-        route: "/incidents/new",
+        route: "/admin/incidents/new",
         role: "staff",
         container: "form.incident.page",
         dirtyField: "form.incident.description",
@@ -160,7 +160,7 @@ const auditedForms = [
     },
     {
         name: "Timesheet Adjustment",
-        route: "/timesheets/adjust",
+        route: "/admin/timesheets/adjust",
         role: "staff",
         container: "form.timesheet.page",
         dirtyField: "form.timesheet.hours",
@@ -169,7 +169,7 @@ const auditedForms = [
     },
     {
         name: "Lead Entry",
-        route: "/leads/new",
+        route: "/admin/leads/new",
         role: "staff",
         container: "form.lead.page",
         dirtyField: "form.lead.fullName",
@@ -178,7 +178,7 @@ const auditedForms = [
     },
     {
         name: "Role Permissions",
-        route: "/settings/roles",
+        route: "/admin/settings",
         role: "staff",
         container: "form.role.page",
         dirtyField: "form.role.grid",
@@ -187,7 +187,7 @@ const auditedForms = [
     },
     {
         name: "Message Templates",
-        route: "/settings/templates",
+        route: "/admin/settings",
         role: "staff",
         container: "form.template.page",
         dirtyField: "form.template.body",
@@ -196,7 +196,7 @@ const auditedForms = [
     },
     {
         name: "Invoice Creation",
-        route: "/invoices/new",
+        route: "/admin/invoices/new",
         role: "staff",
         container: "form.invoice.page",
         dirtyField: "", // List-based, maybe no direct dirty field yet
@@ -205,7 +205,7 @@ const auditedForms = [
     },
     {
         name: "Shift Confirmation",
-        route: "/shifts/confirm",
+        route: "/psw/shift-confirmation",
         role: "psw",
         container: "form.shiftConfirm.page",
         dirtyField: "", // Action-based, no transition guard needed

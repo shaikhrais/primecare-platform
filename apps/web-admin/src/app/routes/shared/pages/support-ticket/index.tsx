@@ -59,7 +59,7 @@ export default function SupportTicketForm() {
     };
 
     return (
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '2rem' }} data-cy="page.container">
+        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '2rem' }} data-cy="form.supportTicket.page">
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
