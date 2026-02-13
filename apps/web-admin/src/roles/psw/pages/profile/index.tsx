@@ -114,8 +114,8 @@ export default function ProfilePage() {
                         border-color: #00875A !important;
                         outline: none;
                     }
-                </style>
-            </>
+                `}</style>
+        </>
         </SecureSessionGuard >
     );
 }
