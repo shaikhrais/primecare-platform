@@ -27,14 +27,23 @@ export const AppRouter: React.FC = () => {
             <Route path="/*" element={<AuthRoutes />} />
 
             {/* Shared Routes */}
-            <Route path="/*" element={<SharedRoutes />} />
+            <Route
+                path="/*"
+                element={
+                    <AdminLayout>
+                        <SharedRoutes />
+                    </AdminLayout>
+                }
+            />
 
             {/* Admin/Operations Routes */}
             <Route
                 path="/admin/*"
                 element={
                     <RequireRole allowedRoles={['admin', 'staff']}>
-                        <AdminRoutes />
+                        <AdminLayout>
+                            <AdminRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />
@@ -44,7 +53,9 @@ export const AppRouter: React.FC = () => {
                 path="/staff/*"
                 element={
                     <RequireRole allowedRoles={['staff', 'admin']}>
-                        <StaffRoutes />
+                        <AdminLayout>
+                            <StaffRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />
@@ -66,7 +77,9 @@ export const AppRouter: React.FC = () => {
                 path="/client/*"
                 element={
                     <RequireRole allowedRoles={['client']}>
-                        <ClientRoutes />
+                        <AdminLayout>
+                            <ClientRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />
@@ -76,7 +89,9 @@ export const AppRouter: React.FC = () => {
                 path="/manager/*"
                 element={
                     <RequireRole allowedRoles={['manager']}>
-                        <ManagerRoutes />
+                        <AdminLayout>
+                            <ManagerRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />
@@ -86,7 +101,9 @@ export const AppRouter: React.FC = () => {
                 path="/rn/*"
                 element={
                     <RequireRole allowedRoles={['rn']}>
-                        <RnRoutes />
+                        <AdminLayout>
+                            <RnRoutes />
+                        </AdminLayout>
                     </RequireRole>
                 }
             />

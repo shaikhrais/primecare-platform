@@ -34,26 +34,26 @@ import EarningsPage from './pages/earnings';
 const AdminRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route path="dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
-            <Route path="users" element={<AdminLayout><Users /></AdminLayout>} />
-            <Route path="schedule" element={<AdminLayout><Schedule /></AdminLayout>} />
-            <Route path="earnings" element={<AdminLayout><EarningsPage /></AdminLayout>} />
-            <Route path="incidents" element={<AdminLayout><Incidents /></AdminLayout>} />
-            <Route path="timesheets" element={<AdminLayout><Timesheets /></AdminLayout>} />
-            <Route path="leads" element={<AdminLayout><Leads /></AdminLayout>} />
-            <Route path="services" element={<AdminLayout><Services /></AdminLayout>} />
-            <Route path="settings" element={<AdminLayout><Settings /></AdminLayout>} />
-            <Route path="content" element={<AdminLayout><Content /></AdminLayout>} />
-            <Route path="audits" element={<AdminLayout><Audits /></AdminLayout>} />
-            <Route path="support" element={<AdminLayout><Support /></AdminLayout>} />
-            <Route path="admission" element={<AdminLayout><Admission /></AdminLayout>} />
-            <Route path="onboarding" element={<AdminLayout><Onboarding /></AdminLayout>} />
-            <Route path="locations/new" element={<AdminLayout><Locations /></AdminLayout>} />
-            <Route path="users/new" element={<AdminLayout><UsersNew /></AdminLayout>} />
-            <Route path="incidents/new" element={<AdminLayout><IncidentsNew /></AdminLayout>} />
-            <Route path="leads/new" element={<AdminLayout><LeadsNew /></AdminLayout>} />
-            <Route path="invoices/new" element={<AdminLayout><InvoicesNew /></AdminLayout>} />
-            <Route path="timesheets/adjust" element={<AdminLayout><TimesheetAdjustment /></AdminLayout>} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="users" element={<Users />} />
+            <Route path="schedule" element={<Schedule />} />
+            <Route path="earnings" element={<EarningsPage />} />
+            <Route path="incidents" element={<Incidents />} />
+            <Route path="timesheets" element={<Timesheets />} />
+            <Route path="leads" element={<Leads />} />
+            <Route path="services" element={<Services />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="content" element={<Content />} />
+            <Route path="audits" element={<Audits />} />
+            <Route path="support" element={<Support />} />
+            <Route path="admission" element={<Admission />} />
+            <Route path="onboarding" element={<Onboarding />} />
+            <Route path="locations/new" element={<Locations />} />
+            <Route path="users/new" element={<UsersNew />} />
+            <Route path="incidents/new" element={<IncidentsNew />} />
+            <Route path="leads/new" element={<LeadsNew />} />
+            <Route path="invoices/new" element={<InvoicesNew />} />
+            <Route path="timesheets/adjust" element={<TimesheetAdjustment />} />
         </Routes>
     );
 };

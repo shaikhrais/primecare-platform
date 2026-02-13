@@ -18,12 +18,12 @@ import VisitDetails from './pages/visit-details';
 const SharedRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route path="profile" element={<AdminLayout><Profile /></AdminLayout>} />
-            <Route path="support" element={<AdminLayout><SupportHub /></AdminLayout>} />
-            <Route path="support/tickets/new" element={<AdminLayout><SupportTicket /></AdminLayout>} />
-            <Route path="messaging" element={<AdminLayout><Messaging /></AdminLayout>} />
-            <Route path="visits/:id" element={<AdminLayout><VisitDetails /></AdminLayout>} />
-            <Route path="visits/:id/complete" element={<AdminLayout><VisitCompletion /></AdminLayout>} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="support" element={<SupportHub />} />
+            <Route path="support/tickets/new" element={<SupportTicket />} />
+            <Route path="messaging" element={<Messaging />} />
+            <Route path="visits/:id" element={<VisitDetails />} />
+            <Route path="visits/:id/complete" element={<VisitCompletion />} />
         </Routes>
     );
 };
