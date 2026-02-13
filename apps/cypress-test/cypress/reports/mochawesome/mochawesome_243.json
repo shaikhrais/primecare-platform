@@ -1,0 +1,134 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-02-13T00:30:49.102Z",
+    "end": "2026-02-13T00:32:30.655Z",
+    "duration": 101553,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "85c621f2-2a13-4b6f-ba84-70ff7efcadcf",
+      "title": "",
+      "fullFile": "cypress\\e2e\\admin\\smoke\\components.cy.ts",
+      "file": "cypress\\e2e\\admin\\smoke\\components.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2901f024-a3af-4168-a887-6549a2e675b1",
+          "title": "Global Components & Interactions",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Notifications: Toast stacking and dismissal",
+              "fullTitle": "Global Components & Interactions Notifications: Toast stacking and dismissal",
+              "timedOut": null,
+              "duration": 16831,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs(\"staff\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n// Trigger multiple actions that might cause toasts (simulated via events or just checking existence)\n// For testing purposes, we assume certain clicks trigger toasts\n// Mock a success toast trigger via internal notify event if possible, \n// or just verify single toast behavior on a known action (like login or status change)\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/leads\");\ncy.getByCy(\"btn-lead-contacted\").first().click();\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"updated successfully\");\n// Success state usually auto-dismisses after 5s\ncy.getByCy(\"toast\", { timeout: 6000 }).should(\"not.exist\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-lead-contacted\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-lead-contacted\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",
+                "diff": null
+              },
+              "uuid": "e06e0373-1447-412c-bbfb-9409bfb400c9",
+              "parentUUID": "2901f024-a3af-4168-a887-6549a2e675b1",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "QuickActions: Role-based visibility in Topbar",
+              "fullTitle": "Global Components & Interactions QuickActions: Role-based visibility in Topbar",
+              "timedOut": null,
+              "duration": 16321,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var roles = [\"staff\", \"manager\", \"psw\"];\nroles.forEach(function (role) {\n    cy.loginAs(role);\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    if (role === \"staff\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"exist\");\n    }\n    else if (role === \"psw\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"not.exist\");\n    }\n    cy.logout();\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-quick-add-user\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-quick-add-user\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/smoke/components.cy.ts:27:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/admin/smoke/components.cy.ts:23:0)",
+                "diff": null
+              },
+              "uuid": "cf518863-63a3-430a-b2a3-4072fa67b6df",
+              "parentUUID": "2901f024-a3af-4168-a887-6549a2e675b1",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "e06e0373-1447-412c-bbfb-9409bfb400c9",
+            "cf518863-63a3-430a-b2a3-4072fa67b6df"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 33152,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

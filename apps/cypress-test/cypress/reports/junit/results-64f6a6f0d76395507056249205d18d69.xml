@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="115.278" tests="44" failures="22">
+  <testsuite name="Root Suite" timestamp="2026-02-13T00:36:34" tests="0" file="cypress\e2e\admin\regression\forms.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Enterprise Form Audit" timestamp="2026-02-13T00:36:34" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Form Audit: Profile Update" timestamp="2026-02-13T00:36:34" tests="2" time="5.407" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Profile Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.344" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Profile Update`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Daily Care Entry" timestamp="2026-02-13T00:36:39" tests="2" time="3.483" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Daily Care Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.812" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Daily Care Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Configuration" timestamp="2026-02-13T00:36:43" tests="2" time="4.048" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Configuration &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.001" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Configu...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Admission" timestamp="2026-02-13T00:36:47" tests="2" time="4.623" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Admission &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.210" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Admission`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Staff Evaluation" timestamp="2026-02-13T00:36:51" tests="2" time="4.919" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Staff Evaluation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.145" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Staff Evaluation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Service Review" timestamp="2026-02-13T00:36:56" tests="2" time="4.765" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Service Review &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.339" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Service Review`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Expense Report" timestamp="2026-02-13T00:37:01" tests="2" time="4.582" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Expense Report &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.962" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Expense Report`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Availability Update" timestamp="2026-02-13T00:37:06" tests="2" time="4.232" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Availability Update &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.930" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Availability Up...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Client Feedback" timestamp="2026-02-13T00:37:10" tests="2" time="5.304" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Client Feedback &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.425" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Client Feedback`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Visit Completion" timestamp="2026-02-13T00:37:15" tests="2" time="4.652" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Visit Completion &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.203" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Visit Completion`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Booking Request" timestamp="2026-02-13T00:37:20" tests="2" time="5.383" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Booking Request &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.175" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Booking Request`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Support Ticket" timestamp="2026-02-13T00:37:25" tests="2" time="5.571" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Support Ticket &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.202" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Support Ticket`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Support Ticket`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Location Mgmt" timestamp="2026-02-13T00:37:31" tests="2" time="5.354" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Location Mgmt &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.295" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Location Mgmt`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Location Mgmt`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Billing Portal" timestamp="2026-02-13T00:37:36" tests="2" time="6.368" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Billing Portal &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.908" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Billing Portal`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Billing Portal`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: User Entry" timestamp="2026-02-13T00:37:42" tests="2" time="5.629" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: User Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.456" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: User Entry`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: User Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Incident Report" timestamp="2026-02-13T00:37:48" tests="2" time="5.934" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Incident Report &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.658" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Incident Report`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Incident Report`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Timesheet Adjustment" timestamp="2026-02-13T00:37:54" tests="2" time="8.292" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Timesheet Adjustment &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="2.550" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Timesheet Adjus...`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Timesheet Adjus...`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Lead Entry" timestamp="2026-02-13T00:38:02" tests="2" time="9.015" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Lead Entry &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.821" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Lead Entry`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Lead Entry`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Role Permissions" timestamp="2026-02-13T00:38:11" tests="2" time="7.845" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Role Permissions &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="1.731" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Role Permissions`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Role Permissions`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Message Templates" timestamp="2026-02-13T00:38:19" tests="2" time="3.878" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Message Templates &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.930" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Message Templates`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Message Templates`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Invoice Creation" timestamp="2026-02-13T00:38:23" tests="2" time="3.259" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Invoice Creation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.755" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Invoice Creation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Form Audit: Shift Confirmation" timestamp="2026-02-13T00:38:26" tests="2" time="2.678" failures="1">
+    <testcase name="Global Enterprise Form Audit Form Audit: Shift Confirmation &quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;" time="0.660" classname="&quot;before each&quot; hook for &quot;Layer 1 &amp; 2: Structural &amp; Contract Integrity&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Form Audit: Shift Confirmation`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

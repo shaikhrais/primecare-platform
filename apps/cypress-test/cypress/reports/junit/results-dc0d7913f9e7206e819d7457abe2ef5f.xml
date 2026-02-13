@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.984" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-13T00:41:56" tests="0" file="cypress\e2e\admin\smoke\components.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Components &amp; Interactions" timestamp="2026-02-13T00:41:56" tests="2" time="1.967" failures="2">
+    <testcase name="Global Components &amp; Interactions Notifications: Toast stacking and dismissal" time="0.261" classname="Notifications: Toast stacking and dismissal">
+      <failure message="cy.handleCookieConsent is not a function" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+    <testcase name="Global Components &amp; Interactions QuickActions: Role-based visibility in Topbar" time="0.229" classname="QuickActions: Role-based visibility in Topbar">
+      <failure message="cy.handleCookieConsent is not a function" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

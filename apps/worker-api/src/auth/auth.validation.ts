@@ -8,7 +8,7 @@ export const LoginSchema = z.object({
 export const RegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
-    role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'rn']),
+    role: z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'rn', 'manager']),
     tenantName: z.string().optional(),
     tenantSlug: z.string().optional(),
 });

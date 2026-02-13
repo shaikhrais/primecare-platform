@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.287" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-13T00:40:00" tests="0" file="cypress\e2e\admin\regression\tables.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin Table Interactions" timestamp="2026-02-13T00:40:00" tests="2" time="1.263" failures="1">
+    <testcase name="Admin Table Interactions &quot;before each&quot; hook for &quot;Leads Table: Status update transition&quot;" time="0.247" classname="&quot;before each&quot; hook for &quot;Leads Table: Status update transition&quot;">
+      <failure message="cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`" type="TypeError"><![CDATA[TypeError: cy.handleCookieConsent is not a function
+
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Admin Table Interactions`
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:17:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -70,7 +70,7 @@ auth.post('/register', zValidator('json', RegisterSchema), async (c) => {
     setCookie(c, 'accessToken', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'None',
         maxAge: 60 * 60 * 24, // 1 day
         path: '/'
     });
@@ -78,7 +78,7 @@ auth.post('/register', zValidator('json', RegisterSchema), async (c) => {
     setCookie(c, 'refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'None',
         maxAge: 60 * 60 * 24 * 7, // 7 days
         path: '/v1/auth/refresh'
     });
@@ -108,7 +108,7 @@ auth.post('/login', zValidator('json', LoginSchema), async (c) => {
     setCookie(c, 'accessToken', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'None',
         maxAge: 60 * 60 * 24, // 1 day
         path: '/'
     });
@@ -116,7 +116,7 @@ auth.post('/login', zValidator('json', LoginSchema), async (c) => {
     setCookie(c, 'refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'None',
         maxAge: 60 * 60 * 24 * 7, // 7 days
         path: '/v1/auth/refresh'
     });
@@ -147,7 +147,7 @@ auth.post('/switch-role', async (c) => {
     setCookie(c, 'accessToken', token, {
         httpOnly: true,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'None',
         maxAge: 60 * 60 * 24,
         path: '/'
     });
@@ -176,7 +176,7 @@ auth.post('/refresh', async (c) => {
         setCookie(c, 'accessToken', accessToken, {
             httpOnly: true,
             secure: true,
-            sameSite: 'Strict',
+            sameSite: 'None',
             maxAge: 60 * 60 * 24,
             path: '/'
         });
