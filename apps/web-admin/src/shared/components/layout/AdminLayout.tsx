@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
 import RoleSwitcher from '@/shared/components/layout/RoleSwitcher';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -21,8 +22,14 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
-    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const isMobile = useMediaQuery('(max-width: 1024px)');
+
+    // Close sidebar on navigation (mobile)
+    useEffect(() => {
+        setIsSidebarOpen(false);
+    }, [location.pathname]);
 
     // Get user info from storage with safety
     const getUser = () => {
@@ -55,7 +62,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     };
 
     // Auth & Role Guard
-    React.useEffect(() => {
+    useEffect(() => {
         const currentUser = localStorage.getItem('user');
         if (!currentUser || currentUser === 'undefined') {
             navigate(RouteRegistry.LOGIN);
@@ -63,7 +70,6 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         }
 
         if (roleGated && !roleGated.includes(role)) {
-            // Redirect to home dashboard if unauthorized
             navigate(RouteRegistry.DASHBOARD);
         }
     }, [navigate, role, roleGated]);
@@ -116,8 +122,6 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
     const menuItems = role === 'admin' ? adminMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
 
-    const portalTitle = role === 'admin' ? 'Admin' : role === 'rn' ? 'Nurse' : role === 'psw' ? 'Caregiver' : role === 'staff' ? 'Staff' : 'Family';
-
     const handleLogout = async () => {
         try {
             await fetch(`${API_URL}/v1/auth/logout`, {
@@ -132,17 +136,42 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     };
 
     return (
-        <div className="app">
+        <div className="app" style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
+            {/* Sidebar Overlay (Mobile Only) */}
+            {isMobile && isSidebarOpen && (
+                <div
+                    onClick={() => setIsSidebarOpen(false)}
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        zIndex: 999
+                    }}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="pc-sidebar" data-cy="sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '16px 12px' }}>
-                    <h1 style={{ fontSize: '20px', fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ color: 'var(--brand-500)' }}>PrimeCare</span>
-                        <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.85em' }}>{portalTitle}</span>
-                    </h1>
+            <aside
+                className="pc-sidebar"
+                data-cy="sidebar"
+                style={{
+                    position: isMobile ? 'fixed' : 'fixed',
+                    height: '100vh',
+                    width: 'var(--sidebar-width)',
+                    zIndex: 1000,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backgroundColor: '#FFFFFF',
+                    borderRight: '1px solid #E5E7EB',
+                    transition: 'transform 0.3s ease',
+                    transform: isMobile && !isSidebarOpen ? 'translateX(-100%)' : 'translateX(0)'
+                }}
+            >
+                <div style={{ padding: '24px 20px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid #F3F4F6' }}>
+                    <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />
                 </div>
 
-                <nav className="nav" style={{ flex: 1, padding: '10px 0', overflowY: 'auto' }} data-cy="nav.main">
+                <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto' }} data-cy="nav.main">
                     {menuItems.map((item: MenuItem) => {
                         const isActive = location.pathname.startsWith(item.path) || (item.path === '/app' && location.pathname === '/app');
                         return (
@@ -151,9 +180,21 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                                 to={item.path}
                                 className={`pc-nav-link ${isActive ? 'active' : ''}`}
                                 data-cy={`nav-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    padding: '12px 24px',
+                                    textDecoration: 'none',
+                                    color: isActive ? '#000000' : '#4B5563',
+                                    backgroundColor: isActive ? '#F9FAFB' : 'transparent',
+                                    borderLeft: isActive ? '4px solid #00875A' : '4px solid transparent',
+                                    fontWeight: isActive ? '700' : '500',
+                                    transition: 'all 0.2s ease'
+                                }}
                             >
-                                <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                                <span style={{ fontWeight: isActive ? 700 : 500 }}>{item.label}</span>
+                                <span style={{ fontSize: '1.25rem' }}>{item.icon}</span>
+                                <span>{item.label}</span>
                             </Link>
                         );
                     })}
@@ -161,85 +202,125 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
                 <RoleSwitcher />
 
-                <div className="sidebar-footer">
-                    <div className="pill">
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)' }}></div>
-                        <span>{role} ONLINE</span>
-                    </div>
-
+                <div className="sidebar-footer" style={{ padding: '20px', borderTop: '1px solid #F3F4F6' }}>
                     <button
                         onClick={handleLogout}
-                        className="btn btn-danger"
                         data-cy="btn-logout"
                         style={{
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             gap: '10px',
                             width: '100%',
-                            justifyContent: 'center',
-                            marginTop: '8px'
+                            padding: '12px',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid #EF4444',
+                            borderRadius: '8px',
+                            color: '#EF4444',
+                            fontWeight: '700',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s'
                         }}
                     >
-                        🚪 Logout
+                        🚪 Sign Out
                     </button>
                 </div>
             </aside>
 
             {/* Main Content */}
-            <main style={{ flex: 1, marginLeft: 'var(--sidebar-width)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '24px' }}>
-                    {/* Topbar */}
-                    <header className="pc-topbar" data-cy="page.header">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                            <span className="title" style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.6 }}>
-                                System Operations
-                            </span>
-                        </div>
-
-                        <div className="right">
-                            {/* Full Screen Toggle */}
+            <main style={{
+                flex: 1,
+                marginLeft: isMobile ? 0 : 'var(--sidebar-width)',
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+                backgroundColor: '#FFFFFF',
+                width: isMobile ? '100%' : 'calc(100% - var(--sidebar-width))'
+            }}>
+                <header className="pc-topbar" data-cy="page.header" style={{
+                    height: '72px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 24px',
+                    backgroundColor: '#FFFFFF',
+                    borderBottom: '1px solid #E5E7EB',
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 900
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        {isMobile && (
                             <button
-                                onClick={toggleFullscreen}
-                                className="btn"
+                                onClick={() => setIsSidebarOpen(true)}
                                 style={{
-                                    width: '44px',
-                                    height: '44px',
-                                    padding: 0,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
+                                    background: 'none',
+                                    border: 'none',
+                                    padding: '8px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
                                 }}
                             >
-                                {isFullscreen ? (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                                </svg>
+                            </button>
+                        )}
+                        {!isMobile && <img src="/logo.png" alt="PrimeCare" style={{ height: '32px', width: 'auto' }} />}
+                        <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB', display: isMobile ? 'none' : 'block' }}></div>
+                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111827' }}>
+                            {role === 'admin' ? 'Administration' :
+                                role === 'psw' ? 'Caregiver Portal' :
+                                    role === 'client' ? 'Family Hub' :
+                                        role === 'rn' ? 'Clinical Panel' : 'Staff Workspace'}
+                        </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {!isMobile && (
+                            <>
+                                <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title="Search">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                ) : (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                </button>
+                                <NotificationHub />
+                                <button
+                                    onClick={toggleFullscreen}
+                                    className="btn-icon"
+                                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}
+                                    title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
                                     </svg>
-                                )}
-                            </button>
-
-                            <div className="chip">
-                                📅 {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-                            </div>
-
-                            <QuickActions role={role} />
-
-                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                <NotificationHub />
-                                <button className="btn" style={{ width: '44px', height: '44px', padding: 0 }}>🔍</button>
-                            </div>
+                                </button>
+                            </>
+                        )}
+                        <div className="chip" style={{
+                            backgroundColor: '#F3F4F6',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            color: '#374151',
+                            display: isMobile ? 'none' : 'flex',
+                            alignItems: 'center',
+                            gap: '6px'
+                        }}>
+                            📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </div>
-                    </header>
-
-                    {/* Page Content */}
-                    <div style={{ marginTop: '2rem' }}>
-                        {children}
+                        <QuickActions role={role} />
                     </div>
+                </header>
+
+                <div style={{ flex: 1, padding: isMobile ? '16px' : '24px' }}>
+                    {children}
                 </div>
-            </main >
-        </div >
+            </main>
+        </div>
     );
 }

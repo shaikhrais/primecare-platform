@@ -37,6 +37,11 @@ export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles
 
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
+    // Global Admin Visibility: Admins can view any dashboard
+    if (user.roles?.includes('admin') || user.role === 'admin') {
+        return <>{children}</>;
+    }
+
     if (!allowedRoles.includes(role)) {
         // Redirect to login or a safe page to avoid loops
         return <Navigate to={RouteRegistry.LOGIN} replace />;

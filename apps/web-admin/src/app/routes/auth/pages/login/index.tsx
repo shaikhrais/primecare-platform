@@ -7,25 +7,14 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Login() {
     const navigate = useNavigate();
-    const searchParams = new URLSearchParams(window.location.search);
-    const roleParam = searchParams.get('role') || 'client';
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [selectedRole, setSelectedRole] = useState(roleParam);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const uiText = {
-        title: selectedRole === 'psw' ? ContentRegistry.AUTH.LOGIN_TITLE_PSW :
-            selectedRole === 'client' ? ContentRegistry.AUTH.LOGIN_TITLE_CLIENT :
-                selectedRole === 'staff' ? ContentRegistry.AUTH.LOGIN_TITLE_STAFF :
-                    ContentRegistry.AUTH.LOGIN_TITLE,
-        button: selectedRole === 'psw' ? ContentRegistry.AUTH.BUTTON_PSW :
-            selectedRole === 'client' ? ContentRegistry.AUTH.BUTTON_CLIENT :
-                selectedRole === 'staff' ? ContentRegistry.AUTH.BUTTON_STAFF :
-                    ContentRegistry.AUTH.BUTTON
-    };
+    // New Multi-Role States
+    const [authStep, setAuthStep] = useState<'login' | 'select-role'>('login');
+    const [tempUser, setTempUser] = useState<any>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,7 +22,6 @@ export default function Login() {
         setError(null);
 
         try {
-            // Admin login logic (currently using same endpoint as generic auth but would be role-gated in real world)
             const response = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -43,31 +31,17 @@ export default function Login() {
 
             if (response.ok) {
                 const data = await response.json();
-
-                // Save auth state
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
 
-                if (selectedRole && !data.user.roles.includes(selectedRole) && !(selectedRole === 'staff' && (data.user.roles.includes('admin') || data.user.roles.includes('manager')))) {
-                    setError(`This account is not registered as a ${selectedRole}. Please use your ${data.user.roles.join(' or ')} credentials.`);
+                const roles = data.user.roles || [data.user.role];
+
+                if (roles.length > 1) {
+                    setTempUser(data.user);
+                    setAuthStep('select-role');
                     setLoading(false);
-                    return;
-                }
-
-                // Save active role choice
-                const userWithActiveRole = { ...data.user, activeRole: selectedRole };
-                localStorage.setItem('user', JSON.stringify(userWithActiveRole));
-
-                if (data.user.role === 'manager' || selectedRole === 'manager') {
-                    navigate('/manager/dashboard');
-                } else if (data.user.role === 'psw') {
-                    navigate('/shifts');
-                } else if (data.user.role === 'client') {
-                    navigate('/bookings');
-                } else if (data.user.role === 'rn') {
-                    navigate('/rn/dashboard');
                 } else {
-                    navigate(RouteRegistry.DASHBOARD);
+                    const activeRole = roles[0];
+                    finalizeLogin(data.user, activeRole);
                 }
             } else {
                 const data = await response.json();
@@ -80,6 +54,72 @@ export default function Login() {
         }
     };
 
+    const finalizeLogin = (user: any, activeRole: string) => {
+        const userWithActiveRole = { ...user, activeRole };
+        localStorage.setItem('user', JSON.stringify(userWithActiveRole));
+
+        if (activeRole === 'manager') {
+            navigate('/manager/dashboard');
+        } else if (activeRole === 'psw') {
+            navigate('/psw/dashboard');
+        } else if (activeRole === 'client') {
+            navigate('/client/dashboard');
+        } else if (activeRole === 'rn') {
+            navigate('/rn/dashboard');
+        } else {
+            navigate(RouteRegistry.DASHBOARD);
+        }
+    };
+
+    if (authStep === 'select-role' && tempUser) {
+        return (
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)'
+            }}>
+                <div style={{
+                    padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)'
+                }}>
+                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                        <img src="/logo.png" alt="PrimeCare" style={{ width: '120px', height: 'auto' }} />
+                    </div>
+                    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
+                        Select Your Perspective
+                    </h1>
+                    <p style={{ textAlign: 'center', color: 'var(--text-300)', marginBottom: '2rem' }}>
+                        Your account has multiple roles. How would you like to continue?
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {tempUser.roles.map((role: string) => (
+                            <button
+                                key={role}
+                                data-cy={`btn-select-role-${role}`}
+                                onClick={() => finalizeLogin(tempUser, role)}
+                                style={{
+                                    padding: '1rem',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--line)',
+                                    backgroundColor: '#FFFFFF',
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                    fontWeight: '600',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    transition: 'var(--pc-transition)'
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-800)'}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
+                            >
+                                <span style={{ textTransform: 'capitalize' }}>{role} Dashboard</span>
+                                <span style={{ color: 'var(--brand-500)' }}>→</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)'
@@ -91,7 +131,7 @@ export default function Login() {
                     <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
-                    {uiText.title}
+                    {ContentRegistry.AUTH.LOGIN_TITLE}
                 </h1>
                 <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem', fontSize: '0.9rem' }} data-cy="page.subtitle">
                     Sign in to access your dashboard
@@ -100,28 +140,6 @@ export default function Login() {
                 {error && <div data-cy="login-error" style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
 
                 <form onSubmit={handleLogin}>
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            I am logging in as:
-                        </label>
-                        <select
-                            data-cy="sel-role"
-                            value={selectedRole}
-                            onChange={(e) => setSelectedRole(e.target.value)}
-                            style={{
-                                width: '100%', padding: '0.6rem', border: '1px solid var(--brand-500)', borderRadius: '4px',
-                                boxSizing: 'border-box', backgroundColor: '#F9FAFB', fontWeight: '600', color: 'var(--text)'
-                            }}
-                        >
-                            <option value="client">🏠 Family Member / Client</option>
-                            <option value="psw">👩‍⚕️ Caregiver / PSW</option>
-                            <option value="rn">🩺 Registered Nurse / RN</option>
-                            <option value="staff">🏢 Staff Member</option>
-                            <option value="admin">🔒 Administrator</option>
-                            <option value="manager">📊 Manager / Owner</option>
-                        </select>
-                    </div>
-
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {ContentRegistry.AUTH.EMAIL_LABEL}
@@ -131,7 +149,7 @@ export default function Login() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                            style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--line)', borderRadius: '4px', boxSizing: 'border-box' }}
                             required
                         />
                     </div>
@@ -144,7 +162,7 @@ export default function Login() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                            style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--line)', borderRadius: '4px', boxSizing: 'border-box' }}
                             required
                         />
                     </div>
@@ -161,10 +179,10 @@ export default function Login() {
                             width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
-                        {loading ? 'Loading...' : uiText.button}
+                        {loading ? 'Authenticating...' : ContentRegistry.AUTH.BUTTON}
                     </button>
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.REGISTER}?role=${selectedRole}`} data-cy="link-register" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
+                        <a href={RouteRegistry.REGISTER} data-cy="link-register" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             {ContentRegistry.AUTH.SIGNUP_LINK}
                         </a>
                     </div>

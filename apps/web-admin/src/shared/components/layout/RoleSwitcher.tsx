@@ -11,6 +11,7 @@ interface User {
     roles: string[];
     activeRole: string;
     tenantId: string;
+    role?: string;
 }
 
 export default function RoleSwitcher() {
@@ -23,48 +24,61 @@ export default function RoleSwitcher() {
     if (!userStr || userStr === 'undefined' || !token) return null;
 
     const user: User = JSON.parse(userStr);
-    const roles = user.roles || [];
+    const activeRole = user.activeRole;
 
-    if (roles.length <= 1) return null;
+    // For Admins, allow switching to ANY role to "see other dashboards"
+    // For others, only allow assigned roles
+    const isAdmin = user.roles?.includes('admin') || user.role === 'admin';
+    const availableRoles = isAdmin
+        ? ['admin', 'staff', 'manager', 'psw', 'client', 'rn']
+        : (user.roles || []);
+
+    if (availableRoles.length <= 1) return null;
 
     const handleSwitch = async (targetRole: string) => {
-        if (targetRole === user.activeRole) return;
+        if (targetRole === activeRole) return;
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/v1/auth/switch-role`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ targetRole })
-            });
+            // Admin role switching is purely client-side perspective change for dashboard visibility
+            // Regular role switching still hits the API for token refresh/validation if needed
+            let success = true;
+            if (!isAdmin) {
+                const response = await fetch(`${API_URL}/v1/auth/switch-role`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ targetRole })
+                });
+                success = response.ok;
+                if (success) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                }
+            }
 
-            if (response.ok) {
-                const data = await response.json();
-
-                // Update local storage
-                localStorage.setItem('token', data.token);
+            if (success) {
                 const updatedUser = { ...user, activeRole: targetRole };
                 localStorage.setItem('user', JSON.stringify(updatedUser));
 
-                // Redirect based on new role
+                // Redirect based on new role using standard routes
                 if (targetRole === 'manager') {
                     navigate('/manager/dashboard');
                 } else if (targetRole === 'rn') {
                     navigate('/rn/dashboard');
                 } else if (targetRole === 'psw') {
-                    navigate('/shifts');
+                    navigate('/psw/dashboard');
                 } else if (targetRole === 'admin') {
-                    navigate('/app');
+                    navigate('/admin/dashboard');
                 } else if (targetRole === 'client') {
-                    navigate('/bookings');
+                    navigate('/client/dashboard');
+                } else if (targetRole === 'staff') {
+                    navigate('/staff/dashboard');
                 } else {
                     window.location.reload();
                 }
-            } else {
-                console.error('Failed to switch role');
             }
         } catch (err) {
             console.error('Error switching role:', err);
@@ -90,15 +104,15 @@ export default function RoleSwitcher() {
                 marginBottom: '8px',
                 color: 'var(--text-300)'
             }}>
-                Switch Persona {loading && '...'}
+                {isAdmin ? 'Admin Perspective' : 'Switch Persona'} {loading && '...'}
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {roles.map(role => (
+                {availableRoles.map(role => (
                     <button
                         key={role}
                         data-cy={`btn-switch-role-${role}`}
                         onClick={() => handleSwitch(role)}
-                        disabled={loading || role === user.activeRole}
+                        disabled={loading || role === activeRole}
                         style={{
                             padding: '8px 12px',
                             fontSize: '13px',
@@ -106,16 +120,16 @@ export default function RoleSwitcher() {
                             borderRadius: '4px',
                             border: '1px solid transparent',
                             textAlign: 'left',
-                            background: role === user.activeRole ? 'var(--brand-500)' : 'transparent',
-                            color: role === user.activeRole ? 'white' : 'var(--text-300)',
-                            cursor: loading || role === user.activeRole ? 'default' : 'pointer',
+                            background: role === activeRole ? 'var(--brand-500)' : 'transparent',
+                            color: role === activeRole ? 'white' : 'var(--text-300)',
+                            cursor: loading || role === activeRole ? 'default' : 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '10px'
                         }}
                     >
                         <span style={{ fontSize: '1.2rem' }}>
-                            {role === 'admin' ? '🔒' : role === 'manager' ? '📊' : role === 'rn' ? '🩺' : role === 'psw' ? '👨‍⚕️' : '🏠'}
+                            {role === 'admin' ? '🔒' : role === 'manager' ? '📊' : role === 'rn' ? '🩺' : role === 'psw' ? '👨‍⚕️' : role === 'staff' ? '🏢' : '🏠'}
                         </span>
                         <span>{role.charAt(0).toUpperCase() + role.slice(1)}</span>
                     </button>
