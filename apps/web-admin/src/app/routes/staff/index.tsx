@@ -16,22 +16,8 @@ import Customers from '../admin/pages/customers';
 const StaffRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route
-                path="dashboard"
-                element={
-                    <AdminLayout>
-                        <Dashboard />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="customers"
-                element={
-                    <AdminLayout>
-                        <Customers />
-                    </AdminLayout>
-                }
-            />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="customers" element={<Customers />} />
         </Routes>
     );
 };

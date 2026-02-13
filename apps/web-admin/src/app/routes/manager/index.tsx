@@ -17,38 +17,10 @@ import ServiceReview from './pages/service-review';
 const ManagerRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route
-                path="dashboard"
-                element={
-                    <ManagerLayout>
-                        <Dashboard />
-                    </ManagerLayout>
-                }
-            />
-            <Route
-                path="daily-entry"
-                element={
-                    <ManagerLayout>
-                        <DailyEntry />
-                    </ManagerLayout>
-                }
-            />
-            <Route
-                path="evaluations"
-                element={
-                    <ManagerLayout>
-                        <Evaluations />
-                    </ManagerLayout>
-                }
-            />
-            <Route
-                path="service-review"
-                element={
-                    <ManagerLayout>
-                        <ServiceReview />
-                    </ManagerLayout>
-                }
-            />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="daily-entry" element={<DailyEntry />} />
+            <Route path="evaluations" element={<Evaluations />} />
+            <Route path="service-review" element={<ServiceReview />} />
         </Routes>
     );
 };

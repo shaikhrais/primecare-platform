@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, Link, useNavigate, Outlet } from 'react-router-dom';
 import GlobalQuickActionBar from './GlobalQuickActionBar';
 import SideFloatingButton from './SideFloatingButton';
 import RoleSwitcher from './RoleSwitcher';
@@ -106,6 +106,7 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                 </header>
 
                 <div style={{ padding: '28px 32px 36px', flex: 1 }}>
+                    <Outlet />
                     {children}
                 </div>
             </main>

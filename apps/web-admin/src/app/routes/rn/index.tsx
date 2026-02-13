@@ -14,14 +14,7 @@ import Dashboard from './pages/dashboard';
 const RnRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route
-                path="dashboard"
-                element={
-                    <AdminLayout>
-                        <Dashboard />
-                    </AdminLayout>
-                }
-            />
+            <Route path="dashboard" element={<Dashboard />} />
             {/* Add more RN pages here as we migrate them */}
         </Routes>
     );

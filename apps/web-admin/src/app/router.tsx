@@ -4,6 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 
 // Layouts
 import AdminLayout from '@/shared/components/layout/AdminLayout';
+import ManagerLayout from '@/shared/components/layout/ManagerLayout';
 
 // Guards
 import RequireRole from '@/shared/rbac/RequireRole';

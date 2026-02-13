@@ -18,46 +18,11 @@ import RequestBooking from './pages/request-booking';
 const ClientRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route
-                path="dashboard"
-                element={
-                    <AdminLayout>
-                        <Dashboard />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="bookings"
-                element={
-                    <AdminLayout>
-                        <Bookings />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="billing"
-                element={
-                    <AdminLayout>
-                        <Billing />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="feedback"
-                element={
-                    <AdminLayout>
-                        <Feedback />
-                    </AdminLayout>
-                }
-            />
-            <Route
-                path="request-booking"
-                element={
-                    <AdminLayout>
-                        <RequestBooking />
-                    </AdminLayout>
-                }
-            />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="billing" element={<Billing />} />
+            <Route path="feedback" element={<Feedback />} />
+            <Route path="request-booking" element={<RequestBooking />} />
         </Routes>
     );
 };
