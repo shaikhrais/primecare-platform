@@ -21,6 +21,18 @@ import SharedRoutes from './routes/shared';
 
 const { RouteRegistry } = AdminRegistry;
 
+import { useAuth } from '@/shared/context/AuthContext';
+
+const ShiftsRedirect: React.FC = () => {
+    const { user, loading } = useAuth();
+    if (loading) return null;
+    if (!user) return <Navigate to={RouteRegistry.LOGIN} replace />;
+
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
+    if (role === 'psw') return <Navigate to="/psw/schedule" replace />;
+    return <Navigate to={RouteRegistry.SCHEDULE} replace />;
+};
+
 export const AppRouter: React.FC = () => {
     return (
         <Routes>
@@ -28,6 +40,7 @@ export const AppRouter: React.FC = () => {
             <Route path="/*" element={<AuthRoutes />} />
 
             {/* Shared Routes */}
+            <Route path="/shifts" element={<ShiftsRedirect />} />
             <Route
                 path="/*"
                 element={

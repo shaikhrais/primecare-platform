@@ -138,7 +138,7 @@ export default function PswDashboard() {
                 </div>
                 <button
                     data-cy="btn-view-all-shifts"
-                    onClick={() => navigate('/shifts')}
+                    onClick={() => navigate('/psw/schedule')}
                     style={{
                         padding: '12px 24px',
                         backgroundColor: '#000000',
