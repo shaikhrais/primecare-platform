@@ -58,7 +58,7 @@ export default function VisitCompletionForm() {
             if (response.ok) {
                 showToast('Visit completion recorded!', 'success');
                 setIsDirty(false);
-                navigate('/shifts');
+                navigate('/psw/schedule');
             } else {
                 showToast('Failed to save completion', 'error');
             }
