@@ -33,6 +33,7 @@ export default function AdminEarningsPage() {
     ];
 
     return (
+        <>
             <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', animation: 'fadeIn 0.5s ease-out' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
@@ -179,6 +180,6 @@ export default function AdminEarningsPage() {
                     to { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
-    );
+            );
 }
 

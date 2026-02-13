@@ -185,7 +185,8 @@ export default function ShiftsPage() {
                     tr:hover {
                         background-color: #F9FAFB;
                     }
-                `}</style>
+                </style>
+            </>
         </SecureSessionGuard >
     );
 }
