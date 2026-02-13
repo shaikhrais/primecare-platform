@@ -186,7 +186,7 @@ export default function ShiftsPage() {
                         background-color: #F9FAFB;
                     }
                 `}</style>
-        </AdminLayout>
         </SecureSessionGuard >
     );
 }
+

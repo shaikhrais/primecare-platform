@@ -1,9 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-// Layouts
-import AdminLayout from '../../../shared/components/layout/AdminLayout';
-
 // Pages
 // Staff uses some shared pages but with staff access
 import Dashboard from '../admin/pages/dashboard';

@@ -179,6 +179,6 @@ export default function AdminEarningsPage() {
                     to { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
-        </AdminLayout >
     );
 }
+

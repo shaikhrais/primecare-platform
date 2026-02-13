@@ -92,7 +92,6 @@ export default function EarningsPage() {
                         to { opacity: 1; transform: translateY(0); }
                     }
                 `}</style>
-        </AdminLayout>
         </SecureSessionGuard >
     );
 }

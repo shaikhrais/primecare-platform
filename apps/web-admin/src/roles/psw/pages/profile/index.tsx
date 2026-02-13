@@ -115,7 +115,6 @@ export default function ProfilePage() {
                         outline: none;
                     }
                 `}</style>
-        </AdminLayout>
         </SecureSessionGuard >
     );
 }
