@@ -7,7 +7,25 @@ export default function ProfilePage() {
 
     return (
         <SecureSessionGuard allowedRoles={['psw', 'admin']}>
-            <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', animation: 'fadeIn 0.5s ease-out' }}>
+            <>
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', animation: 'fadeIn 0.5s ease-out' }}>
+                    {/* ... content ... */}
+                </div>
+
+                <style>{`
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(10px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        input:focus {
+                            border-color: #00875A !important;
+                            outline: none;
+                        }
+                    `}</style>
+            </>
+        </SecureSessionGuard >
+    );
+}
                 <div style={{ flex: 1 }}>
                     <Breadcrumb />
                     <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '2.5rem', fontWeight: 900, color: '#111827' }}>Profile</h1>
@@ -103,9 +121,9 @@ export default function ProfilePage() {
                         <SectionContent activeSection={activeSection} />
                     </div>
                 </div>
-            </div>
+            </div >
 
-            <style>{`
+    <style>{`
                     @keyframes fadeIn {
                         from { opacity: 0; transform: translateY(10px); }
                         to { opacity: 1; transform: translateY(0); }
