@@ -7,7 +7,13 @@ import './selectors';
 // require('./commands')
 
 beforeEach(() => {
-    cy.step("Global BeforeEach: Preserving session or resetting state (if needed)");
+    // Attempt to dismiss cookie consent without failing if not found
+    cy.get('body').then(($body) => {
+        const btn = $body.find('button').filter((_, el) => el.innerText.includes('Accept All'));
+        if (btn.length > 0) {
+            cy.wrap(btn).first().click({ force: true });
+        }
+    });
 });
 
 // Fail on console errors to catch silent React crashes
@@ -30,4 +36,48 @@ Cypress.on('window:before:load', (win) => {
 
         throw new Error(`Browser Console Error: ${errorMsg}`);
     });
+});
+
+// Custom Stop Behavior: Bail after 1 failure
+let failCount = 0;
+const MAX_FAILS = 1;
+
+let passCount = 0;
+let totalExecuted = 0;
+
+afterEach(function () {
+    const test = (this as any).currentTest;
+    const status = test.state;
+    const title = test.title;
+
+    // We only log if the test actually ran (not skipped)
+    if (status) {
+        totalExecuted += 1;
+        if (status === "passed") passCount += 1;
+
+        const statusIcon = status === "passed" ? "✅" : status === "failed" ? "❌" : "⏳";
+        // Use cy.log instead of console.log for command log visibility
+        cy.log(`${statusIcon} ${title} | Score: ${passCount}/${totalExecuted}`);
+
+        // Persist to .cy.ts files via task
+        cy.task('logStepResult', {
+            title,
+            status,
+            error: test.err ? test.err.message : null,
+            score: { passed: passCount, total: totalExecuted }
+        }, { log: false });
+
+        if (status === "failed") {
+            failCount += 1;
+            if (failCount >= MAX_FAILS) {
+                (Cypress as any).runner.stop();
+            }
+        }
+    }
+});
+
+// Take a screenshot after EVERY step (passing or failing)
+afterEach(() => {
+    const testTitle = Cypress.currentTest.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    cy.screenshot(`step-view/${testTitle}`, { capture: 'viewport' });
 });
