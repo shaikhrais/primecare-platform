@@ -52,7 +52,11 @@ export const apiClient = {
                     // Refresh failed, logout
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
-                    window.location.href = '/login';
+
+                    // Only redirect if not already on /login to prevent infinite boot loops
+                    if (window.location.pathname !== '/login') {
+                        window.location.href = '/login';
+                    }
                 }
             } catch (err) {
                 console.error('Refresh token failed', err);
