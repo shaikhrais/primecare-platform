@@ -18,7 +18,11 @@ export default defineConfig({
             on('task', {
                 logStepResult({ title, status, score, error }) {
                     const logDir = config.projectRoot;
-                    console.log(`LOGGING STEP: ${title} | Status: ${status} | Dir: ${logDir}`);
+                    const debugLog = path.join(logDir, 'task_debug.log');
+                    try {
+                        fs.appendFileSync(debugLog, `LOGGING STEP: ${title} | Status: ${status} | Score: ${JSON.stringify(score)}\n`);
+                    } catch (e) { }
+
                     const files = {
                         passed: '_pass.cy.ts',
                         failed: '_fail.cy.ts',

@@ -6,15 +6,7 @@ import './selectors';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-beforeEach(() => {
-    // Attempt to dismiss cookie consent without failing if not found
-    cy.get('body').then(($body) => {
-        const btn = $body.find('button').filter((_, el) => el.innerText.includes('Accept All'));
-        if (btn.length > 0) {
-            cy.wrap(btn).first().click({ force: true });
-        }
-    });
-});
+// Global hooks are handled per-spec for better stability with live auth reloads
 
 // Fail on console errors to catch silent React crashes
 Cypress.on('window:before:load', (win) => {
