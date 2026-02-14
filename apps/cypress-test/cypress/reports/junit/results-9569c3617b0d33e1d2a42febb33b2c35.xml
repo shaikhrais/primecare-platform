@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="155.165" tests="75" failures="3">
+  <testsuite name="Root Suite" timestamp="2026-02-14T00:19:09" tests="0" file="cypress\e2e\steps\0100-psw-structured.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="PSW Mathematical Micro-Steps (Full Suite)" timestamp="2026-02-14T00:19:09" tests="75" time="0.000" failures="3">
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.01  PSW__Login__PageLoad__SUCCESS" time="0.583" classname="01.01.01  PSW__Login__PageLoad__SUCCESS">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.02  PSW__Login__Logo__VISIBLE" time="15.319" classname="01.01.02  PSW__Login__Logo__VISIBLE">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-testid=&quot;logo&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid="logo"]`, but never found it.
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:8:76)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:102:0)]]></failure>
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.03  PSW__Login__EmailInput__VISIBLE" time="15.356" classname="01.01.03  PSW__Login__EmailInput__VISIBLE">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-testid=&quot;login-email&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid="login-email"]`, but never found it.
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:9:82)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:102:0)]]></failure>
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.04  PSW__Login__PasswordInput__VISIBLE" time="15.289" classname="01.01.04  PSW__Login__PasswordInput__VISIBLE">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-testid=&quot;login-password&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid="login-password"]`, but never found it.
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:10:85)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0100-psw-structured.cy.ts:102:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

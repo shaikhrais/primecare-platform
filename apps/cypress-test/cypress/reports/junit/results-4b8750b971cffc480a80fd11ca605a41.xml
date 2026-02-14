@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="15.084" tests="74" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-14T10:29:51" tests="0" file="cypress\e2e\steps\0100-psw-structured.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="PSW Mathematical Micro-Steps (Full Suite)" timestamp="2026-02-14T10:29:51" tests="74" time="0.000" failures="0">
+  </testsuite>
+</testsuites>

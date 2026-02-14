@@ -27,9 +27,10 @@ export const apiClient = {
 
         let response = await fetch(url, defaultOptions);
 
-        // Handle Token Refresh
+        // Handle Token Refresh (401)
         if (response.status === 401 && !path.includes('/auth/refresh') && !path.includes('/auth/login')) {
             try {
+                // Try refreshing using the HttpOnly refreshToken cookie
                 const refreshResponse = await fetch(`${API_URL}/v1/auth/refresh`, {
                     method: 'POST',
                     credentials: 'include',
@@ -37,29 +38,34 @@ export const apiClient = {
 
                 if (refreshResponse.ok) {
                     const data = await refreshResponse.json();
-                    localStorage.setItem('token', data.token);
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                    }
 
-                    // Retry original request with new token
-                    const retryOptions = {
-                        ...defaultOptions,
+                    // Retry original request
+                    // The new accessToken cookie (set by the backend) will be included automatically
+                    const retryOptions: RequestInit = {
+                        ...init,
                         headers: {
-                            ...defaultOptions.headers,
-                            'Authorization': `Bearer ${data.token}`,
-                        }
+                            'Content-Type': 'application/json',
+                            ...(data.token ? { 'Authorization': `Bearer ${data.token}` } : {}),
+                            ...init.headers,
+                        },
+                        credentials: 'include' as RequestCredentials,
                     };
                     response = await fetch(url, retryOptions);
                 } else {
-                    // Refresh failed, logout
+                    // Refresh failed, cleanup and redirect
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
 
-                    // Only redirect if not already on /login to prevent infinite boot loops
-                    if (window.location.pathname !== '/login') {
+                    const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
+                    if (!isAuthPage) {
                         window.location.href = '/login';
                     }
                 }
             } catch (err) {
-                console.error('Refresh token failed', err);
+                console.error('Refresh re-auth attempt failed', err);
             }
         }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="61.030" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-13T23:17:21" tests="0" file="cypress\e2e\admin\smoke\admin.routes.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin/Portal Routes Smoke" timestamp="2026-02-13T23:17:21" tests="2" time="61.011" failures="1">
+    <testcase name="Admin/Portal Routes Smoke loads core routes as guest" time="1.198" classname="loads core routes as guest">
+    </testcase>
+    <testcase name="Admin/Portal Routes Smoke loads core routes as staff" time="20.317" classname="loads core routes as staff">
+      <failure message="The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it&apos;s an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration." type="CypressError"><![CDATA[CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)
+    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)
+    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)
+    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)
+    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)
+    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)
+    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="15.145" tests="12" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-14T10:44:46" tests="0" file="cypress\e2e\steps\0200-rn-structured.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="RN Mathematical Micro-Steps (Full Suite)" timestamp="2026-02-14T10:44:46" tests="12" time="0.000" failures="0">
+  </testsuite>
+</testsuites>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="6.967" tests="74" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-14T00:33:59" tests="0" file="cypress\e2e\steps\0100-psw-structured.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="PSW Mathematical Micro-Steps (Full Suite)" timestamp="2026-02-14T00:33:59" tests="74" time="0.000" failures="0">
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.01  PSW__Login__PageLoad__SUCCESS" time="1.035" classname="01.01.01  PSW__Login__PageLoad__SUCCESS">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.02  PSW__Login__Logo__VISIBLE" time="0.491" classname="01.01.02  PSW__Login__Logo__VISIBLE">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.03  PSW__Login__EmailInput__VISIBLE" time="0.050" classname="01.01.03  PSW__Login__EmailInput__VISIBLE">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.04  PSW__Login__PasswordInput__VISIBLE" time="0.036" classname="01.01.04  PSW__Login__PasswordInput__VISIBLE">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.06  PSW__Login__LoginButton__CLICKABLE" time="0.036" classname="01.01.06  PSW__Login__LoginButton__CLICKABLE">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.07  PSW__Login__ForgotPassword__VISIBLE" time="0.044" classname="01.01.07  PSW__Login__ForgotPassword__VISIBLE">
+    </testcase>
+    <testcase name="PSW Mathematical Micro-Steps (Full Suite) 01.01.08  PSW__Login__EmptyForm__ERROR" time="0.371" classname="01.01.08  PSW__Login__EmptyForm__ERROR">
+    </testcase>
+  </testsuite>
+</testsuites>

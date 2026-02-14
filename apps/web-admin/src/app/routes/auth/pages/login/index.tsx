@@ -132,7 +132,7 @@ export default function Login() {
                 padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)'
             }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
+                    <img src="/logo.png" alt="PrimeCare" data-cy="logo" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
                     {ContentRegistry.AUTH.LOGIN_TITLE}

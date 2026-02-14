@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -10,6 +11,7 @@ export default function AdminDashboard() {
     const { showToast } = useNotification();
     const [stats, setStats] = useState({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0 });
     const [loading, setLoading] = useState(true);
+    const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -95,6 +97,16 @@ export default function AdminDashboard() {
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>App adjustments</div>
                                 </button>
                             </Link>
+
+                            <button
+                                onClick={() => setIsPostShiftModalOpen(true)}
+                                className="btn"
+                                style={{ width: '100%', textAlign: 'left', background: '#E6F4EA', border: '1px solid #00875A' }}
+                                data-cy="qa-btn-post-shift"
+                            >
+                                <div style={{ color: '#00875A', fontWeight: 'bold' }}>+ Post New Shift</div>
+                                <div style={{ fontSize: '0.75rem', color: '#00875A' }}>Direct or open posting</div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -121,6 +133,15 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </div>
+
+            <CreateVisitModal
+                isOpen={isPostShiftModalOpen}
+                onClose={() => setIsPostShiftModalOpen(false)}
+                onSuccess={() => {
+                    setIsPostShiftModalOpen(false);
+                    showToast('Shift posted successfully!', 'success');
+                }}
+            />
         </div>
     );
 }

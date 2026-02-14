@@ -44,6 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else {
                 setUser(null);
                 localStorage.removeItem('user');
+                localStorage.removeItem('token'); // Cleanup legacy token
             }
         } catch (error) {
             console.error('Silent re-auth failed:', error);
@@ -57,10 +58,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         refreshSession();
     }, []);
 
-    const login = (userData: User, token: string) => {
+    const login = (userData: User, token?: string) => {
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
-        localStorage.setItem('token', token);
+        // We still accept token for legacy or immediate post-login redirection if needed,
+        // but the backend has already set the HttpOnly cookie.
+        if (token) {
+            localStorage.setItem('token', token);
+        }
     };
 
     const logout = async () => {

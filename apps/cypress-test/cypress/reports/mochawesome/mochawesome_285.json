@@ -1,0 +1,196 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-02-13T23:39:30.282Z",
+    "end": "2026-02-13T23:41:43.858Z",
+    "duration": 133576,
+    "testsRegistered": 5,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 2,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "98db99d7-2cf8-4025-8905-57d196db2385",
+      "title": "",
+      "fullFile": "cypress\\e2e\\steps\\0200-admin-lifecycle.cy.ts",
+      "file": "cypress\\e2e\\steps\\0200-admin-lifecycle.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+          "title": "Admin Micro Steps",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "[0201] Admin Login - Page Loads",
+              "fullTitle": "Admin Micro Steps [0201] Admin Login - Page Loads",
+              "timedOut": null,
+              "duration": 9302,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "s.run();",
+              "err": {
+                "message": "CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.\n\nIf so, increase `redirectionLimit` value in configuration.",
+                "estack": "CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.\n\nIf so, increase `redirectionLimit` value in configuration.\n    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)\n    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)\n    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)\n    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)\n    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)\n    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)\n    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)\nFrom Your Spec Code:\n    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:7:0)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)",
+                "diff": null
+              },
+              "uuid": "f266f96e-6378-4f37-9916-7d46be9d2faa",
+              "parentUUID": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[0202] Admin Login - Authentication Flow",
+              "fullTitle": "Admin Micro Steps [0202] Admin Login - Authentication Flow",
+              "timedOut": null,
+              "duration": 15339,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "s.run();",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid=\"login-email\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid=\"login-email\"]`, but never found it.\n    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:16:0)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)",
+                "diff": null
+              },
+              "uuid": "e88f32ef-248f-4c29-9c4f-1e0a20d40b94",
+              "parentUUID": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[0203] Admin Dashboard - Admin Features Visibility",
+              "fullTitle": "Admin Micro Steps [0203] Admin Dashboard - Admin Features Visibility",
+              "timedOut": null,
+              "duration": 15349,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "s.run();",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid=\"nav-user-management\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid=\"nav-user-management\"]`, but never found it.\n    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:27:0)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)",
+                "diff": null
+              },
+              "uuid": "b37ec56d-f42a-497b-bc0a-a43cf5f9d4f6",
+              "parentUUID": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "[0204] Admin - User Management Load",
+              "fullTitle": "Admin Micro Steps [0204] Admin - User Management Load",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "s.run();",
+              "err": {},
+              "uuid": "2bdfbc1a-ef1a-4cd2-af65-3f251d2d66eb",
+              "parentUUID": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "[0205] Admin - Audit Logs Check",
+              "fullTitle": "Admin Micro Steps [0205] Admin - Audit Logs Check",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "s.run();",
+              "err": {},
+              "uuid": "4d4e5d7e-e1be-4c4b-a87d-4a40b43825e3",
+              "parentUUID": "9b3ac5f4-33ef-48c0-ae92-206194f1b6aa",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "f266f96e-6378-4f37-9916-7d46be9d2faa",
+            "e88f32ef-248f-4c29-9c4f-1e0a20d40b94",
+            "b37ec56d-f42a-497b-bc0a-a43cf5f9d4f6"
+          ],
+          "pending": [],
+          "skipped": [
+            "2bdfbc1a-ef1a-4cd2-af65-3f251d2d66eb",
+            "4d4e5d7e-e1be-4c4b-a87d-4a40b43825e3"
+          ],
+          "duration": 39990,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

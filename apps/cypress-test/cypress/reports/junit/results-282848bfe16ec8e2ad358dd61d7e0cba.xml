@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="133.576" tests="5" failures="3">
+  <testsuite name="Root Suite" timestamp="2026-02-13T23:39:30" tests="0" file="cypress\e2e\steps\0200-admin-lifecycle.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Admin Micro Steps" timestamp="2026-02-13T23:39:30" tests="5" time="0.000" failures="3">
+    <testcase name="Admin Micro Steps [0201] Admin Login - Page Loads" time="8.529" classname="[0201] Admin Login - Page Loads">
+      <failure message="The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it&apos;s an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration." type="CypressError"><![CDATA[CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)
+    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)
+    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)
+    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)
+    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)
+    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)
+    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)
+From Your Spec Code:
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:7:0)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)]]></failure>
+    </testcase>
+    <testcase name="Admin Micro Steps [0202] Admin Login - Authentication Flow" time="15.265" classname="[0202] Admin Login - Authentication Flow">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-testid=&quot;login-email&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid="login-email"]`, but never found it.
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:16:0)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)]]></failure>
+    </testcase>
+    <testcase name="Admin Micro Steps [0203] Admin Dashboard - Admin Features Visibility" time="15.278" classname="[0203] Admin Dashboard - Admin Features Visibility">
+      <failure message="Timed out retrying after 15000ms: Expected to find element: `[data-testid=&quot;nav-user-management&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: Expected to find element: `[data-testid="nav-user-management"]`, but never found it.
+    at Object.run (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:27:0)
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/steps/0200-admin-lifecycle.cy.ts:53:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

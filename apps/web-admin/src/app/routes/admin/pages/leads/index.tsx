@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -19,6 +20,8 @@ export default function LeadsPage() {
     const { showToast } = useNotification();
     const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedLeadForShift, setSelectedLeadForShift] = useState<Lead | null>(null);
+    const [isShiftModalOpen, setIsShiftModalOpen] = useState(false);
 
     const fetchLeads = async () => {
         setLoading(true);
@@ -52,6 +55,13 @@ export default function LeadsPage() {
             });
             if (response.ok) {
                 setLeads(prev => prev.map(l => l.id === id ? { ...l, status: newStatus } : l));
+                if (newStatus === 'converted') {
+                    const lead = leads.find(l => l.id === id);
+                    if (lead) {
+                        setSelectedLeadForShift(lead);
+                        setIsShiftModalOpen(true);
+                    }
+                }
             }
         } catch (error) {
             showToast(ContentRegistry.LEADS.MESSAGES.ERROR_UPDATE, 'error');
@@ -153,6 +163,13 @@ export default function LeadsPage() {
                     </tbody>
                 </table>
             </div>
+
+            <CreateVisitModal
+                isOpen={isShiftModalOpen}
+                onClose={() => setIsShiftModalOpen(false)}
+                onSuccess={() => fetchLeads()}
+                initialClientName={selectedLeadForShift?.fullName}
+            />
         </div >
     );
 }

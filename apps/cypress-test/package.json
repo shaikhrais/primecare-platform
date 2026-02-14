@@ -19,12 +19,12 @@
         "test:ci": "npm run cy:gen && cypress run && npm run report:merge && npm run report:html"
     },
     "devDependencies": {
-        "cypress": "^13.6.4",
-        "typescript": "^5.3.3",
+        "cypress": "^13.17.0",
+        "cypress-multi-reporters": "^1.6.4",
+        "mocha-junit-reporter": "^2.2.1",
         "mochawesome": "^7.1.3",
         "mochawesome-merge": "^4.3.0",
         "mochawesome-report-generator": "^6.2.0",
-        "cypress-multi-reporters": "^1.6.4",
-        "mocha-junit-reporter": "^2.2.1"
+        "typescript": "^5.3.3"
     }
 }

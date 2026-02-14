@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="8.632" tests="8" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-02-14T12:04:03" tests="0" file="cypress\e2e\steps\0400-manager-structured.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Manager Mathematical Micro-Steps (Full Suite)" timestamp="2026-02-14T12:04:03" tests="8" time="0.000" failures="0">
+  </testsuite>
+</testsuites>

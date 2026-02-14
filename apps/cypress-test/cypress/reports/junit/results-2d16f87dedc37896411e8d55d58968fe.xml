@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="19.839" tests="4" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-02-14T16:49:30" tests="0" file="cypress\e2e\psw\steps\0001-psw-signup.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="PSW Signup Micro-Steps" timestamp="2026-02-14T16:49:30" tests="4" time="19.793" failures="1">
+    <testcase name="PSW Signup Micro-Steps &quot;before all&quot; hook for &quot;00.01.01  PSW__Signup__PageLoad__SUCCESS&quot;" time="0.000" classname="&quot;before all&quot; hook for &quot;00.01.01  PSW__Signup__PageLoad__SUCCESS&quot;">
+      <failure message="The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it&apos;s an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+
+Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `PSW Signup Micro-Steps`
+
+Although you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail" type="CypressError"><![CDATA[CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+
+Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `PSW Signup Micro-Steps`
+
+Although you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail
+    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)
+    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)
+    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)
+    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)
+    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)
+    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)
+    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/psw/steps/0001-psw-signup.cy.ts:53:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

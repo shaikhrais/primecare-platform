@@ -112,6 +112,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const staffMenu: MenuItem[] = [
         { label: 'Staff Hub', path: '/staff/dashboard', icon: '🏢' },
         { label: 'Leads', path: RouteRegistry.LEADS, icon: '📥' },
+        { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
         { label: 'Users', path: RouteRegistry.USERS, icon: '👥' },
         { label: 'Customer Mgmt', path: '/staff/customers', icon: '👤' },
         { label: 'Tickets', path: '/support', icon: '🎫' },

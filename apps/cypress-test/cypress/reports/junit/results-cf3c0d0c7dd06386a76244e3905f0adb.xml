@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="65.493" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-02-13T23:18:26" tests="0" file="cypress\e2e\admin\smoke\components.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Global Components &amp; Interactions" timestamp="2026-02-13T23:18:26" tests="2" time="65.481" failures="2">
+    <testcase name="Global Components &amp; Interactions Notifications: Toast stacking and dismissal" time="9.207" classname="Notifications: Toast stacking and dismissal">
+      <failure message="The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it&apos;s an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration." type="CypressError"><![CDATA[CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)
+    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)
+    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)
+    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)
+    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)
+    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)
+    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)]]></failure>
+    </testcase>
+    <testcase name="Global Components &amp; Interactions QuickActions: Role-based visibility in Topbar" time="10.749" classname="QuickActions: Role-based visibility in Topbar">
+      <failure message="The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it&apos;s an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration." type="CypressError"><![CDATA[CypressError: The application redirected to `https://primecare-admin.pages.dev/login` more than 20 times. Please check if it's an intended behavior.
+
+If so, increase `redirectionLimit` value in configuration.
+    at onWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130888:72)
+    at $Cy.onInternalWindowLoad (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:130923:20)
+    at $Cy.listener (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141112:17)
+    at EventEmitter.emit (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:141192:19)
+    at parent.<computed> [as emit] (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:140105:32)
+    at $Cypress.action (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:41611:14)
+    at HTMLIFrameElement.<anonymous> (https://primecare-admin.pages.dev/__cypress/runner/cypress_runner.js:137975:24)
+From Your Spec Code:
+    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

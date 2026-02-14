@@ -12,6 +12,15 @@ const AssignPswSchema = z.object({
     pswId: z.string().uuid(),
 });
 
+const CreateVisitSchema = z.object({
+    clientId: z.string().uuid(),
+    serviceId: z.string().uuid(),
+    requestedStartAt: z.string().datetime(),
+    durationMinutes: z.number().min(30),
+    assignedPswId: z.string().uuid().optional(),
+    clientNotes: z.string().optional(),
+});
+
 // List All Visits
 r.get('/', async (c) => {
     const prisma = c.get('prisma');
@@ -24,6 +33,35 @@ r.get('/', async (c) => {
         orderBy: { requestedStartAt: 'desc' },
     });
     return c.json(visits);
+});
+
+// Create Visit
+r.post('/', zValidator('json', CreateVisitSchema), async (c) => {
+    const prisma = c.get('prisma');
+    const data = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    const status: VisitStatus = data.assignedPswId ? 'scheduled' : 'requested';
+
+    const visit = await prisma.visit.create({
+        data: {
+            clientId: data.clientId,
+            serviceId: data.serviceId,
+            requestedStartAt: new Date(data.requestedStartAt),
+            durationMinutes: data.durationMinutes,
+            assignedPswId: data.assignedPswId,
+            status: status,
+            clientNotes: data.clientNotes,
+            tenantId: payload.tenantId
+        },
+    });
+
+    await logAudit(prisma, payload.sub, 'CREATE_VISIT', 'VISIT', visit.id, {
+        assignedPswId: data.assignedPswId,
+        status: status
+    });
+
+    return c.json(visit, 201);
 });
 
 // Assign PSW

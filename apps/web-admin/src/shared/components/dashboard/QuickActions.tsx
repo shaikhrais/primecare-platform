@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
 interface QuickActionsProps {
     role: string;
@@ -11,8 +12,10 @@ export default function QuickActions({ role }: QuickActionsProps) {
     const { showToast } = useNotification();
     const [isCrisisMode, setIsCrisisMode] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
     const toggleCrisisMode = async () => {
+        // ... (rest of toggleCrisisMode)
         if (role !== 'admin') {
             showToast('Only administrators can activate Crisis Mode', 'error');
             return;
@@ -60,6 +63,28 @@ export default function QuickActions({ role }: QuickActionsProps) {
     return (
         <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button
+                data-cy="btn-quick-post-shift"
+                onClick={() => setIsPostShiftModalOpen(true)}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '8px',
+                    border: '1px solid #00875A',
+                    backgroundColor: '#00875A',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                }}
+            >
+                <span style={{ fontSize: '1.1rem' }}>📅</span>
+                Post Shift
+            </button>
+
+            <button
                 data-cy="btn-quick-add-user"
                 onClick={handleAddUser}
                 style={{
@@ -103,6 +128,17 @@ export default function QuickActions({ role }: QuickActionsProps) {
                     {isLoading ? 'Wait...' : isCrisisMode ? 'CRISIS ACTIVE' : 'Crisis Mode'}
                 </button>
             )}
+
+            <CreateVisitModal
+                isOpen={isPostShiftModalOpen}
+                onClose={() => setIsPostShiftModalOpen(false)}
+                onSuccess={() => {
+                    setIsPostShiftModalOpen(false);
+                    showToast('Shift posted successfully!', 'success');
+                    // If we're on the schedule page or dashboard, we might want to refresh, 
+                    // but for a global quick action, a toast is usually sufficient.
+                }}
+            />
         </div>
     );
 }

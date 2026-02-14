@@ -5,6 +5,7 @@ import { enUS } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 
@@ -39,6 +40,7 @@ export default function Schedule() {
     const [selectedVisit, setSelectedVisit] = useState<Visit | null>(null);
     const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
     const [assignedPswId, setAssignedPswId] = useState('');
+    const [isCreateVisitModalOpen, setIsCreateVisitModalOpen] = useState(false);
 
     useEffect(() => {
         fetchVisits();
@@ -180,7 +182,7 @@ export default function Schedule() {
                 </div>
                 <button
                     data-cy="btn-create-visit"
-                    onClick={() => showToast('Opening New Request form...', 'info')}
+                    onClick={() => setIsCreateVisitModalOpen(true)}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {ContentRegistry.SCHEDULE.ACTIONS.CREATE}
@@ -249,6 +251,12 @@ export default function Schedule() {
                     </div>
                 </div>
             )}
+
+            <CreateVisitModal
+                isOpen={isCreateVisitModalOpen}
+                onClose={() => setIsCreateVisitModalOpen(false)}
+                onSuccess={() => fetchVisits()}
+            />
         </div>
     );
 }

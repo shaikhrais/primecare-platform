@@ -19,6 +19,7 @@
     "@rollup/rollup-win32-x64-msvc": "^4.57.1"
   },
   "devDependencies": {
+    "cypress": "^15.10.0",
     "wrangler": "^4.62.0"
   }
 }
