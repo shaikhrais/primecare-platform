@@ -147,12 +147,8 @@ export default function ManagerDashboard() {
                 {/* Interactive Charts Section */}
                 <h2 data-cy="section.analytics" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Performance Analytics</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                    <div className="pc-card" style={{ padding: '0' }}>
-                        <RevenueChart data={displayData.revenue} isDemo={!chartData} />
-                    </div>
-                    <div className="pc-card" style={{ padding: '0' }}>
-                        <ResourceAvailabilityChart data={displayData.resourceAvailability} isDemo={!chartData} />
-                    </div>
+                    <RevenueChart data={displayData.revenue} isDemo={!chartData} />
+                    <ResourceAvailabilityChart data={displayData.resourceAvailability} isDemo={!chartData} />
                 </div>
 
                 {/* Today's Timeline (Preserved below charts) */}

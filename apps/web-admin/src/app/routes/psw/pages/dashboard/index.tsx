@@ -171,18 +171,10 @@ export default function PswDashboard() {
 
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <MyEarningsTrend data={chartData?.earnings} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <MyReliabilityScore data={chartData?.reliability} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <ShiftDistributionChart data={chartData?.shiftDistribution} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <StaffAttendanceHeatmap data={chartData?.attendance} isDemo={!chartData} />
-                </div>
+                <MyEarningsTrend data={chartData?.earnings} isDemo={!chartData} />
+                <MyReliabilityScore data={chartData?.reliability} isDemo={!chartData} />
+                <ShiftDistributionChart data={chartData?.shiftDistribution} isDemo={!chartData} />
+                <StaffAttendanceHeatmap data={chartData?.attendance} isDemo={!chartData} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 350px', gap: '2rem' }}>

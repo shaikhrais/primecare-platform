@@ -86,18 +86,10 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <PatientAcuityDistribution data={chartData?.patientAcuity} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <AssessmentComplianceChart data={chartData?.compliance} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <ClinicalIncidentHeatmap data={chartData?.incidents} isDemo={!chartData} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <CarePlanAdherenceGauge data={chartData?.carePlanAdherence} isDemo={!chartData} />
-                </div>
+                <PatientAcuityDistribution data={chartData?.patientAcuity} isDemo={!chartData} />
+                <AssessmentComplianceChart data={chartData?.compliance} isDemo={!chartData} />
+                <ClinicalIncidentHeatmap data={chartData?.incidents} isDemo={!chartData} />
+                <CarePlanAdherenceGauge data={chartData?.carePlanAdherence} isDemo={!chartData} />
             </div>
 
             <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">Pending Clinical Tasks</h2>

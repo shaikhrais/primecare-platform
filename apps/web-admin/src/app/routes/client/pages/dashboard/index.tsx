@@ -136,20 +136,10 @@ export default function ClientDashboard() {
                 </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <WellnessTrendChart data={stats?.wellnessTrends || MOCK_CLIENT_DATA.wellness} isDemo={!stats} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <CareContinuityChart data={stats?.careContinuity || MOCK_CLIENT_DATA.continuity} isDemo={!stats} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <BudgetUtilizationChart data={stats?.budgetUtilization || MOCK_CLIENT_DATA.budget} isDemo={!stats} />
-                </div>
-                <div className="pc-card" style={{ padding: '0' }}>
-                    <ClientSatisfactionRadar data={stats?.satisfaction || MOCK_MANAGER_DATA.clientSatisfaction} isDemo={!stats} />
-                </div>
-            </div>
+            <WellnessTrendChart data={stats?.wellnessTrends || MOCK_CLIENT_DATA.wellness} isDemo={!stats} />
+            <CareContinuityChart data={stats?.careContinuity || MOCK_CLIENT_DATA.continuity} isDemo={!stats} />
+            <BudgetUtilizationChart data={stats?.budgetUtilization || MOCK_CLIENT_DATA.budget} isDemo={!stats} />
+            <ClientSatisfactionRadar data={stats?.satisfaction || MOCK_MANAGER_DATA.clientSatisfaction} isDemo={!stats} />
 
             {/* ... content ... */}
 

@@ -57,7 +57,7 @@ export const ChartCard = ({
                 {action && <div>{action}</div>}
             </div>
 
-            <div style={{ flex: 1, minHeight: typeof height === 'number' ? height : 250, width: '100%' }}>
+            <div style={{ width: '100%', height: typeof height === 'number' ? height : 300 }}>
                 {children}
             </div>
         </div>
