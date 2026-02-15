@@ -38,19 +38,23 @@ export default function ManagerDashboard() {
     const [shifts, setShifts] = useState<ShiftDisplay[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const [chartData, setChartData] = useState<any>(null);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
                 const headers = { 'Authorization': `Bearer ${token}` };
 
-                const [kpiRes, shiftsRes] = await Promise.all([
+                const [kpiRes, shiftsRes, statsRes] = await Promise.all([
                     fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/kpi`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/today`, { headers })
+                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/today`, { headers }),
+                    fetch(`${import.meta.env.VITE_API_URL}/manager/dashboard/stats`, { headers })
                 ]);
 
                 if (kpiRes.ok) setKpi(await kpiRes.json());
                 if (shiftsRes.ok) setShifts(await shiftsRes.json());
+                if (statsRes.ok) setChartData(await statsRes.json());
             } catch (error) {
                 console.error('Failed to load dashboard data', error);
             } finally {
@@ -126,13 +130,13 @@ export default function ManagerDashboard() {
                         <StaffUtilizationChart />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <ShiftFulfillmentChart />
+                        <ShiftFulfillmentChart data={chartData?.shiftFulfillment} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <ServicePopularityChart />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <IncidentTrendChart />
+                        <IncidentTrendChart data={chartData?.incidents} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <CarePlanAdherenceGauge />
@@ -144,7 +148,7 @@ export default function ManagerDashboard() {
                         <ClientSatisfactionRadar />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <RevenueForecastChart />
+                        <RevenueForecastChart data={chartData?.revenue} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <TravelTimeAnalysis />

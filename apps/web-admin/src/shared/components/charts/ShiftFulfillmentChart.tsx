@@ -2,25 +2,23 @@ import React, { memo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { day: 'Mon', filled: 40, open: 24 },
-    { day: 'Tue', filled: 30, open: 13 },
-    { day: 'Wed', filled: 20, open: 58 },
-    { day: 'Thu', filled: 27, open: 39 },
-    { day: 'Fri', filled: 18, open: 48 },
-    { day: 'Sat', filled: 23, open: 38 },
-    { day: 'Sun', filled: 34, open: 43 },
-];
 
-export const ShiftFulfillmentChart = memo(() => {
+
+interface Props {
+    data?: any[];
+}
+
+export const ShiftFulfillmentChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    const chartData = data || [];
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Shift Fulfillment</h3>
             <div style={{ flex: 1, width: '100%', minHeight: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
-                        data={data}
+                        data={chartData}
                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                         onClick={() => navigate('/schedule')}
                         style={{ cursor: 'pointer' }}

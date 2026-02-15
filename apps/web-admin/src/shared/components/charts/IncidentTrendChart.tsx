@@ -2,24 +2,23 @@ import React, { memo } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { name: 'Jan', count: 4 },
-    { name: 'Feb', count: 3 },
-    { name: 'Mar', count: 2 },
-    { name: 'Apr', count: 7 },
-    { name: 'May', count: 5 },
-    { name: 'Jun', count: 8 },
-];
 
-export const IncidentTrendChart = memo(() => {
+
+interface Props {
+    data?: any[];
+}
+
+export const IncidentTrendChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    const chartData = data || [];
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Incident Trends</h3>
             <div style={{ flex: 1, width: '100%', minHeight: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
-                        data={data}
+                        data={chartData}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                         onClick={() => navigate('/incidents')}
                         style={{ cursor: 'pointer' }}
