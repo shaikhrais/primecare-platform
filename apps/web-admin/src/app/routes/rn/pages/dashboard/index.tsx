@@ -49,18 +49,12 @@ export const Dashboard: React.FC = () => {
 
                 if (statsResponse.ok) {
                     const data = await statsResponse.json();
-                    // Merge into a single stats object or keep separate. 
-                    // For now, attaching to a new state or extending existing one.
-                    // Let's create a specific state for chart data
                     setChartData(data);
-                }
 
-                // Mock KPI data (keep existing mock for KPIs until API has them)
-                setStats({
-                    pendingCarePlans: 5,
-                    dailyReviewsNeed: 12,
-                    supervisedPswCount: 8
-                });
+                    if (data.kpi) {
+                        setStats(data.kpi);
+                    }
+                }
 
                 setTasks([
                     { id: '1', type: 'care_plan', priority: 'high', description: 'Review Care Plan update', targetName: 'John Doe' },

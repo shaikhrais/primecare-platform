@@ -37,7 +37,7 @@ r.get('/stats', requireRole(['rn', 'admin']), async (c) => {
     const typeMap: Record<string, number> = { 'fall_risk': 1, 'safety': 2, 'refusal': 3, 'other': 4 };
 
     const incidentCounts: Record<string, number> = {};
-    incidents.forEach(inc => {
+    incidents.forEach((inc: any) => {
         const t = typeMap[inc.type] || 4;
         const key = `${t}-2`; // Defaulting severity to 2 (Medium) as it's not in schema yet
         incidentCounts[key] = (incidentCounts[key] || 0) + 1;
@@ -53,7 +53,20 @@ r.get('/stats', requireRole(['rn', 'admin']), async (c) => {
         incidentData.push({ type: 1, severity: 2, count: 1 });
     }
 
+    // 4. KPI Stats (Real Data)
+    const kpiData = {
+        pendingCarePlans: await prisma.visit.count({ where: { status: 'requested' } }), // Proxy for "Actions Needed"
+        dailyReviewsNeed: await prisma.dailyEntry.count({
+            where: {
+                status: 'SUBMITTED',
+                createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) }
+            }
+        }),
+        supervisedPswCount: await prisma.pswProfile.count({ where: { isApproved: true } })
+    };
+
     return c.json({
+        kpi: kpiData,
         acuity: acuityData,
         compliance: complianceData,
         incidents: incidentData

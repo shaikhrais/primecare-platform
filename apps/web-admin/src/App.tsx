@@ -10,15 +10,13 @@ function App() {
     <NotificationProvider>
       <CookieConsent />
       <BrowserRouter>
-        <NotificationCenterProvider>
-          <CommandPaletteWrapper>
-            <AppRouter />
-          </CommandPaletteWrapper>
-        </NotificationCenterProvider>
+        <CommandPaletteWrapper>
+          <AppRouter />
+        </CommandPaletteWrapper>
       </BrowserRouter>
     </NotificationProvider>
   );
-  );
+
 }
 
 export default App;

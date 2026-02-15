@@ -81,7 +81,7 @@ r.get('/stats', requireRole(['client']), async (c) => {
 
     // Mock budget for now (e.g. $5000/mo) - In real app, this would be in the ServiceAgreement model
     const totalBudget = 5000;
-    const usedBudget = invoices.reduce((acc, inv) => acc + (Number(inv.total) || 0), 0);
+    const usedBudget = invoices.reduce((acc: number, inv: any) => acc + (Number(inv.total) || 0), 0);
     const spendingData = [
         { name: 'Used', value: usedBudget },
         { name: 'Remaining', value: Math.max(0, totalBudget - usedBudget) }
@@ -96,7 +96,7 @@ r.get('/stats', requireRole(['client']), async (c) => {
     });
 
     // Format for chart: { day: 'Mon', mood: 8 }
-    const wellnessData = entries.reverse().map(e => ({
+    const wellnessData = entries.reverse().map((e: any) => ({
         day: new Date(e.createdAt).toLocaleDateString('en-US', { weekday: 'short' }),
         mood: e.mood || 0,
         energy: Math.floor(Math.random() * 3) + (e.mood ? e.mood - 1 : 5) // Mock energy slightly correlated to mood

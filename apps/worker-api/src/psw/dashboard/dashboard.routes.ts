@@ -24,7 +24,7 @@ r.get('/stats', requireRole(['psw']), async (c) => {
     });
 
     // Mock base rate $25/hr
-    const earningsData = timesheets.reverse().map(ts => ({
+    const earningsData = timesheets.reverse().map((ts: any) => ({
         name: ts.weekId,
         earnings: ((ts.totalMinutes || 0) / 60) * 25
     }));
@@ -39,8 +39,8 @@ r.get('/stats', requireRole(['psw']), async (c) => {
         select: { result: true }
     });
 
-    const onTime = checkEvents.filter(e => e.result === 'success').length;
-    const late = checkEvents.filter(e => e.result === 'rejected').length; // Or logic for lateness
+    const onTime = checkEvents.filter((e: any) => e.result === 'success').length;
+    const late = checkEvents.filter((e: any) => e.result === 'rejected').length; // Or logic for lateness
 
     const reliabilityData = [
         { name: 'On-Time', count: onTime || 10, fill: '#10B981' }, // Defaulting to 10 for visual if empty
@@ -57,7 +57,7 @@ r.get('/stats', requireRole(['psw']), async (c) => {
     let night = 0;
     let weekend = 0;
 
-    visits.forEach(v => {
+    visits.forEach((v: any) => {
         const date = new Date(v.requestedStartAt);
         const hour = date.getHours();
         const getDay = date.getDay();
