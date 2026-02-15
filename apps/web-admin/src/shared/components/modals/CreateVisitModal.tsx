@@ -3,7 +3,10 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
 
-const { ApiRegistry, ContentRegistry } = AdminRegistry;
+// Components
+import { ClientServiceFields, DateTimeFields, AssignmentFields } from './components/VisitFormFields';
+
+const { ApiRegistry } = AdminRegistry;
 
 interface CreateVisitModalProps {
     isOpen: boolean;
@@ -53,7 +56,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
             } else if (initialClientId) {
                 setFormData(prev => ({ ...prev, clientId: initialClientId, assignmentType: 'open' }));
             } else {
-                 setFormData({
+                setFormData({
                     clientId: '',
                     serviceId: '',
                     requestedStartAt: '',
@@ -101,9 +104,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
         try {
             let response;
             if (visit) {
-                 response = await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload);
+                response = await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload);
             } else {
-                 response = await apiClient.post('/v1/admin/visits', payload);
+                response = await apiClient.post('/v1/admin/visits', payload);
             }
 
             if (response.ok) {
@@ -130,110 +133,33 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
 
                 <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
-                    {/* Client Selection */}
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Client</label>
-                        {initialClientId || visit ? (
-                            <div style={{ padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db', fontWeight: '600' }}>
-                                {visit ? (clients.find(c => c.id === formData.clientId)?.fullName || 'Loading...') : (initialClientName || 'Selected Client')}
-                            </div>
-                        ) : (
-                            <select
-                                data-cy="inp-client-id"
-                                required
-                                value={formData.clientId}
-                                onChange={(e) => setFormData({ ...prev => ({ ...prev, clientId: e.target.value }) })}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            >
-                                <option value="">Select a client</option>
-                                {clients.map(c => (
-                                    <option key={c.id} value={c.id}>{c.fullName}</option>
-                                ))}
-                            </select>
-                        )}
-                    </div>
+                    <ClientServiceFields
+                        clientId={formData.clientId}
+                        serviceId={formData.serviceId}
+                        clients={clients}
+                        services={services}
+                        onClientChange={(e) => setFormData(prev => ({ ...prev, clientId: e.target.value }))}
+                        onServiceChange={(e) => setFormData(prev => ({ ...prev, serviceId: e.target.value }))}
+                        fixedClientName={visit ? (clients.find(c => c.id === formData.clientId)?.fullName || 'Loading...') : (initialClientId ? initialClientName : undefined)}
+                        disabled={loading}
+                    />
 
-                    {/* Service Selection */}
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Type</label>
-                        <select
-                            data-cy="inp-service-id"
-                            required
-                            value={formData.serviceId}
-                            onChange={(e) => setFormData(prev => ({ ...prev, serviceId: e.target.value }))}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="">Select a service</option>
-                            {services.map(s => (
-                                <option key={s.id} value={s.id}>{s.name}</option>
-                            ))}
-                        </select>
-                    </div>
+                    <DateTimeFields
+                        requestedStartAt={formData.requestedStartAt}
+                        durationMinutes={formData.durationMinutes}
+                        onStartChange={(e) => setFormData(prev => ({ ...prev, requestedStartAt: e.target.value }))}
+                        onDurationChange={(e) => setFormData(prev => ({ ...prev, durationMinutes: Number(e.target.value) }))}
+                        disabled={loading}
+                    />
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        {/* Start Time */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Date & Time</label>
-                            <input
-                                data-cy="inp-start-at"
-                                type="datetime-local"
-                                required
-                                value={formData.requestedStartAt}
-                                onChange={(e) => setFormData(prev => ({ ...prev, requestedStartAt: e.target.value }))}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            />
-                        </div>
-                        {/* Duration */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Duration (min)</label>
-                            <input
-                                data-cy="inp-duration"
-                                type="number"
-                                required
-                                min="30"
-                                step="15"
-                                value={formData.durationMinutes}
-                                onChange={(e) => setFormData(prev => ({ ...prev, durationMinutes: Number(e.target.value) }))}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Assignment Type */}
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Shift Type</label>
-                        <div style={{ display: 'flex', gap: '1rem' }}>
-                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                                <input type="radio" value="open" checked={formData.assignmentType === 'open'} onChange={() => setFormData(prev => ({ ...prev, assignmentType: 'open' }))} />
-                                Open Shift (Any PSW)
-                            </label>
-                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                                <input type="radio" value="direct" checked={formData.assignmentType === 'direct'} onChange={() => setFormData(prev => ({ ...prev, assignmentType: 'direct' }))} />
-                                Direct Assign
-                            </label>
-                        </div>
-                    </div>
-
-                    {/* PSW Selector (Conditional) */}
-                    {formData.assignmentType === 'direct' && (
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Select PSW</label>
-                            <select
-                                data-cy="inp-psw-id"
-                                required={formData.assignmentType === 'direct'}
-                                value={formData.assignedPswId}
-                                onChange={(e) => setFormData(prev => ({ ...prev, assignedPswId: e.target.value }))}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            >
-                                <option value="">Select a caregiver</option>
-                                {psws.map(psw => (
-                                    <option key={psw.id} value={psw.pswProfile?.id || psw.id}>
-                                        {psw.pswProfile?.fullName || psw.email}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                    <AssignmentFields
+                        assignmentType={formData.assignmentType}
+                        assignedPswId={formData.assignedPswId}
+                        psws={psws}
+                        onTypeChange={(type) => setFormData(prev => ({ ...prev, assignmentType: type }))}
+                        onPswChange={(e) => setFormData(prev => ({ ...prev, assignedPswId: e.target.value }))}
+                        disabled={loading}
+                    />
 
                     {/* Notes */}
                     <div>
@@ -242,6 +168,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
                             data-cy="inp-notes"
                             value={formData.clientNotes}
                             onChange={(e) => setFormData(prev => ({ ...prev, clientNotes: e.target.value }))}
+                            disabled={loading}
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '80px', resize: 'vertical' }}
                             placeholder="Optional visit instructions..."
                         />
@@ -251,6 +178,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
                         <button
                             type="button"
                             onClick={onClose}
+                            disabled={loading}
                             style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}
                         >
                             Cancel

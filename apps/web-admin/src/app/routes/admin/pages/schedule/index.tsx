@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { SmartBreadcrumbs } from '@/shared/components/SmartBreadcrumbs';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
+// Components
+import { ScheduleCalendar } from './components/ScheduleCalendar';
+import { ScheduleList } from './components/ScheduleList';
+import { AssignShiftModal } from './components/AssignShiftModal';
+
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
-
-const locales = {
-    'en-US': enUS,
-};
-
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-});
-
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 interface Visit {
@@ -51,7 +39,7 @@ export default function Schedule() {
     useEffect(() => {
         fetchVisits();
         fetchPsws();
-    }, [searchParams]); // Re-fetch or re-filter when params change
+    }, [searchParams]);
 
     const fetchVisits = async () => {
         try {
@@ -96,7 +84,6 @@ export default function Schedule() {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
-            // Filter only PSWs who are verified
             const filteredPsws = data.filter((u: any) => u.role === 'psw');
             setPsws(filteredPsws);
         } catch (err) {
@@ -133,9 +120,9 @@ export default function Schedule() {
 
     const getStatusColor = (status: string) => {
         switch (status.toLowerCase()) {
-            case 'requested': return '#f57c00'; // Orange
-            case 'scheduled': return '#1976d2'; // Blue
-            case 'completed': return '#388e3c'; // Green
+            case 'requested': return '#f57c00';
+            case 'scheduled': return '#1976d2';
+            case 'completed': return '#388e3c';
             default: return '#9e9e9e';
         }
     };
@@ -164,25 +151,6 @@ export default function Schedule() {
             }
         } catch (err) {
             showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE, 'error');
-        }
-    };
-
-    const handleStatusChange = async (newStatus: string) => {
-        if (!selectedVisit) return;
-        try {
-            const token = localStorage.getItem('token');
-            await fetch(`${API_URL}${ApiRegistry.ADMIN.VISITS_UPDATE(selectedVisit.id)}`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ status: newStatus })
-            });
-            fetchVisits();
-            setIsAssignModalOpen(false);
-        } catch (err) {
-            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_UPDATE, 'error');
         }
     };
 
@@ -246,159 +214,51 @@ export default function Schedule() {
             </div>
 
             {viewMode === 'calendar' ? (
-                <div style={{
-                    flex: 1,
-                    backgroundColor: 'white',
-                    borderRadius: '0.75rem',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                    padding: '1.5rem',
-                    minHeight: '600px'
-                }} data-cy="calendar-container">
-                    <Calendar
-                        localizer={localizer}
-                        events={events}
-                        startAccessor="start"
-                        endAccessor="end"
-                        style={{ height: '100%', minHeight: '550px' }}
-                        onSelectEvent={handleSelectEvent}
-                        views={['month', 'week', 'day']}
-                    />
-                </div>
+                <ScheduleCalendar
+                    events={events}
+                    onSelectEvent={handleSelectEvent}
+                />
             ) : (
-                <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                        <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
-                            <tr>
-                                <th style={{ padding: '1rem' }}>Date & Time</th>
-                                <th style={{ padding: '1rem' }}>Client</th>
-                                <th style={{ padding: '1rem' }}>Caregiver</th>
-                                <th style={{ padding: '1rem' }}>Status</th>
-                                <th style={{ padding: '1rem' }}>Quick Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {visits.map((visit) => (
-                                <tr
-                                    key={visit.id}
-                                    onClick={() => { setSelectedVisit(visit); setAssignedPswId(visit.assignedPswId || ''); setIsAssignModalOpen(true); }}
-                                    style={{ cursor: 'pointer', borderBottom: '1px solid #f3f4f6', transition: 'background-color 0.2s' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                                >
-                                    <td style={{ padding: '1rem' }}>
-                                        {new Date(visit.requestedStartAt).toLocaleDateString()} <br />
-                                        <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                            {format(new Date(visit.requestedStartAt), 'h:mm a')}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem', fontWeight: 500 }}>{visit.client?.fullName}</td>
-                                    <td style={{ padding: '1rem', color: visit.psw ? '#111827' : '#9ca3af' }}>
-                                        {visit.psw?.fullName || 'Unassigned'}
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span style={{
-                                            padding: '0.25rem 0.625rem',
-                                            borderRadius: '9999px',
-                                            fontSize: '0.75rem',
-                                            fontWeight: 600,
-                                            backgroundColor: getStatusColor(visit.status),
-                                            color: 'white'
-                                        }}>
-                                            {visit.status.toUpperCase()}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem' }} onClick={(e) => e.stopPropagation()}>
-                                        <div style={{ display: 'flex', gap: '0.75rem', opacity: 0.8 }}>
-                                            <button
-                                                onClick={() => { setSelectedVisit(visit); setIsCreateVisitModalOpen(true); }}
-                                                style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
-                                            >
-                                                Edit
-                                            </button>
-                                            {!visit.psw && (
-                                                <button
-                                                    onClick={() => { setSelectedVisit(visit); setAssignedPswId(''); setIsAssignModalOpen(true); }}
-                                                    style={{ color: '#0369a1', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
-                                                >
-                                                    Assign
-                                                </button>
-                                            )}
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <ScheduleList
+                    visits={visits}
+                    getStatusColor={getStatusColor}
+                    onEdit={(visit) => {
+                        setSelectedVisit(visit);
+                        setIsCreateVisitModalOpen(true);
+                    }}
+                    onAssign={(visit) => {
+                        setSelectedVisit(visit);
+                        setAssignedPswId(visit.assignedPswId || '');
+                        setIsAssignModalOpen(true);
+                    }}
+                />
             )}
 
-            {isAssignModalOpen && selectedVisit && (
-                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }}>
-                        <h3 style={{ marginTop: 0 }}>{ContentRegistry.SCHEDULE.ACTIONS.ASSIGN}</h3>
-                        <div style={{ margin: '1rem 0' }}>
-                            <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Client:</strong> {selectedVisit.client?.fullName || 'N/A'}</p>
-                            <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Visit:</strong> {new Date(selectedVisit.requestedStartAt).toLocaleString()}</p>
-                            <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Status:</strong> {selectedVisit.status.toUpperCase()}</p>
-                        </div>
-
-                        <div style={{ marginTop: '1.5rem' }}>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{ContentRegistry.SCHEDULE.MODAL.SELECT_PSW}</label>
-                            <select
-                                data-cy="modal-select-psw"
-                                value={assignedPswId}
-                                onChange={(e) => setAssignedPswId(e.target.value)}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            >
-                                <option value="">{ContentRegistry.SCHEDULE.MODAL.CHOOSE_WORKER}</option>
-                                {psws.map(psw => (
-                                    <option key={psw.id} value={psw.PswProfile?.id}>
-                                        {psw.PswProfile?.fullName} (Verified)
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button data-cy="btn-modal-cancel-visit" onClick={handleDeleteVisit} style={{ padding: '0.75rem', backgroundColor: '#fef2f2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CANCEL_VISIT}</button>
-                            <button
-                                data-cy="btn-modal-edit-visit"
-                                onClick={() => {
-                                    setIsAssignModalOpen(false);
-                                    setIsCreateVisitModalOpen(true);
-                                }}
-                                style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: '600', color: '#374151' }}
-                            >
-                                {ContentRegistry.SCHEDULE.ACTIONS.EDIT}
-                            </button>
-                            <div style={{ flex: 1 }} />
-                            <button data-cy="btn-modal-close" onClick={() => setIsAssignModalOpen(false)} style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}>{ContentRegistry.SCHEDULE.ACTIONS.CLOSE}</button>
-                            <button
-                                data-cy="btn-modal-confirm-assign"
-                                onClick={handleAssign}
-                                disabled={!assignedPswId}
-                                style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', opacity: assignedPswId ? 1 : 0.5, cursor: 'pointer' }}
-                            >
-                                {ContentRegistry.SCHEDULE.ACTIONS.CONFIRM_ASSIGN}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <AssignShiftModal
+                isOpen={isAssignModalOpen}
+                onClose={() => setIsAssignModalOpen(false)}
+                selectedVisit={selectedVisit}
+                psws={psws}
+                assignedPswId={assignedPswId}
+                setAssignedPswId={setAssignedPswId}
+                handleAssign={handleAssign}
+                handleDeleteVisit={handleDeleteVisit}
+                openEditModal={() => {
+                    setIsAssignModalOpen(false);
+                    setIsCreateVisitModalOpen(true);
+                }}
+            />
 
             <CreateVisitModal
                 isOpen={isCreateVisitModalOpen}
                 onClose={() => {
                     setIsCreateVisitModalOpen(false);
-                    // Clear selected visit when closing create/edit modal if it was opened from edit
-                    // But we might want to keep it if we want to return to assign modal?
-                    // For now, let's just close.
                 }}
                 onSuccess={() => {
                     fetchVisits();
-                    setSelectedVisit(null); // Clear selection after successful edit
+                    setSelectedVisit(null);
                 }}
-                visit={selectedVisit} // Pass selected visit for editing
+                visit={selectedVisit}
             />
         </div>
     );

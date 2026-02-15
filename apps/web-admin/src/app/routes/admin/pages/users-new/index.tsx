@@ -4,7 +4,13 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 
-const { ApiRegistry, ContentRegistry, DataRegistry } = AdminRegistry;
+// Components
+import { UnsavedChangesGuard } from './components/UnsavedChangesGuard';
+import { UserBasicInfo } from './components/UserBasicInfo';
+import { UserRoles } from './components/UserRoles';
+import { UserRoleDetails } from './components/UserRoleDetails';
+
+const { ApiRegistry } = AdminRegistry;
 
 export default function UserEntryForm() {
     const { id } = useParams();
@@ -80,22 +86,25 @@ export default function UserEntryForm() {
         }
     };
 
+    const handleFieldChange = (field: string, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+        setIsDirty(true);
+    };
+
+    const handleRolesChange = (roles: string[]) => {
+        setFormData(prev => ({ ...prev, roles }));
+        setIsDirty(true);
+    };
+
     if (loading) return <div style={{ padding: '2rem' }}>Loading user data...</div>;
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
-            {showGuard && (
-                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2>Discard Changes?</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>Any unsaved changes will be lost.</p>
-                        <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <UnsavedChangesGuard
+                isOpen={showGuard}
+                onStay={() => setShowGuard(false)}
+                onLeave={() => navigate(-1)}
+            />
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{id ? 'Edit User' : 'Create New User'}</h2>
@@ -104,101 +113,25 @@ export default function UserEntryForm() {
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Full Name</label>
-                        <input
-                            data-cy="form.user.fullName"
-                            type="text"
-                            required
-                            value={formData.fullName}
-                            onChange={(e) => { setFormData({ ...formData, fullName: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Email Address</label>
-                        <input
-                            data-cy="form.user.email"
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        />
-                    </div>
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.8rem', fontWeight: 600 }}>System Roles</label>
-                        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}>
-                            {['admin', 'staff', 'manager', 'psw', 'client', 'coordinator', 'finance'].map(role => (
-                                <label key={role} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}>
-                                    <input
-                                        type="checkbox"
-                                        checked={formData.roles.includes(role)}
-                                        onChange={(e) => {
-                                            const newRoles = e.target.checked
-                                                ? [...formData.roles, role]
-                                                : formData.roles.filter(r => r !== role);
-                                            setFormData({ ...formData, roles: newRoles });
-                                            setIsDirty(true);
-                                        }}
-                                        style={{ width: '18px', height: '18px', accentColor: '#004d40' }}
-                                    />
-                                    {role.charAt(0).toUpperCase() + role.slice(1)}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Account Status</label>
-                        <select
-                            data-cy="form.user.status"
-                            value={formData.status}
-                            onChange={(e) => { setFormData({ ...formData, status: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                            <option value="suspended">Suspended</option>
-                        </select>
-                    </div>
+                    <UserBasicInfo
+                        fullName={formData.fullName}
+                        email={formData.email}
+                        status={formData.status}
+                        onChange={handleFieldChange}
+                    />
 
-                    {/* Role-Specific: PSW */}
-                    {formData.roles.includes('psw') && (
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>SIN (Social Insurance Number)</label>
-                            <input
-                                data-cy="form.user.sin"
-                                type="password"
-                                value={formData.sin}
-                                onChange={(e) => { setFormData({ ...formData, sin: e.target.value }); setIsDirty(true); }}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            />
-                        </div>
-                    )}
+                    <UserRoles
+                        selectedRoles={formData.roles}
+                        onChange={handleRolesChange}
+                    />
 
-                    {/* Role-Specific: Client */}
-                    {formData.roles.includes('client') && (
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Billing Account #</label>
-                            <input
-                                data-cy="form.user.billingAccount"
-                                type="text"
-                                value={formData.billingAccount}
-                                onChange={(e) => { setFormData({ ...formData, billingAccount: e.target.value }); setIsDirty(true); }}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                            />
-                        </div>
-                    )}
-
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Physical Address</label>
-                        <textarea
-                            data-cy="form.user.address"
-                            value={formData.address}
-                            onChange={(e) => { setFormData({ ...formData, address: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '80px' }}
-                        />
-                    </div>
+                    <UserRoleDetails
+                        roles={formData.roles}
+                        sin={formData.sin}
+                        billingAccount={formData.billingAccount}
+                        address={formData.address}
+                        onChange={handleFieldChange}
+                    />
                 </div>
 
                 <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
