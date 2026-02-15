@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;
 
-const data = [
-    { name: 'Mon', visits: 12 },
-    { name: 'Tue', visits: 19 },
-    { name: 'Wed', visits: 15 },
-    { name: 'Thu', visits: 22 },
-    { name: 'Fri', visits: 28 },
-    { name: 'Sat', visits: 10 },
-    { name: 'Sun', visits: 8 },
-];
 
-export const VisitVolumeChart: React.FC = React.memo(() => {
+
+interface Props {
+    data?: any[];
+}
+
+export const VisitVolumeChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    const chartData = data || [];
 
     const handleClick = (data: any) => {
         // Drill down to schedule
@@ -27,7 +25,7 @@ export const VisitVolumeChart: React.FC = React.memo(() => {
         <div style={{ width: '100%', height: 300, backgroundColor: 'white', padding: '1rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <h3 style={{ margin: '0 0 1rem 0', color: '#374151' }}>Visit Volume (Last 7 Days)</h3>
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data} onClick={handleClick} style={{ cursor: 'pointer' }}>
+                <AreaChart data={chartData} onClick={handleClick} style={{ cursor: 'pointer' }}>
                     <defs>
                         <linearGradient id="colorVisits" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.8} />

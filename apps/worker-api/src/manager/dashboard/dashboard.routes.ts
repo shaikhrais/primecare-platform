@@ -108,7 +108,111 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
     return c.json({
         shiftFulfillment: shiftData,
         revenue: revenueData,
-        incidents: incidentData,
+        incidents: incidentData, // existing
+        visitVolume: shiftData.map(d => ({ name: d.day, visits: d.filled + d.open })),
+
+        // 4. Service Popularity (Last 30 Days) & Staff Utilization
+        ...(await (async () => {
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+            const recentVisits = await prisma.visit.findMany({
+                where: { requestedStartAt: { gte: thirtyDaysAgo } },
+                include: { service: true }
+            });
+
+            // Service Popularity
+            const serviceMap = new Map<string, number>();
+            const cityTravelMap = new Map<string, { travel: number, service: number }>();
+
+            recentVisits.forEach(v => {
+                const sName = v.service?.name || 'Unknown';
+                serviceMap.set(sName, (serviceMap.get(sName) || 0) + 1);
+
+                const city = v.serviceCity || 'Unknown';
+                if (!cityTravelMap.has(city)) cityTravelMap.set(city, { travel: 0, service: 0 });
+                const entry = cityTravelMap.get(city)!;
+                entry.service += (v.durationMinutes || 0);
+                entry.travel += (v.durationMinutes || 0) * 0.2; // Mock 20% travel
+            });
+
+            const servicePopularity = Array.from(serviceMap.entries()).map(([name, value]) => ({ name, value }));
+
+            // Staff Utilization
+            const billableHours = recentVisits.reduce((acc, v) => acc + (v.durationMinutes || 0), 0) / 60;
+            const staffUtilization = [
+                { name: 'Billable Hours', value: Math.round(billableHours) },
+                { name: 'Travel Time', value: Math.round(billableHours * 0.2) },
+                { name: 'Admin/Training', value: Math.round(billableHours * 0.1) },
+            ];
+
+            // Travel Time
+            const travelTime = Array.from(cityTravelMap.entries()).slice(0, 5).map(([zone, data]) => ({
+                zone,
+                travel: Math.round(data.travel),
+                service: data.service
+            }));
+
+            return { servicePopularity, staffUtilization, travelTime };
+        })()),
+
+        // 9. Staff Attendance Heatmap (Real - Lateness Analysis)
+        ...(await (async () => {
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            const lateVisits = await prisma.visit.findMany({
+                where: {
+                    requestedStartAt: { gte: thirtyDaysAgo },
+                    status: 'completed'
+                },
+                select: { requestedStartAt: true, actualStartAt: true }
+            });
+
+            const heatmapMap = new Map<string, number>();
+
+            lateVisits.forEach((v: any) => {
+                if (v.actualStartAt && v.requestedStartAt) {
+                    const diff = (new Date(v.actualStartAt).getTime() - new Date(v.requestedStartAt).getTime()) / 60000;
+                    if (diff > 10) { // Considered late if > 10 mins
+                        const d = new Date(v.actualStartAt);
+                        const day = d.getDay(); // 0-6
+                        const hour = d.getHours();
+                        const key = `${day}-${hour}`;
+                        heatmapMap.set(key, (heatmapMap.get(key) || 0) + 1);
+                    }
+                }
+            });
+
+            const staffAttendance = Array.from(heatmapMap.entries()).map(([key, count]) => {
+                const [day, hour] = key.split('-').map(Number);
+                return { day, hour, count };
+            });
+
+            return { staffAttendance };
+        })()),
+
+        // Mocked/Static for now due to schema limitations
+        carePlanAdherence: [
+            { name: 'Adherent', count: 85, fill: '#10B981' },
+            { name: 'Non-Adherent', count: 15, fill: '#EF4444' },
+        ],
+        clientSatisfaction: [
+            { subject: 'Reliability', A: 120, fullMark: 150 },
+            { subject: 'Communication', A: 98, fullMark: 150 },
+            { subject: 'Care Quality', A: 140, fullMark: 150 },
+            { subject: 'Responsiveness', A: 110, fullMark: 150 },
+            { subject: 'Safety', A: 135, fullMark: 150 },
+        ],
+        overtimeRisk: [
+            { name: 'Low Risk', value: 80 },
+            { name: 'Medium Risk', value: 15 },
+            { name: 'High Risk', value: 5 },
+        ],
+        resourceAvailability: [
+            { time: '08:00', available: 12, total: 15 },
+            { time: '12:00', available: 8, total: 15 },
+            { time: '16:00', available: 10, total: 15 },
+        ]
     });
 });
 

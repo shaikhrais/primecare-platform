@@ -2,18 +2,17 @@ import React, { memo } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ZAxis } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { day: 1, hour: 8, count: 5 }, // Monday 8am
-    { day: 1, hour: 9, count: 2 },
-    { day: 2, hour: 8, count: 4 },
-    { day: 3, hour: 8, count: 6 },
-    { day: 3, hour: 17, count: 1 }, // Wed 5pm (Lates)
-];
+
 
 const days = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
-export const StaffAttendanceHeatmap = memo(() => {
+interface Props {
+    data?: any[];
+}
+
+export const StaffAttendanceHeatmap = memo(({ data }: Props) => {
     const navigate = useNavigate();
+    const chartData = data || [];
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Lateness Heatmap</h3>
@@ -29,7 +28,7 @@ export const StaffAttendanceHeatmap = memo(() => {
                         <YAxis type="number" dataKey="hour" name="Hour" unit="h" domain={[6, 22]} />
                         <ZAxis type="number" dataKey="count" range={[50, 400]} name="Late Arrivals" />
                         <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                        <Scatter name="Late Arrivals" data={data} fill="#F59E0B" />
+                        <Scatter name="Late Arrivals" data={chartData} fill="#F59E0B" />
                     </ScatterChart>
                 </ResponsiveContainer>
             </div>

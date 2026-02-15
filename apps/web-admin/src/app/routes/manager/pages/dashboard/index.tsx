@@ -17,12 +17,7 @@ import { ResourceAvailabilityChart } from '@/shared/components/charts/ResourceAv
 
 const { ApiRegistry } = AdminRegistry;
 
-interface KPIData {
-    activeClients: number;
-    staffOnDuty: number;
-    openIncidents: number;
-    todayShifts: number;
-}
+
 
 interface ShiftDisplay {
     id: string;
@@ -121,43 +116,43 @@ export default function ManagerDashboard() {
                 <h2 data-cy="section.analytics" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Performance Analytics</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px', marginBottom: '40px' }}>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <RevenueChart />
+                        <RevenueChart data={chartData?.revenue} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <VisitVolumeChart />
+                        <VisitVolumeChart data={chartData?.visitVolume} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <StaffUtilizationChart />
+                        <StaffUtilizationChart data={chartData?.staffUtilization} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <ShiftFulfillmentChart data={chartData?.shiftFulfillment} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <ServicePopularityChart />
+                        <ServicePopularityChart data={chartData?.servicePopularity} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <IncidentTrendChart data={chartData?.incidents} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <CarePlanAdherenceGauge />
+                        <CarePlanAdherenceGauge data={chartData?.carePlanAdherence} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <StaffAttendanceHeatmap />
+                        <StaffAttendanceHeatmap data={chartData?.staffAttendance} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <ClientSatisfactionRadar />
+                        <ClientSatisfactionRadar data={chartData?.clientSatisfaction} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
                         <RevenueForecastChart data={chartData?.revenue} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <TravelTimeAnalysis />
+                        <TravelTimeAnalysis data={chartData?.travelTime} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <OvertimeRiskGauge />
+                        <OvertimeRiskGauge data={chartData?.overtimeRisk} />
                     </div>
                     <div className="pc-card" style={{ padding: '0' }}>
-                        <ResourceAvailabilityChart />
+                        <ResourceAvailabilityChart data={chartData?.resourceAvailability} />
                     </div>
                 </div>
 

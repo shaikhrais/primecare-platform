@@ -2,11 +2,7 @@ import React, { memo } from 'react';
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer, Tooltip } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { name: 'Safe', count: 120, fill: '#10B981' },
-    { name: 'At Risk', count: 15, fill: '#F59E0B' },
-    { name: 'Overtime', count: 8, fill: '#EF4444' },
-];
+
 
 const style = {
     top: '50%',
@@ -15,14 +11,19 @@ const style = {
     lineHeight: '24px',
 };
 
-export const OvertimeRiskGauge = memo(() => {
+interface Props {
+    data?: any[];
+}
+
+export const OvertimeRiskGauge = memo(({ data }: Props) => {
     const navigate = useNavigate();
+    const chartData = data || [];
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Overtime Risk Monitor</h3>
             <div style={{ flex: 1, width: '100%', minHeight: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
-                    <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" barSize={20} data={data}>
+                    <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" barSize={20} data={chartData}>
                         <RadialBar
                             minAngle={15}
                             label={{ position: 'insideStart', fill: '#fff' }}
