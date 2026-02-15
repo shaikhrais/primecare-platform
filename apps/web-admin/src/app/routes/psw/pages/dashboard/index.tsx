@@ -23,23 +23,32 @@ export default function PswDashboard() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
     const [shifts, setShifts] = useState<Shift[]>([]);
+    const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const isMobile = useMediaQuery('(max-width: 1024px)');
 
-    const fetchShifts = async () => {
+    const fetchShiftsAndStats = async () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.PSW.VISITS}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
+            const [shiftsRes, statsRes] = await Promise.all([
+                fetch(`${API_URL}${ApiRegistry.PSW.VISITS}`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch(`${API_URL}/psw/dashboard/stats`, { headers: { 'Authorization': `Bearer ${token}` } })
+            ]);
+
+            if (shiftsRes.ok) {
+                const data = await shiftsRes.json();
                 setShifts(data);
             }
+
+            if (statsRes.ok) {
+                const statsData = await statsRes.json();
+                setChartData(statsData);
+            }
+
         } catch (error) {
-            console.error('Failed to fetch shifts', error);
-            showToast('Failed to load shifts', 'error');
+            console.error('Failed to fetch dashboard data', error);
+            showToast('Failed to load dashboard data', 'error');
         } finally {
             setLoading(false);
         }
@@ -118,7 +127,7 @@ export default function PswDashboard() {
     };
 
     useEffect(() => {
-        fetchShifts();
+        fetchShiftsAndStats();
     }, []);
 
     return (
@@ -160,9 +169,9 @@ export default function PswDashboard() {
 
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <MyEarningsTrend />
-                <MyReliabilityScore />
-                <ShiftDistributionChart />
+                <MyEarningsTrend data={chartData?.earnings} />
+                <MyReliabilityScore data={chartData?.reliability} />
+                <ShiftDistributionChart data={chartData?.distribution} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 350px', gap: '2rem' }}>
