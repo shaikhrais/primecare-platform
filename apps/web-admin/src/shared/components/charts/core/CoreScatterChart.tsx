@@ -43,7 +43,7 @@ export const CoreScatterChart: React.FC<CoreScatterChartProps> = ({
     onScatterClick
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0} debounce={200}>
             <ScatterChart
                 margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
                 onClick={onScatterClick && (() => onScatterClick(null))} // This might be tricky, usually onClick is on Scatter or Chart

@@ -39,7 +39,7 @@ export const CoreBarChart: React.FC<CoreBarChartProps> = ({
     layout = 'horizontal'
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height} minWidth={0}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0} debounce={200}>
             <BarChart
                 data={data}
                 onClick={onBarClick}

@@ -27,7 +27,7 @@ export const CorePieChart: React.FC<CorePieChartProps> = ({
     showLegend = true
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height} minWidth={0}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0} debounce={200}>
             <PieChart>
                 <Pie
                     data={data}

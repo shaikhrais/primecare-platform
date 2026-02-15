@@ -21,7 +21,7 @@ export const CoreRadarChart: React.FC<CoreRadarChartProps> = ({
     onRadarClick
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height} minWidth={0}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0} debounce={200}>
             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey={angleKey} tick={{ fill: '#6B7280', fontSize: 12 }} />
