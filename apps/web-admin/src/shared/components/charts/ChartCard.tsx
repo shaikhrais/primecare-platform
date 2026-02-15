@@ -62,7 +62,7 @@ export const ChartCard = ({
                 {action && <div>{action}</div>}
             </div>
 
-            <div style={{ width: '100%', height: typeof height === 'number' ? height : 300, minWidth: 0, overflow: 'hidden', flex: 1 }}>
+            <div style={{ width: '99%', height: typeof height === 'number' ? height : 300, minWidth: 0, overflow: 'hidden', flex: 1, position: 'relative' }}>
                 {children}
             </div>
         </div>
