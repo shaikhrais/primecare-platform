@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { ResponsiveContainer } from 'recharts';
 
 interface ChartCardProps {
     title: string;
@@ -59,9 +58,7 @@ export const ChartCard = ({
             </div>
 
             <div style={{ flex: 1, minHeight: typeof height === 'number' ? height : 250, width: '100%' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                    {children as any}
-                </ResponsiveContainer>
+                {children}
             </div>
         </div>
     );
