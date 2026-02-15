@@ -1,11 +1,10 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { ChartCard } from './ChartCard';
+import { CoreBarChart } from './core';
 
 const { RouteRegistry } = AdminRegistry;
-
-
 
 interface Props {
     data?: any[];
@@ -28,24 +27,16 @@ export const RevenueChart = React.memo(({ data }: Props) => {
     };
 
     return (
-        <div style={{ width: '100%', height: 300, backgroundColor: 'white', padding: '1rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ margin: '0 0 1rem 0', color: '#374151' }}>Revenue Trends (Click to Drill Down)</h3>
-            <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} onClick={handleClick} style={{ cursor: 'pointer' }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                    <YAxis axisLine={false} tickLine={false} tickFormatter={(value: number) => `$${value}`} />
-                    <Tooltip
-                        cursor={{ fill: '#f3f4f6' }}
-                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-                    />
-                    <Bar dataKey="revenue" fill="#00875A" radius={[4, 4, 0, 0]}>
-                        {(chartData || []).map((entry: any, index: number) => (
-                            <Cell key={`cell-${index}`} fill={index === (chartData || []).length - 1 ? '#006644' : '#00875A'} />
-                        ))}
-                    </Bar>
-                </BarChart>
-            </ResponsiveContainer>
-        </div>
+        <ChartCard title="Revenue Trends" subtitle="Click bars to drill down">
+            <CoreBarChart
+                data={chartData}
+                xKey="name"
+                series={[{ key: 'revenue', color: '#00875A' }]}
+                yAxisFormatter={(value) => `$${value}`}
+                onBarClick={handleClick}
+                highlightLastBar={true}
+                highlightColor="#006644"
+            />
+        </ChartCard>
     );
 });

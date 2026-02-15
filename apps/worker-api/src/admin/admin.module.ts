@@ -30,4 +30,23 @@ admin.route('/timesheets', timesheetRoutes);
 admin.route('/services', serviceRoutes);
 admin.route('/', contentRoutes);
 
+admin.get('/stats', async (c) => {
+    const prisma = c.get('prisma');
+
+    // Parallelize queries for performance
+    const [totalUsers, pendingVisits, totalVisits, totalLeads] = await Promise.all([
+        prisma.user.count(),
+        prisma.visit.count({ where: { status: 'pending' } }),
+        prisma.visit.count(), // Total visits (all statuses)
+        prisma.lead.count()
+    ]);
+
+    return c.json({
+        totalUsers,
+        pendingVisits,
+        totalVisits,
+        totalLeads
+    });
+});
+
 export default admin;

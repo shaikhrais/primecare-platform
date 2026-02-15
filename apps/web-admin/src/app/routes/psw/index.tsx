@@ -28,21 +28,19 @@ import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper
  */
 const PswRoutes: React.FC = () => {
     return (
-        <NotificationCenterProvider>
-            <CommandPaletteWrapper>
-                <Routes>
-                    <Route element={<PswLayout />}>
-                        <Route path="dashboard" element={<PswDashboardEnterprise />} />
-                        <Route path="schedule" element={<Schedule />} />
-                        <Route path="open-shifts" element={<OpenShifts />} />
-                        <Route path="availability" element={<Availability />} />
-                        <Route path="earnings" element={<EarningsPage />} />
-                        <Route path="expenses" element={<Expenses />} />
-                        <Route path="profile" element={<ProfilePage />} />
-                    </Route>
-                </Routes>
-            </CommandPaletteWrapper>
-        </NotificationCenterProvider>
+        <CommandPaletteWrapper>
+            <Routes>
+                <Route element={<PswLayout />}>
+                    <Route path="dashboard" element={<PswDashboardEnterprise />} />
+                    <Route path="schedule" element={<Schedule />} />
+                    <Route path="open-shifts" element={<OpenShifts />} />
+                    <Route path="availability" element={<Availability />} />
+                    <Route path="earnings" element={<EarningsPage />} />
+                    <Route path="expenses" element={<Expenses />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                </Route>
+            </Routes>
+        </CommandPaletteWrapper>
     );
 };
 

@@ -43,7 +43,7 @@ export const Dashboard: React.FC = () => {
             try {
                 const token = localStorage.getItem('token');
                 // Fetch Stats for Charts
-                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}/rn/dashboard/stats`, {
+                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}/v1/rn/dashboard/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 

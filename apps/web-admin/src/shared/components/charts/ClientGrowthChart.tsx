@@ -1,5 +1,6 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { ChartCard } from './ChartCard';
+import { CoreBarChart } from './core';
 
 const data = [
     { name: 'Jan', newClients: 12, churn: -2 },
@@ -12,27 +13,17 @@ const data = [
 
 export const ClientGrowthChart = React.memo(() => {
     return (
-        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', height: '400px' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: '#111827' }}>Client Acquisition & Churn</h3>
-            <ResponsiveContainer width="100%" height="90%">
-                <BarChart
-                    data={data}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    stackOffset="sign"
-                >
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                    <YAxis axisLine={false} tickLine={false} />
-                    <Tooltip
-                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-                        cursor={{ fill: '#f3f4f6' }}
-                    />
-                    <Legend />
-                    <ReferenceLine y={0} stroke="#000" />
-                    <Bar dataKey="newClients" name="New Clients" fill="#00875A" stackId="stack" radius={[4, 4, 0, 0]} barSize={40} />
-                    <Bar dataKey="churn" name="Churned" fill="#EF4444" stackId="stack" radius={[0, 0, 4, 4]} barSize={40} />
-                </BarChart>
-            </ResponsiveContainer>
-        </div>
+        <ChartCard title="Client Acquisition & Churn" height={400}>
+            <CoreBarChart
+                data={data}
+                xKey="name"
+                series={[
+                    { key: 'newClients', name: 'New Clients', color: '#00875A', stackId: 'stack', radius: [4, 4, 0, 0] },
+                    { key: 'churn', name: 'Churned', color: '#EF4444', stackId: 'stack', radius: [0, 0, 4, 4] }
+                ]}
+                stackOffset="sign"
+                referenceLineY={0}
+            />
+        </ChartCard>
     );
 });

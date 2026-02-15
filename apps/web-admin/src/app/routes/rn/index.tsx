@@ -19,16 +19,14 @@ import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper
  */
 const RnRoutes: React.FC = () => {
     return (
-        <NotificationCenterProvider>
-            <CommandPaletteWrapper>
-                <Routes>
-                    <Route element={<RnLayout />}>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        {/* Add more RN pages here as we migrate them */}
-                    </Route>
-                </Routes>
-            </CommandPaletteWrapper>
-        </NotificationCenterProvider>
+        <CommandPaletteWrapper>
+            <Routes>
+                <Route element={<RnLayout />}>
+                    <Route path="dashboard" element={<Dashboard />} />
+                    {/* Add more RN pages here as we migrate them */}
+                </Route>
+            </Routes>
+        </CommandPaletteWrapper>
     );
 };
 

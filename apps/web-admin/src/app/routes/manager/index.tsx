@@ -18,16 +18,16 @@ import ServiceReview from './pages/service-review';
  */
 const ManagerRoutes: React.FC = () => {
     return (
-        <NotificationCenterProvider>
-            <CommandPaletteWrapper>
-                <Routes>
+        <CommandPaletteWrapper>
+            <Routes>
+                <Route element={<ManagerLayout />}>
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="daily-entry" element={<DailyEntry />} />
                     <Route path="evaluations" element={<Evaluations />} />
                     <Route path="service-review" element={<ServiceReview />} />
-                </Routes>
-            </CommandPaletteWrapper>
-        </NotificationCenterProvider>
+                </Route>
+            </Routes>
+        </CommandPaletteWrapper>
     );
 };
 

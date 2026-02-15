@@ -5,6 +5,7 @@ import { AdminRegistry } from 'prime-care-shared';
 // Layouts
 import AdminLayout from '@/shared/components/layout/AdminLayout';
 import ManagerLayout from '@/shared/components/layout/ManagerLayout';
+import { NotificationCenterProvider } from '@/shared/context/NotificationCenterContext';
 
 // Guards
 import RequireRole from '@/shared/rbac/RequireRole';
@@ -78,101 +79,103 @@ const ShiftsRedirect: React.FC = () => {
 
 export const AppRouter: React.FC = () => {
     return (
-        <ErrorBoundary>
-            <Routes>
-                {/* Auth Routes - No Layout */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+        <NotificationCenterProvider>
+            <ErrorBoundary>
+                <Routes>
+                    {/* Auth Routes - No Layout */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
 
-                {/* Redirects */}
-                <Route path="/shifts" element={<ShiftsRedirect />} />
+                    {/* Redirects */}
+                    <Route path="/shifts" element={<ShiftsRedirect />} />
 
-                {/* Role Specific Routes with Layout */}
-                <Route
-                    path="/admin/*"
-                    element={
-                        <RequireRole allowedRoles={['admin', 'staff']}>
-                            <AdminLayout>
-                                <AdminRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    {/* Role Specific Routes with Layout */}
+                    <Route
+                        path="/admin/*"
+                        element={
+                            <RequireRole allowedRoles={['admin', 'staff']}>
+                                <AdminLayout>
+                                    <AdminRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                <Route
-                    path="/staff/*"
-                    element={
-                        <RequireRole allowedRoles={['staff', 'admin']}>
-                            <AdminLayout>
-                                <StaffRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    <Route
+                        path="/staff/*"
+                        element={
+                            <RequireRole allowedRoles={['staff', 'admin']}>
+                                <AdminLayout>
+                                    <StaffRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                <Route
-                    path="/psw/*"
-                    element={
-                        <RequireRole allowedRoles={['psw']}>
-                            <AdminLayout>
-                                <PswRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    <Route
+                        path="/psw/*"
+                        element={
+                            <RequireRole allowedRoles={['psw']}>
+                                <AdminLayout>
+                                    <PswRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                <Route
-                    path="/client/*"
-                    element={
-                        <RequireRole allowedRoles={['client']}>
-                            <AdminLayout>
-                                <ClientRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    <Route
+                        path="/client/*"
+                        element={
+                            <RequireRole allowedRoles={['client']}>
+                                <AdminLayout>
+                                    <ClientRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                <Route
-                    path="/manager/*"
-                    element={
-                        <RequireRole allowedRoles={['manager']}>
-                            <AdminLayout>
-                                <ManagerRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    <Route
+                        path="/manager/*"
+                        element={
+                            <RequireRole allowedRoles={['manager']}>
+                                <AdminLayout>
+                                    <ManagerRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                <Route
-                    path="/rn/*"
-                    element={
-                        <RequireRole allowedRoles={['rn']}>
-                            <AdminLayout>
-                                <RnRoutes />
-                            </AdminLayout>
-                        </RequireRole>
-                    }
-                />
+                    <Route
+                        path="/rn/*"
+                        element={
+                            <RequireRole allowedRoles={['rn']}>
+                                <AdminLayout>
+                                    <RnRoutes />
+                                </AdminLayout>
+                            </RequireRole>
+                        }
+                    />
 
-                {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
-                <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />
-                <Route path="/support" element={<AdminLayout><SupportHub /></AdminLayout>} />
-                <Route path="/support/tickets/new" element={<AdminLayout><SupportTicket /></AdminLayout>} />
-                <Route path="/messaging" element={<AdminLayout><Messaging /></AdminLayout>} />
-                <Route path="/visits/:id" element={<AdminLayout><VisitDetails /></AdminLayout>} />
-                <Route path="/visits/:id/complete" element={<AdminLayout><VisitCompletion /></AdminLayout>} />
+                    {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
+                    <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />
+                    <Route path="/support" element={<AdminLayout><SupportHub /></AdminLayout>} />
+                    <Route path="/support/tickets/new" element={<AdminLayout><SupportTicket /></AdminLayout>} />
+                    <Route path="/messaging" element={<AdminLayout><Messaging /></AdminLayout>} />
+                    <Route path="/visits/:id" element={<AdminLayout><VisitDetails /></AdminLayout>} />
+                    <Route path="/visits/:id/complete" element={<AdminLayout><VisitCompletion /></AdminLayout>} />
 
-                {/* Shared routes fallback for legacy/test paths */}
-                <Route path="/shared/*" element={<AdminLayout><SharedRoutes /></AdminLayout>} />
+                    {/* Shared routes fallback for legacy/test paths */}
+                    <Route path="/shared/*" element={<AdminLayout><SharedRoutes /></AdminLayout>} />
 
-                {/* Fallback & Home */}
-                <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+                    {/* Fallback & Home */}
+                    <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
 
-                {/* Catch-all 404 (Outside Layout) */}
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </ErrorBoundary>
+                    {/* Catch-all 404 (Outside Layout) */}
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </ErrorBoundary>
+        </NotificationCenterProvider>
     );
 };

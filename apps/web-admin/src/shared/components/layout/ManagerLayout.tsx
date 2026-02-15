@@ -9,7 +9,7 @@ import { AdminRegistry } from 'prime-care-shared';
 const { RouteRegistry } = AdminRegistry;
 
 interface ManagerLayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export default function ManagerLayout({ children }: ManagerLayoutProps) {

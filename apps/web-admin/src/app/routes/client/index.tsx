@@ -23,19 +23,17 @@ import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper
  */
 const ClientRoutes: React.FC = () => {
     return (
-        <NotificationCenterProvider>
-            <CommandPaletteWrapper>
-                <Routes>
-                    <Route element={<ClientLayout />}>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="bookings" element={<Bookings />} />
-                        <Route path="billing" element={<Billing />} />
-                        <Route path="feedback" element={<Feedback />} />
-                        <Route path="request-booking" element={<RequestBooking />} />
-                    </Route>
-                </Routes>
-            </CommandPaletteWrapper>
-        </NotificationCenterProvider>
+        <CommandPaletteWrapper>
+            <Routes>
+                <Route element={<ClientLayout />}>
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="bookings" element={<Bookings />} />
+                    <Route path="billing" element={<Billing />} />
+                    <Route path="feedback" element={<Feedback />} />
+                    <Route path="request-booking" element={<RequestBooking />} />
+                </Route>
+            </Routes>
+        </CommandPaletteWrapper>
     );
 };
 

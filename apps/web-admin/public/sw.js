@@ -7,6 +7,4 @@ self.addEventListener('activate', (event) => {
     console.log('PC ServiceWorker activated');
 });
 
-self.addEventListener('fetch', (event) => {
-    // Pass-through for now
-});
+

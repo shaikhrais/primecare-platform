@@ -1,6 +1,9 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+// Layouts
+import { NotificationCenterProvider } from '@/shared/context/NotificationCenterContext';
+
 // Lazy Load Pages
 const Dashboard = React.lazy(() => import('./pages/dashboard'));
 const Users = React.lazy(() => import('./pages/users'));

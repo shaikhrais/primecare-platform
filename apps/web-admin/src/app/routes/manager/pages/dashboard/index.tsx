@@ -19,6 +19,13 @@ const { ApiRegistry } = AdminRegistry;
 
 
 
+interface KPIData {
+    activeClients: number;
+    staffOnDuty: number;
+    openIncidents: number;
+    todayShifts: number;
+}
+
 interface ShiftDisplay {
     id: string;
     requestedStartAt: string;
@@ -44,7 +51,7 @@ export default function ManagerDashboard() {
                 const [kpiRes, shiftsRes, statsRes] = await Promise.all([
                     fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/kpi`, { headers }),
                     fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/today`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}/manager/dashboard/stats`, { headers })
+                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/stats`, { headers })
                 ]);
 
                 if (kpiRes.ok) setKpi(await kpiRes.json());

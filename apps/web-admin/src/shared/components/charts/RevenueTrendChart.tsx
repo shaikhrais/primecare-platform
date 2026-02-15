@@ -1,5 +1,6 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ChartCard } from './ChartCard';
+import { CoreLineChart } from './core';
 
 const data = [
     { name: 'Week 1', current: 4000, previous: 2400 },
@@ -13,25 +14,16 @@ const data = [
 
 export const RevenueTrendChart = React.memo(() => {
     return (
-        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', height: '400px' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: '#111827' }}>Revenue Trends</h3>
-            <ResponsiveContainer width="100%" height="90%">
-                <LineChart
-                    data={data}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                    <YAxis axisLine={false} tickLine={false} tickFormatter={(val: number) => `$${val}`} />
-                    <Tooltip
-                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-                        formatter={(val: number) => [`$${val}`, 'Revenue']}
-                    />
-                    <Legend />
-                    <Line type="monotone" dataKey="current" name="Current Period" stroke="#00875A" activeDot={{ r: 8 }} strokeWidth={2} />
-                    <Line type="monotone" dataKey="previous" name="Previous Period" stroke="#9CA3AF" strokeDasharray="5 5" strokeWidth={2} />
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
+        <ChartCard title="Revenue Trends" height={400}>
+            <CoreLineChart
+                data={data}
+                xKey="name"
+                yAxisFormatter={(val) => `$${val}`}
+                series={[
+                    { key: 'current', name: 'Current Period', color: '#00875A', activeDot: { r: 8 } },
+                    { key: 'previous', name: 'Previous Period', color: '#9CA3AF', strokeDasharray: '5 5' }
+                ]}
+            />
+        </ChartCard>
     );
 });

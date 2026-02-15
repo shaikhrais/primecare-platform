@@ -30,7 +30,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
         setIsLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/incidents/crisis-mode`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/incidents/crisis-mode`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
