@@ -34,13 +34,28 @@ const KPICard = ({ label, value, color, dataCy }: any) => (
 export const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const [stats, setStats] = useState<KPIData>({ pendingCarePlans: 0, dailyReviewsNeed: 0, supervisedPswCount: 0 });
+    const [chartData, setChartData] = useState<any>(null);
     const [tasks, setTasks] = useState<ClinicalTask[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Mocking data for now
+                const token = localStorage.getItem('token');
+                // Fetch Stats for Charts
+                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}/rn/dashboard/stats`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (statsResponse.ok) {
+                    const data = await statsResponse.json();
+                    // Merge into a single stats object or keep separate. 
+                    // For now, attaching to a new state or extending existing one.
+                    // Let's create a specific state for chart data
+                    setChartData(data);
+                }
+
+                // Mock KPI data (keep existing mock for KPIs until API has them)
                 setStats({
                     pendingCarePlans: 5,
                     dailyReviewsNeed: 12,
@@ -78,9 +93,9 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <PatientAcuityDistribution />
-                <AssessmentComplianceChart />
-                <ClinicalIncidentHeatmap />
+                <PatientAcuityDistribution data={chartData?.acuity} />
+                <AssessmentComplianceChart data={chartData?.compliance} />
+                <ClinicalIncidentHeatmap data={chartData?.incidents} />
             </div>
 
             <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">Pending Clinical Tasks</h2>

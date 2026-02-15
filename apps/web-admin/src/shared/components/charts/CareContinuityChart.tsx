@@ -2,24 +2,24 @@ import React, { memo } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { month: 'Jan', primary: 80, relief: 20 },
-    { month: 'Feb', primary: 85, relief: 15 },
-    { month: 'Mar', primary: 90, relief: 10 },
-    { month: 'Apr', primary: 88, relief: 12 },
-    { month: 'May', primary: 95, relief: 5 },
-    { month: 'Jun', primary: 92, relief: 8 },
-];
 
-export const CareContinuityChart = memo(() => {
+
+interface Props {
+    data?: any[];
+}
+
+export const CareContinuityChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    const chartData = data || [];
+
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Care Team Consistency</h3>
             <div style={{ flex: 1, width: '100%', minHeight: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
-                        data={data}
+                        data={chartData}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                         onClick={() => navigate('/client/care-team')}
                         style={{ cursor: 'pointer' }}

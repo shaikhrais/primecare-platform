@@ -56,9 +56,27 @@ export default function ClientDashboard() {
         }
     };
 
+    const [stats, setStats] = useState<any>(null);
+
+    const fetchStats = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/client/dashboard/stats`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setStats(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch dashboard stats', error);
+        }
+    };
+
     useEffect(() => {
         fetchBookings();
         fetchServices();
+        fetchStats();
     }, []);
 
     const getStatusColor = (status: string) => {
@@ -117,9 +135,9 @@ export default function ClientDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <BudgetUtilizationChart />
-                <WellnessTrendChart />
-                <CareContinuityChart />
+                <BudgetUtilizationChart data={stats?.budget} />
+                <WellnessTrendChart data={stats?.wellness} />
+                <CareContinuityChart data={stats?.continuity} />
             </div>
 
             {/* ... content ... */}

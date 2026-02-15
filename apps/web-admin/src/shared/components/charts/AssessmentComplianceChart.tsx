@@ -2,15 +2,17 @@ import React, { memo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { name: 'Initial', completed: 20, overdue: 2 },
-    { name: 'Quarterly', completed: 45, overdue: 5 },
-    { name: 'Safety', completed: 60, overdue: 1 },
-    { name: 'Discharge', completed: 10, overdue: 0 },
-];
 
-export const AssessmentComplianceChart = memo(() => {
+
+interface Props {
+    data?: any[];
+}
+
+export const AssessmentComplianceChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    const chartData = data || [];
+
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Assessment Compliance</h3>
@@ -18,7 +20,7 @@ export const AssessmentComplianceChart = memo(() => {
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         layout="vertical"
-                        data={data}
+                        data={chartData}
                         margin={{ top: 20, right: 30, left: 40, bottom: 5 }}
                         onClick={() => navigate('/rn/assessments')}
                         style={{ cursor: 'pointer' }}

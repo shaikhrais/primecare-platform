@@ -2,15 +2,23 @@ import React, { memo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const data = [
-    { name: 'Used', value: 3500 },
-    { name: 'Remaining', value: 1500 },
-];
+
 
 const COLORS = ['#EF4444', '#10B981'];
 
-export const BudgetUtilizationChart = memo(() => {
+interface Props {
+    data?: any[];
+}
+
+export const BudgetUtilizationChart = memo(({ data }: Props) => {
     const navigate = useNavigate();
+
+    // Fallback if no data
+    const chartData = data || [
+        { name: 'Used', value: 0 },
+        { name: 'Remaining', value: 100 }
+    ];
+
     return (
         <div style={{ padding: '24px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', height: '400px', display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: 700, color: '#111827' }}>Budget Utilization</h3>
@@ -18,7 +26,7 @@ export const BudgetUtilizationChart = memo(() => {
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
-                            data={data}
+                            data={chartData}
                             cx="50%"
                             cy="50%"
                             innerRadius={60}
@@ -29,7 +37,7 @@ export const BudgetUtilizationChart = memo(() => {
                             onClick={() => navigate('/client/billing')}
                             style={{ cursor: 'pointer' }}
                         >
-                            {data.map((entry, index) => (
+                            {chartData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
