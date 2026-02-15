@@ -5,13 +5,15 @@ import { CoreRadialBarChart } from './core';
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const CarePlanAdherenceGauge = memo(({ data }: Props) => {
+export const CarePlanAdherenceGauge = memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
     const chartData = data || [];
+    const displayValue = (data && data.length > 0) ? data[0].value : 0;
     return (
-        <ChartCard title="Care Plan Adherence" height={400}>
+        <ChartCard title="Care Plan Adherence" subtitle="Overall compliance" isDemo={isDemo}>
             <CoreRadialBarChart
                 data={chartData}
                 dataKey="count"

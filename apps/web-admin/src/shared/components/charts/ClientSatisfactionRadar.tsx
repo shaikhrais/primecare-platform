@@ -5,13 +5,14 @@ import { CoreRadarChart } from './core';
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const ClientSatisfactionRadar = memo(({ data }: Props) => {
+export const ClientSatisfactionRadar = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
     const chartData = data || [];
     return (
-        <ChartCard title="Client Satisfaction Metrics" height={400}>
+        <ChartCard title="Client Satisfaction" subtitle="By category" isDemo={isDemo}>
             <CoreRadarChart
                 data={chartData}
                 angleKey="subject"

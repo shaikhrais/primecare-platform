@@ -7,13 +7,19 @@ const days = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const StaffAttendanceHeatmap = memo(({ data }: Props) => {
+export const StaffAttendanceHeatmap = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
-    const chartData = data || [];
+    const chartData = (data || []).map((d: any) => ({
+        x: d.dates,
+        y: d.name,
+        value: d.status === 'Present' ? 100 : d.status === 'Late' ? 75 : d.status === 'Absent' ? 0 : 50
+    }));
+
     return (
-        <ChartCard title="Lateness Heatmap" height={400}>
+        <ChartCard title="Staff Attendance" subtitle="Recent patterns" isDemo={isDemo}>
             <CoreScatterChart
                 data={chartData}
                 scatterName="Late Arrivals"

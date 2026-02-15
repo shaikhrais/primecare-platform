@@ -7,20 +7,20 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const ServicePopularityChart = memo(({ data }: Props) => {
+export const ServicePopularityChart = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
     const chartData = data || [];
+
     return (
-        <ChartCard title="Service Popularity" height={400}>
+        <ChartCard title="Service Popularity" subtitle="Most requested services" isDemo={isDemo}>
             <CorePieChart
                 data={chartData}
                 dataKey="value"
                 nameKey="name"
                 colors={COLORS}
-                innerRadius={60}
-                outerRadius={100}
                 onPieClick={() => navigate('/reports/services')}
             />
         </ChartCard>

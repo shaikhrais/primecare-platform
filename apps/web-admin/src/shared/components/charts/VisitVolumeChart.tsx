@@ -8,12 +8,17 @@ const { RouteRegistry } = AdminRegistry;
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const VisitVolumeChart = memo(({ data }: Props) => {
+export const VisitVolumeChart = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
 
-    const chartData = data || [];
+    // Transform data...
+    const chartData = (data || []).map((d: any) => ({
+        name: d.date,
+        visits: d.count
+    }));
 
     const handleClick = (data: any) => {
         // Drill down to schedule
@@ -21,7 +26,7 @@ export const VisitVolumeChart = memo(({ data }: Props) => {
     };
 
     return (
-        <ChartCard title="Visit Volume" subtitle="Last 7 Days">
+        <ChartCard title="Visit Volume" subtitle="Daily visit counts" isDemo={isDemo}>
             <CoreAreaChart
                 data={chartData}
                 xKey="name"

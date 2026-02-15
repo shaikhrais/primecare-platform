@@ -8,9 +8,10 @@ const { RouteRegistry } = AdminRegistry;
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const RevenueChart = React.memo(({ data }: Props) => {
+export const RevenueChart = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
 
     // Transform API data (month, actual, projected) to Chart data (name, revenue)
@@ -27,7 +28,7 @@ export const RevenueChart = React.memo(({ data }: Props) => {
     };
 
     return (
-        <ChartCard title="Revenue Trends" subtitle="Click bars to drill down">
+        <ChartCard title="Revenue Trends" subtitle="Click bars to drill down" isDemo={isDemo}>
             <CoreBarChart
                 data={chartData}
                 xKey="name"

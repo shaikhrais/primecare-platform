@@ -5,20 +5,26 @@ import { CoreBarChart } from './core';
 
 interface Props {
     data?: any[];
+    isDemo?: boolean;
 }
 
-export const ShiftFulfillmentChart = memo(({ data }: Props) => {
+export const ShiftFulfillmentChart = React.memo(({ data, isDemo }: Props) => {
     const navigate = useNavigate();
 
-    const chartData = data || [];
+    const chartData = (data || []).map((d: any) => ({
+        name: d.month,
+        fulfilled: d.fulfilled,
+        unfilled: d.unfilled
+    }));
+
     return (
-        <ChartCard title="Shift Fulfillment" height={400}>
+        <ChartCard title="Shift Fulfillment" subtitle="Filled vs Unfilled Shifts" isDemo={isDemo}>
             <CoreBarChart
                 data={chartData}
-                xKey="day"
+                xKey="name"
                 series={[
-                    { key: 'filled', name: 'Filled Shifts', color: '#10B981', stackId: 'a' },
-                    { key: 'open', name: 'Open Shifts', color: '#EF4444', stackId: 'a' }
+                    { key: 'fulfilled', name: 'Filled Shifts', color: '#10B981', stackId: 'a' },
+                    { key: 'unfilled', name: 'Open Shifts', color: '#EF4444', stackId: 'a' }
                 ]}
                 onBarClick={() => navigate('/schedule')}
             />
