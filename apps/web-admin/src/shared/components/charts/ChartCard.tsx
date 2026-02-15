@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 
 interface ChartCardProps {
     title: string;
@@ -19,6 +19,10 @@ export const ChartCard = ({
     onClick,
     isDemo
 }: ChartCardProps) => {
+    useEffect(() => {
+        console.log(`[ChartCard] Mounting: ${title} | Height: ${height} | Demo: ${isDemo}`);
+    }, [title, height, isDemo]);
+
     return (
         <div
             className="pc-card"
@@ -26,6 +30,7 @@ export const ChartCard = ({
                 padding: '1.5rem',
                 height: 'auto',
                 minHeight: typeof height === 'number' ? height + 60 : height, // account for header
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 cursor: onClick ? 'pointer' : 'default',
