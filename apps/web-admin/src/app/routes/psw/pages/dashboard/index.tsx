@@ -132,6 +132,10 @@ export default function PswDashboard() {
         fetchShiftsAndStats();
     }, []);
 
+    if (loading) {
+        return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading PSW Dashboard...</div>;
+    }
+
     return (
         <div data-cy="page.container" style={{ padding: isMobile ? '0' : '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{

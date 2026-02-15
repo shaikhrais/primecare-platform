@@ -32,7 +32,7 @@ export const CoreLineChart: React.FC<CoreLineChartProps> = ({
     showLegend = true
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height} minWidth={0} debounce={200}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0} minHeight={0} debounce={200}>
             <LineChart
                 data={data}
                 onClick={onLineClick}

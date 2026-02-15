@@ -119,6 +119,10 @@ export default function ClientDashboard() {
         }
     };
 
+    if (loading) {
+        return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading Client Dashboard...</div>;
+    }
+
     return (
         <div data-cy="page.container">
             {/* Header */}

@@ -70,7 +70,13 @@ export const Dashboard: React.FC = () => {
         fetchData();
     }, []);
 
-    if (loading) return <div>Loading Clinical Data...</div>;
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                Loading Clinical Dashboard...
+            </div>
+        );
+    }
 
     return (
         <div data-cy="page.container">

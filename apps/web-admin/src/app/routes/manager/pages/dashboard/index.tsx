@@ -120,6 +120,15 @@ export default function ManagerDashboard() {
         </div>
     );
 
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
+                <div className="spinner"></div>
+                <p style={{ color: 'var(--text-300)' }}>Loading Dashboard...</p>
+            </div>
+        );
+    }
+
     return (
         <div data-cy="page.container">
             <div data-cy="mgr-dashboard">
