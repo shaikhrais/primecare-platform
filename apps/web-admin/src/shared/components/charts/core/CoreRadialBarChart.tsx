@@ -44,7 +44,7 @@ export const CoreRadialBarChart: React.FC<CoreRadialBarChartProps> = ({
     background = true
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={height}>
+        <ResponsiveContainer width="100%" height={height} minWidth={0}>
             <RadialBarChart
                 cx="50%"
                 cy="50%"

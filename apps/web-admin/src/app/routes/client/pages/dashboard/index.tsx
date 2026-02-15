@@ -136,10 +136,10 @@ export default function ClientDashboard() {
                 </button>
             </div>
 
-            <WellnessTrendChart data={stats?.wellnessTrends || MOCK_CLIENT_DATA.wellness} isDemo={!stats} />
-            <CareContinuityChart data={stats?.careContinuity || MOCK_CLIENT_DATA.continuity} isDemo={!stats} />
-            <BudgetUtilizationChart data={stats?.budgetUtilization || MOCK_CLIENT_DATA.budget} isDemo={!stats} />
-            <ClientSatisfactionRadar data={stats?.satisfaction || MOCK_MANAGER_DATA.clientSatisfaction} isDemo={!stats} />
+            <WellnessTrendChart data={(stats?.wellnessTrends?.length > 0) ? stats.wellnessTrends : MOCK_CLIENT_DATA.wellness} isDemo={!stats?.wellnessTrends?.length} />
+            <CareContinuityChart data={(stats?.careContinuity?.length > 0) ? stats.careContinuity : MOCK_CLIENT_DATA.continuity} isDemo={!stats?.careContinuity?.length} />
+            <BudgetUtilizationChart data={(stats?.budgetUtilization?.length > 0) ? stats.budgetUtilization : MOCK_CLIENT_DATA.budget} isDemo={!stats?.budgetUtilization?.length} />
+            <ClientSatisfactionRadar data={(stats?.satisfaction?.length > 0) ? stats.satisfaction : MOCK_MANAGER_DATA.clientSatisfaction} isDemo={!stats?.satisfaction?.length} />
 
             {/* ... content ... */}
 

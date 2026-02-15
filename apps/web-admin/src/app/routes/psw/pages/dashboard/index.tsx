@@ -7,7 +7,7 @@ import { MyReliabilityScore } from '@/shared/components/charts/MyReliabilityScor
 import { ShiftDistributionChart } from '@/shared/components/charts/ShiftDistributionChart';
 import { StaffAttendanceHeatmap } from '@/shared/components/charts/StaffAttendanceHeatmap';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
-import { MOCK_PSW_DATA } from '@/shared/data/mockChartData';
+import { MOCK_PSW_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -171,10 +171,10 @@ export default function PswDashboard() {
 
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <MyEarningsTrend data={chartData?.earnings} isDemo={!chartData} />
-                <MyReliabilityScore data={chartData?.reliability} isDemo={!chartData} />
-                <ShiftDistributionChart data={chartData?.shiftDistribution} isDemo={!chartData} />
-                <StaffAttendanceHeatmap data={chartData?.attendance} isDemo={!chartData} />
+                <MyEarningsTrend data={(chartData?.earnings?.length > 0) ? chartData.earnings : MOCK_PSW_DATA.earnings} isDemo={!chartData?.earnings?.length} />
+                <MyReliabilityScore data={(chartData?.reliability?.length > 0) ? chartData.reliability : MOCK_PSW_DATA.reliability} isDemo={!chartData?.reliability?.length} />
+                <ShiftDistributionChart data={(chartData?.shiftDistribution?.length > 0) ? chartData.shiftDistribution : MOCK_PSW_DATA.distribution} isDemo={!chartData?.shiftDistribution?.length} />
+                <StaffAttendanceHeatmap data={(chartData?.attendance?.length > 0) ? chartData.attendance : MOCK_MANAGER_DATA.staffAttendance} isDemo={!chartData?.attendance?.length} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 350px', gap: '2rem' }}>

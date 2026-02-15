@@ -76,20 +76,23 @@ export default function ManagerDashboard() {
     }, []);
 
     // Combine API data with Mock data (prefer API, fallback to Mock if empty/null)
+    // Combine API data with Mock data (prefer API, fallback to Mock if empty/null)
+    const checkData = (real: any[], mock: any[]) => (real && real.length > 0) ? real : mock;
+
     const displayData = {
-        revenue: chartData?.revenue || MOCK_MANAGER_DATA.revenue,
-        visitVolume: chartData?.visitVolume || MOCK_MANAGER_DATA.visitVolume,
-        staffUtilization: chartData?.staffUtilization || MOCK_MANAGER_DATA.staffUtilization,
-        shiftFulfillment: chartData?.shiftFulfillment || MOCK_MANAGER_DATA.shiftFulfillment,
-        servicePopularity: chartData?.servicePopularity || MOCK_MANAGER_DATA.servicePopularity,
-        incidents: chartData?.incidents || MOCK_MANAGER_DATA.incidents,
-        carePlanAdherence: chartData?.carePlanAdherence || MOCK_MANAGER_DATA.carePlanAdherence,
-        staffAttendance: chartData?.staffAttendance || MOCK_MANAGER_DATA.staffAttendance,
-        clientSatisfaction: chartData?.clientSatisfaction || MOCK_MANAGER_DATA.clientSatisfaction,
-        revenueForecast: chartData?.revenue || MOCK_MANAGER_DATA.revenue, // Reusing revenue data structure
-        travelTime: chartData?.travelTime || MOCK_MANAGER_DATA.travelTime,
-        overtimeRisk: chartData?.overtimeRisk || MOCK_MANAGER_DATA.overtimeRisk,
-        resourceAvailability: chartData?.resourceAvailability || MOCK_MANAGER_DATA.resourceAvailability,
+        revenue: checkData(chartData?.revenue, MOCK_MANAGER_DATA.revenue),
+        visitVolume: checkData(chartData?.visitVolume, MOCK_MANAGER_DATA.visitVolume),
+        staffUtilization: checkData(chartData?.staffUtilization, MOCK_MANAGER_DATA.staffUtilization),
+        shiftFulfillment: checkData(chartData?.shiftFulfillment, MOCK_MANAGER_DATA.shiftFulfillment),
+        servicePopularity: checkData(chartData?.servicePopularity, MOCK_MANAGER_DATA.servicePopularity),
+        incidents: checkData(chartData?.incidents, MOCK_MANAGER_DATA.incidents),
+        carePlanAdherence: checkData(chartData?.carePlanAdherence, MOCK_MANAGER_DATA.carePlanAdherence),
+        staffAttendance: checkData(chartData?.staffAttendance, MOCK_MANAGER_DATA.staffAttendance),
+        clientSatisfaction: checkData(chartData?.clientSatisfaction, MOCK_MANAGER_DATA.clientSatisfaction),
+        revenueForecast: checkData(chartData?.revenue, MOCK_MANAGER_DATA.revenue), // Reusing revenue data structure
+        travelTime: checkData(chartData?.travelTime, MOCK_MANAGER_DATA.travelTime),
+        overtimeRisk: checkData(chartData?.overtimeRisk, MOCK_MANAGER_DATA.overtimeRisk),
+        resourceAvailability: checkData(chartData?.resourceAvailability, MOCK_MANAGER_DATA.resourceAvailability),
     };
 
     const QuickActionCard = ({ label, icon, onClick, dataCy }: any) => (

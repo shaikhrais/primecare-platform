@@ -5,7 +5,7 @@ import { PatientAcuityDistribution } from '@/shared/components/charts/PatientAcu
 import { AssessmentComplianceChart } from '@/shared/components/charts/AssessmentComplianceChart';
 import { ClinicalIncidentHeatmap } from '@/shared/components/charts/ClinicalIncidentHeatmap';
 import { CarePlanAdherenceGauge } from '@/shared/components/charts/CarePlanAdherenceGauge';
-import { MOCK_RN_DATA } from '@/shared/data/mockChartData';
+import { MOCK_RN_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -86,10 +86,10 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-                <PatientAcuityDistribution data={chartData?.patientAcuity} isDemo={!chartData} />
-                <AssessmentComplianceChart data={chartData?.compliance} isDemo={!chartData} />
-                <ClinicalIncidentHeatmap data={chartData?.incidents} isDemo={!chartData} />
-                <CarePlanAdherenceGauge data={chartData?.carePlanAdherence} isDemo={!chartData} />
+                <PatientAcuityDistribution data={(chartData?.patientAcuity?.length > 0) ? chartData.patientAcuity : MOCK_RN_DATA.acuity} isDemo={!chartData?.patientAcuity?.length} />
+                <AssessmentComplianceChart data={(chartData?.compliance?.length > 0) ? chartData.compliance : MOCK_RN_DATA.compliance} isDemo={!chartData?.compliance?.length} />
+                <ClinicalIncidentHeatmap data={(chartData?.incidents?.length > 0) ? chartData.incidents : MOCK_RN_DATA.incidents} isDemo={!chartData?.incidents?.length} />
+                <CarePlanAdherenceGauge data={(chartData?.carePlanAdherence?.length > 0) ? chartData.carePlanAdherence : MOCK_MANAGER_DATA.carePlanAdherence} isDemo={!chartData?.carePlanAdherence?.length} />
             </div>
 
             <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">Pending Clinical Tasks</h2>
