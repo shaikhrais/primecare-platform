@@ -13,12 +13,13 @@ interface CreateVisitModalProps {
     initialClientName?: string;
 }
 
-export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
+export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }> = ({
     isOpen,
     onClose,
     onSuccess,
     initialClientId,
-    initialClientName
+    initialClientName,
+    visit
 }) => {
     const { showToast } = useNotification();
     const [loading, setLoading] = useState(false);
@@ -39,11 +40,31 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     useEffect(() => {
         if (isOpen) {
             fetchData();
-            if (initialClientId) {
+            if (visit) {
+                setFormData({
+                    clientId: visit.client?.id || visit.clientId || '',
+                    serviceId: visit.serviceId || '',
+                    requestedStartAt: visit.requestedStartAt ? new Date(visit.requestedStartAt).toISOString().slice(0, 16) : '',
+                    durationMinutes: visit.durationMinutes || 60,
+                    assignedPswId: visit.assignedPswId || '',
+                    clientNotes: visit.clientNotes || '',
+                    assignmentType: visit.assignedPswId ? 'direct' : 'open'
+                });
+            } else if (initialClientId) {
                 setFormData(prev => ({ ...prev, clientId: initialClientId, assignmentType: 'open' }));
+            } else {
+                 setFormData({
+                    clientId: '',
+                    serviceId: '',
+                    requestedStartAt: '',
+                    durationMinutes: 60,
+                    assignedPswId: '',
+                    clientNotes: '',
+                    assignmentType: 'open'
+                });
             }
         }
-    }, [isOpen, initialClientId]);
+    }, [isOpen, initialClientId, visit]);
 
     const fetchData = async () => {
         try {
@@ -78,17 +99,23 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
         };
 
         try {
-            const response = await apiClient.post('/v1/admin/visits', payload);
+            let response;
+            if (visit) {
+                 response = await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload);
+            } else {
+                 response = await apiClient.post('/v1/admin/visits', payload);
+            }
+
             if (response.ok) {
-                showToast('Shift created successfully!', 'success');
+                showToast(visit ? 'Shift updated successfully!' : 'Shift created successfully!', 'success');
                 onSuccess();
                 onClose();
             } else {
                 const err = await response.json();
-                showToast(err.error || 'Failed to create shift', 'error');
+                showToast(err.error || (visit ? 'Failed to update shift' : 'Failed to create shift'), 'error');
             }
         } catch (error) {
-            showToast('Error creating shift', 'error');
+            showToast(visit ? 'Error updating shift' : 'Error creating shift', 'error');
         } finally {
             setLoading(false);
         }
@@ -99,16 +126,16 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>Create New Shift Request</h3>
+                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? 'Edit Shift Request' : 'Create New Shift Request'}</h3>
 
                 <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
                     {/* Client Selection */}
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Client</label>
-                        {initialClientId ? (
+                        {initialClientId || visit ? (
                             <div style={{ padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db', fontWeight: '600' }}>
-                                {initialClientName || 'Selected Client'}
+                                {visit ? (clients.find(c => c.id === formData.clientId)?.fullName || 'Loading...') : (initialClientName || 'Selected Client')}
                             </div>
                         ) : (
                             <select
@@ -234,7 +261,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                             data-cy="btn-submit-visit"
                             style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}
                         >
-                            {loading ? 'Processing...' : 'Create Shift'}
+                            {loading ? 'Processing...' : (visit ? 'Save Changes' : 'Create Shift')}
                         </button>
                     </div>
                 </form>

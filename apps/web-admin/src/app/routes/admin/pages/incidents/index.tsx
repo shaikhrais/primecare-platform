@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { AdminRegistry } from 'prime-care-shared';
 
 export default function IncidentList() {
     const navigate = useNavigate();
@@ -90,7 +91,14 @@ export default function IncidentList() {
                         {incidents.map((incident: any) => (
                             <tr key={incident.id} data-cy={`incident-row-${incident.id}`}>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">{incident.reporter?.email}</td>
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">
+                                    <Link
+                                        to={`${AdminRegistry.RouteRegistry.USERS}?search=${incident.reporter?.email}`}
+                                        style={{ color: '#00875A', textDecoration: 'none', fontWeight: 500 }}
+                                    >
+                                        {incident.reporter?.email}
+                                    </Link>
+                                </td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
                                     <span data-cy="incident-status" style={{
                                         padding: '0.25rem 0.5rem',

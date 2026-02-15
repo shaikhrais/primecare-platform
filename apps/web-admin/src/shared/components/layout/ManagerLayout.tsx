@@ -102,7 +102,9 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                 {/* Global Action Bar Integrated as Topbar */}
                 <header className="pc-topbar" style={{ margin: '28px 32px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <GlobalQuickActionBar role={role} />
-                    <NotificationHub />
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <NotificationHub />
+                    </div>
                 </header>
 
                 <div style={{ padding: '28px 32px 36px', flex: 1 }}>

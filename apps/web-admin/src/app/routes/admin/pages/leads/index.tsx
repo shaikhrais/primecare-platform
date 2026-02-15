@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
+import { LeadQuickViewModal } from '@/shared/components/modals/LeadQuickViewModal';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -17,11 +19,26 @@ interface Lead {
 }
 
 export default function LeadsPage() {
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { showToast } = useNotification();
     const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedLeadForShift, setSelectedLeadForShift] = useState<Lead | null>(null);
     const [isShiftModalOpen, setIsShiftModalOpen] = useState(false);
+
+    // Quick View State
+    const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+    const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+
+    // Filter Logic
+    const filteredLeads = useMemo(() => {
+        const statusFilter = searchParams.get('status');
+        return leads.filter(lead => {
+            if (statusFilter && lead.status.toLowerCase() !== statusFilter.toLowerCase()) return false;
+            return true;
+        });
+    }, [leads, searchParams]);
 
     const fetchLeads = async () => {
         setLoading(true);
@@ -90,12 +107,29 @@ export default function LeadsPage() {
                     <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }} data-cy="page.subtitle">Track and follow up with potential clients and inquiries.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                        data-cy="btn-add-lead"
+                        onClick={() => navigate('/admin/leads/new')}
+                        style={{ padding: '0.5rem 1rem', backgroundColor: '#e11d48', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600', marginRight: '0.5rem' }}
+                    >
+                        + Add Lead
+                    </button>
                     <button data-cy="btn-export-leads" style={{ padding: '0.5rem 1rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.LEADS.ACTIONS.EXPORT}</button>
                     <button data-cy="btn-refresh-leads" onClick={fetchLeads} disabled={loading} style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}>
                         {loading ? ContentRegistry.LEADS.ACTIONS.REFRESHING : ContentRegistry.LEADS.ACTIONS.REFRESH}
                     </button>
                 </div>
             </div>
+
+            {searchParams.get('status') && (
+                <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>Active Filters:</span>
+                    <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#e0f2fe', color: '#0369a1', borderRadius: '9999px', fontSize: '0.875rem' }}>
+                        Status: {searchParams.get('status')}
+                    </span>
+                    <button onClick={() => navigate('/admin/leads')} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>Clear All</button>
+                </div>
+            )}
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.leads">
@@ -112,10 +146,14 @@ export default function LeadsPage() {
                         {loading ? (
                             <tr><td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.LEADS.MESSAGES.LOADING}</td></tr>
                         ) : (
-                            leads.map((lead) => {
+                            filteredLeads.map((lead) => {
                                 const colors = getStatusColor(lead.status);
                                 return (
-                                    <tr key={lead.id} data-cy={`lead-row-${lead.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                    <tr key={lead.id} data-cy={`lead-row-${lead.id}`} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', transition: 'background-color 0.2s' }}
+                                        onClick={() => { setSelectedLead(lead); setIsQuickViewOpen(true); }}
+                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                                    >
                                         <td style={{ padding: '1rem' }}>
                                             <div style={{ fontWeight: '600', color: '#111827' }} data-cy="lead-fullname">{lead.fullName}</div>
                                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="lead-email">{lead.email}</div>
@@ -157,7 +195,7 @@ export default function LeadsPage() {
                                 );
                             })
                         )}
-                        {leads.length === 0 && !loading && (
+                        {filteredLeads.length === 0 && !loading && (
                             <tr><td colSpan={5} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.LEADS.MESSAGES.EMPTY}</td></tr>
                         )}
                     </tbody>
@@ -170,6 +208,17 @@ export default function LeadsPage() {
                 onSuccess={() => fetchLeads()}
                 initialClientName={selectedLeadForShift?.fullName}
             />
-        </div >
+
+            <LeadQuickViewModal
+                isOpen={isQuickViewOpen}
+                onClose={() => setIsQuickViewOpen(false)}
+                lead={selectedLead}
+                onStatusUpdate={(id, status) => {
+                    updateStatus(id, status);
+                    // Close the modal if converted, as shift modal will open
+                    if (status === 'converted') setIsQuickViewOpen(false);
+                }}
+            />
+        </div>
     );
 }

@@ -101,6 +101,7 @@ export const ContentRegistry = {
             CONFIRM_ASSIGN: 'Confirm Assignment',
             CANCEL_VISIT: 'Cancel Visit',
             CLOSE: 'Close',
+            EDIT: 'Edit Details',
         },
         MODAL: {
             SELECT_PSW: 'Select Verified PSW',

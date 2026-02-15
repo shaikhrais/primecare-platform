@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { MyEarningsTrend } from '@/shared/components/charts/MyEarningsTrend';
+import { MyReliabilityScore } from '@/shared/components/charts/MyReliabilityScore';
+import { ShiftDistributionChart } from '@/shared/components/charts/ShiftDistributionChart';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
@@ -154,6 +157,14 @@ export default function PswDashboard() {
                 </button>
             </div>
 
+
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+                <MyEarningsTrend />
+                <MyReliabilityScore />
+                <ShiftDistributionChart />
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 350px', gap: '2rem' }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
                     <div data-cy="section.shifts" style={{ padding: '20px 24px', borderBottom: '1px solid #E5E7EB', fontWeight: 700, fontSize: '1.2rem' }}>
@@ -261,6 +272,6 @@ export default function PswDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

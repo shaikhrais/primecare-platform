@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { PatientAcuityDistribution } from '@/shared/components/charts/PatientAcuityDistribution';
+import { AssessmentComplianceChart } from '@/shared/components/charts/AssessmentComplianceChart';
+import { ClinicalIncidentHeatmap } from '@/shared/components/charts/ClinicalIncidentHeatmap';
 
 // We could also move the API logic here if it was more complex
 // import { fetchRnStats } from './api';
@@ -72,6 +75,12 @@ export const Dashboard: React.FC = () => {
                 <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.PENDING_CARE_PLANS} value={stats.pendingCarePlans} color="#ff9800" dataCy="kpi-pending-plans" />
                 <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.DAILY_REVIEWS} value={stats.dailyReviewsNeed} color="#2196f3" dataCy="kpi-daily-reviews" />
                 <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.SUPERVISED_PSWS} value={stats.supervisedPswCount} color="#4caf50" dataCy="kpi-psw-count" />
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '32px' }}>
+                <PatientAcuityDistribution />
+                <AssessmentComplianceChart />
+                <ClinicalIncidentHeatmap />
             </div>
 
             <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">Pending Clinical Tasks</h2>

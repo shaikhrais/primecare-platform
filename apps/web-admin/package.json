@@ -7,6 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest",
     "deploy": "vite build && wrangler pages deploy dist --project-name=primecare-admin"
   },
   "dependencies": {
@@ -16,15 +17,21 @@
     "react-big-calendar": "^1.19.4",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.0",
+    "recharts": "^3.7.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^25.2.3",
     "@types/react": "^18.2.0",
     "@types/react-big-calendar": "^1.16.3",
     "@types/react-dom": "^18.2.0",
+    "@types/recharts": "^1.8.29",
     "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^28.0.0",
     "typescript": "^5.9.3",
-    "vite": "^5.4.21"
+    "vite": "^5.4.21",
+    "vitest": "^4.0.18"
   }
 }

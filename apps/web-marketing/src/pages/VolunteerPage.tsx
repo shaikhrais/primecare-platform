@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { AnimatedSection } from '../components/landing';
 
 const { ContentRegistry, RouteRegistry } = MarketingRegistry;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function VolunteerPage() {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function VolunteerPage() {
         interests: '',
         experience: '',
     });
+    const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
     const opportunities = [
         {
@@ -49,9 +51,26 @@ export default function VolunteerPage() {
         },
     ];
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        alert('Thank you for your interest in volunteering! We will contact you soon.');
+        setStatus('sending');
+
+        try {
+            const res = await fetch(`${API_URL}/v1/public/volunteers`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (res.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', phone: '', availability: '', interests: '', experience: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (e) {
+            setStatus('error');
+        }
     };
 
     return (
@@ -139,6 +158,18 @@ export default function VolunteerPage() {
                         </h2>
                     </AnimatedSection>
 
+                    {status === 'success' && (
+                        <div style={{ padding: '1rem', backgroundColor: '#e8f5e9', borderRadius: '8px', marginBottom: '1rem', color: '#2e7d32' }}>
+                            Application received! We will be in touch shortly.
+                        </div>
+                    )}
+
+                    {status === 'error' && (
+                        <div style={{ padding: '1rem', backgroundColor: '#ffebee', borderRadius: '8px', marginBottom: '1rem', color: '#c62828' }}>
+                            Something went wrong. Please try again or contact us directly.
+                        </div>
+                    )}
+
                     <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#333' }}>Full Name *</label>
@@ -200,19 +231,20 @@ export default function VolunteerPage() {
                         <button
                             data-cy="btn-submit-volunteer"
                             type="submit"
+                            disabled={status === 'sending'}
                             style={{
                                 width: '100%',
                                 padding: '1rem',
-                                backgroundColor: '#00897b',
+                                backgroundColor: status === 'sending' ? '#ccc' : '#00897b',
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '8px',
                                 fontSize: '1rem',
                                 fontWeight: 'bold',
-                                cursor: 'pointer',
+                                cursor: status === 'sending' ? 'not-allowed' : 'pointer',
                             }}
                         >
-                            Submit Application
+                            {status === 'sending' ? 'Submitting...' : 'Submit Application'}
                         </button>
                     </form>
                 </div>

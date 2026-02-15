@@ -110,6 +110,28 @@ export default function BookingsPage() {
         }
     };
 
+    const handleCancel = async (bookingId: string) => {
+        if (!window.confirm('Are you sure you want to cancel this booking?')) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/v1/client/bookings/${bookingId}/cancel`, {
+                method: 'POST', // or PUT/PATCH depending on API design
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                showToast('Booking cancelled successfully', 'success');
+                fetchBookings();
+            } else {
+                showToast('Failed to cancel booking', 'error');
+            }
+        } catch (error) {
+            console.error('Error cancelling booking', error);
+            showToast('Error cancelling booking', 'error');
+        }
+    };
+
     const getStatusStyle = (status: string) => {
         switch (status.toLowerCase()) {
             case 'scheduled': return { color: '#0369a1', bg: '#e0f2fe' };
@@ -179,10 +201,29 @@ export default function BookingsPage() {
                                                 fontWeight: '600',
                                                 backgroundColor: style.bg,
                                                 color: style.color,
-                                                textTransform: 'uppercase'
+                                                textTransform: 'uppercase',
+                                                marginRight: '1rem'
                                             }}>
                                                 {booking.status}
                                             </span>
+                                            {['requested', 'scheduled'].includes(booking.status.toLowerCase()) && (
+                                                <button
+                                                    onClick={() => handleCancel(booking.id)}
+                                                    style={{
+                                                        padding: '0.25rem 0.75rem',
+                                                        fontSize: '0.75rem',
+                                                        borderRadius: '4px',
+                                                        border: '1px solid #fee2e2',
+                                                        backgroundColor: '#fff',
+                                                        color: '#991b1b',
+                                                        cursor: 'pointer',
+                                                        fontWeight: 600
+                                                    }}
+                                                    title="Cancel this booking"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
                                 );

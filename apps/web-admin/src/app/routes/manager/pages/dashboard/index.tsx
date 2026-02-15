@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { RevenueChart } from '@/shared/components/charts/RevenueChart';
+import { VisitVolumeChart } from '@/shared/components/charts/VisitVolumeChart';
+import { StaffUtilizationChart } from '@/shared/components/charts/StaffUtilizationChart';
+import { ShiftFulfillmentChart } from '@/shared/components/charts/ShiftFulfillmentChart';
+import { ServicePopularityChart } from '@/shared/components/charts/ServicePopularityChart';
+import { IncidentTrendChart } from '@/shared/components/charts/IncidentTrendChart';
+import { CarePlanAdherenceGauge } from '@/shared/components/charts/CarePlanAdherenceGauge';
+import { StaffAttendanceHeatmap } from '@/shared/components/charts/StaffAttendanceHeatmap';
+import { ClientSatisfactionRadar } from '@/shared/components/charts/ClientSatisfactionRadar';
+import { RevenueForecastChart } from '@/shared/components/charts/RevenueForecastChart';
+import { TravelTimeAnalysis } from '@/shared/components/charts/TravelTimeAnalysis';
+import { OvertimeRiskGauge } from '@/shared/components/charts/OvertimeRiskGauge';
+import { ResourceAvailabilityChart } from '@/shared/components/charts/ResourceAvailabilityChart';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -94,14 +107,57 @@ export default function ManagerDashboard() {
                 <h2 data-cy="section.quick-actions" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Quick Actions</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
                     <QuickActionCard label="Daily Care Entry" icon="📝" onClick={() => navigate('/manager/daily-entry')} dataCy="qa-daily-entry" />
-                    <QuickActionCard label="Start Shift" icon="⏱️" onClick={() => { }} dataCy="qa-start-shift" />
-                    <QuickActionCard label="End Shift" icon="🏁" onClick={() => { }} dataCy="qa-end-shift" />
+                    <QuickActionCard label="Staff Evaluations" icon="📋" onClick={() => navigate('/manager/evaluations')} dataCy="qa-evaluations" />
+                    <QuickActionCard label="Service Reviews" icon="⭐" onClick={() => navigate('/manager/service-reviews')} dataCy="qa-service-reviews" />
                     <QuickActionCard label="Log Incident" icon="⚠️" onClick={() => navigate('/incidents')} dataCy="qa-log-incident" />
                     <QuickActionCard label="View Clients" icon="👥" onClick={() => navigate('/customers')} dataCy="qa-view-clients" />
-                    <QuickActionCard label="Generate Report" icon="📈" onClick={() => navigate('/reports')} dataCy="qa-generate-report" />
                 </div>
 
-                {/* Today's Timeline */}
+                {/* Interactive Charts Section */}
+                <h2 data-cy="section.analytics" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Performance Analytics</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <RevenueChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <VisitVolumeChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <StaffUtilizationChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <ShiftFulfillmentChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <ServicePopularityChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <IncidentTrendChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <CarePlanAdherenceGauge />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <StaffAttendanceHeatmap />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <ClientSatisfactionRadar />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <RevenueForecastChart />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <TravelTimeAnalysis />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <OvertimeRiskGauge />
+                    </div>
+                    <div className="pc-card" style={{ padding: '0' }}>
+                        <ResourceAvailabilityChart />
+                    </div>
+                </div>
+
+                {/* Today's Timeline (Preserved below charts) */}
                 <h2 data-cy="section.timeline" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Today's Timeline</h2>
                 <div className="pc-card">
                     <div className="pc-card-b" style={{ padding: '0 24px' }}>

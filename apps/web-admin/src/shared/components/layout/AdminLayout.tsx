@@ -97,6 +97,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Services', path: RouteRegistry.SERVICES, icon: '💰' },
         { label: 'Call Audits', path: RouteRegistry.AUDITS, icon: '🎙️' },
         { label: 'Content', path: RouteRegistry.CONTENT, icon: '📝' },
+        { label: 'Reports', path: '/admin/reports', icon: '📈' },
         { label: 'Settings', path: RouteRegistry.SETTINGS, icon: '⚙️' },
         { label: 'Support', path: RouteRegistry.SUPPORT, icon: '💬' },
     ];
@@ -121,6 +122,7 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
     const pswMenu: MenuItem[] = [
         { label: 'Work Schedule', path: '/psw/dashboard', icon: '🗓️' },
+        { label: 'Open Shifts', path: '/psw/open-shifts', icon: '✨' },
         { label: 'My Shifts', path: '/psw/schedule', icon: '⌚' },
         { label: 'My Earnings', path: '/psw/earnings', icon: '💰' },
         { label: 'My Credentials', path: '/psw/profile', icon: '📜' },
@@ -134,7 +136,15 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Profile', path: '/profile', icon: '👤' },
     ];
 
-    const menuItems = role === 'admin' ? adminMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
+    const managerMenu: MenuItem[] = [
+        { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' },
+        { label: 'Daily Entry', path: '/manager/daily-entry', icon: '📝' },
+        { label: 'Evaluations', path: '/manager/evaluations', icon: '📋' },
+        { label: 'Service Review', path: '/manager/service-review', icon: '⭐' },
+        { label: 'Profile', path: '/profile', icon: '👤' },
+    ];
+
+    const menuItems = role === 'admin' ? adminMenu : role === 'manager' ? managerMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
 
     const handleLogout = async () => {
         try {

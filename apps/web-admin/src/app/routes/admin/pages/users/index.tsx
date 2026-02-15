@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
+import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';
 import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
@@ -18,6 +20,7 @@ interface User {
 
 export default function UserList() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { showToast } = useNotification();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
@@ -26,6 +29,23 @@ export default function UserList() {
     const [isDirty, setIsDirty] = useState(false);
     const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+
+    // Quick View State
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [quickViewOpen, setQuickViewOpen] = useState(false);
+
+    // Filter Logic
+    const filteredUsers = useMemo(() => {
+        const roleFilter = searchParams.get('role');
+        const statusFilter = searchParams.get('status');
+
+        return users.filter(user => {
+            if (roleFilter && !user.roles.includes(roleFilter)) return false;
+            if (statusFilter === 'verified' && !user.profile?.isVerified) return false;
+            if (statusFilter === 'pending' && user.profile?.isVerified) return false;
+            return true;
+        });
+    }, [users, searchParams]);
 
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -110,6 +130,23 @@ export default function UserList() {
                 </button>
             </div>
 
+            {(searchParams.get('role') || searchParams.get('status')) && (
+                <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>Active Filters:</span>
+                    {searchParams.get('role') && (
+                        <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#e0f2fe', color: '#0369a1', borderRadius: '9999px', fontSize: '0.875rem' }}>
+                            Role: {searchParams.get('role')}
+                        </span>
+                    )}
+                    {searchParams.get('status') && (
+                        <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '9999px', fontSize: '0.875rem' }}>
+                            Status: {searchParams.get('status')}
+                        </span>
+                    )}
+                    <button onClick={() => navigate('/users')} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>Clear All</button>
+                </div>
+            )}
+
             <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.users">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
@@ -124,8 +161,12 @@ export default function UserList() {
                         {loading ? (
                             <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.USERS.MESSAGES.LOADING}</td></tr>
                         ) : (
-                            users.map(user => (
-                                <tr key={user.id} data-cy={`user-row-${user.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                            filteredUsers.map(user => (
+                                <tr key={user.id} data-cy={`user-row-${user.id}`} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', transition: 'background-color 0.2s' }}
+                                    onClick={() => { setSelectedUser(user); setQuickViewOpen(true); }}
+                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                                >
                                     <td style={{ padding: '1rem' }}>
                                         <div style={{ fontWeight: '600', color: '#111827' }} data-cy="user-fullname">{user.profile?.fullName}</div>
                                         <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="user-email">{user.email}</div>
@@ -178,7 +219,7 @@ export default function UserList() {
                                 </tr>
                             ))
                         )}
-                        {users.length === 0 && !loading && (
+                        {filteredUsers.length === 0 && !loading && (
                             <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.USERS.MESSAGES.EMPTY}</td></tr>
                         )}
                     </tbody>
@@ -234,6 +275,12 @@ export default function UserList() {
                     </form>
                 </div>
             )}
+
+            <UserQuickViewModal
+                isOpen={quickViewOpen}
+                onClose={() => setQuickViewOpen(false)}
+                user={selectedUser}
+            />
         </div>
     );
 }

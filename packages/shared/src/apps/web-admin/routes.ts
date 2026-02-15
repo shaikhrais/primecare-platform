@@ -4,6 +4,7 @@ export const RouteRegistry = {
     DASHBOARD: '/admin/dashboard',
     USERS: '/admin/users',
     VISITS: '/admin/visits',
+    EARNINGS: '/admin/earnings',
     SCHEDULE: '/admin/schedule',
     INCIDENTS: '/admin/incidents',
     TIMESHEETS: '/admin/timesheets',

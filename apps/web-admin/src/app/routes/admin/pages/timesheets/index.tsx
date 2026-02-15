@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { TimesheetDetailModal } from '@/shared/components/modals/TimesheetDetailModal';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { RouteRegistry } = AdminRegistry;
 
 export default function TimesheetList() {
     const navigate = useNavigate();
     const [timesheets, setTimesheets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const [selectedTimesheet, setSelectedTimesheet] = useState<any>(null);
 
     useEffect(() => {
         fetch('/v1/admin/timesheets', {
@@ -17,7 +23,8 @@ export default function TimesheetList() {
             });
     }, []);
 
-    const handleApprove = (id: string, status: string) => {
+    const handleApprove = (id: string, status: string, e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevent modal opening
         fetch(`/v1/admin/timesheets/${id}`, {
             method: 'PATCH',
             headers: {
@@ -58,8 +65,23 @@ export default function TimesheetList() {
                     </thead>
                     <tbody>
                         {timesheets.map((ts: any) => (
-                            <tr key={ts.id} data-cy={`timesheet-row-${ts.id}`}>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-caregiver">{ts.psw?.fullName}</td>
+                            <tr
+                                key={ts.id}
+                                data-cy={`timesheet-row-${ts.id}`}
+                                onClick={() => setSelectedTimesheet(ts)}
+                                style={{ cursor: 'pointer', transition: 'background-color 0.2s' }}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                            >
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-caregiver">
+                                    <Link
+                                        to={`${RouteRegistry.USERS}?search=${ts.psw?.email}`}
+                                        onClick={(e) => e.stopPropagation()}
+                                        style={{ color: '#00875A', fontWeight: 600, textDecoration: 'none' }}
+                                    >
+                                        {ts.psw?.fullName}
+                                    </Link>
+                                </td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{ts.weekId}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-minutes">{ts.totalMinutes}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
@@ -78,14 +100,14 @@ export default function TimesheetList() {
                                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                                             <button
                                                 data-cy="btn-approve-ts"
-                                                onClick={() => handleApprove(ts.id, 'approved')}
+                                                onClick={(e) => handleApprove(ts.id, 'approved', e)}
                                                 style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                             >
                                                 Approve
                                             </button>
                                             <button
                                                 data-cy="btn-reject-ts"
-                                                onClick={() => handleApprove(ts.id, 'rejected')}
+                                                onClick={(e) => handleApprove(ts.id, 'rejected', e)}
                                                 style={{ color: '#dc2626', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                             >
                                                 Reject
@@ -98,6 +120,12 @@ export default function TimesheetList() {
                     </tbody>
                 </table>
             </div>
+
+            <TimesheetDetailModal
+                isOpen={!!selectedTimesheet}
+                onClose={() => setSelectedTimesheet(null)}
+                timesheet={selectedTimesheet}
+            />
         </div>
     );
 }

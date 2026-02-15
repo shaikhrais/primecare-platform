@@ -26,5 +26,29 @@ export const ContentRegistry = {
         APPROVE_BTN: 'Approve',
         ROLE: 'Role',
         STATUS: 'Status',
+    },
+    SCHEDULE: {
+        TITLE: 'Shift Scheduling',
+        SUBTITLE: 'Manage client visits and caregiver assignments',
+        ACTIONS: {
+            CREATE: '+ Create Visit Request',
+            ASSIGN: 'Assign Caregiver',
+            CONFIRM_ASSIGN: 'Confirm Assignment',
+            CANCEL_VISIT: 'Cancel Visit',
+            CLOSE: 'Close',
+            EDIT: 'Edit Visit'
+        },
+        MODAL: {
+            SELECT_PSW: 'Select Caregiver',
+            CHOOSE_WORKER: 'Choose a worker...',
+            CONFIRM_DELETE: 'Are you sure you want to cancel this visit?'
+        },
+        MESSAGES: {
+            SUCCESS_ASSIGN: 'Shift assigned successfully',
+            ERROR_ASSIGN: 'Failed to assign shift',
+            SUCCESS_CANCEL: 'Visit cancelled successfully',
+            ERROR_DELETE: 'Failed to cancel visit',
+            ERROR_UPDATE: 'Failed to update status'
+        }
     }
 } as const;

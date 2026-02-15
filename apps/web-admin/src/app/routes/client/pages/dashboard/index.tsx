@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { BudgetUtilizationChart } from '@/shared/components/charts/BudgetUtilizationChart';
+import { WellnessTrendChart } from '@/shared/components/charts/WellnessTrendChart';
+import { CareContinuityChart } from '@/shared/components/charts/CareContinuityChart';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -111,6 +114,12 @@ export default function ClientDashboard() {
                 >
                     {ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST}
                 </button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+                <BudgetUtilizationChart />
+                <WellnessTrendChart />
+                <CareContinuityChart />
             </div>
 
             {/* ... content ... */}
