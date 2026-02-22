@@ -17,7 +17,10 @@ async function run() {
             })
         });
 
-        if (!regRes.ok) throw new Error('Reg/Login failed');
+        if (!regRes.ok) {
+            const err = await regRes.text();
+            throw new Error(`Reg/Login failed: ${regRes.status} - ${err}`);
+        }
         const token = (await regRes.json()).token;
 
         console.log('2. Fetching Invoices...');

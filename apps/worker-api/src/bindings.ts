@@ -4,6 +4,7 @@ export type Bindings = {
     DOCS_BUCKET: R2Bucket;
     STRIPE_SECRET_KEY: string;
     CHAT_SERVER: DurableObjectNamespace;
+    ENVIRONMENT?: string;
 };
 
 export type Variables = {

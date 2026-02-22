@@ -8,9 +8,22 @@ let prismaInstance: any = null;
 export const prismaMiddleware = () => {
     return createMiddleware<{ Bindings: Bindings; Variables: Variables }>(async (c, next) => {
         if (!prismaInstance) {
-            prismaInstance = new PrismaClient({
-                datasourceUrl: c.env.DATABASE_URL,
-            }).$extends(withAccelerate());
+            const isProd = c.env.ENVIRONMENT === 'production';
+
+            if (isProd) {
+                const { PrismaClient } = await import('../../../generated/client/edge');
+                prismaInstance = new PrismaClient({
+                    datasourceUrl: c.env.DATABASE_URL,
+                }).$extends(withAccelerate());
+            } else {
+                const { PrismaClient } = await import('@prisma/client');
+                const pg = await import('pg');
+                const { PrismaPg } = await import('@prisma/adapter-pg');
+
+                const pool = new pg.default.Pool({ connectionString: c.env.DATABASE_URL });
+                const adapter = new PrismaPg(pool);
+                prismaInstance = new PrismaClient({ adapter });
+            }
         }
 
         c.set('prisma', prismaInstance);

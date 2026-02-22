@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// Native fetch used
 
 const API_URL = 'https://primecare-api.shaikhrais.workers.dev';
 
