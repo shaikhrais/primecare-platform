@@ -19,7 +19,13 @@ interface ServiceBookingModalProps {
 }
 
 export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen, onClose, services, onSuccess, showToast }) => {
-    const [newRequest, setNewRequest] = useState({ serviceId: '', requestedStartAt: '', durationMinutes: 60 });
+    const [newRequest, setNewRequest] = useState({
+        serviceId: '',
+        requestedStartAt: '',
+        durationMinutes: 60,
+        priority: 'normal',
+        recurrence: 'none'
+    });
 
     const handleSubmitRequest = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,11 +37,14 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(newRequest)
+                body: JSON.stringify({
+                    ...newRequest,
+                    recurrenceRule: newRequest.recurrence !== 'none' ? { pattern: newRequest.recurrence } : undefined
+                })
             });
             if (response.ok) {
                 showToast('Care request submitted successfully!', 'success');
-                setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60 });
+                setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60, priority: 'normal', recurrence: 'none' });
                 onSuccess();
                 onClose();
             } else {
@@ -94,6 +103,34 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                             <option value={120} style={{ background: '#12233C' }}>2 Hours</option>
                             <option value={180} style={{ background: '#12233C' }}>3 Hours</option>
                         </select>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <div style={{ flex: 1 }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Priority</label>
+                            <select
+                                value={newRequest.priority}
+                                onChange={(e) => setNewRequest({ ...newRequest, priority: e.target.value })}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                            >
+                                <option value="normal" style={{ background: '#12233C' }}>Normal</option>
+                                <option value="urgent" style={{ background: '#12233C' }}>Urgent</option>
+                            </select>
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Recurrence</label>
+                            <select
+                                value={newRequest.recurrence}
+                                onChange={(e) => setNewRequest({ ...newRequest, recurrence: e.target.value })}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                                data-cy="form.booking.recurrence"
+                            >
+                                <option value="none" style={{ background: '#12233C' }}>None</option>
+                                <option value="daily" style={{ background: '#12233C' }}>Daily</option>
+                                <option value="weekly" style={{ background: '#12233C' }}>Weekly</option>
+                                <option value="monthly" style={{ background: '#12233C' }}>Monthly</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem' }}>

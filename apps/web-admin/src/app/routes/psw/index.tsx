@@ -12,6 +12,7 @@ import OpenShifts from './pages/OpenShifts';
 import Availability from './pages/availability';
 import Expenses from './pages/expenses';
 import ShiftConfirmation from './pages/shift-confirmation';
+import OpenOffers from './pages/OpenShifts/OpenOffers';
 
 /**
  * PSW Routes
@@ -34,6 +35,7 @@ const PswRoutes: React.FC = () => {
                     <Route path="dashboard" element={<PswDashboardEnterprise />} />
                     <Route path="schedule" element={<Schedule />} />
                     <Route path="open-shifts" element={<OpenShifts />} />
+                    <Route path="offers" element={<OpenOffers />} />
                     <Route path="availability" element={<Availability />} />
                     <Route path="earnings" element={<EarningsPage />} />
                     <Route path="expenses" element={<Expenses />} />

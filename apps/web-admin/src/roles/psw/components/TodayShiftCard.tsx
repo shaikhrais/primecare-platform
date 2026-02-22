@@ -24,10 +24,10 @@ export const TodayShiftCard: React.FC<TodayShiftCardProps> = ({
         <div
             data-cy="today-shift-card"
             style={{
-                padding: '40px',
+                padding: '24px',
                 backgroundColor: '#FFFFFF',
                 border: isInProgress ? '2px solid #00875A' : '1px solid #E5E7EB',
-                borderRadius: '32px',
+                borderRadius: '24px',
                 boxShadow: isInProgress
                     ? '0 30px 60px -12px rgba(0, 135, 90, 0.2), 0 18px 36px -18px rgba(0, 0, 0, 0.3)'
                     : '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
@@ -79,7 +79,7 @@ export const TodayShiftCard: React.FC<TodayShiftCardProps> = ({
                 </h3>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
                 <div style={{
                     padding: '20px',
                     backgroundColor: '#F9FAFB',

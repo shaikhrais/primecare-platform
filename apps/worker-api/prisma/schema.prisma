@@ -111,6 +111,8 @@ model PswProfile {
   checklists     VisitChecklist[]
   notes          VisitNote[]
   assignedVisits Visit[]
+  availability   Availability[]
+  assignments    ShiftAssignment[]
 
   @@index([tenantId])
   @@map("psw_profiles")
@@ -147,6 +149,12 @@ model Visit {
   client              ClientProfile     @relation(fields: [clientId], references: [id])
   service             Service           @relation(fields: [serviceId], references: [id])
   tenant              Tenant            @relation(fields: [tenantId], references: [id])
+  bookingId           String?           @map("booking_id")
+  booking             Booking?          @relation(fields: [bookingId], references: [id])
+  priority            String?           @default("normal")
+  requiredSkills      String[]          @map("required_skills")
+  crisisMode          Boolean?          @default(false) @map("crisis_mode")
+  assignments         ShiftAssignment[]
 
   @@index([tenantId])
   @@map("visits")
@@ -361,6 +369,52 @@ model Lead {
   @@map("leads")
 }
 
+model Booking {
+  id             String         @id @default(uuid())
+  clientId       String         @map("client_id")
+  branchId       String?        @map("branch_id")
+  startAt        DateTime       @map("start_at")
+  endAt          DateTime       @map("end_at")
+  serviceType    String         @map("service_type")
+  priority       String         @default("normal")
+  notes          String?
+  status         String         @default("pending")
+  recurrenceRule Json?          @map("recurrence_rule")
+  tenantId       String         @map("tenant_id")
+  client         ClientProfile  @relation(fields: [clientId], references: [id])
+  visits         Visit[]
+
+  @@map("bookings")
+}
+
+model Availability {
+  id        String     @id @default(uuid())
+  pswId     String     @map("psw_id")
+  dayOfWeek Int        @map("day_of_week")
+  startTime String     @map("start_time")
+  endTime   String     @map("end_time")
+  tenantId  String     @map("tenant_id")
+  psw       PswProfile @relation(fields: [pswId], references: [id])
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@map("availability")
+}
+
+model ShiftAssignment {
+  id         String           @id @default(uuid())
+  visitId    String           @map("visit_id")
+  pswId      String           @map("psw_id")
+  status     AssignmentStatus @default(offered)
+  score      Float?
+  assignedAt DateTime         @default(now()) @map("assigned_at")
+  tenantId   String           @map("tenant_id")
+  visit      Visit            @relation(fields: [visitId], references: [id])
+  psw        PswProfile       @relation(fields: [pswId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+
+  @@map("shift_assignments")
+}
+
 model BlogPost {
   id                String    @id @default(uuid())
   title             String
@@ -459,6 +513,19 @@ enum VisitStatus {
   in_progress
   completed
   cancelled
+  draft
+  posted
+  offered
+  accepted
+  no_show
+  replaced
+}
+
+enum AssignmentStatus {
+  offered
+  accepted
+  declined
+  assigned
 }
 
 enum EventType {

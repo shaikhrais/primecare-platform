@@ -153,9 +153,112 @@ r.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c) 
     return c.json(event);
 });
 
-// POST Payout Request
-r.post('/payouts/request', async (c) => {
-    return c.json({ success: true, message: 'Payout requested successfully. Admin will review.' });
+// GET Offered Shifts
+r.get('/offers', async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const offers = await prisma.shiftAssignment.findMany({
+        where: { pswId: profile.id, status: 'offered' },
+        include: {
+            visit: {
+                include: {
+                    client: { select: { fullName: true, addressLine1: true, city: true } },
+                    service: true,
+                }
+            }
+        }
+    });
+
+    return c.json(offers);
+});
+
+// POST Accept Offer
+r.post('/offers/:id/accept', async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const assignmentId = c.req.param('id');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const assignment = await prisma.shiftAssignment.findUnique({
+        where: { id: assignmentId },
+        include: { visit: true }
+    });
+
+    if (!assignment || assignment.pswId !== profile.id) {
+        return c.json({ error: 'Offer not found' }, 404);
+    }
+
+    await prisma.$transaction([
+        prisma.shiftAssignment.update({
+            where: { id: assignmentId },
+            data: { status: 'accepted' }
+        }),
+        prisma.visit.update({
+            where: { id: assignment.visitId },
+            data: {
+                status: 'accepted',
+                assignedPswId: profile.id // Also set this to move to assigned soon
+            }
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: userId,
+                action: 'ACCEPT_OFFER',
+                resourceType: 'VISIT',
+                resourceId: assignment.visitId,
+                tenantId: profile.tenantId
+            }
+        })
+    ]);
+
+    return c.json({ success: true });
+});
+
+// POST Decline Offer
+r.post('/offers/:id/decline', async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const assignmentId = c.req.param('id');
+
+    await prisma.shiftAssignment.update({
+        where: { id: assignmentId },
+        data: { status: 'declined' }
+    });
+
+    return c.json({ success: true });
+});
+
+// POST Update Availability
+r.post('/availability', zValidator('json', z.array(z.object({
+    dayOfWeek: z.number().min(0).max(6),
+    startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+    endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+}))), async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const availabilityData = c.req.valid('json');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    await prisma.$transaction([
+        prisma.availability.deleteMany({ where: { pswId: profile.id } }),
+        ...availabilityData.map(data => prisma.availability.create({
+            data: {
+                pswId: profile.id,
+                ...data,
+                tenantId: profile.tenantId
+            }
+        }))
+    ]);
+
+    return c.json({ success: true });
 });
 
 export default r;

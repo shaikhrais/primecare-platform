@@ -123,7 +123,29 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         { label: 'Profile', path: '/profile', icon: '👤' },
     ];
 
-    const menuItems = role === 'admin' ? adminMenu : role === 'manager' ? managerMenu : role === 'rn' ? rnMenu : role === 'psw' ? pswMenu : role === 'staff' ? staffMenu : clientMenu;
+    const coordinatorMenu: MenuItem[] = [
+        { label: 'Dashboard', path: '/coordinator/dashboard', icon: '📊' },
+        { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
+        { label: 'Clients', path: '/customers', icon: '👥' },
+        { label: 'Staff', path: RouteRegistry.USERS, icon: '👨‍⚕️' },
+        { label: 'Incidents', path: RouteRegistry.INCIDENTS, icon: '⚠️' },
+    ];
+
+    const financeMenu: MenuItem[] = [
+        { label: 'Dashboard', path: '/finance/dashboard', icon: '💰' },
+        { label: 'Billing', path: '/billing', icon: '💳' },
+        { label: 'Payroll', path: '/payroll', icon: '💸' },
+        { label: 'Reports', path: '/reports', icon: '📈' },
+    ];
+
+    const menuItems = role === 'admin' ? adminMenu
+        : role === 'manager' ? managerMenu
+            : role === 'rn' ? rnMenu
+                : role === 'psw' ? pswMenu
+                    : role === 'staff' ? staffMenu
+                        : role === 'coordinator' ? coordinatorMenu
+                            : role === 'finance' ? financeMenu
+                                : clientMenu;
 
     const handleLogout = async () => {
         try {

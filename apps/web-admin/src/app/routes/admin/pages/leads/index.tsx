@@ -29,7 +29,7 @@ export default function LeadsPage() {
     const fetchLeads = async () => {
         setLoading(true);
         try {
-            const response = await apiClient.get(ApiRegistry.ADMIN.Leads); // Ensure this endpoint exists in your registry
+            const response = await apiClient.get(ApiRegistry.ADMIN.LEADS); // Ensure this endpoint exists in your registry
             if (response.ok) {
                 const data = await response.json();
                 setLeads(data);

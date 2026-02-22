@@ -20,6 +20,7 @@ export default function PswLayout({ children }: PswLayoutProps) {
     const menuItems = [
         { label: 'Dashboard', path: '/psw/dashboard', icon: '🏠' },
         { label: 'My Schedule', path: '/psw/schedule', icon: '📅' },
+        { label: 'Shift Offers', path: '/psw/offers', icon: '📩' },
         { label: 'Open Shifts', path: '/psw/open-shifts', icon: '✨' },
         { label: 'Availability', path: '/psw/availability', icon: '🕒' },
         { label: 'Earnings', path: '/psw/earnings', icon: '💰' },
@@ -34,7 +35,7 @@ export default function PswLayout({ children }: PswLayoutProps) {
     };
 
     return (
-        <div className="app">
+        <div className="app" style={{ display: 'block' }}>
             {/* Sidebar */}
             <aside className="pc-sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '14px 10px 18px' }}>

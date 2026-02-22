@@ -20,6 +20,10 @@ interface AssignShiftModalProps {
     handleAssign: () => void;
     handleDeleteVisit: () => void;
     openEditModal: () => void;
+    suggestions: any[];
+    onFetchSuggestions: () => void;
+    onOffer: (pswIds: string[]) => void;
+    isSuggesting: boolean;
 }
 
 export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
@@ -31,7 +35,11 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
     setAssignedPswId,
     handleAssign,
     handleDeleteVisit,
-    openEditModal
+    openEditModal,
+    suggestions,
+    onFetchSuggestions,
+    onOffer,
+    isSuggesting
 }) => {
     if (!isOpen || !selectedVisit) return null;
 
@@ -60,6 +68,50 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                             </option>
                         ))}
                     </select>
+                </div>
+
+                {/* Suggestions Section */}
+                <div style={{ marginTop: '1.5rem', borderTop: '1px solid #f3f4f6', paddingTop: '1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <label style={{ fontSize: '0.875rem', fontWeight: 'bold' }}>Smart Suggestions</label>
+                        <button
+                            onClick={onFetchSuggestions}
+                            disabled={isSuggesting}
+                            style={{ fontSize: '0.75rem', color: '#004d40', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                        >
+                            {isSuggesting ? 'Thinking...' : 'Refresh Suggestions'}
+                        </button>
+                    </div>
+
+                    {suggestions.length > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            {suggestions.map(s => (
+                                <div key={s.id} style={{ padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>
+                                        <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: '600' }}>{s.fullName}</p>
+                                        <p style={{ margin: 0, fontSize: '0.75rem', color: '#6b7280' }}>{s.reasons.join(', ')}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                        <span style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#059669' }}>{s.score}%</span>
+                                        <button
+                                            onClick={() => setAssignedPswId(s.id)}
+                                            style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', backgroundColor: '#e5e7eb', border: 'none', borderRadius: '0.25rem', cursor: 'pointer' }}
+                                        >
+                                            Select
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                            <button
+                                onClick={() => onOffer(suggestions.map(s => s.id))}
+                                style={{ marginTop: '0.5rem', padding: '0.5rem', backgroundColor: '#ecfdf5', color: '#065f46', border: '1px solid #a7f3d0', borderRadius: '0.5rem', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer' }}
+                            >
+                                Send Offer to Top {suggestions.length} PSWs
+                            </button>
+                        </div>
+                    ) : (
+                        <p style={{ fontSize: '0.75rem', color: '#9ca3af', textAlign: 'center', margin: '1rem 0' }}>Click refresh to see smart caregiver matches.</p>
+                    )}
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>

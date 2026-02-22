@@ -63,7 +63,7 @@ export const ChartCard = ({
             </div>
 
             <div style={{ width: '100%', height: typeof height === 'number' ? height : 300, minWidth: 0, overflow: 'hidden', position: 'relative', display: 'block' }}>
-                {children}
+                {height && children}
             </div>
         </div>
     );

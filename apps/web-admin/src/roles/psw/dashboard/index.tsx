@@ -182,39 +182,41 @@ export default function PswDashboardEnterprise() {
                     {/* Monthly Summary - Spans 8 columns */}
                     <div style={{ gridColumn: 'span 8' }}>
                         <div style={{
-                            padding: '32px',
+                            padding: '24px',
                             backgroundColor: '#000000',
                             borderRadius: '24px',
                             color: '#FFFFFF',
                             display: 'flex',
+                            flexWrap: 'wrap', // Allow wrapping
+                            gap: '2rem', // Use gap instead of space-between for better wrapping control
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             height: '100%',
                             boxSizing: 'border-box'
                         }}>
-                            <div style={{ display: 'flex', gap: '4rem', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
                                 <div>
                                     <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
                                         Monthly Visits
                                     </h4>
-                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>42</div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px' }}>42</div>
                                 </div>
-                                <div style={{ height: '60px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
+                                <div style={{ height: '40px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
                                 <div>
                                     <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
                                         Hours Logged
                                     </h4>
-                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>128.5 <span style={{ fontSize: '1rem', opacity: 0.5 }}>hrs</span></div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px' }}>128.5 <span style={{ fontSize: '0.875rem', opacity: 0.5 }}>hrs</span></div>
                                 </div>
-                                <div style={{ height: '60px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
+                                <div style={{ height: '40px', width: '1px', background: 'rgba(255,255,255,0.1)' }}></div>
                                 <div>
                                     <h4 style={{ margin: '0 0 8px 0', fontSize: '0.75rem', fontWeight: 800, color: '#00875A', textTransform: 'uppercase', opacity: 0.8 }}>
                                         Care Score
                                     </h4>
-                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1px' }}>98%</div>
+                                    <div style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px' }}>98%</div>
                                 </div>
                             </div>
-                            <div style={{ textAlign: 'right' }}>
+                            <div style={{ textAlign: 'right', minWidth: '150px' }}>
                                 <div style={{ color: '#00875A', fontWeight: 800, fontSize: '0.9rem' }}>Legendary Performance</div>
                                 <div style={{ fontSize: '0.75rem', opacity: 0.5 }}>You're in the top 5% this month</div>
                             </div>
@@ -228,7 +230,7 @@ export default function PswDashboardEnterprise() {
                         from { opacity: 0; transform: translateY(20px); }
                         to { opacity: 1; transform: translateY(0); }
                     }
-                    @media (max-width: 1280px) {
+                    @media (max-width: 1024px) {
                         div[data-cy="page.container"] > div { grid-template-columns: 1fr !important; }
                         div[data-cy="page.container"] > div > div { grid-column: span 1 !important; }
                     }

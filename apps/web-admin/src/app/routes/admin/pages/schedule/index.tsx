@@ -33,6 +33,8 @@ export default function Schedule() {
     const [assignedPswId, setAssignedPswId] = useState('');
     const [isCreateVisitModalOpen, setIsCreateVisitModalOpen] = useState(false);
     const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
+    const [suggestions, setSuggestions] = useState<any[]>([]);
+    const [isSuggesting, setIsSuggesting] = useState(false);
 
     const [searchParams] = useSearchParams();
 
@@ -118,11 +120,53 @@ export default function Schedule() {
         }
     };
 
+    const fetchSuggestions = async () => {
+        if (!selectedVisit) return;
+        setIsSuggesting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_URL}${ApiRegistry.ADMIN.VISITS_UPDATE(selectedVisit.id)}/suggest`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+            setSuggestions(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsSuggesting(false);
+        }
+    };
+
+    const handleOffer = async (pswIds: string[]) => {
+        if (!selectedVisit) return;
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_URL}${ApiRegistry.ADMIN.VISITS_UPDATE(selectedVisit.id)}/offer`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pswIds })
+            });
+            if (res.ok) {
+                showToast('Offers sent successfully', 'success');
+                setIsAssignModalOpen(false);
+                fetchVisits();
+            }
+        } catch (err) {
+            showToast('Failed to send offers', 'error');
+        }
+    };
+
     const getStatusColor = (status: string) => {
         switch (status.toLowerCase()) {
             case 'requested': return '#f57c00';
             case 'scheduled': return '#1976d2';
             case 'completed': return '#388e3c';
+            case 'posted': return '#8e24aa';
+            case 'offered': return '#00acc1';
+            case 'accepted': return '#43a047';
             default: return '#9e9e9e';
         }
     };
@@ -247,6 +291,10 @@ export default function Schedule() {
                     setIsAssignModalOpen(false);
                     setIsCreateVisitModalOpen(true);
                 }}
+                suggestions={suggestions}
+                onFetchSuggestions={fetchSuggestions}
+                onOffer={handleOffer}
+                isSuggesting={isSuggesting}
             />
 
             <CreateVisitModal

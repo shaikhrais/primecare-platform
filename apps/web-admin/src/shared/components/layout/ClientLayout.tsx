@@ -34,7 +34,7 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
     };
 
     return (
-        <div className="app">
+        <div className="app" style={{ display: 'block' }}>
             {/* Sidebar */}
             <aside className="pc-sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '14px 10px 18px' }}>

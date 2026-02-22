@@ -143,5 +143,11 @@ export const ContentRegistry = {
         PSW: 'Personal Support Worker',
         RN: 'Registered Nurse',
         CLIENT: 'Client',
+        COORDINATOR: 'Scheduling Coordinator',
+        FINANCE: 'Finance Manager',
+        HR: 'HR Manager',
+        COMPLIANCE: 'Compliance Officer',
+        CRM: 'Client Relationship Manager',
+        TRAINING: 'Training Manager',
     }
 } as const;

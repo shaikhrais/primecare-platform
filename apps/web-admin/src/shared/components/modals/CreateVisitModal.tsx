@@ -37,7 +37,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
         durationMinutes: 60,
         assignedPswId: '',
         clientNotes: '',
-        assignmentType: 'open' as 'open' | 'direct'
+        assignmentType: 'open' as 'open' | 'direct',
+        priority: 'normal' as 'normal' | 'urgent',
+        recurrence: 'none' as 'none' | 'daily' | 'weekly' | 'monthly'
     });
 
     useEffect(() => {
@@ -51,10 +53,12 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
                     durationMinutes: visit.durationMinutes || 60,
                     assignedPswId: visit.assignedPswId || '',
                     clientNotes: visit.clientNotes || '',
-                    assignmentType: visit.assignedPswId ? 'direct' : 'open'
+                    assignmentType: visit.assignedPswId ? 'direct' : 'open',
+                    priority: visit.priority || 'normal',
+                    recurrence: 'none'
                 });
             } else if (initialClientId) {
-                setFormData(prev => ({ ...prev, clientId: initialClientId, assignmentType: 'open' }));
+                setFormData(prev => ({ ...prev, clientId: initialClientId, assignmentType: 'open', priority: 'normal', recurrence: 'none' }));
             } else {
                 setFormData({
                     clientId: '',
@@ -63,7 +67,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
                     durationMinutes: 60,
                     assignedPswId: '',
                     clientNotes: '',
-                    assignmentType: 'open'
+                    assignmentType: 'open',
+                    priority: 'normal',
+                    recurrence: 'none'
                 });
             }
         }
@@ -98,7 +104,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
             requestedStartAt: new Date(formData.requestedStartAt).toISOString(),
             durationMinutes: Number(formData.durationMinutes),
             assignedPswId: formData.assignmentType === 'direct' ? formData.assignedPswId : undefined,
-            clientNotes: formData.clientNotes
+            clientNotes: formData.clientNotes,
+            priority: formData.priority,
+            recurrenceRule: formData.recurrence !== 'none' ? { pattern: formData.recurrence } : undefined
         };
 
         try {
@@ -160,6 +168,35 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps & { visit?: any }>
                         onPswChange={(e) => setFormData(prev => ({ ...prev, assignedPswId: e.target.value }))}
                         disabled={loading}
                     />
+
+                    {/* Priority & Recurrence */}
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <div style={{ flex: 1 }}>
+                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Priority</label>
+                            <select
+                                value={formData.priority}
+                                onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as any }))}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                            >
+                                <option value="normal">Normal</option>
+                                <option value="urgent">Urgent (Crisis)</option>
+                            </select>
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Recurrence</label>
+                            <select
+                                value={formData.recurrence}
+                                onChange={(e) => setFormData(prev => ({ ...prev, recurrence: e.target.value as any }))}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                                disabled={!!visit} // Disable recurrence edit for single visits for now
+                            >
+                                <option value="none">None</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
 
                     {/* Notes */}
                     <div>
