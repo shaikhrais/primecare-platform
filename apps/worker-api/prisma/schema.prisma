@@ -224,7 +224,7 @@ model VisitNote {
 model VisitChecklist {
   id            String     @id @default(uuid())
   visitId       String     @map("visit_id")
-  pswId         String     @map("psw_id")
+  pswId     String     @map("psw_id")
   checklistJson Json       @map("checklist_json")
   createdAt     DateTime   @default(now()) @map("created_at")
   psw           PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])

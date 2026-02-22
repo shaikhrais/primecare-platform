@@ -1,12 +1,12 @@
 // const fetch = require('node-fetch');
 
-const API_URL = 'http://127.0.0.1:8787';
+const API_URL = 'https://primecare-api.shaikhrais.workers.dev';
 
 async function run() {
     try {
         console.log('1. Registering/Logging in PSW...');
-        const email = `test.psw.${Date.now()}@example.com`;
-        const regRes = await fetch(`${API_URL}/v1/auth/register`, {
+        const email = `test.psw.${Date.now()} @example.com`;
+        const regRes = await fetch(`${API_URL} /v1/auth / register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -21,14 +21,14 @@ async function run() {
         const token = (await regRes.json()).token;
 
         console.log('2. Requesting Payout...');
-        const res = await fetch(`${API_URL}/v1/psw/payouts/request`, {
+        const res = await fetch(`${API_URL} /v1/psw / payouts / request`, {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { 'Authorization': `Bearer ${token} ` }
         });
 
         if (!res.ok) {
             const err = await res.text();
-            throw new Error(`Request failed: ${res.status} - ${err}`);
+            throw new Error(`Request failed: ${res.status} - ${err} `);
         }
         const data = await res.json();
         console.log('   Response:', data);
