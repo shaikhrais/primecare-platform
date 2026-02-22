@@ -79,9 +79,9 @@ async function main() {
         pswProfiles.push(profile);
 
         // Add availability
-        await prisma.availability.deleteMany({ where: { pswId: profile.id } });
+        await prisma.pswAvailability.deleteMany({ where: { pswId: profile.id } });
         for (const a of p.avail) {
-            await prisma.availability.create({
+            await prisma.pswAvailability.create({
                 data: {
                     pswId: profile.id,
                     dayOfWeek: a.d,

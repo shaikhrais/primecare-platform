@@ -37,27 +37,27 @@ model User {
 }
 
 model Tenant {
-  id             String          @id @default(uuid())
-  name           String
-  slug           String          @unique
-  status         String          @default("active")
-  createdAt      DateTime        @default(now()) @map("created_at")
-  updatedAt      DateTime        @updatedAt @map("updated_at")
-  auditLogs      AuditLog[]
-  clientProfiles ClientProfile[]
-  dailyEntries   DailyEntry[]
-  incidents      Incident[]
-  invoices       Invoice[]
-  messageThreads MessageThread[]
-  pswProfiles    PswProfile[]
-  services       Service[]
-  timesheets     Timesheet[]
-  users          User[]
-  visits         Visit[]
-  bookings       Booking[]
-  pswAvailability PswAvailability[]
+  id               String            @id @default(uuid())
+  name             String
+  slug             String            @unique
+  status           String            @default("active")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  auditLogs        AuditLog[]
+  bookings         Booking[]
+  clientProfiles   ClientProfile[]
+  dailyEntries     DailyEntry[]
+  incidents        Incident[]
+  invoices         Invoice[]
+  messageThreads   MessageThread[]
+  pswAvailability  PswAvailability[]
+  pswProfiles      PswProfile[]
+  services         Service[]
   shiftAssignments ShiftAssignment[]
-  checkEvents    VisitCheckEvent[]
+  timesheets       Timesheet[]
+  users            User[]
+  checkEvents      VisitCheckEvent[]
+  visits           Visit[]
 
   @@map("tenants")
 }
@@ -80,44 +80,44 @@ model ClientProfile {
   createdAt      DateTime        @default(now()) @map("created_at")
   updatedAt      DateTime        @updatedAt @map("updated_at")
   tenantId       String          @map("tenant_id")
+  bookings       Booking[]
   tenant         Tenant          @relation(fields: [tenantId], references: [id])
   user           User            @relation(fields: [userId], references: [id])
   DailyEntry     DailyEntry[]
   invoices       Invoice[]
   messageThreads MessageThread[]
   visits         Visit[]
-  bookings       Booking[]
 
   @@index([tenantId])
   @@map("client_profiles")
 }
 
 model PswProfile {
-  id              String            @id @default(uuid())
-  userId          String            @unique @map("user_id")
-  fullName        String            @map("full_name")
-  bio             String?
-  languages       String[]
-  serviceAreas    String[]          @map("service_areas")
-  skills          String[]          @default([])
+  id               String            @id @default(uuid())
+  userId           String            @unique @map("user_id")
+  fullName         String            @map("full_name")
+  bio              String?
+  languages        String[]
+  serviceAreas     String[]          @map("service_areas")
   availabilityJson Json?             @map("availability_json")
-  isApproved      Boolean           @default(false) @map("is_approved")
-  approvedAt      DateTime?         @map("approved_at")
-  createdAt       DateTime          @default(now()) @map("created_at")
-  address         String?
-  avatarUrl       String?           @map("avatar_url")
-  tenantId        String            @map("tenant_id")
-  messageThreads  MessageThread[]   @relation("PswToThreads")
-  documents       PswDocument[]     @relation("PswToDocuments")
-  tenant          Tenant            @relation(fields: [tenantId], references: [id])
-  user            User              @relation(fields: [userId], references: [id])
-  timesheets      Timesheet[]       @relation("PswToTimesheets")
-  checkEvents     VisitCheckEvent[] @relation("PswToCheckEvents")
-  checklists      VisitChecklist[]  @relation("PswToChecklists")
-  notes           VisitNote[]       @relation("PswToNotes")
-  assignedVisits  Visit[]           @relation("PswToVisits")
-  availability    PswAvailability[] @relation("PswToAvailability")
-  assignments     ShiftAssignment[] @relation("PswToAssignments")
+  isApproved       Boolean           @default(false) @map("is_approved")
+  approvedAt       DateTime?         @map("approved_at")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  tenantId         String            @map("tenant_id")
+  address          String?
+  avatarUrl        String?           @map("avatar_url")
+  skills           String[]          @default([])
+  messageThreads   MessageThread[]   @relation("PswToThreads")
+  availability     PswAvailability[] @relation("PswToAvailability")
+  documents        PswDocument[]     @relation("PswToDocuments")
+  tenant           Tenant            @relation(fields: [tenantId], references: [id])
+  user             User              @relation(fields: [userId], references: [id])
+  assignments      ShiftAssignment[] @relation("PswToAssignments")
+  timesheets       Timesheet[]       @relation("PswToTimesheets")
+  checkEvents      VisitCheckEvent[] @relation("PswToCheckEvents")
+  checklists       VisitChecklist[]  @relation("PswToChecklists")
+  notes            VisitNote[]       @relation("PswToNotes")
+  assignedVisits   Visit[]           @relation("PswToVisits")
 
   @@index([tenantId])
   @@map("psw_profiles")
@@ -144,22 +144,22 @@ model Visit {
   createdAt           DateTime          @default(now()) @map("created_at")
   updatedAt           DateTime          @updatedAt @map("updated_at")
   tenantId            String            @map("tenant_id")
+  bookingId           String?           @map("booking_id")
+  crisisMode          Boolean?          @default(false) @map("crisis_mode")
+  priority            String?           @default("normal")
+  requiredSkills      String[]          @map("required_skills")
   DailyEntry          DailyEntry[]
   incidents           Incident[]
+  assignments         ShiftAssignment[]
   timesheetItems      TimesheetItem[]
   checkEvents         VisitCheckEvent[]
   checklists          VisitChecklist[]
   notes               VisitNote[]
   psw                 PswProfile?       @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  booking             Booking?          @relation(fields: [bookingId], references: [id])
   client              ClientProfile     @relation(fields: [clientId], references: [id])
   service             Service           @relation(fields: [serviceId], references: [id])
   tenant              Tenant            @relation(fields: [tenantId], references: [id])
-  bookingId           String?           @map("booking_id")
-  booking             Booking?          @relation(fields: [bookingId], references: [id])
-  priority            String?           @default("normal")
-  requiredSkills      String[]          @map("required_skills")
-  crisisMode          Boolean?          @default(false) @map("crisis_mode")
-  assignments         ShiftAssignment[]
 
   @@index([tenantId])
   @@map("visits")
@@ -202,8 +202,8 @@ model VisitCheckEvent {
   tenantId          String      @map("tenant_id")
   overriddenBy      User?       @relation(fields: [overrideByUserId], references: [id])
   pswProfile        PswProfile  @relation("PswToCheckEvents", fields: [pswId], references: [id])
-  visit             Visit       @relation(fields: [visitId], references: [id])
   tenant            Tenant      @relation(fields: [tenantId], references: [id])
+  visit             Visit       @relation(fields: [visitId], references: [id])
 
   @@map("visit_check_events")
 }
@@ -377,19 +377,19 @@ model Lead {
 }
 
 model Booking {
-  id             String         @id @default(uuid())
-  clientId       String         @map("client_id")
-  branchId       String?        @map("branch_id")
-  startAt        DateTime       @map("start_at")
-  endAt          DateTime       @map("end_at")
-  serviceType    String         @map("service_type")
-  priority       String         @default("normal")
+  id             String        @id @default(uuid())
+  clientId       String        @map("client_id")
+  branchId       String?       @map("branch_id")
+  startAt        DateTime      @map("start_at")
+  endAt          DateTime      @map("end_at")
+  serviceType    String        @map("service_type")
+  priority       String        @default("normal")
   notes          String?
-  status         String         @default("pending")
-  recurrenceRule Json?          @map("recurrence_rule")
-  tenantId       String         @map("tenant_id")
-  client         ClientProfile  @relation(fields: [clientId], references: [id])
-  tenant         Tenant         @relation(fields: [tenantId], references: [id])
+  status         String        @default("pending")
+  recurrenceRule Json?         @map("recurrence_rule")
+  tenantId       String        @map("tenant_id")
+  client         ClientProfile @relation(fields: [clientId], references: [id])
+  tenant         Tenant        @relation(fields: [tenantId], references: [id])
   visits         Visit[]
 
   @@map("bookings")
@@ -416,9 +416,9 @@ model ShiftAssignment {
   score      Float?
   assignedAt DateTime         @default(now()) @map("assigned_at")
   tenantId   String           @map("tenant_id")
-  visit      Visit            @relation(fields: [visitId], references: [id])
   psw        PswProfile       @relation("PswToAssignments", fields: [pswId], references: [id])
   tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  visit      Visit            @relation(fields: [visitId], references: [id])
 
   @@map("shift_assignments")
 }
