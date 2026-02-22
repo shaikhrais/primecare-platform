@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
-const API_URL = 'https://primecare-api.itpro-mohammed.workers.dev';
+const API_URL = 'https://primecare-api.shaikhrais.workers.dev';
 
 async function run() {
     try {
