@@ -1,6 +1,6 @@
 const https = require('https');
 
-const API_URL = 'primecare-api.shaikhrais.workers.dev';
+const API_URL = 'primecare-api.itpro-mohammed.workers.dev';
 
 function post(path, data) {
     return new Promise((resolve, reject) => {
