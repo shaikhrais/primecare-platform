@@ -7,20 +7,8 @@ async function inspect() {
     try {
         await client.connect();
 
-        const resV = await client.query(`SELECT * FROM visits LIMIT 1`);
-        if (resV.rows.length > 0) {
-            console.log('SAMPLE VISIT:', resV.rows[0]);
-        }
-        console.log('VISIT COLUMNS:', resV.fields.map(f => f.name));
-
-        const resP = await client.query(`SELECT * FROM psw_profiles LIMIT 1`);
-        if (resP.rows.length > 0) {
-            console.log('SAMPLE PSW:', resP.rows[0]);
-        }
-        console.log('PSW_PROFILES COLUMNS:', resP.fields.map(f => f.name));
-
-        const resPosted = await client.query(`SELECT id FROM visits WHERE status = 'posted' LIMIT 5`);
-        console.log('POSTED VISITS:', resPosted.rows);
+        const resA = await client.query(`SELECT count(*) FROM shift_assignments`);
+        console.log('FINAL SHIFT_ASSIGNMENTS COUNT:', resA.rows[0].count);
 
     } catch (err) {
         console.error(err);

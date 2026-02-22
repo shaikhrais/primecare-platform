@@ -1,6 +1,6 @@
 // const fetch = require('node-fetch');
 
-const API_URL = 'https://primecare-api.shaikhrais.workers.dev';
+const API_URL = 'http://127.0.0.1:8787';
 
 async function run() {
     try {
