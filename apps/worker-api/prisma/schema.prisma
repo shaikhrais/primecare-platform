@@ -95,6 +95,7 @@ model PswProfile {
   bio            String?
   languages      String[]
   serviceAreas   String[]          @map("service_areas")
+  skills         String[]          @default([])
   availability   Json?             @map("availability_json")
   isApproved     Boolean           @default(false) @map("is_approved")
   approvedAt     DateTime?         @map("approved_at")
@@ -111,7 +112,7 @@ model PswProfile {
   checklists     VisitChecklist[]
   notes          VisitNote[]
   assignedVisits Visit[]
-  availability   Availability[]
+  availabilityRecords Availability[] @relation("PswToAvailability")
   assignments    ShiftAssignment[]
 
   @@index([tenantId])
@@ -394,7 +395,7 @@ model Availability {
   startTime String     @map("start_time")
   endTime   String     @map("end_time")
   tenantId  String     @map("tenant_id")
-  psw       PswProfile @relation(fields: [pswId], references: [id])
+  psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
   tenant    Tenant     @relation(fields: [tenantId], references: [id])
 
   @@map("availability")

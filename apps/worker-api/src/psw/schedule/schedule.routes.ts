@@ -261,4 +261,54 @@ r.post('/availability', zValidator('json', z.array(z.object({
     return c.json({ success: true });
 });
 
+// POST Client Not Present (No-Show)
+r.post('/visits/:id/no-show', async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const visitId = c.req.param('id');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const visit = await prisma.visit.findFirst({
+        where: { id: visitId, assignedPswId: profile.id },
+        include: { checkEvents: { where: { eventType: 'check_in' }, orderBy: { serverTime: 'desc' } } }
+    });
+
+    if (!visit) return c.json({ error: 'Visit not found' }, 404);
+
+    // Validate check-in exists
+    const checkIn = visit.checkEvents[0];
+    if (!checkIn) return c.json({ error: 'Must check-in first before reporting no-show' }, 400);
+
+    // Validate 15 minute wait
+    const waitTimeMs = 15 * 60 * 1000;
+    const elapsed = Date.now() - new Date(checkIn.serverTime || Date.now()).getTime();
+    if (elapsed < waitTimeMs) {
+        return c.json({
+            error: 'You must wait 15 minutes after check-in before flagging as no-show',
+            remainingMinutes: Math.ceil((waitTimeMs - elapsed) / 60000)
+        }, 400);
+    }
+
+    await prisma.$transaction([
+        prisma.visit.update({
+            where: { id: visitId },
+            data: { status: 'no_show' }
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: userId,
+                action: 'CLIENT_NO_SHOW',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                tenantId: profile.tenantId,
+                metadataJson: { waitTimeMinutes: 15 }
+            }
+        })
+    ]);
+
+    return c.json({ success: true, status: 'no_show' });
+});
+
 export default r;

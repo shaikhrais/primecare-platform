@@ -136,14 +136,21 @@ r.get('/:id/suggest', async (c) => {
         const hasAvailability = psw.availability.some((a: any) => a.dayOfWeek === day);
         if (hasAvailability) score += 30;
 
-        // Skills match (placeholder)
-        // const skillMatch = visit.requiredSkills.every(s => psw.skills.includes(s));
+        // Skills match
+        const visitSkills = visit.requiredSkills || [];
+        const pswSkills = psw.skills || [];
+        const hasAllSkills = visitSkills.every((s: string) => pswSkills.includes(s));
+        if (hasAllSkills && visitSkills.length > 0) score += 40;
+        else if (visitSkills.length > 0) score -= 20; // Penalty if missing required skills
 
         return {
             id: psw.id,
             fullName: psw.fullName,
             score,
-            reasons: hasAvailability ? ['Availability matches'] : ['No structured availability on this day']
+            reasons: [
+                hasAvailability ? 'Availability matches' : 'No structured availability',
+                hasAllSkills ? 'Skills match' : (visitSkills.length > 0 ? 'Missing required skills' : 'No specific skills required')
+            ]
         };
     }).sort((a: any, b: any) => b.score - a.score).slice(0, 5);
 
@@ -210,6 +217,53 @@ r.delete('/:id', async (c) => {
     const id = c.req.param('id');
     await prisma.visit.delete({ where: { id } });
     return c.json({ success: true });
+});
+
+// POST Cancel Visit with Policy Logic
+r.post('/:id/cancel', async (c) => {
+    const prisma = c.get('prisma');
+    const id = c.req.param('id');
+    const payload = c.get('jwtPayload');
+
+    const visit = await prisma.visit.findUnique({ where: { id } });
+    if (!visit) return c.json({ error: 'Visit not found' }, 404);
+
+    const now = new Date();
+    const start = new Date(visit.requestedStartAt);
+    const diffMs = start.getTime() - now.getTime();
+    const diffHours = diffMs / (1000 * 60 * 60);
+
+    let payMultiplier = 0;
+    let chargeMultiplier = 0;
+    let reason = 'Cancelled by Admin/Client';
+
+    if (diffHours < 2) {
+        payMultiplier = 1;
+        chargeMultiplier = 1;
+        reason += ' (Late < 2h: 100% Charge)';
+    } else if (diffHours < 24) {
+        payMultiplier = 0.5; // Policy says 2 hours minimum, simplified here to 50% or we could do fixed hours
+        chargeMultiplier = 0.5;
+        reason += ' (Under 24h: Partial Charge)';
+    }
+
+    const updatedVisit = await prisma.visit.update({
+        where: { id },
+        data: {
+            status: 'cancelled',
+            cancellationReason: reason
+        }
+    });
+
+    await logAudit(prisma, payload.sub, 'CANCEL_VISIT', 'VISIT', id, {
+        diffHours, payMultiplier, chargeMultiplier
+    });
+
+    return c.json({
+        success: true,
+        visit: updatedVisit,
+        policy: { payMultiplier, chargeMultiplier, diffHours }
+    });
 });
 
 export default r;
