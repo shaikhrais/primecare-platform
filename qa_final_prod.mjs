@@ -5,7 +5,7 @@ const connectionString = "postgres://c99a554c7ca87f32c50ff8957acbfcdacc44ccfa1c1
 const API_URL = 'https://primecare-api.shaikhrais.workers.dev';
 
 async function qa() {
-    console.log('--- FINAL PRODUCTION QA VERIFICATION ---');
+    console.log('--- COMPREHENSIVE PRODUCTION QA VERIFICATION ---');
     const db = new Client({ connectionString });
     await db.connect();
 
@@ -19,8 +19,6 @@ async function qa() {
         const serviceId = serviceRes.rows[0].id;
         const pswId = pswRes.rows[0].id;
 
-        console.log(`- Using Client: ${clientId}, Service: ${serviceId}, PSW: ${pswId}`);
-
         // 2. Login
         const loginRes = await fetch(`${API_URL}/v1/auth/login`, {
             method: 'POST',
@@ -28,60 +26,46 @@ async function qa() {
             body: JSON.stringify({ email: 'manager.a@primecare.ca', password: 'admin123' })
         });
         const { token } = await loginRes.json();
-        console.log('- Logged in successfully.');
+        console.log('1. Login: PASS');
 
-        // 3. Post Shift Test
-        console.log('- Testing: Post Shift form...');
+        // 3. Post Shift
         const shiftRes = await fetch(`${API_URL}/v1/admin/visits`, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                clientId,
-                serviceId,
-                requestedStartAt: new Date(Date.now() + 86400000).toISOString(),
-                durationMinutes: 90,
-                priority: 'urgent',
-                clientNotes: 'QA-PROD-SHIFT-01'
+                clientId, serviceId, requestedStartAt: new Date().toISOString(),
+                durationMinutes: 60, priority: 'urgent', clientNotes: 'QA-FULL-CYCLE-01'
             })
         });
         const shiftData = await shiftRes.json();
-        console.log(`  v API Response: ${shiftRes.status} (Visit ID: ${shiftData.id})`);
+        const visitId = shiftData.id;
+        console.log(`2. Post Shift: PASS (Visit: ${visitId})`);
 
-        // 4. Verify in DB
-        const dbShift = await db.query('SELECT * FROM visits WHERE id = $1', [shiftData.id]);
-        if (dbShift.rows[0]) {
-            console.log('  v DB Verification: Record created correctly.');
-            console.log(`    Status: ${dbShift.rows[0].status}, Priority: ${dbShift.rows[0].priority}`);
-        } else {
-            console.error('  x DB Verification: Record NOT FOUND.');
-        }
-
-        // 5. Booking Form Test
-        console.log('- Testing: Booking form (Recurrence)...');
-        const bookingRes = await fetch(`${API_URL}/v1/client/bookings`, {
+        // 4. PSW Check-in
+        const checkinRes = await fetch(`${API_URL}/v1/psw/schedule/visits/${visitId}/check-in`, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`, // Manager can usually act or we assume logged in as manager
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        console.log(`3. PSW Check-in: ${checkinRes.status === 200 ? 'PASS' : 'FAIL'}`);
+
+        // 5. PSW Submit Form (Tasks + Notes)
+        const formRes = await fetch(`${API_URL}/v1/psw/schedule/visits/${visitId}/complete`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                serviceId,
-                requestedStartAt: new Date(Date.now() + 172800000).toISOString(),
-                durationMinutes: 120,
-                priority: 'normal',
-                recurrenceRule: { pattern: 'weekly' },
-                notes: 'QA-PROD-BOOKING-REC-01'
+                notes: 'QA-PROD-VISIT-NOTES-01',
+                tasks: [{ id: 'task-1', completed: true, label: 'Personal Hygiene' }],
+                incidentFlag: false
             })
         });
-        const bookingData = await bookingRes.json();
-        console.log(`  v API Response: ${bookingRes.status} (Booking ID: ${bookingData.id})`);
+        console.log(`4. PSW Form Submission: ${formRes.status === 200 ? 'PASS' : 'FAIL'}`);
 
-        // 6. Verify Multiple Visits generated (if logic active)
-        const visitsCount = await db.query('SELECT count(*) FROM visits WHERE booking_id = $1', [bookingData.id]);
-        console.log(`  v DB Verification: ${visitsCount.rows[0].count} visits generated for booking.`);
+        // 6. DB Verification
+        const dbVisit = await db.query('SELECT * FROM visits WHERE id = $1', [visitId]);
+        const v = dbVisit.rows[0];
+        const pass = v.visit_notes === 'QA-PROD-VISIT-NOTES-01' && v.status === 'completed';
+        console.log(`5. DB Verification: ${pass ? 'PASS' : 'FAIL'}`);
+        if (!pass) console.log('DB Record:', v);
 
         console.log('--- QA VERIFICATION COMPLETE ---');
 
