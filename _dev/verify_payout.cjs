@@ -21,7 +21,7 @@ async function run() {
         const token = (await regRes.json()).token;
 
         console.log('2. Requesting Payout...');
-        const res = await fetch(`${API_URL}/v1/psw/payouts/request`, {
+        const res = await fetch(`${API_URL}/v1/psw/schedule/payouts/request`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` }
         });
