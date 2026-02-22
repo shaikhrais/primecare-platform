@@ -104,6 +104,21 @@ export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
  */
 export type Lead = $Result.DefaultSelection<Prisma.$LeadPayload>
 /**
+ * Model Booking
+ * 
+ */
+export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
+/**
+ * Model PswAvailability
+ * 
+ */
+export type PswAvailability = $Result.DefaultSelection<Prisma.$PswAvailabilityPayload>
+/**
+ * Model ShiftAssignment
+ * 
+ */
+export type ShiftAssignment = $Result.DefaultSelection<Prisma.$ShiftAssignmentPayload>
+/**
  * Model BlogPost
  * 
  */
@@ -150,7 +165,13 @@ export const VisitStatus: {
   arrived: 'arrived',
   in_progress: 'in_progress',
   completed: 'completed',
-  cancelled: 'cancelled'
+  cancelled: 'cancelled',
+  draft: 'draft',
+  posted: 'posted',
+  offered: 'offered',
+  accepted: 'accepted',
+  no_show: 'no_show',
+  replaced: 'replaced'
 };
 
 export type VisitStatus = (typeof VisitStatus)[keyof typeof VisitStatus]
@@ -212,6 +233,16 @@ export const InvoiceStatus: {
 export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
 
 
+export const AssignmentStatus: {
+  offered: 'offered',
+  accepted: 'accepted',
+  declined: 'declined',
+  assigned: 'assigned'
+};
+
+export type AssignmentStatus = (typeof AssignmentStatus)[keyof typeof AssignmentStatus]
+
+
 export const DocStatus: {
   pending: 'pending',
   verified: 'verified',
@@ -261,6 +292,10 @@ export const TimesheetStatus: typeof $Enums.TimesheetStatus
 export type InvoiceStatus = $Enums.InvoiceStatus
 
 export const InvoiceStatus: typeof $Enums.InvoiceStatus
+
+export type AssignmentStatus = $Enums.AssignmentStatus
+
+export const AssignmentStatus: typeof $Enums.AssignmentStatus
 
 export type DocStatus = $Enums.DocStatus
 
@@ -572,6 +607,36 @@ export class PrismaClient<
     * ```
     */
   get lead(): Prisma.LeadDelegate<ExtArgs>;
+
+  /**
+   * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Bookings
+    * const bookings = await prisma.booking.findMany()
+    * ```
+    */
+  get booking(): Prisma.BookingDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pswAvailability`: Exposes CRUD operations for the **PswAvailability** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PswAvailabilities
+    * const pswAvailabilities = await prisma.pswAvailability.findMany()
+    * ```
+    */
+  get pswAvailability(): Prisma.PswAvailabilityDelegate<ExtArgs>;
+
+  /**
+   * `prisma.shiftAssignment`: Exposes CRUD operations for the **ShiftAssignment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ShiftAssignments
+    * const shiftAssignments = await prisma.shiftAssignment.findMany()
+    * ```
+    */
+  get shiftAssignment(): Prisma.ShiftAssignmentDelegate<ExtArgs>;
 
   /**
    * `prisma.blogPost`: Exposes CRUD operations for the **BlogPost** model.
@@ -1071,6 +1136,9 @@ export namespace Prisma {
     Message: 'Message',
     AuditLog: 'AuditLog',
     Lead: 'Lead',
+    Booking: 'Booking',
+    PswAvailability: 'PswAvailability',
+    ShiftAssignment: 'ShiftAssignment',
     BlogPost: 'BlogPost',
     PswDocument: 'PswDocument',
     FAQ: 'FAQ',
@@ -1090,7 +1158,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry"
+      modelProps: "user" | "tenant" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2354,6 +2422,216 @@ export namespace Prisma {
           }
         }
       }
+      Booking: {
+        payload: Prisma.$BookingPayload<ExtArgs>
+        fields: Prisma.BookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findFirst: {
+            args: Prisma.BookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findMany: {
+            args: Prisma.BookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>[]
+          }
+          create: {
+            args: Prisma.BookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          createMany: {
+            args: Prisma.BookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>[]
+          }
+          delete: {
+            args: Prisma.BookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          update: {
+            args: Prisma.BookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          aggregate: {
+            args: Prisma.BookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBooking>
+          }
+          groupBy: {
+            args: Prisma.BookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BookingCountArgs<ExtArgs>
+            result: $Utils.Optional<BookingCountAggregateOutputType> | number
+          }
+        }
+      }
+      PswAvailability: {
+        payload: Prisma.$PswAvailabilityPayload<ExtArgs>
+        fields: Prisma.PswAvailabilityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PswAvailabilityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PswAvailabilityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          findFirst: {
+            args: Prisma.PswAvailabilityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PswAvailabilityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          findMany: {
+            args: Prisma.PswAvailabilityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>[]
+          }
+          create: {
+            args: Prisma.PswAvailabilityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          createMany: {
+            args: Prisma.PswAvailabilityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PswAvailabilityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>[]
+          }
+          delete: {
+            args: Prisma.PswAvailabilityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          update: {
+            args: Prisma.PswAvailabilityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          deleteMany: {
+            args: Prisma.PswAvailabilityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PswAvailabilityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PswAvailabilityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PswAvailabilityPayload>
+          }
+          aggregate: {
+            args: Prisma.PswAvailabilityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePswAvailability>
+          }
+          groupBy: {
+            args: Prisma.PswAvailabilityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PswAvailabilityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PswAvailabilityCountArgs<ExtArgs>
+            result: $Utils.Optional<PswAvailabilityCountAggregateOutputType> | number
+          }
+        }
+      }
+      ShiftAssignment: {
+        payload: Prisma.$ShiftAssignmentPayload<ExtArgs>
+        fields: Prisma.ShiftAssignmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShiftAssignmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShiftAssignmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          findFirst: {
+            args: Prisma.ShiftAssignmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShiftAssignmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          findMany: {
+            args: Prisma.ShiftAssignmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>[]
+          }
+          create: {
+            args: Prisma.ShiftAssignmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          createMany: {
+            args: Prisma.ShiftAssignmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ShiftAssignmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>[]
+          }
+          delete: {
+            args: Prisma.ShiftAssignmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          update: {
+            args: Prisma.ShiftAssignmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShiftAssignmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShiftAssignmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ShiftAssignmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftAssignmentPayload>
+          }
+          aggregate: {
+            args: Prisma.ShiftAssignmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateShiftAssignment>
+          }
+          groupBy: {
+            args: Prisma.ShiftAssignmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ShiftAssignmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShiftAssignmentCountArgs<ExtArgs>
+            result: $Utils.Optional<ShiftAssignmentCountAggregateOutputType> | number
+          }
+        }
+      }
       BlogPost: {
         payload: Prisma.$BlogPostPayload<ExtArgs>
         fields: Prisma.BlogPostFieldRefs
@@ -2900,6 +3178,9 @@ export namespace Prisma {
     timesheets: number
     users: number
     visits: number
+    bookings: number
+    pswAvailability: number
+    shiftAssignments: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2914,6 +3195,9 @@ export namespace Prisma {
     timesheets?: boolean | TenantCountOutputTypeCountTimesheetsArgs
     users?: boolean | TenantCountOutputTypeCountUsersArgs
     visits?: boolean | TenantCountOutputTypeCountVisitsArgs
+    bookings?: boolean | TenantCountOutputTypeCountBookingsArgs
+    pswAvailability?: boolean | TenantCountOutputTypeCountPswAvailabilityArgs
+    shiftAssignments?: boolean | TenantCountOutputTypeCountShiftAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -3004,6 +3288,27 @@ export namespace Prisma {
     where?: VisitWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPswAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PswAvailabilityWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountShiftAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftAssignmentWhereInput
+  }
+
 
   /**
    * Count Type ClientProfileCountOutputType
@@ -3014,6 +3319,7 @@ export namespace Prisma {
     invoices: number
     messageThreads: number
     visits: number
+    bookings: number
   }
 
   export type ClientProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3021,6 +3327,7 @@ export namespace Prisma {
     invoices?: boolean | ClientProfileCountOutputTypeCountInvoicesArgs
     messageThreads?: boolean | ClientProfileCountOutputTypeCountMessageThreadsArgs
     visits?: boolean | ClientProfileCountOutputTypeCountVisitsArgs
+    bookings?: boolean | ClientProfileCountOutputTypeCountBookingsArgs
   }
 
   // Custom InputTypes
@@ -3062,6 +3369,13 @@ export namespace Prisma {
     where?: VisitWhereInput
   }
 
+  /**
+   * ClientProfileCountOutputType without action
+   */
+  export type ClientProfileCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+  }
+
 
   /**
    * Count Type PswProfileCountOutputType
@@ -3075,6 +3389,8 @@ export namespace Prisma {
     checklists: number
     notes: number
     assignedVisits: number
+    availability: number
+    assignments: number
   }
 
   export type PswProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3085,6 +3401,8 @@ export namespace Prisma {
     checklists?: boolean | PswProfileCountOutputTypeCountChecklistsArgs
     notes?: boolean | PswProfileCountOutputTypeCountNotesArgs
     assignedVisits?: boolean | PswProfileCountOutputTypeCountAssignedVisitsArgs
+    availability?: boolean | PswProfileCountOutputTypeCountAvailabilityArgs
+    assignments?: boolean | PswProfileCountOutputTypeCountAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -3147,6 +3465,20 @@ export namespace Prisma {
     where?: VisitWhereInput
   }
 
+  /**
+   * PswProfileCountOutputType without action
+   */
+  export type PswProfileCountOutputTypeCountAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PswAvailabilityWhereInput
+  }
+
+  /**
+   * PswProfileCountOutputType without action
+   */
+  export type PswProfileCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftAssignmentWhereInput
+  }
+
 
   /**
    * Count Type VisitCountOutputType
@@ -3159,6 +3491,7 @@ export namespace Prisma {
     checkEvents: number
     checklists: number
     notes: number
+    assignments: number
   }
 
   export type VisitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3168,6 +3501,7 @@ export namespace Prisma {
     checkEvents?: boolean | VisitCountOutputTypeCountCheckEventsArgs
     checklists?: boolean | VisitCountOutputTypeCountChecklistsArgs
     notes?: boolean | VisitCountOutputTypeCountNotesArgs
+    assignments?: boolean | VisitCountOutputTypeCountAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -3221,6 +3555,13 @@ export namespace Prisma {
    */
   export type VisitCountOutputTypeCountNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VisitNoteWhereInput
+  }
+
+  /**
+   * VisitCountOutputType without action
+   */
+  export type VisitCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftAssignmentWhereInput
   }
 
 
@@ -3345,6 +3686,37 @@ export namespace Prisma {
    */
   export type MessageThreadCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+
+  /**
+   * Count Type BookingCountOutputType
+   */
+
+  export type BookingCountOutputType = {
+    visits: number
+  }
+
+  export type BookingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    visits?: boolean | BookingCountOutputTypeCountVisitsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingCountOutputType
+     */
+    select?: BookingCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BookingCountOutputType without action
+   */
+  export type BookingCountOutputTypeCountVisitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VisitWhereInput
   }
 
 
@@ -4780,6 +5152,9 @@ export namespace Prisma {
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
+    bookings?: boolean | Tenant$bookingsArgs<ExtArgs>
+    pswAvailability?: boolean | Tenant$pswAvailabilityArgs<ExtArgs>
+    shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -4813,6 +5188,9 @@ export namespace Prisma {
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
+    bookings?: boolean | Tenant$bookingsArgs<ExtArgs>
+    pswAvailability?: boolean | Tenant$pswAvailabilityArgs<ExtArgs>
+    shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4831,6 +5209,9 @@ export namespace Prisma {
       timesheets: Prisma.$TimesheetPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
       visits: Prisma.$VisitPayload<ExtArgs>[]
+      bookings: Prisma.$BookingPayload<ExtArgs>[]
+      pswAvailability: Prisma.$PswAvailabilityPayload<ExtArgs>[]
+      shiftAssignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5214,6 +5595,9 @@ export namespace Prisma {
     timesheets<T extends Tenant$timesheetsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$timesheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetPayload<ExtArgs>, T, "findMany"> | Null>
     users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     visits<T extends Tenant$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
+    bookings<T extends Tenant$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany"> | Null>
+    pswAvailability<T extends Tenant$pswAvailabilityArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$pswAvailabilityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findMany"> | Null>
+    shiftAssignments<T extends Tenant$shiftAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$shiftAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5783,6 +6167,66 @@ export namespace Prisma {
   }
 
   /**
+   * Tenant.bookings
+   */
+  export type Tenant$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.pswAvailability
+   */
+  export type Tenant$pswAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    where?: PswAvailabilityWhereInput
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    cursor?: PswAvailabilityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PswAvailabilityScalarFieldEnum | PswAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.shiftAssignments
+   */
+  export type Tenant$shiftAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    where?: ShiftAssignmentWhereInput
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    cursor?: ShiftAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
+  }
+
+  /**
    * Tenant without action
    */
   export type TenantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6097,6 +6541,7 @@ export namespace Prisma {
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
+    bookings?: boolean | ClientProfile$bookingsArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientProfile"]>
 
@@ -6149,6 +6594,7 @@ export namespace Prisma {
     invoices?: boolean | ClientProfile$invoicesArgs<ExtArgs>
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
+    bookings?: boolean | ClientProfile$bookingsArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClientProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6165,6 +6611,7 @@ export namespace Prisma {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
       visits: Prisma.$VisitPayload<ExtArgs>[]
+      bookings: Prisma.$BookingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6554,6 +7001,7 @@ export namespace Prisma {
     invoices<T extends ClientProfile$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany"> | Null>
     messageThreads<T extends ClientProfile$messageThreadsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany"> | Null>
     visits<T extends ClientProfile$visitsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
+    bookings<T extends ClientProfile$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6998,6 +7446,26 @@ export namespace Prisma {
   }
 
   /**
+   * ClientProfile.bookings
+   */
+  export type ClientProfile$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
    * ClientProfile without action
    */
   export type ClientProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7055,7 +7523,8 @@ export namespace Prisma {
     bio: number
     languages: number
     serviceAreas: number
-    availability: number
+    skills: number
+    availabilityJson: number
     isApproved: number
     approvedAt: number
     createdAt: number
@@ -7099,7 +7568,8 @@ export namespace Prisma {
     bio?: true
     languages?: true
     serviceAreas?: true
-    availability?: true
+    skills?: true
+    availabilityJson?: true
     isApproved?: true
     approvedAt?: true
     createdAt?: true
@@ -7188,7 +7658,8 @@ export namespace Prisma {
     bio: string | null
     languages: string[]
     serviceAreas: string[]
-    availability: JsonValue | null
+    skills: string[]
+    availabilityJson: JsonValue | null
     isApproved: boolean
     approvedAt: Date | null
     createdAt: Date
@@ -7221,7 +7692,8 @@ export namespace Prisma {
     bio?: boolean
     languages?: boolean
     serviceAreas?: boolean
-    availability?: boolean
+    skills?: boolean
+    availabilityJson?: boolean
     isApproved?: boolean
     approvedAt?: boolean
     createdAt?: boolean
@@ -7237,6 +7709,8 @@ export namespace Prisma {
     checklists?: boolean | PswProfile$checklistsArgs<ExtArgs>
     notes?: boolean | PswProfile$notesArgs<ExtArgs>
     assignedVisits?: boolean | PswProfile$assignedVisitsArgs<ExtArgs>
+    availability?: boolean | PswProfile$availabilityArgs<ExtArgs>
+    assignments?: boolean | PswProfile$assignmentsArgs<ExtArgs>
     _count?: boolean | PswProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pswProfile"]>
 
@@ -7247,7 +7721,8 @@ export namespace Prisma {
     bio?: boolean
     languages?: boolean
     serviceAreas?: boolean
-    availability?: boolean
+    skills?: boolean
+    availabilityJson?: boolean
     isApproved?: boolean
     approvedAt?: boolean
     createdAt?: boolean
@@ -7265,7 +7740,8 @@ export namespace Prisma {
     bio?: boolean
     languages?: boolean
     serviceAreas?: boolean
-    availability?: boolean
+    skills?: boolean
+    availabilityJson?: boolean
     isApproved?: boolean
     approvedAt?: boolean
     createdAt?: boolean
@@ -7284,6 +7760,8 @@ export namespace Prisma {
     checklists?: boolean | PswProfile$checklistsArgs<ExtArgs>
     notes?: boolean | PswProfile$notesArgs<ExtArgs>
     assignedVisits?: boolean | PswProfile$assignedVisitsArgs<ExtArgs>
+    availability?: boolean | PswProfile$availabilityArgs<ExtArgs>
+    assignments?: boolean | PswProfile$assignmentsArgs<ExtArgs>
     _count?: boolean | PswProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PswProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7303,6 +7781,8 @@ export namespace Prisma {
       checklists: Prisma.$VisitChecklistPayload<ExtArgs>[]
       notes: Prisma.$VisitNotePayload<ExtArgs>[]
       assignedVisits: Prisma.$VisitPayload<ExtArgs>[]
+      availability: Prisma.$PswAvailabilityPayload<ExtArgs>[]
+      assignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7311,7 +7791,8 @@ export namespace Prisma {
       bio: string | null
       languages: string[]
       serviceAreas: string[]
-      availability: Prisma.JsonValue | null
+      skills: string[]
+      availabilityJson: Prisma.JsonValue | null
       isApproved: boolean
       approvedAt: Date | null
       createdAt: Date
@@ -7691,6 +8172,8 @@ export namespace Prisma {
     checklists<T extends PswProfile$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitChecklistPayload<ExtArgs>, T, "findMany"> | Null>
     notes<T extends PswProfile$notesArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitNotePayload<ExtArgs>, T, "findMany"> | Null>
     assignedVisits<T extends PswProfile$assignedVisitsArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$assignedVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
+    availability<T extends PswProfile$availabilityArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$availabilityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findMany"> | Null>
+    assignments<T extends PswProfile$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, PswProfile$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7726,7 +8209,8 @@ export namespace Prisma {
     readonly bio: FieldRef<"PswProfile", 'String'>
     readonly languages: FieldRef<"PswProfile", 'String[]'>
     readonly serviceAreas: FieldRef<"PswProfile", 'String[]'>
-    readonly availability: FieldRef<"PswProfile", 'Json'>
+    readonly skills: FieldRef<"PswProfile", 'String[]'>
+    readonly availabilityJson: FieldRef<"PswProfile", 'Json'>
     readonly isApproved: FieldRef<"PswProfile", 'Boolean'>
     readonly approvedAt: FieldRef<"PswProfile", 'DateTime'>
     readonly createdAt: FieldRef<"PswProfile", 'DateTime'>
@@ -8191,6 +8675,46 @@ export namespace Prisma {
   }
 
   /**
+   * PswProfile.availability
+   */
+  export type PswProfile$availabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    where?: PswAvailabilityWhereInput
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    cursor?: PswAvailabilityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PswAvailabilityScalarFieldEnum | PswAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * PswProfile.assignments
+   */
+  export type PswProfile$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    where?: ShiftAssignmentWhereInput
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    cursor?: ShiftAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
+  }
+
+  /**
    * PswProfile without action
    */
   export type PswProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8250,6 +8774,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     tenantId: string | null
+    bookingId: string | null
+    priority: string | null
+    crisisMode: boolean | null
   }
 
   export type VisitMaxAggregateOutputType = {
@@ -8273,6 +8800,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     tenantId: string | null
+    bookingId: string | null
+    priority: string | null
+    crisisMode: boolean | null
   }
 
   export type VisitCountAggregateOutputType = {
@@ -8296,6 +8826,10 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     tenantId: number
+    bookingId: number
+    priority: number
+    requiredSkills: number
+    crisisMode: number
     _all: number
   }
 
@@ -8333,6 +8867,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    bookingId?: true
+    priority?: true
+    crisisMode?: true
   }
 
   export type VisitMaxAggregateInputType = {
@@ -8356,6 +8893,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    bookingId?: true
+    priority?: true
+    crisisMode?: true
   }
 
   export type VisitCountAggregateInputType = {
@@ -8379,6 +8919,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    bookingId?: true
+    priority?: true
+    requiredSkills?: true
+    crisisMode?: true
     _all?: true
   }
 
@@ -8489,6 +9033,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     tenantId: string
+    bookingId: string | null
+    priority: string | null
+    requiredSkills: string[]
+    crisisMode: boolean | null
     _count: VisitCountAggregateOutputType | null
     _avg: VisitAvgAggregateOutputType | null
     _sum: VisitSumAggregateOutputType | null
@@ -8531,6 +9079,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    bookingId?: boolean
+    priority?: boolean
+    requiredSkills?: boolean
+    crisisMode?: boolean
     DailyEntry?: boolean | Visit$DailyEntryArgs<ExtArgs>
     incidents?: boolean | Visit$incidentsArgs<ExtArgs>
     timesheetItems?: boolean | Visit$timesheetItemsArgs<ExtArgs>
@@ -8541,6 +9093,8 @@ export namespace Prisma {
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    booking?: boolean | Visit$bookingArgs<ExtArgs>
+    assignments?: boolean | Visit$assignmentsArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["visit"]>
 
@@ -8565,10 +9119,15 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    bookingId?: boolean
+    priority?: boolean
+    requiredSkills?: boolean
+    crisisMode?: boolean
     psw?: boolean | Visit$pswArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    booking?: boolean | Visit$bookingArgs<ExtArgs>
   }, ExtArgs["result"]["visit"]>
 
   export type VisitSelectScalar = {
@@ -8592,6 +9151,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    bookingId?: boolean
+    priority?: boolean
+    requiredSkills?: boolean
+    crisisMode?: boolean
   }
 
   export type VisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8605,6 +9168,8 @@ export namespace Prisma {
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    booking?: boolean | Visit$bookingArgs<ExtArgs>
+    assignments?: boolean | Visit$assignmentsArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8612,6 +9177,7 @@ export namespace Prisma {
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    booking?: boolean | Visit$bookingArgs<ExtArgs>
   }
 
   export type $VisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8627,6 +9193,8 @@ export namespace Prisma {
       client: Prisma.$ClientProfilePayload<ExtArgs>
       service: Prisma.$ServicePayload<ExtArgs>
       tenant: Prisma.$TenantPayload<ExtArgs>
+      booking: Prisma.$BookingPayload<ExtArgs> | null
+      assignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8649,6 +9217,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       tenantId: string
+      bookingId: string | null
+      priority: string | null
+      requiredSkills: string[]
+      crisisMode: boolean | null
     }, ExtArgs["result"]["visit"]>
     composites: {}
   }
@@ -9023,6 +9595,8 @@ export namespace Prisma {
     client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    booking<T extends Visit$bookingArgs<ExtArgs> = {}>(args?: Subset<T, Visit$bookingArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    assignments<T extends Visit$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Visit$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9072,6 +9646,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Visit", 'DateTime'>
     readonly updatedAt: FieldRef<"Visit", 'DateTime'>
     readonly tenantId: FieldRef<"Visit", 'String'>
+    readonly bookingId: FieldRef<"Visit", 'String'>
+    readonly priority: FieldRef<"Visit", 'String'>
+    readonly requiredSkills: FieldRef<"Visit", 'String[]'>
+    readonly crisisMode: FieldRef<"Visit", 'Boolean'>
   }
     
 
@@ -9522,6 +10100,41 @@ export namespace Prisma {
      */
     include?: PswProfileInclude<ExtArgs> | null
     where?: PswProfileWhereInput
+  }
+
+  /**
+   * Visit.booking
+   */
+  export type Visit$bookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+  }
+
+  /**
+   * Visit.assignments
+   */
+  export type Visit$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    where?: ShiftAssignmentWhereInput
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    cursor?: ShiftAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
   }
 
   /**
@@ -22624,6 +23237,3027 @@ export namespace Prisma {
 
 
   /**
+   * Model Booking
+   */
+
+  export type AggregateBooking = {
+    _count: BookingCountAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  export type BookingMinAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    branchId: string | null
+    startAt: Date | null
+    endAt: Date | null
+    serviceType: string | null
+    priority: string | null
+    notes: string | null
+    status: string | null
+    tenantId: string | null
+  }
+
+  export type BookingMaxAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    branchId: string | null
+    startAt: Date | null
+    endAt: Date | null
+    serviceType: string | null
+    priority: string | null
+    notes: string | null
+    status: string | null
+    tenantId: string | null
+  }
+
+  export type BookingCountAggregateOutputType = {
+    id: number
+    clientId: number
+    branchId: number
+    startAt: number
+    endAt: number
+    serviceType: number
+    priority: number
+    notes: number
+    status: number
+    recurrenceRule: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type BookingMinAggregateInputType = {
+    id?: true
+    clientId?: true
+    branchId?: true
+    startAt?: true
+    endAt?: true
+    serviceType?: true
+    priority?: true
+    notes?: true
+    status?: true
+    tenantId?: true
+  }
+
+  export type BookingMaxAggregateInputType = {
+    id?: true
+    clientId?: true
+    branchId?: true
+    startAt?: true
+    endAt?: true
+    serviceType?: true
+    priority?: true
+    notes?: true
+    status?: true
+    tenantId?: true
+  }
+
+  export type BookingCountAggregateInputType = {
+    id?: true
+    clientId?: true
+    branchId?: true
+    startAt?: true
+    endAt?: true
+    serviceType?: true
+    priority?: true
+    notes?: true
+    status?: true
+    recurrenceRule?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type BookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Booking to aggregate.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Bookings
+    **/
+    _count?: true | BookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type GetBookingAggregateType<T extends BookingAggregateArgs> = {
+        [P in keyof T & keyof AggregateBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBooking[P]>
+      : GetScalarType<T[P], AggregateBooking[P]>
+  }
+
+
+
+
+  export type BookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithAggregationInput | BookingOrderByWithAggregationInput[]
+    by: BookingScalarFieldEnum[] | BookingScalarFieldEnum
+    having?: BookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookingCountAggregateInputType | true
+    _min?: BookingMinAggregateInputType
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type BookingGroupByOutputType = {
+    id: string
+    clientId: string
+    branchId: string | null
+    startAt: Date
+    endAt: Date
+    serviceType: string
+    priority: string
+    notes: string | null
+    status: string
+    recurrenceRule: JsonValue | null
+    tenantId: string
+    _count: BookingCountAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  type GetBookingGroupByPayload<T extends BookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    branchId?: boolean
+    startAt?: boolean
+    endAt?: boolean
+    serviceType?: boolean
+    priority?: boolean
+    notes?: boolean
+    status?: boolean
+    recurrenceRule?: boolean
+    tenantId?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visits?: boolean | Booking$visitsArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking"]>
+
+  export type BookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    branchId?: boolean
+    startAt?: boolean
+    endAt?: boolean
+    serviceType?: boolean
+    priority?: boolean
+    notes?: boolean
+    status?: boolean
+    recurrenceRule?: boolean
+    tenantId?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking"]>
+
+  export type BookingSelectScalar = {
+    id?: boolean
+    clientId?: boolean
+    branchId?: boolean
+    startAt?: boolean
+    endAt?: boolean
+    serviceType?: boolean
+    priority?: boolean
+    notes?: boolean
+    status?: boolean
+    recurrenceRule?: boolean
+    tenantId?: boolean
+  }
+
+  export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visits?: boolean | Booking$visitsArgs<ExtArgs>
+    _count?: boolean | BookingCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $BookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Booking"
+    objects: {
+      client: Prisma.$ClientProfilePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      visits: Prisma.$VisitPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      clientId: string
+      branchId: string | null
+      startAt: Date
+      endAt: Date
+      serviceType: string
+      priority: string
+      notes: string | null
+      status: string
+      recurrenceRule: Prisma.JsonValue | null
+      tenantId: string
+    }, ExtArgs["result"]["booking"]>
+    composites: {}
+  }
+
+  type BookingGetPayload<S extends boolean | null | undefined | BookingDefaultArgs> = $Result.GetResult<Prisma.$BookingPayload, S>
+
+  type BookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BookingFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BookingCountAggregateInputType | true
+    }
+
+  export interface BookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Booking'], meta: { name: 'Booking' } }
+    /**
+     * Find zero or one Booking that matches the filter.
+     * @param {BookingFindUniqueArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookingFindUniqueArgs>(args: SelectSubset<T, BookingFindUniqueArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Booking that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BookingFindUniqueOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookingFindUniqueOrThrowArgs>(args: SelectSubset<T, BookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Booking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookingFindFirstArgs>(args?: SelectSubset<T, BookingFindFirstArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Booking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookingFindFirstOrThrowArgs>(args?: SelectSubset<T, BookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Bookings
+     * const bookings = await prisma.booking.findMany()
+     * 
+     * // Get first 10 Bookings
+     * const bookings = await prisma.booking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingWithIdOnly = await prisma.booking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookingFindManyArgs>(args?: SelectSubset<T, BookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Booking.
+     * @param {BookingCreateArgs} args - Arguments to create a Booking.
+     * @example
+     * // Create one Booking
+     * const Booking = await prisma.booking.create({
+     *   data: {
+     *     // ... data to create a Booking
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookingCreateArgs>(args: SelectSubset<T, BookingCreateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Bookings.
+     * @param {BookingCreateManyArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const booking = await prisma.booking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookingCreateManyArgs>(args?: SelectSubset<T, BookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Bookings and returns the data saved in the database.
+     * @param {BookingCreateManyAndReturnArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const booking = await prisma.booking.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Bookings and only return the `id`
+     * const bookingWithIdOnly = await prisma.booking.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookingCreateManyAndReturnArgs>(args?: SelectSubset<T, BookingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Booking.
+     * @param {BookingDeleteArgs} args - Arguments to delete one Booking.
+     * @example
+     * // Delete one Booking
+     * const Booking = await prisma.booking.delete({
+     *   where: {
+     *     // ... filter to delete one Booking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookingDeleteArgs>(args: SelectSubset<T, BookingDeleteArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Booking.
+     * @param {BookingUpdateArgs} args - Arguments to update one Booking.
+     * @example
+     * // Update one Booking
+     * const booking = await prisma.booking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookingUpdateArgs>(args: SelectSubset<T, BookingUpdateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Bookings.
+     * @param {BookingDeleteManyArgs} args - Arguments to filter Bookings to delete.
+     * @example
+     * // Delete a few Bookings
+     * const { count } = await prisma.booking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookingDeleteManyArgs>(args?: SelectSubset<T, BookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Bookings
+     * const booking = await prisma.booking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookingUpdateManyArgs>(args: SelectSubset<T, BookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Booking.
+     * @param {BookingUpsertArgs} args - Arguments to update or create a Booking.
+     * @example
+     * // Update or create a Booking
+     * const booking = await prisma.booking.upsert({
+     *   create: {
+     *     // ... data to create a Booking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Booking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookingUpsertArgs>(args: SelectSubset<T, BookingUpsertArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingCountArgs} args - Arguments to filter Bookings to count.
+     * @example
+     * // Count the number of Bookings
+     * const count = await prisma.booking.count({
+     *   where: {
+     *     // ... the filter for the Bookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookingCountArgs>(
+      args?: Subset<T, BookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingAggregateArgs>(args: Subset<T, BookingAggregateArgs>): Prisma.PrismaPromise<GetBookingAggregateType<T>>
+
+    /**
+     * Group by Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookingGroupByArgs['orderBy'] }
+        : { orderBy?: BookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Booking model
+   */
+  readonly fields: BookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Booking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    visits<T extends Booking$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Booking$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Booking model
+   */ 
+  interface BookingFieldRefs {
+    readonly id: FieldRef<"Booking", 'String'>
+    readonly clientId: FieldRef<"Booking", 'String'>
+    readonly branchId: FieldRef<"Booking", 'String'>
+    readonly startAt: FieldRef<"Booking", 'DateTime'>
+    readonly endAt: FieldRef<"Booking", 'DateTime'>
+    readonly serviceType: FieldRef<"Booking", 'String'>
+    readonly priority: FieldRef<"Booking", 'String'>
+    readonly notes: FieldRef<"Booking", 'String'>
+    readonly status: FieldRef<"Booking", 'String'>
+    readonly recurrenceRule: FieldRef<"Booking", 'Json'>
+    readonly tenantId: FieldRef<"Booking", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Booking findUnique
+   */
+  export type BookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findUniqueOrThrow
+   */
+  export type BookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findFirst
+   */
+  export type BookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findFirstOrThrow
+   */
+  export type BookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findMany
+   */
+  export type BookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookings to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking create
+   */
+  export type BookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Booking.
+     */
+    data: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+  }
+
+  /**
+   * Booking createMany
+   */
+  export type BookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Bookings.
+     */
+    data: BookingCreateManyInput | BookingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Booking createManyAndReturn
+   */
+  export type BookingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Bookings.
+     */
+    data: BookingCreateManyInput | BookingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Booking update
+   */
+  export type BookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Booking.
+     */
+    data: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+    /**
+     * Choose, which Booking to update.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking updateMany
+   */
+  export type BookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Bookings.
+     */
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyInput>
+    /**
+     * Filter which Bookings to update
+     */
+    where?: BookingWhereInput
+  }
+
+  /**
+   * Booking upsert
+   */
+  export type BookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Booking to update in case it exists.
+     */
+    where: BookingWhereUniqueInput
+    /**
+     * In case the Booking found by the `where` argument doesn't exist, create a new Booking with this data.
+     */
+    create: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+    /**
+     * In case the Booking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+  }
+
+  /**
+   * Booking delete
+   */
+  export type BookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter which Booking to delete.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking deleteMany
+   */
+  export type BookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bookings to delete
+     */
+    where?: BookingWhereInput
+  }
+
+  /**
+   * Booking.visits
+   */
+  export type Booking$visitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Visit
+     */
+    select?: VisitSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VisitInclude<ExtArgs> | null
+    where?: VisitWhereInput
+    orderBy?: VisitOrderByWithRelationInput | VisitOrderByWithRelationInput[]
+    cursor?: VisitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VisitScalarFieldEnum | VisitScalarFieldEnum[]
+  }
+
+  /**
+   * Booking without action
+   */
+  export type BookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PswAvailability
+   */
+
+  export type AggregatePswAvailability = {
+    _count: PswAvailabilityCountAggregateOutputType | null
+    _avg: PswAvailabilityAvgAggregateOutputType | null
+    _sum: PswAvailabilitySumAggregateOutputType | null
+    _min: PswAvailabilityMinAggregateOutputType | null
+    _max: PswAvailabilityMaxAggregateOutputType | null
+  }
+
+  export type PswAvailabilityAvgAggregateOutputType = {
+    dayOfWeek: number | null
+  }
+
+  export type PswAvailabilitySumAggregateOutputType = {
+    dayOfWeek: number | null
+  }
+
+  export type PswAvailabilityMinAggregateOutputType = {
+    id: string | null
+    pswId: string | null
+    dayOfWeek: number | null
+    startTime: string | null
+    endTime: string | null
+    tenantId: string | null
+  }
+
+  export type PswAvailabilityMaxAggregateOutputType = {
+    id: string | null
+    pswId: string | null
+    dayOfWeek: number | null
+    startTime: string | null
+    endTime: string | null
+    tenantId: string | null
+  }
+
+  export type PswAvailabilityCountAggregateOutputType = {
+    id: number
+    pswId: number
+    dayOfWeek: number
+    startTime: number
+    endTime: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type PswAvailabilityAvgAggregateInputType = {
+    dayOfWeek?: true
+  }
+
+  export type PswAvailabilitySumAggregateInputType = {
+    dayOfWeek?: true
+  }
+
+  export type PswAvailabilityMinAggregateInputType = {
+    id?: true
+    pswId?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    tenantId?: true
+  }
+
+  export type PswAvailabilityMaxAggregateInputType = {
+    id?: true
+    pswId?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    tenantId?: true
+  }
+
+  export type PswAvailabilityCountAggregateInputType = {
+    id?: true
+    pswId?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type PswAvailabilityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PswAvailability to aggregate.
+     */
+    where?: PswAvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PswAvailabilities to fetch.
+     */
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PswAvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PswAvailabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PswAvailabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PswAvailabilities
+    **/
+    _count?: true | PswAvailabilityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PswAvailabilityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PswAvailabilitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PswAvailabilityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PswAvailabilityMaxAggregateInputType
+  }
+
+  export type GetPswAvailabilityAggregateType<T extends PswAvailabilityAggregateArgs> = {
+        [P in keyof T & keyof AggregatePswAvailability]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePswAvailability[P]>
+      : GetScalarType<T[P], AggregatePswAvailability[P]>
+  }
+
+
+
+
+  export type PswAvailabilityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PswAvailabilityWhereInput
+    orderBy?: PswAvailabilityOrderByWithAggregationInput | PswAvailabilityOrderByWithAggregationInput[]
+    by: PswAvailabilityScalarFieldEnum[] | PswAvailabilityScalarFieldEnum
+    having?: PswAvailabilityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PswAvailabilityCountAggregateInputType | true
+    _avg?: PswAvailabilityAvgAggregateInputType
+    _sum?: PswAvailabilitySumAggregateInputType
+    _min?: PswAvailabilityMinAggregateInputType
+    _max?: PswAvailabilityMaxAggregateInputType
+  }
+
+  export type PswAvailabilityGroupByOutputType = {
+    id: string
+    pswId: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenantId: string
+    _count: PswAvailabilityCountAggregateOutputType | null
+    _avg: PswAvailabilityAvgAggregateOutputType | null
+    _sum: PswAvailabilitySumAggregateOutputType | null
+    _min: PswAvailabilityMinAggregateOutputType | null
+    _max: PswAvailabilityMaxAggregateOutputType | null
+  }
+
+  type GetPswAvailabilityGroupByPayload<T extends PswAvailabilityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PswAvailabilityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PswAvailabilityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PswAvailabilityGroupByOutputType[P]>
+            : GetScalarType<T[P], PswAvailabilityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PswAvailabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pswId?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tenantId?: boolean
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pswAvailability"]>
+
+  export type PswAvailabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pswId?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tenantId?: boolean
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pswAvailability"]>
+
+  export type PswAvailabilitySelectScalar = {
+    id?: boolean
+    pswId?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    tenantId?: boolean
+  }
+
+  export type PswAvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type PswAvailabilityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $PswAvailabilityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PswAvailability"
+    objects: {
+      psw: Prisma.$PswProfilePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      pswId: string
+      dayOfWeek: number
+      startTime: string
+      endTime: string
+      tenantId: string
+    }, ExtArgs["result"]["pswAvailability"]>
+    composites: {}
+  }
+
+  type PswAvailabilityGetPayload<S extends boolean | null | undefined | PswAvailabilityDefaultArgs> = $Result.GetResult<Prisma.$PswAvailabilityPayload, S>
+
+  type PswAvailabilityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PswAvailabilityFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PswAvailabilityCountAggregateInputType | true
+    }
+
+  export interface PswAvailabilityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PswAvailability'], meta: { name: 'PswAvailability' } }
+    /**
+     * Find zero or one PswAvailability that matches the filter.
+     * @param {PswAvailabilityFindUniqueArgs} args - Arguments to find a PswAvailability
+     * @example
+     * // Get one PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PswAvailabilityFindUniqueArgs>(args: SelectSubset<T, PswAvailabilityFindUniqueArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PswAvailability that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PswAvailabilityFindUniqueOrThrowArgs} args - Arguments to find a PswAvailability
+     * @example
+     * // Get one PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PswAvailabilityFindUniqueOrThrowArgs>(args: SelectSubset<T, PswAvailabilityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PswAvailability that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityFindFirstArgs} args - Arguments to find a PswAvailability
+     * @example
+     * // Get one PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PswAvailabilityFindFirstArgs>(args?: SelectSubset<T, PswAvailabilityFindFirstArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PswAvailability that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityFindFirstOrThrowArgs} args - Arguments to find a PswAvailability
+     * @example
+     * // Get one PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PswAvailabilityFindFirstOrThrowArgs>(args?: SelectSubset<T, PswAvailabilityFindFirstOrThrowArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PswAvailabilities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PswAvailabilities
+     * const pswAvailabilities = await prisma.pswAvailability.findMany()
+     * 
+     * // Get first 10 PswAvailabilities
+     * const pswAvailabilities = await prisma.pswAvailability.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pswAvailabilityWithIdOnly = await prisma.pswAvailability.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PswAvailabilityFindManyArgs>(args?: SelectSubset<T, PswAvailabilityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PswAvailability.
+     * @param {PswAvailabilityCreateArgs} args - Arguments to create a PswAvailability.
+     * @example
+     * // Create one PswAvailability
+     * const PswAvailability = await prisma.pswAvailability.create({
+     *   data: {
+     *     // ... data to create a PswAvailability
+     *   }
+     * })
+     * 
+     */
+    create<T extends PswAvailabilityCreateArgs>(args: SelectSubset<T, PswAvailabilityCreateArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PswAvailabilities.
+     * @param {PswAvailabilityCreateManyArgs} args - Arguments to create many PswAvailabilities.
+     * @example
+     * // Create many PswAvailabilities
+     * const pswAvailability = await prisma.pswAvailability.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PswAvailabilityCreateManyArgs>(args?: SelectSubset<T, PswAvailabilityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PswAvailabilities and returns the data saved in the database.
+     * @param {PswAvailabilityCreateManyAndReturnArgs} args - Arguments to create many PswAvailabilities.
+     * @example
+     * // Create many PswAvailabilities
+     * const pswAvailability = await prisma.pswAvailability.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PswAvailabilities and only return the `id`
+     * const pswAvailabilityWithIdOnly = await prisma.pswAvailability.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PswAvailabilityCreateManyAndReturnArgs>(args?: SelectSubset<T, PswAvailabilityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PswAvailability.
+     * @param {PswAvailabilityDeleteArgs} args - Arguments to delete one PswAvailability.
+     * @example
+     * // Delete one PswAvailability
+     * const PswAvailability = await prisma.pswAvailability.delete({
+     *   where: {
+     *     // ... filter to delete one PswAvailability
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PswAvailabilityDeleteArgs>(args: SelectSubset<T, PswAvailabilityDeleteArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PswAvailability.
+     * @param {PswAvailabilityUpdateArgs} args - Arguments to update one PswAvailability.
+     * @example
+     * // Update one PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PswAvailabilityUpdateArgs>(args: SelectSubset<T, PswAvailabilityUpdateArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PswAvailabilities.
+     * @param {PswAvailabilityDeleteManyArgs} args - Arguments to filter PswAvailabilities to delete.
+     * @example
+     * // Delete a few PswAvailabilities
+     * const { count } = await prisma.pswAvailability.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PswAvailabilityDeleteManyArgs>(args?: SelectSubset<T, PswAvailabilityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PswAvailabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PswAvailabilities
+     * const pswAvailability = await prisma.pswAvailability.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PswAvailabilityUpdateManyArgs>(args: SelectSubset<T, PswAvailabilityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PswAvailability.
+     * @param {PswAvailabilityUpsertArgs} args - Arguments to update or create a PswAvailability.
+     * @example
+     * // Update or create a PswAvailability
+     * const pswAvailability = await prisma.pswAvailability.upsert({
+     *   create: {
+     *     // ... data to create a PswAvailability
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PswAvailability we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PswAvailabilityUpsertArgs>(args: SelectSubset<T, PswAvailabilityUpsertArgs<ExtArgs>>): Prisma__PswAvailabilityClient<$Result.GetResult<Prisma.$PswAvailabilityPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PswAvailabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityCountArgs} args - Arguments to filter PswAvailabilities to count.
+     * @example
+     * // Count the number of PswAvailabilities
+     * const count = await prisma.pswAvailability.count({
+     *   where: {
+     *     // ... the filter for the PswAvailabilities we want to count
+     *   }
+     * })
+    **/
+    count<T extends PswAvailabilityCountArgs>(
+      args?: Subset<T, PswAvailabilityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PswAvailabilityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PswAvailability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PswAvailabilityAggregateArgs>(args: Subset<T, PswAvailabilityAggregateArgs>): Prisma.PrismaPromise<GetPswAvailabilityAggregateType<T>>
+
+    /**
+     * Group by PswAvailability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PswAvailabilityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PswAvailabilityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PswAvailabilityGroupByArgs['orderBy'] }
+        : { orderBy?: PswAvailabilityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PswAvailabilityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPswAvailabilityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PswAvailability model
+   */
+  readonly fields: PswAvailabilityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PswAvailability.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PswAvailabilityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    psw<T extends PswProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PswProfileDefaultArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PswAvailability model
+   */ 
+  interface PswAvailabilityFieldRefs {
+    readonly id: FieldRef<"PswAvailability", 'String'>
+    readonly pswId: FieldRef<"PswAvailability", 'String'>
+    readonly dayOfWeek: FieldRef<"PswAvailability", 'Int'>
+    readonly startTime: FieldRef<"PswAvailability", 'String'>
+    readonly endTime: FieldRef<"PswAvailability", 'String'>
+    readonly tenantId: FieldRef<"PswAvailability", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PswAvailability findUnique
+   */
+  export type PswAvailabilityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which PswAvailability to fetch.
+     */
+    where: PswAvailabilityWhereUniqueInput
+  }
+
+  /**
+   * PswAvailability findUniqueOrThrow
+   */
+  export type PswAvailabilityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which PswAvailability to fetch.
+     */
+    where: PswAvailabilityWhereUniqueInput
+  }
+
+  /**
+   * PswAvailability findFirst
+   */
+  export type PswAvailabilityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which PswAvailability to fetch.
+     */
+    where?: PswAvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PswAvailabilities to fetch.
+     */
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PswAvailabilities.
+     */
+    cursor?: PswAvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PswAvailabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PswAvailabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PswAvailabilities.
+     */
+    distinct?: PswAvailabilityScalarFieldEnum | PswAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * PswAvailability findFirstOrThrow
+   */
+  export type PswAvailabilityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which PswAvailability to fetch.
+     */
+    where?: PswAvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PswAvailabilities to fetch.
+     */
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PswAvailabilities.
+     */
+    cursor?: PswAvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PswAvailabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PswAvailabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PswAvailabilities.
+     */
+    distinct?: PswAvailabilityScalarFieldEnum | PswAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * PswAvailability findMany
+   */
+  export type PswAvailabilityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which PswAvailabilities to fetch.
+     */
+    where?: PswAvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PswAvailabilities to fetch.
+     */
+    orderBy?: PswAvailabilityOrderByWithRelationInput | PswAvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PswAvailabilities.
+     */
+    cursor?: PswAvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PswAvailabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PswAvailabilities.
+     */
+    skip?: number
+    distinct?: PswAvailabilityScalarFieldEnum | PswAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * PswAvailability create
+   */
+  export type PswAvailabilityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PswAvailability.
+     */
+    data: XOR<PswAvailabilityCreateInput, PswAvailabilityUncheckedCreateInput>
+  }
+
+  /**
+   * PswAvailability createMany
+   */
+  export type PswAvailabilityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PswAvailabilities.
+     */
+    data: PswAvailabilityCreateManyInput | PswAvailabilityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PswAvailability createManyAndReturn
+   */
+  export type PswAvailabilityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PswAvailabilities.
+     */
+    data: PswAvailabilityCreateManyInput | PswAvailabilityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PswAvailability update
+   */
+  export type PswAvailabilityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PswAvailability.
+     */
+    data: XOR<PswAvailabilityUpdateInput, PswAvailabilityUncheckedUpdateInput>
+    /**
+     * Choose, which PswAvailability to update.
+     */
+    where: PswAvailabilityWhereUniqueInput
+  }
+
+  /**
+   * PswAvailability updateMany
+   */
+  export type PswAvailabilityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PswAvailabilities.
+     */
+    data: XOR<PswAvailabilityUpdateManyMutationInput, PswAvailabilityUncheckedUpdateManyInput>
+    /**
+     * Filter which PswAvailabilities to update
+     */
+    where?: PswAvailabilityWhereInput
+  }
+
+  /**
+   * PswAvailability upsert
+   */
+  export type PswAvailabilityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PswAvailability to update in case it exists.
+     */
+    where: PswAvailabilityWhereUniqueInput
+    /**
+     * In case the PswAvailability found by the `where` argument doesn't exist, create a new PswAvailability with this data.
+     */
+    create: XOR<PswAvailabilityCreateInput, PswAvailabilityUncheckedCreateInput>
+    /**
+     * In case the PswAvailability was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PswAvailabilityUpdateInput, PswAvailabilityUncheckedUpdateInput>
+  }
+
+  /**
+   * PswAvailability delete
+   */
+  export type PswAvailabilityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter which PswAvailability to delete.
+     */
+    where: PswAvailabilityWhereUniqueInput
+  }
+
+  /**
+   * PswAvailability deleteMany
+   */
+  export type PswAvailabilityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PswAvailabilities to delete
+     */
+    where?: PswAvailabilityWhereInput
+  }
+
+  /**
+   * PswAvailability without action
+   */
+  export type PswAvailabilityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PswAvailability
+     */
+    select?: PswAvailabilitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PswAvailabilityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ShiftAssignment
+   */
+
+  export type AggregateShiftAssignment = {
+    _count: ShiftAssignmentCountAggregateOutputType | null
+    _avg: ShiftAssignmentAvgAggregateOutputType | null
+    _sum: ShiftAssignmentSumAggregateOutputType | null
+    _min: ShiftAssignmentMinAggregateOutputType | null
+    _max: ShiftAssignmentMaxAggregateOutputType | null
+  }
+
+  export type ShiftAssignmentAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type ShiftAssignmentSumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type ShiftAssignmentMinAggregateOutputType = {
+    id: string | null
+    visitId: string | null
+    pswId: string | null
+    status: $Enums.AssignmentStatus | null
+    score: number | null
+    assignedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type ShiftAssignmentMaxAggregateOutputType = {
+    id: string | null
+    visitId: string | null
+    pswId: string | null
+    status: $Enums.AssignmentStatus | null
+    score: number | null
+    assignedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type ShiftAssignmentCountAggregateOutputType = {
+    id: number
+    visitId: number
+    pswId: number
+    status: number
+    score: number
+    assignedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type ShiftAssignmentAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type ShiftAssignmentSumAggregateInputType = {
+    score?: true
+  }
+
+  export type ShiftAssignmentMinAggregateInputType = {
+    id?: true
+    visitId?: true
+    pswId?: true
+    status?: true
+    score?: true
+    assignedAt?: true
+    tenantId?: true
+  }
+
+  export type ShiftAssignmentMaxAggregateInputType = {
+    id?: true
+    visitId?: true
+    pswId?: true
+    status?: true
+    score?: true
+    assignedAt?: true
+    tenantId?: true
+  }
+
+  export type ShiftAssignmentCountAggregateInputType = {
+    id?: true
+    visitId?: true
+    pswId?: true
+    status?: true
+    score?: true
+    assignedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type ShiftAssignmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ShiftAssignment to aggregate.
+     */
+    where?: ShiftAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShiftAssignments to fetch.
+     */
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShiftAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShiftAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShiftAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ShiftAssignments
+    **/
+    _count?: true | ShiftAssignmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ShiftAssignmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ShiftAssignmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShiftAssignmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShiftAssignmentMaxAggregateInputType
+  }
+
+  export type GetShiftAssignmentAggregateType<T extends ShiftAssignmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateShiftAssignment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShiftAssignment[P]>
+      : GetScalarType<T[P], AggregateShiftAssignment[P]>
+  }
+
+
+
+
+  export type ShiftAssignmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftAssignmentWhereInput
+    orderBy?: ShiftAssignmentOrderByWithAggregationInput | ShiftAssignmentOrderByWithAggregationInput[]
+    by: ShiftAssignmentScalarFieldEnum[] | ShiftAssignmentScalarFieldEnum
+    having?: ShiftAssignmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShiftAssignmentCountAggregateInputType | true
+    _avg?: ShiftAssignmentAvgAggregateInputType
+    _sum?: ShiftAssignmentSumAggregateInputType
+    _min?: ShiftAssignmentMinAggregateInputType
+    _max?: ShiftAssignmentMaxAggregateInputType
+  }
+
+  export type ShiftAssignmentGroupByOutputType = {
+    id: string
+    visitId: string
+    pswId: string
+    status: $Enums.AssignmentStatus
+    score: number | null
+    assignedAt: Date
+    tenantId: string
+    _count: ShiftAssignmentCountAggregateOutputType | null
+    _avg: ShiftAssignmentAvgAggregateOutputType | null
+    _sum: ShiftAssignmentSumAggregateOutputType | null
+    _min: ShiftAssignmentMinAggregateOutputType | null
+    _max: ShiftAssignmentMaxAggregateOutputType | null
+  }
+
+  type GetShiftAssignmentGroupByPayload<T extends ShiftAssignmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShiftAssignmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShiftAssignmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShiftAssignmentGroupByOutputType[P]>
+            : GetScalarType<T[P], ShiftAssignmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShiftAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    visitId?: boolean
+    pswId?: boolean
+    status?: boolean
+    score?: boolean
+    assignedAt?: boolean
+    tenantId?: boolean
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shiftAssignment"]>
+
+  export type ShiftAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    visitId?: boolean
+    pswId?: boolean
+    status?: boolean
+    score?: boolean
+    assignedAt?: boolean
+    tenantId?: boolean
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shiftAssignment"]>
+
+  export type ShiftAssignmentSelectScalar = {
+    id?: boolean
+    visitId?: boolean
+    pswId?: boolean
+    status?: boolean
+    score?: boolean
+    assignedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type ShiftAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type ShiftAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+    psw?: boolean | PswProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $ShiftAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ShiftAssignment"
+    objects: {
+      visit: Prisma.$VisitPayload<ExtArgs>
+      psw: Prisma.$PswProfilePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      visitId: string
+      pswId: string
+      status: $Enums.AssignmentStatus
+      score: number | null
+      assignedAt: Date
+      tenantId: string
+    }, ExtArgs["result"]["shiftAssignment"]>
+    composites: {}
+  }
+
+  type ShiftAssignmentGetPayload<S extends boolean | null | undefined | ShiftAssignmentDefaultArgs> = $Result.GetResult<Prisma.$ShiftAssignmentPayload, S>
+
+  type ShiftAssignmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ShiftAssignmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ShiftAssignmentCountAggregateInputType | true
+    }
+
+  export interface ShiftAssignmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ShiftAssignment'], meta: { name: 'ShiftAssignment' } }
+    /**
+     * Find zero or one ShiftAssignment that matches the filter.
+     * @param {ShiftAssignmentFindUniqueArgs} args - Arguments to find a ShiftAssignment
+     * @example
+     * // Get one ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ShiftAssignmentFindUniqueArgs>(args: SelectSubset<T, ShiftAssignmentFindUniqueArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ShiftAssignment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ShiftAssignmentFindUniqueOrThrowArgs} args - Arguments to find a ShiftAssignment
+     * @example
+     * // Get one ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ShiftAssignmentFindUniqueOrThrowArgs>(args: SelectSubset<T, ShiftAssignmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ShiftAssignment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentFindFirstArgs} args - Arguments to find a ShiftAssignment
+     * @example
+     * // Get one ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ShiftAssignmentFindFirstArgs>(args?: SelectSubset<T, ShiftAssignmentFindFirstArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ShiftAssignment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentFindFirstOrThrowArgs} args - Arguments to find a ShiftAssignment
+     * @example
+     * // Get one ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ShiftAssignmentFindFirstOrThrowArgs>(args?: SelectSubset<T, ShiftAssignmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ShiftAssignments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ShiftAssignments
+     * const shiftAssignments = await prisma.shiftAssignment.findMany()
+     * 
+     * // Get first 10 ShiftAssignments
+     * const shiftAssignments = await prisma.shiftAssignment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const shiftAssignmentWithIdOnly = await prisma.shiftAssignment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ShiftAssignmentFindManyArgs>(args?: SelectSubset<T, ShiftAssignmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ShiftAssignment.
+     * @param {ShiftAssignmentCreateArgs} args - Arguments to create a ShiftAssignment.
+     * @example
+     * // Create one ShiftAssignment
+     * const ShiftAssignment = await prisma.shiftAssignment.create({
+     *   data: {
+     *     // ... data to create a ShiftAssignment
+     *   }
+     * })
+     * 
+     */
+    create<T extends ShiftAssignmentCreateArgs>(args: SelectSubset<T, ShiftAssignmentCreateArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ShiftAssignments.
+     * @param {ShiftAssignmentCreateManyArgs} args - Arguments to create many ShiftAssignments.
+     * @example
+     * // Create many ShiftAssignments
+     * const shiftAssignment = await prisma.shiftAssignment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ShiftAssignmentCreateManyArgs>(args?: SelectSubset<T, ShiftAssignmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ShiftAssignments and returns the data saved in the database.
+     * @param {ShiftAssignmentCreateManyAndReturnArgs} args - Arguments to create many ShiftAssignments.
+     * @example
+     * // Create many ShiftAssignments
+     * const shiftAssignment = await prisma.shiftAssignment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ShiftAssignments and only return the `id`
+     * const shiftAssignmentWithIdOnly = await prisma.shiftAssignment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ShiftAssignmentCreateManyAndReturnArgs>(args?: SelectSubset<T, ShiftAssignmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ShiftAssignment.
+     * @param {ShiftAssignmentDeleteArgs} args - Arguments to delete one ShiftAssignment.
+     * @example
+     * // Delete one ShiftAssignment
+     * const ShiftAssignment = await prisma.shiftAssignment.delete({
+     *   where: {
+     *     // ... filter to delete one ShiftAssignment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ShiftAssignmentDeleteArgs>(args: SelectSubset<T, ShiftAssignmentDeleteArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ShiftAssignment.
+     * @param {ShiftAssignmentUpdateArgs} args - Arguments to update one ShiftAssignment.
+     * @example
+     * // Update one ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ShiftAssignmentUpdateArgs>(args: SelectSubset<T, ShiftAssignmentUpdateArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ShiftAssignments.
+     * @param {ShiftAssignmentDeleteManyArgs} args - Arguments to filter ShiftAssignments to delete.
+     * @example
+     * // Delete a few ShiftAssignments
+     * const { count } = await prisma.shiftAssignment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ShiftAssignmentDeleteManyArgs>(args?: SelectSubset<T, ShiftAssignmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ShiftAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ShiftAssignments
+     * const shiftAssignment = await prisma.shiftAssignment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ShiftAssignmentUpdateManyArgs>(args: SelectSubset<T, ShiftAssignmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ShiftAssignment.
+     * @param {ShiftAssignmentUpsertArgs} args - Arguments to update or create a ShiftAssignment.
+     * @example
+     * // Update or create a ShiftAssignment
+     * const shiftAssignment = await prisma.shiftAssignment.upsert({
+     *   create: {
+     *     // ... data to create a ShiftAssignment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ShiftAssignment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ShiftAssignmentUpsertArgs>(args: SelectSubset<T, ShiftAssignmentUpsertArgs<ExtArgs>>): Prisma__ShiftAssignmentClient<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ShiftAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentCountArgs} args - Arguments to filter ShiftAssignments to count.
+     * @example
+     * // Count the number of ShiftAssignments
+     * const count = await prisma.shiftAssignment.count({
+     *   where: {
+     *     // ... the filter for the ShiftAssignments we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShiftAssignmentCountArgs>(
+      args?: Subset<T, ShiftAssignmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShiftAssignmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ShiftAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShiftAssignmentAggregateArgs>(args: Subset<T, ShiftAssignmentAggregateArgs>): Prisma.PrismaPromise<GetShiftAssignmentAggregateType<T>>
+
+    /**
+     * Group by ShiftAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAssignmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShiftAssignmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShiftAssignmentGroupByArgs['orderBy'] }
+        : { orderBy?: ShiftAssignmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShiftAssignmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShiftAssignmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ShiftAssignment model
+   */
+  readonly fields: ShiftAssignmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ShiftAssignment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShiftAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    visit<T extends VisitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VisitDefaultArgs<ExtArgs>>): Prisma__VisitClient<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    psw<T extends PswProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PswProfileDefaultArgs<ExtArgs>>): Prisma__PswProfileClient<$Result.GetResult<Prisma.$PswProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ShiftAssignment model
+   */ 
+  interface ShiftAssignmentFieldRefs {
+    readonly id: FieldRef<"ShiftAssignment", 'String'>
+    readonly visitId: FieldRef<"ShiftAssignment", 'String'>
+    readonly pswId: FieldRef<"ShiftAssignment", 'String'>
+    readonly status: FieldRef<"ShiftAssignment", 'AssignmentStatus'>
+    readonly score: FieldRef<"ShiftAssignment", 'Float'>
+    readonly assignedAt: FieldRef<"ShiftAssignment", 'DateTime'>
+    readonly tenantId: FieldRef<"ShiftAssignment", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ShiftAssignment findUnique
+   */
+  export type ShiftAssignmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ShiftAssignment to fetch.
+     */
+    where: ShiftAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ShiftAssignment findUniqueOrThrow
+   */
+  export type ShiftAssignmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ShiftAssignment to fetch.
+     */
+    where: ShiftAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ShiftAssignment findFirst
+   */
+  export type ShiftAssignmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ShiftAssignment to fetch.
+     */
+    where?: ShiftAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShiftAssignments to fetch.
+     */
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ShiftAssignments.
+     */
+    cursor?: ShiftAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShiftAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShiftAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ShiftAssignments.
+     */
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ShiftAssignment findFirstOrThrow
+   */
+  export type ShiftAssignmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ShiftAssignment to fetch.
+     */
+    where?: ShiftAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShiftAssignments to fetch.
+     */
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ShiftAssignments.
+     */
+    cursor?: ShiftAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShiftAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShiftAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ShiftAssignments.
+     */
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ShiftAssignment findMany
+   */
+  export type ShiftAssignmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ShiftAssignments to fetch.
+     */
+    where?: ShiftAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShiftAssignments to fetch.
+     */
+    orderBy?: ShiftAssignmentOrderByWithRelationInput | ShiftAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ShiftAssignments.
+     */
+    cursor?: ShiftAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShiftAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShiftAssignments.
+     */
+    skip?: number
+    distinct?: ShiftAssignmentScalarFieldEnum | ShiftAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ShiftAssignment create
+   */
+  export type ShiftAssignmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ShiftAssignment.
+     */
+    data: XOR<ShiftAssignmentCreateInput, ShiftAssignmentUncheckedCreateInput>
+  }
+
+  /**
+   * ShiftAssignment createMany
+   */
+  export type ShiftAssignmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ShiftAssignments.
+     */
+    data: ShiftAssignmentCreateManyInput | ShiftAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ShiftAssignment createManyAndReturn
+   */
+  export type ShiftAssignmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ShiftAssignments.
+     */
+    data: ShiftAssignmentCreateManyInput | ShiftAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ShiftAssignment update
+   */
+  export type ShiftAssignmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ShiftAssignment.
+     */
+    data: XOR<ShiftAssignmentUpdateInput, ShiftAssignmentUncheckedUpdateInput>
+    /**
+     * Choose, which ShiftAssignment to update.
+     */
+    where: ShiftAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ShiftAssignment updateMany
+   */
+  export type ShiftAssignmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ShiftAssignments.
+     */
+    data: XOR<ShiftAssignmentUpdateManyMutationInput, ShiftAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which ShiftAssignments to update
+     */
+    where?: ShiftAssignmentWhereInput
+  }
+
+  /**
+   * ShiftAssignment upsert
+   */
+  export type ShiftAssignmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ShiftAssignment to update in case it exists.
+     */
+    where: ShiftAssignmentWhereUniqueInput
+    /**
+     * In case the ShiftAssignment found by the `where` argument doesn't exist, create a new ShiftAssignment with this data.
+     */
+    create: XOR<ShiftAssignmentCreateInput, ShiftAssignmentUncheckedCreateInput>
+    /**
+     * In case the ShiftAssignment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShiftAssignmentUpdateInput, ShiftAssignmentUncheckedUpdateInput>
+  }
+
+  /**
+   * ShiftAssignment delete
+   */
+  export type ShiftAssignmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter which ShiftAssignment to delete.
+     */
+    where: ShiftAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ShiftAssignment deleteMany
+   */
+  export type ShiftAssignmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ShiftAssignments to delete
+     */
+    where?: ShiftAssignmentWhereInput
+  }
+
+  /**
+   * ShiftAssignment without action
+   */
+  export type ShiftAssignmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftAssignment
+     */
+    select?: ShiftAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftAssignmentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model BlogPost
    */
 
@@ -26753,7 +30387,8 @@ export namespace Prisma {
     bio: 'bio',
     languages: 'languages',
     serviceAreas: 'serviceAreas',
-    availability: 'availability',
+    skills: 'skills',
+    availabilityJson: 'availabilityJson',
     isApproved: 'isApproved',
     approvedAt: 'approvedAt',
     createdAt: 'createdAt',
@@ -26785,7 +30420,11 @@ export namespace Prisma {
     cancellationReason: 'cancellationReason',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    tenantId: 'tenantId'
+    tenantId: 'tenantId',
+    bookingId: 'bookingId',
+    priority: 'priority',
+    requiredSkills: 'requiredSkills',
+    crisisMode: 'crisisMode'
   };
 
   export type VisitScalarFieldEnum = (typeof VisitScalarFieldEnum)[keyof typeof VisitScalarFieldEnum]
@@ -26975,6 +30614,48 @@ export namespace Prisma {
   };
 
   export type LeadScalarFieldEnum = (typeof LeadScalarFieldEnum)[keyof typeof LeadScalarFieldEnum]
+
+
+  export const BookingScalarFieldEnum: {
+    id: 'id',
+    clientId: 'clientId',
+    branchId: 'branchId',
+    startAt: 'startAt',
+    endAt: 'endAt',
+    serviceType: 'serviceType',
+    priority: 'priority',
+    notes: 'notes',
+    status: 'status',
+    recurrenceRule: 'recurrenceRule',
+    tenantId: 'tenantId'
+  };
+
+  export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+  export const PswAvailabilityScalarFieldEnum: {
+    id: 'id',
+    pswId: 'pswId',
+    dayOfWeek: 'dayOfWeek',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    tenantId: 'tenantId'
+  };
+
+  export type PswAvailabilityScalarFieldEnum = (typeof PswAvailabilityScalarFieldEnum)[keyof typeof PswAvailabilityScalarFieldEnum]
+
+
+  export const ShiftAssignmentScalarFieldEnum: {
+    id: 'id',
+    visitId: 'visitId',
+    pswId: 'pswId',
+    status: 'status',
+    score: 'score',
+    assignedAt: 'assignedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type ShiftAssignmentScalarFieldEnum = (typeof ShiftAssignmentScalarFieldEnum)[keyof typeof ShiftAssignmentScalarFieldEnum]
 
 
   export const BlogPostScalarFieldEnum: {
@@ -27295,6 +30976,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AssignmentStatus'
+   */
+  export type EnumAssignmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssignmentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssignmentStatus[]'
+   */
+  export type ListEnumAssignmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssignmentStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DocStatus'
    */
   export type EnumDocStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocStatus'>
@@ -27466,6 +31161,9 @@ export namespace Prisma {
     timesheets?: TimesheetListRelationFilter
     users?: UserListRelationFilter
     visits?: VisitListRelationFilter
+    bookings?: BookingListRelationFilter
+    pswAvailability?: PswAvailabilityListRelationFilter
+    shiftAssignments?: ShiftAssignmentListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -27486,6 +31184,9 @@ export namespace Prisma {
     timesheets?: TimesheetOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
     visits?: VisitOrderByRelationAggregateInput
+    bookings?: BookingOrderByRelationAggregateInput
+    pswAvailability?: PswAvailabilityOrderByRelationAggregateInput
+    shiftAssignments?: ShiftAssignmentOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -27509,6 +31210,9 @@ export namespace Prisma {
     timesheets?: TimesheetListRelationFilter
     users?: UserListRelationFilter
     visits?: VisitListRelationFilter
+    bookings?: BookingListRelationFilter
+    pswAvailability?: PswAvailabilityListRelationFilter
+    shiftAssignments?: ShiftAssignmentListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -27562,6 +31266,7 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     messageThreads?: MessageThreadListRelationFilter
     visits?: VisitListRelationFilter
+    bookings?: BookingListRelationFilter
   }
 
   export type ClientProfileOrderByWithRelationInput = {
@@ -27588,6 +31293,7 @@ export namespace Prisma {
     invoices?: InvoiceOrderByRelationAggregateInput
     messageThreads?: MessageThreadOrderByRelationAggregateInput
     visits?: VisitOrderByRelationAggregateInput
+    bookings?: BookingOrderByRelationAggregateInput
   }
 
   export type ClientProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -27617,6 +31323,7 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     messageThreads?: MessageThreadListRelationFilter
     visits?: VisitListRelationFilter
+    bookings?: BookingListRelationFilter
   }, "id" | "userId">
 
   export type ClientProfileOrderByWithAggregationInput = {
@@ -27677,7 +31384,8 @@ export namespace Prisma {
     bio?: StringNullableFilter<"PswProfile"> | string | null
     languages?: StringNullableListFilter<"PswProfile">
     serviceAreas?: StringNullableListFilter<"PswProfile">
-    availability?: JsonNullableFilter<"PswProfile">
+    skills?: StringNullableListFilter<"PswProfile">
+    availabilityJson?: JsonNullableFilter<"PswProfile">
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
@@ -27693,6 +31401,8 @@ export namespace Prisma {
     checklists?: VisitChecklistListRelationFilter
     notes?: VisitNoteListRelationFilter
     assignedVisits?: VisitListRelationFilter
+    availability?: PswAvailabilityListRelationFilter
+    assignments?: ShiftAssignmentListRelationFilter
   }
 
   export type PswProfileOrderByWithRelationInput = {
@@ -27702,7 +31412,8 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     languages?: SortOrder
     serviceAreas?: SortOrder
-    availability?: SortOrderInput | SortOrder
+    skills?: SortOrder
+    availabilityJson?: SortOrderInput | SortOrder
     isApproved?: SortOrder
     approvedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -27718,6 +31429,8 @@ export namespace Prisma {
     checklists?: VisitChecklistOrderByRelationAggregateInput
     notes?: VisitNoteOrderByRelationAggregateInput
     assignedVisits?: VisitOrderByRelationAggregateInput
+    availability?: PswAvailabilityOrderByRelationAggregateInput
+    assignments?: ShiftAssignmentOrderByRelationAggregateInput
   }
 
   export type PswProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -27730,7 +31443,8 @@ export namespace Prisma {
     bio?: StringNullableFilter<"PswProfile"> | string | null
     languages?: StringNullableListFilter<"PswProfile">
     serviceAreas?: StringNullableListFilter<"PswProfile">
-    availability?: JsonNullableFilter<"PswProfile">
+    skills?: StringNullableListFilter<"PswProfile">
+    availabilityJson?: JsonNullableFilter<"PswProfile">
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
@@ -27746,6 +31460,8 @@ export namespace Prisma {
     checklists?: VisitChecklistListRelationFilter
     notes?: VisitNoteListRelationFilter
     assignedVisits?: VisitListRelationFilter
+    availability?: PswAvailabilityListRelationFilter
+    assignments?: ShiftAssignmentListRelationFilter
   }, "id" | "userId">
 
   export type PswProfileOrderByWithAggregationInput = {
@@ -27755,7 +31471,8 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     languages?: SortOrder
     serviceAreas?: SortOrder
-    availability?: SortOrderInput | SortOrder
+    skills?: SortOrder
+    availabilityJson?: SortOrderInput | SortOrder
     isApproved?: SortOrder
     approvedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -27777,7 +31494,8 @@ export namespace Prisma {
     bio?: StringNullableWithAggregatesFilter<"PswProfile"> | string | null
     languages?: StringNullableListFilter<"PswProfile">
     serviceAreas?: StringNullableListFilter<"PswProfile">
-    availability?: JsonNullableWithAggregatesFilter<"PswProfile">
+    skills?: StringNullableListFilter<"PswProfile">
+    availabilityJson?: JsonNullableWithAggregatesFilter<"PswProfile">
     isApproved?: BoolWithAggregatesFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableWithAggregatesFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PswProfile"> | Date | string
@@ -27810,6 +31528,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Visit"> | Date | string
     updatedAt?: DateTimeFilter<"Visit"> | Date | string
     tenantId?: StringFilter<"Visit"> | string
+    bookingId?: StringNullableFilter<"Visit"> | string | null
+    priority?: StringNullableFilter<"Visit"> | string | null
+    requiredSkills?: StringNullableListFilter<"Visit">
+    crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
     DailyEntry?: DailyEntryListRelationFilter
     incidents?: IncidentListRelationFilter
     timesheetItems?: TimesheetItemListRelationFilter
@@ -27820,6 +31542,8 @@ export namespace Prisma {
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    booking?: XOR<BookingNullableRelationFilter, BookingWhereInput> | null
+    assignments?: ShiftAssignmentListRelationFilter
   }
 
   export type VisitOrderByWithRelationInput = {
@@ -27843,6 +31567,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    bookingId?: SortOrderInput | SortOrder
+    priority?: SortOrderInput | SortOrder
+    requiredSkills?: SortOrder
+    crisisMode?: SortOrderInput | SortOrder
     DailyEntry?: DailyEntryOrderByRelationAggregateInput
     incidents?: IncidentOrderByRelationAggregateInput
     timesheetItems?: TimesheetItemOrderByRelationAggregateInput
@@ -27853,6 +31581,8 @@ export namespace Prisma {
     client?: ClientProfileOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
+    booking?: BookingOrderByWithRelationInput
+    assignments?: ShiftAssignmentOrderByRelationAggregateInput
   }
 
   export type VisitWhereUniqueInput = Prisma.AtLeast<{
@@ -27879,6 +31609,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Visit"> | Date | string
     updatedAt?: DateTimeFilter<"Visit"> | Date | string
     tenantId?: StringFilter<"Visit"> | string
+    bookingId?: StringNullableFilter<"Visit"> | string | null
+    priority?: StringNullableFilter<"Visit"> | string | null
+    requiredSkills?: StringNullableListFilter<"Visit">
+    crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
     DailyEntry?: DailyEntryListRelationFilter
     incidents?: IncidentListRelationFilter
     timesheetItems?: TimesheetItemListRelationFilter
@@ -27889,6 +31623,8 @@ export namespace Prisma {
     client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
     service?: XOR<ServiceRelationFilter, ServiceWhereInput>
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    booking?: XOR<BookingNullableRelationFilter, BookingWhereInput> | null
+    assignments?: ShiftAssignmentListRelationFilter
   }, "id">
 
   export type VisitOrderByWithAggregationInput = {
@@ -27912,6 +31648,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    bookingId?: SortOrderInput | SortOrder
+    priority?: SortOrderInput | SortOrder
+    requiredSkills?: SortOrder
+    crisisMode?: SortOrderInput | SortOrder
     _count?: VisitCountOrderByAggregateInput
     _avg?: VisitAvgOrderByAggregateInput
     _max?: VisitMaxOrderByAggregateInput
@@ -27943,6 +31683,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Visit"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Visit"> | Date | string
     tenantId?: StringWithAggregatesFilter<"Visit"> | string
+    bookingId?: StringNullableWithAggregatesFilter<"Visit"> | string | null
+    priority?: StringNullableWithAggregatesFilter<"Visit"> | string | null
+    requiredSkills?: StringNullableListFilter<"Visit">
+    crisisMode?: BoolNullableWithAggregatesFilter<"Visit"> | boolean | null
   }
 
   export type ServiceWhereInput = {
@@ -28938,6 +32682,235 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Lead"> | Date | string
   }
 
+  export type BookingWhereInput = {
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    clientId?: StringFilter<"Booking"> | string
+    branchId?: StringNullableFilter<"Booking"> | string | null
+    startAt?: DateTimeFilter<"Booking"> | Date | string
+    endAt?: DateTimeFilter<"Booking"> | Date | string
+    serviceType?: StringFilter<"Booking"> | string
+    priority?: StringFilter<"Booking"> | string
+    notes?: StringNullableFilter<"Booking"> | string | null
+    status?: StringFilter<"Booking"> | string
+    recurrenceRule?: JsonNullableFilter<"Booking">
+    tenantId?: StringFilter<"Booking"> | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    visits?: VisitListRelationFilter
+  }
+
+  export type BookingOrderByWithRelationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    branchId?: SortOrderInput | SortOrder
+    startAt?: SortOrder
+    endAt?: SortOrder
+    serviceType?: SortOrder
+    priority?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    client?: ClientProfileOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+    visits?: VisitOrderByRelationAggregateInput
+  }
+
+  export type BookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    clientId?: StringFilter<"Booking"> | string
+    branchId?: StringNullableFilter<"Booking"> | string | null
+    startAt?: DateTimeFilter<"Booking"> | Date | string
+    endAt?: DateTimeFilter<"Booking"> | Date | string
+    serviceType?: StringFilter<"Booking"> | string
+    priority?: StringFilter<"Booking"> | string
+    notes?: StringNullableFilter<"Booking"> | string | null
+    status?: StringFilter<"Booking"> | string
+    recurrenceRule?: JsonNullableFilter<"Booking">
+    tenantId?: StringFilter<"Booking"> | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    visits?: VisitListRelationFilter
+  }, "id">
+
+  export type BookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    branchId?: SortOrderInput | SortOrder
+    startAt?: SortOrder
+    endAt?: SortOrder
+    serviceType?: SortOrder
+    priority?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    _count?: BookingCountOrderByAggregateInput
+    _max?: BookingMaxOrderByAggregateInput
+    _min?: BookingMinOrderByAggregateInput
+  }
+
+  export type BookingScalarWhereWithAggregatesInput = {
+    AND?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    OR?: BookingScalarWhereWithAggregatesInput[]
+    NOT?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Booking"> | string
+    clientId?: StringWithAggregatesFilter<"Booking"> | string
+    branchId?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    startAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    endAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    serviceType?: StringWithAggregatesFilter<"Booking"> | string
+    priority?: StringWithAggregatesFilter<"Booking"> | string
+    notes?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    status?: StringWithAggregatesFilter<"Booking"> | string
+    recurrenceRule?: JsonNullableWithAggregatesFilter<"Booking">
+    tenantId?: StringWithAggregatesFilter<"Booking"> | string
+  }
+
+  export type PswAvailabilityWhereInput = {
+    AND?: PswAvailabilityWhereInput | PswAvailabilityWhereInput[]
+    OR?: PswAvailabilityWhereInput[]
+    NOT?: PswAvailabilityWhereInput | PswAvailabilityWhereInput[]
+    id?: StringFilter<"PswAvailability"> | string
+    pswId?: StringFilter<"PswAvailability"> | string
+    dayOfWeek?: IntFilter<"PswAvailability"> | number
+    startTime?: StringFilter<"PswAvailability"> | string
+    endTime?: StringFilter<"PswAvailability"> | string
+    tenantId?: StringFilter<"PswAvailability"> | string
+    psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type PswAvailabilityOrderByWithRelationInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tenantId?: SortOrder
+    psw?: PswProfileOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type PswAvailabilityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PswAvailabilityWhereInput | PswAvailabilityWhereInput[]
+    OR?: PswAvailabilityWhereInput[]
+    NOT?: PswAvailabilityWhereInput | PswAvailabilityWhereInput[]
+    pswId?: StringFilter<"PswAvailability"> | string
+    dayOfWeek?: IntFilter<"PswAvailability"> | number
+    startTime?: StringFilter<"PswAvailability"> | string
+    endTime?: StringFilter<"PswAvailability"> | string
+    tenantId?: StringFilter<"PswAvailability"> | string
+    psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type PswAvailabilityOrderByWithAggregationInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tenantId?: SortOrder
+    _count?: PswAvailabilityCountOrderByAggregateInput
+    _avg?: PswAvailabilityAvgOrderByAggregateInput
+    _max?: PswAvailabilityMaxOrderByAggregateInput
+    _min?: PswAvailabilityMinOrderByAggregateInput
+    _sum?: PswAvailabilitySumOrderByAggregateInput
+  }
+
+  export type PswAvailabilityScalarWhereWithAggregatesInput = {
+    AND?: PswAvailabilityScalarWhereWithAggregatesInput | PswAvailabilityScalarWhereWithAggregatesInput[]
+    OR?: PswAvailabilityScalarWhereWithAggregatesInput[]
+    NOT?: PswAvailabilityScalarWhereWithAggregatesInput | PswAvailabilityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PswAvailability"> | string
+    pswId?: StringWithAggregatesFilter<"PswAvailability"> | string
+    dayOfWeek?: IntWithAggregatesFilter<"PswAvailability"> | number
+    startTime?: StringWithAggregatesFilter<"PswAvailability"> | string
+    endTime?: StringWithAggregatesFilter<"PswAvailability"> | string
+    tenantId?: StringWithAggregatesFilter<"PswAvailability"> | string
+  }
+
+  export type ShiftAssignmentWhereInput = {
+    AND?: ShiftAssignmentWhereInput | ShiftAssignmentWhereInput[]
+    OR?: ShiftAssignmentWhereInput[]
+    NOT?: ShiftAssignmentWhereInput | ShiftAssignmentWhereInput[]
+    id?: StringFilter<"ShiftAssignment"> | string
+    visitId?: StringFilter<"ShiftAssignment"> | string
+    pswId?: StringFilter<"ShiftAssignment"> | string
+    status?: EnumAssignmentStatusFilter<"ShiftAssignment"> | $Enums.AssignmentStatus
+    score?: FloatNullableFilter<"ShiftAssignment"> | number | null
+    assignedAt?: DateTimeFilter<"ShiftAssignment"> | Date | string
+    tenantId?: StringFilter<"ShiftAssignment"> | string
+    visit?: XOR<VisitRelationFilter, VisitWhereInput>
+    psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type ShiftAssignmentOrderByWithRelationInput = {
+    id?: SortOrder
+    visitId?: SortOrder
+    pswId?: SortOrder
+    status?: SortOrder
+    score?: SortOrderInput | SortOrder
+    assignedAt?: SortOrder
+    tenantId?: SortOrder
+    visit?: VisitOrderByWithRelationInput
+    psw?: PswProfileOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type ShiftAssignmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ShiftAssignmentWhereInput | ShiftAssignmentWhereInput[]
+    OR?: ShiftAssignmentWhereInput[]
+    NOT?: ShiftAssignmentWhereInput | ShiftAssignmentWhereInput[]
+    visitId?: StringFilter<"ShiftAssignment"> | string
+    pswId?: StringFilter<"ShiftAssignment"> | string
+    status?: EnumAssignmentStatusFilter<"ShiftAssignment"> | $Enums.AssignmentStatus
+    score?: FloatNullableFilter<"ShiftAssignment"> | number | null
+    assignedAt?: DateTimeFilter<"ShiftAssignment"> | Date | string
+    tenantId?: StringFilter<"ShiftAssignment"> | string
+    visit?: XOR<VisitRelationFilter, VisitWhereInput>
+    psw?: XOR<PswProfileRelationFilter, PswProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type ShiftAssignmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    visitId?: SortOrder
+    pswId?: SortOrder
+    status?: SortOrder
+    score?: SortOrderInput | SortOrder
+    assignedAt?: SortOrder
+    tenantId?: SortOrder
+    _count?: ShiftAssignmentCountOrderByAggregateInput
+    _avg?: ShiftAssignmentAvgOrderByAggregateInput
+    _max?: ShiftAssignmentMaxOrderByAggregateInput
+    _min?: ShiftAssignmentMinOrderByAggregateInput
+    _sum?: ShiftAssignmentSumOrderByAggregateInput
+  }
+
+  export type ShiftAssignmentScalarWhereWithAggregatesInput = {
+    AND?: ShiftAssignmentScalarWhereWithAggregatesInput | ShiftAssignmentScalarWhereWithAggregatesInput[]
+    OR?: ShiftAssignmentScalarWhereWithAggregatesInput[]
+    NOT?: ShiftAssignmentScalarWhereWithAggregatesInput | ShiftAssignmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ShiftAssignment"> | string
+    visitId?: StringWithAggregatesFilter<"ShiftAssignment"> | string
+    pswId?: StringWithAggregatesFilter<"ShiftAssignment"> | string
+    status?: EnumAssignmentStatusWithAggregatesFilter<"ShiftAssignment"> | $Enums.AssignmentStatus
+    score?: FloatNullableWithAggregatesFilter<"ShiftAssignment"> | number | null
+    assignedAt?: DateTimeWithAggregatesFilter<"ShiftAssignment"> | Date | string
+    tenantId?: StringWithAggregatesFilter<"ShiftAssignment"> | string
+  }
+
   export type BlogPostWhereInput = {
     AND?: BlogPostWhereInput | BlogPostWhereInput[]
     OR?: BlogPostWhereInput[]
@@ -29451,6 +33424,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -29471,6 +33447,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -29491,6 +33470,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -29511,6 +33493,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -29562,6 +33547,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateInput = {
@@ -29586,6 +33572,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUpdateInput = {
@@ -29610,6 +33597,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateInput = {
@@ -29634,6 +33622,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileCreateManyInput = {
@@ -29700,7 +33689,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -29715,6 +33705,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateInput = {
@@ -29724,7 +33716,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -29738,6 +33731,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUpdateInput = {
@@ -29746,7 +33741,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29761,6 +33757,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateInput = {
@@ -29770,7 +33768,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29784,6 +33783,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileCreateManyInput = {
@@ -29793,7 +33794,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -29808,7 +33810,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29823,7 +33826,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29849,6 +33853,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -29859,6 +33866,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateInput = {
@@ -29882,12 +33891,17 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUpdateInput = {
@@ -29907,6 +33921,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -29917,6 +33934,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateInput = {
@@ -29940,12 +33959,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitCreateManyInput = {
@@ -29969,6 +33993,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
   }
 
   export type VisitUpdateManyMutationInput = {
@@ -29988,6 +34016,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type VisitUncheckedUpdateManyInput = {
@@ -30011,6 +34042,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type ServiceCreateInput = {
@@ -31032,6 +35067,234 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookingCreateInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client: ClientProfileCreateNestedOneWithoutBookingsInput
+    tenant: TenantCreateNestedOneWithoutBookingsInput
+    visits?: VisitCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateInput = {
+    id?: string
+    clientId: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId: string
+    visits?: VisitUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client?: ClientProfileUpdateOneRequiredWithoutBookingsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutBookingsNestedInput
+    visits?: VisitUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visits?: VisitUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingCreateManyInput = {
+    id?: string
+    clientId: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId: string
+  }
+
+  export type BookingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BookingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PswAvailabilityCreateInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    psw: PswProfileCreateNestedOneWithoutAvailabilityInput
+    tenant: TenantCreateNestedOneWithoutPswAvailabilityInput
+  }
+
+  export type PswAvailabilityUncheckedCreateInput = {
+    id?: string
+    pswId: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenantId: string
+  }
+
+  export type PswAvailabilityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    psw?: PswProfileUpdateOneRequiredWithoutAvailabilityNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutPswAvailabilityNestedInput
+  }
+
+  export type PswAvailabilityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PswAvailabilityCreateManyInput = {
+    id?: string
+    pswId: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenantId: string
+  }
+
+  export type PswAvailabilityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PswAvailabilityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentCreateInput = {
+    id?: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    visit: VisitCreateNestedOneWithoutAssignmentsInput
+    psw: PswProfileCreateNestedOneWithoutAssignmentsInput
+    tenant: TenantCreateNestedOneWithoutShiftAssignmentsInput
+  }
+
+  export type ShiftAssignmentUncheckedCreateInput = {
+    id?: string
+    visitId: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    tenantId: string
+  }
+
+  export type ShiftAssignmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visit?: VisitUpdateOneRequiredWithoutAssignmentsNestedInput
+    psw?: PswProfileUpdateOneRequiredWithoutAssignmentsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutShiftAssignmentsNestedInput
+  }
+
+  export type ShiftAssignmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentCreateManyInput = {
+    id?: string
+    visitId: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    tenantId: string
+  }
+
+  export type ShiftAssignmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type BlogPostCreateInput = {
     id?: string
     title: string
@@ -31726,6 +35989,24 @@ export namespace Prisma {
     none?: VisitWhereInput
   }
 
+  export type BookingListRelationFilter = {
+    every?: BookingWhereInput
+    some?: BookingWhereInput
+    none?: BookingWhereInput
+  }
+
+  export type PswAvailabilityListRelationFilter = {
+    every?: PswAvailabilityWhereInput
+    some?: PswAvailabilityWhereInput
+    none?: PswAvailabilityWhereInput
+  }
+
+  export type ShiftAssignmentListRelationFilter = {
+    every?: ShiftAssignmentWhereInput
+    some?: ShiftAssignmentWhereInput
+    none?: ShiftAssignmentWhereInput
+  }
+
   export type ClientProfileOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -31751,6 +36032,18 @@ export namespace Prisma {
   }
 
   export type VisitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PswAvailabilityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ShiftAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -31968,7 +36261,8 @@ export namespace Prisma {
     bio?: SortOrder
     languages?: SortOrder
     serviceAreas?: SortOrder
-    availability?: SortOrder
+    skills?: SortOrder
+    availabilityJson?: SortOrder
     isApproved?: SortOrder
     approvedAt?: SortOrder
     createdAt?: SortOrder
@@ -32029,6 +36323,11 @@ export namespace Prisma {
     not?: NestedEnumVisitStatusNullableFilter<$PrismaModel> | $Enums.VisitStatus | null
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type TimesheetItemListRelationFilter = {
     every?: TimesheetItemWhereInput
     some?: TimesheetItemWhereInput
@@ -32043,6 +36342,11 @@ export namespace Prisma {
   export type ServiceRelationFilter = {
     is?: ServiceWhereInput
     isNot?: ServiceWhereInput
+  }
+
+  export type BookingNullableRelationFilter = {
+    is?: BookingWhereInput | null
+    isNot?: BookingWhereInput | null
   }
 
   export type TimesheetItemOrderByRelationAggregateInput = {
@@ -32070,6 +36374,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    bookingId?: SortOrder
+    priority?: SortOrder
+    requiredSkills?: SortOrder
+    crisisMode?: SortOrder
   }
 
   export type VisitAvgOrderByAggregateInput = {
@@ -32099,6 +36407,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    bookingId?: SortOrder
+    priority?: SortOrder
+    crisisMode?: SortOrder
   }
 
   export type VisitMinOrderByAggregateInput = {
@@ -32122,6 +36433,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    bookingId?: SortOrder
+    priority?: SortOrder
+    crisisMode?: SortOrder
   }
 
   export type VisitSumOrderByAggregateInput = {
@@ -32156,6 +36470,14 @@ export namespace Prisma {
     _max?: NestedEnumVisitStatusNullableFilter<$PrismaModel>
   }
 
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type DecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -32165,11 +36487,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type ServiceCountOrderByAggregateInput = {
@@ -32230,14 +36547,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type EnumEventTypeFilter<$PrismaModel = never> = {
@@ -32910,6 +37219,136 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type BookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    branchId?: SortOrder
+    startAt?: SortOrder
+    endAt?: SortOrder
+    serviceType?: SortOrder
+    priority?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    recurrenceRule?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type BookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    branchId?: SortOrder
+    startAt?: SortOrder
+    endAt?: SortOrder
+    serviceType?: SortOrder
+    priority?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type BookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    branchId?: SortOrder
+    startAt?: SortOrder
+    endAt?: SortOrder
+    serviceType?: SortOrder
+    priority?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PswAvailabilityCountOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PswAvailabilityAvgOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+  }
+
+  export type PswAvailabilityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PswAvailabilityMinOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PswAvailabilitySumOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+  }
+
+  export type EnumAssignmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssignmentStatus | EnumAssignmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssignmentStatusFilter<$PrismaModel> | $Enums.AssignmentStatus
+  }
+
+  export type ShiftAssignmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    visitId?: SortOrder
+    pswId?: SortOrder
+    status?: SortOrder
+    score?: SortOrder
+    assignedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type ShiftAssignmentAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type ShiftAssignmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    visitId?: SortOrder
+    pswId?: SortOrder
+    status?: SortOrder
+    score?: SortOrder
+    assignedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type ShiftAssignmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    visitId?: SortOrder
+    pswId?: SortOrder
+    status?: SortOrder
+    score?: SortOrder
+    assignedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type ShiftAssignmentSumOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type EnumAssignmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssignmentStatus | EnumAssignmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AssignmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAssignmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumAssignmentStatusFilter<$PrismaModel>
   }
 
   export type BlogPostCountOrderByAggregateInput = {
@@ -33632,6 +38071,27 @@ export namespace Prisma {
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
   }
 
+  export type BookingCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput> | BookingCreateWithoutTenantInput[] | BookingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutTenantInput | BookingCreateOrConnectWithoutTenantInput[]
+    createMany?: BookingCreateManyTenantInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type PswAvailabilityCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput> | PswAvailabilityCreateWithoutTenantInput[] | PswAvailabilityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutTenantInput | PswAvailabilityCreateOrConnectWithoutTenantInput[]
+    createMany?: PswAvailabilityCreateManyTenantInputEnvelope
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+  }
+
+  export type ShiftAssignmentCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput> | ShiftAssignmentCreateWithoutTenantInput[] | ShiftAssignmentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutTenantInput | ShiftAssignmentCreateOrConnectWithoutTenantInput[]
+    createMany?: ShiftAssignmentCreateManyTenantInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -33707,6 +38167,27 @@ export namespace Prisma {
     connectOrCreate?: VisitCreateOrConnectWithoutTenantInput | VisitCreateOrConnectWithoutTenantInput[]
     createMany?: VisitCreateManyTenantInputEnvelope
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type BookingUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput> | BookingCreateWithoutTenantInput[] | BookingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutTenantInput | BookingCreateOrConnectWithoutTenantInput[]
+    createMany?: BookingCreateManyTenantInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput> | PswAvailabilityCreateWithoutTenantInput[] | PswAvailabilityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutTenantInput | PswAvailabilityCreateOrConnectWithoutTenantInput[]
+    createMany?: PswAvailabilityCreateManyTenantInputEnvelope
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+  }
+
+  export type ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput> | ShiftAssignmentCreateWithoutTenantInput[] | ShiftAssignmentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutTenantInput | ShiftAssignmentCreateOrConnectWithoutTenantInput[]
+    createMany?: ShiftAssignmentCreateManyTenantInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
   }
 
   export type AuditLogUpdateManyWithoutTenantNestedInput = {
@@ -33863,6 +38344,48 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type BookingUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput> | BookingCreateWithoutTenantInput[] | BookingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutTenantInput | BookingCreateOrConnectWithoutTenantInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutTenantInput | BookingUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BookingCreateManyTenantInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutTenantInput | BookingUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutTenantInput | BookingUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type PswAvailabilityUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput> | PswAvailabilityCreateWithoutTenantInput[] | PswAvailabilityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutTenantInput | PswAvailabilityCreateOrConnectWithoutTenantInput[]
+    upsert?: PswAvailabilityUpsertWithWhereUniqueWithoutTenantInput | PswAvailabilityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PswAvailabilityCreateManyTenantInputEnvelope
+    set?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    disconnect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    delete?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    update?: PswAvailabilityUpdateWithWhereUniqueWithoutTenantInput | PswAvailabilityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PswAvailabilityUpdateManyWithWhereWithoutTenantInput | PswAvailabilityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+  }
+
+  export type ShiftAssignmentUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput> | ShiftAssignmentCreateWithoutTenantInput[] | ShiftAssignmentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutTenantInput | ShiftAssignmentCreateOrConnectWithoutTenantInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput | ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ShiftAssignmentCreateManyTenantInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutTenantInput | ShiftAssignmentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutTenantInput | ShiftAssignmentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -34017,6 +38540,48 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type BookingUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput> | BookingCreateWithoutTenantInput[] | BookingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutTenantInput | BookingCreateOrConnectWithoutTenantInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutTenantInput | BookingUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BookingCreateManyTenantInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutTenantInput | BookingUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutTenantInput | BookingUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput> | PswAvailabilityCreateWithoutTenantInput[] | PswAvailabilityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutTenantInput | PswAvailabilityCreateOrConnectWithoutTenantInput[]
+    upsert?: PswAvailabilityUpsertWithWhereUniqueWithoutTenantInput | PswAvailabilityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PswAvailabilityCreateManyTenantInputEnvelope
+    set?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    disconnect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    delete?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    update?: PswAvailabilityUpdateWithWhereUniqueWithoutTenantInput | PswAvailabilityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PswAvailabilityUpdateManyWithWhereWithoutTenantInput | PswAvailabilityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput> | ShiftAssignmentCreateWithoutTenantInput[] | ShiftAssignmentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutTenantInput | ShiftAssignmentCreateOrConnectWithoutTenantInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput | ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ShiftAssignmentCreateManyTenantInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutTenantInput | ShiftAssignmentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutTenantInput | ShiftAssignmentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
   export type TenantCreateNestedOneWithoutClientProfilesInput = {
     create?: XOR<TenantCreateWithoutClientProfilesInput, TenantUncheckedCreateWithoutClientProfilesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutClientProfilesInput
@@ -34057,6 +38622,13 @@ export namespace Prisma {
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
   }
 
+  export type BookingCreateNestedManyWithoutClientInput = {
+    create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
+    createMany?: BookingCreateManyClientInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
   export type DailyEntryUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
@@ -34083,6 +38655,13 @@ export namespace Prisma {
     connectOrCreate?: VisitCreateOrConnectWithoutClientInput | VisitCreateOrConnectWithoutClientInput[]
     createMany?: VisitCreateManyClientInputEnvelope
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type BookingUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
+    createMany?: BookingCreateManyClientInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -34165,6 +38744,20 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type BookingUpdateManyWithoutClientNestedInput = {
+    create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutClientInput | BookingUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: BookingCreateManyClientInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutClientInput | BookingUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutClientInput | BookingUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
   export type DailyEntryUncheckedUpdateManyWithoutClientNestedInput = {
     create?: XOR<DailyEntryCreateWithoutClientInput, DailyEntryUncheckedCreateWithoutClientInput> | DailyEntryCreateWithoutClientInput[] | DailyEntryUncheckedCreateWithoutClientInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutClientInput | DailyEntryCreateOrConnectWithoutClientInput[]
@@ -34221,11 +38814,29 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type BookingUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutClientInput | BookingUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: BookingCreateManyClientInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutClientInput | BookingUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutClientInput | BookingUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
   export type PswProfileCreatelanguagesInput = {
     set: string[]
   }
 
   export type PswProfileCreateserviceAreasInput = {
+    set: string[]
+  }
+
+  export type PswProfileCreateskillsInput = {
     set: string[]
   }
 
@@ -34290,6 +38901,20 @@ export namespace Prisma {
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
   }
 
+  export type PswAvailabilityCreateNestedManyWithoutPswInput = {
+    create?: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput> | PswAvailabilityCreateWithoutPswInput[] | PswAvailabilityUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutPswInput | PswAvailabilityCreateOrConnectWithoutPswInput[]
+    createMany?: PswAvailabilityCreateManyPswInputEnvelope
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+  }
+
+  export type ShiftAssignmentCreateNestedManyWithoutPswInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput> | ShiftAssignmentCreateWithoutPswInput[] | ShiftAssignmentUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutPswInput | ShiftAssignmentCreateOrConnectWithoutPswInput[]
+    createMany?: ShiftAssignmentCreateManyPswInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+  }
+
   export type MessageThreadUncheckedCreateNestedManyWithoutPswInput = {
     create?: XOR<MessageThreadCreateWithoutPswInput, MessageThreadUncheckedCreateWithoutPswInput> | MessageThreadCreateWithoutPswInput[] | MessageThreadUncheckedCreateWithoutPswInput[]
     connectOrCreate?: MessageThreadCreateOrConnectWithoutPswInput | MessageThreadCreateOrConnectWithoutPswInput[]
@@ -34339,12 +38964,31 @@ export namespace Prisma {
     connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
   }
 
+  export type PswAvailabilityUncheckedCreateNestedManyWithoutPswInput = {
+    create?: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput> | PswAvailabilityCreateWithoutPswInput[] | PswAvailabilityUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutPswInput | PswAvailabilityCreateOrConnectWithoutPswInput[]
+    createMany?: PswAvailabilityCreateManyPswInputEnvelope
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+  }
+
+  export type ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput> | ShiftAssignmentCreateWithoutPswInput[] | ShiftAssignmentUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutPswInput | ShiftAssignmentCreateOrConnectWithoutPswInput[]
+    createMany?: ShiftAssignmentCreateManyPswInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+  }
+
   export type PswProfileUpdatelanguagesInput = {
     set?: string[]
     push?: string | string[]
   }
 
   export type PswProfileUpdateserviceAreasInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type PswProfileUpdateskillsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -34467,6 +39111,34 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type PswAvailabilityUpdateManyWithoutPswNestedInput = {
+    create?: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput> | PswAvailabilityCreateWithoutPswInput[] | PswAvailabilityUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutPswInput | PswAvailabilityCreateOrConnectWithoutPswInput[]
+    upsert?: PswAvailabilityUpsertWithWhereUniqueWithoutPswInput | PswAvailabilityUpsertWithWhereUniqueWithoutPswInput[]
+    createMany?: PswAvailabilityCreateManyPswInputEnvelope
+    set?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    disconnect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    delete?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    update?: PswAvailabilityUpdateWithWhereUniqueWithoutPswInput | PswAvailabilityUpdateWithWhereUniqueWithoutPswInput[]
+    updateMany?: PswAvailabilityUpdateManyWithWhereWithoutPswInput | PswAvailabilityUpdateManyWithWhereWithoutPswInput[]
+    deleteMany?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+  }
+
+  export type ShiftAssignmentUpdateManyWithoutPswNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput> | ShiftAssignmentCreateWithoutPswInput[] | ShiftAssignmentUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutPswInput | ShiftAssignmentCreateOrConnectWithoutPswInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput | ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput[]
+    createMany?: ShiftAssignmentCreateManyPswInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutPswInput | ShiftAssignmentUpdateWithWhereUniqueWithoutPswInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutPswInput | ShiftAssignmentUpdateManyWithWhereWithoutPswInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
   export type MessageThreadUncheckedUpdateManyWithoutPswNestedInput = {
     create?: XOR<MessageThreadCreateWithoutPswInput, MessageThreadUncheckedCreateWithoutPswInput> | MessageThreadCreateWithoutPswInput[] | MessageThreadUncheckedCreateWithoutPswInput[]
     connectOrCreate?: MessageThreadCreateOrConnectWithoutPswInput | MessageThreadCreateOrConnectWithoutPswInput[]
@@ -34565,6 +39237,38 @@ export namespace Prisma {
     deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
   }
 
+  export type PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput = {
+    create?: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput> | PswAvailabilityCreateWithoutPswInput[] | PswAvailabilityUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: PswAvailabilityCreateOrConnectWithoutPswInput | PswAvailabilityCreateOrConnectWithoutPswInput[]
+    upsert?: PswAvailabilityUpsertWithWhereUniqueWithoutPswInput | PswAvailabilityUpsertWithWhereUniqueWithoutPswInput[]
+    createMany?: PswAvailabilityCreateManyPswInputEnvelope
+    set?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    disconnect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    delete?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    connect?: PswAvailabilityWhereUniqueInput | PswAvailabilityWhereUniqueInput[]
+    update?: PswAvailabilityUpdateWithWhereUniqueWithoutPswInput | PswAvailabilityUpdateWithWhereUniqueWithoutPswInput[]
+    updateMany?: PswAvailabilityUpdateManyWithWhereWithoutPswInput | PswAvailabilityUpdateManyWithWhereWithoutPswInput[]
+    deleteMany?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput> | ShiftAssignmentCreateWithoutPswInput[] | ShiftAssignmentUncheckedCreateWithoutPswInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutPswInput | ShiftAssignmentCreateOrConnectWithoutPswInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput | ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput[]
+    createMany?: ShiftAssignmentCreateManyPswInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutPswInput | ShiftAssignmentUpdateWithWhereUniqueWithoutPswInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutPswInput | ShiftAssignmentUpdateManyWithWhereWithoutPswInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
+  export type VisitCreaterequiredSkillsInput = {
+    set: string[]
+  }
+
   export type DailyEntryCreateNestedManyWithoutVisitInput = {
     create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
@@ -34631,6 +39335,19 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput
   }
 
+  export type BookingCreateNestedOneWithoutVisitsInput = {
+    create?: XOR<BookingCreateWithoutVisitsInput, BookingUncheckedCreateWithoutVisitsInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutVisitsInput
+    connect?: BookingWhereUniqueInput
+  }
+
+  export type ShiftAssignmentCreateNestedManyWithoutVisitInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput> | ShiftAssignmentCreateWithoutVisitInput[] | ShiftAssignmentUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutVisitInput | ShiftAssignmentCreateOrConnectWithoutVisitInput[]
+    createMany?: ShiftAssignmentCreateManyVisitInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+  }
+
   export type DailyEntryUncheckedCreateNestedManyWithoutVisitInput = {
     create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
@@ -34673,6 +39390,13 @@ export namespace Prisma {
     connect?: VisitNoteWhereUniqueInput | VisitNoteWhereUniqueInput[]
   }
 
+  export type ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput> | ShiftAssignmentCreateWithoutVisitInput[] | ShiftAssignmentUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutVisitInput | ShiftAssignmentCreateOrConnectWithoutVisitInput[]
+    createMany?: ShiftAssignmentCreateManyVisitInputEnvelope
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -34683,6 +39407,15 @@ export namespace Prisma {
 
   export type NullableEnumVisitStatusFieldUpdateOperationsInput = {
     set?: $Enums.VisitStatus | null
+  }
+
+  export type VisitUpdaterequiredSkillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type DailyEntryUpdateManyWithoutVisitNestedInput = {
@@ -34803,6 +39536,30 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutVisitsInput, TenantUpdateWithoutVisitsInput>, TenantUncheckedUpdateWithoutVisitsInput>
   }
 
+  export type BookingUpdateOneWithoutVisitsNestedInput = {
+    create?: XOR<BookingCreateWithoutVisitsInput, BookingUncheckedCreateWithoutVisitsInput>
+    connectOrCreate?: BookingCreateOrConnectWithoutVisitsInput
+    upsert?: BookingUpsertWithoutVisitsInput
+    disconnect?: BookingWhereInput | boolean
+    delete?: BookingWhereInput | boolean
+    connect?: BookingWhereUniqueInput
+    update?: XOR<XOR<BookingUpdateToOneWithWhereWithoutVisitsInput, BookingUpdateWithoutVisitsInput>, BookingUncheckedUpdateWithoutVisitsInput>
+  }
+
+  export type ShiftAssignmentUpdateManyWithoutVisitNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput> | ShiftAssignmentCreateWithoutVisitInput[] | ShiftAssignmentUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutVisitInput | ShiftAssignmentCreateOrConnectWithoutVisitInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutVisitInput | ShiftAssignmentUpsertWithWhereUniqueWithoutVisitInput[]
+    createMany?: ShiftAssignmentCreateManyVisitInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutVisitInput | ShiftAssignmentUpdateWithWhereUniqueWithoutVisitInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutVisitInput | ShiftAssignmentUpdateManyWithWhereWithoutVisitInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
   export type DailyEntryUncheckedUpdateManyWithoutVisitNestedInput = {
     create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
@@ -34887,6 +39644,20 @@ export namespace Prisma {
     deleteMany?: VisitNoteScalarWhereInput | VisitNoteScalarWhereInput[]
   }
 
+  export type ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput = {
+    create?: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput> | ShiftAssignmentCreateWithoutVisitInput[] | ShiftAssignmentUncheckedCreateWithoutVisitInput[]
+    connectOrCreate?: ShiftAssignmentCreateOrConnectWithoutVisitInput | ShiftAssignmentCreateOrConnectWithoutVisitInput[]
+    upsert?: ShiftAssignmentUpsertWithWhereUniqueWithoutVisitInput | ShiftAssignmentUpsertWithWhereUniqueWithoutVisitInput[]
+    createMany?: ShiftAssignmentCreateManyVisitInputEnvelope
+    set?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    disconnect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    delete?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    connect?: ShiftAssignmentWhereUniqueInput | ShiftAssignmentWhereUniqueInput[]
+    update?: ShiftAssignmentUpdateWithWhereUniqueWithoutVisitInput | ShiftAssignmentUpdateWithWhereUniqueWithoutVisitInput[]
+    updateMany?: ShiftAssignmentUpdateManyWithWhereWithoutVisitInput | ShiftAssignmentUpdateManyWithWhereWithoutVisitInput[]
+    deleteMany?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+  }
+
   export type TenantCreateNestedOneWithoutServicesInput = {
     create?: XOR<TenantCreateWithoutServicesInput, TenantUncheckedCreateWithoutServicesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutServicesInput
@@ -34913,10 +39684,6 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
   }
 
   export type TenantUpdateOneRequiredWithoutServicesNestedInput = {
@@ -35475,6 +40242,150 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAuditLogsInput, TenantUpdateWithoutAuditLogsInput>, TenantUncheckedUpdateWithoutAuditLogsInput>
   }
 
+  export type ClientProfileCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<ClientProfileCreateWithoutBookingsInput, ClientProfileUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutBookingsInput
+    connect?: ClientProfileWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<TenantCreateWithoutBookingsInput, TenantUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBookingsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type VisitCreateNestedManyWithoutBookingInput = {
+    create?: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput> | VisitCreateWithoutBookingInput[] | VisitUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutBookingInput | VisitCreateOrConnectWithoutBookingInput[]
+    createMany?: VisitCreateManyBookingInputEnvelope
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type VisitUncheckedCreateNestedManyWithoutBookingInput = {
+    create?: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput> | VisitCreateWithoutBookingInput[] | VisitUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutBookingInput | VisitCreateOrConnectWithoutBookingInput[]
+    createMany?: VisitCreateManyBookingInputEnvelope
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+  }
+
+  export type ClientProfileUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutBookingsInput, ClientProfileUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutBookingsInput
+    upsert?: ClientProfileUpsertWithoutBookingsInput
+    connect?: ClientProfileWhereUniqueInput
+    update?: XOR<XOR<ClientProfileUpdateToOneWithWhereWithoutBookingsInput, ClientProfileUpdateWithoutBookingsInput>, ClientProfileUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<TenantCreateWithoutBookingsInput, TenantUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBookingsInput
+    upsert?: TenantUpsertWithoutBookingsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBookingsInput, TenantUpdateWithoutBookingsInput>, TenantUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type VisitUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput> | VisitCreateWithoutBookingInput[] | VisitUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutBookingInput | VisitCreateOrConnectWithoutBookingInput[]
+    upsert?: VisitUpsertWithWhereUniqueWithoutBookingInput | VisitUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: VisitCreateManyBookingInputEnvelope
+    set?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    disconnect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    delete?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    update?: VisitUpdateWithWhereUniqueWithoutBookingInput | VisitUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: VisitUpdateManyWithWhereWithoutBookingInput | VisitUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
+  }
+
+  export type VisitUncheckedUpdateManyWithoutBookingNestedInput = {
+    create?: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput> | VisitCreateWithoutBookingInput[] | VisitUncheckedCreateWithoutBookingInput[]
+    connectOrCreate?: VisitCreateOrConnectWithoutBookingInput | VisitCreateOrConnectWithoutBookingInput[]
+    upsert?: VisitUpsertWithWhereUniqueWithoutBookingInput | VisitUpsertWithWhereUniqueWithoutBookingInput[]
+    createMany?: VisitCreateManyBookingInputEnvelope
+    set?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    disconnect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    delete?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    connect?: VisitWhereUniqueInput | VisitWhereUniqueInput[]
+    update?: VisitUpdateWithWhereUniqueWithoutBookingInput | VisitUpdateWithWhereUniqueWithoutBookingInput[]
+    updateMany?: VisitUpdateManyWithWhereWithoutBookingInput | VisitUpdateManyWithWhereWithoutBookingInput[]
+    deleteMany?: VisitScalarWhereInput | VisitScalarWhereInput[]
+  }
+
+  export type PswProfileCreateNestedOneWithoutAvailabilityInput = {
+    create?: XOR<PswProfileCreateWithoutAvailabilityInput, PswProfileUncheckedCreateWithoutAvailabilityInput>
+    connectOrCreate?: PswProfileCreateOrConnectWithoutAvailabilityInput
+    connect?: PswProfileWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutPswAvailabilityInput = {
+    create?: XOR<TenantCreateWithoutPswAvailabilityInput, TenantUncheckedCreateWithoutPswAvailabilityInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPswAvailabilityInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PswProfileUpdateOneRequiredWithoutAvailabilityNestedInput = {
+    create?: XOR<PswProfileCreateWithoutAvailabilityInput, PswProfileUncheckedCreateWithoutAvailabilityInput>
+    connectOrCreate?: PswProfileCreateOrConnectWithoutAvailabilityInput
+    upsert?: PswProfileUpsertWithoutAvailabilityInput
+    connect?: PswProfileWhereUniqueInput
+    update?: XOR<XOR<PswProfileUpdateToOneWithWhereWithoutAvailabilityInput, PswProfileUpdateWithoutAvailabilityInput>, PswProfileUncheckedUpdateWithoutAvailabilityInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutPswAvailabilityNestedInput = {
+    create?: XOR<TenantCreateWithoutPswAvailabilityInput, TenantUncheckedCreateWithoutPswAvailabilityInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPswAvailabilityInput
+    upsert?: TenantUpsertWithoutPswAvailabilityInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPswAvailabilityInput, TenantUpdateWithoutPswAvailabilityInput>, TenantUncheckedUpdateWithoutPswAvailabilityInput>
+  }
+
+  export type VisitCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<VisitCreateWithoutAssignmentsInput, VisitUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutAssignmentsInput
+    connect?: VisitWhereUniqueInput
+  }
+
+  export type PswProfileCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<PswProfileCreateWithoutAssignmentsInput, PswProfileUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: PswProfileCreateOrConnectWithoutAssignmentsInput
+    connect?: PswProfileWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutShiftAssignmentsInput = {
+    create?: XOR<TenantCreateWithoutShiftAssignmentsInput, TenantUncheckedCreateWithoutShiftAssignmentsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutShiftAssignmentsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type EnumAssignmentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AssignmentStatus
+  }
+
+  export type VisitUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<VisitCreateWithoutAssignmentsInput, VisitUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutAssignmentsInput
+    upsert?: VisitUpsertWithoutAssignmentsInput
+    connect?: VisitWhereUniqueInput
+    update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutAssignmentsInput, VisitUpdateWithoutAssignmentsInput>, VisitUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type PswProfileUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<PswProfileCreateWithoutAssignmentsInput, PswProfileUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: PswProfileCreateOrConnectWithoutAssignmentsInput
+    upsert?: PswProfileUpsertWithoutAssignmentsInput
+    connect?: PswProfileWhereUniqueInput
+    update?: XOR<XOR<PswProfileUpdateToOneWithWhereWithoutAssignmentsInput, PswProfileUpdateWithoutAssignmentsInput>, PswProfileUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutShiftAssignmentsNestedInput = {
+    create?: XOR<TenantCreateWithoutShiftAssignmentsInput, TenantUncheckedCreateWithoutShiftAssignmentsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutShiftAssignmentsInput
+    upsert?: TenantUpsertWithoutShiftAssignmentsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutShiftAssignmentsInput, TenantUpdateWithoutShiftAssignmentsInput>, TenantUncheckedUpdateWithoutShiftAssignmentsInput>
+  }
+
   export type UserCreateNestedOneWithoutBlogPostsInput = {
     create?: XOR<UserCreateWithoutBlogPostsInput, UserUncheckedCreateWithoutBlogPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlogPostsInput
@@ -35790,6 +40701,11 @@ export namespace Prisma {
     not?: NestedEnumVisitStatusNullableFilter<$PrismaModel> | $Enums.VisitStatus | null
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -35827,6 +40743,14 @@ export namespace Prisma {
     _max?: NestedEnumVisitStatusNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -35836,11 +40760,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -35857,14 +40776,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumEventTypeFilter<$PrismaModel = never> = {
@@ -36007,6 +40918,23 @@ export namespace Prisma {
     _max?: NestedEnumInvoiceStatusNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumAssignmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssignmentStatus | EnumAssignmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssignmentStatusFilter<$PrismaModel> | $Enums.AssignmentStatus
+  }
+
+  export type NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssignmentStatus | EnumAssignmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssignmentStatus[] | ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AssignmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAssignmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumAssignmentStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumDocStatusNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.DocStatus | EnumDocStatusFieldRefInput<$PrismaModel> | null
     in?: $Enums.DocStatus[] | ListEnumDocStatusFieldRefInput<$PrismaModel> | null
@@ -36136,6 +41064,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutUserInput = {
@@ -36159,6 +41088,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutUserInput = {
@@ -36306,7 +41236,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -36320,6 +41251,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutUserInput = {
@@ -36328,7 +41261,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -36342,6 +41276,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutUserInput = {
@@ -36404,6 +41340,9 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -36423,6 +41362,9 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -36575,6 +41517,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutUserInput = {
@@ -36598,6 +41541,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutStaffInput = {
@@ -36744,7 +41688,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36758,6 +41703,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutUserInput = {
@@ -36766,7 +41713,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36780,6 +41728,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type TimesheetUpsertWithWhereUniqueWithoutReviewerInput = {
@@ -36843,6 +41793,9 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -36862,6 +41815,9 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -36955,6 +41911,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutTenantInput = {
@@ -36978,6 +41935,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutTenantInput = {
@@ -37138,7 +42096,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -37152,6 +42111,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutTenantInput = {
@@ -37161,7 +42122,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -37174,6 +42136,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutTenantInput = {
@@ -37333,6 +42297,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -37342,6 +42309,8 @@ export namespace Prisma {
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutTenantInput = {
@@ -37364,12 +42333,17 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutTenantInput = {
@@ -37379,6 +42353,98 @@ export namespace Prisma {
 
   export type VisitCreateManyTenantInputEnvelope = {
     data: VisitCreateManyTenantInput | VisitCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BookingCreateWithoutTenantInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client: ClientProfileCreateNestedOneWithoutBookingsInput
+    visits?: VisitCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    visits?: VisitUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutTenantInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BookingCreateManyTenantInputEnvelope = {
+    data: BookingCreateManyTenantInput | BookingCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PswAvailabilityCreateWithoutTenantInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    psw: PswProfileCreateNestedOneWithoutAvailabilityInput
+  }
+
+  export type PswAvailabilityUncheckedCreateWithoutTenantInput = {
+    id?: string
+    pswId: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+  }
+
+  export type PswAvailabilityCreateOrConnectWithoutTenantInput = {
+    where: PswAvailabilityWhereUniqueInput
+    create: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PswAvailabilityCreateManyTenantInputEnvelope = {
+    data: PswAvailabilityCreateManyTenantInput | PswAvailabilityCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ShiftAssignmentCreateWithoutTenantInput = {
+    id?: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    visit: VisitCreateNestedOneWithoutAssignmentsInput
+    psw: PswProfileCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type ShiftAssignmentUncheckedCreateWithoutTenantInput = {
+    id?: string
+    visitId: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+  }
+
+  export type ShiftAssignmentCreateOrConnectWithoutTenantInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    create: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ShiftAssignmentCreateManyTenantInputEnvelope = {
+    data: ShiftAssignmentCreateManyTenantInput | ShiftAssignmentCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -37556,7 +42622,8 @@ export namespace Prisma {
     bio?: StringNullableFilter<"PswProfile"> | string | null
     languages?: StringNullableListFilter<"PswProfile">
     serviceAreas?: StringNullableListFilter<"PswProfile">
-    availability?: JsonNullableFilter<"PswProfile">
+    skills?: StringNullableListFilter<"PswProfile">
+    availabilityJson?: JsonNullableFilter<"PswProfile">
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
@@ -37686,6 +42753,100 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Visit"> | Date | string
     updatedAt?: DateTimeFilter<"Visit"> | Date | string
     tenantId?: StringFilter<"Visit"> | string
+    bookingId?: StringNullableFilter<"Visit"> | string | null
+    priority?: StringNullableFilter<"Visit"> | string | null
+    requiredSkills?: StringNullableListFilter<"Visit">
+    crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
+  }
+
+  export type BookingUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutTenantInput, BookingUncheckedUpdateWithoutTenantInput>
+    create: XOR<BookingCreateWithoutTenantInput, BookingUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutTenantInput, BookingUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutTenantInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BookingScalarWhereInput = {
+    AND?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    OR?: BookingScalarWhereInput[]
+    NOT?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    clientId?: StringFilter<"Booking"> | string
+    branchId?: StringNullableFilter<"Booking"> | string | null
+    startAt?: DateTimeFilter<"Booking"> | Date | string
+    endAt?: DateTimeFilter<"Booking"> | Date | string
+    serviceType?: StringFilter<"Booking"> | string
+    priority?: StringFilter<"Booking"> | string
+    notes?: StringNullableFilter<"Booking"> | string | null
+    status?: StringFilter<"Booking"> | string
+    recurrenceRule?: JsonNullableFilter<"Booking">
+    tenantId?: StringFilter<"Booking"> | string
+  }
+
+  export type PswAvailabilityUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PswAvailabilityWhereUniqueInput
+    update: XOR<PswAvailabilityUpdateWithoutTenantInput, PswAvailabilityUncheckedUpdateWithoutTenantInput>
+    create: XOR<PswAvailabilityCreateWithoutTenantInput, PswAvailabilityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PswAvailabilityUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PswAvailabilityWhereUniqueInput
+    data: XOR<PswAvailabilityUpdateWithoutTenantInput, PswAvailabilityUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PswAvailabilityUpdateManyWithWhereWithoutTenantInput = {
+    where: PswAvailabilityScalarWhereInput
+    data: XOR<PswAvailabilityUpdateManyMutationInput, PswAvailabilityUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PswAvailabilityScalarWhereInput = {
+    AND?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+    OR?: PswAvailabilityScalarWhereInput[]
+    NOT?: PswAvailabilityScalarWhereInput | PswAvailabilityScalarWhereInput[]
+    id?: StringFilter<"PswAvailability"> | string
+    pswId?: StringFilter<"PswAvailability"> | string
+    dayOfWeek?: IntFilter<"PswAvailability"> | number
+    startTime?: StringFilter<"PswAvailability"> | string
+    endTime?: StringFilter<"PswAvailability"> | string
+    tenantId?: StringFilter<"PswAvailability"> | string
+  }
+
+  export type ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    update: XOR<ShiftAssignmentUpdateWithoutTenantInput, ShiftAssignmentUncheckedUpdateWithoutTenantInput>
+    create: XOR<ShiftAssignmentCreateWithoutTenantInput, ShiftAssignmentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ShiftAssignmentUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    data: XOR<ShiftAssignmentUpdateWithoutTenantInput, ShiftAssignmentUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ShiftAssignmentUpdateManyWithWhereWithoutTenantInput = {
+    where: ShiftAssignmentScalarWhereInput
+    data: XOR<ShiftAssignmentUpdateManyMutationInput, ShiftAssignmentUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ShiftAssignmentScalarWhereInput = {
+    AND?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+    OR?: ShiftAssignmentScalarWhereInput[]
+    NOT?: ShiftAssignmentScalarWhereInput | ShiftAssignmentScalarWhereInput[]
+    id?: StringFilter<"ShiftAssignment"> | string
+    visitId?: StringFilter<"ShiftAssignment"> | string
+    pswId?: StringFilter<"ShiftAssignment"> | string
+    status?: EnumAssignmentStatusFilter<"ShiftAssignment"> | $Enums.AssignmentStatus
+    score?: FloatNullableFilter<"ShiftAssignment"> | number | null
+    assignedAt?: DateTimeFilter<"ShiftAssignment"> | Date | string
+    tenantId?: StringFilter<"ShiftAssignment"> | string
   }
 
   export type TenantCreateWithoutClientProfilesInput = {
@@ -37705,6 +42866,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -37724,6 +42888,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -37909,6 +43076,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -37918,6 +43088,8 @@ export namespace Prisma {
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutClientInput = {
@@ -37940,12 +43112,17 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutClientInput = {
@@ -37955,6 +43132,44 @@ export namespace Prisma {
 
   export type VisitCreateManyClientInputEnvelope = {
     data: VisitCreateManyClientInput | VisitCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BookingCreateWithoutClientInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenant: TenantCreateNestedOneWithoutBookingsInput
+    visits?: VisitCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingUncheckedCreateWithoutClientInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId: string
+    visits?: VisitUncheckedCreateNestedManyWithoutBookingInput
+  }
+
+  export type BookingCreateOrConnectWithoutClientInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput>
+  }
+
+  export type BookingCreateManyClientInputEnvelope = {
+    data: BookingCreateManyClientInput | BookingCreateManyClientInput[]
     skipDuplicates?: boolean
   }
 
@@ -37986,6 +43201,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -38005,6 +43223,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -38130,6 +43351,22 @@ export namespace Prisma {
     data: XOR<VisitUpdateManyMutationInput, VisitUncheckedUpdateManyWithoutClientInput>
   }
 
+  export type BookingUpsertWithWhereUniqueWithoutClientInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutClientInput, BookingUncheckedUpdateWithoutClientInput>
+    create: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutClientInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutClientInput, BookingUncheckedUpdateWithoutClientInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutClientInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutClientInput>
+  }
+
   export type MessageThreadCreateWithoutPswInput = {
     id?: string
     threadType: string
@@ -38209,6 +43446,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswProfilesInput = {
@@ -38228,6 +43468,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswProfilesInput = {
@@ -38437,6 +43680,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -38446,6 +43692,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutPswInput = {
@@ -38468,12 +43716,17 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutPswInput = {
@@ -38483,6 +43736,60 @@ export namespace Prisma {
 
   export type VisitCreateManyPswInputEnvelope = {
     data: VisitCreateManyPswInput | VisitCreateManyPswInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PswAvailabilityCreateWithoutPswInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenant: TenantCreateNestedOneWithoutPswAvailabilityInput
+  }
+
+  export type PswAvailabilityUncheckedCreateWithoutPswInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenantId: string
+  }
+
+  export type PswAvailabilityCreateOrConnectWithoutPswInput = {
+    where: PswAvailabilityWhereUniqueInput
+    create: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput>
+  }
+
+  export type PswAvailabilityCreateManyPswInputEnvelope = {
+    data: PswAvailabilityCreateManyPswInput | PswAvailabilityCreateManyPswInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ShiftAssignmentCreateWithoutPswInput = {
+    id?: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    visit: VisitCreateNestedOneWithoutAssignmentsInput
+    tenant: TenantCreateNestedOneWithoutShiftAssignmentsInput
+  }
+
+  export type ShiftAssignmentUncheckedCreateWithoutPswInput = {
+    id?: string
+    visitId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    tenantId: string
+  }
+
+  export type ShiftAssignmentCreateOrConnectWithoutPswInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    create: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput>
+  }
+
+  export type ShiftAssignmentCreateManyPswInputEnvelope = {
+    data: ShiftAssignmentCreateManyPswInput | ShiftAssignmentCreateManyPswInput[]
     skipDuplicates?: boolean
   }
 
@@ -38546,6 +43853,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswProfilesInput = {
@@ -38565,6 +43875,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutPswProfileInput = {
@@ -38726,6 +44039,38 @@ export namespace Prisma {
   export type VisitUpdateManyWithWhereWithoutPswInput = {
     where: VisitScalarWhereInput
     data: XOR<VisitUpdateManyMutationInput, VisitUncheckedUpdateManyWithoutPswInput>
+  }
+
+  export type PswAvailabilityUpsertWithWhereUniqueWithoutPswInput = {
+    where: PswAvailabilityWhereUniqueInput
+    update: XOR<PswAvailabilityUpdateWithoutPswInput, PswAvailabilityUncheckedUpdateWithoutPswInput>
+    create: XOR<PswAvailabilityCreateWithoutPswInput, PswAvailabilityUncheckedCreateWithoutPswInput>
+  }
+
+  export type PswAvailabilityUpdateWithWhereUniqueWithoutPswInput = {
+    where: PswAvailabilityWhereUniqueInput
+    data: XOR<PswAvailabilityUpdateWithoutPswInput, PswAvailabilityUncheckedUpdateWithoutPswInput>
+  }
+
+  export type PswAvailabilityUpdateManyWithWhereWithoutPswInput = {
+    where: PswAvailabilityScalarWhereInput
+    data: XOR<PswAvailabilityUpdateManyMutationInput, PswAvailabilityUncheckedUpdateManyWithoutPswInput>
+  }
+
+  export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    update: XOR<ShiftAssignmentUpdateWithoutPswInput, ShiftAssignmentUncheckedUpdateWithoutPswInput>
+    create: XOR<ShiftAssignmentCreateWithoutPswInput, ShiftAssignmentUncheckedCreateWithoutPswInput>
+  }
+
+  export type ShiftAssignmentUpdateWithWhereUniqueWithoutPswInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    data: XOR<ShiftAssignmentUpdateWithoutPswInput, ShiftAssignmentUncheckedUpdateWithoutPswInput>
+  }
+
+  export type ShiftAssignmentUpdateManyWithWhereWithoutPswInput = {
+    where: ShiftAssignmentScalarWhereInput
+    data: XOR<ShiftAssignmentUpdateManyMutationInput, ShiftAssignmentUncheckedUpdateManyWithoutPswInput>
   }
 
   export type DailyEntryCreateWithoutVisitInput = {
@@ -38928,7 +44273,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -38942,6 +44288,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutAssignedVisitsInput = {
@@ -38951,7 +44299,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -38964,6 +44313,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutAssignedVisitsInput = {
@@ -38992,6 +44343,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutVisitsInput = {
@@ -39015,6 +44367,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutVisitsInput = {
@@ -39068,6 +44421,9 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -39087,11 +44443,75 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutVisitsInput, TenantUncheckedCreateWithoutVisitsInput>
+  }
+
+  export type BookingCreateWithoutVisitsInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client: ClientProfileCreateNestedOneWithoutBookingsInput
+    tenant: TenantCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutVisitsInput = {
+    id?: string
+    clientId: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId: string
+  }
+
+  export type BookingCreateOrConnectWithoutVisitsInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutVisitsInput, BookingUncheckedCreateWithoutVisitsInput>
+  }
+
+  export type ShiftAssignmentCreateWithoutVisitInput = {
+    id?: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    psw: PswProfileCreateNestedOneWithoutAssignmentsInput
+    tenant: TenantCreateNestedOneWithoutShiftAssignmentsInput
+  }
+
+  export type ShiftAssignmentUncheckedCreateWithoutVisitInput = {
+    id?: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    tenantId: string
+  }
+
+  export type ShiftAssignmentCreateOrConnectWithoutVisitInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    create: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput>
+  }
+
+  export type ShiftAssignmentCreateManyVisitInputEnvelope = {
+    data: ShiftAssignmentCreateManyVisitInput | ShiftAssignmentCreateManyVisitInput[]
+    skipDuplicates?: boolean
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutVisitInput = {
@@ -39218,7 +44638,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39232,6 +44653,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutAssignedVisitsInput = {
@@ -39241,7 +44664,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39254,6 +44678,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type ClientProfileUpsertWithoutVisitsInput = {
@@ -39288,6 +44714,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutVisitsInput = {
@@ -39311,6 +44738,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceUpsertWithoutVisitsInput = {
@@ -39376,6 +44804,9 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -39395,6 +44826,64 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type BookingUpsertWithoutVisitsInput = {
+    update: XOR<BookingUpdateWithoutVisitsInput, BookingUncheckedUpdateWithoutVisitsInput>
+    create: XOR<BookingCreateWithoutVisitsInput, BookingUncheckedCreateWithoutVisitsInput>
+    where?: BookingWhereInput
+  }
+
+  export type BookingUpdateToOneWithWhereWithoutVisitsInput = {
+    where?: BookingWhereInput
+    data: XOR<BookingUpdateWithoutVisitsInput, BookingUncheckedUpdateWithoutVisitsInput>
+  }
+
+  export type BookingUpdateWithoutVisitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client?: ClientProfileUpdateOneRequiredWithoutBookingsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutVisitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentUpsertWithWhereUniqueWithoutVisitInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    update: XOR<ShiftAssignmentUpdateWithoutVisitInput, ShiftAssignmentUncheckedUpdateWithoutVisitInput>
+    create: XOR<ShiftAssignmentCreateWithoutVisitInput, ShiftAssignmentUncheckedCreateWithoutVisitInput>
+  }
+
+  export type ShiftAssignmentUpdateWithWhereUniqueWithoutVisitInput = {
+    where: ShiftAssignmentWhereUniqueInput
+    data: XOR<ShiftAssignmentUpdateWithoutVisitInput, ShiftAssignmentUncheckedUpdateWithoutVisitInput>
+  }
+
+  export type ShiftAssignmentUpdateManyWithWhereWithoutVisitInput = {
+    where: ShiftAssignmentScalarWhereInput
+    data: XOR<ShiftAssignmentUpdateManyMutationInput, ShiftAssignmentUncheckedUpdateManyWithoutVisitInput>
   }
 
   export type TenantCreateWithoutServicesInput = {
@@ -39414,6 +44903,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -39433,6 +44925,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -39457,6 +44952,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -39466,6 +44964,8 @@ export namespace Prisma {
     psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutServiceInput = {
@@ -39488,12 +44988,17 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutServiceInput = {
@@ -39534,6 +45039,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -39553,6 +45061,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -39630,7 +45141,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -39644,6 +45156,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutCheckEventsInput = {
@@ -39653,7 +45167,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -39666,6 +45181,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutCheckEventsInput = {
@@ -39690,6 +45207,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -39699,6 +45219,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutCheckEventsInput = {
@@ -39722,11 +45244,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutCheckEventsInput = {
@@ -39810,7 +45337,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39824,6 +45352,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutCheckEventsInput = {
@@ -39833,7 +45363,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39846,6 +45377,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -39876,6 +45409,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -39885,6 +45421,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutCheckEventsInput = {
@@ -39908,11 +45446,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswProfileCreateWithoutNotesInput = {
@@ -39921,7 +45464,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -39935,6 +45479,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutNotesInput = {
@@ -39944,7 +45490,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -39957,6 +45504,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutNotesInput = {
@@ -39981,6 +45530,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -39990,6 +45542,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutNotesInput = {
@@ -40013,11 +45567,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutNotesInput = {
@@ -40042,7 +45601,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40056,6 +45616,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutNotesInput = {
@@ -40065,7 +45627,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40078,6 +45641,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type VisitUpsertWithoutNotesInput = {
@@ -40108,6 +45673,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -40117,6 +45685,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutNotesInput = {
@@ -40140,11 +45710,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type PswProfileCreateWithoutChecklistsInput = {
@@ -40153,7 +45728,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -40167,6 +45743,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutChecklistsInput = {
@@ -40176,7 +45754,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -40189,6 +45768,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutChecklistsInput = {
@@ -40213,6 +45794,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -40222,6 +45806,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutChecklistsInput = {
@@ -40245,11 +45831,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutChecklistsInput = {
@@ -40274,7 +45865,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40288,6 +45880,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutChecklistsInput = {
@@ -40297,7 +45891,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40310,6 +45905,8 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type VisitUpsertWithoutChecklistsInput = {
@@ -40340,6 +45937,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -40349,6 +45949,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutChecklistsInput = {
@@ -40372,11 +45974,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type UserCreateWithoutReportedIncidentsInput = {
@@ -40449,6 +46056,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -40468,6 +46078,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -40492,6 +46105,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -40501,6 +46117,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutIncidentsInput = {
@@ -40524,11 +46142,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutIncidentsInput = {
@@ -40623,6 +46246,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -40642,6 +46268,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -40672,6 +46301,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -40681,6 +46313,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutIncidentsInput = {
@@ -40704,11 +46338,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type TimesheetItemCreateWithoutTimesheetInput = {
@@ -40741,7 +46380,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -40755,6 +46395,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutTimesheetsInput = {
@@ -40764,7 +46406,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -40777,6 +46420,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutTimesheetsInput = {
@@ -40854,6 +46499,9 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -40873,6 +46521,9 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -40913,7 +46564,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40927,6 +46579,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutTimesheetsInput = {
@@ -40936,7 +46590,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40949,6 +46604,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type UserUpsertWithoutReviewedTimesheetsInput = {
@@ -41038,6 +46695,9 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -41057,6 +46717,9 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -41109,6 +46772,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -41118,6 +46784,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutTimesheetItemsInput = {
@@ -41141,11 +46809,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutTimesheetItemsInput = {
@@ -41220,6 +46893,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -41229,6 +46905,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutTimesheetItemsInput = {
@@ -41252,11 +46930,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type ClientProfileCreateWithoutInvoicesInput = {
@@ -41280,6 +46963,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutInvoicesInput = {
@@ -41303,6 +46987,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutInvoicesInput = {
@@ -41327,6 +47012,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -41346,6 +47034,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -41413,6 +47104,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutInvoicesInput = {
@@ -41436,6 +47128,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutInvoicesInput = {
@@ -41466,6 +47159,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -41485,6 +47181,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -41633,6 +47332,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMessageThreadsInput = {
@@ -41656,6 +47356,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMessageThreadsInput = {
@@ -41669,7 +47370,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -41683,6 +47385,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutMessageThreadsInput = {
@@ -41692,7 +47396,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -41705,6 +47410,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutMessageThreadsInput = {
@@ -41729,6 +47436,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -41748,6 +47458,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -41803,6 +47516,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMessageThreadsInput = {
@@ -41826,6 +47540,7 @@ export namespace Prisma {
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PswProfileUpsertWithoutMessageThreadsInput = {
@@ -41845,7 +47560,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41859,6 +47575,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutMessageThreadsInput = {
@@ -41868,7 +47586,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41881,6 +47600,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type TenantUpsertWithoutMessageThreadsInput = {
@@ -41911,6 +47632,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -41930,6 +47654,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -42166,6 +47893,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -42185,6 +47915,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -42279,6 +48012,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -42298,6 +48034,905 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ClientProfileCreateWithoutBookingsInput = {
+    id?: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
+    user: UserCreateNestedOneWithoutClientProfileInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
+    invoices?: InvoiceCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    visits?: VisitCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileCreateOrConnectWithoutBookingsInput = {
+    where: ClientProfileWhereUniqueInput
+    create: XOR<ClientProfileCreateWithoutBookingsInput, ClientProfileUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type TenantCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBookingsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBookingsInput, TenantUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type VisitCreateWithoutBookingInput = {
+    id?: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
+    incidents?: IncidentCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteCreateNestedManyWithoutVisitInput
+    psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
+    client: ClientProfileCreateNestedOneWithoutVisitsInput
+    service: ServiceCreateNestedOneWithoutVisitsInput
+    tenant: TenantCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitUncheckedCreateWithoutBookingInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitCreateOrConnectWithoutBookingInput = {
+    where: VisitWhereUniqueInput
+    create: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput>
+  }
+
+  export type VisitCreateManyBookingInputEnvelope = {
+    data: VisitCreateManyBookingInput | VisitCreateManyBookingInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ClientProfileUpsertWithoutBookingsInput = {
+    update: XOR<ClientProfileUpdateWithoutBookingsInput, ClientProfileUncheckedUpdateWithoutBookingsInput>
+    create: XOR<ClientProfileCreateWithoutBookingsInput, ClientProfileUncheckedCreateWithoutBookingsInput>
+    where?: ClientProfileWhereInput
+  }
+
+  export type ClientProfileUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: ClientProfileWhereInput
+    data: XOR<ClientProfileUpdateWithoutBookingsInput, ClientProfileUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type ClientProfileUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    visits?: VisitUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+  }
+
+  export type TenantUpsertWithoutBookingsInput = {
+    update: XOR<TenantUpdateWithoutBookingsInput, TenantUncheckedUpdateWithoutBookingsInput>
+    create: XOR<TenantCreateWithoutBookingsInput, TenantUncheckedCreateWithoutBookingsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBookingsInput, TenantUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type TenantUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
+    where: VisitWhereUniqueInput
+    update: XOR<VisitUpdateWithoutBookingInput, VisitUncheckedUpdateWithoutBookingInput>
+    create: XOR<VisitCreateWithoutBookingInput, VisitUncheckedCreateWithoutBookingInput>
+  }
+
+  export type VisitUpdateWithWhereUniqueWithoutBookingInput = {
+    where: VisitWhereUniqueInput
+    data: XOR<VisitUpdateWithoutBookingInput, VisitUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type VisitUpdateManyWithWhereWithoutBookingInput = {
+    where: VisitScalarWhereInput
+    data: XOR<VisitUpdateManyMutationInput, VisitUncheckedUpdateManyWithoutBookingInput>
+  }
+
+  export type PswProfileCreateWithoutAvailabilityInput = {
+    id?: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    address?: string | null
+    avatarUrl?: string | null
+    messageThreads?: MessageThreadCreateNestedManyWithoutPswInput
+    documents?: PswDocumentCreateNestedManyWithoutPswInput
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
+    user: UserCreateNestedOneWithoutPswProfileInput
+    timesheets?: TimesheetCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
+    checklists?: VisitChecklistCreateNestedManyWithoutPswInput
+    notes?: VisitNoteCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileUncheckedCreateWithoutAvailabilityInput = {
+    id?: string
+    userId: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    address?: string | null
+    avatarUrl?: string | null
+    tenantId: string
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutPswInput
+    documents?: PswDocumentUncheckedCreateNestedManyWithoutPswInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileCreateOrConnectWithoutAvailabilityInput = {
+    where: PswProfileWhereUniqueInput
+    create: XOR<PswProfileCreateWithoutAvailabilityInput, PswProfileUncheckedCreateWithoutAvailabilityInput>
+  }
+
+  export type TenantCreateWithoutPswAvailabilityInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPswAvailabilityInput, TenantUncheckedCreateWithoutPswAvailabilityInput>
+  }
+
+  export type PswProfileUpsertWithoutAvailabilityInput = {
+    update: XOR<PswProfileUpdateWithoutAvailabilityInput, PswProfileUncheckedUpdateWithoutAvailabilityInput>
+    create: XOR<PswProfileCreateWithoutAvailabilityInput, PswProfileUncheckedCreateWithoutAvailabilityInput>
+    where?: PswProfileWhereInput
+  }
+
+  export type PswProfileUpdateToOneWithWhereWithoutAvailabilityInput = {
+    where?: PswProfileWhereInput
+    data: XOR<PswProfileUpdateWithoutAvailabilityInput, PswProfileUncheckedUpdateWithoutAvailabilityInput>
+  }
+
+  export type PswProfileUpdateWithoutAvailabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    messageThreads?: MessageThreadUpdateManyWithoutPswNestedInput
+    documents?: PswDocumentUpdateManyWithoutPswNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
+    timesheets?: TimesheetUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
+    notes?: VisitNoteUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
+  }
+
+  export type PswProfileUncheckedUpdateWithoutAvailabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutPswNestedInput
+    documents?: PswDocumentUncheckedUpdateManyWithoutPswNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
+  }
+
+  export type TenantUpsertWithoutPswAvailabilityInput = {
+    update: XOR<TenantUpdateWithoutPswAvailabilityInput, TenantUncheckedUpdateWithoutPswAvailabilityInput>
+    create: XOR<TenantCreateWithoutPswAvailabilityInput, TenantUncheckedCreateWithoutPswAvailabilityInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutPswAvailabilityInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutPswAvailabilityInput, TenantUncheckedUpdateWithoutPswAvailabilityInput>
+  }
+
+  export type TenantUpdateWithoutPswAvailabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type VisitCreateWithoutAssignmentsInput = {
+    id?: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
+    incidents?: IncidentCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteCreateNestedManyWithoutVisitInput
+    psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
+    client: ClientProfileCreateNestedOneWithoutVisitsInput
+    service: ServiceCreateNestedOneWithoutVisitsInput
+    tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+  }
+
+  export type VisitUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitCreateOrConnectWithoutAssignmentsInput = {
+    where: VisitWhereUniqueInput
+    create: XOR<VisitCreateWithoutAssignmentsInput, VisitUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type PswProfileCreateWithoutAssignmentsInput = {
+    id?: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    address?: string | null
+    avatarUrl?: string | null
+    messageThreads?: MessageThreadCreateNestedManyWithoutPswInput
+    documents?: PswDocumentCreateNestedManyWithoutPswInput
+    tenant: TenantCreateNestedOneWithoutPswProfilesInput
+    user: UserCreateNestedOneWithoutPswProfileInput
+    timesheets?: TimesheetCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutPswProfileInput
+    checklists?: VisitChecklistCreateNestedManyWithoutPswInput
+    notes?: VisitNoteCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    userId: string
+    fullName: string
+    bio?: string | null
+    languages?: PswProfileCreatelanguagesInput | string[]
+    serviceAreas?: PswProfileCreateserviceAreasInput | string[]
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: boolean
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    address?: string | null
+    avatarUrl?: string | null
+    tenantId: string
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutPswInput
+    documents?: PswDocumentUncheckedCreateNestedManyWithoutPswInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutPswInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutPswProfileInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
+    assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+  }
+
+  export type PswProfileCreateOrConnectWithoutAssignmentsInput = {
+    where: PswProfileWhereUniqueInput
+    create: XOR<PswProfileCreateWithoutAssignmentsInput, PswProfileUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type TenantCreateWithoutShiftAssignmentsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutShiftAssignmentsInput, TenantUncheckedCreateWithoutShiftAssignmentsInput>
+  }
+
+  export type VisitUpsertWithoutAssignmentsInput = {
+    update: XOR<VisitUpdateWithoutAssignmentsInput, VisitUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<VisitCreateWithoutAssignmentsInput, VisitUncheckedCreateWithoutAssignmentsInput>
+    where?: VisitWhereInput
+  }
+
+  export type VisitUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: VisitWhereInput
+    data: XOR<VisitUpdateWithoutAssignmentsInput, VisitUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type VisitUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUpdateManyWithoutVisitNestedInput
+    psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
+    client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+  }
+
+  export type VisitUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+  }
+
+  export type PswProfileUpsertWithoutAssignmentsInput = {
+    update: XOR<PswProfileUpdateWithoutAssignmentsInput, PswProfileUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<PswProfileCreateWithoutAssignmentsInput, PswProfileUncheckedCreateWithoutAssignmentsInput>
+    where?: PswProfileWhereInput
+  }
+
+  export type PswProfileUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: PswProfileWhereInput
+    data: XOR<PswProfileUpdateWithoutAssignmentsInput, PswProfileUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type PswProfileUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    messageThreads?: MessageThreadUpdateManyWithoutPswNestedInput
+    documents?: PswDocumentUpdateManyWithoutPswNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutPswProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutPswProfileNestedInput
+    timesheets?: TimesheetUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutPswProfileNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
+    notes?: VisitNoteUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+  }
+
+  export type PswProfileUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: PswProfileUpdatelanguagesInput | string[]
+    serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutPswNestedInput
+    documents?: PswDocumentUncheckedUpdateManyWithoutPswNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutPswNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutPswProfileNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
+    assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+  }
+
+  export type TenantUpsertWithoutShiftAssignmentsInput = {
+    update: XOR<TenantUpdateWithoutShiftAssignmentsInput, TenantUncheckedUpdateWithoutShiftAssignmentsInput>
+    create: XOR<TenantCreateWithoutShiftAssignmentsInput, TenantUncheckedCreateWithoutShiftAssignmentsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutShiftAssignmentsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutShiftAssignmentsInput, TenantUncheckedUpdateWithoutShiftAssignmentsInput>
+  }
+
+  export type TenantUpdateWithoutShiftAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutBlogPostsInput = {
@@ -42418,7 +49053,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -42432,6 +49068,8 @@ export namespace Prisma {
     checklists?: VisitChecklistCreateNestedManyWithoutPswInput
     notes?: VisitNoteCreateNestedManyWithoutPswInput
     assignedVisits?: VisitCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileUncheckedCreateWithoutDocumentsInput = {
@@ -42441,7 +49079,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -42454,6 +49093,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutPswInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutPswInput
     assignedVisits?: VisitUncheckedCreateNestedManyWithoutPswInput
+    availability?: PswAvailabilityUncheckedCreateNestedManyWithoutPswInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutPswInput
   }
 
   export type PswProfileCreateOrConnectWithoutDocumentsInput = {
@@ -42531,7 +49172,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42545,6 +49187,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutDocumentsInput = {
@@ -42554,7 +49198,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42567,6 +49212,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type UserUpsertWithoutVerifiedDocsInput = {
@@ -42649,6 +49296,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutDailyEntryInput = {
@@ -42672,6 +49320,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutDailyEntryInput = {
@@ -42749,6 +49398,9 @@ export namespace Prisma {
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -42768,6 +49420,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -42792,6 +49447,9 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
@@ -42801,6 +49459,8 @@ export namespace Prisma {
     client: ClientProfileCreateNestedOneWithoutVisitsInput
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutDailyEntryInput = {
@@ -42824,11 +49484,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
     checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
     notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutDailyEntryInput = {
@@ -42868,6 +49533,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutDailyEntryInput = {
@@ -42891,6 +49557,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutDailyEntryInput = {
@@ -42980,6 +49647,9 @@ export namespace Prisma {
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -42999,6 +49669,9 @@ export namespace Prisma {
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -43029,6 +49702,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
@@ -43038,6 +49714,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutDailyEntryInput = {
@@ -43061,11 +49739,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -43576,7 +50259,8 @@ export namespace Prisma {
     bio?: string | null
     languages?: PswProfileCreatelanguagesInput | string[]
     serviceAreas?: PswProfileCreateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileCreateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: boolean
     approvedAt?: Date | string | null
     createdAt?: Date | string
@@ -43642,6 +50326,40 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+  }
+
+  export type BookingCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PswAvailabilityCreateManyTenantInput = {
+    id?: string
+    pswId: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+  }
+
+  export type ShiftAssignmentCreateManyTenantInput = {
+    id?: string
+    visitId: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutTenantInput = {
@@ -43698,6 +50416,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutTenantInput = {
@@ -43721,6 +50440,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateManyWithoutTenantInput = {
@@ -43899,7 +50619,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43913,6 +50634,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateWithoutTenantInput = {
@@ -43922,7 +50645,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43935,6 +50659,8 @@ export namespace Prisma {
     checklists?: VisitChecklistUncheckedUpdateManyWithoutPswNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutPswNestedInput
     assignedVisits?: VisitUncheckedUpdateManyWithoutPswNestedInput
+    availability?: PswAvailabilityUncheckedUpdateManyWithoutPswNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutPswNestedInput
   }
 
   export type PswProfileUncheckedUpdateManyWithoutTenantInput = {
@@ -43944,7 +50670,8 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     languages?: PswProfileUpdatelanguagesInput | string[]
     serviceAreas?: PswProfileUpdateserviceAreasInput | string[]
-    availability?: NullableJsonNullValueInput | InputJsonValue
+    skills?: PswProfileUpdateskillsInput | string[]
+    availabilityJson?: NullableJsonNullValueInput | InputJsonValue
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44107,6 +50834,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -44116,6 +50846,8 @@ export namespace Prisma {
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutTenantInput = {
@@ -44138,12 +50870,17 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutTenantInput = {
@@ -44166,6 +50903,102 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type BookingUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    client?: ClientProfileUpdateOneRequiredWithoutBookingsNestedInput
+    visits?: VisitUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    visits?: VisitUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PswAvailabilityUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    psw?: PswProfileUpdateOneRequiredWithoutAvailabilityNestedInput
+  }
+
+  export type PswAvailabilityUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PswAvailabilityUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visit?: VisitUpdateOneRequiredWithoutAssignmentsNestedInput
+    psw?: PswProfileUpdateOneRequiredWithoutAssignmentsNestedInput
+  }
+
+  export type ShiftAssignmentUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DailyEntryCreateManyClientInput = {
@@ -44224,6 +51057,23 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+  }
+
+  export type BookingCreateManyClientInput = {
+    id?: string
+    branchId?: string | null
+    startAt: Date | string
+    endAt: Date | string
+    serviceType: string
+    priority?: string
+    notes?: string | null
+    status?: string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
     tenantId: string
   }
 
@@ -44359,6 +51209,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -44368,6 +51221,8 @@ export namespace Prisma {
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutClientInput = {
@@ -44390,12 +51245,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutClientInput = {
@@ -44417,6 +51277,51 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type BookingUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenant?: TenantUpdateOneRequiredWithoutBookingsNestedInput
+    visits?: VisitUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visits?: VisitUncheckedUpdateManyWithoutBookingNestedInput
+  }
+
+  export type BookingUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    branchId?: NullableStringFieldUpdateOperationsInput | string | null
+    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    recurrenceRule?: NullableJsonNullValueInput | InputJsonValue
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -44504,6 +51409,27 @@ export namespace Prisma {
     cancellationReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+  }
+
+  export type PswAvailabilityCreateManyPswInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: string
+    endTime: string
+    tenantId: string
+  }
+
+  export type ShiftAssignmentCreateManyPswInput = {
+    id?: string
+    visitId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
     tenantId: string
   }
 
@@ -44723,6 +51649,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -44732,6 +51661,8 @@ export namespace Prisma {
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutPswInput = {
@@ -44754,12 +51685,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutPswInput = {
@@ -44781,6 +51717,61 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type PswAvailabilityUpdateWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tenant?: TenantUpdateOneRequiredWithoutPswAvailabilityNestedInput
+  }
+
+  export type PswAvailabilityUncheckedUpdateWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PswAvailabilityUncheckedUpdateManyWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentUpdateWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    visit?: VisitUpdateOneRequiredWithoutAssignmentsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutShiftAssignmentsNestedInput
+  }
+
+  export type ShiftAssignmentUncheckedUpdateWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyWithoutPswInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -44849,6 +51840,15 @@ export namespace Prisma {
     pswId: string
     noteText: string
     createdAt?: Date | string
+  }
+
+  export type ShiftAssignmentCreateManyVisitInput = {
+    id?: string
+    pswId: string
+    status?: $Enums.AssignmentStatus
+    score?: number | null
+    assignedAt?: Date | string
+    tenantId: string
   }
 
   export type DailyEntryUpdateWithoutVisitInput = {
@@ -45052,6 +52052,33 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ShiftAssignmentUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    psw?: PswProfileUpdateOneRequiredWithoutAssignmentsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutShiftAssignmentsNestedInput
+  }
+
+  export type ShiftAssignmentUncheckedUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShiftAssignmentUncheckedUpdateManyWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: StringFieldUpdateOperationsInput | string
+    status?: EnumAssignmentStatusFieldUpdateOperationsInput | $Enums.AssignmentStatus
+    score?: NullableFloatFieldUpdateOperationsInput | number | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type VisitCreateManyServiceInput = {
     id?: string
     clientId: string
@@ -45072,6 +52099,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    bookingId?: string | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
   }
 
   export type VisitUpdateWithoutServiceInput = {
@@ -45091,6 +52122,9 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -45100,6 +52134,8 @@ export namespace Prisma {
     psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
     client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutServiceInput = {
@@ -45122,12 +52158,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutServiceInput = {
@@ -45150,6 +52191,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type TimesheetItemCreateManyTimesheetInput = {
@@ -45244,6 +52289,124 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VisitCreateManyBookingInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    crisisMode?: boolean | null
+  }
+
+  export type VisitUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUpdateManyWithoutVisitNestedInput
+    psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
+    client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateManyWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
 
 
   /**
@@ -45285,6 +52448,10 @@ export namespace Prisma {
      * @deprecated Use MessageThreadCountOutputTypeDefaultArgs instead
      */
     export type MessageThreadCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageThreadCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BookingCountOutputTypeDefaultArgs instead
+     */
+    export type BookingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -45357,6 +52524,18 @@ export namespace Prisma {
      * @deprecated Use LeadDefaultArgs instead
      */
     export type LeadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LeadDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BookingDefaultArgs instead
+     */
+    export type BookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PswAvailabilityDefaultArgs instead
+     */
+    export type PswAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PswAvailabilityDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ShiftAssignmentDefaultArgs instead
+     */
+    export type ShiftAssignmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ShiftAssignmentDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BlogPostDefaultArgs instead
      */

@@ -38,23 +38,26 @@ model User {
 }
 
 model Tenant {
-  id             String          @id @default(uuid())
-  name           String
-  slug           String          @unique
-  status         String          @default("active")
-  createdAt      DateTime        @default(now()) @map("created_at")
-  updatedAt      DateTime        @updatedAt @map("updated_at")
-  auditLogs      AuditLog[]
-  clientProfiles ClientProfile[]
-  dailyEntries   DailyEntry[]
-  incidents      Incident[]
-  invoices       Invoice[]
-  messageThreads MessageThread[]
-  pswProfiles    PswProfile[]
-  services       Service[]
-  timesheets     Timesheet[]
-  users          User[]
-  visits         Visit[]
+  id               String            @id @default(uuid())
+  name             String
+  slug             String            @unique
+  status           String            @default("active")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  auditLogs        AuditLog[]
+  clientProfiles   ClientProfile[]
+  dailyEntries     DailyEntry[]
+  incidents        Incident[]
+  invoices         Invoice[]
+  messageThreads   MessageThread[]
+  pswProfiles      PswProfile[]
+  services         Service[]
+  timesheets       Timesheet[]
+  users            User[]
+  visits           Visit[]
+  bookings         Booking[]
+  pswAvailability  PswAvailability[]
+  shiftAssignments ShiftAssignment[]
 
   @@map("tenants")
 }
@@ -83,34 +86,38 @@ model ClientProfile {
   invoices       Invoice[]
   messageThreads MessageThread[]
   visits         Visit[]
+  bookings       Booking[]
 
   @@index([tenantId])
   @@map("client_profiles")
 }
 
 model PswProfile {
-  id             String            @id @default(uuid())
-  userId         String            @unique @map("user_id")
-  fullName       String            @map("full_name")
-  bio            String?
-  languages      String[]
-  serviceAreas   String[]          @map("service_areas")
-  availability   Json?             @map("availability_json")
-  isApproved     Boolean           @default(false) @map("is_approved")
-  approvedAt     DateTime?         @map("approved_at")
-  createdAt      DateTime          @default(now()) @map("created_at")
-  address        String?
-  avatarUrl      String?           @map("avatar_url")
-  tenantId       String            @map("tenant_id")
-  messageThreads MessageThread[]
-  documents      PswDocument[]
-  tenant         Tenant            @relation(fields: [tenantId], references: [id])
-  user           User              @relation(fields: [userId], references: [id])
-  timesheets     Timesheet[]
-  checkEvents    VisitCheckEvent[]
-  checklists     VisitChecklist[]
-  notes          VisitNote[]
-  assignedVisits Visit[]
+  id               String            @id @default(uuid())
+  userId           String            @unique @map("user_id")
+  fullName         String            @map("full_name")
+  bio              String?
+  languages        String[]
+  serviceAreas     String[]          @map("service_areas")
+  skills           String[]          @default([])
+  availabilityJson Json?             @map("availability_json")
+  isApproved       Boolean           @default(false) @map("is_approved")
+  approvedAt       DateTime?         @map("approved_at")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  address          String?
+  avatarUrl        String?           @map("avatar_url")
+  tenantId         String            @map("tenant_id")
+  messageThreads   MessageThread[]   @relation("PswToThreads")
+  documents        PswDocument[]     @relation("PswToDocuments")
+  tenant           Tenant            @relation(fields: [tenantId], references: [id])
+  user             User              @relation(fields: [userId], references: [id])
+  timesheets       Timesheet[]       @relation("PswToTimesheets")
+  checkEvents      VisitCheckEvent[] @relation("PswToCheckEvents")
+  checklists       VisitChecklist[]  @relation("PswToChecklists")
+  notes            VisitNote[]       @relation("PswToNotes")
+  assignedVisits   Visit[]           @relation("PswToVisits")
+  availability     PswAvailability[] @relation("PswToAvailability")
+  assignments      ShiftAssignment[] @relation("PswToAssignments")
 
   @@index([tenantId])
   @@map("psw_profiles")
@@ -143,10 +150,16 @@ model Visit {
   checkEvents         VisitCheckEvent[]
   checklists          VisitChecklist[]
   notes               VisitNote[]
-  psw                 PswProfile?       @relation(fields: [assignedPswId], references: [id])
+  psw                 PswProfile?       @relation("PswToVisits", fields: [assignedPswId], references: [id])
   client              ClientProfile     @relation(fields: [clientId], references: [id])
   service             Service           @relation(fields: [serviceId], references: [id])
   tenant              Tenant            @relation(fields: [tenantId], references: [id])
+  bookingId           String?           @map("booking_id")
+  booking             Booking?          @relation(fields: [bookingId], references: [id])
+  priority            String?           @default("normal")
+  requiredSkills      String[]          @map("required_skills")
+  crisisMode          Boolean?          @default(false) @map("crisis_mode")
+  assignments         ShiftAssignment[]
 
   @@index([tenantId])
   @@map("visits")
@@ -187,7 +200,7 @@ model VisitCheckEvent {
   overrideReason    String?     @map("override_reason")
   createdAt         DateTime    @default(now()) @map("created_at")
   overriddenBy      User?       @relation(fields: [overrideByUserId], references: [id])
-  pswProfile        PswProfile  @relation(fields: [pswId], references: [id])
+  pswProfile        PswProfile  @relation("PswToCheckEvents", fields: [pswId], references: [id])
   visit             Visit       @relation(fields: [visitId], references: [id])
 
   @@map("visit_check_events")
@@ -199,7 +212,7 @@ model VisitNote {
   pswId     String     @map("psw_id")
   noteText  String     @map("note_text")
   createdAt DateTime   @default(now()) @map("created_at")
-  psw       PswProfile @relation(fields: [pswId], references: [id])
+  psw       PswProfile @relation("PswToNotes", fields: [pswId], references: [id])
   visit     Visit      @relation(fields: [visitId], references: [id])
 
   @@map("visit_notes")
@@ -211,7 +224,7 @@ model VisitChecklist {
   pswId         String     @map("psw_id")
   checklistJson Json       @map("checklist_json")
   createdAt     DateTime   @default(now()) @map("created_at")
-  psw           PswProfile @relation(fields: [pswId], references: [id])
+  psw           PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
   visit         Visit      @relation(fields: [visitId], references: [id])
 
   @@map("visit_checklists")
@@ -249,7 +262,7 @@ model Timesheet {
   updatedAt    DateTime         @updatedAt @map("updated_at")
   tenantId     String           @map("tenant_id")
   items        TimesheetItem[]
-  psw          PswProfile       @relation(fields: [pswId], references: [id])
+  psw          PswProfile       @relation("PswToTimesheets", fields: [pswId], references: [id])
   reviewer     User?            @relation("ReviewedBy", fields: [reviewedBy], references: [id])
   tenant       Tenant           @relation(fields: [tenantId], references: [id])
 
@@ -311,7 +324,7 @@ model MessageThread {
   tenantId   String         @map("tenant_id")
   messages   Message[]
   client     ClientProfile? @relation(fields: [clientId], references: [id])
-  psw        PswProfile?    @relation(fields: [pswId], references: [id])
+  psw        PswProfile?    @relation("PswToThreads", fields: [pswId], references: [id])
   tenant     Tenant         @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
@@ -361,6 +374,53 @@ model Lead {
   @@map("leads")
 }
 
+model Booking {
+  id             String        @id @default(uuid())
+  clientId       String        @map("client_id")
+  branchId       String?       @map("branch_id")
+  startAt        DateTime      @map("start_at")
+  endAt          DateTime      @map("end_at")
+  serviceType    String        @map("service_type")
+  priority       String        @default("normal")
+  notes          String?
+  status         String        @default("pending")
+  recurrenceRule Json?         @map("recurrence_rule")
+  tenantId       String        @map("tenant_id")
+  client         ClientProfile @relation(fields: [clientId], references: [id])
+  tenant         Tenant        @relation(fields: [tenantId], references: [id])
+  visits         Visit[]
+
+  @@map("bookings")
+}
+
+model PswAvailability {
+  id        String     @id @default(uuid())
+  pswId     String     @map("psw_id")
+  dayOfWeek Int        @map("day_of_week")
+  startTime String     @map("start_time")
+  endTime   String     @map("end_time")
+  tenantId  String     @map("tenant_id")
+  psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@map("psw_availability")
+}
+
+model ShiftAssignment {
+  id         String           @id @default(uuid())
+  visitId    String           @map("visit_id")
+  pswId      String           @map("psw_id")
+  status     AssignmentStatus @default(offered)
+  score      Float?
+  assignedAt DateTime         @default(now()) @map("assigned_at")
+  tenantId   String           @map("tenant_id")
+  visit      Visit            @relation(fields: [visitId], references: [id])
+  psw        PswProfile       @relation("PswToAssignments", fields: [pswId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+
+  @@map("shift_assignments")
+}
+
 model BlogPost {
   id                String    @id @default(uuid())
   title             String
@@ -392,7 +452,7 @@ model PswDocument {
   verifiedAt DateTime?  @map("verified_at")
   createdAt  DateTime   @default(now()) @map("created_at")
   updatedAt  DateTime   @updatedAt @map("updated_at")
-  psw        PswProfile @relation(fields: [pswId], references: [id])
+  psw        PswProfile @relation("PswToDocuments", fields: [pswId], references: [id])
   verifier   User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
 
   @@map("psw_documents")
@@ -459,6 +519,19 @@ enum VisitStatus {
   in_progress
   completed
   cancelled
+  draft
+  posted
+  offered
+  accepted
+  no_show
+  replaced
+}
+
+enum AssignmentStatus {
+  offered
+  accepted
+  declined
+  assigned
 }
 
 enum EventType {

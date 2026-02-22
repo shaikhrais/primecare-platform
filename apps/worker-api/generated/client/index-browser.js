@@ -173,7 +173,8 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   bio: 'bio',
   languages: 'languages',
   serviceAreas: 'serviceAreas',
-  availability: 'availability',
+  skills: 'skills',
+  availabilityJson: 'availabilityJson',
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   createdAt: 'createdAt',
@@ -202,7 +203,11 @@ exports.Prisma.VisitScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  tenantId: 'tenantId'
+  tenantId: 'tenantId',
+  bookingId: 'bookingId',
+  priority: 'priority',
+  requiredSkills: 'requiredSkills',
+  crisisMode: 'crisisMode'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -352,6 +357,39 @@ exports.Prisma.LeadScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  branchId: 'branchId',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  serviceType: 'serviceType',
+  priority: 'priority',
+  notes: 'notes',
+  status: 'status',
+  recurrenceRule: 'recurrenceRule',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.PswAvailabilityScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.ShiftAssignmentScalarFieldEnum = {
+  id: 'id',
+  visitId: 'visitId',
+  pswId: 'pswId',
+  status: 'status',
+  score: 'score',
+  assignedAt: 'assignedAt',
+  tenantId: 'tenantId'
+};
+
 exports.Prisma.BlogPostScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -456,7 +494,13 @@ exports.VisitStatus = exports.$Enums.VisitStatus = {
   arrived: 'arrived',
   in_progress: 'in_progress',
   completed: 'completed',
-  cancelled: 'cancelled'
+  cancelled: 'cancelled',
+  draft: 'draft',
+  posted: 'posted',
+  offered: 'offered',
+  accepted: 'accepted',
+  no_show: 'no_show',
+  replaced: 'replaced'
 };
 
 exports.EventType = exports.$Enums.EventType = {
@@ -497,6 +541,13 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   void: 'void'
 };
 
+exports.AssignmentStatus = exports.$Enums.AssignmentStatus = {
+  offered: 'offered',
+  accepted: 'accepted',
+  declined: 'declined',
+  assigned: 'assigned'
+};
+
 exports.DocStatus = exports.$Enums.DocStatus = {
   pending: 'pending',
   verified: 'verified',
@@ -527,6 +578,9 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   AuditLog: 'AuditLog',
   Lead: 'Lead',
+  Booking: 'Booking',
+  PswAvailability: 'PswAvailability',
+  ShiftAssignment: 'ShiftAssignment',
   BlogPost: 'BlogPost',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
