@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -9,11 +10,9 @@ const StorageParamsSchema = z.object({
 });
 
 const uploadFileRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.STORAGE_UPLOAD,
     method: 'put',
     path: '/upload',
-    summary: 'Upload File',
-    description: 'Upload a file to the documentation bucket.',
-    tags: ['System Storage'],
     request: {
         body: {
             content: {
@@ -63,11 +62,9 @@ r.openapi(uploadFileRoute, async (c) => {
 });
 
 const getFileRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.STORAGE_GET,
     method: 'get',
     path: '/file/{key}',
-    summary: 'Get File',
-    description: 'Retrieve a file from the documentation bucket by its key.',
-    tags: ['System Storage'],
     request: {
         params: StorageParamsSchema,
     },

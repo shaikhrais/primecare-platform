@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
@@ -18,11 +19,9 @@ const ClientParamsSchema = z.object({
 
 // POST Care Plan
 const createCarePlanRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.CARE_PLAN_CREATE,
     method: 'post',
     path: '/{clientId}',
-    summary: 'Create Care Plan',
-    description: 'Create a new care plan for a specific client.',
-    tags: ['Client Care Plan'],
     middleware: [requirePermission('CARE_PLAN_CREATE')],
     request: {
         params: ClientParamsSchema,
@@ -63,11 +62,9 @@ r.openapi(createCarePlanRoute, async (c) => {
 
 // PATCH Care Plan
 const updateCarePlanRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.CARE_PLAN_UPDATE,
     method: 'patch',
     path: '/{clientId}',
-    summary: 'Update Care Plan',
-    description: 'Update an existing care plan for a specific client.',
-    tags: ['Client Care Plan'],
     middleware: [requirePermission('CARE_PLAN_UPDATE')],
     request: {
         params: ClientParamsSchema,

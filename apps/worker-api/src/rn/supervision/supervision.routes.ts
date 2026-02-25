@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requirePermission } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -12,11 +13,9 @@ const PswParamsSchema = z.object({
  * RN supervisor view of PSW logs/performance
  */
 const getPswSupervisionOverviewRoute = createRoute({
+    ...ROUTE_METADATA.RN.SUPERVISION_OVERVIEW,
     method: 'get',
     path: '/psw/{pswId}/overview',
-    summary: 'Get PSW Supervision Overview',
-    description: 'Retrieve performance, logs, and incident overview for a specific PSW for supervision purposes.',
-    tags: ['RN Supervision'],
     middleware: [requirePermission('PSW_SUPERVISE')],
     request: {
         params: PswParamsSchema,

@@ -1,16 +1,15 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requireRole } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Dashboard Stats for PSW
 const getDashboardStatsRoute = createRoute({
+    ...ROUTE_METADATA.PSW_EXTRA.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
-    summary: 'Get PSW Dashboard Statistics',
-    description: 'Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.',
-    tags: ['PSW Dashboard'],
     middleware: [requireRole(['psw'])],
     responses: {
         200: {

@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -11,11 +12,9 @@ const TicketParamsSchema = z.object({
  * List all support threads
  */
 const listTicketsRoute = createRoute({
+    ...ROUTE_METADATA.STAFF.SUPPORT_LIST,
     method: 'get',
     path: '/tickets',
-    summary: 'List Support Tickets',
-    description: 'Retrieve a list of all support message threads.',
-    tags: ['Staff Support'],
     responses: {
         200: {
             content: {
@@ -48,11 +47,9 @@ r.openapi(listTicketsRoute, async (c) => {
  * Get messages for a thread
  */
 const getTicketMessagesRoute = createRoute({
+    ...ROUTE_METADATA.STAFF.SUPPORT_MESSAGES,
     method: 'get',
     path: '/tickets/{id}/messages',
-    summary: 'Get Ticket Messages',
-    description: 'Retrieve all messages for a specific support thread.',
-    tags: ['Staff Support'],
     request: {
         params: TicketParamsSchema,
     },
@@ -82,11 +79,9 @@ r.openapi(getTicketMessagesRoute, async (c) => {
  * Reply to a thread
  */
 const replyTicketRoute = createRoute({
+    ...ROUTE_METADATA.STAFF.SUPPORT_REPLY,
     method: 'post',
     path: '/tickets/{id}/reply',
-    summary: 'Reply to Ticket',
-    description: 'Send a reply within a specific support thread.',
-    tags: ['Staff Support'],
     request: {
         params: TicketParamsSchema,
         body: {

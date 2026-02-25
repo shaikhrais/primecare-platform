@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -12,11 +13,9 @@ const LeadParamsSchema = z.object({
 
 // List Leads
 const listLeadsRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_LIST,
     method: 'get',
     path: '/',
-    summary: 'List All Leads',
-    description: 'Retrieve a list of all marketing leads.',
-    tags: ['Admin Leads'],
     responses: {
         200: {
             content: {
@@ -39,11 +38,9 @@ r.openapi(listLeadsRoute, async (c) => {
 
 // Update Lead Status
 const updateLeadStatusRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE,
     method: 'patch',
     path: '/{id}',
-    summary: 'Update Lead Status',
-    description: 'Update the status of a specific marketing lead.',
-    tags: ['Admin Leads'],
     request: {
         params: LeadParamsSchema,
         body: {

@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requireRole } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -17,11 +18,9 @@ const ProfileUpdateSchema = z.object({
 
 // GET Profile
 const getProfileRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.GET_PROFILE,
     method: 'get',
     path: '/profile',
-    summary: 'Get Client Profile',
-    description: 'Retrieve the profile details for the authenticated client.',
-    tags: ['Client Dashboard'],
     middleware: [requireRole(['client', 'rn', 'admin'])],
     responses: {
         200: {
@@ -53,11 +52,9 @@ r.openapi(getProfileRoute, async (c) => {
 
 // PUT Profile
 const updateProfileRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.UPDATE_PROFILE,
     method: 'put',
     path: '/profile',
-    summary: 'Update Client Profile',
-    description: 'Update the profile details for the authenticated client.',
-    tags: ['Client Dashboard'],
     middleware: [requireRole(['client'])],
     request: {
         body: {
@@ -122,11 +119,9 @@ r.openapi(updateProfileRoute, async (c) => {
 
 // GET Dashboard Stats
 const getClientStatsRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.STATS,
     method: 'get',
     path: '/stats',
-    summary: 'Get Client Dashboard Statistics',
-    description: 'Retrieve budget, wellness, and care continuity stats for the authenticated client.',
-    tags: ['Client Dashboard'],
     middleware: [requireRole(['client'])],
     responses: {
         200: {

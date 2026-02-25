@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
@@ -13,11 +14,9 @@ const DailyEntryParamsSchema = z.object({
  * RN review/sign-off
  */
 const reviewDailyEntryRoute = createRoute({
+    ...ROUTE_METADATA.RN.DAILY_REVIEW,
     method: 'post',
     path: '/{id}/review',
-    summary: 'Review Daily Entry',
-    description: 'Allows an RN to review and sign off on a daily entry.',
-    tags: ['RN Daily Review'],
     middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
     request: {
         params: DailyEntryParamsSchema,

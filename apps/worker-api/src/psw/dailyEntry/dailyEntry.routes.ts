@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { requireClientAssignedToPSW } from '../../_shared/middleware/ownership';
 import { logAudit } from '../../_shared/utils/audit';
@@ -21,11 +22,9 @@ const DailyEntrySchema = z.object({
 
 // Create/Submit Entry
 const createEntryRoute = createRoute({
+    ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_CREATE,
     method: 'post',
     path: '/',
-    summary: 'Create/Submit Daily Entry',
-    description: 'Submit an ADL/Medication entry for a client visit.',
-    tags: ['PSW Daily Entries'],
     middleware: [
         requirePermission('DAILY_ENTRY_CREATE'),
         requireClientAssignedToPSW
@@ -65,11 +64,9 @@ r.openapi(createEntryRoute, async (c) => {
 
 // History
 const getHistoryRoute = createRoute({
+    ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_HISTORY,
     method: 'get',
     path: '/history',
-    summary: 'Get Daily Entry History',
-    description: 'Retrieve history of daily entries for a specific client.',
-    tags: ['PSW Daily Entries'],
     request: {
         query: z.object({
             clientId: z.string().optional()

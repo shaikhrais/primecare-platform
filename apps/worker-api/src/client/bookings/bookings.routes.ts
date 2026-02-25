@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requireRole } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
@@ -21,11 +22,9 @@ const BookingParamsSchema = z.object({
 
 // GET Bookings
 const listBookingsRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.LIST_BOOKINGS,
     method: 'get',
     path: '/',
-    summary: 'List Client Bookings',
-    description: 'Retrieve a list of all bookings for the authenticated client.',
-    tags: ['Client Bookings'],
     middleware: [requireRole(['client', 'admin', 'rn'])],
     responses: {
         200: {
@@ -64,11 +63,9 @@ r.openapi(listBookingsRoute, async (c) => {
 
 // POST Booking
 const createBookingRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.CREATE_BOOKING,
     method: 'post',
     path: '/',
-    summary: 'Create Booking',
-    description: 'Create a new service booking for the authenticated client.',
-    tags: ['Client Bookings'],
     middleware: [requireRole(['client'])],
     request: {
         body: {
@@ -139,11 +136,9 @@ r.openapi(createBookingRoute, async (c) => {
 
 // PATCH Booking
 const updateBookingRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.UPDATE_BOOKING,
     method: 'patch',
     path: '/{id}',
-    summary: 'Update Booking',
-    description: 'Update an existing booking.',
-    tags: ['Client Bookings'],
     middleware: [requireRole(['client', 'admin'])],
     request: {
         params: BookingParamsSchema,

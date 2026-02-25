@@ -2,6 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 import { AdminUserService } from './users.service';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -17,11 +18,9 @@ const UserParamsSchema = z.object({
 
 // List Users
 const listUsersRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_LIST,
     method: 'get',
     path: '/',
-    summary: 'List All Users',
-    description: 'Retrieve a list of all users in the system.',
-    tags: ['Admin Users'],
     responses: {
         200: {
             content: {
@@ -43,11 +42,9 @@ r.openapi(listUsersRoute, async (c) => {
 
 // Verify User
 const verifyUserRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY,
     method: 'post',
     path: '/{id}/verify',
-    summary: 'Verify User',
-    description: 'Mark a user as verified.',
-    tags: ['Admin Users'],
     request: {
         params: UserParamsSchema,
     },
@@ -73,11 +70,9 @@ r.openapi(verifyUserRoute, async (c) => {
 
 // Update Roles
 const updateRolesRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES,
     method: 'patch',
     path: '/{id}/roles',
-    summary: 'Update User Roles',
-    description: 'Update the roles assigned to a specific user.',
-    tags: ['Admin Users'],
     request: {
         params: UserParamsSchema,
         body: {
@@ -117,11 +112,9 @@ r.openapi(updateRolesRoute, async (c) => {
 
 // Elevate User (Super User)
 const elevateUserRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ELEVATE,
     method: 'post',
     path: '/{id}/elevate',
-    summary: 'Elevate User to Super User',
-    description: 'Grant all available roles to a user.',
-    tags: ['Admin Users'],
     request: {
         params: UserParamsSchema,
     },

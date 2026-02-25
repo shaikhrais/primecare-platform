@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -7,11 +8,9 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
  * Report an incident during/after visit
  */
 const reportIncidentRoute = createRoute({
+    ...ROUTE_METADATA.PSW_EXTRA.INCIDENTS_REPORT,
     method: 'post',
     path: '/',
-    summary: 'Report Incident',
-    description: 'Report an incident that occurred during or after a visit.',
-    tags: ['PSW Incidents'],
     request: {
         body: {
             content: {

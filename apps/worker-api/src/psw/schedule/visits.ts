@@ -1,6 +1,6 @@
-﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
-import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -9,6 +9,48 @@ const ScheduleParamsSchema = z.object({
         param: { name: 'id', in: 'path' },
         example: 'visit-uuid',
     }),
+});
+
+// GET Assigned Visits
+const listVisitsRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.LIST_VISITS,
+    method: 'get',
+    path: '/',
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of assigned visits',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(listVisitsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const visits = await prisma.visit.findMany({
+        where: {
+            assignedPswId: profile.id,
+            status: { in: ['scheduled', 'en_route', 'arrived', 'in_progress'] },
+        },
+        orderBy: { requestedStartAt: 'asc' },
+        include: {
+            client: { select: { fullName: true, addressLine1: true, city: true } },
+            service: true,
+        },
+    });
+
+    return c.json(visits, 200);
 });
 
 // POST Client Not Present (No-Show)
@@ -85,7 +127,3 @@ r.openapi(reportNoShowRoute, async (c) => {
 });
 
 export default r;
-
-
-
-

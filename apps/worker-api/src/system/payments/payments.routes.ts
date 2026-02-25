@@ -2,6 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import Stripe from 'stripe';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -11,11 +12,9 @@ const PaymentIntentSchema = z.object({
 });
 
 const createPaymentIntentRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.PAYMENT_INTENT,
     method: 'post',
     path: '/create-payment-intent',
-    summary: 'Create Payment Intent',
-    description: 'Create a Stripe payment intent for a given amount and currency.',
-    tags: ['System Payments'],
     request: {
         body: {
             content: {

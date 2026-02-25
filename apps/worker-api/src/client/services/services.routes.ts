@@ -1,16 +1,15 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requireRole } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Invoices
 const listInvoicesRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.INVOICES,
     method: 'get',
     path: '/invoices',
-    summary: 'List Client Invoices',
-    description: 'Retrieve a list of all invoices for the authenticated client.',
-    tags: ['Client Services'],
     middleware: [requireRole(['client'])],
     responses: {
         200: {
@@ -45,11 +44,9 @@ r.openapi(listInvoicesRoute, async (c) => {
 
 // GET Available Services
 const listServicesRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.SERVICES,
     method: 'get',
     path: '/services',
-    summary: 'List Available Services',
-    description: 'Retrieve a list of all available services for the current tenant.',
-    tags: ['Client Services'],
     responses: {
         200: {
             content: {

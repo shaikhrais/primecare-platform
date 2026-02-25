@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -13,11 +14,9 @@ const NotificationParamsSchema = z.object({
 });
 
 const registerDeviceRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.REGISTER_DEVICE,
     method: 'post',
     path: '/register-device',
-    summary: 'Register Device for Push',
-    description: 'Register a device token for push notifications.',
-    tags: ['System Notifications'],
     request: {
         body: {
             content: {
@@ -46,11 +45,9 @@ r.openapi(registerDeviceRoute, async (c) => {
 });
 
 const listNotificationsRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.LIST_NOTIFICATIONS,
     method: 'get',
     path: '/',
-    summary: 'List Notifications',
-    description: 'Retrieve a list of notifications for the authenticated user.',
-    tags: ['System Notifications'],
     responses: {
         200: {
             content: {
@@ -83,11 +80,9 @@ r.openapi(listNotificationsRoute, async (c) => {
 });
 
 const markNotificationReadRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.READ_NOTIFICATION,
     method: 'patch',
     path: '/{id}/read',
-    summary: 'Mark Notification as Read',
-    description: 'Mark a specific notification as read for the authenticated user.',
-    tags: ['System Notifications'],
     request: {
         params: NotificationParamsSchema,
     },

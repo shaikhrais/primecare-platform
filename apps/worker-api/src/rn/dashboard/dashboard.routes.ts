@@ -1,16 +1,15 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { requireRole } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Dashboard Stats for RN
 const getRnStatsRoute = createRoute({
+    ...ROUTE_METADATA.RN.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
-    summary: 'Get RN Dashboard Statistics',
-    description: 'Retrieve various clinical and operational statistics for the RN dashboard.',
-    tags: ['RN Dashboard'],
     middleware: [requireRole(['rn', 'admin'])],
     responses: {
         200: {

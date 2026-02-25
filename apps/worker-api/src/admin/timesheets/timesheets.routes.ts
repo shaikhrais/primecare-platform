@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -13,11 +14,9 @@ const TimesheetParamsSchema = z.object({
 
 // List Timesheets
 const listTimesheetsRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_LIST,
     method: 'get',
     path: '/',
-    summary: 'List All Timesheets',
-    description: 'Retrieve a list of all timesheets with PSW and item details.',
-    tags: ['Admin Timesheets'],
     responses: {
         200: {
             content: {
@@ -44,11 +43,9 @@ r.openapi(listTimesheetsRoute, async (c) => {
 
 // Update Timesheet Status
 const updateTimesheetStatusRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_UPDATE,
     method: 'patch',
     path: '/{id}',
-    summary: 'Update Timesheet Status',
-    description: 'Update the status of a specific timesheet and log the review.',
-    tags: ['Admin Timesheets'],
     request: {
         params: TimesheetParamsSchema,
         body: {

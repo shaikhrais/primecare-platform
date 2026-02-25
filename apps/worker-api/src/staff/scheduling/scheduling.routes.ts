@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -8,11 +9,9 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
  * Create a new Visit (Open Shift)
  */
 const createStaffVisitRoute = createRoute({
+    ...ROUTE_METADATA.STAFF.SCHEDULING_CREATE,
     method: 'post',
     path: '/visits',
-    summary: 'Create Visit (Staff)',
-    description: 'Allows staff to create a new visit (open shift) for a client.',
-    tags: ['Staff Scheduling'],
     request: {
         body: {
             content: {

@@ -1,14 +1,13 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const uploadVoiceRoute = createRoute({
+    ...ROUTE_METADATA.SYSTEM.VOICE,
     method: 'post',
     path: '/upload',
-    summary: 'Upload Voice Note',
-    description: 'Upload a voice note (audio file) for a specific user.',
-    tags: ['System Voice'],
     request: {
         body: {
             content: {
