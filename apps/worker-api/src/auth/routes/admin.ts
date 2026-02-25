@@ -42,6 +42,11 @@ const impersonateRoute = createRoute({
             description: 'Forbidden: Admin role required',
         },
         404: {
+            content: {
+                'application/json': {
+                    schema: z.object({ error: z.string() }),
+                },
+            },
             description: 'Target user not found',
         },
     },
@@ -54,12 +59,12 @@ r.openapi(impersonateRoute, async (c) => {
     const authMiddleware = requireAuth(secret);
     let authPassed = false;
     await authMiddleware(c, async () => { authPassed = true; });
-    if (!authPassed) return;
+    if (!authPassed) return c.json({ error: 'Unauthorized' }, 401);
 
     const roleMiddleware = requireRole(['admin']);
     let rolePassed = false;
     await roleMiddleware(c, async () => { rolePassed = true; });
-    if (!rolePassed) return;
+    if (!rolePassed) return c.json({ error: 'Forbidden: Admin role required' }, 403);
 
     const { targetUserId } = c.req.valid('json');
     const prisma = c.get('prisma');

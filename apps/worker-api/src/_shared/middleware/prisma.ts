@@ -22,7 +22,7 @@ export const prismaMiddleware = () => {
 
                 const pool = new pg.default.Pool({ connectionString: c.env.DATABASE_URL });
                 const adapter = new PrismaPg(pool);
-                prismaInstance = new PrismaClient({ adapter });
+                prismaInstance = new (PrismaClient as any)({ adapter });
             }
         }
 
@@ -35,7 +35,7 @@ export const prismaMiddleware = () => {
             return payload.roles.includes('admin');
         });
 
-        return next();
+        return await next();
     });
 };
 
