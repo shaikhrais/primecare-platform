@@ -2,6 +2,7 @@
 import { VisitStatus } from '../../../../generated/client/edge';
 import { Bindings, Variables } from '../../../bindings';
 import { logAudit } from '../../../_shared/utils/audit';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -25,11 +26,9 @@ const CreateVisitSchema = z.object({
 
 // POST /
 const createVisitRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_VISITS.CREATE,
     method: 'post',
     path: '/',
-    summary: 'Create Visit',
-    description: 'Create a new visit for a client.',
-    tags: ['Admin Visits'],
     request: {
         body: {
             content: {
@@ -83,11 +82,9 @@ r.openapi(createVisitRoute, async (c) => {
 
 // PATCH /{id}
 const updateVisitRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_VISITS.UPDATE,
     method: 'patch',
     path: '/{id}',
-    summary: 'Update Visit',
-    description: 'Update visit details or status.',
-    tags: ['Admin Visits'],
     request: {
         params: VisitParamsSchema,
         body: {
@@ -133,11 +130,9 @@ r.openapi(updateVisitRoute, async (c) => {
 
 // DELETE /{id}
 const deleteVisitRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_VISITS.DELETE,
     method: 'delete',
     path: '/{id}',
-    summary: 'Delete Visit',
-    description: 'Remove a visit from the system.',
-    tags: ['Admin Visits'],
     request: {
         params: VisitParamsSchema,
     },

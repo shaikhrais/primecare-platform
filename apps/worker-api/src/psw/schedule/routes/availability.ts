@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // POST Update Availability
 const updateAvailabilityRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.UPDATE_AVAILABILITY,
     method: 'post',
     path: '/',
-    summary: 'Update Availability',
-    description: 'Update the structural availability for the PSW.',
-    tags: ['PSW Schedule'],
     request: {
         body: {
             content: {

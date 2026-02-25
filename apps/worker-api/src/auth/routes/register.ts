@@ -4,16 +4,15 @@ import { Bindings, Variables } from '../../bindings';
 import { RegisterSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken } from '../auth.service';
 import { hashPassword } from '../../_shared/utils/crypto';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Register
 const registerRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.REGISTER,
     method: 'post',
     path: '/register',
-    summary: 'Register User',
-    description: 'Register a new user and create a tenant if necessary.',
-    tags: ['Authentication'],
     request: {
         body: {
             content: {

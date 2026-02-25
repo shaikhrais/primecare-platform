@@ -3,16 +3,15 @@ import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../../bindings';
 import { generateToken } from '../auth.service';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Refresh
 const refreshRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.REFRESH,
     method: 'post',
     path: '/refresh',
-    summary: 'Refresh Token',
-    description: 'Refresh the access token using the refresh token cookie.',
-    tags: ['Authentication'],
     responses: {
         200: {
             content: {
@@ -62,11 +61,9 @@ r.openapi(refreshRoute, async (c) => {
 
 // Logout
 const logoutRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.LOGOUT,
     method: 'post',
     path: '/logout',
-    summary: 'Logout',
-    description: 'Clear session cookies.',
-    tags: ['Authentication'],
     responses: {
         200: {
             content: {
@@ -87,11 +84,9 @@ r.openapi(logoutRoute, (c) => {
 
 // Whoami
 const whoamiRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.WHOAMI,
     method: 'get',
     path: '/whoami',
-    summary: 'Get Current User',
-    description: 'Retrieve details of the currently authenticated user.',
-    tags: ['Authentication'],
     responses: {
         200: {
             content: {

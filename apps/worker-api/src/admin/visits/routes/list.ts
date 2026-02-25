@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET /
 const listVisitsRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_VISITS.LIST,
     method: 'get',
     path: '/',
-    summary: 'List All Visits',
-    description: 'Retrieve a list of all visits with client, psw, and service details.',
-    tags: ['Admin Visits'],
     responses: {
         200: {
             content: {

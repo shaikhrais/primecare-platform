@@ -4,16 +4,15 @@ import { Bindings, Variables } from '../../bindings';
 import { generateToken, generateRefreshToken } from '../auth.service';
 import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Impersonate
 const impersonateRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.IMPERSONATE,
     method: 'post',
     path: '/impersonate',
-    summary: 'Impersonate User',
-    description: 'As an admin, impersonate another user.',
-    tags: ['Authentication'],
     request: {
         body: {
             content: {

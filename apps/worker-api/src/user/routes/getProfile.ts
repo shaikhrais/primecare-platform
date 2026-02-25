@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET /v1/user/profile
 const getProfileRoute = createRoute({
+    ...ROUTE_METADATA.USER.GET_PROFILE,
     method: 'get',
     path: '/',
-    summary: 'Get User Profile',
-    description: 'Retrieve the standardized profile for the currently authenticated user based on their active role.',
-    tags: ['User Profile'],
     responses: {
         200: {
             content: {

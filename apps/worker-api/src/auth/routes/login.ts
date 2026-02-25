@@ -4,16 +4,15 @@ import { Bindings, Variables } from '../../bindings';
 import { LoginSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken } from '../auth.service';
 import { hashPassword } from '../../_shared/utils/crypto';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Login
 const loginRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.LOGIN,
     method: 'post',
     path: '/login',
-    summary: 'Login User',
-    description: 'Authenticate user and set session cookies.',
-    tags: ['Authentication'],
     request: {
         body: {
             content: {
@@ -94,11 +93,9 @@ r.openapi(loginRoute, async (c) => {
 
 // Switch Role
 const switchRoleRoute = createRoute({
+    ...ROUTE_METADATA.AUTH.SWITCH_ROLE,
     method: 'post',
     path: '/switch-role',
-    summary: 'Switch User Role',
-    description: 'Switch the active role for the session.',
-    tags: ['Authentication'],
     request: {
         body: {
             content: {

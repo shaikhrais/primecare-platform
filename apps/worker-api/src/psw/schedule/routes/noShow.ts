@@ -1,5 +1,6 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -12,11 +13,9 @@ const ScheduleParamsSchema = z.object({
 
 // POST Client Not Present (No-Show)
 const reportNoShowRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.REPORT_NO_SHOW,
     method: 'post',
     path: '/{id}/no-show',
-    summary: 'Report Client No-Show',
-    description: 'Report that a client was not present for a visit. Requires a check-in and 15 minute wait.',
-    tags: ['PSW Schedule'],
     request: {
         params: ScheduleParamsSchema,
     },

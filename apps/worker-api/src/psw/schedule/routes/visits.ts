@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Assigned Visits
 const listVisitsRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.LIST_VISITS,
     method: 'get',
     path: '/',
-    summary: 'Get Assigned Visits',
-    description: 'Retrieve a list of visits assigned to the authenticated PSW.',
-    tags: ['PSW Schedule'],
     responses: {
         200: {
             content: {

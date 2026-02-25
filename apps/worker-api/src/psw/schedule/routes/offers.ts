@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Offered Shifts
 const listOffersRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.LIST_OFFERS,
     method: 'get',
     path: '/',
-    summary: 'Get Offered Shifts',
-    description: 'Retrieve a list of shifts offered to the authenticated PSW.',
-    tags: ['PSW Schedule'],
     responses: {
         200: {
             content: {
@@ -49,11 +48,9 @@ r.openapi(listOffersRoute, async (c) => {
 
 // POST Accept Offer
 const acceptOfferRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.ACCEPT_OFFER,
     method: 'post',
     path: '/{id}/accept',
-    summary: 'Accept Shift Offer',
-    description: 'Accept an offered shift and mark the visit as scheduled.',
-    tags: ['PSW Schedule'],
     request: {
         params: z.object({
             id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'offer-uuid' })
@@ -119,11 +116,9 @@ r.openapi(acceptOfferRoute, async (c) => {
 
 // POST Decline Offer
 const declineOfferRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.DECLINE_OFFER,
     method: 'post',
     path: '/{id}/decline',
-    summary: 'Decline Shift Offer',
-    description: 'Decline an offered shift.',
-    tags: ['PSW Schedule'],
     request: {
         params: z.object({
             id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'offer-uuid' })

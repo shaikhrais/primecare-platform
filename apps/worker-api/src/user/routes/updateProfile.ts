@@ -1,15 +1,14 @@
 ﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // PUT /v1/user/profile
 const updateProfileRoute = createRoute({
+    ...ROUTE_METADATA.USER.UPDATE_PROFILE,
     method: 'put',
     path: '/',
-    summary: 'Update User Profile',
-    description: 'Update the profile details and phone number for the currently authenticated user.',
-    tags: ['User Profile'],
     request: {
         body: {
             content: {
