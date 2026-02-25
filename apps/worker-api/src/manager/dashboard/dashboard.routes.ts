@@ -1,16 +1,46 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireRole } from '../../_shared/middleware/rbac';
-import { z } from 'zod';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Dashboard Stats for Manager/Admin
-r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
+const getManagerStatsRoute = createRoute({
+    method: 'get',
+    path: '/stats',
+    summary: 'Get Manager Dashboard Statistics',
+    description: 'Retrieve comprehensive dashboard statistics for managers and admins, including shift fulfillment, revenue, incidents, and visit volume.',
+    tags: ['Manager Dashboard'],
+    middleware: [requireRole(['manager', 'admin'])],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        shiftFulfillment: z.array(z.any()),
+                        revenue: z.array(z.any()),
+                        incidents: z.array(z.any()),
+                        visitVolume: z.array(z.any()),
+                        servicePopularity: z.array(z.any()),
+                        staffUtilization: z.array(z.any()),
+                        travelTime: z.array(z.any()),
+                        staffAttendance: z.array(z.any()).optional(),
+                        carePlanAdherence: z.array(z.any()),
+                        clientSatisfaction: z.array(z.any()),
+                        overtimeRisk: z.array(z.any()),
+                        resourceAvailability: z.array(z.any()),
+                    }),
+                },
+            },
+            description: 'Manager dashboard statistics',
+        },
+    },
+});
+
+r.openapi(getManagerStatsRoute, async (c) => {
     const prisma = c.get('prisma');
 
     // 1. Shift Fulfillment (Next 7 days)
-    // Aggregating visits by status for the upcoming week
     const start = new Date();
     const end = new Date();
     end.setDate(end.getDate() + 7);
@@ -41,7 +71,7 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
     // 2. Revenue Forecast (Last 6 Months)
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
-    sixMonthsAgo.setDate(1); // Start of that month
+    sixMonthsAgo.setDate(1);
 
     const invoices = await prisma.invoice.findMany({
         where: { createdAt: { gte: sixMonthsAgo } },
@@ -50,7 +80,6 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
 
     const revenueMap = new Map<string, { actual: number; projected: number }>();
 
-    // Initialize map for last 6 months
     for (let i = 0; i < 6; i++) {
         const d = new Date();
         d.setMonth(d.getMonth() - i);
@@ -71,11 +100,10 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
         }
     });
 
-    // Convert map to array and reverse to show chronological order
     const revenueData = Array.from(revenueMap.entries()).map(([month, data]) => ({
         month,
         actual: data.actual,
-        projected: data.actual + data.projected // Projected includes actual + pending
+        projected: data.actual + data.projected
     })).reverse();
 
 
@@ -83,13 +111,13 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
     const incidentData = await (async () => {
         const sixMonthsAgo = new Date();
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-        const incidentData = await prisma.incident.findMany({
+        const incidents = await prisma.incident.findMany({
             where: { reportedAt: { gte: sixMonthsAgo } },
             select: { reportedAt: true, severity: true }
         });
 
         const incidentMap = new Map<string, { total: number, critical: number }>();
-        incidentData.forEach((inc: { reportedAt: Date, severity: string }) => {
+        incidents.forEach((inc: any) => {
             const month = new Date(inc.reportedAt).toLocaleString('default', { month: 'short' });
             if (!incidentMap.has(month)) incidentMap.set(month, { total: 0, critical: 0 });
             const entry = incidentMap.get(month)!;
@@ -101,7 +129,7 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
     })();
 
     // 6. Visit Volume & Service Popularity & Staff Utilization & Travel Time
-    const { visitVolume, servicePopularity, staffUtilization, travelTime } = await (async () => {
+    const volumeStats = await (async () => {
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
@@ -110,40 +138,31 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
                 requestedStartAt: { gte: thirtyDaysAgo },
                 status: 'completed'
             },
-            include: { service: true, visitChecks: true }
+            include: { service: true }
         });
 
-        // Visit Volume (Group by date)
         const volumeMap = new Map<string, number>();
-        visits.forEach((v: { requestedStartAt: Date }) => {
+        visits.forEach((v: any) => {
             const date = new Date(v.requestedStartAt).toLocaleDateString();
             volumeMap.set(date, (volumeMap.get(date) || 0) + 1);
         });
         const visitVolume = Array.from(volumeMap.entries()).map(([date, count]) => ({ date, count }));
 
-        // Service Popularity
         const serviceMap = new Map<string, number>();
-        visits.forEach((v: { service?: { name: string | null } | null }) => {
+        visits.forEach((v: any) => {
             if (v.service?.name) {
                 serviceMap.set(v.service.name, (serviceMap.get(v.service.name) || 0) + 1);
             }
         });
         const servicePopularity = Array.from(serviceMap.entries()).map(([name, value]) => ({ name, value }));
 
-        // Staff Utilization (Mock calculation based on visit duration vs total hours)
-        // In real app, would compare against Schedule availability
-        const utilizationData = visits.reduce((acc: number, v: any) => {
-            // Mock: 1 visit = 1 hour utilization
-            return acc + 1;
-        }, 0);
+        const utilizationData = visits.reduce((acc: number) => acc + 1, 0);
         const staffUtilization = [
             { name: 'Billable', value: utilizationData * 0.75, fill: '#0088FE' },
             { name: 'Travel', value: utilizationData * 0.15, fill: '#00C49F' },
             { name: 'Admin/Training', value: utilizationData * 0.10, fill: '#FFBB28' },
         ];
 
-        // Travel Time Analysis (Mocked logic based on visit checks)
-        // Real logic involves calculating distance/time between check-in/out of consecutive visits
         const travelTime = [
             { city: 'Toronto', avgTime: 25 },
             { city: 'Mississauga', avgTime: 30 },
@@ -154,52 +173,50 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
         return { visitVolume, servicePopularity, staffUtilization, travelTime };
     })();
 
+    // 9. Staff Attendance Heatmap
+    const attendanceStats = await (async () => {
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const lateVisits = await prisma.visit.findMany({
+            where: {
+                requestedStartAt: { gte: thirtyDaysAgo },
+                status: 'completed'
+            },
+            select: { requestedStartAt: true, actualStartAt: true }
+        });
+
+        const heatmapMap = new Map<string, number>();
+
+        lateVisits.forEach((v: any) => {
+            if (v.actualStartAt && v.requestedStartAt) {
+                const diff = (new Date(v.actualStartAt).getTime() - new Date(v.requestedStartAt).getTime()) / 60000;
+                if (diff > 10) {
+                    const d = new Date(v.actualStartAt);
+                    const day = d.getDay();
+                    const hour = d.getHours();
+                    const key = `${day}-${hour}`;
+                    heatmapMap.set(key, (heatmapMap.get(key) || 0) + 1);
+                }
+            }
+        });
+
+        const staffAttendance = Array.from(heatmapMap.entries()).map(([key, count]) => {
+            const [day, hour] = key.split('-').map(Number);
+            return { day, hour, count };
+        });
+
+        return { staffAttendance };
+    })();
+
     return c.json({
         shiftFulfillment: shiftData,
         revenue: revenueData,
         incidents: incidentData,
-        visitVolume: visitVolume,
-
-        servicePopularity,
-        staffUtilization,
-        travelTime,
-
-        // 9. Staff Attendance Heatmap (Real - Lateness Analysis)
-        ...(await (async () => {
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            const lateVisits = await prisma.visit.findMany({
-                where: {
-                    requestedStartAt: { gte: thirtyDaysAgo },
-                    status: 'completed'
-                },
-                select: { requestedStartAt: true, actualStartAt: true }
-            });
-
-            const heatmapMap = new Map<string, number>();
-
-            lateVisits.forEach((v: any) => {
-                if (v.actualStartAt && v.requestedStartAt) {
-                    const diff = (new Date(v.actualStartAt).getTime() - new Date(v.requestedStartAt).getTime()) / 60000;
-                    if (diff > 10) { // Considered late if > 10 mins
-                        const d = new Date(v.actualStartAt);
-                        const day = d.getDay(); // 0-6
-                        const hour = d.getHours();
-                        const key = `${day}-${hour}`;
-                        heatmapMap.set(key, (heatmapMap.get(key) || 0) + 1);
-                    }
-                }
-            });
-
-            const staffAttendance = Array.from(heatmapMap.entries()).map(([key, count]) => {
-                const [day, hour] = key.split('-').map(Number);
-                return { day, hour, count };
-            });
-
-            return { staffAttendance };
-        })()),
-
-        // Mocked/Static for now due to schema limitations
+        visitVolume: volumeStats.visitVolume,
+        servicePopularity: volumeStats.servicePopularity,
+        staffUtilization: volumeStats.staffUtilization,
+        travelTime: volumeStats.travelTime,
+        staffAttendance: attendanceStats.staffAttendance,
         carePlanAdherence: [
             { name: 'Adherent', count: 85, fill: '#10B981' },
             { name: 'Non-Adherent', count: 15, fill: '#EF4444' },
@@ -221,7 +238,7 @@ r.get('/stats', requireRole(['manager', 'admin']), async (c) => {
             { time: '12:00', available: 8, total: 15 },
             { time: '16:00', available: 10, total: 15 },
         ]
-    });
+    }, 200);
 });
 
 export default r;

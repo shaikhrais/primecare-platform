@@ -1,23 +1,74 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const LeadParamsSchema = z.object({
+    id: z.string().openapi({
+        param: { name: 'id', in: 'path' },
+        example: 'lead-uuid',
+    }),
+});
 
 // List Leads
-r.get('/', async (c) => {
+const listLeadsRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'List All Leads',
+    description: 'Retrieve a list of all marketing leads.',
+    tags: ['Admin Leads'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of leads',
+        },
+    },
+});
+
+r.openapi(listLeadsRoute, async (c) => {
     const prisma = c.get('prisma');
     const leads = await prisma.lead.findMany({
         orderBy: { createdAt: 'desc' },
     });
-    return c.json(leads);
+    return c.json(leads, 200);
 });
 
 // Update Lead Status
-r.patch('/:id', zValidator('json', z.object({ status: z.string() })), async (c) => {
+const updateLeadStatusRoute = createRoute({
+    method: 'patch',
+    path: '/{id}',
+    summary: 'Update Lead Status',
+    description: 'Update the status of a specific marketing lead.',
+    tags: ['Admin Leads'],
+    request: {
+        params: LeadParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({ status: z.string() }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Lead status updated successfully',
+        },
+    },
+});
+
+r.openapi(updateLeadStatusRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const { status } = c.req.valid('json');
 
     const lead = await prisma.lead.update({
@@ -25,7 +76,7 @@ r.patch('/:id', zValidator('json', z.object({ status: z.string() })), async (c) 
         data: { status },
     });
 
-    return c.json(lead);
+    return c.json(lead, 200);
 });
 
 export default r;

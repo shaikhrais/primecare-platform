@@ -1,21 +1,43 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireRole } from '../../_shared/middleware/rbac';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Dashboard Stats for PSW
-r.get('/stats', requireRole(['psw']), async (c) => {
+const getDashboardStatsRoute = createRoute({
+    method: 'get',
+    path: '/stats',
+    summary: 'Get PSW Dashboard Statistics',
+    description: 'Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.',
+    tags: ['PSW Dashboard'],
+    middleware: [requireRole(['psw'])],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        earnings: z.array(z.any()),
+                        reliability: z.array(z.any()),
+                        shifts: z.array(z.any()),
+                    }),
+                },
+            },
+            description: 'Dashboard statistics',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(getDashboardStatsRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
     const pswProfile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!pswProfile) return c.json({ error: 'Profile not found' }, 404);
 
-    // 1. Earnings (From Timesheets)
-    // Group by last 4 weeks (simplified to just fetch last 4 timesheets)
     const timesheets = await prisma.timesheet.findMany({
         where: { pswId: pswProfile.id },
         orderBy: { createdAt: 'desc' },
@@ -23,7 +45,6 @@ r.get('/stats', requireRole(['psw']), async (c) => {
         select: { weekId: true, totalMinutes: true }
     });
 
-    // Mock base rate $25/hr
     const earningsData = timesheets.reverse().map((ts: any) => ({
         name: ts.weekId,
         earnings: ((ts.totalMinutes || 0) / 60) * 25
@@ -33,21 +54,19 @@ r.get('/stats', requireRole(['psw']), async (c) => {
         earningsData.push({ name: 'Current', earnings: 0 });
     }
 
-    // 2. Reliability (From CheckEvents)
     const checkEvents = await prisma.visitCheckEvent.findMany({
         where: { pswId: pswProfile.id },
         select: { result: true }
     });
 
     const onTime = checkEvents.filter((e: any) => e.result === 'success').length;
-    const late = checkEvents.filter((e: any) => e.result === 'rejected').length; // Or logic for lateness
+    const late = checkEvents.filter((e: any) => e.result === 'rejected').length;
 
     const reliabilityData = [
-        { name: 'On-Time', count: onTime || 10, fill: '#10B981' }, // Defaulting to 10 for visual if empty
+        { name: 'On-Time', count: onTime || 10, fill: '#10B981' },
         { name: 'Issue', count: late, fill: '#EF4444' }
     ];
 
-    // 3. Shift Distribution (From Visits)
     const visits = await prisma.visit.findMany({
         where: { assignedPswId: pswProfile.id },
         select: { requestedStartAt: true }
@@ -77,7 +96,7 @@ r.get('/stats', requireRole(['psw']), async (c) => {
         earnings: earningsData,
         reliability: reliabilityData,
         shifts: shiftData
-    });
+    }, 200);
 });
 
 export default r;

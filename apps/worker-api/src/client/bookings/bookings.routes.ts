@@ -1,11 +1,9 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireRole } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const BookingSchema = z.object({
     serviceId: z.string().uuid().optional(),
@@ -17,8 +15,34 @@ const BookingSchema = z.object({
     recurrenceRule: z.any().optional(),
 });
 
+const BookingParamsSchema = z.object({
+    id: z.string().openapi({ param: { name: 'id', in: 'path' } }),
+});
+
 // GET Bookings
-r.get('/', requireRole(['client', 'admin', 'rn']), async (c) => {
+const listBookingsRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'List Client Bookings',
+    description: 'Retrieve a list of all bookings for the authenticated client.',
+    tags: ['Client Bookings'],
+    middleware: [requireRole(['client', 'admin', 'rn'])],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of bookings',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(listBookingsRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -35,11 +59,42 @@ r.get('/', requireRole(['client', 'admin', 'rn']), async (c) => {
         },
     });
 
-    return c.json(bookings);
+    return c.json(bookings, 200);
 });
 
 // POST Booking
-r.post('/', requireRole(['client']), zValidator('json', BookingSchema), async (c) => {
+const createBookingRoute = createRoute({
+    method: 'post',
+    path: '/',
+    summary: 'Create Booking',
+    description: 'Create a new service booking for the authenticated client.',
+    tags: ['Client Bookings'],
+    middleware: [requireRole(['client'])],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: BookingSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Booking created successfully',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(createBookingRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const data = c.req.valid('json');
@@ -61,7 +116,6 @@ r.post('/', requireRole(['client']), zValidator('json', BookingSchema), async (c
         },
     });
 
-    // If not recurring, create the initial Visit immediately
     if (!data.recurrenceRule) {
         await prisma.visit.create({
             data: {
@@ -84,9 +138,38 @@ r.post('/', requireRole(['client']), zValidator('json', BookingSchema), async (c
 });
 
 // PATCH Booking
-r.patch('/:id', requireRole(['client', 'admin']), zValidator('json', BookingSchema.partial()), async (c) => {
+const updateBookingRoute = createRoute({
+    method: 'patch',
+    path: '/{id}',
+    summary: 'Update Booking',
+    description: 'Update an existing booking.',
+    tags: ['Client Bookings'],
+    middleware: [requireRole(['client', 'admin'])],
+    request: {
+        params: BookingParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: BookingSchema.partial(),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Booking updated successfully',
+        },
+    },
+});
+
+r.openapi(updateBookingRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const data = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
 
@@ -99,7 +182,7 @@ r.patch('/:id', requireRole(['client', 'admin']), zValidator('json', BookingSche
     });
 
     await logAudit(prisma, userId, 'UPDATE_BOOKING', 'BOOKING', id, data);
-    return c.json(booking);
+    return c.json(booking, 200);
 });
 
 export default r;

@@ -1,11 +1,11 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
 import supervisionRoutes from './supervision/supervision.routes';
 import dailyReviewRoutes from './dailyReview/dailyReview.routes';
 
-const rn = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const rn = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // RN module-level middleware
 rn.use('*', async (c, next) => {

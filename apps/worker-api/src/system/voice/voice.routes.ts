@@ -1,9 +1,48 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-r.post('/upload', async (c) => {
+const uploadVoiceRoute = createRoute({
+    method: 'post',
+    path: '/upload',
+    summary: 'Upload Voice Note',
+    description: 'Upload a voice note (audio file) for a specific user.',
+    tags: ['System Voice'],
+    request: {
+        body: {
+            content: {
+                'multipart/form-data': {
+                    schema: z.object({
+                        file: z.instanceof(File).openapi({ type: 'string', format: 'binary' }),
+                        userId: z.string(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        url: z.string(),
+                    }),
+                },
+            },
+            description: 'Voice note uploaded successfully',
+        },
+        400: {
+            description: 'Bad request (missing file or userId)',
+        },
+        500: {
+            description: 'Internal server error',
+        },
+    },
+});
+
+r.openapi(uploadVoiceRoute, async (c) => {
     try {
         const body = await c.req.parseBody();
         const file = body['file'];
@@ -25,7 +64,6 @@ r.post('/upload', async (c) => {
             }
         });
 
-        // Dummy R2 domain or custom worker endpoint
         const publicUrl = `/v1/system/storage/file/${filename}`;
 
         const id = c.env.CHAT_SERVER.idFromName(userId);
@@ -40,7 +78,7 @@ r.post('/upload', async (c) => {
             })
         }));
 
-        return c.json({ success: true, url: publicUrl });
+        return c.json({ success: true, url: publicUrl }, 200);
 
     } catch (e) {
         console.error('Upload error', e);

@@ -1,25 +1,77 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// List Services
-r.get('/', async (c) => {
-    const prisma = c.get('prisma');
-    const services = await prisma.service.findMany();
-    return c.json(services);
+const ServiceParamsSchema = z.object({
+    id: z.string().openapi({
+        param: { name: 'id', in: 'path' },
+        example: 'service-uuid',
+    }),
 });
 
-// Create Service
-r.post('/', zValidator('json', z.object({
+const ServiceSchema = z.object({
     name: z.string(),
     description: z.string().optional(),
     hourlyRate: z.number(),
     category: z.string().optional(),
     isActive: z.boolean().optional(),
-})), async (c) => {
+});
+
+// List Services
+const listServicesRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'List All Services',
+    description: 'Retrieve a list of all care services offered.',
+    tags: ['Admin Services'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of services',
+        },
+    },
+});
+
+r.openapi(listServicesRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const services = await prisma.service.findMany();
+    return c.json(services, 200);
+});
+
+// Create Service
+const createServiceRoute = createRoute({
+    method: 'post',
+    path: '/',
+    summary: 'Create Service',
+    description: 'Register a new care service.',
+    tags: ['Admin Services'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: ServiceSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Service created successfully',
+        },
+    },
+});
+
+r.openapi(createServiceRoute, async (c) => {
     const prisma = c.get('prisma');
     const { hourlyRate, ...rest } = c.req.valid('json');
     const slug = rest.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -36,15 +88,37 @@ r.post('/', zValidator('json', z.object({
 });
 
 // Update Service
-r.put('/:id', zValidator('json', z.object({
-    name: z.string().optional(),
-    description: z.string().optional(),
-    hourlyRate: z.number().optional(),
-    category: z.string().optional(),
-    isActive: z.boolean().optional(),
-})), async (c) => {
+const updateServiceRoute = createRoute({
+    method: 'put',
+    path: '/{id}',
+    summary: 'Update Service',
+    description: 'Update the details of an existing care service.',
+    tags: ['Admin Services'],
+    request: {
+        params: ServiceParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: ServiceSchema.partial(),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Service updated successfully',
+        },
+    },
+});
+
+r.openapi(updateServiceRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const { hourlyRate, ...data } = c.req.valid('json');
 
     const updateData: any = { ...data };
@@ -56,7 +130,7 @@ r.put('/:id', zValidator('json', z.object({
         where: { id },
         data: updateData,
     });
-    return c.json(service);
+    return c.json(service, 200);
 });
 
 export default r;

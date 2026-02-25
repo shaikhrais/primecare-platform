@@ -1,11 +1,16 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { VisitStatus } from '../../../generated/client/edge';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const VisitParamsSchema = z.object({
+    id: z.string().openapi({
+        param: { name: 'id', in: 'path' },
+        example: 'visit-uuid',
+    }),
+});
 
 const AssignPswSchema = z.object({
     visitId: z.string().uuid(),
@@ -19,10 +24,30 @@ const CreateVisitSchema = z.object({
     durationMinutes: z.number().min(30),
     assignedPswId: z.string().uuid().optional(),
     clientNotes: z.string().optional(),
+    priority: z.string().optional().default('normal'),
+    requiredSkills: z.array(z.string()).optional().default([]),
 });
 
 // List All Visits
-r.get('/', async (c) => {
+const listVisitsRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'List All Visits',
+    description: 'Retrieve a list of all visits with client, psw, and service details.',
+    tags: ['Admin Visits'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of visits',
+        },
+    },
+});
+
+r.openapi(listVisitsRoute, async (c) => {
     const prisma = c.get('prisma');
     const visits = await prisma.visit.findMany({
         include: {
@@ -32,11 +57,38 @@ r.get('/', async (c) => {
         },
         orderBy: { requestedStartAt: 'desc' },
     });
-    return c.json(visits);
+    return c.json(visits, 200);
 });
 
 // Create Visit
-r.post('/', zValidator('json', CreateVisitSchema), async (c) => {
+const createVisitRoute = createRoute({
+    method: 'post',
+    path: '/',
+    summary: 'Create Visit',
+    description: 'Create a new visit for a client.',
+    tags: ['Admin Visits'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: CreateVisitSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Visit created successfully',
+        },
+    },
+});
+
+r.openapi(createVisitRoute, async (c) => {
     const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const payload = c.get('jwtPayload');
@@ -53,8 +105,8 @@ r.post('/', zValidator('json', CreateVisitSchema), async (c) => {
             status: status,
             clientNotes: data.clientNotes,
             tenantId: payload.tenantId,
-            priority: (data as any).priority || 'normal',
-            requiredSkills: (data as any).requiredSkills || [],
+            priority: data.priority || 'normal',
+            requiredSkills: data.requiredSkills || [],
         },
     });
 
@@ -66,10 +118,31 @@ r.post('/', zValidator('json', CreateVisitSchema), async (c) => {
     return c.json(visit, 201);
 });
 
-// POST Post Shift (Move from draft/requested to posted)
-r.post('/:id/post', async (c) => {
+// POST Post Shift
+const postShiftRoute = createRoute({
+    method: 'post',
+    path: '/{id}/post',
+    summary: 'Post Shift',
+    description: 'Move a visit status from draft/requested to posted.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Shift posted successfully',
+        },
+    },
+});
+
+r.openapi(postShiftRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const payload = c.get('jwtPayload');
 
     const visit = await prisma.visit.update({
@@ -78,15 +151,46 @@ r.post('/:id/post', async (c) => {
     });
 
     await logAudit(prisma, payload.sub, 'POST_SHIFT', 'VISIT', id);
-    return c.json(visit);
+    return c.json(visit, 200);
 });
 
 // POST Offer Shift to PSWs
-r.post('/:id/offer', zValidator('json', z.object({
-    pswIds: z.array(z.string().uuid()),
-})), async (c) => {
+const offerShiftRoute = createRoute({
+    method: 'post',
+    path: '/{id}/offer',
+    summary: 'Offer Shift to PSWs',
+    description: 'Offer a visit to a list of PSWs.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        pswIds: z.array(z.string().uuid()),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        count: z.number(),
+                    }),
+                },
+            },
+            description: 'Shift offered successfully',
+        },
+    },
+});
+
+r.openapi(offerShiftRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const { pswIds } = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
@@ -96,7 +200,7 @@ r.post('/:id/offer', zValidator('json', z.object({
                 visitId: id,
                 pswId,
                 status: 'offered',
-                tenantId: payload.tenantId, // Wait, I didn't add tenantId to shift_assignments in schema.prisma?
+                tenantId: payload.tenantId,
             }
         })
     ));
@@ -107,13 +211,37 @@ r.post('/:id/offer', zValidator('json', z.object({
     });
 
     await logAudit(prisma, payload.sub, 'OFFER_SHIFT', 'VISIT', id, { pswIds });
-    return c.json({ success: true, count: assignments.length });
+    return c.json({ success: true, count: assignments.length }, 200);
 });
 
-// GET Suggest PSWs (Simple Scoring Engine)
-r.get('/:id/suggest', async (c) => {
+// GET Suggest PSWs
+const suggestPswsRoute = createRoute({
+    method: 'get',
+    path: '/{id}/suggest',
+    summary: 'Suggest PSWs',
+    description: 'Get a list of suggested PSWs for a visit based on availability and skills.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of suggested PSWs',
+        },
+        404: {
+            description: 'Visit not found',
+        },
+    },
+});
+
+r.openapi(suggestPswsRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
 
     const visit = await prisma.visit.findUnique({
         where: { id },
@@ -121,27 +249,22 @@ r.get('/:id/suggest', async (c) => {
     });
     if (!visit) return c.json({ error: 'Visit not found' }, 404);
 
-    // 1. Get all active PSWs
     const psws = await prisma.pswProfile.findMany({
         where: { isApproved: true, tenantId: visit.tenantId },
         include: { availability: true }
     });
 
-    // 2. Simple Scoring Logic
     const suggested = psws.map((psw: any) => {
-        let score = 50; // Base score
-
-        // Availability check (harder to implement perfectly without date logic, matching dayOfWeek)
+        let score = 50;
         const day = visit.requestedStartAt.getDay();
         const hasAvailability = psw.availability.some((a: any) => a.dayOfWeek === day);
         if (hasAvailability) score += 30;
 
-        // Skills match
-        const visitSkills = visit.requiredSkills || [];
-        const pswSkills = psw.skills || [];
+        const visitSkills = (visit.requiredSkills as string[]) || [];
+        const pswSkills = (psw.skills as string[]) || [];
         const hasAllSkills = visitSkills.every((s: string) => pswSkills.includes(s));
         if (hasAllSkills && visitSkills.length > 0) score += 40;
-        else if (visitSkills.length > 0) score -= 20; // Penalty if missing required skills
+        else if (visitSkills.length > 0) score -= 20;
 
         return {
             id: psw.id,
@@ -154,11 +277,41 @@ r.get('/:id/suggest', async (c) => {
         };
     }).sort((a: any, b: any) => b.score - a.score).slice(0, 5);
 
-    return c.json(suggested);
+    return c.json(suggested, 200);
 });
 
 // Assign PSW
-r.post('/assign', zValidator('json', AssignPswSchema), async (c) => {
+const assignPswRoute = createRoute({
+    method: 'post',
+    path: '/assign',
+    summary: 'Assign PSW',
+    description: 'Manually assign a PSW to a visit.',
+    tags: ['Admin Visits'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: AssignPswSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'PSW assigned successfully',
+        },
+        404: {
+            description: 'PSW not found',
+        },
+    },
+});
+
+r.openapi(assignPswRoute, async (c) => {
     const prisma = c.get('prisma');
     const { visitId, pswId } = c.req.valid('json');
     const payload = c.get('jwtPayload');
@@ -186,17 +339,45 @@ r.post('/assign', zValidator('json', AssignPswSchema), async (c) => {
         })
     ]);
 
-    return c.json(visit);
+    return c.json(visit, 200);
 });
 
 // Update Visit
-r.patch('/:id', zValidator('json', z.object({
-    status: z.string().optional(),
-    requestedStartAt: z.string().datetime().optional(),
-    durationMinutes: z.number().optional(),
-})), async (c) => {
+const updateVisitRoute = createRoute({
+    method: 'patch',
+    path: '/{id}',
+    summary: 'Update Visit',
+    description: 'Update visit details or status.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        status: z.string().optional(),
+                        requestedStartAt: z.string().datetime().optional(),
+                        durationMinutes: z.number().optional(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Visit updated successfully',
+        },
+    },
+});
+
+r.openapi(updateVisitRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const data = c.req.valid('json');
 
     const updateData: any = { ...data };
@@ -208,21 +389,68 @@ r.patch('/:id', zValidator('json', z.object({
         where: { id },
         data: updateData,
     });
-    return c.json(visit);
+    return c.json(visit, 200);
 });
 
 // Delete Visit
-r.delete('/:id', async (c) => {
-    const prisma = c.get('prisma');
-    const id = c.req.param('id');
-    await prisma.visit.delete({ where: { id } });
-    return c.json({ success: true });
+const deleteVisitRoute = createRoute({
+    method: 'delete',
+    path: '/{id}',
+    summary: 'Delete Visit',
+    description: 'Remove a visit from the system.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                    }),
+                },
+            },
+            description: 'Visit deleted successfully',
+        },
+    },
 });
 
-// POST Cancel Visit with Policy Logic
-r.post('/:id/cancel', async (c) => {
+r.openapi(deleteVisitRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
+    await prisma.visit.delete({ where: { id } });
+    return c.json({ success: true }, 200);
+});
+
+// POST Cancel Visit
+const cancelVisitRoute = createRoute({
+    method: 'post',
+    path: '/{id}/cancel',
+    summary: 'Cancel Visit',
+    description: 'Cancel a visit and apply cancellation policy.',
+    tags: ['Admin Visits'],
+    request: {
+        params: VisitParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Visit cancelled successfully',
+        },
+        404: {
+            description: 'Visit not found',
+        },
+    },
+});
+
+r.openapi(cancelVisitRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
     const payload = c.get('jwtPayload');
 
     const visit = await prisma.visit.findUnique({ where: { id } });
@@ -242,7 +470,7 @@ r.post('/:id/cancel', async (c) => {
         chargeMultiplier = 1;
         reason += ' (Late < 2h: 100% Charge)';
     } else if (diffHours < 24) {
-        payMultiplier = 0.5; // Policy says 2 hours minimum, simplified here to 50% or we could do fixed hours
+        payMultiplier = 0.5;
         chargeMultiplier = 0.5;
         reason += ' (Under 24h: Partial Charge)';
     }
@@ -263,7 +491,7 @@ r.post('/:id/cancel', async (c) => {
         success: true,
         visit: updatedVisit,
         policy: { payMultiplier, chargeMultiplier, diffHours }
-    });
+    }, 200);
 });
 
 export default r;

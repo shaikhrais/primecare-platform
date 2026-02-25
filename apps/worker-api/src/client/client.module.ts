@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
@@ -7,7 +7,7 @@ import bookingRoutes from './bookings/bookings.routes';
 import carePlanRoutes from './carePlan/carePlan.routes';
 import serviceRoutes from './services/services.routes';
 
-const client = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Client module-level middleware
 client.use('*', async (c, next) => {

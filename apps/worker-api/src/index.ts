@@ -1,4 +1,5 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
+import { swaggerUI } from '@hono/swagger-ui';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
 import { prismaMiddleware } from './_shared/middleware/prisma';
@@ -19,7 +20,7 @@ import systemModule from './system/system.module';
 import { ChatServer } from './durable_objects/ChatServer';
 export { ChatServer };
 
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // 1. Foundational Middleware
 app.use('*', secureHeaders());
@@ -47,7 +48,19 @@ app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString(), architecture: 'role-first-modular' });
 });
 
-// 4. Mount Modules (Role-First Architecture)
+// 4. OpenAPI Documentation
+app.doc('/openapi.json', {
+    openapi: '3.0.0',
+    info: {
+        title: 'PrimeCare Worker API',
+        version: '1.0.0',
+        description: 'API for PrimeCare workers, admins, and managers.',
+    },
+});
+
+app.get('/doc', swaggerUI({ url: '/openapi.json' }));
+
+// 5. Mount Modules (Role-First Architecture)
 app.route('/v1/auth', authModule);
 app.route('/v1/admin', adminModule);
 app.route('/v1/manager', managerModule);

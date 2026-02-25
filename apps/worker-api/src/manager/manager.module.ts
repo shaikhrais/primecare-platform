@@ -1,11 +1,11 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
 import { requireRole } from '../_shared/middleware/rbac';
 import dashboardRoutes from './dashboard/dashboard.routes';
 
-const manager = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const manager = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Manager module-level middleware
 manager.use('*', async (c, next) => {

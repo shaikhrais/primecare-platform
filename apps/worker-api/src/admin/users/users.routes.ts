@@ -1,14 +1,40 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 import { AdminUserService } from './users.service';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const UserParamsSchema = z.object({
+    id: z.string().openapi({
+        param: {
+            name: 'id',
+            in: 'path',
+        },
+        example: 'user_123',
+    }),
+});
 
 // List Users
-r.get('/', async (c) => {
+const listUsersRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'List All Users',
+    description: 'Retrieve a list of all users in the system.',
+    tags: ['Admin Users'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of users',
+        },
+    },
+});
+
+r.openapi(listUsersRoute, async (c) => {
     const prisma = c.get('prisma');
     const service = new AdminUserService(prisma);
     const users = await service.listUsers();
@@ -16,36 +42,103 @@ r.get('/', async (c) => {
 });
 
 // Verify User
-r.post('/:id/verify', async (c) => {
+const verifyUserRoute = createRoute({
+    method: 'post',
+    path: '/{id}/verify',
+    summary: 'Verify User',
+    description: 'Mark a user as verified.',
+    tags: ['Admin Users'],
+    request: {
+        params: UserParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'User verified successfully',
+        },
+    },
+});
+
+r.openapi(verifyUserRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const service = new AdminUserService(prisma);
-
     const user = await service.verifyUser(id);
-
     return c.json(user);
 });
 
 // Update Roles
-r.patch('/:id/roles', zValidator('json', z.object({
-    roles: z.array(z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'manager', 'rn']))
-})), async (c) => {
+const updateRolesRoute = createRoute({
+    method: 'patch',
+    path: '/{id}/roles',
+    summary: 'Update User Roles',
+    description: 'Update the roles assigned to a specific user.',
+    tags: ['Admin Users'],
+    request: {
+        params: UserParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        roles: z.array(z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'manager', 'rn']))
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'User roles updated successfully',
+        },
+    },
+});
+
+r.openapi(updateRolesRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const { roles } = c.req.valid('json');
     const user = c.get('user');
     const service = new AdminUserService(prisma);
 
     const updatedUser = await service.updateRoles(id, roles);
-
     await logAudit(prisma, user.id, 'UPDATE_USER_ROLES', 'User', id, { roles });
 
     return c.json(updatedUser);
 });
 
 // Elevate User (Super User)
-r.post('/:id/elevate', async (c) => {
-    const id = c.req.param('id');
+const elevateUserRoute = createRoute({
+    method: 'post',
+    path: '/{id}/elevate',
+    summary: 'Elevate User to Super User',
+    description: 'Grant all available roles to a user.',
+    tags: ['Admin Users'],
+    request: {
+        params: UserParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'User elevated successfully',
+        },
+    },
+});
+
+r.openapi(elevateUserRoute, async (c) => {
+    const { id } = c.req.valid('param');
     const prisma = c.get('prisma');
     const payload = c.get('jwtPayload');
 

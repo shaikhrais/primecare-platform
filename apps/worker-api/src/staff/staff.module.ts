@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
@@ -6,7 +6,7 @@ import { requireRole } from '../_shared/middleware/rbac';
 import schedulingRoutes from './scheduling/scheduling.routes';
 import supportRoutes from './support/support.routes';
 
-const staff = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Staff module-level middleware
 staff.use('*', async (c, next) => {

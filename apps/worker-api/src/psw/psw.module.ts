@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
@@ -7,7 +7,7 @@ import scheduleRoutes from './schedule/schedule.routes';
 import dailyEntryRoutes from './dailyEntry/dailyEntry.routes';
 import incidentsRoutes from './incidents/incidents.routes';
 
-const psw = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // PSW module-level middleware
 psw.use('*', async (c, next) => {

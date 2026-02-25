@@ -1,11 +1,9 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const CarePlanSchema = z.object({
     goals: z.array(z.string()),
@@ -14,28 +12,98 @@ const CarePlanSchema = z.object({
     riskLevel: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']).optional()
 });
 
+const ClientParamsSchema = z.object({
+    clientId: z.string().openapi({ param: { name: 'clientId', in: 'path' } }),
+});
+
 // POST Care Plan
-r.post('/:clientId', requirePermission('CARE_PLAN_CREATE'), zValidator('json', CarePlanSchema), async (c) => {
+const createCarePlanRoute = createRoute({
+    method: 'post',
+    path: '/{clientId}',
+    summary: 'Create Care Plan',
+    description: 'Create a new care plan for a specific client.',
+    tags: ['Client Care Plan'],
+    middleware: [requirePermission('CARE_PLAN_CREATE')],
+    request: {
+        params: ClientParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: CarePlanSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        message: z.string(),
+                        data: z.any(),
+                    }),
+                },
+            },
+            description: 'Care plan created successfully',
+        },
+    },
+});
+
+r.openapi(createCarePlanRoute, async (c) => {
     const prisma = c.get('prisma');
-    const clientId = c.req.param('clientId');
+    const { clientId } = c.req.valid('param');
     const data = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
 
     await logAudit(prisma, userId, 'CREATE_CARE_PLAN', 'ClientProfile', clientId, data);
 
-    return c.json({ success: true, message: 'Care plan created', data });
+    return c.json({ success: true, message: 'Care plan created', data }, 200);
 });
 
 // PATCH Care Plan
-r.patch('/:clientId', requirePermission('CARE_PLAN_UPDATE'), zValidator('json', CarePlanSchema.partial()), async (c) => {
+const updateCarePlanRoute = createRoute({
+    method: 'patch',
+    path: '/{clientId}',
+    summary: 'Update Care Plan',
+    description: 'Update an existing care plan for a specific client.',
+    tags: ['Client Care Plan'],
+    middleware: [requirePermission('CARE_PLAN_UPDATE')],
+    request: {
+        params: ClientParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: CarePlanSchema.partial(),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        message: z.string(),
+                        data: z.any(),
+                    }),
+                },
+            },
+            description: 'Care plan updated successfully',
+        },
+    },
+});
+
+r.openapi(updateCarePlanRoute, async (c) => {
     const prisma = c.get('prisma');
-    const clientId = c.req.param('clientId');
+    const { clientId } = c.req.valid('param');
     const data = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
 
     await logAudit(prisma, userId, 'UPDATE_CARE_PLAN', 'ClientProfile', clientId, data);
 
-    return c.json({ success: true, message: 'Care plan updated', data });
+    return c.json({ success: true, message: 'Care plan updated', data }, 200);
 });
 
 export default r;

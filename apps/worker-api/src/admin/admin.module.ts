@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
@@ -11,7 +11,7 @@ import timesheetRoutes from './timesheets/timesheets.routes';
 import serviceRoutes from './services/services.routes';
 import contentRoutes from './content/content.routes';
 
-const admin = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Admin module-level middleware
 admin.use('*', async (c, next) => {
@@ -30,7 +30,41 @@ admin.route('/timesheets', timesheetRoutes);
 admin.route('/services', serviceRoutes);
 admin.route('/', contentRoutes);
 
-admin.get('/stats', async (c) => {
+const statsRoute = createRoute({
+    method: 'get',
+    path: '/stats',
+    summary: 'Get Admin Dashboard Statistics',
+    description: 'Returns total counts for users, pending visits, total visits, and leads.',
+    tags: ['Admin'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        totalUsers: z.number(),
+                        pendingVisits: z.number(),
+                        totalVisits: z.number(),
+                        totalLeads: z.number(),
+                    }),
+                },
+            },
+            description: 'Success',
+        },
+        500: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        error: z.string(),
+                        details: z.string().optional(),
+                    }),
+                },
+            },
+            description: 'Internal Server Error',
+        },
+    },
+});
+
+admin.openapi(statsRoute, async (c) => {
     try {
         const prisma = c.get('prisma');
 
@@ -47,7 +81,7 @@ admin.get('/stats', async (c) => {
             pendingVisits,
             totalVisits,
             totalLeads
-        });
+        }, 200);
     } catch (error: any) {
         console.error('Error fetching admin stats:', error);
         return c.json({ error: 'Failed to fetch stats', details: error.message }, 500);

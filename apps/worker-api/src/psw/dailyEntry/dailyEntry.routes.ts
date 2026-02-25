@@ -1,13 +1,11 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { requireClientAssignedToPSW } from '../../_shared/middleware/ownership';
 import { logAudit } from '../../_shared/utils/audit';
 import { DailyEntryService } from './dailyEntry.service';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const DailyEntrySchema = z.object({
     clientId: z.string().uuid(),
@@ -22,29 +20,81 @@ const DailyEntrySchema = z.object({
 });
 
 // Create/Submit Entry
-r.post('/', requirePermission('DAILY_ENTRY_CREATE'), requireClientAssignedToPSW, zValidator('json', DailyEntrySchema), async (c) => {
+const createEntryRoute = createRoute({
+    method: 'post',
+    path: '/',
+    summary: 'Create/Submit Daily Entry',
+    description: 'Submit an ADL/Medication entry for a client visit.',
+    tags: ['PSW Daily Entries'],
+    middleware: [
+        requirePermission('DAILY_ENTRY_CREATE'),
+        requireClientAssignedToPSW
+    ],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: DailyEntrySchema,
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Entry created successfully',
+        },
+    },
+});
+
+r.openapi(createEntryRoute, async (c) => {
     const prisma = c.get('prisma');
     const user = c.get('user');
     const data = c.req.valid('json');
     const service = new DailyEntryService(prisma);
 
     const entry = await service.createEntry(user.id, c.get('jwtPayload').tenantId, data);
-
     await logAudit(prisma, user.id, 'CREATE_DAILY_ENTRY', 'DAILY_ENTRY', entry.id, { clientId: data.clientId });
 
     return c.json(entry, 201);
 });
 
 // History
-r.get('/history', async (c) => {
+const getHistoryRoute = createRoute({
+    method: 'get',
+    path: '/history',
+    summary: 'Get Daily Entry History',
+    description: 'Retrieve history of daily entries for a specific client.',
+    tags: ['PSW Daily Entries'],
+    request: {
+        query: z.object({
+            clientId: z.string().optional()
+        }),
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of historical entries',
+        },
+    },
+});
+
+r.openapi(getHistoryRoute, async (c) => {
     const prisma = c.get('prisma');
-    const clientId = c.req.query('clientId');
+    const { clientId } = c.req.valid('query');
     const tenantId = c.get('jwtPayload').tenantId;
     const service = new DailyEntryService(prisma);
 
     const entries = await service.getHistory(tenantId, clientId);
-
-    return c.json(entries);
+    return c.json(entries, 200);
 });
 
 export default r;

@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import { tenantMiddleware } from '../_shared/middleware/tenant';
@@ -7,7 +7,7 @@ import paymentRoutes from './payments/payments.routes';
 import storageRoutes from './storage/storage.routes';
 import voiceRoutes from './voice/voice.routes';
 
-const system = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const system = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // System module-level middleware
 system.use('*', async (c, next) => {

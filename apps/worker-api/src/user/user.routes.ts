@@ -1,8 +1,8 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 
-const user = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const user = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // All /v1/user routes require authentication
 user.use('*', async (c, next) => {
@@ -12,7 +12,33 @@ user.use('*', async (c, next) => {
 });
 
 // GET /v1/user/profile
-user.get('/profile', async (c) => {
+const getProfileRoute = createRoute({
+    method: 'get',
+    path: '/profile',
+    summary: 'Get User Profile',
+    description: 'Retrieve the standardized profile for the currently authenticated user based on their active role.',
+    tags: ['User Profile'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        profile: z.any(),
+                    }),
+                },
+            },
+            description: 'User profile details',
+        },
+        404: {
+            description: 'User not found',
+        },
+        500: {
+            description: 'Internal server error',
+        },
+    },
+});
+
+user.openapi(getProfileRoute, async (c) => {
     const prisma = c.get('prisma');
     const jwtPayload = c.get('jwtPayload');
     const { sub: userId } = jwtPayload;
@@ -30,7 +56,6 @@ user.get('/profile', async (c) => {
             return c.json({ error: 'User not found' }, 404);
         }
 
-        // Standardize response for the frontend
         const activeRole = jwtPayload.activeRole || userWithProfile.roles[0];
         let profile = null;
 
@@ -51,11 +76,10 @@ user.get('/profile', async (c) => {
                 lastName: userWithProfile.clientProfile?.fullName?.split(' ').slice(1).join(' ') || '',
                 email: userWithProfile.email,
                 phoneNumber: userWithProfile.phone,
-                address: userWithProfile.clientProfile?.addressLine1, // Simplified for now
+                address: userWithProfile.clientProfile?.addressLine1,
                 createdAt: userWithProfile.createdAt
             };
         } else {
-            // Default generic profile
             profile = {
                 email: userWithProfile.email,
                 phoneNumber: userWithProfile.phone,
@@ -63,7 +87,7 @@ user.get('/profile', async (c) => {
             };
         }
 
-        return c.json({ profile });
+        return c.json({ profile }, 200);
     } catch (error) {
         console.error('Error fetching profile:', error);
         return c.json({ error: 'Internal server error' }, 500);
@@ -71,7 +95,50 @@ user.get('/profile', async (c) => {
 });
 
 // PUT /v1/user/profile
-user.put('/profile', async (c) => {
+const updateProfileRoute = createRoute({
+    method: 'put',
+    path: '/profile',
+    summary: 'Update User Profile',
+    description: 'Update the profile details and phone number for the currently authenticated user.',
+    tags: ['User Profile'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        firstName: z.string().optional(),
+                        lastName: z.string().optional(),
+                        phoneNumber: z.string().optional(),
+                        phone: z.string().optional(),
+                        address: z.string().optional(),
+                        avatarUrl: z.string().optional(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        message: z.string(),
+                    }),
+                },
+            },
+            description: 'Profile updated successfully',
+        },
+        404: {
+            description: 'User not found',
+        },
+        500: {
+            description: 'Internal server error',
+        },
+    },
+});
+
+user.openapi(updateProfileRoute, async (c) => {
     const prisma = c.get('prisma');
     const jwtPayload = c.get('jwtPayload');
     const { sub: userId } = jwtPayload;
@@ -90,7 +157,6 @@ user.put('/profile', async (c) => {
         const activeRole = jwtPayload.activeRole || user.roles[0];
         const fullName = `${body.firstName || ''} ${body.lastName || ''}`.trim();
 
-        // Update User base table (phone)
         await prisma.user.update({
             where: { id: userId },
             data: {
@@ -98,7 +164,6 @@ user.put('/profile', async (c) => {
             }
         });
 
-        // Update Role-specific profile
         if (activeRole === 'psw') {
             await prisma.pswProfile.upsert({
                 where: { userId: userId },
@@ -131,7 +196,7 @@ user.put('/profile', async (c) => {
             });
         }
 
-        return c.json({ success: true, message: 'Profile updated successfully' });
+        return c.json({ success: true, message: 'Profile updated successfully' }, 200);
     } catch (error) {
         console.error('Error updating profile:', error);
         return c.json({ error: 'Internal server error' }, 500);

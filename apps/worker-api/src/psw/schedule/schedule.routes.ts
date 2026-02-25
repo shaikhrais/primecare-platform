@@ -1,14 +1,19 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const CheckEventSchema = z.object({
     lat: z.number(),
     lng: z.number(),
     accuracy: z.number().optional(),
+});
+
+const ScheduleParamsSchema = z.object({
+    id: z.string().openapi({
+        param: { name: 'id', in: 'path' },
+        example: 'visit-uuid',
+    }),
 });
 
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -27,7 +32,28 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 };
 
 // GET Assigned Visits
-r.get('/visits', async (c) => {
+const listVisitsRoute = createRoute({
+    method: 'get',
+    path: '/visits',
+    summary: 'Get Assigned Visits',
+    description: 'Retrieve a list of visits assigned to the authenticated PSW.',
+    tags: ['PSW Schedule'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of assigned visits',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(listVisitsRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -46,14 +72,48 @@ r.get('/visits', async (c) => {
         },
     });
 
-    return c.json(visits);
+    return c.json(visits, 200);
 });
 
 // POST Check-In
-r.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c) => {
+const checkInRoute = createRoute({
+    method: 'post',
+    path: '/visits/{id}/check-in',
+    summary: 'Visit Check-In',
+    description: 'Perform a check-in for a specific visit, including GPS verification.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: ScheduleParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: CheckEventSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Check-in successful',
+        },
+        400: {
+            description: 'Validation error (e.g., too far)',
+        },
+        404: {
+            description: 'Visit or profile not found',
+        },
+    },
+});
+
+r.openapi(checkInRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
-    const visitId = c.req.param('id');
+    const { id: visitId } = c.req.valid('param');
     const { lat, lng, accuracy } = c.req.valid('json');
 
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
@@ -108,14 +168,45 @@ r.post('/visits/:id/check-in', zValidator('json', CheckEventSchema), async (c) =
         })
     ]);
 
-    return c.json(event);
+    return c.json(event, 200);
 });
 
 // POST Check-Out
-r.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c) => {
+const checkOutRoute = createRoute({
+    method: 'post',
+    path: '/visits/{id}/check-out',
+    summary: 'Visit Check-Out',
+    description: 'Perform a check-out for a specific visit.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: ScheduleParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: CheckEventSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Check-out successful',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(checkOutRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
-    const visitId = c.req.param('id');
+    const { id: visitId } = c.req.valid('param');
     const { lat, lng, accuracy } = c.req.valid('json');
 
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
@@ -150,11 +241,32 @@ r.post('/visits/:id/check-out', zValidator('json', CheckEventSchema), async (c) 
         })
     ]);
 
-    return c.json(event);
+    return c.json(event, 200);
 });
 
 // GET Offered Shifts
-r.get('/offers', async (c) => {
+const listOffersRoute = createRoute({
+    method: 'get',
+    path: '/offers',
+    summary: 'Get Offered Shifts',
+    description: 'Retrieve a list of shifts offered to the authenticated PSW.',
+    tags: ['PSW Schedule'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+            description: 'List of offered shifts',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(listOffersRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
 
@@ -173,14 +285,40 @@ r.get('/offers', async (c) => {
         }
     });
 
-    return c.json(offers);
+    return c.json(offers, 200);
 });
 
 // POST Accept Offer
-r.post('/offers/:id/accept', async (c) => {
+const acceptOfferRoute = createRoute({
+    method: 'post',
+    path: '/offers/{id}/accept',
+    summary: 'Accept Shift Offer',
+    description: 'Accept an offered shift and mark the visit as scheduled.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: z.object({
+            id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'offer-uuid' })
+        }),
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean() }),
+                },
+            },
+            description: 'Offer accepted successfully',
+        },
+        404: {
+            description: 'Offer or profile not found',
+        },
+    },
+});
+
+r.openapi(acceptOfferRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
-    const assignmentId = c.req.param('id');
+    const { id: assignmentId } = c.req.valid('param');
 
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
@@ -203,7 +341,7 @@ r.post('/offers/:id/accept', async (c) => {
             where: { id: assignment.visitId },
             data: {
                 status: 'accepted',
-                assignedPswId: profile.id // Also set this to move to assigned soon
+                assignedPswId: profile.id
             }
         }),
         prisma.auditLog.create({
@@ -217,29 +355,81 @@ r.post('/offers/:id/accept', async (c) => {
         })
     ]);
 
-    return c.json({ success: true });
+    return c.json({ success: true }, 200);
 });
 
 // POST Decline Offer
-r.post('/offers/:id/decline', async (c) => {
+const declineOfferRoute = createRoute({
+    method: 'post',
+    path: '/offers/{id}/decline',
+    summary: 'Decline Shift Offer',
+    description: 'Decline an offered shift.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: z.object({
+            id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'offer-uuid' })
+        }),
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean() }),
+                },
+            },
+            description: 'Offer declined successfully',
+        },
+    },
+});
+
+r.openapi(declineOfferRoute, async (c) => {
     const prisma = c.get('prisma');
-    const userId = c.get('jwtPayload').sub;
-    const assignmentId = c.req.param('id');
+    const { id: assignmentId } = c.req.valid('param');
 
     await prisma.shiftAssignment.update({
         where: { id: assignmentId },
         data: { status: 'declined' }
     });
 
-    return c.json({ success: true });
+    return c.json({ success: true }, 200);
 });
 
 // POST Update Availability
-r.post('/availability', zValidator('json', z.array(z.object({
-    dayOfWeek: z.number().min(0).max(6),
-    startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-    endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-}))), async (c) => {
+const updateAvailabilityRoute = createRoute({
+    method: 'post',
+    path: '/availability',
+    summary: 'Update Availability',
+    description: 'Update the structural availability for the PSW.',
+    tags: ['PSW Schedule'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        dayOfWeek: z.number().min(0).max(6),
+                        startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+                        endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+                    })),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean() }),
+                },
+            },
+            description: 'Availability updated successfully',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(updateAvailabilityRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const availabilityData = c.req.valid('json');
@@ -258,14 +448,41 @@ r.post('/availability', zValidator('json', z.array(z.object({
         }))
     ]);
 
-    return c.json({ success: true });
+    return c.json({ success: true }, 200);
 });
 
 // POST Client Not Present (No-Show)
-r.post('/visits/:id/no-show', async (c) => {
+const reportNoShowRoute = createRoute({
+    method: 'post',
+    path: '/visits/{id}/no-show',
+    summary: 'Report Client No-Show',
+    description: 'Report that a client was not present for a visit. Requires a check-in and 15 minute wait.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: ScheduleParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean(), status: z.string() }),
+                },
+            },
+            description: 'No-show reported successfully',
+        },
+        400: {
+            description: 'Must check-in or wait 15 minutes',
+        },
+        404: {
+            description: 'Visit or profile not found',
+        },
+    },
+});
+
+r.openapi(reportNoShowRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
-    const visitId = c.req.param('id');
+    const { id: visitId } = c.req.valid('param');
 
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
@@ -277,11 +494,9 @@ r.post('/visits/:id/no-show', async (c) => {
 
     if (!visit) return c.json({ error: 'Visit not found' }, 404);
 
-    // Validate check-in exists
     const checkIn = visit.checkEvents[0];
     if (!checkIn) return c.json({ error: 'Must check-in first before reporting no-show' }, 400);
 
-    // Validate 15 minute wait
     const waitTimeMs = 15 * 60 * 1000;
     const elapsed = Date.now() - new Date(checkIn.serverTime || Date.now()).getTime();
     if (elapsed < waitTimeMs) {
@@ -308,7 +523,7 @@ r.post('/visits/:id/no-show', async (c) => {
         })
     ]);
 
-    return c.json({ success: true, status: 'no_show' });
+    return c.json({ success: true, status: 'no_show' }, 200);
 });
 
 export default r;

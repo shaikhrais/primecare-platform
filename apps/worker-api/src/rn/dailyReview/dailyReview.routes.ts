@@ -1,21 +1,52 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requirePermission } from '../../_shared/middleware/rbac';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const DailyEntryParamsSchema = z.object({
+    id: z.string().openapi({ param: { name: 'id', in: 'path' } }),
+});
 
 /**
  * RN review/sign-off
  */
-r.post('/:id/review', requirePermission('DAILY_ENTRY_REVIEW'), zValidator('json', z.object({
-    notes: z.string().optional(),
-    status: z.enum(['APPROVED', 'REJECTED'])
-})), async (c) => {
+const reviewDailyEntryRoute = createRoute({
+    method: 'post',
+    path: '/{id}/review',
+    summary: 'Review Daily Entry',
+    description: 'Allows an RN to review and sign off on a daily entry.',
+    tags: ['RN Daily Review'],
+    middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
+    request: {
+        params: DailyEntryParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        notes: z.string().optional(),
+                        status: z.enum(['APPROVED', 'REJECTED'])
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Daily entry reviewed successfully',
+        },
+    },
+});
+
+r.openapi(reviewDailyEntryRoute, async (c) => {
     const prisma = c.get('prisma');
-    const id = c.req.param('id');
+    const { id } = c.req.valid('param');
     const { notes, status } = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
 
@@ -29,7 +60,7 @@ r.post('/:id/review', requirePermission('DAILY_ENTRY_REVIEW'), zValidator('json'
 
     await logAudit(prisma, userId, 'REVIEW_DAILY_ENTRY', 'DAILY_ENTRY', id, { status, notes });
 
-    return c.json(entry);
+    return c.json(entry, 200);
 });
 
 export default r;

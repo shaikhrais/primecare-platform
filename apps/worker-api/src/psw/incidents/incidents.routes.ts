@@ -1,18 +1,43 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 /**
  * Report an incident during/after visit
  */
-r.post('/', zValidator('json', z.object({
-    visitId: z.string().uuid().optional(),
-    type: z.string(),
-    description: z.string()
-})), async (c) => {
+const reportIncidentRoute = createRoute({
+    method: 'post',
+    path: '/',
+    summary: 'Report Incident',
+    description: 'Report an incident that occurred during or after a visit.',
+    tags: ['PSW Incidents'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        visitId: z.string().uuid().optional(),
+                        type: z.string(),
+                        description: z.string()
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Incident report created successfully',
+        },
+    },
+});
+
+r.openapi(reportIncidentRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = c.get('jwtPayload').sub;
     const { visitId, type, description } = c.req.valid('json');

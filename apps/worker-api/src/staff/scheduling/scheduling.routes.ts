@@ -1,21 +1,49 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 /**
  * Create a new Visit (Open Shift)
  */
-r.post('/visits', zValidator('json', z.object({
-    clientId: z.string().uuid(),
-    serviceId: z.string().uuid(),
-    requestedStartAt: z.string().datetime(),
-    durationMinutes: z.number().int().positive(),
-    notes: z.string().optional()
-})), async (c) => {
+const createStaffVisitRoute = createRoute({
+    method: 'post',
+    path: '/visits',
+    summary: 'Create Visit (Staff)',
+    description: 'Allows staff to create a new visit (open shift) for a client.',
+    tags: ['Staff Scheduling'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        clientId: z.string().uuid(),
+                        serviceId: z.string().uuid(),
+                        requestedStartAt: z.string().datetime(),
+                        durationMinutes: z.number().int().positive(),
+                        notes: z.string().optional()
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Visit created successfully',
+        },
+        404: {
+            description: 'Client not found',
+        },
+    },
+});
+
+r.openapi(createStaffVisitRoute, async (c) => {
     const prisma = c.get('prisma');
     const data = c.req.valid('json');
     const payload = c.get('jwtPayload');

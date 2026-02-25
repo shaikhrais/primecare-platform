@@ -1,18 +1,51 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import Stripe from 'stripe';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const PaymentIntentSchema = z.object({
     amount: z.number().min(100),
     currency: z.string().default('cad'),
 });
 
-r.post('/create-payment-intent', zValidator('json', PaymentIntentSchema), async (c) => {
+const createPaymentIntentRoute = createRoute({
+    method: 'post',
+    path: '/create-payment-intent',
+    summary: 'Create Payment Intent',
+    description: 'Create a Stripe payment intent for a given amount and currency.',
+    tags: ['System Payments'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: PaymentIntentSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        clientSecret: z.string().nullable(),
+                    }),
+                },
+            },
+            description: 'Payment intent created successfully',
+        },
+        400: {
+            description: 'Bad request (Stripe error)',
+        },
+        500: {
+            description: 'Server error (Stripe not configured)',
+        },
+    },
+});
+
+r.openapi(createPaymentIntentRoute, async (c) => {
     const { amount, currency } = c.req.valid('json');
 
     if (!c.env.STRIPE_SECRET_KEY) {
@@ -38,7 +71,7 @@ r.post('/create-payment-intent', zValidator('json', PaymentIntentSchema), async 
 
         return c.json({
             clientSecret: paymentIntent.client_secret,
-        });
+        }, 200);
     } catch (error: any) {
         return c.json({ error: error.message }, 400);
     }

@@ -1,5 +1,4 @@
-import { Hono } from 'hono';
-import { zValidator } from '@hono/zod-validator';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../bindings';
@@ -9,16 +8,49 @@ import { hashPassword } from '../_shared/utils/crypto';
 import { requireAuth } from '../_shared/middleware/auth';
 import { requireRole } from '../_shared/middleware/rbac';
 
-const auth = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const auth = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-auth.post('/register', zValidator('json', RegisterSchema), async (c) => {
+// Register
+const registerRoute = createRoute({
+    method: 'post',
+    path: '/register',
+    summary: 'Register User',
+    description: 'Register a new user and create a tenant if necessary.',
+    tags: ['Authentication'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: RegisterSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        user: z.any(),
+                        token: z.string(),
+                    }),
+                },
+            },
+            description: 'User registered successfully',
+        },
+        400: {
+            description: 'User already exists or validation error',
+        },
+    },
+});
+
+auth.openapi(registerRoute, async (c) => {
     const prisma = c.get('prisma');
     const { email, password, role, tenantName, tenantSlug } = c.req.valid('json');
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) return c.json({ error: 'User already exists' }, 400);
 
-    // Find or create tenant
     let tenant;
     if (tenantSlug) {
         tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug } });
@@ -73,7 +105,7 @@ auth.post('/register', zValidator('json', RegisterSchema), async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24, // 1 day
+        maxAge: 60 * 60 * 24,
         path: '/'
     });
 
@@ -81,14 +113,48 @@ auth.post('/register', zValidator('json', RegisterSchema), async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: 60 * 60 * 24 * 7,
         path: '/v1/auth/refresh'
     });
 
     return c.json({ user, token: accessToken }, 201);
 });
 
-auth.post('/login', zValidator('json', LoginSchema), async (c) => {
+// Login
+const loginRoute = createRoute({
+    method: 'post',
+    path: '/login',
+    summary: 'Login User',
+    description: 'Authenticate user and set session cookies.',
+    tags: ['Authentication'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: LoginSchema,
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        user: z.any(),
+                        token: z.string(),
+                    }),
+                },
+            },
+            description: 'Login successful',
+        },
+        401: {
+            description: 'Invalid credentials',
+        },
+    },
+});
+
+auth.openapi(loginRoute, async (c) => {
     const { email, password } = c.req.valid('json');
     const prisma = c.get('prisma');
 
@@ -111,7 +177,7 @@ auth.post('/login', zValidator('json', LoginSchema), async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24, // 1 day
+        maxAge: 60 * 60 * 24,
         path: '/'
     });
 
@@ -119,18 +185,58 @@ auth.post('/login', zValidator('json', LoginSchema), async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: 60 * 60 * 24 * 7,
         path: '/v1/auth/refresh'
     });
 
-    return c.json({ user, token: accessToken });
+    return c.json({ user, token: accessToken }, 200);
 });
 
-auth.post('/switch-role', async (c) => {
+// Switch Role
+const switchRoleRoute = createRoute({
+    method: 'post',
+    path: '/switch-role',
+    summary: 'Switch User Role',
+    description: 'Switch the active role for the session.',
+    tags: ['Authentication'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({ targetRole: z.string() }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        token: z.string(),
+                        activeRole: z.string(),
+                    }),
+                },
+            },
+            description: 'Role switched successfully',
+        },
+        401: {
+            description: 'Unauthorized',
+        },
+        403: {
+            description: 'Role not assigned to user',
+        },
+        404: {
+            description: 'User not found',
+        },
+    },
+});
+
+auth.openapi(switchRoleRoute, async (c) => {
     const payload = c.get('jwtPayload');
     if (!payload) return c.json({ error: 'Unauthorized' }, 401);
 
-    const { targetRole } = await c.req.json();
+    const { targetRole } = c.req.valid('json');
     const prisma = c.get('prisma');
 
     if (!payload.roles.includes(targetRole)) {
@@ -154,10 +260,32 @@ auth.post('/switch-role', async (c) => {
         path: '/'
     });
 
-    return c.json({ token, activeRole: targetRole });
+    return c.json({ token, activeRole: targetRole }, 200);
 });
 
-auth.post('/refresh', async (c) => {
+// Refresh
+const refreshRoute = createRoute({
+    method: 'post',
+    path: '/refresh',
+    summary: 'Refresh Token',
+    description: 'Refresh the access token using the refresh token cookie.',
+    tags: ['Authentication'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ token: z.string() }),
+                },
+            },
+            description: 'Token refreshed successfully',
+        },
+        401: {
+            description: 'No refresh token or invalid refresh token',
+        },
+    },
+});
+
+auth.openapi(refreshRoute, async (c) => {
     const refreshToken = getCookie(c, 'refreshToken');
     if (!refreshToken) return c.json({ error: 'No refresh token' }, 401);
 
@@ -183,24 +311,66 @@ auth.post('/refresh', async (c) => {
             path: '/'
         });
 
-        return c.json({ token: accessToken });
+        return c.json({ token: accessToken }, 200);
     } catch (e) {
         return c.json({ error: 'Invalid refresh token' }, 401);
     }
 });
 
-auth.post('/logout', (c) => {
-    deleteCookie(c, 'accessToken');
-    deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh' });
-    return c.json({ success: true });
+// Logout
+const logoutRoute = createRoute({
+    method: 'post',
+    path: '/logout',
+    summary: 'Logout',
+    description: 'Clear session cookies.',
+    tags: ['Authentication'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean() }),
+                },
+            },
+            description: 'Logged out successfully',
+        },
+    },
 });
 
-auth.get('/whoami', async (c) => {
-    // 1. Check if middleware already set the payload
+auth.openapi(logoutRoute, (c) => {
+    deleteCookie(c, 'accessToken');
+    deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh' });
+    return c.json({ success: true }, 200);
+});
+
+// Whoami
+const whoamiRoute = createRoute({
+    method: 'get',
+    path: '/whoami',
+    summary: 'Get Current User',
+    description: 'Retrieve details of the currently authenticated user.',
+    tags: ['Authentication'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ user: z.any() }),
+                },
+            },
+            description: 'User details',
+        },
+        401: {
+            description: 'Not authenticated or invalid session',
+        },
+        404: {
+            description: 'User not found',
+        },
+    },
+});
+
+auth.openapi(whoamiRoute, async (c) => {
     const payload = c.get('jwtPayload') as any;
     let userId: string | undefined = payload?.sub;
 
-    // 2. Fallback: Manual check (similar to requireAuth) if payload is missing
     if (!userId) {
         const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
         if (accessToken) {
@@ -224,23 +394,64 @@ auth.get('/whoami', async (c) => {
     });
 
     if (!user) return c.json({ error: 'User not found' }, 404);
-    return c.json({ user });
+    return c.json({ user }, 200);
 });
 
-auth.post('/impersonate', async (c) => {
+// Impersonate
+const impersonateRoute = createRoute({
+    method: 'post',
+    path: '/impersonate',
+    summary: 'Impersonate User',
+    description: 'As an admin, impersonate another user.',
+    tags: ['Authentication'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({ targetUserId: z.string() }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        user: z.any(),
+                        token: z.string(),
+                    }),
+                },
+            },
+            description: 'Successfully impersonating target user',
+        },
+        401: {
+            description: 'Unauthorized',
+        },
+        403: {
+            description: 'Forbidden: Admin role required',
+        },
+        404: {
+            description: 'Target user not found',
+        },
+    },
+});
+
+auth.openapi(impersonateRoute, async (c) => {
     const secret = c.env.JWT_SECRET || 'fallback_secret';
-    // 1. Manually trigger auth & role check (since we are inside the auth module which is usually public)
+
+    // Manual checks because we don't have middleware property in createRoute for sub-routes if it needs closure over secret
     const authMiddleware = requireAuth(secret);
     let authPassed = false;
     await authMiddleware(c, async () => { authPassed = true; });
-    if (!authPassed) return; // requireAuth already sent 401 if failed
+    if (!authPassed) return;
 
     const roleMiddleware = requireRole(['admin']);
     let rolePassed = false;
     await roleMiddleware(c, async () => { rolePassed = true; });
-    if (!rolePassed) return; // requireRole already sent 403 if failed
+    if (!rolePassed) return;
 
-    const { targetUserId } = await c.req.json();
+    const { targetUserId } = c.req.valid('json');
     const prisma = c.get('prisma');
 
     const targetUser = await prisma.user.findUnique({
@@ -256,7 +467,7 @@ auth.post('/impersonate', async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24, // 1 day
+        maxAge: 60 * 60 * 24,
         path: '/'
     });
 
@@ -264,11 +475,11 @@ auth.post('/impersonate', async (c) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: 60 * 60 * 24 * 7,
         path: '/v1/auth/refresh'
     });
 
-    return c.json({ user: targetUser, token: accessToken });
+    return c.json({ user: targetUser, token: accessToken }, 200);
 });
 
 export default auth;

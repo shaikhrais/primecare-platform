@@ -1,10 +1,47 @@
-import { Hono } from 'hono';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { logAudit } from '../../_shared/utils/audit';
 
-const r = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-r.put('/upload', async (c) => {
+const StorageParamsSchema = z.object({
+    key: z.string().openapi({ param: { name: 'key', in: 'path' } }),
+});
+
+const uploadFileRoute = createRoute({
+    method: 'put',
+    path: '/upload',
+    summary: 'Upload File',
+    description: 'Upload a file to the documentation bucket.',
+    tags: ['System Storage'],
+    request: {
+        body: {
+            content: {
+                'application/octet-stream': {
+                    schema: z.object({}), // Binary data
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        key: z.string(),
+                        url: z.string(),
+                    }),
+                },
+            },
+            description: 'File uploaded successfully',
+        },
+        500: {
+            description: 'Internal server error',
+        },
+    },
+});
+
+r.openapi(uploadFileRoute, async (c) => {
     const bucket = c.env.DOCS_BUCKET;
     const key = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
     const body = await c.req.arrayBuffer();
@@ -19,14 +56,33 @@ r.put('/upload', async (c) => {
         const prisma = c.get('prisma');
         await logAudit(prisma, payload.sub, 'UPLOAD_FILE', 'DOCS', key, { filename: c.req.header('x-filename') || key });
 
-        return c.json({ key, url: `/v1/storage/file/${key}` });
+        return c.json({ key, url: `/v1/storage/file/${key}` }, 200);
     } catch (e: any) {
         return c.json({ error: e.message }, 500);
     }
 });
 
-r.get('/file/:key', async (c) => {
-    const key = c.req.param('key');
+const getFileRoute = createRoute({
+    method: 'get',
+    path: '/file/{key}',
+    summary: 'Get File',
+    description: 'Retrieve a file from the documentation bucket by its key.',
+    tags: ['System Storage'],
+    request: {
+        params: StorageParamsSchema,
+    },
+    responses: {
+        200: {
+            description: 'File content',
+        },
+        404: {
+            description: 'File not found',
+        },
+    },
+});
+
+r.openapi(getFileRoute, async (c) => {
+    const { key } = c.req.valid('param');
     const bucket = c.env.DOCS_BUCKET;
 
     const object = await bucket.get(key);
