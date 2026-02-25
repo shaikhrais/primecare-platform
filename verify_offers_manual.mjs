@@ -2,7 +2,7 @@
 
 const API_URL = 'https://primecare-api.itpro-mohammed.workers.dev';
 const EMAIL = 'psw.a@primecare.ca';
-const PASSWORD = 'Password123!';
+const PASSWORD = 'admin123';
 
 async function verifyOffers() {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';

@@ -1,8 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
-import getProfileRoute from './routes/getProfile';
-import updateProfileRoute from './routes/updateProfile';
+import profileRoutes from './profile.routes';
 
 const user = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -13,7 +12,6 @@ user.use('*', async (c, next) => {
     return await middleware(c, next);
 });
 
-user.route('/profile', getProfileRoute);
-user.route('/profile', updateProfileRoute);
+user.route('/profile', profileRoutes);
 
 export default user;
