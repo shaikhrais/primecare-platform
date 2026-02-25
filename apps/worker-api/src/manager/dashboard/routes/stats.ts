@@ -1,4 +1,4 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { requireRole } from '../../../_shared/middleware/rbac';
 
@@ -242,3 +242,7 @@ r.openapi(getManagerStatsRoute, async (c) => {
 });
 
 export default r;
+
+
+
+

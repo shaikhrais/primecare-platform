@@ -1,4 +1,4 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { LoginSchema } from '../auth.validation';
@@ -36,7 +36,20 @@ const loginRoute = createRoute({
             description: 'Login successful',
         },
         401: {
-            description: 'Invalid credentials',
+            content: {
+                'application/json': {
+                    schema: z.object({ error: z.string() }),
+                },
+            },
+            description: 'Unauthorized',
+        },
+        500: {
+            content: {
+                'application/json': {
+                    schema: z.object({ error: z.string() }),
+                },
+            },
+            description: 'Internal server error',
         },
     },
 });
@@ -151,3 +164,6 @@ r.openapi(switchRoleRoute, async (c) => {
 });
 
 export default r;
+
+
+

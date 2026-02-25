@@ -1,5 +1,5 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { Bindings, Variables } from '../../bindings';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -69,7 +69,7 @@ r.openapi(updateProfileRoute, async (c) => {
         await prisma.user.update({
             where: { id: userId },
             data: {
-                phone: body.phoneNumber || body.phone
+                phone: (body.phoneNumber || body.phone) as any
             }
         });
 
@@ -113,3 +113,7 @@ r.openapi(updateProfileRoute, async (c) => {
 });
 
 export default r;
+
+
+
+

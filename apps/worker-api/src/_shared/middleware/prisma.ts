@@ -1,5 +1,5 @@
-import { createMiddleware } from 'hono/factory';
-import { PrismaClient } from '../../../generated/client/edge';
+﻿import { createMiddleware } from 'hono/factory';
+
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../../bindings';
 
@@ -35,6 +35,7 @@ export const prismaMiddleware = () => {
             return payload.roles.includes('admin');
         });
 
-        return await next();
+        return next();
     });
 };
+

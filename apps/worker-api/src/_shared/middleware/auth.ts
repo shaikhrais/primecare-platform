@@ -1,4 +1,4 @@
-import { Context, Next } from 'hono';
+﻿import { Context, Next } from 'hono';
 import { jwt } from 'hono/jwt';
 
 /**
@@ -57,3 +57,4 @@ export const requireHeaderAuth = (secret: string) => {
         alg: 'HS256'
     });
 };
+

@@ -1,4 +1,4 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { RegisterSchema } from '../auth.validation';
@@ -118,3 +118,6 @@ r.openapi(registerRoute, async (c) => {
 });
 
 export default r;
+
+
+

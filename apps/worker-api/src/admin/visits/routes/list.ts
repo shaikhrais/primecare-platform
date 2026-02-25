@@ -1,4 +1,4 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -36,3 +36,7 @@ r.openapi(listVisitsRoute, async (c) => {
 });
 
 export default r;
+
+
+
+

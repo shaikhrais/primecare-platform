@@ -1,4 +1,4 @@
-import { Context, Next } from 'hono';
+﻿import { Context, Next } from 'hono';
 
 export const errorHandler = async (c: Context, next: Next) => {
     try {
@@ -11,3 +11,4 @@ export const errorHandler = async (c: Context, next: Next) => {
         }, err.status || 500);
     }
 };
+

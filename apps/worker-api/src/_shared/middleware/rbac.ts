@@ -1,4 +1,4 @@
-import { Context, Next } from 'hono';
+﻿import { Context, Next } from 'hono';
 import { Role } from '../../../generated/client/edge';
 import { Permission } from '../rbac/permissions';
 import { ROLE_PERMISSIONS } from '../rbac/policies';
@@ -35,3 +35,4 @@ export const requirePermission = (permission: Permission) => {
         await next();
     };
 };
+

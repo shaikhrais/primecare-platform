@@ -1,4 +1,4 @@
-import { Context, Next } from 'hono';
+﻿import { Context, Next } from 'hono';
 import { Bindings, Variables } from '../../bindings';
 
 /**
@@ -41,3 +41,4 @@ export const requireClientAssignedToPSW = async (c: Context<{ Bindings: Bindings
 
     await next();
 };
+

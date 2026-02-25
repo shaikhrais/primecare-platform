@@ -1,4 +1,4 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { logAudit } from '../../../_shared/utils/audit';
 
@@ -312,3 +312,7 @@ r.openapi(cancelVisitRoute, async (c) => {
 });
 
 export default r;
+
+
+
+
