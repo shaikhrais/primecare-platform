@@ -29,12 +29,12 @@ export const prismaMiddleware = () => {
         c.set('prisma', prismaInstance);
 
         // Context helper for permission checks
-        c.set('can' as any, async (action: string, resource: string, resourceId?: string) => {
+        c.set('can', async (action: string, resource: string, resourceId?: string) => {
             const payload = c.get('jwtPayload');
             if (!payload) return false;
             return payload.roles.includes('admin');
         });
 
-        await next();
+        return await next();
     });
 };

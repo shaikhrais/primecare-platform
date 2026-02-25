@@ -1,0 +1,88 @@
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { Bindings, Variables } from '../../../bindings';
+
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const ScheduleParamsSchema = z.object({
+    id: z.string().openapi({
+        param: { name: 'id', in: 'path' },
+        example: 'visit-uuid',
+    }),
+});
+
+// POST Client Not Present (No-Show)
+const reportNoShowRoute = createRoute({
+    method: 'post',
+    path: '/{id}/no-show',
+    summary: 'Report Client No-Show',
+    description: 'Report that a client was not present for a visit. Requires a check-in and 15 minute wait.',
+    tags: ['PSW Schedule'],
+    request: {
+        params: ScheduleParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean(), status: z.string() }),
+                },
+            },
+            description: 'No-show reported successfully',
+        },
+        400: {
+            description: 'Must check-in or wait 15 minutes',
+        },
+        404: {
+            description: 'Visit or profile not found',
+        },
+    },
+});
+
+r.openapi(reportNoShowRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const { id: visitId } = c.req.valid('param');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const visit = await prisma.visit.findFirst({
+        where: { id: visitId, assignedPswId: profile.id },
+        include: { checkEvents: { where: { eventType: 'check_in' }, orderBy: { serverTime: 'desc' } } }
+    });
+
+    if (!visit) return c.json({ error: 'Visit not found' }, 404);
+
+    const checkIn = visit.checkEvents[0];
+    if (!checkIn) return c.json({ error: 'Must check-in first before reporting no-show' }, 400);
+
+    const waitTimeMs = 15 * 60 * 1000;
+    const elapsed = Date.now() - new Date(checkIn.serverTime || Date.now()).getTime();
+    if (elapsed < waitTimeMs) {
+        return c.json({
+            error: 'You must wait 15 minutes after check-in before flagging as no-show',
+            remainingMinutes: Math.ceil((waitTimeMs - elapsed) / 60000)
+        }, 400);
+    }
+
+    await prisma.$transaction([
+        prisma.visit.update({
+            where: { id: visitId },
+            data: { status: 'no_show' }
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: userId,
+                action: 'CLIENT_NO_SHOW',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                tenantId: profile.tenantId,
+                metadataJson: { waitTimeMinutes: 15 }
+            }
+        })
+    ]);
+
+    return c.json({ success: true, status: 'no_show' }, 200);
+});
+
+export default r;
