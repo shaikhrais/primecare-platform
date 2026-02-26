@@ -83,7 +83,7 @@ export function PerspectiveModal({
                             {isImpersonating ? 'User Impersonation Tool' : 'Perspective Switcher'}
                         </h3>
                         <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--text-300)' }}>
-                            {isImpersonating ? 'You are currently viewing as another user' : 'Toggle your role or impersonate a system user'}
+                            {isImpersonating ? 'You are currently viewing as another user' : 'Switch between Umbrella Roles or impersonate a system user'}
                         </p>
                     </div>
                     <button
@@ -103,8 +103,8 @@ export function PerspectiveModal({
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {[
                                 { title: 'Administration', roles: ['admin'] },
-                                { title: 'Staff (Ops)', roles: ['staff', 'finance', 'hr', 'compliance'] },
-                                { title: 'Management', roles: ['manager', 'marketing_manager', 'operations_manager', 'coordinator', 'crm', 'training'] },
+                                { title: 'Staff', roles: ['staff', 'finance', 'hr', 'compliance'] },
+                                { title: 'Managers', roles: ['manager', 'marketing_manager', 'operations_manager', 'coordinator', 'crm', 'training'] },
                                 { title: 'Service Providers', roles: ['psw', 'rn', 'rmt', 'rpt', 'rch'] }
                             ].map(group => {
                                 const userGroupRoles = roles.filter(r => group.roles.includes(r));
