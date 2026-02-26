@@ -23,11 +23,11 @@ export default function PswDashboardEnterprise() {
     const getUser = () => {
         try {
             const userStr = localStorage.getItem('user');
-            if (!userStr || userStr === 'undefined') return { fullName: 'Caregiver', roles: [], activeRole: 'psw' };
+            if (!userStr || userStr === 'undefined') return { fullName: 'Service Provider', roles: [], activeRole: 'psw' };
             return JSON.parse(userStr);
         } catch (e) {
             console.error('Failed to parse user session', e);
-            return { fullName: 'Caregiver', roles: [], activeRole: 'psw' };
+            return { fullName: 'Service Provider', roles: [], activeRole: 'psw' };
         }
     };
 
@@ -85,7 +85,7 @@ export default function PswDashboardEnterprise() {
                 {/* Hero Section: Welcome & Key Stats */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                     <WelcomeCard
-                        userName={user?.fullName?.split(' ')[0] || 'Caregiver'}
+                        userName={user?.fullName?.split(' ')[0] || 'Service Provider'}
                         shiftCount={shifts?.length || 0}
                     />
                     <DashboardStats />

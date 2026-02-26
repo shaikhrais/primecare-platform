@@ -56,7 +56,7 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
                         disabled={disabled}
                         style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                     >
-                        <option value="">Select a caregiver</option>
+                        <option value="">Select a service provider</option>
                         {psws.map(psw => (
                             <option key={psw.id} value={psw.pswProfile?.id || psw.id}>
                                 {psw.pswProfile?.fullName || psw.email}

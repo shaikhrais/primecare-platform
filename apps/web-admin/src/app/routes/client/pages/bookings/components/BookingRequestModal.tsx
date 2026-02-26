@@ -111,7 +111,7 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Notes for Caregiver</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Notes for Service Provider</label>
                         <textarea
                             data-cy="inp-notes"
                             rows={3}

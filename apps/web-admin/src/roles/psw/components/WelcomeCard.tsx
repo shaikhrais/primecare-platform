@@ -60,7 +60,7 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = ({ userName, shiftCount }
                     }}>{userName}</span>! 👋
                 </h2>
                 <p className="welcome-text" style={{ margin: '16px 0 0 0', opacity: 0.9, fontWeight: 500, maxWidth: '600px', lineHeight: 1.5 }}>
-                    Your enterprise caregiver command center is ready. You have <strong style={{ color: '#00C985' }}>{shiftCount} visits</strong> scheduled for your shift today.
+                    Your enterprise service provider command center is ready. You have <strong style={{ color: '#00C985' }}>{shiftCount} visits</strong> scheduled for your shift today.
                 </p>
 
                 <div style={{ marginTop: '32px', display: 'flex', gap: '16px', alignItems: 'center' }}>

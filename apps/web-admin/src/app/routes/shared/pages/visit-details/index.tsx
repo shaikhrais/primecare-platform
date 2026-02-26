@@ -54,7 +54,7 @@ export default function VisitDetails() {
                 </div>
 
                 <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Caregiver Information</h3>
+                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Service Provider Information</h3>
                     {visit.psw ? (
                         <>
                             <p><strong>Name:</strong> {visit.psw.fullName}</p>

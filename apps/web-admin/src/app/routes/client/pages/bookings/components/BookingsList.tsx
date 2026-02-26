@@ -33,7 +33,7 @@ export const BookingsList: React.FC<BookingsListProps> = ({ bookings, loading, o
                     <tr>
                         <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Service</th>
                         <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Date & Time</th>
-                        <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Caregiver</th>
+                        <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Service Provider</th>
                         <th style={{ padding: '1rem', fontWeight: '600', color: '#374151' }}>Status</th>
                     </tr>
                 </thead>

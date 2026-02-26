@@ -110,7 +110,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                             </button>
                         </div>
                     ) : (
-                        <p style={{ fontSize: '0.75rem', color: '#9ca3af', textAlign: 'center', margin: '1rem 0' }}>Click refresh to see smart caregiver matches.</p>
+                        <p style={{ fontSize: '0.75rem', color: '#9ca3af', textAlign: 'center', margin: '1rem 0' }}>Click refresh to see smart service provider matches.</p>
                     )}
                 </div>
 

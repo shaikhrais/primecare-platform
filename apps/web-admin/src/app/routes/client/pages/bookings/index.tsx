@@ -89,7 +89,7 @@ export default function BookingsPage() {
 
             if (response.ok) {
                 setShowModal(false);
-                showToast('Request submitted! We will assign a caregiver shortly.', 'success');
+                showToast('Request submitted! We will assign a service provider shortly.', 'success');
                 fetchBookings(); // Refresh list
             } else {
                 showToast('Failed to submit request.', 'error');

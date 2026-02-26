@@ -26,7 +26,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                     <tr>
                         <th style={{ padding: '1rem' }}>Date & Time</th>
                         <th style={{ padding: '1rem' }}>Client</th>
-                        <th style={{ padding: '1rem' }}>Caregiver</th>
+                        <th style={{ padding: '1rem' }}>Service Provider</th>
                         <th style={{ padding: '1rem' }}>Status</th>
                         <th style={{ padding: '1rem' }}>Quick Actions</th>
                     </tr>

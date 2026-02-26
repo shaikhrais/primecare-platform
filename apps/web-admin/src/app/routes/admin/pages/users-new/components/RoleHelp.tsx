@@ -4,7 +4,7 @@ const ROLE_INFO = {
     admin: { label: 'Administrator', info: 'Full system access. Can manage all settings, billing, and system-level roles.' },
     staff: { label: 'Operational Staff (Umbrella)', info: 'Manage day-to-day operations: scheduling, leads, and basic user data.' },
     manager: { label: 'Manager (Umbrella)', info: 'Access to reporting, audits, and performance metrics for specific teams.' },
-    psw: { label: 'Caregiver (Umbrella)', info: 'Field workers (PSW, RN, RMT). Access to schedules and reports.' },
+    psw: { label: 'Service Provider (Umbrella)', info: 'Field workers (PSW, RN, RMT). Access to schedules and reports.' },
     client: { label: 'Client / Family', info: 'Care recipients. Access to their own bookings and billing.' },
 };
 
@@ -49,7 +49,7 @@ export const RoleHelp: React.FC = () => {
                     <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Service Providers</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Professional Caregivers (PSW/RN/etc)</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Professional Service Providers (PSW/RN/etc)</div>
                             <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Direct care delivery. Access to schedules and patient documentation.</div>
                         </div>
                     </div>

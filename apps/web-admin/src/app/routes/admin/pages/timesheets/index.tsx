@@ -56,7 +56,7 @@ export default function TimesheetList() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ backgroundColor: '#f9fafb' }}>
                         <tr>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Caregiver</th>
+                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Service Provider</th>
                             <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Week</th>
                             <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Minutes</th>
                             <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Status</th>
@@ -73,7 +73,7 @@ export default function TimesheetList() {
                                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
                                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                             >
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-caregiver">
+                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-service-provider">
                                     <Link
                                         to={`${RouteRegistry.USERS}?search=${ts.psw?.email}`}
                                         onClick={(e) => e.stopPropagation()}

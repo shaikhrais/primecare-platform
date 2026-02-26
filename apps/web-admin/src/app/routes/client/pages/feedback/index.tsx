@@ -99,7 +99,7 @@ export default function FeedbackForm() {
                     {['careQuality', 'professionalism'].map((metric) => (
                         <div key={metric}>
                             <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 500, textTransform: 'capitalize' }}>
-                                {metric === 'careQuality' ? 'Quality of Care' : 'Caregiver Professionalism'}
+                                {metric === 'careQuality' ? 'Quality of Care' : 'Service Provider Professionalism'}
                             </label>
                             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
                                 {[1, 2, 3, 4, 5].map((star) => (
@@ -145,7 +145,7 @@ export default function FeedbackForm() {
                             onChange={(e) => { setFormData({ ...formData, recommend: e.target.checked }); setIsDirty(true); }}
                             style={{ width: '20px', height: '20px' }}
                         />
-                        <label style={{ fontWeight: 500 }}>I would recommend this caregiver to others.</label>
+                        <label style={{ fontWeight: 500 }}>I would recommend this service provider to others.</label>
                     </div>
                 </div>
 

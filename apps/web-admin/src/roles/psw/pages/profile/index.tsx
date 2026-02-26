@@ -82,7 +82,7 @@ export default function ProfilePage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #E5E7EB', paddingBottom: '2rem' }}>
                     <div>
                         <Breadcrumb />
-                        <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '3rem', fontWeight: 900, color: '#111827', letterSpacing: '-1.5px' }}>Caregiver Profile</h1>
+                        <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '3rem', fontWeight: 900, color: '#111827', letterSpacing: '-1.5px' }}>Service Provider Profile</h1>
                         <p style={{ margin: '8px 0 0 0', color: '#6B7280', fontSize: '1.1rem', fontWeight: 500 }}>Manage your enterprise credentials and personal information</p>
                     </div>
                     {message && (
@@ -196,7 +196,7 @@ export default function ProfilePage() {
                                 letterSpacing: '1px',
                                 marginBottom: '24px'
                             }}>
-                                🛡️ Verified Caregiver
+                                🛡️ Verified Service Provider
                             </div>
 
                             <div style={{

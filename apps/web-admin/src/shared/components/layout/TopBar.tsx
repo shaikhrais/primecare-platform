@@ -121,7 +121,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: '0.875rem', fontWeight: 900, color: '#111827', textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>
                         {role === 'admin' ? 'Administration' :
-                            role === 'psw' ? 'Caregiver Portal' :
+                            role === 'psw' ? 'Service Provider Portal' :
                                 role === 'client' ? 'Family Hub' :
                                     role === 'rn' ? 'Clinical Panel' : 'Staff Workspace'}
                     </span>
