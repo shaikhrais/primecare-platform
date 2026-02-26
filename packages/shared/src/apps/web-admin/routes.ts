@@ -19,4 +19,27 @@ export const RouteRegistry = {
     SUPPORT: '/admin/support',
     ADMISSION: '/admin/admission',
     ONBOARDING: '/admin/onboarding',
+
+    ROLE_DASHBOARDS: {
+        admin: '/admin/dashboard',
+        manager: '/manager/dashboard',
+        marketing_manager: '/manager/dashboard',
+        operations_manager: '/manager/dashboard',
+        clinical_manager: '/manager/dashboard',
+        regional_manager: '/manager/dashboard',
+        recruiting_manager: '/manager/dashboard',
+        coordinator: '/manager/dashboard',
+        crm: '/manager/dashboard',
+        training: '/manager/dashboard',
+        staff: '/staff/dashboard',
+        finance: '/staff/dashboard',
+        hr: '/staff/dashboard',
+        compliance: '/staff/dashboard',
+        rn: '/rn/dashboard',
+        psw: '/psw/dashboard',
+        rmt: '/psw/dashboard',
+        rpt: '/psw/dashboard',
+        rch: '/psw/dashboard',
+        client: '/client/dashboard'
+    } as Record<string, string>
 } as const;

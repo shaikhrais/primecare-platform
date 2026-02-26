@@ -62,17 +62,8 @@ export default function Login() {
         const userWithActiveRole = { ...user, activeRole };
         login(userWithActiveRole, token);
 
-        if (activeRole === 'manager') {
-            navigate('/manager/dashboard');
-        } else if (activeRole === 'psw') {
-            navigate('/psw/dashboard');
-        } else if (activeRole === 'client') {
-            navigate('/client/dashboard');
-        } else if (activeRole === 'rn') {
-            navigate('/rn/dashboard');
-        } else {
-            navigate(RouteRegistry.DASHBOARD);
-        }
+        const target = RouteRegistry.ROLE_DASHBOARDS[activeRole] || RouteRegistry.DASHBOARD;
+        navigate(target);
     };
 
     if (authStep === 'select-role' && tempUser) {

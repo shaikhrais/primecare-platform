@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 
-const { ApiRegistry } = AdminRegistry;
+const { ApiRegistry, RouteRegistry } = AdminRegistry;
 
 interface User {
     id: string;
@@ -56,29 +56,8 @@ export default function DevPerspectiveSwitcher() {
             const updatedUser = { ...currentUser, activeRole: targetRole };
             localStorage.setItem('user', JSON.stringify(updatedUser));
 
-            const dashboardMap: Record<string, string> = {
-                admin: '/admin/dashboard',
-                manager: '/manager/dashboard',
-                marketing_manager: '/manager/dashboard',
-                operations_manager: '/manager/dashboard',
-                clinical_manager: '/manager/dashboard',
-                regional_manager: '/manager/dashboard',
-                recruiting_manager: '/manager/dashboard',
-                coordinator: '/manager/dashboard',
-                crm: '/manager/dashboard',
-                training: '/manager/dashboard',
-                staff: '/staff/dashboard',
-                finance: '/staff/dashboard',
-                hr: '/staff/dashboard',
-                compliance: '/staff/dashboard',
-                rn: '/rn/dashboard',
-                psw: '/psw/dashboard',
-                rmt: '/psw/dashboard',
-                rpt: '/psw/dashboard',
-                rch: '/psw/dashboard',
-                client: '/client/dashboard'
-            };
-            navigate(dashboardMap[targetRole] || '/app');
+            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || '/app';
+            navigate(target);
             setIsOpen(false);
         } finally {
             setLoading(false);
