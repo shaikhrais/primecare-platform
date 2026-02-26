@@ -2,17 +2,17 @@ import React from 'react';
 
 const ROLE_INFO = {
     admin: { label: 'Administrator', info: 'Full system access. Can manage all settings, billing, and system-level roles.' },
-    staff: { label: 'Operational Staff', info: 'Manage day-to-day operations: scheduling, leads, and basic user data.' },
-    manager: { label: 'Regional Manager', info: 'Access to reporting, audits, and performance metrics for specific teams.' },
-    psw: { label: 'Care Worker (PSW/RN)', info: 'Field workers. Access to schedules, visit reports, and earnings.' },
-    client: { label: 'Client / Family', info: 'Care recipients. Access to their own bookings, billing, and care hub.' },
+    staff: { label: 'Operational Staff (Umbrella)', info: 'Manage day-to-day operations: scheduling, leads, and basic user data.' },
+    manager: { label: 'Manager (Umbrella)', info: 'Access to reporting, audits, and performance metrics for specific teams.' },
+    psw: { label: 'Caregiver (Umbrella)', info: 'Field workers (PSW, RN, RMT). Access to schedules and reports.' },
+    client: { label: 'Client / Family', info: 'Care recipients. Access to their own bookings and billing.' },
 };
 
 export const RoleHelp: React.FC = () => {
     return (
         <div style={{ padding: '1.5rem', backgroundColor: '#fff7ed', borderRadius: '1rem', border: '1px solid #ffedd5', height: 'fit-content' }}>
             <h4 style={{ margin: '0 0 1rem 0', color: '#9a3412', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                💡 Admin Staff Guide
+                💡 Umbrella Role Guide
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div>
@@ -26,7 +26,7 @@ export const RoleHelp: React.FC = () => {
                 </div>
 
                 <div>
-                    <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Staff (Operations)</div>
+                    <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Staff (Umbrella)</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
                             <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Operational Staff / HR / Finance</div>
@@ -36,7 +36,7 @@ export const RoleHelp: React.FC = () => {
                 </div>
 
                 <div>
-                    <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Management</div>
+                    <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Managers (Umbrella)</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
                             <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Managers / CRM / Marketing</div>
