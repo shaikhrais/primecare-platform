@@ -16,7 +16,11 @@ export const UserRoles: React.FC<UserRolesProps> = ({ selectedRoles, onChange })
     const ROLE_GROUPS = [
         {
             title: 'Administration',
-            roles: ['admin', 'staff', 'finance', 'hr', 'compliance'],
+            roles: ['admin'],
+        },
+        {
+            title: 'Staff (Operations)',
+            roles: ['staff', 'finance', 'hr', 'compliance'],
         },
         {
             title: 'Management',

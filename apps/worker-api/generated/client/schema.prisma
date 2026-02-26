@@ -507,6 +507,10 @@ enum Role {
   rmt
   rpt
   rch
+  hr
+  compliance
+  crm
+  training
 }
 
 enum DocStatus {

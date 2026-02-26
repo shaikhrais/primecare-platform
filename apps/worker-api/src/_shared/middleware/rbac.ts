@@ -9,20 +9,23 @@ export const requireRole = (allowedRoles: Role[]) => {
         const userRoles = payload?.roles as Role[] || [];
 
         const SERVICE_PROVIDERS = ['psw', 'rn', 'rmt', 'rpt', 'rch'];
+        const STAFF_SUBROLES = ['staff', 'finance', 'hr', 'compliance'];
 
         const hasAccess = userRoles.some(role => {
             const lowerRole = role.toLowerCase();
             if (allowedRoles.includes(role)) return true;
 
-            // 1. Manager Umbrella: if 'manager' is an allowed role, 
-            // any role string containing 'manager' is permitted.
+            // 1. Manager Umbrella: any role string containing 'manager'
             const isManagerAllowed = allowedRoles.includes('manager' as Role);
             if (isManagerAllowed && lowerRole.includes('manager')) return true;
 
-            // 2. Service Provider Umbrella: if 'service_provider' is allowed,
-            // any of the specific caregiver roles are permitted.
+            // 2. Service Provider Umbrella: PSW, RN, RMT, RPT, RCH
             const isSPAllowed = allowedRoles.includes('service_provider' as any);
             if (isSPAllowed && SERVICE_PROVIDERS.includes(lowerRole)) return true;
+
+            // 3. Staff Umbrella: finance, hr, compliance, etc.
+            const isStaffAllowed = allowedRoles.includes('staff' as Role);
+            if (isStaffAllowed && STAFF_SUBROLES.includes(lowerRole)) return true;
 
             return false;
         });

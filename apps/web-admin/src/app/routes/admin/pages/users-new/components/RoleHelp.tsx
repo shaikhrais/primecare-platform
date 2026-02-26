@@ -19,8 +19,18 @@ export const RoleHelp: React.FC = () => {
                     <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Administration</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Admin / Staff</div>
-                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Full system or operational access. Manage users, settings, and daily workflows.</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Admin</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Full system access. Manage all settings, billing, and system-level roles.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Staff (Operations)</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        <div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Operational Staff / HR / Finance</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Manage day-to-day operations: scheduling, payroll, and compliance.</div>
                         </div>
                     </div>
                 </div>
@@ -29,8 +39,8 @@ export const RoleHelp: React.FC = () => {
                     <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Management</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Managers / Coordinators</div>
-                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Umbrella roles for Marketing, Operations, and Regional oversight. Access to analytics and audits.</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Managers / CRM / Marketing</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Oversight and relationship management. Access to growth and performance metrics.</div>
                         </div>
                     </div>
                 </div>
@@ -39,8 +49,8 @@ export const RoleHelp: React.FC = () => {
                     <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Service Providers</div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Caregivers (PSW, RN, RMT, etc.)</div>
-                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>The professional care team. Access to schedules, visit reports, and field tools.</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Professional Caregivers (PSW/RN/etc)</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Direct care delivery. Access to schedules and patient documentation.</div>
                         </div>
                     </div>
                 </div>
