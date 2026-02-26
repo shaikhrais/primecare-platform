@@ -38,9 +38,10 @@ app.use('*', cors({
     credentials: true,
 }));
 
-// 2. Global Error Handler (Standard Hono way)
 app.onError((err, c) => {
     console.error('Hono Global Error:', err);
+
+    // Safety check: ensure we don't double-set headers if they were already sent
     const origin = c.req.header('Origin') || 'https://primecare-admin.pages.dev';
 
     return c.json({

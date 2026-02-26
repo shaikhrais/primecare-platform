@@ -502,6 +502,11 @@ enum Role {
   admin
   finance
   rn
+  marketing_manager
+  operations_manager
+  rmt
+  rpt
+  rch
 }
 
 enum DocStatus {

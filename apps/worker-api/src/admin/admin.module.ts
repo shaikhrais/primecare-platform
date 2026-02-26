@@ -16,7 +16,7 @@ const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // Admin module-level middleware
 admin.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 admin.use('*', tenantMiddleware());
 admin.use('*', requireRole(['admin']));
@@ -65,27 +65,22 @@ const statsRoute = createRoute({
 });
 
 admin.openapi(statsRoute, async (c) => {
-    try {
-        const prisma = c.get('prisma');
+    const prisma = c.get('prisma');
 
-        // Parallelize queries for performance
-        const [totalUsers, pendingVisits, totalVisits, totalLeads] = await Promise.all([
-            prisma.user.count(),
-            prisma.visit.count({ where: { status: 'requested' } }),
-            prisma.visit.count(), // Total visits (all statuses)
-            prisma.lead.count()
-        ]);
+    // Parallelize queries for performance
+    const [totalUsers, pendingVisits, totalVisits, totalLeads] = await Promise.all([
+        prisma.user.count(),
+        prisma.visit.count({ where: { status: 'requested' } }),
+        prisma.visit.count(), // Total visits (all statuses)
+        prisma.lead.count()
+    ]);
 
-        return c.json({
-            totalUsers,
-            pendingVisits,
-            totalVisits,
-            totalLeads
-        }, 200);
-    } catch (error: any) {
-        console.error('Error fetching admin stats:', error);
-        return c.json({ error: 'Failed to fetch stats', details: error.message }, 500);
-    }
+    return c.json({
+        totalUsers,
+        pendingVisits,
+        totalVisits,
+        totalLeads
+    }, 200);
 });
 
 export default admin;
