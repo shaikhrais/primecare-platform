@@ -22,6 +22,7 @@
         "@prisma/extension-accelerate": "^2.0.2",
         "acorn-walk": "^8.3.4",
         "hono": "^4.11.7",
+        "pg": "^8.19.0",
         "stripe": "^20.3.0",
         "zod": "^3.25.76"
     },
@@ -31,6 +32,6 @@
         "@types/pg": "^8.16.0",
         "prisma": "^5.22.0",
         "typescript": "^5.9.3",
-        "wrangler": "^3.114.17"
+        "wrangler": "^4.68.1"
     }
 }
