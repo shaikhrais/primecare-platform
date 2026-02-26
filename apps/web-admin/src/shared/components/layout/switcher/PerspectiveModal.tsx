@@ -203,7 +203,7 @@ export function PerspectiveModal({
                                                 <span style={{ fontWeight: 600, color: 'var(--text-400)' }}>{user.email}</span>
                                                 <span style={{ fontSize: '10px', color: 'var(--text-300)' }}>ID: {user.id.slice(0, 8)}...</span>
                                             </div>
-                                            <span style={{ color: 'var(--brand-600)', fontWeight: 800, fontSize: '11px' }}>VIEW PERSPECTIVE →</span>
+                                            <span style={{ color: 'var(--brand-600)', fontWeight: 800, fontSize: '11px' }}>VIEW UMBRELLA ROLE →</span>
                                         </button>
                                     ))}
                                     {filteredUsers.length === 0 && (
