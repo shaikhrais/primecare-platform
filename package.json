@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@fastify/busboy": "^3.2.0",
-    "esbuild": "^0.27.2"
+    "esbuild": "^0.27.2",
+    "pg": "8.11.3"
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.57.1"
