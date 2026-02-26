@@ -51,7 +51,7 @@ export default function RoleSwitcher() {
         try {
             let success = true;
             if (!isAdmin) {
-                const response = await fetch(`${API_URL}/v1/auth/switch-role`, {
+                const response = await fetch(`${API_URL}${ApiRegistry.AUTH.SWITCH_ROLE}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -71,21 +71,9 @@ export default function RoleSwitcher() {
                 localStorage.setItem('user', JSON.stringify(updatedUser));
                 setIsOpen(false);
 
-                if (['manager', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training'].includes(targetRole)) {
-                    navigate('/manager/dashboard');
-                } else if (targetRole === 'rn') {
-                    navigate('/rn/dashboard');
-                } else if (targetRole === 'psw') {
-                    navigate('/psw/dashboard');
-                } else if (targetRole === 'admin') {
-                    navigate('/admin/dashboard');
-                } else if (targetRole === 'client') {
-                    navigate('/client/dashboard');
-                } else if (targetRole === 'staff') {
-                    navigate('/staff/dashboard');
-                } else {
-                    window.location.reload();
-                }
+                const { RouteRegistry } = AdminRegistry;
+                const targetPath = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.DASHBOARD;
+                navigate(targetPath);
             }
         } catch (err) {
             console.error('Error switching role:', err);

@@ -36,10 +36,11 @@ export default function ManagerDashboard() {
                 const token = localStorage.getItem('token');
                 const headers = { 'Authorization': `Bearer ${token}` };
 
+                const { ApiRegistry } = AdminRegistry;
                 const [kpiRes, shiftsRes, statsRes] = await Promise.all([
-                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/kpi`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/today`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}/v1/manager/dashboard/stats`, { headers })
+                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_KPI}`, { headers }),
+                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_TODAY}`, { headers }),
+                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_STATS}`, { headers })
                 ]);
 
                 if (kpiRes.ok) setKpi(await kpiRes.json());

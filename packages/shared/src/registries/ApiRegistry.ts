@@ -4,6 +4,9 @@ export const ApiRegistry = {
         REGISTER: '/v1/auth/register',
         FORGOT_PASSWORD: '/v1/auth/forgot-password',
         RESET_PASSWORD: '/v1/auth/reset-password',
+        LOGOUT: '/v1/auth/logout',
+        SWITCH_ROLE: '/v1/auth/switch-role',
+        REFRESH: '/v1/auth/refresh',
     },
     USER: {
         PROFILE: '/v1/user/profile',
@@ -24,6 +27,11 @@ export const ApiRegistry = {
         INCIDENTS: '/v1/admin/incidents',
         TIMESHEETS: '/v1/admin/timesheets',
         INVOICES: '/v1/admin/invoices',
+    },
+    MANAGER: {
+        DASHBOARD_KPI: '/v1/manager/dashboard/kpi',
+        DASHBOARD_TODAY: '/v1/manager/dashboard/today',
+        DASHBOARD_STATS: '/v1/manager/dashboard/stats',
     },
     PUBLIC: {
         LEADS: '/v1/public/leads',

@@ -93,8 +93,8 @@ export const AppRouter: React.FC = () => {
             <ErrorBoundary>
                 <Routes>
                     {/* Auth Routes - No Layout */}
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path={RouteRegistry.LOGIN} element={<Login />} />
+                    <Route path={RouteRegistry.REGISTER} element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
 
@@ -162,7 +162,7 @@ export const AppRouter: React.FC = () => {
 
                     {/* Unified entry-point redirects */}
                     <Route path="/manager/*" element={<IndexRedirect />} />
-                    <Route path="/managers/dashboard" element={<RequireRole allowedRoles={['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}><ManagerRoutes /></RequireRole>} />
+                    <Route path={RouteRegistry.ROLE_DASHBOARDS.manager} element={<RequireRole allowedRoles={['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}><ManagerRoutes /></RequireRole>} />
 
                     {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
                     <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />

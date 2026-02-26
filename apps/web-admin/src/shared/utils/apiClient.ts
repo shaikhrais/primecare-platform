@@ -30,8 +30,13 @@ export const apiClient = {
         // Handle Token Refresh (401)
         if (response.status === 401 && !path.includes('/auth/refresh') && !path.includes('/auth/login')) {
             try {
+                // We don't want to import AdminRegistry here to avoid circular dependencies if possible, 
+                // but since it's a shared package it should be fine.
+                // Ideally ApiRegistry is imported directly.
+                const { ApiRegistry } = await import('prime-care-shared');
+
                 // Try refreshing using the HttpOnly refreshToken cookie
-                const refreshResponse = await fetch(`${API_URL}/v1/auth/refresh`, {
+                const refreshResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.REFRESH}`, {
                     method: 'POST',
                     credentials: 'include',
                 });

@@ -95,7 +95,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
 
     const handleLogout = async () => {
         try {
-            await fetch(`${API_URL}/v1/auth/logout`, {
+            const { ApiRegistry } = AdminRegistry;
+            await fetch(`${API_URL}${ApiRegistry.AUTH.LOGOUT}`, {
                 method: 'POST',
                 credentials: 'include'
             });
