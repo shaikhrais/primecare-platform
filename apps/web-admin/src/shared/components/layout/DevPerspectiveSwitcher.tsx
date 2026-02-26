@@ -140,7 +140,7 @@ export default function DevPerspectiveSwitcher() {
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>{isImpersonating ? '👤' : '🎭'}</span>
-                    <span>{isImpersonating ? 'Impersonating' : 'Switch Perspective'}</span>
+                    <span>{isImpersonating ? 'Impersonating' : 'Switch Umbrella Role'}</span>
                 </div>
                 <span>✨</span>
             </button>
