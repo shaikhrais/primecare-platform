@@ -13,10 +13,12 @@ interface ManagerLayoutProps {
     children?: React.ReactNode;
 }
 
+import { getManagerRoleMenu } from './menu-configs';
+
 export default function ManagerLayout({ children }: ManagerLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
-    const isMobile = useMediaQuery('(max-width: 1024px)'); // Tablet and Mobile
+    const isMobile = useMediaQuery('(max-width: 1024px)');
     const userStr = localStorage.getItem('user');
     const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { roles: ['client'], activeRole: 'client' };
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
@@ -29,76 +31,7 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
         }
     }, [navigate]);
 
-    // Dynamic Menu Logic
-    const getMenuItems = (role: string) => {
-        const commonDashboard = { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' };
-
-        switch (role) {
-            case 'coordinator':
-                return [
-                    commonDashboard,
-                    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-                    { label: 'Clients', path: '/customers', icon: '👥' },
-                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
-                ];
-            case 'finance':
-                return [
-                    commonDashboard,
-                    { label: 'Billing', path: '/invoices', icon: '💰' },
-                    { label: 'Payroll', path: '/timesheets', icon: '💸' },
-                    { label: 'Reports', path: '/reports', icon: '📈' },
-                    { label: 'Earnings', path: '/earnings', icon: '💵' },
-                ];
-            case 'hr':
-                return [
-                    commonDashboard,
-                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
-                    { label: 'Onboarding', path: '/onboarding', icon: '📋' },
-                    { label: 'Training', path: '/training', icon: '🎓' },
-                    { label: 'Compliance', path: '/compliance', icon: '✅' },
-                ];
-            case 'compliance':
-                return [
-                    commonDashboard,
-                    { label: 'Audits', path: '/audits', icon: '🔍' },
-                    { label: 'Incidents', path: '/incidents', icon: '⚠️' },
-                    { label: 'Reports', path: '/reports', icon: '📈' },
-                ];
-            case 'crm':
-                return [
-                    commonDashboard,
-                    { label: 'Clients', path: '/customers', icon: '👥' },
-                    { label: 'Inquiries', path: '/leads', icon: '📞' },
-                    { label: 'Satisfaction', path: '/surveys', icon: '😊' },
-                ];
-            case 'training':
-                return [
-                    commonDashboard,
-                    { label: 'Modules', path: '/training/modules', icon: '📚' },
-                    { label: 'Staff Skills', path: '/users', icon: '👨‍⚕️' },
-                ];
-            case 'rn': // Clinical Supervisor (M2) using Manager Layout
-                return [
-                    commonDashboard,
-                    { label: 'Care Plans', path: '/care-plans', icon: '📋' },
-                    { label: 'Clients', path: '/customers', icon: '👥' },
-                    { label: 'Daily Entries', path: '/manager/daily-entry', icon: '📝' },
-                ];
-            case 'manager': // Operations Manager (M1)
-            default:
-                return [
-                    commonDashboard,
-                    { label: 'Daily Entry', path: '/manager/daily-entry', icon: '📝' },
-                    { label: 'Clients', path: '/customers', icon: '👥' },
-                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
-                    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-                    { label: 'Incidents', path: '/incidents', icon: '⚠️' },
-                    { label: 'Reports', path: '/reports', icon: '📈' },
-                ];
-        }
-    };
-
-    const menuItems = getMenuItems(role);
+    const menuItems = getManagerRoleMenu(role);
 
     const handleLogout = () => {
         localStorage.removeItem('token');

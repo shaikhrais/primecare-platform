@@ -2,8 +2,9 @@ import React from 'react';
 
 interface Lead {
     id: string;
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
+    fullName?: string;
     email: string;
     phone: string;
     serviceInterest: string[];
@@ -21,11 +22,19 @@ interface LeadsTableProps {
 }
 
 export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTerm, onStatusChange, onDelete }) => {
-    const filteredLeads = leads.filter(l =>
-        l.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        l.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        l.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredLeads = leads.filter(l => {
+        const search = searchTerm.toLowerCase();
+        const first = (l.firstName || '').toLowerCase();
+        const last = (l.lastName || '').toLowerCase();
+        const email = (l.email || '').toLowerCase();
+        // Support fullName if coming from API
+        const full = (l as any).fullName?.toLowerCase() || '';
+
+        return first.includes(search) ||
+            last.includes(search) ||
+            email.includes(search) ||
+            full.includes(search);
+    });
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -64,7 +73,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                         filteredLeads.map((lead) => (
                             <tr key={lead.id} style={{ borderBottom: '1px solid #f3f4f6' }} data-cy={`row-lead-${lead.id}`}>
                                 <td style={{ padding: '1rem', fontWeight: '500', color: '#111827' }}>
-                                    {lead.firstName} {lead.lastName}
+                                    {lead.firstName || lead.lastName ? `${lead.firstName || ''} ${lead.lastName || ''}`.trim() : (lead as any).fullName}
                                 </td>
                                 <td style={{ padding: '1rem', color: '#4b5563' }}>
                                     <div style={{ fontSize: '0.875rem' }}>{lead.email}</div>

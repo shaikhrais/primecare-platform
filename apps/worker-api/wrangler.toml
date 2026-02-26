@@ -5,6 +5,7 @@ compatibility_flags = [ "nodejs_compat" ]
 
 
 [vars]
+ENVIRONMENT = "production"
 # DATABASE_URL = "" (Set via secrets)
 
 [[r2_buckets]]

@@ -22,26 +22,41 @@ export { ChatServer };
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// 1. Foundational Middleware
-app.use('*', secureHeaders());
-app.use('*', errorHandler);
-app.use('*', prismaMiddleware());
-
-// 2. CORS
+// 1. Foundational CORS (Must be at the very top)
 app.use('*', cors({
     origin: (origin) => {
-        if (!origin) return null;
-        if (origin.includes('localhost') || origin.includes('pages.dev') || origin.includes('workers.dev')) {
+        if (!origin) return 'https://primecare-admin.pages.dev';
+        if (origin.includes('pages.dev') || origin.includes('workers.dev') || origin.includes('localhost')) {
             return origin;
         }
-        return null;
+        return 'https://primecare-admin.pages.dev';
     },
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status'],
     exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
     maxAge: 600,
     credentials: true,
 }));
+
+// 2. Global Error Handler (Standard Hono way)
+app.onError((err, c) => {
+    console.error('Hono Global Error:', err);
+    const origin = c.req.header('Origin') || 'https://primecare-admin.pages.dev';
+
+    return c.json({
+        error: err.message || 'Internal Server Error',
+        stack: err.stack,
+        path: c.req.path,
+        method: c.req.method
+    }, 500, {
+        'Access-Control-Allow-Origin': origin,
+        'Access-Control-Allow-Credentials': 'true',
+    });
+});
+
+// 3. Middlewares
+app.use('*', secureHeaders());
+app.use('*', prismaMiddleware());
 
 // 3. Health Routes
 app.get('/v1/health', (c) => {

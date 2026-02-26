@@ -7,8 +7,15 @@ let prismaInstance: any = null;
 
 export const prismaMiddleware = () => {
     return createMiddleware<{ Bindings: Bindings; Variables: Variables }>(async (c, next) => {
+        // Skip Prisma initialization for OPTIONS requests (CORS preflight)
+        if (c.req.method === 'OPTIONS') {
+            return await next();
+        }
+
         if (!prismaInstance) {
-            const isProd = c.env.ENVIRONMENT === 'production';
+            // Assume production/edge if DATABASE_URL doesn't look local or ENVIRONMENT is set
+            const isProd = c.env.ENVIRONMENT === 'production' ||
+                (c.env.DATABASE_URL && !c.env.DATABASE_URL.includes('localhost'));
 
             if (isProd) {
                 const { PrismaClient } = await import('../../../generated/client/edge');

@@ -23,6 +23,9 @@ interface Visit {
     status: string;
 }
 
+import { ScheduleHeader } from './components/ScheduleHeader';
+import { ViewToggle } from './components/ViewToggle';
+
 export default function Schedule() {
     const { showToast } = useNotification();
     const [events, setEvents] = useState<any[]>([]);
@@ -200,23 +203,10 @@ export default function Schedule() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} data-cy="page.container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <div>
-                    <SmartBreadcrumbs />
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.SCHEDULE.TITLE}</h2>
-                    <p style={{ color: '#6b7280', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }} data-cy="page.header">{ContentRegistry.SCHEDULE.SUBTITLE}</p>
-                </div>
-                <button
-                    data-cy="btn-create-visit"
-                    onClick={() => {
-                        setSelectedVisit(null);
-                        setIsCreateVisitModalOpen(true);
-                    }}
-                    style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                >
-                    {ContentRegistry.SCHEDULE.ACTIONS.CREATE}
-                </button>
-            </div>
+            <ScheduleHeader onCreateVisit={() => {
+                setSelectedVisit(null);
+                setIsCreateVisitModalOpen(true);
+            }} />
 
             {searchParams.get('status') && (
                 <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -228,34 +218,7 @@ export default function Schedule() {
                 </div>
             )}
 
-            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                <button
-                    onClick={() => setViewMode('calendar')}
-                    style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: viewMode === 'calendar' ? '#e5e7eb' : 'white',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '0.375rem',
-                        cursor: 'pointer',
-                        fontWeight: viewMode === 'calendar' ? 600 : 400
-                    }}
-                >
-                    Calendar
-                </button>
-                <button
-                    onClick={() => setViewMode('list')}
-                    style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: viewMode === 'list' ? '#e5e7eb' : 'white',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '0.375rem',
-                        cursor: 'pointer',
-                        fontWeight: viewMode === 'list' ? 600 : 400
-                    }}
-                >
-                    List View
-                </button>
-            </div>
+            <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
 
             {viewMode === 'calendar' ? (
                 <ScheduleCalendar

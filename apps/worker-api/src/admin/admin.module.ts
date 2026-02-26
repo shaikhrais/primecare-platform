@@ -71,7 +71,7 @@ admin.openapi(statsRoute, async (c) => {
         // Parallelize queries for performance
         const [totalUsers, pendingVisits, totalVisits, totalLeads] = await Promise.all([
             prisma.user.count(),
-            prisma.visit.count({ where: { status: 'pending' } }),
+            prisma.visit.count({ where: { status: 'requested' } }),
             prisma.visit.count(), // Total visits (all statuses)
             prisma.lead.count()
         ]);
