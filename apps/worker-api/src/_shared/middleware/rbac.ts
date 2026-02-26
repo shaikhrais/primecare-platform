@@ -5,7 +5,7 @@ import { ROLE_PERMISSIONS } from '../rbac/policies';
 
 export const requireRole = (allowedRoles: Role[]) => {
     return async (c: Context, next: Next) => {
-        const payload = c.get('jwtPayload');
+        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string } | undefined;
         const userRoles = payload?.roles as Role[] || [];
 
         const hasAccess = userRoles.some(role => allowedRoles.includes(role));
@@ -20,7 +20,7 @@ export const requireRole = (allowedRoles: Role[]) => {
 
 export const requirePermission = (permission: Permission) => {
     return async (c: Context, next: Next) => {
-        const payload = c.get('jwtPayload');
+        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string } | undefined;
         const userRoles = payload?.roles as Role[] || [];
 
         const hasPermission = userRoles.some(role => {

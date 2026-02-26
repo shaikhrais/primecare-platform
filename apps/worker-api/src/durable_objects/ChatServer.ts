@@ -4,8 +4,8 @@ import { DurableObject } from 'cloudflare:workers';
 export class ChatServer extends DurableObject {
     sessions: Set<WebSocket>;
 
-    constructor(ctx: DurableObjectState, env: Env) {
-        super(ctx, env);
+    constructor(state: DurableObjectState, env: Env) {
+        super(state, env);
         this.sessions = new Set();
     }
 
@@ -21,7 +21,7 @@ export class ChatServer extends DurableObject {
             const webSocketPair = new WebSocketPair();
             const [client, server] = Object.values(webSocketPair);
 
-            this.ctx.acceptWebSocket(server);
+            this.state.acceptWebSocket(server);
             this.sessions.add(server);
 
             return new Response(null, {

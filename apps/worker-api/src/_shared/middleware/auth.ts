@@ -33,7 +33,7 @@ export const requireAuth = (secret: string) => {
             }
         }
 
-        const payload = c.get('jwtPayload');
+        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string };
         if (!payload) {
             return c.json({ error: 'Unauthorized', message: authError?.message || 'Valid session not found' }, 401);
         }
