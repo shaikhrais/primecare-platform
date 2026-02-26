@@ -69,6 +69,8 @@ const AdminRoutes: React.FC = () => {
                 <Route path="locations/:id" element={<LocationForm />} />
 
                 <Route path="users/new" element={<UsersNew />} />
+                <Route path="users/:id/edit" element={<UsersNew />} />
+
                 <Route path="incidents/new" element={<IncidentsNew />} />
                 <Route path="leads/new" element={<LeadsNew />} />
                 <Route path="invoices/new" element={<InvoicesNew />} />

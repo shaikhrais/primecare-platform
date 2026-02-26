@@ -3,7 +3,10 @@ export const RouteRegistry = {
     REGISTER: '/register',
     DASHBOARD: '/admin/dashboard',
     USERS: '/admin/users',
+    USERS_NEW: '/admin/users/new',
+    USERS_EDIT: (id: string) => `/admin/users/${id}/edit`,
     VISITS: '/admin/visits',
+
     EARNINGS: '/admin/earnings',
     SCHEDULE: '/admin/schedule',
     INCIDENTS: '/admin/incidents',

@@ -9,6 +9,8 @@ import { UnsavedChangesGuard } from './components/UnsavedChangesGuard';
 import { UserBasicInfo } from './components/UserBasicInfo';
 import { UserRoles } from './components/UserRoles';
 import { UserRoleDetails } from './components/UserRoleDetails';
+import { UserPermissions } from './components/UserPermissions';
+import { RoleHelp } from './components/RoleHelp';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -24,6 +26,7 @@ export default function UserEntryForm() {
     const [formData, setFormData] = useState({
         email: '',
         roles: ['staff'] as string[],
+        permissions: [] as string[],
         fullName: '',
         phone: '',
         status: 'active',
@@ -43,6 +46,7 @@ export default function UserEntryForm() {
                         setFormData({
                             email: data.email || '',
                             roles: data.roles || (data.role ? [data.role] : ['staff']),
+                            permissions: data.permissions || [],
                             fullName: data.profile?.fullName || '',
                             phone: data.phone || '',
                             status: data.status || 'active',
@@ -75,7 +79,7 @@ export default function UserEntryForm() {
             if (response.ok) {
                 showToast(`User ${id ? 'updated' : 'created'} successfully`, 'success');
                 setIsDirty(false);
-                navigate('/users');
+                navigate('/admin/users');
             } else {
                 showToast('Action failed', 'error');
             }
@@ -96,10 +100,15 @@ export default function UserEntryForm() {
         setIsDirty(true);
     };
 
+    const handlePermissionsChange = (permissions: string[]) => {
+        setFormData(prev => ({ ...prev, permissions }));
+        setIsDirty(true);
+    };
+
     if (loading) return <div style={{ padding: '2rem' }}>Loading user data...</div>;
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
             <UnsavedChangesGuard
                 isOpen={showGuard}
                 onStay={() => setShowGuard(false)}
@@ -111,47 +120,57 @@ export default function UserEntryForm() {
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage system access and profile details.</p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                    <UserBasicInfo
-                        fullName={formData.fullName}
-                        email={formData.email}
-                        status={formData.status}
-                        onChange={handleFieldChange}
-                    />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem', alignItems: 'start' }}>
+                <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                        <UserBasicInfo
+                            fullName={formData.fullName}
+                            email={formData.email}
+                            status={formData.status}
+                            onChange={handleFieldChange}
+                        />
 
-                    <UserRoles
-                        selectedRoles={formData.roles}
-                        onChange={handleRolesChange}
-                    />
+                        <UserRoles
+                            selectedRoles={formData.roles}
+                            onChange={handleRolesChange}
+                        />
 
-                    <UserRoleDetails
-                        roles={formData.roles}
-                        sin={formData.sin}
-                        billingAccount={formData.billingAccount}
-                        address={formData.address}
-                        onChange={handleFieldChange}
-                    />
-                </div>
+                        <UserPermissions
+                            assignedPermissions={formData.permissions}
+                            onChange={handlePermissionsChange}
+                        />
 
-                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
-                        type="button"
-                        onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        data-cy="form.user.save"
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                        {submitting ? 'Processing...' : id ? 'Update User' : 'Create User'}
-                    </button>
-                </div>
-            </form>
+                        <UserRoleDetails
+                            roles={formData.roles}
+                            sin={formData.sin}
+                            billingAccount={formData.billingAccount}
+                            address={formData.address}
+                            onChange={handleFieldChange}
+                        />
+                    </div>
+
+                    <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem', borderTop: '1px solid #f3f4f6', paddingTop: '1.5rem' }}>
+                        <button
+                            type="button"
+                            onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
+                            style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', fontWeight: 500 }}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={submitting}
+                            data-cy="form.user.save"
+                            style={{ padding: '0.75rem 2.5rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                        >
+                            {submitting ? 'Processing...' : id ? 'Update User' : 'Create User'}
+                        </button>
+                    </div>
+                </form>
+
+                <RoleHelp />
+            </div>
         </div>
     );
 }
+

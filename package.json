@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "cypress": "^15.10.0",
-    "wrangler": "^4.62.0"
+    "wrangler": "^4.68.1"
   }
 }

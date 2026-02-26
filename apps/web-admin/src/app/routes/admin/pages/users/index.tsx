@@ -114,20 +114,22 @@ export default function UserList() {
     };
 
     const handleEdit = (user: User) => {
-        navigate(`/users/${user.id}/edit`);
+        navigate(`/admin/users/${user.id}/edit`);
     };
+
 
     return (
         <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.USERS.TITLE}</h2>
                 <button
-                    data-cy="btn.user.invite"
-                    onClick={() => setIsModalOpen(true)}
+                    data-cy="btn.user.add"
+                    onClick={() => navigate('/admin/users/new')}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
-                    {ContentRegistry.USERS.INVITE_BTN}
+                    Add New User
                 </button>
+
             </div>
 
             {(searchParams.get('role') || searchParams.get('status')) && (
