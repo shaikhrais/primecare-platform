@@ -37,10 +37,18 @@ export const RoleHelp: React.FC = () => {
 
                 <div>
                     <div style={{ fontWeight: 800, fontSize: '0.7rem', color: '#9a3412', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Managers (Umbrella)</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Managers / CRM / Marketing</div>
-                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Oversight and relationship management. Access to growth and performance metrics.</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Marketing / Sales Manager</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Focus on client growth, source tracking, and promotional campaigns.</div>
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Operations / Clinical Manager</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Quality assurance, nurse oversight, and day-to-day service excellence.</div>
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#7c2d12' }}>Recruiting / HR Manager</div>
+                            <div style={{ fontSize: '0.8rem', color: '#9a3412', lineHeight: '1.4' }}>Onboarding service providers, credential verification, and staff retention.</div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,8 @@ export const requireRole = (allowedRoles: Role[]) => {
         const userRoles = payload?.roles as Role[] || [];
 
         const SERVICE_PROVIDERS = ['psw', 'rn', 'rmt', 'rpt', 'rch'];
-        const STAFF_SUBROLES = ['staff', 'finance', 'hr', 'compliance'];
+        const STAFF_SUBROLES = ['staff', 'finance', 'hr', 'compliance', 'finance_manager', 'hr_manager'];
+        const MANAGER_SUBROLES = ['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training'];
 
         const hasAccess = userRoles.some(role => {
             const lowerRole = role.toLowerCase();

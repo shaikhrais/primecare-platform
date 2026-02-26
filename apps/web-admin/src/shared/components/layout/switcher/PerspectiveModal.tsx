@@ -104,7 +104,7 @@ export function PerspectiveModal({
                             {[
                                 { title: 'Administration', roles: ['admin'] },
                                 { title: 'Staff', roles: ['staff', 'finance', 'hr', 'compliance'] },
-                                { title: 'Managers', roles: ['manager', 'marketing_manager', 'operations_manager', 'coordinator', 'crm', 'training'] },
+                                { title: 'Managers', roles: ['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training'] },
                                 { title: 'Service Providers', roles: ['psw', 'rn', 'rmt', 'rpt', 'rch'] }
                             ].map(group => {
                                 const userGroupRoles = roles.filter(r => group.roles.includes(r));

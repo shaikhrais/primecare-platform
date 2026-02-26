@@ -6,7 +6,7 @@ interface UserRolesProps {
     onChange: (roles: string[]) => void;
 }
 
-const ALL_ROLES = ['admin', 'staff', 'manager', 'psw', 'client', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training'];
+const ALL_ROLES = ['admin', 'staff', 'manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'psw', 'client', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training'];
 
 export const UserRoles: React.FC<UserRolesProps> = ({ selectedRoles, onChange }) => {
     const { user } = useAuth();
@@ -24,7 +24,7 @@ export const UserRoles: React.FC<UserRolesProps> = ({ selectedRoles, onChange })
         },
         {
             title: 'Managers',
-            roles: ['manager', 'marketing_manager', 'operations_manager', 'coordinator', 'crm', 'training'],
+            roles: ['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training'],
         },
         {
             title: 'Service Providers',

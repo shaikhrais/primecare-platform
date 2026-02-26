@@ -497,14 +497,24 @@ model DailyEntry {
 }
 
 enum Role {
+  admin
+  staff
   manager
+  marketing_manager
+  operations_manager
+  hr_manager
+  clinical_manager
+  regional_manager
+  finance_manager
+  recruiting_manager
+  coordinator
   client
   psw
-  coordinator
-  staff
-  admin
-  finance
   rn
+  rmt
+  rpt
+  rch
+  finance
 }
 
 enum DocStatus {
