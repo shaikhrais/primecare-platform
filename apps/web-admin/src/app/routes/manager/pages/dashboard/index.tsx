@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+const { ApiRegistry, ContentRegistry } = AdminRegistry;
 import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
 // Components
@@ -97,8 +98,8 @@ export default function ManagerDashboard() {
 
                 <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
-                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">Manager Dashboard</h1>
-                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">Operational overview and rapid metrics</p>
+                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">{ContentRegistry.MANAGER_DASHBOARD.TITLE}</h1>
+                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.MANAGER_DASHBOARD.SUBTITLE}</p>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
                         {['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'].map(p => (

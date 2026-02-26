@@ -1,4 +1,7 @@
 import React from 'react';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface PerspectiveModalProps {
     isOpen: boolean;
@@ -80,10 +83,10 @@ export function PerspectiveModal({
                 }}>
                     <div>
                         <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: 'var(--text-400)' }}>
-                            {isImpersonating ? 'User Impersonation Tool' : 'Umbrella Role Switcher'}
+                            {isImpersonating ? 'User Impersonation Tool' : 'Umbrella Perspective'}
                         </h3>
                         <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--text-300)' }}>
-                            {isImpersonating ? 'You are currently viewing as another user' : 'Switch between Umbrella Roles or impersonate a system user'}
+                            {isImpersonating ? 'Viewing system as another user' : 'Switch between platform umbrellas or impersonate users'}
                         </p>
                     </div>
                     <button
@@ -98,14 +101,14 @@ export function PerspectiveModal({
                     {/* Role Switching */}
                     <div style={{ marginBottom: '24px' }}>
                         <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-200)', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            VIEW AS UMBRELLA ROLE
+                            SWITCH UMBRELLA
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {[
                                 { title: 'Administration', roles: ['admin'] },
-                                { title: 'Staff', roles: ['staff', 'finance', 'hr', 'compliance'] },
-                                { title: 'Managers', roles: ['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training'] },
-                                { title: 'Service Providers', roles: ['psw', 'rn', 'rmt', 'rpt', 'rch'] }
+                                { title: 'Staff Operations', roles: ['staff', 'finance', 'hr', 'compliance'] },
+                                { title: 'Management', roles: ['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training'] },
+                                { title: 'Healthcare Workers', roles: ['psw', 'rn', 'rmt', 'rpt', 'rch'] }
                             ].map(group => {
                                 const userGroupRoles = roles.filter(r => group.roles.includes(r));
                                 if (userGroupRoles.length === 0) return null;
@@ -123,7 +126,7 @@ export function PerspectiveModal({
                                                     disabled={loading || role === activeRole}
                                                     style={{
                                                         padding: '10px',
-                                                        fontSize: '12px',
+                                                        fontSize: '11px',
                                                         fontWeight: 700,
                                                         borderRadius: '8px',
                                                         border: '1px solid',
@@ -135,11 +138,11 @@ export function PerspectiveModal({
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         justifyContent: 'center',
-                                                        gap: '6px'
+                                                        gap: '4px'
                                                     }}
                                                 >
                                                     {role === activeRole && <span>✓</span>}
-                                                    {role.charAt(0).toUpperCase() + role.slice(1).replace('_', ' ')}
+                                                    {role.toUpperCase().replace('_', ' ')}
                                                 </button>
                                             ))}
                                         </div>
@@ -154,13 +157,13 @@ export function PerspectiveModal({
                         <div style={{ borderTop: '1px solid var(--line)', paddingTop: '24px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                                 <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-200)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    IMPERSONATE SYSTEM USER
+                                    SEARCH SYSTEM USERS
                                 </div>
                                 {isImpersonating && (
                                     <button onClick={exitImpersonation} style={{
                                         padding: '6px 12px', fontSize: '11px', background: '#EF4444', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 800
                                     }}>
-                                        RESTORE ADMIN SESSION
+                                        EXIT IMPERSONATION
                                     </button>
                                 )}
                             </div>
@@ -168,17 +171,17 @@ export function PerspectiveModal({
                             <div style={{ position: 'relative' }}>
                                 <input
                                     type="text"
-                                    placeholder="Find user by email or ID..."
+                                    placeholder="Search by name, email or UID..."
                                     value={searchQuery}
                                     onChange={(e) => {
                                         setSearchQuery(e.target.value);
                                         setShowImpersonate(true);
                                     }}
                                     style={{
-                                        width: '100%', padding: '14px 14px 14px 40px', fontSize: '14px', border: '1px solid var(--line)', borderRadius: '12px', boxSizing: 'border-box', background: '#F9FAFB', transition: 'all 0.2s'
+                                        width: '100%', padding: '14px 14px 14px 40px', fontSize: '14px', border: '1px solid var(--line)', borderRadius: '12px', boxSizing: 'border-box', background: '#F9FAFB'
                                     }}
                                 />
-                                <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>🔍</span>
+                                <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🔍</span>
                             </div>
 
                             {showImpersonate && searchQuery && (
@@ -188,29 +191,16 @@ export function PerspectiveModal({
                                             key={user.id}
                                             onClick={() => handleImpersonate(user)}
                                             style={{
-                                                padding: '12px', fontSize: '13px', textAlign: 'left', background: 'white', border: '1px solid #F3F4F6', borderRadius: '10px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'all 0.2s'
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.borderColor = 'var(--brand-300)';
-                                                e.currentTarget.style.background = 'var(--brand-50)';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.borderColor = '#F3F4F6';
-                                                e.currentTarget.style.background = 'white';
+                                                padding: '12px', fontSize: '13px', textAlign: 'left', background: 'white', border: '1px solid #F3F4F6', borderRadius: '10px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
                                             }}
                                         >
                                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                 <span style={{ fontWeight: 600, color: 'var(--text-400)' }}>{user.email}</span>
-                                                <span style={{ fontSize: '10px', color: 'var(--text-300)' }}>ID: {user.id.slice(0, 8)}...</span>
+                                                <span style={{ fontSize: '10px', color: 'var(--text-300)' }}>UID: {user.id}</span>
                                             </div>
-                                            <span style={{ color: 'var(--brand-600)', fontWeight: 800, fontSize: '11px' }}>VIEW UMBRELLA ROLE →</span>
+                                            <span style={{ color: 'var(--brand-600)', fontWeight: 800, fontSize: '11px' }}>IMPERSONATE →</span>
                                         </button>
                                     ))}
-                                    {filteredUsers.length === 0 && (
-                                        <div style={{ fontSize: '13px', color: 'var(--text-200)', textAlign: 'center', padding: '20px' }}>
-                                            No system users found for "{searchQuery}"
-                                        </div>
-                                    )}
                                 </div>
                             )}
                         </div>
@@ -223,14 +213,14 @@ export function PerspectiveModal({
                         onClick={onClose}
                         style={{ padding: '10px 20px', fontSize: '13px', fontWeight: 700, color: 'var(--text-300)', background: 'none', border: 'none', cursor: 'pointer' }}
                     >
-                        Close
+                        {ContentRegistry.SCHEDULE.ACTIONS.CLOSE}
                     </button>
                 </div>
             </div>
 
             <style>{`
                 @keyframes pc-modal-slide-up {
-                    from { transform: translateY(20px); opacity: 0; }
+                    from { transform: translateY(10px); opacity: 0; }
                     to { transform: translateY(0); opacity: 1; }
                 }
             `}</style>

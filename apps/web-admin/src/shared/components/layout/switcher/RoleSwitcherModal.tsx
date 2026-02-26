@@ -1,4 +1,7 @@
 import React from 'react';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface RoleSwitcherModalProps {
     isOpen: boolean;
@@ -39,7 +42,7 @@ export function RoleSwitcherModal({
                     borderRadius: '16px',
                     width: '400px',
                     maxWidth: '90vw',
-                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
@@ -49,8 +52,8 @@ export function RoleSwitcherModal({
                 {/* Header */}
                 <div style={{ padding: '20px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Umbrella Role Switcher</h3>
-                        <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#6B7280' }}>Toggle your role or impersonate a system user (Umbrella Mode)</p>
+                        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Role Perspective</h3>
+                        <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#6B7280' }}>Switch your view or impersonate active profiles</p>
                     </div>
                     <button
                         onClick={onClose}
@@ -65,7 +68,7 @@ export function RoleSwitcherModal({
                     {/* Assigned Roles */}
                     <div style={{ marginBottom: '24px' }}>
                         <h4 style={{ margin: '0 0 12px', fontSize: '0.75rem', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            Your Umbrella Roles
+                            Assigned Roles
                         </h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {availableRoles.filter(r => !isAdmin || !systemRoles.includes(r) || r === 'admin' || r === 'manager').map(role => (
@@ -79,8 +82,8 @@ export function RoleSwitcherModal({
                                         width: '100%',
                                         padding: '12px',
                                         borderRadius: '8px',
-                                        border: role === activeRole ? '1px solid #00875A' : '1px solid #E5E7EB',
-                                        background: role === activeRole ? '#ECFDF5' : '#FFFFFF',
+                                        border: role === activeRole ? '1px solid var(--brand-500)' : '1px solid #E5E7EB',
+                                        background: role === activeRole ? 'var(--brand-50)' : '#FFFFFF',
                                         cursor: 'pointer',
                                         transition: 'all 0.2s'
                                     }}
@@ -89,11 +92,11 @@ export function RoleSwitcherModal({
                                         <span style={{ fontSize: '1.25rem' }}>
                                             {role === 'admin' ? '🔒' : role === 'manager' ? '📊' : '👤'}
                                         </span>
-                                        <span style={{ fontWeight: 600, color: '#374151', textTransform: 'uppercase', fontSize: '0.9rem' }}>
-                                            {role}
+                                        <span style={{ fontWeight: 600, color: '#374151', textTransform: 'uppercase', fontSize: '0.85rem' }}>
+                                            {role.replace('_', ' ')}
                                         </span>
                                     </div>
-                                    {role === activeRole && <span style={{ color: '#00875A', fontWeight: 900 }}>✓</span>}
+                                    {role === activeRole && <span style={{ color: 'var(--brand-600)', fontWeight: 900 }}>✓</span>}
                                 </button>
                             ))}
                         </div>
@@ -103,7 +106,7 @@ export function RoleSwitcherModal({
                     {isAdmin && (
                         <div>
                             <h4 style={{ margin: '0 0 12px', fontSize: '0.75rem', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                Impersonate Umbrella Role
+                                Quick Impersonate
                             </h4>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                 {systemRoles.map(role => (
@@ -120,26 +123,12 @@ export function RoleSwitcherModal({
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '8px',
-                                            fontSize: '0.9rem',
+                                            fontSize: '0.85rem',
                                             fontWeight: 500,
-                                            color: '#374151',
-                                            transition: 'all 0.2s'
+                                            color: '#374151'
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.borderColor = '#004d40'}
-                                        onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
                                     >
-                                        <span>
-                                            {role === 'staff' ? '👨‍💼' :
-                                                role === 'rn' ? '👩‍⚕️' :
-                                                    role === 'psw' ? '🦺' :
-                                                        role === 'client' ? '🏠' :
-                                                            role === 'coordinator' ? '📅' :
-                                                                role === 'finance' ? '💰' :
-                                                                    role === 'hr' ? '📋' :
-                                                                        role === 'compliance' ? '✅' :
-                                                                            role === 'crm' ? '🤝' :
-                                                                                role === 'training' ? '🎓' : '❓'}
-                                        </span>
+                                        <span>👤</span>
                                         {role.charAt(0).toUpperCase() + role.slice(1)}
                                     </button>
                                 ))}
@@ -148,37 +137,30 @@ export function RoleSwitcherModal({
                     )}
                 </div>
 
-                {/* Footer / Impersonate Action */}
-                {isAdmin && (
-                    <div style={{ padding: '20px', background: '#F9FAFB', borderTop: '1px solid #E5E7EB' }}>
-                        <button
-                            onClick={() => alert("User Lookup Feature Coming Soon")}
-                            style={{
-                                width: '100%',
-                                padding: '12px',
-                                background: '#111827',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '8px',
-                                fontWeight: 700,
-                                fontSize: '0.9rem',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '8px'
-                            }}
-                        >
-                            <span>🕵️</span>
-                            IMPERSONATE SYSTEM USER
-                        </button>
-                    </div>
-                )}
+                {/* Footer */}
+                <div style={{ padding: '20px', background: '#F9FAFB', borderTop: '1px solid #E5E7EB' }}>
+                    <button
+                        onClick={onClose}
+                        style={{
+                            width: '100%',
+                            padding: '12px',
+                            background: '#111827',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        {ContentRegistry.SCHEDULE.ACTIONS.CLOSE.toUpperCase()}
+                    </button>
+                </div>
             </div>
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-                @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+                @keyframes scaleIn { from { transform: scale(0.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
             `}} />
         </div>
     );

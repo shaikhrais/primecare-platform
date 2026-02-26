@@ -1,4 +1,7 @@
 import React from 'react';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface SubComponentProps {
     label: string;
@@ -24,10 +27,10 @@ interface DashboardStatsProps {
 export const DashboardStats: React.FC<DashboardStatsProps> = ({ activeClients, staffOnDuty, openIncidents, todayShifts }) => {
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-            <KPICard label="Today's Shifts" value={todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />
-            <KPICard label="Active Clients" value={activeClients} color="#4caf50" dataCy="kpi-active-clients" />
-            <KPICard label="Staff On Duty" value={staffOnDuty} color="#ff9800" dataCy="kpi-staff-on-duty" />
-            <KPICard label="Open Incidents" value={openIncidents} color="#f44336" dataCy="kpi-open-incidents" />
+            <KPICard label={ContentRegistry.MANAGER_DASHBOARD.KPI.TODAY_SHIFTS} value={todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />
+            <KPICard label={ContentRegistry.MANAGER_DASHBOARD.KPI.ACTIVE_CLIENTS} value={activeClients} color="#4caf50" dataCy="kpi-active-clients" />
+            <KPICard label={ContentRegistry.MANAGER_DASHBOARD.KPI.STAFF_ON_DUTY} value={staffOnDuty} color="#ff9800" dataCy="kpi-staff-on-duty" />
+            <KPICard label={ContentRegistry.MANAGER_DASHBOARD.KPI.OPEN_INCIDENTS} value={openIncidents} color="#f44336" dataCy="kpi-open-incidents" />
         </div>
     );
 };

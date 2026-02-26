@@ -39,7 +39,7 @@ export default function DevPerspectiveSwitcher() {
 
     const fetchUsers = async () => {
         try {
-            const response = await apiClient.get('/v1/admin/users');
+            const response = await apiClient.get(ApiRegistry.ADMIN.USERS);
             if (response.ok) {
                 const data = await response.json();
                 setUsers(data);
@@ -56,7 +56,7 @@ export default function DevPerspectiveSwitcher() {
             const updatedUser = { ...currentUser, activeRole: targetRole };
             localStorage.setItem('user', JSON.stringify(updatedUser));
 
-            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || '/app';
+            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.DASHBOARD;
             navigate(target);
             setIsOpen(false);
         } finally {
@@ -67,16 +67,16 @@ export default function DevPerspectiveSwitcher() {
     const handleImpersonate = async (targetUser: User) => {
         setLoading(true);
         try {
-            const response = await apiClient.post('/v1/auth/impersonate', { targetUserId: targetUser.id });
+            const response = await apiClient.post(ApiRegistry.AUTH.IMPERSONATE, { targetUserId: targetUser.id });
             if (response.ok) {
                 const data = await response.json();
                 if (!isImpersonating) {
                     sessionStorage.setItem('originalAdmin', userStr);
                     sessionStorage.setItem('originalToken', localStorage.getItem('token') || '');
                 }
-                localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));
                 localStorage.setItem('token', data.token);
-                window.location.href = '/app';
+                localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));
+                window.location.href = RouteRegistry.DASHBOARD;
             }
         } catch (err) {
             console.error('Impersonation failed', err);
@@ -93,7 +93,7 @@ export default function DevPerspectiveSwitcher() {
             localStorage.setItem('token', originalToken);
             sessionStorage.removeItem('originalAdmin');
             sessionStorage.removeItem('originalToken');
-            window.location.href = '/admin/dashboard';
+            window.location.href = RouteRegistry.DASHBOARD;
         }
     };
 
@@ -125,7 +125,7 @@ export default function DevPerspectiveSwitcher() {
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>{isImpersonating ? '👤' : '🎭'}</span>
-                    <span>{isImpersonating ? 'Impersonating' : 'Switch Umbrella Role'}</span>
+                    <span>{isImpersonating ? 'Impersonating' : 'Switch Perspective'}</span>
                 </div>
                 <span>✨</span>
             </button>

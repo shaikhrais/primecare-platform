@@ -1,6 +1,6 @@
 import { AdminRegistry } from 'prime-care-shared';
 
-const { RouteRegistry } = AdminRegistry;
+const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
 export interface MenuItem {
     label: string;
@@ -9,140 +9,140 @@ export interface MenuItem {
 }
 
 export const adminMenu: MenuItem[] = [
-    { label: 'Dashboard', path: RouteRegistry.DASHBOARD, icon: '📊' },
-    { label: 'Users & PSWs', path: RouteRegistry.USERS, icon: '👥' },
-    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-    { label: 'Incidents', path: RouteRegistry.INCIDENTS, icon: '🚨' },
-    { label: 'Timesheets', path: RouteRegistry.TIMESHEETS, icon: '⏰' },
-    { label: 'Lead Inquiries', path: RouteRegistry.LEADS, icon: '📥' },
-    { label: 'Services', path: RouteRegistry.SERVICES, icon: '💰' },
-    { label: 'Call Audits', path: RouteRegistry.AUDITS, icon: '🎙️' },
-    { label: 'Content', path: RouteRegistry.CONTENT, icon: '📝' },
-    { label: 'Reports', path: '/admin/reports', icon: '📈' },
-    { label: 'Settings', path: RouteRegistry.SETTINGS, icon: '⚙️' },
-    { label: 'Support', path: RouteRegistry.SUPPORT, icon: '💬' },
+    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.DASHBOARD, icon: '📊' },
+    { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👥' },
+    { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.SCHEDULE, icon: '📅' },
+    { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.INCIDENTS, icon: '🚨' },
+    { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.TIMESHEETS, icon: '⏰' },
+    { label: ContentRegistry.MENU.LEADS, path: RouteRegistry.LEADS, icon: '📥' },
+    { label: ContentRegistry.MENU.SERVICES, path: RouteRegistry.SERVICES, icon: '💰' },
+    { label: ContentRegistry.MENU.AUDITS, path: RouteRegistry.AUDITS, icon: '🎙️' },
+    { label: ContentRegistry.MENU.CONTENT, path: RouteRegistry.CONTENT, icon: '📝' },
+    { label: ContentRegistry.MENU.REPORTS, path: '/admin/reports', icon: '📈' },
+    { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.SETTINGS, icon: '⚙️' },
+    { label: ContentRegistry.MENU.SUPPORT, path: RouteRegistry.SUPPORT, icon: '💬' },
 ];
 
 export const clientMenu: MenuItem[] = [
-    { label: 'My Care Hub', path: '/client/dashboard', icon: '🏠' },
-    { label: 'My Bookings', path: '/client/bookings', icon: '📅' },
-    { label: 'Billing', path: '/client/billing', icon: '💳' },
-    { label: 'Account Profile', path: '/profile', icon: '👤' },
-    { label: 'Support', path: '/support', icon: '💬' },
+    { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.DASHBOARD, icon: '🏠' },
+    { label: ContentRegistry.MENU.CLIENT_BOOKINGS, path: RouteRegistry.CLIENT.BOOKINGS, icon: '📅' },
+    { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
+    { label: ContentRegistry.MENU.PROFILE, path: '/profile', icon: '👤' },
+    { label: ContentRegistry.MENU.SUPPORT, path: RouteRegistry.SUPPORT, icon: '💬' },
 ];
 
 export const staffMenu: MenuItem[] = [
-    { label: 'Staff Hub', path: '/staff/dashboard', icon: '🏢' },
-    { label: 'Leads', path: RouteRegistry.LEADS, icon: '📥' },
-    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-    { label: 'Users', path: RouteRegistry.USERS, icon: '👥' },
-    { label: 'Customer Mgmt', path: '/staff/customers', icon: '👤' },
-    { label: 'Tickets', path: '/support', icon: '🎫' },
-    { label: 'My Profile', path: '/profile', icon: '👤' },
+    { label: ContentRegistry.MENU.STAFF_HUB, path: RouteRegistry.STAFF.DASHBOARD, icon: '🏢' },
+    { label: ContentRegistry.MENU.LEADS, path: RouteRegistry.LEADS, icon: '📥' },
+    { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.SCHEDULE, icon: '📅' },
+    { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👥' },
+    { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👤' },
+    { label: ContentRegistry.MENU.TICKETS, path: RouteRegistry.SUPPORT, icon: '🎫' },
+    { label: ContentRegistry.MENU.PROFILE, path: '/profile', icon: '👤' },
 ];
 
 export const pswMenu: MenuItem[] = [
-    { label: 'Work Schedule', path: '/psw/dashboard', icon: '🗓️' },
-    { label: 'Open Shifts', path: '/psw/open-shifts', icon: '✨' },
-    { label: 'My Shifts', path: '/psw/schedule', icon: '⌚' },
-    { label: 'My Earnings', path: '/psw/earnings', icon: '💰' },
-    { label: 'My Credentials', path: '/psw/profile', icon: '📜' },
-    { label: 'Help Desk', path: '/support', icon: '❓' },
+    { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.DASHBOARD, icon: '🗓️' },
+    { label: ContentRegistry.MENU.OPEN_SHIFTS, path: RouteRegistry.PSW.OPEN_SHIFTS, icon: '✨' },
+    { label: ContentRegistry.MENU.MY_SHIFTS, path: RouteRegistry.PSW.SCHEDULE, icon: '⌚' },
+    { label: ContentRegistry.MENU.MY_EARNINGS, path: RouteRegistry.PSW.EARNINGS, icon: '💰' },
+    { label: ContentRegistry.MENU.MY_CREDENTIALS, path: RouteRegistry.PSW.PROFILE, icon: '📜' },
+    { label: ContentRegistry.MENU.HELP_DESK, path: RouteRegistry.SUPPORT, icon: '❓' },
 ];
 
 export const rnMenu: MenuItem[] = [
-    { label: 'Clinical Dashboard', path: '/rn/dashboard', icon: '🩺' },
-    { label: 'Clients admission', path: '/admin/clients/admission', icon: '📝' },
-    { label: 'Incident List', path: RouteRegistry.INCIDENTS, icon: '🚨' },
-    { label: 'Profile', path: '/profile', icon: '👤' },
+    { label: ContentRegistry.MENU.CLINICAL_DASHBOARD, path: RouteRegistry.RN.DASHBOARD, icon: '🩺' },
+    { label: ContentRegistry.MENU.CLINIENT_ADMISSION, path: RouteRegistry.ADMISSION, icon: '📝' },
+    { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.INCIDENTS, icon: '🚨' },
+    { label: ContentRegistry.MENU.PROFILE, path: '/profile', icon: '👤' },
 ];
 
 export const managerMenu: MenuItem[] = [
-    { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' },
-    { label: 'Daily Entry', path: '/manager/daily-entry', icon: '📝' },
-    { label: 'Evaluations', path: '/manager/evaluations', icon: '📋' },
-    { label: 'Service Review', path: '/manager/service-review', icon: '⭐' },
-    { label: 'Profile', path: '/profile', icon: '👤' },
+    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' },
+    { label: ContentRegistry.MENU.DAILY_ENTRY, path: RouteRegistry.MANAGER.DAILY_ENTRY, icon: '📝' },
+    { label: ContentRegistry.MENU.EVALUATIONS, path: RouteRegistry.MANAGER.EVALUATIONS, icon: '📋' },
+    { label: ContentRegistry.MENU.SERVICE_REVIEW, path: RouteRegistry.MANAGER.SERVICE_REVIEW, icon: '⭐' },
+    { label: ContentRegistry.MENU.PROFILE, path: '/profile', icon: '👤' },
 ];
 
 export const coordinatorMenu: MenuItem[] = [
-    { label: 'Dashboard', path: '/coordinator/dashboard', icon: '📊' },
-    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-    { label: 'Clients', path: '/customers', icon: '👥' },
-    { label: 'Staff', path: RouteRegistry.USERS, icon: '👨‍⚕️' },
-    { label: 'Incidents', path: RouteRegistry.INCIDENTS, icon: '⚠️' },
+    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.COORDINATOR, icon: '📊' },
+    { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.SCHEDULE, icon: '📅' },
+    { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
+    { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👨‍⚕️' },
+    { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.INCIDENTS, icon: '⚠️' },
 ];
 
 export const financeMenu: MenuItem[] = [
-    { label: 'Dashboard', path: '/finance/dashboard', icon: '💰' },
-    { label: 'Billing', path: '/billing', icon: '💳' },
-    { label: 'Payroll', path: '/payroll', icon: '💸' },
-    { label: 'Reports', path: '/reports', icon: '📈' },
+    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.TRAINING, icon: '💰' }, // Using training as placeholder if finance specific missing
+    { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
+    { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.TIMESHEETS, icon: '💸' },
+    { label: ContentRegistry.MENU.REPORTS, path: '/reports', icon: '📈' },
 ];
 
 export const getManagerRoleMenu = (role: string): MenuItem[] => {
-    const commonDashboard = { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' };
+    const commonDashboard = { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' };
 
     switch (role) {
         case 'coordinator':
             return [
                 commonDashboard,
-                { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-                { label: 'Clients', path: '/customers', icon: '👥' },
-                { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
+                { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.SCHEDULE, icon: '📅' },
+                { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
+                { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👨‍⚕️' },
             ];
         case 'finance':
             return [
                 commonDashboard,
-                { label: 'Billing', path: '/invoices', icon: '💰' },
-                { label: 'Payroll', path: '/timesheets', icon: '💸' },
-                { label: 'Reports', path: '/reports', icon: '📈' },
-                { label: 'Earnings', path: '/earnings', icon: '💵' },
+                { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💰' },
+                { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.TIMESHEETS, icon: '💸' },
+                { label: ContentRegistry.MENU.REPORTS, path: '/reports', icon: '📈' },
+                { label: ContentRegistry.ROLES.FINANCE, path: '/earnings', icon: '💵' },
             ];
         case 'hr':
             return [
                 commonDashboard,
-                { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
-                { label: 'Onboarding', path: '/onboarding', icon: '📋' },
-                { label: 'Training', path: '/training', icon: '🎓' },
-                { label: 'Compliance', path: '/compliance', icon: '✅' },
+                { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👨‍⚕️' },
+                { label: ContentRegistry.MENU.ONBOARDING, path: RouteRegistry.ONBOARDING, icon: '📋' },
+                { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.MANAGER.TRAINING, icon: '🎓' },
+                { label: ContentRegistry.MENU.COMPLIANCE, path: RouteRegistry.MANAGER.TRAINING, icon: '✅' },
             ];
         case 'compliance':
             return [
                 commonDashboard,
-                { label: 'Audits', path: '/audits', icon: '🔍' },
-                { label: 'Incidents', path: '/incidents', icon: '⚠️' },
-                { label: 'Reports', path: '/reports', icon: '📈' },
+                { label: ContentRegistry.MENU.AUDITS, path: RouteRegistry.AUDITS, icon: '🔍' },
+                { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.INCIDENTS, icon: '⚠️' },
+                { label: ContentRegistry.MENU.REPORTS, path: '/reports', icon: '📈' },
             ];
         case 'crm':
             return [
                 commonDashboard,
-                { label: 'Clients', path: '/customers', icon: '👥' },
-                { label: 'Inquiries', path: '/leads', icon: '📞' },
-                { label: 'Satisfaction', path: '/surveys', icon: '😊' },
+                { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
+                { label: ContentRegistry.MENU.INQUIRIES, path: RouteRegistry.LEADS, icon: '📞' },
+                { label: ContentRegistry.MENU.SATISFACTION, path: '/surveys', icon: '😊' },
             ];
         case 'training':
             return [
                 commonDashboard,
-                { label: 'Modules', path: '/training/modules', icon: '📚' },
-                { label: 'Staff Skills', path: '/users', icon: '👨‍⚕️' },
+                { label: ContentRegistry.MENU.MODULES, path: '/training/modules', icon: '📚' },
+                { label: ContentRegistry.MENU.SKILLS, path: RouteRegistry.USERS, icon: '👨‍⚕️' },
             ];
         case 'rn':
             return [
                 commonDashboard,
-                { label: 'Care Plans', path: '/care-plans', icon: '📋' },
-                { label: 'Clients', path: '/customers', icon: '👥' },
-                { label: 'Daily Entries', path: '/manager/daily-entry', icon: '📝' },
+                { label: ContentRegistry.MENU.CARE_PLANS, path: '/care-plans', icon: '📋' },
+                { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
+                { label: ContentRegistry.MENU.DAILY_ENTRY, path: RouteRegistry.MANAGER.DAILY_ENTRY, icon: '📝' },
             ];
         default:
             return [
                 commonDashboard,
-                { label: 'Daily Entry', path: '/manager/daily-entry', icon: '📝' },
-                { label: 'Clients', path: '/customers', icon: '👥' },
-                { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
-                { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
-                { label: 'Incidents', path: '/incidents', icon: '⚠️' },
-                { label: 'Reports', path: '/reports', icon: '📈' },
+                { label: ContentRegistry.MENU.DAILY_ENTRY, path: RouteRegistry.MANAGER.DAILY_ENTRY, icon: '📝' },
+                { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
+                { label: ContentRegistry.MENU.USERS, path: RouteRegistry.USERS, icon: '👨‍⚕️' },
+                { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.SCHEDULE, icon: '📅' },
+                { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.INCIDENTS, icon: '⚠️' },
+                { label: ContentRegistry.MENU.REPORTS, path: '/reports', icon: '📈' },
             ];
     }
 };

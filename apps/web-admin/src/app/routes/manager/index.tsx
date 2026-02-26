@@ -24,17 +24,14 @@ const ManagerRoutes: React.FC = () => {
                 <Route element={<ManagerLayout />}>
                     <Route path="dashboard" element={<Portfolio />} />
                     <Route path="portfolio" element={<Portfolio />} />
-                    <Route path="marketing" element={<Dashboard />} />
-                    <Route path="operations" element={<Dashboard />} />
-                    <Route path="clinical" element={<Dashboard />} />
-                    <Route path="regional" element={<Dashboard />} />
-                    <Route path="recruiting" element={<Dashboard />} />
-                    <Route path="coordinator" element={<Dashboard />} />
-                    <Route path="crm" element={<Dashboard />} />
-                    <Route path="training" element={<Dashboard />} />
+
+                    {/* Dynamic Category Routes */}
+                    <Route path=":category" element={<Dashboard />} />
+
                     <Route path="daily-entry" element={<DailyEntry />} />
                     <Route path="evaluations" element={<Evaluations />} />
                     <Route path="service-review" element={<ServiceReview />} />
+
                     {/* Default redirect for /managers */}
                     <Route index element={<Portfolio />} />
                 </Route>

@@ -7,6 +7,7 @@ export const ApiRegistry = {
         LOGOUT: '/v1/auth/logout',
         SWITCH_ROLE: '/v1/auth/switch-role',
         REFRESH: '/v1/auth/refresh',
+        IMPERSONATE: '/v1/auth/impersonate',
     },
     USER: {
         PROFILE: '/v1/user/profile',
