@@ -49,8 +49,8 @@ export function RoleSwitcherModal({
                 {/* Header */}
                 <div style={{ padding: '20px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Perspective Switcher</h3>
-                        <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#6B7280' }}>Toggle your role or impersonate a system user</p>
+                        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Umbrella Role Switcher</h3>
+                        <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#6B7280' }}>Toggle your role or impersonate a system user (Umbrella Mode)</p>
                     </div>
                     <button
                         onClick={onClose}
@@ -65,7 +65,7 @@ export function RoleSwitcherModal({
                     {/* Assigned Roles */}
                     <div style={{ marginBottom: '24px' }}>
                         <h4 style={{ margin: '0 0 12px', fontSize: '0.75rem', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            Your Assigned Roles
+                            Your Umbrella Roles
                         </h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {availableRoles.filter(r => !isAdmin || !systemRoles.includes(r) || r === 'admin' || r === 'manager').map(role => (
@@ -103,7 +103,7 @@ export function RoleSwitcherModal({
                     {isAdmin && (
                         <div>
                             <h4 style={{ margin: '0 0 12px', fontSize: '0.75rem', fontWeight: 800, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                Impersonate System User
+                                Impersonate Umbrella Role
                             </h4>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                 {systemRoles.map(role => (
