@@ -80,7 +80,7 @@ export function PerspectiveModal({
                 }}>
                     <div>
                         <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: 'var(--text-400)' }}>
-                            {isImpersonating ? 'User Impersonation Tool' : 'Perspective Switcher'}
+                            {isImpersonating ? 'User Impersonation Tool' : 'Umbrella Role Switcher'}
                         </h3>
                         <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--text-300)' }}>
                             {isImpersonating ? 'You are currently viewing as another user' : 'Switch between Umbrella Roles or impersonate a system user'}
