@@ -6,7 +6,7 @@ import { apiClient } from '@/shared/utils/apiClient';
 // Components
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
 
-const { ApiRegistry } = AdminRegistry;
+const { ApiRegistry, ContentRegistry } = AdminRegistry;
 
 interface CreateVisitModalProps {
     isOpen: boolean;
@@ -102,16 +102,16 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
         try {
             const response = visit
                 ? await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload)
-                : await apiClient.post('/v1/admin/visits', payload);
+                : await apiClient.post(ApiRegistry.ADMIN.VISITS, payload);
 
             if (response.ok) {
-                showToast(visit ? 'Shift updated successfully!' : 'Shift created successfully!', 'success');
+                showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_CREATE, 'success');
                 onSuccess(); onClose();
             } else {
                 const err = await response.json();
-                showToast(err.error || (visit ? 'Failed to update shift' : 'Failed to create shift'), 'error');
+                showToast(err.error || (visit ? ContentRegistry.MODALS.CREATE_VISIT.ERROR_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.ERROR_CREATE), 'error');
             }
-        } catch (error) { showToast(visit ? 'Error updating shift' : 'Error creating shift', 'error'); }
+        } catch (error) { showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.ERROR_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.ERROR_CREATE, 'error'); }
         finally { setLoading(false); }
     };
 
@@ -120,7 +120,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? 'Edit Shift Request' : 'Create New Shift Request'}</h3>
+                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
                 <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <ClientServiceFields
                         clientId={formData.clientId} serviceId={formData.serviceId} clients={clients} services={services}
@@ -149,9 +149,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         isEdit={!!visit} disabled={loading}
                     />
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                        <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}>Cancel</button>
+                        <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}>{ContentRegistry.MODALS.CREATE_VISIT.CANCEL}</button>
                         <button type="submit" disabled={loading} data-cy="btn-submit-visit" style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
-                            {loading ? 'Processing...' : (visit ? 'Save Changes' : 'Create Shift')}
+                            {loading ? ContentRegistry.MODALS.CREATE_VISIT.PROCESSING : (visit ? ContentRegistry.MODALS.CREATE_VISIT.SUBMIT_SAVE : ContentRegistry.MODALS.CREATE_VISIT.SUBMIT_CREATE)}
                         </button>
                     </div>
                 </form>

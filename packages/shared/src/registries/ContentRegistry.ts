@@ -33,6 +33,27 @@ export const ContentRegistry = {
             SUBTITLE: "Here is what's happening today at PrimeCare.",
             QUICK_ACTIONS: 'Quick Actions',
             OPERATIONAL_STATUS: 'Operational Status',
+            ANALYTICS: 'Performance Analytics',
+        },
+        ACTIONS: {
+            VIEW_DETAILS: 'Click to view details →',
+            CHECK_CERTS: 'Check certifications',
+            VIEW_SCHEDULE: 'View Schedule',
+            MANAGE_ASSIGNMENTS: 'Manage assignments',
+            REVIEW_LEADS: 'Review Leads',
+            RESPOND_INQUIRIES: 'Respond to inquiries',
+            SYSTEM_CONFIG: 'System Config',
+            APP_ADJUSTS: 'App adjustments',
+            POST_SHIFT: '+ Post New Shift',
+            POST_SHIFT_DESC: 'Direct or open posting',
+            POST_SUCCESS: 'Shift posted successfully!',
+        },
+        STATUS: {
+            API: 'Worker API Status',
+            CLIENT_APP: 'Mobile Client App',
+            PSW_APP: 'Mobile PSW App',
+            HEALTHY: '● Healthy',
+            ONLINE: (v: string) => `● v${v} Online`,
         }
     },
     CLIENT_DASHBOARD: {
@@ -41,6 +62,9 @@ export const ContentRegistry = {
         BUTTON_REQUEST: 'Request New Care',
         MODAL_TITLE: 'Request New Care',
         MODAL_SUBTITLE: 'Please select your care type and preferred time.',
+        MESSAGES: {
+            LOADING: 'Loading Client Dashboard...',
+        }
     },
     PSW_DASHBOARD: {
         TITLE: 'My Work Schedule',
@@ -48,6 +72,9 @@ export const ContentRegistry = {
         BUTTON_FULL_SCHEDULE: 'View Full Schedule',
         SECTION_SHIFTS: 'Shift Schedule',
         NO_SHIFTS: 'You have no shifts scheduled at this time.',
+        MESSAGES: {
+            LOADING: 'Loading Provider Dashboard...',
+        }
     },
     RN_DASHBOARD: {
         TITLE: 'Clinical Care Management',
@@ -57,6 +84,15 @@ export const ContentRegistry = {
             PENDING_CARE_PLANS: 'Care Plans to Review',
             DAILY_REVIEWS: 'Daily Entries to Verify',
             SUPERVISED_PSWS: 'PSWs Under Supervision',
+        },
+        TASKS: {
+            TITLE: 'Pending Clinical Tasks',
+            EMPTY: 'No pending clinical tasks.',
+            RESOLVE_BTN: 'Resolve Task',
+            PATIENT_LABEL: 'Patient: ',
+        },
+        MESSAGES: {
+            LOADING: 'Loading Clinical Dashboard...',
         }
     },
     USERS: {
@@ -65,18 +101,84 @@ export const ContentRegistry = {
         ROLE: 'Role',
         STATUS: 'Status',
         INVITE_BTN: 'Invite User',
+        ADD_BTN: 'Add New User',
         INVITE_PROMPT: 'Enter email to invite:',
         INVITE_SUCCESS: (email: string) => `Invitation sent to ${email}`,
         VERIFY_BTN: 'Verify Certs',
         EDIT_BTN: 'Edit',
+        ID_VERIFICATION: 'ID Verification',
+        ACTIONS: 'Actions',
+        VERIFIED: 'Verified',
+        PENDING: 'Pending Review',
+        CLEAR_FILTERS: 'Clear All',
+        ACTIVE_FILTERS: 'Active Filters:',
         MESSAGES: {
             LOADING: 'Retrieving secure user registry...',
             EMPTY: 'No users found in the registry.',
             ERROR_VERIFY: 'Failed to approve worker',
+            ERROR_LOAD: 'Failed to load user list',
+            SUCCESS_VERIFY: 'User extracted and verified successfully',
+        },
+        MODAL: {
+            INVITE_TITLE: 'Invite New User',
+            DISCARD_TITLE: 'Discard Invite?',
+            DISCARD_DESC: 'Are you sure you want to cancel this invitation?',
+            DISCARD_BTN: 'Discard',
+            STAY_BTN: 'Stay',
+            SEND_BTN: 'Send Invite',
+            SENDING: 'Sending...',
+        },
+        FORM: {
+            TITLE_CREATE: 'Create New User',
+            TITLE_EDIT: 'Edit User',
+            SUBTITLE: 'Manage system access and profile details.',
+            BTN_CREATE: 'Create User',
+            BTN_UPDATE: 'Update User',
+            BTN_CANCEL: 'Cancel',
+            LOADING: 'Loading user data...',
+            ERROR_LOAD: 'Failed to load user data',
+            SUCCESS_CREATE: 'User created successfully',
+            SUCCESS_UPDATE: 'User updated successfully',
+            ERROR_ACTION: 'Action failed',
+        }
+    },
+    INCIDENTS: {
+        TITLE: 'Incident Reports',
+        SUBTITLE: 'Document clinical or operational incidents for audit.',
+        ADD_BTN: 'Report Incident',
+        FORM: {
+            TITLE: 'Report New Incident',
+            TYPE_LABEL: 'Incident Type',
+            SEVERITY_LABEL: 'Severity',
+            DESC_LABEL: 'Description',
+            SUBMIT_BTN: 'Submit Report',
+            REPORTING: 'Reporting...',
+            SUCCESS_MSG: 'Incident report submitted',
+            ERROR_MSG: 'Submission failed',
+        },
+        RESOLVE: {
+            BTN: 'Resolve',
+            TITLE: 'Resolve Incident',
+            NOTES_LABEL: 'Resolution Notes',
+            NOTES_PLACEHOLDER: 'Describe the steps taken to resolve this incident...',
+            RESOLVING_LOADING: 'Resolving...',
+            DISCARD_TITLE: 'Discard Changes?',
+            DISCARD_DESC: 'You have typed resolution notes. Are you sure you want to cancel?',
+        },
+        TABLE: {
+            TYPE: 'Type',
+            REPORTER: 'Reporter',
+            STATUS: 'Status',
+            DATE: 'Date',
+            ACTIONS: 'Actions',
+            LOADING: 'Loading incidents...',
         }
     },
     LEADS: {
         TITLE: 'Lead Inquiries',
+        SUBTITLE: 'Track and manage potential client inquiries.',
+        ADD_BTN: 'New Lead',
+        SEARCH_PLACEHOLDER: 'Search leads...',
         ACTIONS: {
             EXPORT: 'Export CSV',
             REFRESH: 'Refresh',
@@ -84,6 +186,33 @@ export const ContentRegistry = {
             MARK_CONTACTED: 'Mark Contacted',
             CONVERT: 'Convert',
             CLOSE: 'Close',
+        },
+        FORM: {
+            TITLE: 'New Lead Entry',
+            SUBTITLE: 'Record an offline inquiry.',
+            SOURCE_LABEL: 'Inquiry Source',
+            NAME_LABEL: 'Lead Name',
+            SUBMIT_BTN: 'Create Lead',
+            SAVING: 'Saving...',
+            SUCCESS_MSG: 'Lead created successfully',
+            ERROR_MSG: 'Error creating lead',
+            DISCARD_TITLE: 'Discard Lead?',
+        },
+        TABLE: {
+            NAME: 'Name',
+            CONTACT: 'Contact',
+            INTEREST: 'Interest',
+            STATUS: 'Status',
+            DATE: 'Date',
+            ACTIONS: 'Actions',
+            NO_LEADS: 'No leads found matching your search.',
+        },
+        STATUS: {
+            NEW: 'New',
+            CONTACTED: 'Contacted',
+            CONSULTATION: 'Consultation',
+            CONVERTED: 'Converted',
+            LOST: 'Lost',
         },
         MESSAGES: {
             LOADING: 'Loading leads repository...',
@@ -207,6 +336,108 @@ export const ContentRegistry = {
             SERVICE_REVIEW: 'Service Reviews',
             LOG_INCIDENT: 'Log Incident',
             VIEW_CLIENTS: 'View Clients',
+        },
+        PERSPECTIVES: ['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'],
+        MESSAGES: {
+            LOADING: 'Loading Dashboard...',
         }
+    },
+    LAYOUT: {
+        LOGOUT: 'Sign Out',
+        PROFILE_TITLE: 'Account Profile',
+        PERSPECTIVE: 'Perspective',
+        IMPERSONATING: 'Impersonating profile',
+        SWITCH_PERSPECTIVE: 'Choose Perspective',
+        SEARCH_USERS: 'Search system users...',
+        ONLINE_STATUS: 'STATUS: ONLINE',
+        FULLSCREEN_ENTER: 'Enter Fullscreen',
+        FULLSCREEN_EXIT: 'Exit Fullscreen',
+        MOBILE_MENU: 'Toggle Menu',
+        SEARCH_LABEL: 'Search Registry',
+        LOGGED_IN_AS: 'Active Session: ',
+    },
+    ROLE_HELP: {
+        TITLE: '💡 Umbrella Role System',
+        ADMIN: {
+            TITLE: 'Core Administration',
+            LABEL: 'Administrator',
+            INFO: 'Full system access. Manage global settings, billing architecture, and system roles.'
+        },
+        STAFF: {
+            TITLE: 'Operations Umbrella',
+            LABEL: 'Staff / HR / Finance',
+            INFO: 'Manage day-to-day coordination: scheduling visits, payroll processing, and compliance monitoring.'
+        },
+        MANAGER: {
+            TITLE: 'Management Umbrella',
+            LABEL: 'Functional Managers',
+            INFO: 'Strategic oversight: access to operational analytics, service audits, and department-level reporting.'
+        },
+        PROVIDER: {
+            TITLE: 'Healthcare Workers',
+            LABEL: 'Service Providers (PSW / RN)',
+            INFO: 'Field operations: Direct care delivery, shift scheduling, and clinical documentation.'
+        },
+        CLIENT: {
+            TITLE: 'Clients & Guardians',
+            LABEL: 'Client / Family Profile',
+            INFO: 'Service recipients: Manage family care requests, view assigned visits, and handle private billing.'
+        },
+        TIP_LABEL: 'Tip:',
+        TIP_CONTENT: 'Users can possess multiple roles across umbrellas to aggregate permissions and access.'
+    },
+    MODALS: {
+        CREATE_VISIT: {
+            TITLE_CREATE: 'Create New Shift Request',
+            TITLE_EDIT: 'Edit Shift Request',
+            SUBMIT_CREATE: 'Create Shift',
+            SUBMIT_SAVE: 'Save Changes',
+            CANCEL: 'Cancel',
+            PROCESSING: 'Processing...',
+            SUCCESS_CREATE: 'Shift created successfully!',
+            SUCCESS_UPDATE: 'Shift updated successfully!',
+            ERROR_CREATE: 'Failed to create shift',
+            ERROR_UPDATE: 'Failed to update shift',
+        },
+        CONFIRM_DELETE: {
+            TITLE: 'Confirm Deletion',
+            DESC: 'Are you sure you want to delete this item? This action cannot be undone.',
+            CONFIRM: 'Delete',
+            CANCEL: 'Cancel',
+        }
+    },
+    EARNINGS: {
+        TITLE: 'Earnings Center',
+        SUBTITLE: 'Enterprise-grade financial oversight and payout management',
+        STATS: {
+            REVENUE: 'Total Revenue',
+            PAYROLL: 'Total Payroll',
+            PROFIT: 'Net Profit',
+            PENDING: 'Payouts Pending',
+        },
+        TABS: {
+            OVERVIEW: 'Overview',
+            INVOICES: 'Invoices',
+            PAYOUTS: 'Payouts',
+            REPORTS: 'Reports',
+        },
+        ACTIONS: {
+            EXPORT: 'Export Report',
+            DATE_RANGE: 'Date Range',
+            FILTER_ACTIVE: 'Filter Active',
+        }
+    },
+    COMMON: {
+        LOAD_MORE: 'Load More',
+        RETRY: 'Retry',
+        SEARCH_PLACEHOLDER: 'Search...',
+        NO_RESULTS: 'No results found.',
+        SAVE: 'Save',
+        CLOSE: 'Close',
+        BACK: 'Back',
+        EDIT: 'Edit',
+        DELETE: 'Delete',
+        NETWORK_ERROR: 'Network error',
+        PROCESSING: 'Processing...',
     }
 } as const;

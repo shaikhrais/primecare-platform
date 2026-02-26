@@ -77,7 +77,7 @@ export default function ClientDashboard() {
     }, []);
 
     if (loading) {
-        return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading Client Dashboard...</div>;
+        return <div style={{ padding: '2rem', textAlign: 'center' }}>{ContentRegistry.CLIENT_DASHBOARD.MESSAGES.LOADING}</div>;
     }
 
     return (

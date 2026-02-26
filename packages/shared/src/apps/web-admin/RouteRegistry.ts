@@ -10,8 +10,20 @@ export const RouteRegistry = {
     EARNINGS: '/admin/earnings',
     SCHEDULE: '/admin/schedule',
     INCIDENTS: '/admin/incidents',
-    TIMESHEETS: '/admin/timesheets',
+    INCIDENTS_NEW: '/admin/incidents/new',
+    INCIDENTS_EDIT: (id: string) => `/admin/incidents/${id}/edit`,
+
     LEADS: '/admin/leads',
+    LEADS_NEW: '/admin/leads/new',
+    LEADS_EDIT: (id: string) => `/admin/leads/${id}/edit`,
+
+    INVOICES_NEW: '/admin/invoices/new',
+    INVOICES_EDIT: (id: string) => `/admin/invoices/${id}/edit`,
+
+    TIMESHEETS: '/admin/timesheets',
+    TIMESHEET_ADJUST: '/admin/timesheets/adjust',
+
+    REPORTS: '/admin/reports',
     SERVICES: '/admin/services',
     SETTINGS: '/admin/settings',
     CONTENT: '/admin/content',
@@ -34,6 +46,8 @@ export const RouteRegistry = {
         DAILY_ENTRY: '/managers/daily-entry',
         EVALUATIONS: '/managers/evaluations',
         SERVICE_REVIEW: '/managers/service-review',
+        TRAINING_MODULES: '/managers/training/modules',
+        SURVEYS: '/managers/surveys',
     },
 
     STAFF: {
@@ -57,7 +71,12 @@ export const RouteRegistry = {
         DASHBOARD: '/client/dashboard',
         BOOKINGS: '/client/bookings',
         BILLING: '/client/billing',
+        FEEDBACK: '/client/feedback',
     },
+
+    PROFILE: '/profile',
+    MESSAGING: '/messaging',
+    CARE_PLANS: '/care-plans',
 
     ROLE_DASHBOARDS: {
         admin: '/admin/dashboard',

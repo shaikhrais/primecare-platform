@@ -73,7 +73,7 @@ export const Dashboard: React.FC = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                Loading Clinical Dashboard...
+                {ContentRegistry.RN_DASHBOARD.MESSAGES.LOADING}
             </div>
         );
     }
@@ -98,11 +98,15 @@ export const Dashboard: React.FC = () => {
                 <CarePlanAdherenceGauge data={(chartData?.carePlanAdherence?.length > 0) ? chartData.carePlanAdherence : MOCK_MANAGER_DATA.carePlanAdherence} isDemo={!chartData?.carePlanAdherence?.length} />
             </div>
 
-            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">Pending Clinical Tasks</h2>
+            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">
+                {ContentRegistry.RN_DASHBOARD.TASKS.TITLE}
+            </h2>
             <div className="pc-card">
                 <div className="pc-card-b" style={{ padding: '0 24px' }}>
                     {tasks.length === 0 ? (
-                        <p data-cy="tasks-empty-message" style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>No pending clinical tasks.</p>
+                        <p data-cy="tasks-empty-message" style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>
+                            {ContentRegistry.RN_DASHBOARD.TASKS.EMPTY}
+                        </p>
                     ) : (
                         tasks.map((task) => (
                             <div key={task.id} data-cy="task-item" style={{ display: 'flex', gap: '20px', padding: '20px 0', borderBottom: '1px solid var(--card-border)', alignItems: 'center' }}>
@@ -114,9 +118,13 @@ export const Dashboard: React.FC = () => {
                                 }}></div>
                                 <div style={{ flex: 1 }}>
                                     <div data-cy="task-description" style={{ fontWeight: 900, color: 'var(--text-100)', fontSize: '1.05rem' }}>{task.description}</div>
-                                    <div data-cy="task-target" style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>Patient: {task.targetName}</div>
+                                    <div data-cy="task-target" style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>
+                                        {ContentRegistry.RN_DASHBOARD.TASKS.PATIENT_LABEL}{task.targetName}
+                                    </div>
                                 </div>
-                                <button data-cy={`btn-action-${task.id}`} className="btn" style={{ padding: '8px 16px', fontSize: '13px' }}>Resolve Task</button>
+                                <button data-cy={`btn-action-${task.id}`} className="btn" style={{ padding: '8px 16px', fontSize: '13px' }}>
+                                    {ContentRegistry.RN_DASHBOARD.TASKS.RESOLVE_BTN}
+                                </button>
                             </div>
                         ))
                     )}

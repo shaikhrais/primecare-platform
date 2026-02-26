@@ -74,7 +74,7 @@ export default function AdminDashboard() {
                                 {card.value}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)', marginTop: '0.5rem' }}>
-                                Click to view details →
+                                {ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_DETAILS}
                             </div>
                         </div>
                     </Link>
@@ -82,7 +82,9 @@ export default function AdminDashboard() {
             </div>
 
             {/* Interactive Charts Section */}
-            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>Performance Analytics</h2>
+            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
+                {ContentRegistry.ADMIN_DASHBOARD.TITLES.ANALYTICS}
+            </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
                 <RevenueChart />
                 <VisitVolumeChart />
@@ -106,25 +108,25 @@ export default function AdminDashboard() {
                             <Link to={RouteRegistry.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{ContentRegistry.USERS.TITLE}</div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Check certifications</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.CHECK_CERTS}</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
-                                    <div style={{ color: 'var(--brand-500)' }}>View Schedule</div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Manage assignments</div>
+                                    <div style={{ color: 'var(--brand-500)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_SCHEDULE}</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.MANAGE_ASSIGNMENTS}</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
-                                    <div style={{ color: 'var(--brand-500)' }}>Review Leads</div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>Respond to inquiries</div>
+                                    <div style={{ color: 'var(--brand-500)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.REVIEW_LEADS}</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.RESPOND_INQUIRIES}</div>
                                 </button>
                             </Link>
                             <Link to={RouteRegistry.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
-                                    <div style={{ color: 'var(--brand-500)' }}>System Config</div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>App adjustments</div>
+                                    <div style={{ color: 'var(--brand-500)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.SYSTEM_CONFIG}</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.APP_ADJUSTS}</div>
                                 </button>
                             </Link>
 
@@ -134,8 +136,8 @@ export default function AdminDashboard() {
                                 style={{ width: '100%', textAlign: 'left', background: '#E6F4EA', border: '1px solid #00875A' }}
                                 data-cy="qa-btn-post-shift"
                             >
-                                <div style={{ color: '#00875A', fontWeight: 'bold' }}>+ Post New Shift</div>
-                                <div style={{ fontSize: '0.75rem', color: '#00875A' }}>Direct or open posting</div>
+                                <div style={{ color: '#00875A', fontWeight: 'bold' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.POST_SHIFT}</div>
+                                <div style={{ fontSize: '0.75rem', color: '#00875A' }}>{ContentRegistry.ADMIN_DASHBOARD.ACTIONS.POST_SHIFT_DESC}</div>
                             </button>
                         </div>
                     </div>
@@ -148,16 +150,16 @@ export default function AdminDashboard() {
                     <div className="pc-card-b">
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }} data-cy="status-item-api">
-                                <span style={{ color: 'var(--text-200)' }}>Worker API Status</span>
-                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● Healthy</span>
+                                <span style={{ color: 'var(--text-200)' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.API}</span>
+                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.HEALTHY}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }} data-cy="status-item-client-app">
-                                <span style={{ color: 'var(--text-200)' }}>Mobile Client App</span>
-                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● v1.0.4 Online</span>
+                                <span style={{ color: 'var(--text-200)' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.CLIENT_APP}</span>
+                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE('1.0.4')}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0' }} data-cy="status-item-psw-app">
-                                <span style={{ color: 'var(--text-200)' }}>Mobile PSW App</span>
-                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>● v1.0.4 Online</span>
+                                <span style={{ color: 'var(--text-200)' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.PSW_APP}</span>
+                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE('1.0.4')}</span>
                             </div>
                         </div>
                     </div>
@@ -169,7 +171,7 @@ export default function AdminDashboard() {
                 onClose={() => setIsPostShiftModalOpen(false)}
                 onSuccess={() => {
                     setIsPostShiftModalOpen(false);
-                    showToast('Shift posted successfully!', 'success');
+                    showToast(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.POST_SUCCESS, 'success');
                 }}
             />
         </div>

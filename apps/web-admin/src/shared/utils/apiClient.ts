@@ -28,7 +28,9 @@ export const apiClient = {
         let response = await fetch(url, defaultOptions);
 
         // Handle Token Refresh (401)
-        if (response.status === 401 && !path.includes('/auth/refresh') && !path.includes('/auth/login')) {
+        const { AdminRegistry } = await import('prime-care-shared');
+        const { ApiRegistry, RouteRegistry } = AdminRegistry;
+        if (response.status === 401 && !path.includes(ApiRegistry.AUTH.REFRESH) && !path.includes(ApiRegistry.AUTH.LOGIN)) {
             try {
                 // We don't want to import AdminRegistry here to avoid circular dependencies if possible, 
                 // but since it's a shared package it should be fine.
@@ -64,9 +66,9 @@ export const apiClient = {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
 
-                    const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
+                    const isAuthPage = window.location.pathname === RouteRegistry.LOGIN || window.location.pathname === RouteRegistry.REGISTER;
                     if (!isAuthPage) {
-                        window.location.href = '/login';
+                        window.location.href = RouteRegistry.LOGIN;
                     }
                 }
             } catch (err) {

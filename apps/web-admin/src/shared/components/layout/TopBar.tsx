@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface TopBarProps {
     isMobile: boolean;
@@ -41,6 +44,11 @@ export const TopBar: React.FC<TopBarProps> = ({
         }
     };
 
+    const getRoleTitle = (role: string) => {
+        const r = role.toUpperCase();
+        return ContentRegistry.ROLES[r as keyof typeof ContentRegistry.ROLES] || ContentRegistry.ROLES.STAFF;
+    };
+
     return (
         <header className="pc-topbar" data-cy="page.header" style={{
             height: '72px',
@@ -76,7 +84,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F3F4F6'}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
-                        title="Open Sidebar"
+                        title={ContentRegistry.LAYOUT.MOBILE_MENU}
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -102,7 +110,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             justifyContent: 'center',
                             transition: 'all 0.2s'
                         }}
-                        title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                        title={isCollapsed ? "Expand" : "Collapse"}
                     >
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -113,21 +121,18 @@ export const TopBar: React.FC<TopBarProps> = ({
                 )}
 
                 {/* Logo in topbar when sidebar can't show it */}
-                {(isMobile || isCollapsed) && <img src="/logo.png" alt="PrimeCare" style={{ height: '32px', width: 'auto' }} />}
+                {(isMobile || isCollapsed) && <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto' }} />}
 
                 {/* Only show vertical divider if logo is present */}
                 {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: '0.875rem', fontWeight: 900, color: '#111827', textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>
-                        {role === 'admin' ? 'Administration' :
-                            role === 'psw' ? 'Service Provider Portal' :
-                                role === 'client' ? 'Family Hub' :
-                                    role === 'rn' ? 'Clinical Panel' : 'Staff Workspace'}
+                        {getRoleTitle(role)}
                     </span>
                     {!isMobile && (
                         <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#6B7280', marginTop: '2px' }}>
-                            Logged in as <span style={{ color: '#00875A' }}>{user.fullName || user.email}</span>
+                            {ContentRegistry.LAYOUT.LOGGED_IN_AS} <span style={{ color: 'var(--brand-600)' }}>{user.fullName || user.email}</span>
                         </span>
                     )}
                 </div>
@@ -152,7 +157,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             <span style={{ opacity: 0.7 }}>🕒</span>
                             {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
                         </div>
-                        <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title="Search">
+                        <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title={ContentRegistry.LAYOUT.SEARCH_LABEL}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -163,7 +168,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             onClick={toggleFullscreen}
                             className="btn-icon"
                             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}
-                            title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+                            title={isFullscreen ? ContentRegistry.LAYOUT.FULLSCREEN_EXIT : ContentRegistry.LAYOUT.FULLSCREEN_ENTER}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import DevPerspectiveSwitcher from '@/shared/components/layout/DevPerspectiveSwitcher';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface MenuItem {
     label: string;
@@ -56,8 +59,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 boxSizing: 'border-box'
             }}>
                 <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '12px', justifyContent: isCollapsed ? 'center' : 'flex-start', width: '100%' }}>
-                    {!isCollapsed && <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />}
-                    {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00875A' }}>P</span>}
+                    {!isCollapsed && <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '36px', width: 'auto' }} />}
+                    {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--brand-500)' }}>{ContentRegistry.APP.NAME.charAt(0)}</span>}
                 </Link>
             </div>
 
@@ -80,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                 textDecoration: 'none',
                                 color: isActive ? '#000000' : '#4B5563',
                                 backgroundColor: isActive ? '#F9FAFB' : 'transparent',
-                                borderLeft: !isCollapsed && isActive ? '4px solid #00875A' : '4px solid transparent',
+                                borderLeft: !isCollapsed && isActive ? '4px solid var(--brand-500)' : '4px solid transparent',
                                 fontWeight: isActive ? '700' : '500',
                                 transition: 'all 0.2s ease',
                                 whiteSpace: 'nowrap'
@@ -116,10 +119,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         cursor: 'pointer',
                         transition: 'all 0.2s'
                     }}
-                    title={isCollapsed ? "Logout" : ""}
+                    title={isCollapsed ? ContentRegistry.LAYOUT.LOGOUT : ""}
                 >
                     <span>🚪</span>
-                    {!isCollapsed && <span>Sign Out</span>}
+                    {!isCollapsed && <span>{ContentRegistry.LAYOUT.LOGOUT}</span>}
                 </button>
             </div>
         </aside>

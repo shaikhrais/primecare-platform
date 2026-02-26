@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
 // Components
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import SideFloatingButton from './SideFloatingButton';
 
-const { RouteRegistry } = AdminRegistry;
-
-interface MenuItem {
-    label: string;
-    path: string;
-    icon: string;
-}
-
-interface AdminLayoutProps {
-    children: React.ReactNode;
-    roleGated?: string[];
-}
+const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
 import { adminMenu, clientMenu, staffMenu, pswMenu, rnMenu, managerMenu, coordinatorMenu, financeMenu } from './menu-configs';
 
-export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
+interface AppLayoutProps {
+    children?: React.ReactNode;
+    roleGated?: string[];
+}
+
+export default function AppLayout({ children, roleGated }: AppLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -38,18 +33,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         document.documentElement.style.setProperty('--sidebar-width', width);
     }, [isCollapsed, isMobile]);
 
-    const getUser = () => {
-        try {
-            const userStr = localStorage.getItem('user');
-            if (!userStr || userStr === 'undefined') return { roles: ['client'], activeRole: 'client' };
-            const u = JSON.parse(userStr);
-            return u;
-        } catch (e) {
-            return { roles: ['client'], activeRole: 'client' };
-        }
-    };
-
-    const user = getUser();
+    const userStr = localStorage.getItem('user');
+    const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { roles: ['client'], activeRole: 'client' };
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -68,23 +53,15 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
     const getMenuItems = (role: string) => {
         const lowerRole = role.toLowerCase();
 
-        // 1. Administration
         if (lowerRole === 'admin') return adminMenu;
-
-        // 2. Management Umbrella
         if (lowerRole.includes('manager') || ['coordinator', 'crm', 'training'].includes(lowerRole)) {
-            // Priority for specific coordinator/crm menus if they differ significantly
             if (lowerRole === 'coordinator') return coordinatorMenu;
             return managerMenu;
         }
-
-        // 3. Staff/Ops Umbrella
         if (['staff', 'finance', 'hr', 'compliance'].includes(lowerRole)) {
             if (lowerRole === 'finance') return financeMenu;
             return staffMenu;
         }
-
-        // 4. Service Providers Umbrella
         if (lowerRole === 'rn') return rnMenu;
         if (['psw', 'rmt', 'rpt', 'rch'].includes(lowerRole)) return pswMenu;
 
@@ -104,30 +81,27 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
             console.error('Logout API call failed', e);
         }
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         navigate(RouteRegistry.LOGIN);
     };
 
-    const containerStyle = {
-        display: 'flex',
-        minHeight: '100vh',
-        backgroundColor: '#FFFFFF',
-        '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
-    } as any;
-
-    const overlayStyle = {
-        position: 'fixed' as const,
-        inset: 0,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        zIndex: 999
-    };
-
     return (
-        <div className="app" style={containerStyle}>
+        <div className="pc-app-container" style={{
+            display: 'flex',
+            minHeight: '100vh',
+            backgroundColor: '#FFFFFF',
+            '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
+        } as any}>
             {/* Sidebar Overlay (Mobile Only) */}
             {isMobile && isSidebarOpen && (
                 <div
                     onClick={() => setIsSidebarOpen(false)}
-                    style={overlayStyle}
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        zIndex: 999
+                    }}
                 />
             )}
 
@@ -148,7 +122,8 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                 flexDirection: 'column',
                 minHeight: '100vh',
                 backgroundColor: '#FFFFFF',
-                width: isMobile ? '100%' : 'calc(100% - var(--sidebar-width))'
+                width: isMobile ? '100%' : 'calc(100% - var(--sidebar-width))',
+                overflowX: 'hidden'
             }}>
                 <TopBar
                     isMobile={isMobile}
@@ -159,10 +134,13 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
                     user={user}
                 />
 
-                <div style={{ flex: 1, padding: isMobile ? '16px' : '24px' }}>
+                <div style={{ flex: 1, padding: isMobile ? '16px' : '32px' }}>
+                    <Outlet />
                     {children}
                 </div>
             </main>
+
+            <SideFloatingButton />
         </div>
     );
 }
