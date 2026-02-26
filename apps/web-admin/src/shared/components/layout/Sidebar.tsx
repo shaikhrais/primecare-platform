@@ -55,8 +55,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 height: '72px',
                 boxSizing: 'border-box'
             }}>
-                {!isCollapsed && <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />}
-                {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00875A' }}>P</span>}
+                <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '12px', justifyContent: isCollapsed ? 'center' : 'flex-start', width: '100%' }}>
+                    {!isCollapsed && <img src="/logo.png" alt="PrimeCare" style={{ height: '36px', width: 'auto' }} />}
+                    {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00875A' }}>P</span>}
+                </Link>
             </div>
 
             <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto', overflowX: 'hidden' }} data-cy="nav.main">

@@ -67,6 +67,16 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
     }
 }
 
+const IndexRedirect: React.FC = () => {
+    const { user, loading } = useAuth();
+    if (loading) return null;
+    if (!user) return <Navigate to={RouteRegistry.LOGIN} replace />;
+
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
+    const target = RouteRegistry.ROLE_DASHBOARDS[role.toLowerCase()] || RouteRegistry.DASHBOARD;
+    return <Navigate to={target} replace />;
+};
+
 const ShiftsRedirect: React.FC = () => {
     const { user, loading } = useAuth();
     if (loading) return null;
@@ -135,7 +145,7 @@ export const AppRouter: React.FC = () => {
                     <Route
                         path="/manager/*"
                         element={
-                            <RequireRole allowedRoles={['manager', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training']}>
+                            <RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}>
                                 <ManagerRoutes />
                             </RequireRole>
                         }
@@ -150,9 +160,10 @@ export const AppRouter: React.FC = () => {
                         }
                     />
 
-                    {/* Redirect Legacy/Specific Roles to Unified Manager Portal */}
-                    <Route path="/coordinator/*" element={<Navigate to="/manager/dashboard" replace />} />
-                    <Route path="/finance/*" element={<Navigate to="/manager/dashboard" replace />} />
+                    {/* Unified entry-point redirects */}
+                    <Route path="/coordinator/*" element={<IndexRedirect />} />
+                    <Route path="/finance/*" element={<IndexRedirect />} />
+                    <Route path="/manager/dashboard" element={<RequireRole allowedRoles={['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}><ManagerRoutes /></RequireRole>} />
 
                     {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
                     <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />
@@ -166,7 +177,8 @@ export const AppRouter: React.FC = () => {
                     <Route path="/shared/*" element={<AdminLayout><SharedRoutes /></AdminLayout>} />
 
                     {/* Fallback & Home */}
-                    <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+                    {/* Fallback & Home - Consolidated to one reference */}
+                    <Route path="/" element={<IndexRedirect />} />
 
                     {/* Catch-all 404 (Outside Layout) */}
                     <Route path="*" element={<NotFound />} />
