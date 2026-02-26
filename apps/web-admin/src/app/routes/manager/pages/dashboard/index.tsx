@@ -27,6 +27,7 @@ export default function ManagerDashboard() {
     const [kpi, setKpi] = useState<KPIData>({ activeClients: 0, staffOnDuty: 0, openIncidents: 0, todayShifts: 0 });
     const [shifts, setShifts] = useState<ShiftDisplay[]>([]);
     const [loading, setLoading] = useState(true);
+    const [perspective, setPerspective] = useState('Operations');
     const [chartData, setChartData] = useState<any>(null);
 
     useEffect(() => {
@@ -93,9 +94,33 @@ export default function ManagerDashboard() {
         <div data-cy="page.container">
             <div data-cy="mgr-dashboard">
 
-                <div style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">Manager Dashboard</h1>
-                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">Operational overview and rapid metrics</p>
+                <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">Manager Dashboard</h1>
+                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">Operational overview and rapid metrics</p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
+                        {['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'].map(p => (
+                            <button
+                                key={p}
+                                onClick={() => setPerspective(p)}
+                                style={{
+                                    padding: '8px 16px',
+                                    borderRadius: '8px',
+                                    border: 'none',
+                                    backgroundColor: p === perspective ? '#FFFFFF' : 'transparent',
+                                    color: p === perspective ? '#111827' : '#6B7280',
+                                    fontWeight: 700,
+                                    fontSize: '0.85rem',
+                                    cursor: 'pointer',
+                                    boxShadow: p === perspective ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                {p}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <DashboardStats

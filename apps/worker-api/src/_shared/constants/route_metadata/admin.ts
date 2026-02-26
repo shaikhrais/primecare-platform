@@ -62,6 +62,11 @@ export const ADMIN_METADATA = {
             description: 'Retrieve a list of all users in the system.',
             tags: ['Admin Users'],
         },
+        USERS_CREATE: {
+            summary: 'Create New User',
+            description: 'Register a new user with specific roles and profile.',
+            tags: ['Admin Users'],
+        },
         USERS_VERIFY: {
             summary: 'Verify User',
             description: 'Mark a user as verified.',

@@ -52,8 +52,12 @@ export default function ManagerLayout({ children }: ManagerLayoutProps) {
                                         role === 'coordinator' ? 'Schedule' :
                                             role === 'finance' ? 'Finance' :
                                                 role === 'training' ? 'Training' :
-                                                    role === 'compliance' ? 'Compliance' :
-                                                        'Manager'}
+                                                    role === 'marketing_manager' ? 'Marketing' :
+                                                        role === 'operations_manager' ? 'Operations' :
+                                                            role === 'clinical_manager' ? 'Clinical' :
+                                                                role === 'regional_manager' ? 'Regional' :
+                                                                    role === 'recruiting_manager' ? 'Recruiting' :
+                                                                        'Manager'}
                             </span>
                             <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.8em' }}>Portal</span>
                         </h1>

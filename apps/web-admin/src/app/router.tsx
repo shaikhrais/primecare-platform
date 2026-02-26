@@ -143,7 +143,7 @@ export const AppRouter: React.FC = () => {
                     />
 
                     <Route
-                        path="/manager/*"
+                        path="/managers/*"
                         element={
                             <RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}>
                                 <ManagerRoutes />
@@ -161,9 +161,8 @@ export const AppRouter: React.FC = () => {
                     />
 
                     {/* Unified entry-point redirects */}
-                    <Route path="/coordinator/*" element={<IndexRedirect />} />
-                    <Route path="/finance/*" element={<IndexRedirect />} />
-                    <Route path="/manager/dashboard" element={<RequireRole allowedRoles={['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}><ManagerRoutes /></RequireRole>} />
+                    <Route path="/manager/*" element={<IndexRedirect />} />
+                    <Route path="/managers/dashboard" element={<RequireRole allowedRoles={['manager', 'marketing_manager', 'operations_manager', 'clinical_manager', 'regional_manager', 'recruiting_manager', 'coordinator', 'crm', 'training']}><ManagerRoutes /></RequireRole>} />
 
                     {/* Shared Protected Pages (Flat structure for cleaner URLs) */}
                     <Route path="/profile" element={<AdminLayout><Profile /></AdminLayout>} />

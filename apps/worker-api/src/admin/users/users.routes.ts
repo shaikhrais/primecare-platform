@@ -40,6 +40,52 @@ r.openapi(listUsersRoute, async (c) => {
     return c.json(users);
 });
 
+// Create User
+const createUserRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_CREATE,
+    method: 'post',
+    path: '/',
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        email: z.string().email(),
+                        roles: z.array(z.string()),
+                        fullName: z.string(),
+                        status: z.string().optional()
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'User created successfully',
+        },
+    },
+});
+
+r.openapi(createUserRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const data = await c.req.valid('json' as never) as any;
+    const service = new AdminUserService(prisma);
+    const userRole = c.get('user' as any) as any; // Admin doing the creation
+
+    const newUser = await service.createUser({
+        ...data,
+        tenantId: userRole?.tenantId || 'system'
+    });
+
+    await logAudit(prisma, userRole?.id || 'system', 'CREATE_USER', 'User', newUser.id, data);
+    return c.json(newUser, 201);
+});
+
 // Verify User
 const verifyUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY,
