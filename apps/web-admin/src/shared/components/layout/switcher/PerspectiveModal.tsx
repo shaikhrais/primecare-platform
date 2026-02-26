@@ -97,36 +97,55 @@ export function PerspectiveModal({
                 <div style={{ padding: '24px' }}>
                     {/* Role Switching */}
                     <div style={{ marginBottom: '24px' }}>
-                        <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-200)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            YOUR ASSIGNED ROLES
+                        <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-200)', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            VIEW AS UMBRELLA ROLE
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '10px' }}>
-                            {roles?.map(role => (
-                                <button
-                                    key={role}
-                                    onClick={() => handleSwitchRole(role)}
-                                    disabled={loading || role === activeRole}
-                                    style={{
-                                        padding: '12px',
-                                        fontSize: '13px',
-                                        fontWeight: 700,
-                                        borderRadius: '10px',
-                                        border: '1px solid',
-                                        borderColor: role === activeRole ? 'var(--brand-500)' : 'var(--line)',
-                                        background: role === activeRole ? 'var(--brand-500)' : '#F9FAFB',
-                                        color: role === activeRole ? 'white' : 'var(--text-400)',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '8px'
-                                    }}
-                                >
-                                    {role === activeRole && <span>✓</span>}
-                                    {role.toUpperCase()}
-                                </button>
-                            ))}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {[
+                                { title: 'Administration', roles: ['admin'] },
+                                { title: 'Staff (Ops)', roles: ['staff', 'finance', 'hr', 'compliance'] },
+                                { title: 'Management', roles: ['manager', 'marketing_manager', 'operations_manager', 'coordinator', 'crm', 'training'] },
+                                { title: 'Service Providers', roles: ['psw', 'rn', 'rmt', 'rpt', 'rch'] }
+                            ].map(group => {
+                                const userGroupRoles = roles.filter(r => group.roles.includes(r));
+                                if (userGroupRoles.length === 0) return null;
+
+                                return (
+                                    <div key={group.title}>
+                                        <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-300)', marginBottom: '8px', opacity: 0.8 }}>
+                                            {group.title.toUpperCase()}
+                                        </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '8px' }}>
+                                            {userGroupRoles.map(role => (
+                                                <button
+                                                    key={role}
+                                                    onClick={() => handleSwitchRole(role)}
+                                                    disabled={loading || role === activeRole}
+                                                    style={{
+                                                        padding: '10px',
+                                                        fontSize: '12px',
+                                                        fontWeight: 700,
+                                                        borderRadius: '8px',
+                                                        border: '1px solid',
+                                                        borderColor: role === activeRole ? 'var(--brand-500)' : 'var(--line)',
+                                                        background: role === activeRole ? 'var(--brand-500)' : '#F9FAFB',
+                                                        color: role === activeRole ? 'white' : 'var(--text-400)',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        gap: '6px'
+                                                    }}
+                                                >
+                                                    {role === activeRole && <span>✓</span>}
+                                                    {role.charAt(0).toUpperCase() + role.slice(1).replace('_', ' ')}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 

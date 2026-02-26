@@ -65,14 +65,33 @@ export default function AdminLayout({ children, roleGated }: AdminLayoutProps) {
         }
     }, [navigate, role, roleGated]);
 
-    const menuItems = role === 'admin' ? adminMenu
-        : role === 'manager' ? managerMenu
-            : role === 'rn' ? rnMenu
-                : role === 'psw' ? pswMenu
-                    : role === 'staff' ? staffMenu
-                        : role === 'coordinator' ? coordinatorMenu
-                            : role === 'finance' ? financeMenu
-                                : clientMenu;
+    const getMenuItems = (role: string) => {
+        const lowerRole = role.toLowerCase();
+
+        // 1. Administration
+        if (lowerRole === 'admin') return adminMenu;
+
+        // 2. Management Umbrella
+        if (lowerRole.includes('manager') || ['coordinator', 'crm', 'training'].includes(lowerRole)) {
+            // Priority for specific coordinator/crm menus if they differ significantly
+            if (lowerRole === 'coordinator') return coordinatorMenu;
+            return managerMenu;
+        }
+
+        // 3. Staff/Ops Umbrella
+        if (['staff', 'finance', 'hr', 'compliance'].includes(lowerRole)) {
+            if (lowerRole === 'finance') return financeMenu;
+            return staffMenu;
+        }
+
+        // 4. Service Providers Umbrella
+        if (lowerRole === 'rn') return rnMenu;
+        if (['psw', 'rmt', 'rpt', 'rch'].includes(lowerRole)) return pswMenu;
+
+        return clientMenu;
+    };
+
+    const menuItems = getMenuItems(role);
 
     const handleLogout = async () => {
         try {

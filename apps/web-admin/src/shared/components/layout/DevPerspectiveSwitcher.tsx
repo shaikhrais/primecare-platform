@@ -59,9 +59,17 @@ export default function DevPerspectiveSwitcher() {
             const dashboardMap: Record<string, string> = {
                 admin: '/admin/dashboard',
                 manager: '/manager/dashboard',
+                marketing_manager: '/manager/dashboard',
+                operations_manager: '/manager/dashboard',
                 staff: '/staff/dashboard',
+                finance: '/staff/dashboard',
+                hr: '/staff/dashboard',
+                compliance: '/staff/dashboard',
                 rn: '/rn/dashboard',
                 psw: '/psw/dashboard',
+                rmt: '/psw/dashboard',
+                rpt: '/psw/dashboard',
+                rch: '/psw/dashboard',
                 client: '/client/dashboard'
             };
             navigate(dashboardMap[targetRole] || '/app');
