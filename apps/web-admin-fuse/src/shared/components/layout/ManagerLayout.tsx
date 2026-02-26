@@ -1,0 +1,207 @@
+import React, { useEffect } from 'react';
+import { useLocation, Link, useNavigate, Outlet } from 'react-router-dom';
+import GlobalQuickActionBar from './GlobalQuickActionBar';
+import SideFloatingButton from './SideFloatingButton';
+import RoleSwitcher from './RoleSwitcher';
+import NotificationHub from './NotificationHub';
+import { AdminRegistry } from 'prime-care-shared';
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+
+const { RouteRegistry } = AdminRegistry;
+
+interface ManagerLayoutProps {
+    children?: React.ReactNode;
+}
+
+export default function ManagerLayout({ children }: ManagerLayoutProps) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isMobile = useMediaQuery('(max-width: 1024px)'); // Tablet and Mobile
+    const userStr = localStorage.getItem('user');
+    const user = userStr && userStr !== 'undefined' ? JSON.parse(userStr) : { roles: ['client'], activeRole: 'client' };
+    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    React.useEffect(() => {
+        const currentUser = localStorage.getItem('user');
+        if (!currentUser || currentUser === 'undefined') {
+            navigate(RouteRegistry.LOGIN);
+        }
+    }, [navigate]);
+
+    // Dynamic Menu Logic
+    const getMenuItems = (role: string) => {
+        const commonDashboard = { label: 'Dashboard', path: '/manager/dashboard', icon: '📊' };
+
+        switch (role) {
+            case 'coordinator':
+                return [
+                    commonDashboard,
+                    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
+                    { label: 'Clients', path: '/customers', icon: '👥' },
+                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
+                ];
+            case 'finance':
+                return [
+                    commonDashboard,
+                    { label: 'Billing', path: '/invoices', icon: '💰' },
+                    { label: 'Payroll', path: '/timesheets', icon: '💸' },
+                    { label: 'Reports', path: '/reports', icon: '📈' },
+                    { label: 'Earnings', path: '/earnings', icon: '💵' },
+                ];
+            case 'hr':
+                return [
+                    commonDashboard,
+                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
+                    { label: 'Onboarding', path: '/onboarding', icon: '📋' },
+                    { label: 'Training', path: '/training', icon: '🎓' },
+                    { label: 'Compliance', path: '/compliance', icon: '✅' },
+                ];
+            case 'compliance':
+                return [
+                    commonDashboard,
+                    { label: 'Audits', path: '/audits', icon: '🔍' },
+                    { label: 'Incidents', path: '/incidents', icon: '⚠️' },
+                    { label: 'Reports', path: '/reports', icon: '📈' },
+                ];
+            case 'crm':
+                return [
+                    commonDashboard,
+                    { label: 'Clients', path: '/customers', icon: '👥' },
+                    { label: 'Inquiries', path: '/leads', icon: '📞' },
+                    { label: 'Satisfaction', path: '/surveys', icon: '😊' },
+                ];
+            case 'training':
+                return [
+                    commonDashboard,
+                    { label: 'Modules', path: '/training/modules', icon: '📚' },
+                    { label: 'Staff Skills', path: '/users', icon: '👨‍⚕️' },
+                ];
+            case 'rn': // Clinical Supervisor (M2) using Manager Layout
+                return [
+                    commonDashboard,
+                    { label: 'Care Plans', path: '/care-plans', icon: '📋' },
+                    { label: 'Clients', path: '/customers', icon: '👥' },
+                    { label: 'Daily Entries', path: '/manager/daily-entry', icon: '📝' },
+                ];
+            case 'manager': // Operations Manager (M1)
+            default:
+                return [
+                    commonDashboard,
+                    { label: 'Daily Entry', path: '/manager/daily-entry', icon: '📝' },
+                    { label: 'Clients', path: '/customers', icon: '👥' },
+                    { label: 'Staff', path: '/users', icon: '👨‍⚕️' },
+                    { label: 'Schedule', path: RouteRegistry.SCHEDULE, icon: '📅' },
+                    { label: 'Incidents', path: '/incidents', icon: '⚠️' },
+                    { label: 'Reports', path: '/reports', icon: '📈' },
+                ];
+        }
+    };
+
+    const menuItems = getMenuItems(role);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate(RouteRegistry.LOGIN);
+    };
+
+    return (
+        <div className="app" style={{ display: 'block' }}>
+            {/* Sidebar - Hidden on Mobile */}
+            {!isMobile && (
+                <aside className="pc-sidebar" data-cy="sidebar" style={{ position: 'fixed', height: '100vh', width: 'var(--sidebar-width)', zIndex: 'var(--z-index-sidebar)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ padding: '14px 10px 18px' }}>
+                        <h1 style={{ fontSize: '20px', fontWeight: 900, margin: 0, letterSpacing: '.2px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ color: 'var(--brand-500)' }}>
+                                {role === 'hr' ? 'HR' :
+                                    role === 'crm' ? 'Client' :
+                                        role === 'coordinator' ? 'Schedule' :
+                                            role === 'finance' ? 'Finance' :
+                                                role === 'training' ? 'Training' :
+                                                    role === 'compliance' ? 'Compliance' :
+                                                        'Manager'}
+                            </span>
+                            <span style={{ color: 'var(--text-100)', fontWeight: 500, fontSize: '0.8em' }}>Portal</span>
+                        </h1>
+                    </div>
+
+                    <nav className="nav" style={{ flex: 1, padding: '10px 0', overflowY: 'auto' }} data-cy="nav.main">
+                        {menuItems.map((item) => {
+                            const isActive = location.pathname.startsWith(item.path);
+                            return (
+                                <Link
+                                    key={item.path}
+                                    to={item.path}
+                                    className={`pc-nav-link ${isActive ? 'active' : ''}`}
+                                    data-cy={`menu-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                >
+                                    <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                                    <span style={{ fontWeight: isActive ? 700 : 500 }}>{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </nav>
+
+                    <RoleSwitcher />
+
+                    <div className="sidebar-footer">
+                        <div className="pill">
+                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--brand-500)', boxShadow: '0 0 10px var(--brand-500)' }}></div>
+                            <span style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>MGR ONLINE</span>
+                        </div>
+
+                        <button
+                            onClick={handleLogout}
+                            className="btn btn-danger"
+                            data-cy="btn-logout"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                width: '100%',
+                                justifyContent: 'center',
+                                marginTop: '8px'
+                            }}
+                        >
+                            🚪 Logout
+                        </button>
+                    </div>
+                </aside>
+            )}
+
+            {/* Main Content */}
+            <main style={{
+                flex: 1,
+                marginLeft: isMobile ? '0' : 'var(--sidebar-width)',
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100vw', // Ensure full width
+                overflowX: 'hidden'
+            }}>
+                {/* Global Action Bar Integrated as Topbar */}
+                <header className="pc-topbar" style={{
+                    margin: isMobile ? '16px 16px 0' : '28px 32px 0',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <GlobalQuickActionBar role={role} />
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <NotificationHub />
+                    </div>
+                </header>
+
+                <div style={{
+                    padding: isMobile ? '16px' : '28px 32px 36px',
+                    flex: 1
+                }}>
+                    <Outlet />
+                    {children}
+                </div>
+            </main>
+
+            <SideFloatingButton />
+        </div>
+    );
+}

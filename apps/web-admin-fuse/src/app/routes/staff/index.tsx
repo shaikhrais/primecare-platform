@@ -1,0 +1,22 @@
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+// Pages
+// Staff uses some shared pages but with staff access
+import Dashboard from '../admin/pages/dashboard';
+import Customers from '../admin/pages/customers';
+
+/**
+ * Staff Routes
+ * Base path: /staff
+ */
+const StaffRoutes: React.FC = () => {
+    return (
+        <Routes>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="customers" element={<Customers />} />
+        </Routes>
+    );
+};
+
+export default StaffRoutes;
