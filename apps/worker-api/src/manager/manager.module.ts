@@ -1,7 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
-import { tenantMiddleware } from '../_shared/middleware/tenant';
 import { requireRole } from '../_shared/middleware/rbac';
 import dashboardRoutes from './dashboard/dashboard.routes';
 
@@ -12,7 +11,6 @@ manager.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
-manager.use('*', tenantMiddleware());
 manager.use('*', requireRole(['manager', 'admin']));
 
 // Routes

@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+  output          = "../generated/client"
 }
 
 datasource db {
@@ -45,21 +46,52 @@ model Tenant {
   createdAt        DateTime          @default(now()) @map("created_at")
   updatedAt        DateTime          @updatedAt @map("updated_at")
   auditLogs        AuditLog[]
+  bookings         Booking[]
   clientProfiles   ClientProfile[]
   dailyEntries     DailyEntry[]
   incidents        Incident[]
   invoices         Invoice[]
   messageThreads   MessageThread[]
+  pswAvailability  PswAvailability[]
   pswProfiles      PswProfile[]
   services         Service[]
+  shiftAssignments ShiftAssignment[]
   timesheets       Timesheet[]
   users            User[]
+  checkEvents      VisitCheckEvent[]
   visits           Visit[]
-  bookings         Booking[]
-  pswAvailability  PswAvailability[]
-  shiftAssignments ShiftAssignment[]
+  apiKeys          ApiKey[]
+
+  // Business Model Extensions
+  businessNumber  String? @map("business_number")
+  supportEmail    String? @map("support_email")
+  logoUrl         String? @map("logo_url")
+  taxSettings     Json?   @map("tax_settings")
+  brandingConfig  Json?   @map("branding_config")
+  stripeAccountId String? @map("stripe_account_id")
+  onboardingStep  Int     @default(1) @map("onboarding_step")
+
+  // Fractal SaaS Extensions
+  parentTenantId      String?              @map("parent_tenant_id")
+  parentTenant        Tenant?              @relation("TenantHierarchy", fields: [parentTenantId], references: [id])
+  childTenants        Tenant[]             @relation("TenantHierarchy")
+  marketplaceListings MarketplaceListing[]
 
   @@map("tenants")
+}
+
+model ApiKey {
+  id         String    @id @default(uuid())
+  key        String    @unique
+  name       String
+  status     String    @default("active")
+  tenantId   String    @map("tenant_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("api_keys")
 }
 
 model ClientProfile {
@@ -80,13 +112,13 @@ model ClientProfile {
   createdAt      DateTime        @default(now()) @map("created_at")
   updatedAt      DateTime        @updatedAt @map("updated_at")
   tenantId       String          @map("tenant_id")
+  bookings       Booking[]
   tenant         Tenant          @relation(fields: [tenantId], references: [id])
   user           User            @relation(fields: [userId], references: [id])
   DailyEntry     DailyEntry[]
   invoices       Invoice[]
   messageThreads MessageThread[]
   visits         Visit[]
-  bookings       Booking[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -99,25 +131,25 @@ model PswProfile {
   bio              String?
   languages        String[]
   serviceAreas     String[]          @map("service_areas")
-  skills           String[]          @default([])
   availabilityJson Json?             @map("availability_json")
   isApproved       Boolean           @default(false) @map("is_approved")
   approvedAt       DateTime?         @map("approved_at")
   createdAt        DateTime          @default(now()) @map("created_at")
+  tenantId         String            @map("tenant_id")
   address          String?
   avatarUrl        String?           @map("avatar_url")
-  tenantId         String            @map("tenant_id")
+  skills           String[]          @default([])
   messageThreads   MessageThread[]   @relation("PswToThreads")
+  availability     PswAvailability[] @relation("PswToAvailability")
   documents        PswDocument[]     @relation("PswToDocuments")
   tenant           Tenant            @relation(fields: [tenantId], references: [id])
   user             User              @relation(fields: [userId], references: [id])
+  assignments      ShiftAssignment[] @relation("PswToAssignments")
   timesheets       Timesheet[]       @relation("PswToTimesheets")
   checkEvents      VisitCheckEvent[] @relation("PswToCheckEvents")
   checklists       VisitChecklist[]  @relation("PswToChecklists")
   notes            VisitNote[]       @relation("PswToNotes")
   assignedVisits   Visit[]           @relation("PswToVisits")
-  availability     PswAvailability[] @relation("PswToAvailability")
-  assignments      ShiftAssignment[] @relation("PswToAssignments")
 
   @@index([tenantId])
   @@map("psw_profiles")
@@ -144,39 +176,40 @@ model Visit {
   createdAt           DateTime          @default(now()) @map("created_at")
   updatedAt           DateTime          @updatedAt @map("updated_at")
   tenantId            String            @map("tenant_id")
+  bookingId           String?           @map("booking_id")
+  crisisMode          Boolean?          @default(false) @map("crisis_mode")
+  priority            String?           @default("normal")
+  requiredSkills      String[]          @map("required_skills")
   DailyEntry          DailyEntry[]
   incidents           Incident[]
+  assignments         ShiftAssignment[]
   timesheetItems      TimesheetItem[]
   checkEvents         VisitCheckEvent[]
   checklists          VisitChecklist[]
   notes               VisitNote[]
   psw                 PswProfile?       @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  booking             Booking?          @relation(fields: [bookingId], references: [id])
   client              ClientProfile     @relation(fields: [clientId], references: [id])
   service             Service           @relation(fields: [serviceId], references: [id])
   tenant              Tenant            @relation(fields: [tenantId], references: [id])
-  bookingId           String?           @map("booking_id")
-  booking             Booking?          @relation(fields: [bookingId], references: [id])
-  priority            String?           @default("normal")
-  requiredSkills      String[]          @map("required_skills")
-  crisisMode          Boolean?          @default(false) @map("crisis_mode")
-  assignments         ShiftAssignment[]
 
   @@index([tenantId])
   @@map("visits")
 }
 
 model Service {
-  id             String   @id @default(uuid())
-  name           String
-  slug           String   @unique
-  description    String?
-  baseRateHourly Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
-  isActive       Boolean? @default(true) @map("is_active")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-  tenantId       String   @map("tenant_id")
-  tenant         Tenant   @relation(fields: [tenantId], references: [id])
-  visits         Visit[]
+  id                 String   @id @default(uuid())
+  name               String
+  slug               String   @unique
+  description        String?
+  baseRateHourly     Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
+  providerRateHourly Decimal? @map("provider_rate_hourly") @db.Decimal(10, 2)
+  isActive           Boolean? @default(true) @map("is_active")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  tenantId           String   @map("tenant_id")
+  tenant             Tenant   @relation(fields: [tenantId], references: [id])
+  visits             Visit[]
 
   @@index([tenantId])
   @@map("services")
@@ -199,8 +232,10 @@ model VisitCheckEvent {
   overrideByUserId  String?     @map("override_by_user_id")
   overrideReason    String?     @map("override_reason")
   createdAt         DateTime    @default(now()) @map("created_at")
+  tenantId          String      @map("tenant_id")
   overriddenBy      User?       @relation(fields: [overrideByUserId], references: [id])
   pswProfile        PswProfile  @relation("PswToCheckEvents", fields: [pswId], references: [id])
+  tenant            Tenant      @relation(fields: [tenantId], references: [id])
   visit             Visit       @relation(fields: [visitId], references: [id])
 
   @@map("visit_check_events")
@@ -361,15 +396,17 @@ model AuditLog {
 }
 
 model Lead {
-  id        String   @id @default(uuid())
-  fullName  String   @map("full_name")
-  email     String
-  phone     String?
-  message   String?
-  source    String
-  status    String?  @default("new")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id              String   @id @default(uuid())
+  fullName        String   @map("full_name")
+  email           String
+  phone           String?
+  message         String?
+  source          String
+  status          String?  @default("new")
+  serviceInterest String[] @default([]) @map("service_interest")
+  notes           String?
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
 
   @@map("leads")
 }
@@ -414,9 +451,9 @@ model ShiftAssignment {
   score      Float?
   assignedAt DateTime         @default(now()) @map("assigned_at")
   tenantId   String           @map("tenant_id")
-  visit      Visit            @relation(fields: [visitId], references: [id])
   psw        PswProfile       @relation("PswToAssignments", fields: [pswId], references: [id])
   tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  visit      Visit            @relation(fields: [visitId], references: [id])
 
   @@map("shift_assignments")
 }
@@ -494,23 +531,25 @@ model DailyEntry {
 }
 
 enum Role {
-  manager
-  client
-  psw
-  coordinator
-  staff
+  super_admin
   admin
-  finance
-  rn
+  staff
+  manager
   marketing_manager
   operations_manager
+  hr_manager
+  clinical_manager
+  regional_manager
+  finance_manager
+  recruiting_manager
+  coordinator
+  client
+  psw
+  rn
   rmt
   rpt
   rch
-  hr
-  compliance
-  crm
-  training
+  finance
 }
 
 enum DocStatus {
@@ -584,4 +623,20 @@ enum InvoiceStatus {
 enum DailyEntryStatus {
   DRAFT
   SUBMITTED
+}
+
+model MarketplaceListing {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Decimal  @db.Decimal(10, 2)
+  category    String
+  providerId  String   @map("provider_id")
+  tenantId    String?  @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("marketplace_listings")
 }

@@ -35,6 +35,14 @@ export const ContentRegistry = {
             OPERATIONAL_STATUS: 'Operational Status',
             ANALYTICS: 'Performance Analytics',
         },
+        SETUP_BANNER: {
+            TITLE: '🚀 Business Ready?',
+            SUBTITLE: 'Check your command center and complete your setup.',
+            ACTION: 'Review Business Status',
+            SCORE_LABEL: 'Business Model Score',
+            STRATEGY_LINK: 'Business Strategy',
+            STRATEGY_DESC: 'to reach 100%.',
+        },
         ACTIONS: {
             VIEW_DETAILS: 'Click to view details →',
             CHECK_CERTS: 'Check certifications',
@@ -439,5 +447,137 @@ export const ContentRegistry = {
         DELETE: 'Delete',
         NETWORK_ERROR: 'Network error',
         PROCESSING: 'Processing...',
+    },
+    SETUP_WIZARD: {
+        TITLE: 'Business Setup Wizard',
+        SUBTITLE: 'Complete these 3 steps to launch your care business.',
+        STEPS: {
+            SERVICES: 'Define Services',
+            STAFF: 'Onboard Staff',
+            CLIENTS: 'Admit Clients',
+            FINISH: 'Ready to Go!'
+        },
+        BUTTONS: {
+            NEXT: 'Next Step',
+            BACK: 'Back',
+            FINISH: 'Launch My Business',
+            SKIP: 'Skip for now'
+        },
+        SUCCESS: {
+            TITLE: 'Congratulations!',
+            MESSAGE: 'Your business setup is complete. You can now start scheduling visits.'
+        }
+    },
+    WIZARD_HUB: {
+        TITLE: 'Operational Wizard Hub',
+        SUBTITLE: 'Streamline your daily administrative workflows.',
+        STAFF: {
+            TITLE: 'Staff Compliance',
+            DESC: 'Verify credentials and complete HR onboarding.',
+            ACTION: 'Start Onboarding'
+        },
+        CLIENT: {
+            TITLE: 'Care Planning',
+            DESC: 'Build digital care plans and medical protocols.',
+            ACTION: 'Create Care Plan'
+        },
+        FINANCE: {
+            TITLE: 'Revenue Setup',
+            DESC: 'Configure billing cycles and service rates.',
+            ACTION: 'Manage Revenue'
+        },
+        STRATEGY: {
+            TITLE: 'Business Strategy',
+            DESC: 'Define margins, tax IDs, and brand identity.',
+            ACTION: 'Setup Strategy'
+        }
+    },
+    BUSINESS_STATUS: {
+        TITLE: 'Business Command Center',
+        SUBTITLE: 'Monitor your setup progress and perform rapid data entry.',
+        INITIALIZING: 'Initializing Command Center...',
+        FOOTER: {
+            TITLE: 'Need to add something specific?',
+            VIEW_STAFF: '→ View All Staff',
+            MANAGE_LEADS: '→ Manage Leads',
+            DISPATCH_SHIFTS: '→ Dispatch Shifts',
+        },
+        DOMAINS: {
+            STRATEGY: 'Business Model',
+            SERVICES: 'Care Services',
+            STAFF: 'Provider Network',
+            CLIENTS: 'Client Roster',
+            FINANCE: 'Financial Ops'
+        }
+    },
+    HEALTH_ALERTS: {
+        TITLE: 'Business Health Monitor',
+        COMPLIANCE: {
+            LABEL: 'Compliance Risk',
+            DESC: 'Staff with missing or expired documents'
+        },
+        COVERAGE: {
+            LABEL: 'Coverage Gap',
+            DESC: 'Unassigned visits in the next 7 days'
+        },
+        PIPELINE: {
+            LABEL: 'Pipeline Stagnation',
+            DESC: 'Leads not contacted in 3+ days'
+        }
+    },
+    STAFF_WIZARD: {
+        TITLE: 'Staff Registry & Compliance',
+        SUBTITLE: 'Onboard new care providers and verify clinical credentials.',
+        STEPS: ['Profile', 'Compliance', 'Documents'],
+        FORM: {
+            NAME_LABEL: 'Full Legal Name',
+            NAME_PLACEHOLDER: 'e.g. John Doe',
+            EMAIL_LABEL: 'Professional Email',
+            EMAIL_PLACEHOLDER: 'john@example.com',
+            ROLE_LABEL: 'Professional Role',
+            SIN_LABEL: 'Tax ID / SIN',
+            SIN_PLACEHOLDER: '000-000-000',
+            DOCS_TITLE: 'Required Credentials',
+            VSS_LABEL: 'Vulnerable Sector Screen (VSS)',
+            LICENSE_LABEL: 'Clinical License / Certificate',
+            UPLOAD_BTN: 'Upload Document',
+            SUBMIT_BTN: 'Register Provider',
+            SUBMITTING: 'Registering...',
+            SUCCESS: 'Provider registered successfully'
+        }
+    },
+    CARE_WIZARD: {
+        TITLE: 'Client Admission & Intake',
+        SUBTITLE: 'Standardized care planning and intake flow.',
+        STEPS: ['Demographics', 'Clinical Profile', 'Baseline ADLs'],
+        FORM: {
+            NAME_LABEL: 'Full Legal Name',
+            NAME_PLACEHOLDER: 'e.g. Sarah Jenkins',
+            EMAIL_LABEL: 'Email (Portal Access)',
+            EMAIL_PLACEHOLDER: 'sarah@example.com',
+            ADDR_LABEL: 'Service Address',
+            ADDR_PLACEHOLDER: '123 Care Street, Suite 4B...',
+            MEDICAL_TITLE: 'Clinical Profile & Allergies',
+            MEDICAL_LABEL: 'Medical History & Known Conditions',
+            MEDICAL_PLACEHOLDER: 'Detail chronic conditions, allergies, or physical limitations...',
+            ADL_TITLE: 'Baseline ADLs (Assistance Levels)',
+            SUBMIT_BTN: 'Finalize Care Plan',
+            NEXT_BTN: 'Next Step',
+            BACK_BTN: 'Back',
+            ADMIT_BTN: 'Admit Client',
+            ADMITTING: 'Admitting...'
+        }
+    },
+    REVENUE_WIZARD: {
+        TITLE: 'Revenue & Billing Configuration',
+        SUBTITLE: 'Configure your rates and billing automation.',
+        ECONOMICS_TITLE: 'Service Economics',
+        RATE_LABEL: 'Base Hourly Rate (Client Charge)',
+        CYCLE_LABEL: 'Billing Frequency',
+        TAX_TITLE: 'Automated Tax Calculation',
+        TAX_DESC: 'Automatically apply HST/GST to all invoices.',
+        SUBMIT_BTN: 'Finalize Finance Setup',
+        SAVING: 'Saving...',
+        SUCCESS: 'Financial settings updated'
     }
 } as const;

@@ -1,7 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
-import { tenantMiddleware } from '../_shared/middleware/tenant';
 import dashboardRoutes from './dashboard/dashboard.routes';
 import scheduleRoutes from './schedule/schedule.routes';
 import dailyEntryRoutes from './dailyEntry/dailyEntry.routes';
@@ -14,7 +13,6 @@ psw.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
-psw.use('*', tenantMiddleware());
 
 // Routes
 psw.route('/dashboard', dashboardRoutes);

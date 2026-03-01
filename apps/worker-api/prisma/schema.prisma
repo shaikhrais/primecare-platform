@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["adapter-pg"]
+  previewFeatures = ["driverAdapters"]
+  output          = "../generated/client"
 }
 
 datasource db {
@@ -59,8 +60,38 @@ model Tenant {
   users            User[]
   checkEvents      VisitCheckEvent[]
   visits           Visit[]
+  apiKeys          ApiKey[]
+  
+  // Business Model Extensions
+  businessNumber   String?           @map("business_number")
+  supportEmail     String?           @map("support_email")
+  logoUrl          String?           @map("logo_url")
+  taxSettings      Json?             @map("tax_settings")
+  brandingConfig   Json?             @map("branding_config")
+  stripeAccountId  String?           @map("stripe_account_id")
+  onboardingStep   Int               @default(1) @map("onboarding_step")
+
+  // Fractal SaaS Extensions
+  parentTenantId   String?           @map("parent_tenant_id")
+  parentTenant     Tenant?           @relation("TenantHierarchy", fields: [parentTenantId], references: [id])
+  childTenants     Tenant[]          @relation("TenantHierarchy")
+  marketplaceListings MarketplaceListing[]
 
   @@map("tenants")
+}
+
+model ApiKey {
+  id         String    @id @default(uuid())
+  key        String    @unique
+  name       String
+  status     String    @default("active")
+  tenantId   String    @map("tenant_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("api_keys")
 }
 
 model ClientProfile {
@@ -149,6 +180,8 @@ model Visit {
   crisisMode          Boolean?          @default(false) @map("crisis_mode")
   priority            String?           @default("normal")
   requiredSkills      String[]          @map("required_skills")
+  isSurgeActive       Boolean?          @default(false) @map("is_surge_active")
+  surgeMultiplier     Float?            @default(1.0) @map("surge_multiplier")
   DailyEntry          DailyEntry[]
   incidents           Incident[]
   assignments         ShiftAssignment[]
@@ -172,6 +205,7 @@ model Service {
   slug           String   @unique
   description    String?
   baseRateHourly Decimal? @map("base_rate_hourly") @db.Decimal(10, 2)
+  providerRateHourly Decimal? @map("provider_rate_hourly") @db.Decimal(10, 2)
   isActive       Boolean? @default(true) @map("is_active")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
@@ -371,6 +405,8 @@ model Lead {
   message   String?
   source    String
   status    String?  @default("new")
+  serviceInterest String[] @default([]) @map("service_interest")
+  notes           String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -497,6 +533,7 @@ model DailyEntry {
 }
 
 enum Role {
+  super_admin
   admin
   staff
   manager
@@ -588,4 +625,20 @@ enum InvoiceStatus {
 enum DailyEntryStatus {
   DRAFT
   SUBMITTED
+}
+
+model MarketplaceListing {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Decimal  @db.Decimal(10, 2)
+  category    String
+  providerId  String   @map("provider_id")
+  tenantId    String?  @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("marketplace_listings")
 }

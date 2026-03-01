@@ -3,6 +3,7 @@ export type Bindings = {
     JWT_SECRET: string;
     DOCS_BUCKET: R2Bucket;
     STRIPE_SECRET_KEY: string;
+    SITE_URL?: string;
     CHAT_SERVER: DurableObjectNamespace;
     ENVIRONMENT?: string;
 };
@@ -10,6 +11,7 @@ export type Bindings = {
 export type Variables = {
     jwtPayload: {
         sub: string;
+        email: string;
         roles: string[];
         activeRole: string;
         tenantId: string;

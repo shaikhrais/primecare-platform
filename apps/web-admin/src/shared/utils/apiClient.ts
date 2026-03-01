@@ -14,12 +14,17 @@ export const apiClient = {
             url += `?${searchParams.toString()}`;
         }
 
-        const token = localStorage.getItem('token');
+        const userStr = localStorage.getItem('user');
+        const userData = userStr ? JSON.parse(userStr) : null;
+        const tenantId = userData?.tenantId;
+
+        const isFormData = init.body instanceof FormData;
         const defaultOptions: RequestInit = {
             ...init,
             headers: {
-                'Content-Type': 'application/json',
+                ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
                 ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+                ...(tenantId ? { 'X-Tenant-ID': tenantId } : {}),
                 ...init.headers,
             },
             credentials: 'include',
@@ -51,10 +56,11 @@ export const apiClient = {
 
                     // Retry original request
                     // The new accessToken cookie (set by the backend) will be included automatically
+                    const isFormDataRetry = init.body instanceof FormData;
                     const retryOptions: RequestInit = {
                         ...init,
                         headers: {
-                            'Content-Type': 'application/json',
+                            ...(!isFormDataRetry ? { 'Content-Type': 'application/json' } : {}),
                             ...(data.token ? { 'Authorization': `Bearer ${data.token}` } : {}),
                             ...init.headers,
                         },
@@ -87,7 +93,7 @@ export const apiClient = {
         return this.request(path, {
             ...options,
             method: 'POST',
-            body: body ? JSON.stringify(body) : undefined,
+            body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined),
         });
     },
 
@@ -95,7 +101,7 @@ export const apiClient = {
         return this.request(path, {
             ...options,
             method: 'PUT',
-            body: body ? JSON.stringify(body) : undefined,
+            body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined),
         });
     },
 
@@ -103,7 +109,7 @@ export const apiClient = {
         return this.request(path, {
             ...options,
             method: 'PATCH',
-            body: body ? JSON.stringify(body) : undefined,
+            body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined),
         });
     },
 

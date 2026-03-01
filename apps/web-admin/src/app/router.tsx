@@ -16,6 +16,7 @@ import Login from './routes/auth/pages/login';
 import Register from './routes/auth/pages/register';
 import ForgotPassword from './routes/auth/pages/forgot-password';
 import ResetPassword from './routes/auth/pages/reset-password';
+import BusinessOnboard from './routes/auth/pages/onboard-business';
 
 // Error Pages
 import NotFound from './routes/shared/pages/error/NotFound';
@@ -48,7 +49,26 @@ const AuditLogs = React.lazy(() => import('./routes/admin/pages/audits'));
 const LeadAdmission = React.lazy(() => import('./routes/admin/pages/admission'));
 const Onboarding = React.lazy(() => import('./routes/admin/pages/onboarding'));
 const ReportCenter = React.lazy(() => import('./routes/admin/pages/reports'));
-const InvoicesNew = React.lazy(() => import('./routes/admin/pages/invoices-new'));
+const InvoicesNew = React.lazy(() => import('./routes/admin/pages/invoices').then(m => ({ default: m.InvoiceEntry })));
+const BusinessSetupWizard = React.lazy(() => import('./routes/admin/pages/setup/BusinessSetupWizard'));
+const WizardHub = React.lazy(() => import('./routes/admin/pages/setup/WizardHub'));
+const StaffOnboardingWizard = React.lazy(() => import('./routes/admin/pages/setup/StaffOnboardingWizard'));
+const CarePlanWizard = React.lazy(() => import('./routes/admin/pages/setup/CarePlanWizard'));
+const RevenueWizard = React.lazy(() => import('./routes/admin/pages/setup/RevenueWizard'));
+const BusinessModelWizard = React.lazy(() => import('./routes/admin/pages/setup/BusinessModelWizard'));
+const BusinessStatus = React.lazy(() => import('./routes/admin/pages/setup/BusinessStatus'));
+const DeveloperPortal = React.lazy(() => import('./routes/admin/pages/developer'));
+const Marketplace = React.lazy(() => import('./routes/admin/pages/marketplace'));
+const ResellerDashboard = React.lazy(() => import('./routes/admin/pages/reseller/ResellerDashboard'));
+const PrivateMarketplace = React.lazy(() => import('./routes/admin/pages/reseller/PrivateMarketplace'));
+const GrowthStrategy = React.lazy(() => import('./routes/admin/pages/strategy/GrowthStrategy'));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/admin/pages/knowledge-base/KnowledgeBaseIndex'));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/admin/pages/knowledge-base/KnowledgeBaseArticle'));
+const AIInsights = React.lazy(() => import('./routes/admin/pages/insights'));
+const ClinicalAssistant = React.lazy(() => import('./routes/admin/pages/clinical-assistant'));
+const AutoPilotDashboard = React.lazy(() => import('./routes/admin/pages/automation/AutoPilotDashboard'));
+const FHIRCenter = React.lazy(() => import('./routes/admin/pages/interoperability/FHIRCenter'));
+const SovereignWallet = React.lazy(() => import('./routes/admin/pages/sovereign/SovereignWallet'));
 
 // Manager Pages
 const ManagerDashboard = React.lazy(() => import('./routes/manager/pages/dashboard'));
@@ -68,6 +88,12 @@ const PswExpenses = React.lazy(() => import('./routes/psw/pages/expenses'));
 
 // RN Pages
 const RnDashboard = React.lazy(() => import('./routes/rn/pages/dashboard'));
+
+// Platform Portal (Super Admin)
+const PlatformDashboard = React.lazy(() => import('./routes/platform/pages/dashboard'));
+const PlatformAuditLogs = React.lazy(() => import('./routes/platform/pages/audit-logs'));
+const SLAMonitoring = React.lazy(() => import('./routes/platform/pages/sla-monitoring'));
+const RiskSurveillanceDashboard = React.lazy(() => import('./routes/super-admin/pages/RiskSurveillanceDashboard'));
 
 // Client Pages
 const ClientDashboard = React.lazy(() => import('./routes/client/pages/dashboard'));
@@ -139,8 +165,9 @@ export const AppRouter: React.FC = () => {
                     <Routes>
                         {/* PUBLIC AUTH ROUTES */}
                         <Route path={RouteRegistry.LOGIN} element={<Login />} />
-                        <Route path={RouteRegistry.REGISTER} element={<Register />} />
-                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="register" element={<Register />} />
+                        <Route path="onboard-business" element={<BusinessOnboard />} />
+                        <Route path="forgot-password" element={<ForgotPassword />} />
                         <Route path={RouteRegistry.USERS} element={<RequireRole allowedRoles={['admin', 'staff']}><UserList /></RequireRole>} />
                         <Route path={RouteRegistry.USERS_NEW} element={<RequireRole allowedRoles={['admin', 'staff']}><UserEntry /></RequireRole>} />
                         <Route path={RouteRegistry.USERS_EDIT(':id')} element={<RequireRole allowedRoles={['admin', 'staff']}><UserEntry /></RequireRole>} />
@@ -168,6 +195,25 @@ export const AppRouter: React.FC = () => {
                             <Route path="onboarding" element={<Onboarding />} />
                             <Route path="reports" element={<ReportCenter />} />
                             <Route path="invoices/new" element={<InvoicesNew />} />
+                            <Route path="setup-wizard" element={<BusinessSetupWizard />} />
+                            <Route path="wizard-hub" element={<WizardHub />} />
+                            <Route path="wizards/staff-onboarding" element={<StaffOnboardingWizard />} />
+                            <Route path="wizards/care-plan" element={<CarePlanWizard />} />
+                            <Route path="wizards/revenue" element={<RevenueWizard />} />
+                            <Route path="wizards/business-strategy" element={<BusinessModelWizard />} />
+                            <Route path="business-status" element={<BusinessStatus />} />
+                            <Route path="developer" element={<DeveloperPortal />} />
+                            <Route path="marketplace" element={<Marketplace />} />
+                            <Route path="reseller" element={<ResellerDashboard />} />
+                            <Route path="private-marketplace" element={<PrivateMarketplace />} />
+                            <Route path="growth-strategy" element={<GrowthStrategy />} />
+                            <Route path="knowledge-base" element={<KnowledgeBaseIndex />} />
+                            <Route path="knowledge-base/:slug" element={<KnowledgeBaseArticle />} />
+                            <Route path="insights" element={<AIInsights />} />
+                            <Route path="clinical-assistant" element={<ClinicalAssistant />} />
+                            <Route path="automation/clinical-autopilot" element={<AutoPilotDashboard />} />
+                            <Route path="interop" element={<FHIRCenter />} />
+                            <Route path="sovereign" element={<SovereignWallet />} />
                         </Route>
 
                         {/* MANAGER PORTAL */}
@@ -212,14 +258,25 @@ export const AppRouter: React.FC = () => {
                             <Route path="request-booking" element={<RequestBooking />} />
                         </Route>
 
+                        {/* PLATFORM PORTAL (SUPER ADMIN) */}
+                        <Route path="/platform" element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
+                            <Route path="dashboard" element={<PlatformDashboard />} />
+                            <Route path="audit-logs" element={<PlatformAuditLogs />} />
+                            <Route path="sla" element={<SLAMonitoring />} />
+                            <Route path="risk-surveillance" element={<RiskSurveillanceDashboard />} />
+                            <Route index element={<PlatformDashboard />} />
+                        </Route>
+
                         {/* SHARED PROTECTED ROUTES */}
-                        <Route element={<RequireRole allowedRoles={['admin', 'staff', 'manager', 'psw', 'rn', 'client']}><AppLayout /></RequireRole>}>
+                        <Route element={<RequireRole allowedRoles={['super_admin', 'admin', 'staff', 'manager', 'operations_manager', 'clinical_manager', 'hr_manager', 'finance_manager', 'regional_manager', 'marketing_manager', 'recruiting_manager', 'coordinator', 'finance', 'psw', 'rn', 'rmt', 'rpt', 'rch', 'client']}><AppLayout /></RequireRole>}>
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/support" element={<SupportHub />} />
                             <Route path="/support/tickets/new" element={<SupportTicket />} />
                             <Route path="/messaging" element={<Messaging />} />
                             <Route path="/visits/:id" element={<VisitDetails />} />
                             <Route path="/visits/:id/complete" element={<VisitCompletion />} />
+                            <Route path="/knowledge-base" element={<KnowledgeBaseIndex />} />
+                            <Route path="/knowledge-base/:slug" element={<KnowledgeBaseArticle />} />
                             <Route path="/shared/404" element={<NotFound />} />
                             <Route path="/shared/401" element={<Unauthorized />} />
                             <Route path="/shared/500" element={<ServerError />} />

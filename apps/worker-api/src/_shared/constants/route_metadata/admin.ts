@@ -45,6 +45,11 @@ export const ADMIN_METADATA = {
             description: 'Cancel a visit and apply cancellation policy.',
             tags: ['Admin Visits'],
         },
+        SURGE_SHIFT: {
+            summary: 'Apply Surge Pricing',
+            description: 'Activate surge pricing and set a multiplier for an unfilled shift.',
+            tags: ['Admin Visits'],
+        },
     },
     EXTRA: {
         LEADS_LIST: {

@@ -81,7 +81,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                 </td>
                                 <td style={{ padding: '1rem', color: '#4b5563' }}>
                                     <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
-                                        {lead.serviceInterest.map((interest, i) => (
+                                        {(lead.serviceInterest || []).map((interest, i) => (
                                             <span key={i} style={{ fontSize: '0.75rem', backgroundColor: '#e5e7eb', padding: '0.125rem 0.375rem', borderRadius: '9999px' }}>
                                                 {interest}
                                             </span>

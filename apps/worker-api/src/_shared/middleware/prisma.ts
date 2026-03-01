@@ -2,6 +2,7 @@
 
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Bindings, Variables } from '../../bindings';
+import { tenantExtension } from '../prisma/tenant.extension';
 
 let prismaInstance: any = null;
 
@@ -33,13 +34,55 @@ export const prismaMiddleware = () => {
             }
         }
 
-        c.set('prisma', prismaInstance);
+        let reqPrisma = prismaInstance;
+        const payload = c.get('jwtPayload');
+        const roles = payload?.roles || [];
+        const isSuperAdmin = roles.includes('super_admin');
+        const apiKey = c.req.header('X-API-Key');
+        let tenantId = payload?.tenantId || c.req.header('X-Tenant-ID');
+
+        // 1. API Key Auth (High Priority)
+        if (apiKey && !tenantId) {
+            const keyRecord = await prismaInstance.apiKey.findUnique({
+                where: { key: apiKey, status: 'active' },
+                select: { tenantId: true, id: true }
+            });
+            if (keyRecord) {
+                tenantId = keyRecord.tenantId;
+                // Update last used time asynchronously
+                prismaInstance.apiKey.update({
+                    where: { id: keyRecord.id },
+                    data: { lastUsedAt: new Date() }
+                }).catch(() => { });
+            }
+        }
+
+        // Host-based detection (for public pages or discovery-less login)
+        if (!tenantId) {
+            const host = c.req.header('Host') || '';
+            const parts = host.split('.');
+            // Logic: if host is {slug}.primecare.com or {slug}.localhost
+            if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost'].includes(parts[0])) {
+                const tenantSlug = parts[0];
+                const tenant = await prismaInstance.tenant.findUnique({
+                    where: { slug: tenantSlug },
+                    select: { id: true }
+                });
+                if (tenant) tenantId = tenant.id;
+            }
+        }
+
+        if (tenantId && !isSuperAdmin) {
+            reqPrisma = reqPrisma.$extends(tenantExtension(tenantId));
+        }
+
+        c.set('prisma', reqPrisma);
 
         // Context helper for permission checks
         c.set('can', async (action: string, resource: string, resourceId?: string) => {
             const payload = c.get('jwtPayload');
             if (!payload) return false;
-            return payload.roles.includes('admin');
+            return payload.roles.includes('admin') || payload.roles.includes('super_admin');
         });
 
         return await next();

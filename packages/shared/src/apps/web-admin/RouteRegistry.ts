@@ -1,6 +1,7 @@
 export const RouteRegistry = {
     LOGIN: '/login',
     REGISTER: '/register',
+    BUSINESS_ONBOARD: '/onboard-business',
     DASHBOARD: '/admin/dashboard',
     USERS: '/admin/users',
     USERS_NEW: '/admin/users/new',
@@ -31,6 +32,19 @@ export const RouteRegistry = {
     SUPPORT: '/admin/support',
     ADMISSION: '/admin/admission',
     ONBOARDING: '/admin/onboarding',
+    SETUP_WIZARD: '/admin/setup-wizard',
+    WIZARD_HUB: '/admin/wizard-hub',
+    STAFF_ONBOARDING: '/admin/wizards/staff-onboarding',
+    CARE_PLAN_WIZARD: '/admin/wizards/care-plan',
+    REVENUE_WIZARD: '/admin/wizards/revenue',
+    BUSINESS_MODEL_WIZARD: '/admin/wizards/business-strategy',
+    BUSINESS_STATUS: '/admin/business-status',
+
+    PLATFORM: {
+        DASHBOARD: '/platform/dashboard',
+        AUDIT_LOGS: '/platform/audit-logs',
+        TENANTS: '/platform/tenants',
+    },
 
     MANAGER: {
         DASHBOARD: '/managers/dashboard',
@@ -98,6 +112,7 @@ export const RouteRegistry = {
         rmt: '/psw/dashboard',
         rpt: '/psw/dashboard',
         rch: '/psw/dashboard',
-        client: '/client/dashboard'
+        client: '/client/dashboard',
+        super_admin: '/platform/dashboard'
     } as Record<string, string>
 } as const;

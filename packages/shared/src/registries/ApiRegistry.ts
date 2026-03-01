@@ -28,6 +28,9 @@ export const ApiRegistry = {
         INCIDENTS: '/v1/admin/incidents',
         TIMESHEETS: '/v1/admin/timesheets',
         INVOICES: '/v1/admin/invoices',
+        CLIENTS: '/v1/admin/clients',
+        SETTINGS_BUSINESS_MODEL: '/v1/admin/settings/business-model',
+        SETTINGS_LOGO: '/v1/admin/settings/logo',
     },
     MANAGER: {
         DASHBOARD_KPI: '/v1/manager/dashboard/kpi',

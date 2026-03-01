@@ -21,3 +21,10 @@ export const ResetPasswordSchema = z.object({
     token: z.string(),
     newPassword: z.string().min(8),
 });
+
+export const BusinessOnboardSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    tenantName: z.string().min(3),
+    tenantSlug: z.string().min(3).regex(/^[a-z0-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
+});

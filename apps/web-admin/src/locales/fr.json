@@ -1,0 +1,17 @@
+{
+    "nav": {
+        "dashboard": "Tableau de bord",
+        "staff": "Personnel",
+        "clients": "Clients",
+        "visits": "Visites",
+        "services": "Services",
+        "reports": "Rapports",
+        "settings": "Paramètres",
+        "insights": "Analyses"
+    },
+    "common": {
+        "welcome": "Bon retour",
+        "logout": "Se déconnecter",
+        "search": "Recherche..."
+    }
+}

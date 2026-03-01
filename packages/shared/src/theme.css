@@ -1,7 +1,7 @@
 :root {
   /* --- 1. LIGHT MINIMAL CORE TOKENS --- */
-  --brand-500: #00875A;
-  --brand-600: #006B48;
+  --brand-500: var(--pc-brand-primary, #00875A);
+  --brand-600: var(--pc-brand-accent, #006B48);
 
   /* Backgrounds */
   --bg-900: #FFFFFF;

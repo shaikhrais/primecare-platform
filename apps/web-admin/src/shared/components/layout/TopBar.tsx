@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTheme } from '@/shared/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -22,6 +24,8 @@ export const TopBar: React.FC<TopBarProps> = ({
     role,
     user
 }) => {
+    const { branding } = useTheme();
+    const { i18n } = useTranslation();
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -121,7 +125,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 )}
 
                 {/* Logo in topbar when sidebar can't show it */}
-                {(isMobile || isCollapsed) && <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto' }} />}
+                {(isMobile || isCollapsed) && <img src={branding?.logoUrl || "/logo.png"} alt={branding?.name || ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto' }} />}
 
                 {/* Only show vertical divider if logo is present */}
                 {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
@@ -189,6 +193,27 @@ export const TopBar: React.FC<TopBarProps> = ({
                 }}>
                     📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </div>
+
+                {/* Language Switcher */}
+                <select
+                    value={i18n.language}
+                    onChange={(e) => i18n.changeLanguage(e.target.value)}
+                    style={{
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #E5E7EB',
+                        backgroundColor: '#F9FAFB',
+                        fontSize: '0.85rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        outline: 'none',
+                        color: '#374151'
+                    }}
+                >
+                    <option value="en">EN</option>
+                    <option value="fr">FR</option>
+                </select>
+
                 <QuickActions role={role} />
             </div>
         </header>

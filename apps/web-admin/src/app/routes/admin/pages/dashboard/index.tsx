@@ -50,6 +50,56 @@ export default function AdminDashboard() {
                 <p style={{ margin: 0, opacity: 0.6 }} data-cy="page.subtitle">{ContentRegistry.ADMIN_DASHBOARD.TITLES.SUBTITLE}</p>
             </div>
 
+            {/* Business Model Score & Setup Wizard Banner */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '1.5rem', marginBottom: '2rem' }}>
+                <div style={{
+                    background: 'linear-gradient(135deg, #004d40 0%, #00695c 100%)',
+                    padding: '2rem',
+                    borderRadius: '1.5rem',
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+                }} data-cy="setup-wizard-banner">
+                    <div>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem' }}>{ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TITLE}</h2>
+                        <p style={{ opacity: 0.9 }}>{ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.SUBTITLE}</p>
+                    </div>
+                    <Link to={RouteRegistry.BUSINESS_STATUS}>
+                        <button style={{
+                            padding: '1rem 2rem',
+                            background: 'white',
+                            color: '#004d40',
+                            fontWeight: 'bold',
+                            border: 'none',
+                            borderRadius: '1rem',
+                            cursor: 'pointer'
+                        }}>
+                            {ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.ACTION}
+                        </button>
+                    </Link>
+                </div>
+
+                <div style={{ background: 'white', padding: '1.5rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                        <span style={{ fontWeight: '700', fontSize: '0.875rem' }}>{ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.SCORE_LABEL}</span>
+                        <span style={{ fontWeight: '800', color: '#4f46e5' }}>{(stats as any).modelScore || 0}%</span>
+                    </div>
+                    <div style={{ width: '100%', height: '10px', background: '#f3f4f6', borderRadius: '5px', overflow: 'hidden' }}>
+                        <div style={{
+                            width: `${(stats as any).modelScore || 0}%`,
+                            height: '100%',
+                            background: 'linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%)',
+                            transition: 'width 0.5s ease-out'
+                        }} />
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.75rem' }}>
+                        Complete your <Link to={RouteRegistry.BUSINESS_MODEL_WIZARD} style={{ color: '#4f46e5', fontWeight: '600' }}>{ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_LINK}</Link> {ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_DESC}
+                    </p>
+                </div>
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }} data-cy="stats-cards">
                 {[
                     { label: ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_USERS, value: stats.totalUsers, icon: '👥', link: `${RouteRegistry.USERS}?role=psw` },
@@ -79,6 +129,48 @@ export default function AdminDashboard() {
                         </div>
                     </Link>
                 ))}
+            </div>
+
+            {/* Business Health Monitor Section */}
+            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
+                {ContentRegistry.HEALTH_ALERTS.TITLE}
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+                <div style={{ background: '#FFF5F5', border: '1px solid #FEB2B2', borderRadius: '1rem', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ fontSize: '2rem' }}>⚖️</div>
+                    <div>
+                        <div style={{ fontWeight: '800', color: '#C53030' }}>{ContentRegistry.HEALTH_ALERTS.COMPLIANCE.LABEL}</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#9B2C2C' }}>{(stats as any).healthAlerts?.complianceRisk || 0}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#E53E3E' }}>{ContentRegistry.HEALTH_ALERTS.COMPLIANCE.DESC}</div>
+                    </div>
+                    <Link to={RouteRegistry.STAFF_ONBOARDING} style={{ marginLeft: 'auto' }}>
+                        <button style={{ background: '#C53030', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>Fix</button>
+                    </Link>
+                </div>
+
+                <div style={{ background: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '1rem', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ fontSize: '2rem' }}>📅</div>
+                    <div>
+                        <div style={{ fontWeight: '800', color: '#92400E' }}>{ContentRegistry.HEALTH_ALERTS.COVERAGE.LABEL}</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#92400E' }}>{(stats as any).healthAlerts?.coverageGap || 0}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#B45309' }}>{ContentRegistry.HEALTH_ALERTS.COVERAGE.DESC}</div>
+                    </div>
+                    <Link to={RouteRegistry.SCHEDULE} style={{ marginLeft: 'auto' }}>
+                        <button style={{ background: '#D97706', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>View</button>
+                    </Link>
+                </div>
+
+                <div style={{ background: '#F0FFF4', border: '1px solid #9AE6B4', borderRadius: '1rem', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ fontSize: '2rem' }}>⏳</div>
+                    <div>
+                        <div style={{ fontWeight: '800', color: '#276749' }}>{ContentRegistry.HEALTH_ALERTS.PIPELINE.LABEL}</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#276749' }}>{(stats as any).healthAlerts?.pipelineStagnation || 0}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#2F855A' }}>{ContentRegistry.HEALTH_ALERTS.PIPELINE.DESC}</div>
+                    </div>
+                    <Link to={RouteRegistry.LEADS} style={{ marginLeft: 'auto' }}>
+                        <button style={{ background: '#38A169', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>Action</button>
+                    </Link>
+                </div>
             </div>
 
             {/* Interactive Charts Section */}

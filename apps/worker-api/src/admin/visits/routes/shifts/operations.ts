@@ -168,5 +168,50 @@ r.openapi(suggestPswsRoute, async (c) => {
     return c.json(suggested, 200);
 });
 
+// PATCH /{id}/surge
+const surgeShiftRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_VISITS.SURGE_SHIFT,
+    method: 'patch',
+    path: '/{id}/surge',
+    request: {
+        params: VisitParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        surgeMultiplier: z.number().min(1.0).max(5.0),
+                        isSurgeActive: z.boolean()
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Shift surge updated successfully',
+        },
+    },
+});
+
+r.openapi(surgeShiftRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const { surgeMultiplier, isSurgeActive } = c.req.valid('json');
+    const payload = c.get('jwtPayload');
+
+    const visit = await prisma.visit.update({
+        where: { id },
+        data: { surgeMultiplier, isSurgeActive }
+    });
+
+    await logAudit(prisma, payload.sub, 'UPDATE_SURGE', 'VISIT', id, { surgeMultiplier, isSurgeActive });
+    return c.json(visit, 200);
+});
+
 export default r;
 

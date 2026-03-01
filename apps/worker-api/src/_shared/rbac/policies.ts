@@ -29,5 +29,16 @@ export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     ],
     finance: [
         'PAYROLL_APPROVE'
-    ]
+    ],
+    super_admin: [],
+    marketing_manager: ['CLIENT_VIEW_ALL', 'AUDIT_VIEW'],
+    operations_manager: ['CLIENT_VIEW_ALL', 'SHIFT_ASSIGN', 'SHIFT_REASSIGN', 'AUDIT_VIEW', 'DAILY_ENTRY_CREATE'],
+    hr_manager: ['USER_CREATE', 'USER_RESET_PASSWORD', 'AUDIT_VIEW'],
+    clinical_manager: ['CARE_PLAN_UPDATE', 'DAILY_ENTRY_REVIEW', 'CLIENT_VIEW_ALL', 'AUDIT_VIEW'],
+    regional_manager: ['CLIENT_VIEW_ALL', 'SHIFT_ASSIGN', 'AUDIT_VIEW'],
+    finance_manager: ['PAYROLL_APPROVE', 'AUDIT_VIEW'],
+    recruiting_manager: ['USER_CREATE', 'AUDIT_VIEW'],
+    rmt: ['CLIENT_VIEW_ASSIGNED', 'SHIFT_START_END', 'DAILY_ENTRY_CREATE'],
+    rpt: ['CLIENT_VIEW_ASSIGNED', 'SHIFT_START_END', 'DAILY_ENTRY_CREATE'],
+    rch: ['CLIENT_VIEW_ASSIGNED', 'SHIFT_START_END', 'DAILY_ENTRY_CREATE']
 };

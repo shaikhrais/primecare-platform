@@ -9,6 +9,7 @@ import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { ScheduleCalendar } from './components/ScheduleCalendar';
 import { ScheduleList } from './components/ScheduleList';
 import { AssignShiftModal } from './components/AssignShiftModal';
+import { SurgePricingModal } from './components/SurgePricingModal';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
@@ -21,6 +22,9 @@ interface Visit {
     psw?: { fullName: string };
     assignedPswId?: string;
     status: string;
+    isSurgeActive?: boolean;
+    surgeMultiplier?: number;
+    service?: { providerRateHourly?: string | number };
 }
 
 import { ScheduleHeader } from './components/ScheduleHeader';
@@ -38,6 +42,8 @@ export default function Schedule() {
     const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [isSuggesting, setIsSuggesting] = useState(false);
+    const [isSurgeModalOpen, setIsSurgeModalOpen] = useState(false);
+    const [surgeTargetVisit, setSurgeTargetVisit] = useState<Visit | null>(null);
 
     const [searchParams] = useSearchParams();
 
@@ -162,6 +168,31 @@ export default function Schedule() {
         }
     };
 
+    const handleApplySurge = async (visitId: string, surgeMultiplier: number, isSurgeActive: boolean) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_URL}/api/v1/admin/visits/${visitId}/surge`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ surgeMultiplier, isSurgeActive })
+            });
+
+            if (res.ok) {
+                showToast('Surge pricing updated successfully', 'success');
+                setIsSurgeModalOpen(false);
+                fetchVisits();
+            } else {
+                showToast('Failed to apply surge pricing', 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('Network error while applying surge', 'error');
+        }
+    };
+
     const getStatusColor = (status: string) => {
         switch (status.toLowerCase()) {
             case 'requested': return '#f57c00';
@@ -238,6 +269,10 @@ export default function Schedule() {
                         setAssignedPswId(visit.assignedPswId || '');
                         setIsAssignModalOpen(true);
                     }}
+                    onSurge={(visit) => {
+                        setSurgeTargetVisit(visit);
+                        setIsSurgeModalOpen(true);
+                    }}
                 />
             )}
 
@@ -271,6 +306,18 @@ export default function Schedule() {
                 }}
                 visit={selectedVisit}
             />
+
+            {isSurgeModalOpen && surgeTargetVisit && (
+                <SurgePricingModal
+                    visitId={surgeTargetVisit.id}
+                    clientName={surgeTargetVisit.client?.fullName || 'the client'}
+                    currentMultiplier={surgeTargetVisit.surgeMultiplier || 1.0}
+                    isActive={surgeTargetVisit.isSurgeActive || false}
+                    basePayout={Number(surgeTargetVisit.service?.providerRateHourly || 25) * (surgeTargetVisit.durationMinutes / 60)}
+                    onClose={() => setIsSurgeModalOpen(false)}
+                    onSave={handleApplySurge}
+                />
+            )}
         </div>
     );
 }

@@ -1,7 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
-import { tenantMiddleware } from '../_shared/middleware/tenant';
 import { requireRole } from '../_shared/middleware/rbac';
 import schedulingRoutes from './scheduling/scheduling.routes';
 import supportRoutes from './support/support.routes';
@@ -13,7 +12,6 @@ staff.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
-staff.use('*', tenantMiddleware());
 staff.use('*', requireRole(['staff', 'coordinator', 'admin']));
 
 // Routes

@@ -8,6 +8,16 @@ compatibility_flags = [ "nodejs_compat" ]
 ENVIRONMENT = "production"
 # DATABASE_URL = "" (Set via secrets)
 
+[env.staging]
+name = "primecare-api-staging"
+[env.staging.vars]
+ENVIRONMENT = "staging"
+
+[env.testing]
+name = "primecare-api-testing"
+[env.testing.vars]
+ENVIRONMENT = "testing"
+
 [[r2_buckets]]
 binding = "DOCS_BUCKET"
 bucket_name = "primecare-docs"

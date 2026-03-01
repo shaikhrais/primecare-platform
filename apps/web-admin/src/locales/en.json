@@ -1,0 +1,17 @@
+{
+    "nav": {
+        "dashboard": "Dashboard",
+        "staff": "Staff",
+        "clients": "Clients",
+        "visits": "Visits",
+        "services": "Services",
+        "reports": "Reports",
+        "settings": "Settings",
+        "insights": "Insights"
+    },
+    "common": {
+        "welcome": "Welcome back",
+        "logout": "Log out",
+        "search": "Search..."
+    }
+}

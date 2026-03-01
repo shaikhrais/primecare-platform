@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import DevPerspectiveSwitcher from '@/shared/components/layout/DevPerspectiveSwitcher';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTheme } from '@/shared/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -29,6 +31,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     handleLogout
 }) => {
     const location = useLocation();
+    const { branding } = useTheme();
+    const { t } = useTranslation();
 
     return (
         <aside
@@ -51,17 +55,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div style={{
                 padding: isCollapsed ? '24px 0' : '24px 20px',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: isCollapsed ? 'center' : 'space-between',
-                gap: '12px',
+                flexDirection: 'column',
+                alignItems: isCollapsed ? 'center' : 'flex-start',
+                justifyContent: 'center',
+                gap: '8px',
                 borderBottom: '1px solid #F3F4F6',
-                height: '72px',
-                boxSizing: 'border-box'
+                minHeight: '100px',
+                boxSizing: 'border-box',
+                background: branding?.isPlatform ? 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)' : 'transparent',
+                color: branding?.isPlatform ? '#FFFFFF' : 'inherit'
             }}>
                 <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '12px', justifyContent: isCollapsed ? 'center' : 'flex-start', width: '100%' }}>
-                    {!isCollapsed && <img src="/logo.png" alt={ContentRegistry.APP.NAME} style={{ height: '36px', width: 'auto' }} />}
-                    {isCollapsed && <span style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--brand-500)' }}>{ContentRegistry.APP.NAME.charAt(0)}</span>}
+                    {!isCollapsed && <img src={branding?.logoUrl || "/logo.png"} alt={branding?.name || ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto', filter: branding?.isPlatform ? 'brightness(0) invert(1)' : 'none' }} />}
+                    {isCollapsed && <span style={{ fontSize: '1.25rem', fontWeight: 900, color: branding?.isPlatform ? '#3B82F6' : 'var(--brand-500)' }}>{(branding?.name || ContentRegistry.APP.NAME).charAt(0)}</span>}
                 </Link>
+                {!isCollapsed && branding?.isPlatform && (
+                    <div style={{
+                        fontSize: '10px',
+                        fontWeight: '800',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px',
+                        backgroundColor: '#3B82F6',
+                        color: 'white',
+                        padding: '2px 8px',
+                        borderRadius: '4px',
+                        marginTop: '4px'
+                    }}>
+                        Global Command
+                    </div>
+                )}
             </div>
 
             <nav className="nav" style={{ flex: 1, padding: '20px 0', overflowY: 'auto', overflowX: 'hidden' }} data-cy="nav.main">
@@ -90,7 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             }}
                         >
                             <span style={{ fontSize: '1.25rem', minWidth: '24px', textAlign: 'center' }}>{item.icon}</span>
-                            {!isCollapsed && <span>{item.label}</span>}
+                            {!isCollapsed && <span>{t(`nav.${item.label.toLowerCase()}`, item.label)}</span>}
                         </Link>
                     );
                 })}
@@ -119,10 +141,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         cursor: 'pointer',
                         transition: 'all 0.2s'
                     }}
-                    title={isCollapsed ? ContentRegistry.LAYOUT.LOGOUT : ""}
+                    title={isCollapsed ? t('common.logout') : ""}
                 >
                     <span>🚪</span>
-                    {!isCollapsed && <span>{ContentRegistry.LAYOUT.LOGOUT}</span>}
+                    {!isCollapsed && <span>{t('common.logout', ContentRegistry.LAYOUT.LOGOUT)}</span>}
                 </button>
             </div>
         </aside>

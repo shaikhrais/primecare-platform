@@ -9,6 +9,8 @@ interface Visit {
     psw?: { fullName: string };
     assignedPswId?: string;
     status: string;
+    isSurgeActive?: boolean;
+    surgeMultiplier?: number;
 }
 
 interface ScheduleListProps {
@@ -16,9 +18,10 @@ interface ScheduleListProps {
     getStatusColor: (status: string) => string;
     onEdit: (visit: Visit) => void;
     onAssign: (visit: Visit) => void;
+    onSurge?: (visit: Visit) => void;
 }
 
-export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusColor, onEdit, onAssign }) => {
+export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusColor, onEdit, onAssign, onSurge }) => {
     return (
         <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
@@ -35,8 +38,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                     {visits.map((visit) => (
                         <tr
                             key={visit.id}
-                            onClick={() => onAssign(visit)}
-                            style={{ cursor: 'pointer', borderBottom: '1px solid #f3f4f6', transition: 'background-color 0.2s' }}
+                            style={{ borderBottom: '1px solid #f3f4f6', transition: 'background-color 0.2s' }}
                             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                         >
@@ -46,7 +48,14 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                                     {format(new Date(visit.requestedStartAt), 'h:mm a')}
                                 </span>
                             </td>
-                            <td style={{ padding: '1rem', fontWeight: 500 }}>{visit.client?.fullName}</td>
+                            <td style={{ padding: '1rem', fontWeight: 500 }}>
+                                {visit.client?.fullName}
+                                {visit.isSurgeActive && (
+                                    <span style={{ marginLeft: '8px', backgroundColor: '#FEF2F2', color: '#EF4444', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>
+                                        🔥 {visit.surgeMultiplier}x SURGE
+                                    </span>
+                                )}
+                            </td>
                             <td style={{ padding: '1rem', color: visit.psw ? '#111827' : '#9ca3af' }}>
                                 {visit.psw?.fullName || 'Unassigned'}
                             </td>
@@ -62,7 +71,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                                     {visit.status.toUpperCase()}
                                 </span>
                             </td>
-                            <td style={{ padding: '1rem' }} onClick={(e) => e.stopPropagation()}>
+                            <td style={{ padding: '1rem' }}>
                                 <div style={{ display: 'flex', gap: '0.75rem', opacity: 0.8 }}>
                                     <button
                                         onClick={() => onEdit(visit)}
@@ -71,12 +80,22 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                                         Edit
                                     </button>
                                     {!visit.psw && (
-                                        <button
-                                            onClick={() => onAssign(visit)}
-                                            style={{ color: '#0369a1', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
-                                        >
-                                            Assign
-                                        </button>
+                                        <>
+                                            <button
+                                                onClick={() => onAssign(visit)}
+                                                style={{ color: '#0369a1', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
+                                            >
+                                                Assign
+                                            </button>
+                                            {onSurge && (
+                                                <button
+                                                    onClick={() => onSurge(visit)}
+                                                    style={{ color: '#EF4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
+                                                >
+                                                    Boost
+                                                </button>
+                                            )}
+                                        </>
                                     )}
                                 </div>
                             </td>

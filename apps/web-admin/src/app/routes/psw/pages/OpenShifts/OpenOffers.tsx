@@ -56,9 +56,14 @@ export default function OpenOffers() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.5rem' }}>
                     {offers.map(offer => (
                         <div key={offer.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '1rem' }}>
                                 <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 'bold' }}>OFFER</span>
-                                <span style={{ color: '#6b7280', fontSize: '0.75rem' }}>Expires soon</span>
+                                {offer.visit.isSurgeActive && (
+                                    <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#FEF2F2', color: '#EF4444', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                                        🔥 {offer.visit.surgeMultiplier}x SURGE
+                                    </span>
+                                )}
+                                <span style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '0.75rem' }}>Expires soon</span>
                             </div>
 
                             <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{offer.visit.service?.name || 'Care Visit'}</h3>

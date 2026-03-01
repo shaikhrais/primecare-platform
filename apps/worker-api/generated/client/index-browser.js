@@ -143,7 +143,25 @@ exports.Prisma.TenantScalarFieldEnum = {
   slug: 'slug',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  businessNumber: 'businessNumber',
+  supportEmail: 'supportEmail',
+  logoUrl: 'logoUrl',
+  taxSettings: 'taxSettings',
+  brandingConfig: 'brandingConfig',
+  stripeAccountId: 'stripeAccountId',
+  onboardingStep: 'onboardingStep',
+  parentTenantId: 'parentTenantId'
+};
+
+exports.Prisma.ApiKeyScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  name: 'name',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt'
 };
 
 exports.Prisma.ClientProfileScalarFieldEnum = {
@@ -173,14 +191,14 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   bio: 'bio',
   languages: 'languages',
   serviceAreas: 'serviceAreas',
-  skills: 'skills',
   availabilityJson: 'availabilityJson',
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   createdAt: 'createdAt',
+  tenantId: 'tenantId',
   address: 'address',
   avatarUrl: 'avatarUrl',
-  tenantId: 'tenantId'
+  skills: 'skills'
 };
 
 exports.Prisma.VisitScalarFieldEnum = {
@@ -205,9 +223,9 @@ exports.Prisma.VisitScalarFieldEnum = {
   updatedAt: 'updatedAt',
   tenantId: 'tenantId',
   bookingId: 'bookingId',
+  crisisMode: 'crisisMode',
   priority: 'priority',
-  requiredSkills: 'requiredSkills',
-  crisisMode: 'crisisMode'
+  requiredSkills: 'requiredSkills'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -216,6 +234,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   slug: 'slug',
   description: 'description',
   baseRateHourly: 'baseRateHourly',
+  providerRateHourly: 'providerRateHourly',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -238,7 +257,8 @@ exports.Prisma.VisitCheckEventScalarFieldEnum = {
   isOverride: 'isOverride',
   overrideByUserId: 'overrideByUserId',
   overrideReason: 'overrideReason',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.VisitNoteScalarFieldEnum = {
@@ -353,6 +373,8 @@ exports.Prisma.LeadScalarFieldEnum = {
   message: 'message',
   source: 'source',
   status: 'status',
+  serviceInterest: 'serviceInterest',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -446,6 +468,18 @@ exports.Prisma.DailyEntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MarketplaceListingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  category: 'category',
+  providerId: 'providerId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -476,14 +510,25 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
+  super_admin: 'super_admin',
+  admin: 'admin',
+  staff: 'staff',
   manager: 'manager',
+  marketing_manager: 'marketing_manager',
+  operations_manager: 'operations_manager',
+  hr_manager: 'hr_manager',
+  clinical_manager: 'clinical_manager',
+  regional_manager: 'regional_manager',
+  finance_manager: 'finance_manager',
+  recruiting_manager: 'recruiting_manager',
+  coordinator: 'coordinator',
   client: 'client',
   psw: 'psw',
-  coordinator: 'coordinator',
-  staff: 'staff',
-  admin: 'admin',
-  finance: 'finance',
-  rn: 'rn'
+  rn: 'rn',
+  rmt: 'rmt',
+  rpt: 'rpt',
+  rch: 'rch',
+  finance: 'finance'
 };
 
 exports.VisitStatus = exports.$Enums.VisitStatus = {
@@ -562,6 +607,7 @@ exports.DailyEntryStatus = exports.$Enums.DailyEntryStatus = {
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
+  ApiKey: 'ApiKey',
   ClientProfile: 'ClientProfile',
   PswProfile: 'PswProfile',
   Visit: 'Visit',
@@ -584,7 +630,8 @@ exports.Prisma.ModelName = {
   BlogPost: 'BlogPost',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
-  DailyEntry: 'DailyEntry'
+  DailyEntry: 'DailyEntry',
+  MarketplaceListing: 'MarketplaceListing'
 };
 
 /**
