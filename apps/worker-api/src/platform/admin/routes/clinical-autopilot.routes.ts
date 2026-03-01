@@ -7,7 +7,7 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const runAutoPilotRoute = createRoute({
     method: 'post',
     path: '/clinical-autopilot/run',
-    tags: ['Admin / Automation'],
+    tags: ['Admin // Automation'],
     summary: 'Run Clinical Auto-Pilot Engine',
     description: 'Scans pending visits for the next 48 hours and automatically matches and offers shifts to available, skilled PSWs within the tenant.',
     responses: {
@@ -50,7 +50,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
         const now = new Date();
         const next48Hours = new Date(now.getTime() + 48 * 60 * 60 * 1000);
 
-        / 1. Find upcoming pending visits for this tenant
+        // 1. Find upcoming pending visits for this tenant
         const pendingVisits = await prisma.visit.findMany({
             where: {
                 tenantId: user.tenantId,
@@ -62,36 +62,36 @@ r.openapi(runAutoPilotRoute, async (c) => {
                 assignedPswId: null
             },
             include: {
-                assignments: true / to check if we already offered it
+                assignments: true // to check if we already offered it
             }
         });
 
         let offersCreated = 0;
 
         for (const visit of pendingVisits) {
-            / Skip if it already has pending offers
+            // Skip if it already has pending offers
             if (visit.assignments && visit.assignments.length > 0) {
                 continue;
             }
 
-            / 2. Find eligible active PSWs in this tenant
-            / Simplified matching logic: Active, has matching skills 
-            / In a real scenario, this would check `PswAvailability` and overlapping `ShiftAssignment`.
+            // 2. Find eligible active PSWs in this tenant
+            // Simplified matching logic: Active, has matching skills 
+            // In a real scenario, this would check `PswAvailability` and overlapping `ShiftAssignment`.
             const eligiblePsws = await prisma.pswProfile.findMany({
                 where: {
                     tenantId: user.tenantId,
                     isApproved: true,
-                    / If visit has required skills, PSW must have at least one (simplified overlap check)
+                    // If visit has required skills, PSW must have at least one (simplified overlap check)
                     ...(visit.requiredSkills.length > 0 ? {
                         skills: {
                             hasSome: visit.requiredSkills
                         }
                     } : {})
                 },
-                take: 3 / Limit offers to top 3 candidates to avoid spamming
+                take: 3 // Limit offers to top 3 candidates to avoid spamming
             });
 
-            / 3. Create Shift Assignments (Offers)
+            // 3. Create Shift Assignments (Offers)
             for (const psw of eligiblePsws) {
                 await prisma.shiftAssignment.create({
                     data: {
@@ -99,13 +99,13 @@ r.openapi(runAutoPilotRoute, async (c) => {
                         pswId: psw.id,
                         tenantId: user.tenantId,
                         status: 'offered',
-                        score: 0.95 / Mock algorithmic confidence score
+                        score: 0.95 // Mock algorithmic confidence score
                     }
                 });
                 offersCreated++;
             }
 
-            / Move visit status to offered if we sent out proposals
+            // Move visit status to offered if we sent out proposals
             if (eligiblePsws.length > 0) {
                 await prisma.visit.update({
                     where: { id: visit.id },

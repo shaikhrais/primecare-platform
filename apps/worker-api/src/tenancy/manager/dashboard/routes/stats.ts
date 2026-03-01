@@ -8,7 +8,7 @@ import { getStaffStats } from './stats/staff';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Dashboard Stats for Manager/Admin
+// GET Dashboard Stats for Manager/Admin
 const getManagerStatsRoute = createRoute({
     ...ROUTE_METADATA.MANAGER.STATS,
     method: 'get',

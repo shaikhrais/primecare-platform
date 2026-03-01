@@ -8,13 +8,13 @@ import incidentsRoutes from './incidents/incidents.routes';
 
 const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ PSW module-level middleware
+// PSW module-level middleware
 psw.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
 
-/ Routes
+// Routes
 psw.route('/dashboard', dashboardRoutes);
 psw.route('/schedule', scheduleRoutes);
 psw.route('/daily-entry', dailyEntryRoutes);

@@ -8,7 +8,7 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const getChildTenantsRoute = createRoute({
     method: 'get',
     path: '/',
-    tags: ['Admin / Reseller'],
+    tags: ['Admin // Reseller'],
     summary: 'Get Child Tenants',
     description: 'Retrieves all child tenants spawned by the current tenant (White-Label Reseller).',
     responses: {
@@ -39,7 +39,7 @@ const getChildTenantsRoute = createRoute({
 const provisionChildTenantRoute = createRoute({
     method: 'post',
     path: '/provision',
-    tags: ['Admin / Reseller'],
+    tags: ['Admin // Reseller'],
     summary: 'Provision Child Tenant',
     description: 'Creates a new child tenant under the current tenant.',
     request: {
@@ -127,7 +127,7 @@ r.openapi(provisionChildTenantRoute, async (c) => {
     }
 
     try {
-        / Check if slug or email exists across the whole platform
+        // Check if slug or email exists across the whole platform
         const existingTenant = await prisma.tenant.findUnique({ where: { slug } });
         if (existingTenant) {
             return c.json({ error: 'Tenant slug already exists.' }, 400 as const);
@@ -138,16 +138,16 @@ r.openapi(provisionChildTenantRoute, async (c) => {
             return c.json({ error: 'Admin email already exists in the system.' }, 400 as const);
         }
 
-        / Normally we'd hash the password here with bcrypt, skipping for brevity mock
+        // Normally we'd hash the password here with bcrypt, skipping for brevity mock
         const mockHash = `hash_${adminPassword}`;
 
-        / Create the child tenant and its admin user in a transaction
+        // Create the child tenant and its admin user in a transaction
         const result = await prisma.$transaction(async (tx: any) => {
             const newTenant = await tx.tenant.create({
                 data: {
                     name,
                     slug,
-                    parentTenantId: user.tenantId, / Link to parent
+                    parentTenantId: user.tenantId, // Link to parent
                     status: 'active'
                 }
             });
@@ -157,7 +157,7 @@ r.openapi(provisionChildTenantRoute, async (c) => {
                     email: adminEmail,
                     passwordHash: mockHash,
                     tenantId: newTenant.id,
-                    roles: ['admin'] / Set as admin for their new tenant
+                    roles: ['admin'] // Set as admin for their new tenant
                 }
             });
 

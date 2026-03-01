@@ -24,7 +24,7 @@ const CreateVisitSchema = z.object({
     requiredSkills: z.array(z.string()).optional().default([]),
 });
 
-/ POST /
+// POST /
 const createVisitRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.CREATE,
     method: 'post',
@@ -80,7 +80,7 @@ r.openapi(createVisitRoute, async (c) => {
     return c.json(visit, 201);
 });
 
-/ PATCH /{id}
+// PATCH /{id}
 const updateVisitRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.UPDATE,
     method: 'patch',
@@ -128,7 +128,7 @@ r.openapi(updateVisitRoute, async (c) => {
     return c.json(visit, 200);
 });
 
-/ DELETE /{id}
+// DELETE /{id}
 const deleteVisitRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.DELETE,
     method: 'delete',

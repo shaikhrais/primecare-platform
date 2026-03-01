@@ -5,7 +5,7 @@ import { requireRole } from '../../../middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Dashboard Stats for Staff
+// GET Dashboard Stats for Staff
 const getStaffStatsRoute = createRoute({
     ...ROUTE_METADATA.STAFF.DASHBOARD_STATS,
     method: 'get',
@@ -28,11 +28,11 @@ const getStaffStatsRoute = createRoute({
 r.openapi(getStaffStatsRoute, async (c) => {
     const prisma = c.get('prisma');
 
-    / MOCK OR REAL DATA: Operations Staff KPI Stats
+    // MOCK OR REAL DATA: Operations Staff KPI Stats
     const kpiData = {
         urgentSchedulingNeeds: await prisma.visit.count({ where: { status: 'requested' } }),
         activeCaregivers: await prisma.pswProfile.count({ where: { isApproved: true } }),
-        missingTimesheets: 5, / Mock value for illustration
+        missingTimesheets: 5, // Mock value for illustration
     };
 
     return c.json({

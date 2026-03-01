@@ -5,7 +5,7 @@ import { requireRole } from '../../../middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Invoices
+// GET Invoices
 const listInvoicesRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.INVOICES,
     method: 'get',
@@ -42,7 +42,7 @@ r.openapi(listInvoicesRoute, async (c) => {
     return c.json(invoices, 200);
 });
 
-/ GET Available Services
+// GET Available Services
 const listServicesRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.SERVICES,
     method: 'get',

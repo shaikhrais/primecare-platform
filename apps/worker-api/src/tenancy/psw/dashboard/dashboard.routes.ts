@@ -5,7 +5,7 @@ import { requireRole } from '../../../middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Dashboard Stats for PSW
+// GET Dashboard Stats for PSW
 const getDashboardStatsRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DASHBOARD_STATS,
     method: 'get',
@@ -46,7 +46,7 @@ r.openapi(getDashboardStatsRoute, async (c) => {
 
     const earningsData = timesheets.reverse().map((ts: any) => ({
         name: ts.weekId,
-        earnings: ((ts.totalMinutes || 0) / 60) * 25
+        earnings: ((ts.totalMinutes || 0) // 60) * 25
     }));
 
     if (earningsData.length === 0) {

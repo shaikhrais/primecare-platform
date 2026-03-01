@@ -16,7 +16,7 @@ const UserParamsSchema = z.object({
     }),
 });
 
-/ List Users
+// List Users
 const listUsersRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_LIST,
     method: 'get',
@@ -40,7 +40,7 @@ r.openapi(listUsersRoute, async (c) => {
     return c.json(users);
 });
 
-/ Create User
+// Create User
 const createUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_CREATE,
     method: 'post',
@@ -75,7 +75,7 @@ r.openapi(createUserRoute, async (c) => {
     const prisma = c.get('prisma');
     const data = await c.req.valid('json' as never) as any;
     const service = new AdminUserService(prisma);
-    const userRole = c.get('user' as any) as any; / Admin doing the creation
+    const userRole = c.get('user' as any) as any; // Admin doing the creation
 
     const newUser = await service.createUser({
         ...data,
@@ -86,7 +86,7 @@ r.openapi(createUserRoute, async (c) => {
     return c.json(newUser, 201);
 });
 
-/ Verify User
+// Verify User
 const verifyUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY,
     method: 'post',
@@ -114,7 +114,7 @@ r.openapi(verifyUserRoute, async (c) => {
     return c.json(user);
 });
 
-/ Update Roles
+// Update Roles
 const updateRolesRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES,
     method: 'patch',
@@ -156,7 +156,7 @@ r.openapi(updateRolesRoute, async (c) => {
     return c.json(updatedUser);
 });
 
-/ Elevate User (Super User)
+// Elevate User (Super User)
 const elevateUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ELEVATE,
     method: 'post',

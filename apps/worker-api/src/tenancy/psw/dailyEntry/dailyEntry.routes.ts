@@ -20,7 +20,7 @@ const DailyEntrySchema = z.object({
     status: z.enum(['DRAFT', 'SUBMITTED']).default('DRAFT'),
 });
 
-/ Create/Submit Entry
+// Create/Submit Entry
 const createEntryRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_CREATE,
     method: 'post',
@@ -62,7 +62,7 @@ r.openapi(createEntryRoute, async (c) => {
     return c.json(entry, 201);
 });
 
-/ History
+// History
 const getHistoryRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_HISTORY,
     method: 'get',

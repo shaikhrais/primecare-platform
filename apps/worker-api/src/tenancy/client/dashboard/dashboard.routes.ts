@@ -16,7 +16,7 @@ const ProfileUpdateSchema = z.object({
     emergencyPhone: z.string().optional(),
 });
 
-/ GET Profile
+// GET Profile
 const getProfileRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.GET_PROFILE,
     method: 'get',
@@ -50,7 +50,7 @@ r.openapi(getProfileRoute, async (c) => {
     return c.json(profile, 200);
 });
 
-/ PUT Profile
+// PUT Profile
 const updateProfileRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.UPDATE_PROFILE,
     method: 'put',
@@ -117,7 +117,7 @@ r.openapi(updateProfileRoute, async (c) => {
     return c.json(profile, 200);
 });
 
-/ GET Dashboard Stats
+// GET Dashboard Stats
 const getClientStatsRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.STATS,
     method: 'get',

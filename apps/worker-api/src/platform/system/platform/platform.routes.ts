@@ -3,7 +3,7 @@ import { Bindings, Variables } from '../../../';
 
 const platform = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ All routes in this module require super_admin role
+// All routes in this module require super_admin role
 platform.use('*', async (c, next) => {
     const payload = c.get('jwtPayload');
     if (!payload?.roles.includes('super_admin')) {
@@ -12,12 +12,12 @@ platform.use('*', async (c, next) => {
     await next();
 });
 
-/ GET /v1/system/platform/audit-logs
+// GET /v1/system/platform/audit-logs
 platform.get('/audit-logs', async (c) => {
     const prisma = c.get('prisma');
 
-    / Note: Since super_admin bypasses the tenant extension, 
-    / this findMany will see ALL records across ALL tenants.
+    // Note: Since super_admin bypasses the tenant extension, 
+    // this findMany will see ALL records across ALL tenants.
     const logs = await prisma.auditLog.findMany({
         take: 100,
         orderBy: { createdAt: 'desc' },
@@ -30,7 +30,7 @@ platform.get('/audit-logs', async (c) => {
     return c.json({ logs });
 });
 
-/ GET /v1/system/platform/stats
+// GET /v1/system/platform/stats
 platform.get('/stats', async (c) => {
     const prisma = c.get('prisma');
 

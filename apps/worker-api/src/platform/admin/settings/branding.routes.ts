@@ -3,7 +3,7 @@ import { Bindings, Variables } from '../../../';
 
 const branding = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET /v1/admin/settings/branding
+// GET /v1/admin/settings/branding
 branding.get('/', async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
@@ -16,8 +16,8 @@ branding.get('/', async (c) => {
     return c.json(tenant);
 });
 
-/ GET /v1/admin/settings/branding/public?slug=...
-/ Unauthenticated endpoint for login page branding
+// GET /v1/admin/settings/branding/public?slug=...
+// Unauthenticated endpoint for login page branding
 branding.get('/public', async (c) => {
     const prisma = c.get('prisma');
     const slug = c.req.query('slug');
@@ -32,7 +32,7 @@ branding.get('/public', async (c) => {
     return c.json(tenant);
 });
 
-/ PATCH /v1/admin/settings/branding
+// PATCH /v1/admin/settings/branding
 const updateBrandingRoute = createRoute({
     method: 'patch',
     path: '/',

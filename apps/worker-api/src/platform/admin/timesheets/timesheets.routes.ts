@@ -12,7 +12,7 @@ const TimesheetParamsSchema = z.object({
     }),
 });
 
-/ List Timesheets
+// List Timesheets
 const listTimesheetsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_LIST,
     method: 'get',
@@ -41,7 +41,7 @@ r.openapi(listTimesheetsRoute, async (c) => {
     return c.json(timesheets, 200);
 });
 
-/ Update Timesheet Status
+// Update Timesheet Status
 const updateTimesheetStatusRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_UPDATE,
     method: 'patch',

@@ -12,7 +12,7 @@ export const getStaffStats = async (prisma: any) => {
         select: { requestedStartAt: true, actualStartAt: true }
     });
 
-    / Utilization (Mock logic from original)
+    // Utilization (Mock logic from original)
     const utilizationData = completedVisits.reduce((acc: number) => acc + 1, 0);
     const staffUtilization = [
         { name: 'Billable', value: utilizationData * 0.75, fill: '#0088FE' },
@@ -20,11 +20,11 @@ export const getStaffStats = async (prisma: any) => {
         { name: 'Admin/Training', value: utilizationData * 0.10, fill: '#FFBB28' },
     ];
 
-    / Attendance Heatmap
+    // Attendance Heatmap
     const heatmapMap = new Map<string, number>();
     completedVisits.forEach((v: any) => {
         if (v.actualStartAt && v.requestedStartAt) {
-            const diff = (new Date(v.actualStartAt).getTime() - new Date(v.requestedStartAt).getTime()) / 60000;
+            const diff = (new Date(v.actualStartAt).getTime() - new Date(v.requestedStartAt).getTime()) // 60000;
             if (diff > 10) {
                 const d = new Date(v.actualStartAt);
                 const day = d.getDay();

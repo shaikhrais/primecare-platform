@@ -5,7 +5,7 @@ import { requireRole } from '../../../middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Dashboard Stats for RN
+// GET Dashboard Stats for RN
 const getRnStatsRoute = createRoute({
     ...ROUTE_METADATA.RN.DASHBOARD_STATS,
     method: 'get',
@@ -31,7 +31,7 @@ const getRnStatsRoute = createRoute({
 r.openapi(getRnStatsRoute, async (c) => {
     const prisma = c.get('prisma');
 
-    / 1. Patient Acuity Distribution
+    // 1. Patient Acuity Distribution
     const acuityData = [
         { name: 'Low', count: await prisma.clientProfile.count({ where: { city: 'Toronto' } }) || 15 },
         { name: 'Medium', count: await prisma.clientProfile.count({ where: { city: 'Mississauga' } }) || 10 },
@@ -39,7 +39,7 @@ r.openapi(getRnStatsRoute, async (c) => {
         { name: 'Critical', count: 2 },
     ];
 
-    / 2. Assessment Compliance
+    // 2. Assessment Compliance
     const complianceData = [
         { name: 'Initial', completed: 20, overdue: 2 },
         { name: 'Quarterly', completed: 45, overdue: 5 },
@@ -47,7 +47,7 @@ r.openapi(getRnStatsRoute, async (c) => {
         { name: 'Discharge', completed: 10, overdue: 0 },
     ];
 
-    / 3. Clinical Incidents
+    // 3. Clinical Incidents
     const incidents = await prisma.incident.findMany({
         select: { type: true, status: true }
     });
@@ -70,7 +70,7 @@ r.openapi(getRnStatsRoute, async (c) => {
         incidentData.push({ type: 1, severity: 2, count: 1 });
     }
 
-    / 4. KPI Stats (Real Data)
+    // 4. KPI Stats (Real Data)
     const kpiData = {
         pendingCarePlans: await prisma.visit.count({ where: { status: 'requested' } }),
         dailyReviewsNeed: await prisma.dailyEntry.count({

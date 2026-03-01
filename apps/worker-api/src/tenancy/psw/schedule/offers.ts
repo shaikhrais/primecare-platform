@@ -4,7 +4,7 @@ import { ROUTE_METADATA } from '../../../constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET Offered Shifts
+// GET Offered Shifts
 const listOffersRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.LIST_OFFERS,
     method: 'get',
@@ -46,7 +46,7 @@ r.openapi(listOffersRoute, async (c) => {
     return c.json(offers, 200);
 });
 
-/ POST Accept Offer
+// POST Accept Offer
 const acceptOfferRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.ACCEPT_OFFER,
     method: 'post',
@@ -107,7 +107,7 @@ r.openapi(acceptOfferRoute, async (c) => {
     return c.json({ success: true }, 200);
 });
 
-/ POST Decline Offer
+// POST Decline Offer
 const declineOfferRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.DECLINE_OFFER,
     method: 'post',

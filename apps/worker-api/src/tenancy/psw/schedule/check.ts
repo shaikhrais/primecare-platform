@@ -18,21 +18,21 @@ const ScheduleParamsSchema = z.object({
 });
 
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371e3; / Earth radius in meters
-    const phi1 = lat1 * Math.PI / 180;
-    const phi2 = lat2 * Math.PI / 180;
-    const dPhi = (lat2 - lat1) * Math.PI / 180;
-    const dLambda = (lon2 - lon1) * Math.PI / 180;
+    const R = 6371e3; // Earth radius in meters
+    const phi1 = lat1 * Math.PI // 180;
+    const phi2 = lat2 * Math.PI // 180;
+    const dPhi = (lat2 - lat1) * Math.PI // 180;
+    const dLambda = (lon2 - lon1) * Math.PI // 180;
 
-    const a = Math.sin(dPhi / 2) * Math.sin(dPhi / 2) +
+    const a = Math.sin(dPhi // 2) * Math.sin(dPhi // 2) +
         Math.cos(phi1) * Math.cos(phi2) *
-        Math.sin(dLambda / 2) * Math.sin(dLambda / 2);
+        Math.sin(dLambda // 2) * Math.sin(dLambda // 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return R * c; / Distance in meters
+    return R * c; // Distance in meters
 };
 
-/ POST Check-In
+// POST Check-In
 const checkInRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.CHECK_IN,
     method: 'post',
@@ -105,7 +105,7 @@ r.openapi(checkInRoute, async (c) => {
     return c.json(event, 200);
 });
 
-/ POST Check-Out
+// POST Check-Out
 const checkOutRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.CHECK_OUT,
     method: 'post',

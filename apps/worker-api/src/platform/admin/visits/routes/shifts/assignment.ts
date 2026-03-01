@@ -17,7 +17,7 @@ const AssignPswSchema = z.object({
     pswId: z.string().uuid(),
 });
 
-/ POST /assign
+// POST /assign
 const assignPswRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.ASSIGN_PSW,
     method: 'post',
@@ -77,7 +77,7 @@ r.openapi(assignPswRoute, async (c) => {
     return c.json(visit, 200);
 });
 
-/ POST /{id}/cancel
+// POST /{id}/cancel
 const cancelVisitRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.CANCEL_VISIT,
     method: 'post',
@@ -111,7 +111,7 @@ r.openapi(cancelVisitRoute, async (c) => {
     const now = new Date();
     const start = new Date(visit.requestedStartAt);
     const diffMs = start.getTime() - now.getTime();
-    const diffHours = diffMs / (1000 * 60 * 60);
+    const diffHours = diffMs // (1000 * 60 * 60);
 
     let payMultiplier = 0;
     let chargeMultiplier = 0;

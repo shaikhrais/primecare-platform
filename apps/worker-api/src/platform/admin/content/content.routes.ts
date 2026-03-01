@@ -3,7 +3,7 @@ import { Bindings, Variables } from '../../../';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ Blog List
+// Blog List
 const listBlogPostsRoute = createRoute({
     method: 'get',
     path: '/blog',
@@ -28,7 +28,7 @@ r.openapi(listBlogPostsRoute, async (c) => {
     return c.json(posts, 200);
 });
 
-/ Create Blog Post
+// Create Blog Post
 const createBlogPostRoute = createRoute({
     method: 'post',
     path: '/blog',
@@ -76,7 +76,7 @@ r.openapi(createBlogPostRoute, async (c) => {
     return c.json(post, 201);
 });
 
-/ FAQ List
+// FAQ List
 const listFaqsRoute = createRoute({
     method: 'get',
     path: '/faqs',
@@ -101,7 +101,7 @@ r.openapi(listFaqsRoute, async (c) => {
     return c.json(faqs, 200);
 });
 
-/ Create FAQ
+// Create FAQ
 const createFaqRoute = createRoute({
     method: 'post',
     path: '/faqs',

@@ -11,7 +11,7 @@ const ScheduleParamsSchema = z.object({
     }),
 });
 
-/ GET Assigned Visits
+// GET Assigned Visits
 const listVisitsRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.LIST_VISITS,
     method: 'get',
@@ -53,7 +53,7 @@ r.openapi(listVisitsRoute, async (c) => {
     return c.json(visits, 200);
 });
 
-/ POST Client Not Present (No-Show)
+// POST Client Not Present (No-Show)
 const reportNoShowRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.REPORT_NO_SHOW,
     method: 'post',
@@ -102,7 +102,7 @@ r.openapi(reportNoShowRoute, async (c) => {
     if (elapsed < waitTimeMs) {
         return c.json({
             error: 'You must wait 15 minutes after check-in before flagging as no-show',
-            remainingMinutes: Math.ceil((waitTimeMs - elapsed) / 60000)
+            remainingMinutes: Math.ceil((waitTimeMs - elapsed) // 60000)
         }, 400);
     }
 

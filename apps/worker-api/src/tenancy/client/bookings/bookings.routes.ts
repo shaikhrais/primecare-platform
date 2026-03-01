@@ -20,7 +20,7 @@ const BookingParamsSchema = z.object({
     id: z.string().openapi({ param: { name: 'id', in: 'path' } }),
 });
 
-/ GET Bookings
+// GET Bookings
 const listBookingsRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.LIST_BOOKINGS,
     method: 'get',
@@ -61,7 +61,7 @@ r.openapi(listBookingsRoute, async (c) => {
     return c.json(bookings, 200);
 });
 
-/ POST Booking
+// POST Booking
 const createBookingRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CREATE_BOOKING,
     method: 'post',
@@ -134,7 +134,7 @@ r.openapi(createBookingRoute, async (c) => {
     return c.json(booking, 201);
 });
 
-/ PATCH Booking
+// PATCH Booking
 const updateBookingRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.UPDATE_BOOKING,
     method: 'patch',

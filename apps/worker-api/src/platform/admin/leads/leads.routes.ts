@@ -11,7 +11,7 @@ const LeadParamsSchema = z.object({
     }),
 });
 
-/ List Leads
+// List Leads
 const listLeadsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_LIST,
     method: 'get',
@@ -36,7 +36,7 @@ r.openapi(listLeadsRoute, async (c) => {
     return c.json(leads, 200);
 });
 
-/ Update Lead Status
+// Update Lead Status
 const updateLeadStatusRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE,
     method: 'patch',

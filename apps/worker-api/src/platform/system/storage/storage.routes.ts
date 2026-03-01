@@ -17,7 +17,7 @@ const uploadFileRoute = createRoute({
         body: {
             content: {
                 'application/octet-stream': {
-                    schema: z.object({}), / Binary data
+                    schema: z.object({}), // Binary data
                 },
             },
         },

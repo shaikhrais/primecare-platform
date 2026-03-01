@@ -4,7 +4,7 @@ import { ROUTE_METADATA } from '../../../constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ POST Update Availability
+// POST Update Availability
 const updateAvailabilityRoute = createRoute({
     ...ROUTE_METADATA.PSW_SCHEDULE.UPDATE_AVAILABILITY,
     method: 'post',
@@ -43,7 +43,7 @@ r.openapi(updateAvailabilityRoute, async (c) => {
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    / Simplified update logic for demonstration
+    // Simplified update logic for demonstration
     const updated = await prisma.pswProfile.update({
         where: { id: profile.id },
         data: {

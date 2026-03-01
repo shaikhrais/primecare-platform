@@ -7,7 +7,7 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const riskSurveillanceRoute = createRoute({
     method: 'get',
     path: '/',
-    tags: ['Super Admin / System'],
+    tags: ['Super Admin // System'],
     summary: 'Platform Risk Surveillance',
     description: 'Aggregates and scores compliance and performance risk across all tenants on the platform.',
     responses: {
@@ -34,8 +34,8 @@ r.openapi(riskSurveillanceRoute, async (c) => {
     const prisma = c.get('prisma');
 
     try {
-        / Fetch all tenants with aggregated counts
-        / Need to use raw queries or multiple queries as Prisma's `include._count` doesn't support complex where clauses yet.
+        // Fetch all tenants with aggregated counts
+        // Need to use raw queries or multiple queries as Prisma's `include._count` doesn't support complex where clauses yet.
         const tenants = await prisma.tenant.findMany({
             where: {
                 status: 'active'
@@ -54,12 +54,12 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             }
         });
 
-        / Current date for comparisons
+        // Current date for comparisons
         const now = new Date();
         const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
         const riskData = await Promise.all(tenants.map(async (tenant: any) => {
-            / 1. Compliance Risk: Expired or pending documents
+            // 1. Compliance Risk: Expired or pending documents
             const documentCount = await prisma.pswDocument.count({
                 where: {
                     tenantId: tenant.id,
@@ -67,7 +67,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
                 }
             });
 
-            / 2. Performance Risk: Cancelled visits in last 30 days vs total visits completed
+            // 2. Performance Risk: Cancelled visits in last 30 days vs total visits completed
             const cancelledVisits = await prisma.visit.count({
                 where: {
                     tenantId: tenant.id,
@@ -85,9 +85,9 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             });
 
             const totalRecentVisits = cancelledVisits + completedVisits;
-            const cancelRatio = totalRecentVisits > 0 ? (cancelledVisits / totalRecentVisits) : 0;
+            const cancelRatio = totalRecentVisits > 0 ? (cancelledVisits // totalRecentVisits) : 0;
 
-            / 3. User Risk: High ratio of inactive users
+            // 3. User Risk: High ratio of inactive users
             const inactiveUsers = await prisma.user.count({
                 where: {
                     tenantId: tenant.id,
@@ -95,13 +95,13 @@ r.openapi(riskSurveillanceRoute, async (c) => {
                 }
             });
             const totalUsers = tenant._count.users;
-            const inactiveRatio = totalUsers > 0 ? (inactiveUsers / totalUsers) : 0;
+            const inactiveRatio = totalUsers > 0 ? (inactiveUsers // totalUsers) : 0;
 
-            / Calculate Risk Score (0-100, higher is worse)
+            // Calculate Risk Score (0-100, higher is worse)
             let riskScore = 0;
             const riskFactors: string[] = [];
 
-            / Compliance penalty (Heavy)
+            // Compliance penalty (Heavy)
             if (documentCount > 10) {
                 riskScore += 40;
                 riskFactors.push(`High Compliance Risk (${documentCount} pending/expired docs)`);
@@ -110,8 +110,8 @@ r.openapi(riskSurveillanceRoute, async (c) => {
                 riskFactors.push(`Minor Compliance Risk (${documentCount} bad docs)`);
             }
 
-            / Performance penalty (Medium)
-            if (cancelRatio > 0.2) { / More than 20% cancellation rate
+            // Performance penalty (Medium)
+            if (cancelRatio > 0.2) { // More than 20% cancellation rate
                 riskScore += 30;
                 riskFactors.push(`High Cancellation Rate (${(cancelRatio * 100).toFixed(1)}%)`);
             } else if (cancelRatio > 0.1) {
@@ -119,13 +119,13 @@ r.openapi(riskSurveillanceRoute, async (c) => {
                 riskFactors.push(`Elevated Cancellation Rate`);
             }
 
-            / Activity penalty (Low)
-            if (inactiveRatio > 0.5 && totalUsers > 5) { / More than 50% inactive
+            // Activity penalty (Low)
+            if (inactiveRatio > 0.5 && totalUsers > 5) { // More than 50% inactive
                 riskScore += 20;
                 riskFactors.push(`High Inactive User Ratio (${(inactiveRatio * 100).toFixed(1)}%)`);
             }
 
-            / Cap at 100
+            // Cap at 100
             riskScore = Math.min(riskScore, 100);
 
             let riskLevel = 'Low';
@@ -144,7 +144,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             };
         }));
 
-        / Sort by highest risk score first
+        // Sort by highest risk score first
         riskData.sort((a: any, b: any) => b.riskScore - a.riskScore);
 
         return c.json({ data: riskData } as any, 200 as const);

@@ -17,7 +17,7 @@ const ClientParamsSchema = z.object({
     clientId: z.string().openapi({ param: { name: 'clientId', in: 'path' } }),
 });
 
-/ POST Care Plan
+// POST Care Plan
 const createCarePlanRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CARE_PLAN_CREATE,
     method: 'post',
@@ -60,7 +60,7 @@ r.openapi(createCarePlanRoute, async (c) => {
     return c.json({ success: true, message: 'Care plan created', data }, 200);
 });
 
-/ PATCH Care Plan
+// PATCH Care Plan
 const updateCarePlanRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CARE_PLAN_UPDATE,
     method: 'patch',

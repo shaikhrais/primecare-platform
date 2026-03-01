@@ -21,14 +21,14 @@ import { resellerRoutes } from './routes/reseller.routes';
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ Admin module-level middleware
+// Admin module-level middleware
 admin.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     return await middleware(c, next);
 });
 admin.use('*', requireRole(['admin']));
 
-/ Routes
+// Routes
 admin.route('/users', userRoutes);
 admin.route('/visits', visitRoutes);
 admin.route('/leads', leadRoutes);
@@ -37,20 +37,20 @@ admin.route('/timesheets', timesheetRoutes);
 admin.route('/services', serviceRoutes);
 admin.route('/settings', settingsRoutes);
 admin.route('/clients', clientRoutes);
-admin.route('/developer', developerRoutes); / Keep in Tenant Admin for now as it's for their API Keys
+admin.route('/developer', developerRoutes); // Keep in Tenant Admin for now as it's for their API Keys
 admin.route('/', contentRoutes);
 
-/ Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)
+// Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)
 admin.route('/system/platform', platformStats);
 admin.route('/system/risk-surveillance', riskSurveillanceRoutes);
 
-/ Insights Routes
+// Insights Routes
 admin.route('/insights/predictive-staffing', predictiveStaffingRoutes);
 
-/ Automation Routes
+// Automation Routes
 admin.route('/automation/clinical-autopilot', clinicalAutopilotRoutes);
 
-/ Reseller / Sub-Tenant Routes
+// Reseller // Sub-Tenant Routes
 admin.route('/reseller', resellerRoutes);
 
 const statsRoute = createRoute({
@@ -96,22 +96,22 @@ admin.openapi(statsRoute, async (c) => {
     const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
-    / Parallelize queries for performance
+    // Parallelize queries for performance
     const [totalUsers, pendingVisits, totalVisits, totalLeads, complianceRisk, coverageGap, pipelineStagnation] = await Promise.all([
         prisma.user.count(),
         prisma.visit.count({ where: { status: 'requested' } }),
-        prisma.visit.count(), / Safely handle total visits
+        prisma.visit.count(), // Safely handle total visits
         prisma.lead.count(),
-        / Compliance: Users with no documents or expired ones (simplified for this step)
+        // Compliance: Users with no documents or expired ones (simplified for this step)
         prisma.pswDocument.count({ where: { status: 'pending' } }),
-        / Coverage: Unassigned visits in the next 7 days
+        // Coverage: Unassigned visits in the next 7 days
         prisma.visit.count({
             where: {
                 status: 'requested',
                 requestedStartAt: { lte: sevenDaysFromNow }
             }
         }),
-        / Pipeline: Leads with 'new' status older than 3 days
+        // Pipeline: Leads with 'new' status older than 3 days
         prisma.lead.count({
             where: {
                 status: 'new',
@@ -120,7 +120,7 @@ admin.openapi(statsRoute, async (c) => {
         })
     ]);
 
-    / Calculate Business Model Score
+    // Calculate Business Model Score
     let modelScore = 0;
     try {
         const tenant = await prisma.tenant.findFirst({

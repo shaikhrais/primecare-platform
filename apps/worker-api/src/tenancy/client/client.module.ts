@@ -9,13 +9,13 @@ import profileRoutes from './profile.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ Client module-level middleware
+// Client module-level middleware
 client.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
 
-/ Routes
+// Routes
 client.route('/', dashboardRoutes);
 client.route('/bookings', bookingRoutes);
 client.route('/care-plan', carePlanRoutes);

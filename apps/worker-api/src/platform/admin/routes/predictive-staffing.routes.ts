@@ -34,7 +34,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
     const prisma = c.get('prisma');
 
     try {
-        / 1. Fetch all active field staff (no need for tenantId, global middleware handles it)
+        // 1. Fetch all active field staff (no need for tenantId, global middleware handles it)
         const psws = await prisma.user.findMany({
             where: {
                 roles: { hasSome: ['psw', 'rn', 'rmt', 'rpt', 'rch'] },
@@ -45,14 +45,14 @@ r.openapi(predictiveStaffingRoute, async (c) => {
                 reportedIncidents: {
                     where: {
                         createdAt: {
-                            gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) / Last 30 days
+                            gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
                         }
                     }
                 }
             }
         });
 
-        / 2. Fetch timesheets for the last 14 days
+        // 2. Fetch timesheets for the last 14 days
         const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
         const timesheets = await prisma.timesheet.findMany({
             where: {
@@ -65,20 +65,20 @@ r.openapi(predictiveStaffingRoute, async (c) => {
             }
         });
 
-        / 3. Calculate Burnout Risk Score
+        // 3. Calculate Burnout Risk Score
         const riskScores = psws.map((psw: any) => {
             let score = 0;
             let riskFactors: string[] = [];
 
-            / A. Hours worked in the last 14 days
+            // A. Hours worked in the last 14 days
             const pswTimesheets = timesheets.filter((t: any) => t.pswId === psw.pswProfile?.id);
             let totalMinutes = 0;
             pswTimesheets.forEach((ts: any) => {
                 ts.items.forEach((item: any) => totalMinutes += item.minutes);
             });
-            const totalHours = totalMinutes / 60;
+            const totalHours = totalMinutes // 60;
 
-            if (totalHours > 80) { / Overtime territory in 14 days
+            if (totalHours > 80) { // Overtime territory in 14 days
                 score += 40;
                 riskFactors.push(`High hours (${totalHours.toFixed(1)}h in last 14 days)`);
             } else if (totalHours > 60) {
@@ -86,7 +86,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
                 riskFactors.push('Elevated hours');
             }
 
-            / B. Recent incidents reported
+            // B. Recent incidents reported
             const incidentCount = psw.reportedIncidents.length;
             if (incidentCount > 2) {
                 score += 30;
@@ -96,7 +96,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
                 riskFactors.push('Recent incident reported');
             }
 
-            / Default safe score modifier
+            // Default safe score modifier
             if (score === 0 && totalHours > 0 && totalHours <= 40) {
                 score -= 10;
             }
@@ -105,14 +105,14 @@ r.openapi(predictiveStaffingRoute, async (c) => {
                 userId: psw.id,
                 pswId: psw.pswProfile?.id,
                 name: psw.pswProfile?.fullName || psw.email,
-                score: Math.max(0, Math.min(score, 100)), / Cap between 0 and 100
+                score: Math.max(0, Math.min(score, 100)), // Cap between 0 and 100
                 riskLevel: score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low',
                 riskFactors,
                 totalHours14d: totalHours
             };
         });
 
-        / 4. Sort by highest risk first
+        // 4. Sort by highest risk first
         riskScores.sort((a: any, b: any) => b.score - a.score);
 
         return c.json({ data: riskScores } as any, 200 as const);

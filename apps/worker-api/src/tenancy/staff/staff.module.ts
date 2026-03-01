@@ -9,14 +9,14 @@ import customerRoutes from './customers.routes';
 
 const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ Staff module-level middleware
+// Staff module-level middleware
 staff.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     await middleware(c, next);
 });
 staff.use('*', requireRole(['staff', 'coordinator', 'admin']));
 
-/ Routes
+// Routes
 staff.route('/dashboard', dashboardRoutes);
 staff.route('/', schedulingRoutes);
 staff.route('/', supportRoutes);

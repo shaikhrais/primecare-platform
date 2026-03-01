@@ -18,7 +18,7 @@ const ServiceSchema = z.object({
     isActive: z.boolean().optional(),
 });
 
-/ List Services
+// List Services
 const listServicesRoute = createRoute({
     method: 'get',
     path: '/',
@@ -43,7 +43,7 @@ r.openapi(listServicesRoute, async (c) => {
     return c.json(services, 200);
 });
 
-/ Create Service
+// Create Service
 const createServiceRoute = createRoute({
     method: 'post',
     path: '/',
@@ -87,7 +87,7 @@ r.openapi(createServiceRoute, async (c) => {
     return c.json(service, 201);
 });
 
-/ Update Service
+// Update Service
 const updateServiceRoute = createRoute({
     method: 'put',
     path: '/{id}',

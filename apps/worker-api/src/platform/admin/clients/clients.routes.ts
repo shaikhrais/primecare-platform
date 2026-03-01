@@ -13,7 +13,7 @@ const ClientSchema = z.object({
     medicalNotes: z.string().optional(),
 });
 
-/ List Clients
+// List Clients
 r.get('/', async (c) => {
     const prisma = c.get('prisma');
     const service = new AdminClientService(prisma);
@@ -21,7 +21,7 @@ r.get('/', async (c) => {
     return c.json(clients);
 });
 
-/ Create Client
+// Create Client
 const createClientRoute = createRoute({
     method: 'post',
     path: '/',

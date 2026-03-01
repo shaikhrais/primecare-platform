@@ -30,7 +30,7 @@ export class AdminUserService {
                 roles: data.roles || ['staff'],
                 status: data.status || 'active',
                 tenantId: data.tenantId || 'system',
-                / We would typically create a profile here too
+                // We would typically create a profile here too
                 pswProfile: data.roles.includes('psw') ? {
                     create: {
                         fullName: data.fullName,

@@ -10,7 +10,7 @@ const IncidentParamsSchema = z.object({
     }),
 });
 
-/ List Incidents
+// List Incidents
 const listIncidentsRoute = createRoute({
     method: 'get',
     path: '/',
@@ -41,7 +41,7 @@ r.openapi(listIncidentsRoute, async (c) => {
     return c.json(incidents, 200);
 });
 
-/ Update Incident
+// Update Incident
 const updateIncidentRoute = createRoute({
     method: 'patch',
     path: '/{id}',

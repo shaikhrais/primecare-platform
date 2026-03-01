@@ -12,7 +12,7 @@ const VisitParamsSchema = z.object({
     }),
 });
 
-/ POST /{id}/post
+// POST /{id}/post
 const postShiftRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.POST_SHIFT,
     method: 'post',
@@ -46,7 +46,7 @@ r.openapi(postShiftRoute, async (c) => {
     return c.json(visit, 200);
 });
 
-/ POST /{id}/offer
+// POST /{id}/offer
 const offerShiftRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.OFFER_SHIFT,
     method: 'post',
@@ -104,7 +104,7 @@ r.openapi(offerShiftRoute, async (c) => {
     return c.json({ success: true, count: assignments.length }, 200);
 });
 
-/ GET /{id}/suggest
+// GET /{id}/suggest
 const suggestPswsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.SUGGEST_PSWS,
     method: 'get',
@@ -168,7 +168,7 @@ r.openapi(suggestPswsRoute, async (c) => {
     return c.json(suggested, 200);
 });
 
-/ PATCH /{id}/surge
+// PATCH /{id}/surge
 const surgeShiftRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.SURGE_SHIFT,
     method: 'patch',

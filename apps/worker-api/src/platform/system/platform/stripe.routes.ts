@@ -4,8 +4,8 @@ import { StripeService } from '../../../services/stripe';
 
 const stripeRoutes = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET /v1/system/platform/stripe/onboard
-/ Initiates Stripe Connect onboarding for the current tenant
+// GET /v1/system/platform/stripe/onboard
+// Initiates Stripe Connect onboarding for the current tenant
 stripeRoutes.get('/onboard', async (c) => {
     const prisma = c.get('prisma');
     const payload = c.get('jwtPayload');
@@ -22,7 +22,7 @@ stripeRoutes.get('/onboard', async (c) => {
 
     let accountId = tenant.stripeAccountId;
 
-    / Create a new Connect account if they don't have one
+    // Create a new Connect account if they don't have one
     if (!accountId) {
         const account = await stripeService.createConnectAccount(payload.email, tenant.name);
         accountId = account.id;
@@ -33,7 +33,7 @@ stripeRoutes.get('/onboard', async (c) => {
         });
     }
 
-    / Generate the onboarding link
+    // Generate the onboarding link
     const origin = c.env.SITE_URL || 'http:/localhost:5173';
     const accountLink = await stripeService.createAccountLink(
         accountId,
@@ -44,14 +44,14 @@ stripeRoutes.get('/onboard', async (c) => {
     return c.json({ url: accountLink.url });
 });
 
-/ POST /v1/system/platform/stripe/webhook
-/ Handles Stripe webhooks (e.g. account updated)
+// POST /v1/system/platform/stripe/webhook
+// Handles Stripe webhooks (e.g. account updated)
 stripeRoutes.post('/webhook', async (c) => {
     const sig = c.req.header('stripe-signature');
     if (!sig) return c.json({ error: 'Missing signature' }, 400);
 
-    / Note: In a real-world edge worker, you'd use c.req.raw.body and verify the signature
-    / For this implementation, we assume the helper verifies it or we focus on logic
+    // Note: In a real-world edge worker, you'd use c.req.raw.body and verify the signature
+    // For this implementation, we assume the helper verifies it or we focus on logic
     const body: any = await c.req.json();
     const event = body as any;
 
@@ -62,7 +62,7 @@ stripeRoutes.post('/webhook', async (c) => {
         if (account.details_submitted) {
             await prisma.tenant.updateMany({
                 where: { stripeAccountId: account.id },
-                data: { onboardingStep: 3 } / Move to next step of platform onboarding
+                data: { onboardingStep: 3 } // Move to next step of platform onboarding
             });
         }
     }

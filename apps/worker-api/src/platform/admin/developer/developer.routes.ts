@@ -3,7 +3,7 @@ import { Bindings, Variables } from '../../../';
 
 const developer = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET /v1/admin/developer/keys
+// GET /v1/admin/developer/keys
 developer.get('/keys', async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
@@ -15,7 +15,7 @@ developer.get('/keys', async (c) => {
     return c.json(keys);
 });
 
-/ POST /v1/admin/developer/keys
+// POST /v1/admin/developer/keys
 const createKeyRoute = createRoute({
     method: 'post',
     path: '/keys',
@@ -49,7 +49,7 @@ developer.openapi(createKeyRoute, async (c) => {
     const tenantId = c.get('jwtPayload').tenantId;
     const { name } = c.req.valid('json');
 
-    / Generate a secure random key
+    // Generate a secure random key
     const key = `pk_${crypto.randomUUID().replace(/-/g, '')}`;
 
     await prisma.apiKey.create({
@@ -63,7 +63,7 @@ developer.openapi(createKeyRoute, async (c) => {
     return c.json({ key }, 201);
 });
 
-/ DELETE /v1/admin/developer/keys/:id
+// DELETE /v1/admin/developer/keys/:id
 developer.delete('/keys/:id', async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;

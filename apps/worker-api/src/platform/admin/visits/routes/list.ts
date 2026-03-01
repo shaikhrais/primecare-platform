@@ -4,7 +4,7 @@ import { ROUTE_METADATA } from '../../../../constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ GET /
+// GET /
 const listVisitsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_VISITS.LIST,
     method: 'get',

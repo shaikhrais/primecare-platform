@@ -4,7 +4,7 @@ import brandingRoutes from './branding.routes';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-/ PATCH /business-model - Save tenant business model settings
+// PATCH /business-model - Save tenant business model settings
 const updateBusinessModelRoute = createRoute({
     method: 'patch',
     path: '/business-model',
@@ -81,7 +81,7 @@ r.openapi(updateBusinessModelRoute, async (c) => {
     }
 });
 
-/ POST /logo - Upload business logo to R2
+// POST /logo - Upload business logo to R2
 r.post('/logo', async (c) => {
     const formData = await c.req.formData();
     const file = formData.get('file');
@@ -96,13 +96,13 @@ r.post('/logo', async (c) => {
     const fileExtension = logoFile.name.split('.').pop();
     const key = `logos/${tenantId}/${Date.now()}.${fileExtension}`;
 
-    / Upload to R2
+    // Upload to R2
     await c.env.DOCS_BUCKET.put(key, await logoFile.arrayBuffer(), {
         httpMetadata: { contentType: logoFile.type },
     });
 
-    / Generate public URL (assuming a public R2 bucket or worker proxy)
-    / For now, we'll return a path that the worker can serve or a public dev domain
+    // Generate public URL (assuming a public R2 bucket or worker proxy)
+    // For now, we'll return a path that the worker can serve or a public dev domain
     const logoUrl = `/v1/system/files/${key}`;
 
     return c.json({ logoUrl }, 201);
