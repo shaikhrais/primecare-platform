@@ -8,14 +8,14 @@ import { Bindings, Variables } from './bindings';
 
 // Modular Module Imports
 import authModule from './auth/auth.routes';
-import adminModule from './admin/admin.module';
-import managerModule from './manager/manager.module';
-import staffModule from './staff/staff.module';
-import rnModule from './rn/rn.module';
-import pswModule from './psw/psw.module';
-import clientModule from './client/client.module';
+import adminModule from './platform/admin/admin.module';
+import managerModule from './tenancy/manager/manager.module';
+import staffModule from './tenancy/staff/staff.module';
+import rnModule from './tenancy/rn/rn.module';
+import pswModule from './tenancy/psw/psw.module';
+import clientModule from './tenancy/client/client.module';
 import userModule from './user/user.routes';
-import systemModule from './system/system.module';
+import systemModule from './platform/system/system.module';
 
 import { ChatServer } from './durable_objects/ChatServer';
 export { ChatServer };

@@ -30,80 +30,80 @@ const { RouteRegistry } = AdminRegistry;
 // ----------------------------------------------------------------------
 
 // Admin components (Eagerly loaded)
-import AdminDashboard from './routes/admin/pages/dashboard';
-import { UserList, UserEntry } from './routes/admin/pages/users';
-import AdminEarningsPage from './routes/admin/pages/earnings';
+import AdminDashboard from './routes/platform/admin/pages/dashboard';
+import { UserList, UserEntry } from './routes/platform/admin/pages/users';
+import AdminEarningsPage from './routes/platform/admin/pages/earnings';
 
 // Admin Pages (Lazy loaded)
-const Schedule = React.lazy(() => import('./routes/admin/pages/schedule'));
-const IncidentList = React.lazy(() => import('./routes/admin/pages/incidents').then(m => ({ default: m.IncidentList })));
-const IncidentEntry = React.lazy(() => import('./routes/admin/pages/incidents').then(m => ({ default: m.IncidentEntry })));
-const LeadsPage = React.lazy(() => import('./routes/admin/pages/leads').then(m => ({ default: m.LeadsPage })));
-const LeadEntryForm = React.lazy(() => import('./routes/admin/pages/leads').then(m => ({ default: m.LeadEntryForm })));
-const Timesheets = React.lazy(() => import('./routes/admin/pages/timesheets'));
-const TimesheetAdjustment = React.lazy(() => import('./routes/admin/pages/timesheet-adjustment'));
-const Services = React.lazy(() => import('./routes/admin/pages/services'));
-const Settings = React.lazy(() => import('./routes/admin/pages/settings'));
-const ContentManager = React.lazy(() => import('./routes/admin/pages/content'));
-const AuditLogs = React.lazy(() => import('./routes/admin/pages/audits'));
-const LeadAdmission = React.lazy(() => import('./routes/admin/pages/admission'));
-const Onboarding = React.lazy(() => import('./routes/admin/pages/onboarding'));
-const ReportCenter = React.lazy(() => import('./routes/admin/pages/reports'));
-const InvoicesNew = React.lazy(() => import('./routes/admin/pages/invoices').then(m => ({ default: m.InvoiceEntry })));
-const BusinessSetupWizard = React.lazy(() => import('./routes/admin/pages/setup/BusinessSetupWizard'));
-const WizardHub = React.lazy(() => import('./routes/admin/pages/setup/WizardHub'));
-const StaffOnboardingWizard = React.lazy(() => import('./routes/admin/pages/setup/StaffOnboardingWizard'));
-const CarePlanWizard = React.lazy(() => import('./routes/admin/pages/setup/CarePlanWizard'));
-const RevenueWizard = React.lazy(() => import('./routes/admin/pages/setup/RevenueWizard'));
-const BusinessModelWizard = React.lazy(() => import('./routes/admin/pages/setup/BusinessModelWizard'));
-const BusinessStatus = React.lazy(() => import('./routes/admin/pages/setup/BusinessStatus'));
-const DeveloperPortal = React.lazy(() => import('./routes/admin/pages/developer'));
-const Marketplace = React.lazy(() => import('./routes/admin/pages/marketplace'));
-const ResellerDashboard = React.lazy(() => import('./routes/admin/pages/reseller/ResellerDashboard'));
-const PrivateMarketplace = React.lazy(() => import('./routes/admin/pages/reseller/PrivateMarketplace'));
-const GrowthStrategy = React.lazy(() => import('./routes/admin/pages/strategy/GrowthStrategy'));
-const KnowledgeBaseIndex = React.lazy(() => import('./routes/admin/pages/knowledge-base/KnowledgeBaseIndex'));
-const KnowledgeBaseArticle = React.lazy(() => import('./routes/admin/pages/knowledge-base/KnowledgeBaseArticle'));
-const AIInsights = React.lazy(() => import('./routes/admin/pages/insights'));
-const ClinicalAssistant = React.lazy(() => import('./routes/admin/pages/clinical-assistant'));
-const AutoPilotDashboard = React.lazy(() => import('./routes/admin/pages/automation/AutoPilotDashboard'));
-const FHIRCenter = React.lazy(() => import('./routes/admin/pages/interoperability/FHIRCenter'));
-const SovereignWallet = React.lazy(() => import('./routes/admin/pages/sovereign/SovereignWallet'));
+const Schedule = React.lazy(() => import('./routes/platform/admin/pages/schedule'));
+const IncidentList = React.lazy(() => import('./routes/platform/admin/pages/incidents').then(m => ({ default: m.IncidentList })));
+const IncidentEntry = React.lazy(() => import('./routes/platform/admin/pages/incidents').then(m => ({ default: m.IncidentEntry })));
+const LeadsPage = React.lazy(() => import('./routes/platform/admin/pages/leads').then(m => ({ default: m.LeadsPage })));
+const LeadEntryForm = React.lazy(() => import('./routes/platform/admin/pages/leads').then(m => ({ default: m.LeadEntryForm })));
+const Timesheets = React.lazy(() => import('./routes/platform/admin/pages/timesheets'));
+const TimesheetAdjustment = React.lazy(() => import('./routes/platform/admin/pages/timesheet-adjustment'));
+const Services = React.lazy(() => import('./routes/platform/admin/pages/services'));
+const Settings = React.lazy(() => import('./routes/platform/admin/pages/settings'));
+const ContentManager = React.lazy(() => import('./routes/platform/admin/pages/content'));
+const AuditLogs = React.lazy(() => import('./routes/platform/admin/pages/audits'));
+const LeadAdmission = React.lazy(() => import('./routes/platform/admin/pages/admission'));
+const Onboarding = React.lazy(() => import('./routes/platform/admin/pages/onboarding'));
+const ReportCenter = React.lazy(() => import('./routes/platform/admin/pages/reports'));
+const InvoicesNew = React.lazy(() => import('./routes/platform/admin/pages/invoices').then(m => ({ default: m.InvoiceEntry })));
+const BusinessSetupWizard = React.lazy(() => import('./routes/platform/admin/pages/setup/BusinessSetupWizard'));
+const WizardHub = React.lazy(() => import('./routes/platform/admin/pages/setup/WizardHub'));
+const StaffOnboardingWizard = React.lazy(() => import('./routes/platform/admin/pages/setup/StaffOnboardingWizard'));
+const CarePlanWizard = React.lazy(() => import('./routes/platform/admin/pages/setup/CarePlanWizard'));
+const RevenueWizard = React.lazy(() => import('./routes/platform/admin/pages/setup/RevenueWizard'));
+const BusinessModelWizard = React.lazy(() => import('./routes/platform/admin/pages/setup/BusinessModelWizard'));
+const BusinessStatus = React.lazy(() => import('./routes/platform/admin/pages/setup/BusinessStatus'));
+const DeveloperPortal = React.lazy(() => import('./routes/platform/admin/pages/developer'));
+const Marketplace = React.lazy(() => import('./routes/platform/admin/pages/marketplace'));
+const ResellerDashboard = React.lazy(() => import('./routes/platform/admin/pages/reseller/ResellerDashboard'));
+const PrivateMarketplace = React.lazy(() => import('./routes/platform/admin/pages/reseller/PrivateMarketplace'));
+const GrowthStrategy = React.lazy(() => import('./routes/platform/admin/pages/strategy/GrowthStrategy'));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseIndex'));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseArticle'));
+const AIInsights = React.lazy(() => import('./routes/platform/admin/pages/insights'));
+const ClinicalAssistant = React.lazy(() => import('./routes/platform/admin/pages/clinical-assistant'));
+const AutoPilotDashboard = React.lazy(() => import('./routes/platform/admin/pages/automation/AutoPilotDashboard'));
+const FHIRCenter = React.lazy(() => import('./routes/platform/admin/pages/interoperability/FHIRCenter'));
+const SovereignWallet = React.lazy(() => import('./routes/platform/admin/pages/sovereign/SovereignWallet'));
 
 // Manager Pages
-const ManagerDashboard = React.lazy(() => import('./routes/manager/pages/dashboard'));
-const Portfolio = React.lazy(() => import('./routes/manager/pages/portfolio'));
-const DailyEntry = React.lazy(() => import('./routes/manager/pages/daily-entry'));
-const Evaluations = React.lazy(() => import('./routes/manager/pages/evaluations'));
-const ServiceReview = React.lazy(() => import('./routes/manager/pages/service-review'));
+const ManagerDashboard = React.lazy(() => import('./routes/tenancy/manager/pages/dashboard'));
+const Portfolio = React.lazy(() => import('./routes/tenancy/manager/pages/portfolio'));
+const DailyEntry = React.lazy(() => import('./routes/tenancy/manager/pages/daily-entry'));
+const Evaluations = React.lazy(() => import('./routes/tenancy/manager/pages/evaluations'));
+const ServiceReview = React.lazy(() => import('./routes/tenancy/manager/pages/service-review'));
 
 // PSW Pages
-const PswDashboard = React.lazy(() => import('./routes/psw/pages/dashboard'));
-const PswSchedule = React.lazy(() => import('./routes/psw/pages/schedule'));
-const PswOpenShifts = React.lazy(() => import('./routes/psw/pages/OpenShifts'));
-const PswOpenOffers = React.lazy(() => import('./routes/psw/pages/OpenShifts/OpenOffers'));
-const PswAvailability = React.lazy(() => import('./routes/psw/pages/availability'));
-const PswEarnings = React.lazy(() => import('./routes/psw/pages/earnings'));
-const PswExpenses = React.lazy(() => import('./routes/psw/pages/expenses'));
+const PswDashboard = React.lazy(() => import('./routes/tenancy/psw/pages/dashboard'));
+const PswSchedule = React.lazy(() => import('./routes/tenancy/psw/pages/schedule'));
+const PswOpenShifts = React.lazy(() => import('./routes/tenancy/psw/pages/OpenShifts'));
+const PswOpenOffers = React.lazy(() => import('./routes/tenancy/psw/pages/OpenShifts/OpenOffers'));
+const PswAvailability = React.lazy(() => import('./routes/tenancy/psw/pages/availability'));
+const PswEarnings = React.lazy(() => import('./routes/tenancy/psw/pages/earnings'));
+const PswExpenses = React.lazy(() => import('./routes/tenancy/psw/pages/expenses'));
 
 // RN Pages
-const RnDashboard = React.lazy(() => import('./routes/rn/pages/dashboard'));
+const RnDashboard = React.lazy(() => import('./routes/tenancy/rn/pages/dashboard'));
 
 // Staff Pages
-const StaffDashboard = React.lazy(() => import('./routes/staff/pages/dashboard'));
+const StaffDashboard = React.lazy(() => import('./routes/tenancy/staff/pages/dashboard'));
 
 // Platform Portal (Super Admin)
 const PlatformDashboard = React.lazy(() => import('./routes/platform/pages/dashboard'));
 const PlatformAuditLogs = React.lazy(() => import('./routes/platform/pages/audit-logs'));
 const SLAMonitoring = React.lazy(() => import('./routes/platform/pages/sla-monitoring'));
-const RiskSurveillanceDashboard = React.lazy(() => import('./routes/super-admin/pages/RiskSurveillanceDashboard'));
+const RiskSurveillanceDashboard = React.lazy(() => import('./routes/platform/superuser/super-admin/pages/RiskSurveillanceDashboard'));
 
 // Client Pages
-const ClientDashboard = React.lazy(() => import('./routes/client/pages/dashboard'));
-const ClientBookings = React.lazy(() => import('./routes/client/pages/bookings'));
-const ClientBilling = React.lazy(() => import('./routes/client/pages/billing'));
-const ClientFeedback = React.lazy(() => import('./routes/client/pages/feedback'));
-const RequestBooking = React.lazy(() => import('./routes/client/pages/request-booking'));
+const ClientDashboard = React.lazy(() => import('./routes/tenancy/client/pages/dashboard'));
+const ClientBookings = React.lazy(() => import('./routes/tenancy/client/pages/bookings'));
+const ClientBilling = React.lazy(() => import('./routes/tenancy/client/pages/billing'));
+const ClientFeedback = React.lazy(() => import('./routes/tenancy/client/pages/feedback'));
+const RequestBooking = React.lazy(() => import('./routes/tenancy/client/pages/request-booking'));
 
 // Shared Protected Pages
 const Profile = React.lazy(() => import('./routes/shared/pages/profile'));
