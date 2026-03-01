@@ -29,8 +29,8 @@ export const ContentRegistry = {
             TOTAL_VISITS: 'Total Care Visits',
         },
         TITLES: {
-            WELCOME: 'Welcome back, Admin',
-            SUBTITLE: "Here is what's happening today at PrimeCare.",
+            WELCOME: 'Welcome back, Master Franchise',
+            SUBTITLE: "Here is what's happening today across your network.",
             QUICK_ACTIONS: 'Quick Actions',
             OPERATIONAL_STATUS: 'Operational Status',
             ANALYTICS: 'Performance Analytics',
@@ -101,6 +101,54 @@ export const ContentRegistry = {
         },
         MESSAGES: {
             LOADING: 'Loading Clinical Dashboard...',
+        }
+    },
+    PLATFORM_DASHBOARD: {
+        TITLE: 'Platform Command Center',
+        SUBTITLE: 'Fractal SaaS Network Overview',
+        MESSAGES: {
+            LOADING: 'Loading Global Stats...',
+        },
+        STATS: {
+            MASTER_AGENCIES: 'Master Franchises (Roots)',
+            NETWORK_USERS: 'Total Network Users',
+            PLATFORM_VISITS: 'Total Platform Visits',
+        },
+        HEALTH: {
+            TITLE: 'Platform Health',
+            DESC: 'All routing and payment systems operational across the entire franchise network.',
+        },
+        RISK: {
+            TITLE: 'Risk Surveillance',
+            DESC: 'No critical compliance threats detected across Master or Sub-Agencies.',
+        }
+    },
+    STAFF_DASHBOARD: {
+        TITLE_BRANCH: 'Branch Coordination Hub',
+        TITLE_NETWORK: 'Network Coordination Hub',
+        SUBTITLE: 'Daily Schedule & Compliance',
+        MESSAGES: {
+            LOADING: 'Loading Staff Dashboard...',
+        },
+        STATS: {
+            URGENT_NEEDS: 'Urgent Scheduling Needs',
+            URGENT_DESC: 'Shifts requiring immediate assignment',
+            ACTIVE_CAREGIVERS: 'Active Caregivers',
+            ACTIVE_DESC: 'PSWs and RNs fully compliant',
+            MISSING_TIMESHEETS: 'Missing Timesheets',
+            MISSING_DESC: 'Awaiting provider submission',
+        },
+        PRIORITIES: {
+            TITLE: "Today's Operational Priorities",
+            COMPLIANCE_TITLE: 'Review Compliance Expirations',
+            COMPLIANCE_DESC: 'Caregivers have CPR certs expiring this week.',
+            COMPLIANCE_BTN: 'Review',
+            TIMESHEETS_TITLE: 'Approve Pending Timesheets',
+            TIMESHEETS_DESC: 'shifts from yesterday require manager sign-off.',
+            TIMESHEETS_BTN: 'Timesheets',
+            FEEDBACK_TITLE: 'Client Feedback Follow-ups',
+            FEEDBACK_DESC: 'families requested scheduling adjustments.',
+            FEEDBACK_BTN: 'Support',
         }
     },
     USERS: {
@@ -275,7 +323,7 @@ export const ContentRegistry = {
         }
     },
     ROLES: {
-        ADMIN: 'Administrator',
+        ADMIN: 'Master Franchise',
         STAFF: 'Staff Member',
         PSW: 'Personal Support Worker',
         RN: 'Registered Nurse',
@@ -328,8 +376,8 @@ export const ContentRegistry = {
         CARE_PLANS: 'Care Plans',
     },
     MANAGER_DASHBOARD: {
-        TITLE: 'Manager Dashboard',
-        SUBTITLE: 'Operational overview and rapid metrics',
+        TITLE: 'Branch Dashboard',
+        SUBTITLE: 'Local agency operational overview',
         QUICK_ACTIONS: 'Quick Actions',
         ANALYTICS: 'Performance Analytics',
         KPI: {
@@ -368,7 +416,7 @@ export const ContentRegistry = {
         TITLE: '💡 Umbrella Role System',
         ADMIN: {
             TITLE: 'Core Administration',
-            LABEL: 'Administrator',
+            LABEL: 'Master Franchise',
             INFO: 'Full system access. Manage global settings, billing architecture, and system roles.'
         },
         STAFF: {
@@ -378,7 +426,7 @@ export const ContentRegistry = {
         },
         MANAGER: {
             TITLE: 'Management Umbrella',
-            LABEL: 'Functional Managers',
+            LABEL: 'Child Agency Operators',
             INFO: 'Strategic oversight: access to operational analytics, service audits, and department-level reporting.'
         },
         PROVIDER: {

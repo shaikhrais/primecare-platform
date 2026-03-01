@@ -75,7 +75,7 @@ export default function CarePlanWizard() {
 
             {step === 1 && (
                 <form onSubmit={handleAdmitClient}>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '2rem', color: '#111827' }}>Step 1: {t(ContentRegistry.CARE_WIZARD.STEPS)[0]}</h2>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '2rem', color: '#111827' }}>Step 1: {ContentRegistry.CARE_WIZARD.STEPS[0]}</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.CARE_WIZARD.FORM.NAME_LABEL)}</label>

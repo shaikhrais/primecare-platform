@@ -4,6 +4,8 @@ import { requireAuth } from '../_shared/middleware/auth';
 import { requireRole } from '../_shared/middleware/rbac';
 import schedulingRoutes from './scheduling/scheduling.routes';
 import supportRoutes from './support/support.routes';
+import dashboardRoutes from './dashboard/dashboard.routes';
+import customerRoutes from './customers.routes';
 
 const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -15,7 +17,9 @@ staff.use('*', async (c, next) => {
 staff.use('*', requireRole(['staff', 'coordinator', 'admin']));
 
 // Routes
+staff.route('/dashboard', dashboardRoutes);
 staff.route('/', schedulingRoutes);
 staff.route('/', supportRoutes);
+staff.route('/', customerRoutes);
 
 export default staff;

@@ -10169,12 +10169,14 @@ export namespace Prisma {
     durationMinutes: number | null
     serviceLat: number | null
     serviceLng: number | null
+    surgeMultiplier: number | null
   }
 
   export type VisitSumAggregateOutputType = {
     durationMinutes: number | null
     serviceLat: number | null
     serviceLng: number | null
+    surgeMultiplier: number | null
   }
 
   export type VisitMinAggregateOutputType = {
@@ -10201,6 +10203,8 @@ export namespace Prisma {
     bookingId: string | null
     crisisMode: boolean | null
     priority: string | null
+    isSurgeActive: boolean | null
+    surgeMultiplier: number | null
   }
 
   export type VisitMaxAggregateOutputType = {
@@ -10227,6 +10231,8 @@ export namespace Prisma {
     bookingId: string | null
     crisisMode: boolean | null
     priority: string | null
+    isSurgeActive: boolean | null
+    surgeMultiplier: number | null
   }
 
   export type VisitCountAggregateOutputType = {
@@ -10254,6 +10260,8 @@ export namespace Prisma {
     crisisMode: number
     priority: number
     requiredSkills: number
+    isSurgeActive: number
+    surgeMultiplier: number
     _all: number
   }
 
@@ -10262,12 +10270,14 @@ export namespace Prisma {
     durationMinutes?: true
     serviceLat?: true
     serviceLng?: true
+    surgeMultiplier?: true
   }
 
   export type VisitSumAggregateInputType = {
     durationMinutes?: true
     serviceLat?: true
     serviceLng?: true
+    surgeMultiplier?: true
   }
 
   export type VisitMinAggregateInputType = {
@@ -10294,6 +10304,8 @@ export namespace Prisma {
     bookingId?: true
     crisisMode?: true
     priority?: true
+    isSurgeActive?: true
+    surgeMultiplier?: true
   }
 
   export type VisitMaxAggregateInputType = {
@@ -10320,6 +10332,8 @@ export namespace Prisma {
     bookingId?: true
     crisisMode?: true
     priority?: true
+    isSurgeActive?: true
+    surgeMultiplier?: true
   }
 
   export type VisitCountAggregateInputType = {
@@ -10347,6 +10361,8 @@ export namespace Prisma {
     crisisMode?: true
     priority?: true
     requiredSkills?: true
+    isSurgeActive?: true
+    surgeMultiplier?: true
     _all?: true
   }
 
@@ -10461,6 +10477,8 @@ export namespace Prisma {
     crisisMode: boolean | null
     priority: string | null
     requiredSkills: string[]
+    isSurgeActive: boolean | null
+    surgeMultiplier: number | null
     _count: VisitCountAggregateOutputType | null
     _avg: VisitAvgAggregateOutputType | null
     _sum: VisitSumAggregateOutputType | null
@@ -10507,6 +10525,8 @@ export namespace Prisma {
     crisisMode?: boolean
     priority?: boolean
     requiredSkills?: boolean
+    isSurgeActive?: boolean
+    surgeMultiplier?: boolean
     DailyEntry?: boolean | Visit$DailyEntryArgs<ExtArgs>
     incidents?: boolean | Visit$incidentsArgs<ExtArgs>
     assignments?: boolean | Visit$assignmentsArgs<ExtArgs>
@@ -10547,6 +10567,8 @@ export namespace Prisma {
     crisisMode?: boolean
     priority?: boolean
     requiredSkills?: boolean
+    isSurgeActive?: boolean
+    surgeMultiplier?: boolean
     psw?: boolean | Visit$pswArgs<ExtArgs>
     booking?: boolean | Visit$bookingArgs<ExtArgs>
     client?: boolean | ClientProfileDefaultArgs<ExtArgs>
@@ -10579,6 +10601,8 @@ export namespace Prisma {
     crisisMode?: boolean
     priority?: boolean
     requiredSkills?: boolean
+    isSurgeActive?: boolean
+    surgeMultiplier?: boolean
   }
 
   export type VisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10645,6 +10669,8 @@ export namespace Prisma {
       crisisMode: boolean | null
       priority: string | null
       requiredSkills: string[]
+      isSurgeActive: boolean | null
+      surgeMultiplier: number | null
     }, ExtArgs["result"]["visit"]>
     composites: {}
   }
@@ -11074,6 +11100,8 @@ export namespace Prisma {
     readonly crisisMode: FieldRef<"Visit", 'Boolean'>
     readonly priority: FieldRef<"Visit", 'String'>
     readonly requiredSkills: FieldRef<"Visit", 'String[]'>
+    readonly isSurgeActive: FieldRef<"Visit", 'Boolean'>
+    readonly surgeMultiplier: FieldRef<"Visit", 'Float'>
   }
     
 
@@ -32953,7 +32981,9 @@ export namespace Prisma {
     bookingId: 'bookingId',
     crisisMode: 'crisisMode',
     priority: 'priority',
-    requiredSkills: 'requiredSkills'
+    requiredSkills: 'requiredSkills',
+    isSurgeActive: 'isSurgeActive',
+    surgeMultiplier: 'surgeMultiplier'
   };
 
   export type VisitScalarFieldEnum = (typeof VisitScalarFieldEnum)[keyof typeof VisitScalarFieldEnum]
@@ -34202,6 +34232,8 @@ export namespace Prisma {
     crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
     priority?: StringNullableFilter<"Visit"> | string | null
     requiredSkills?: StringNullableListFilter<"Visit">
+    isSurgeActive?: BoolNullableFilter<"Visit"> | boolean | null
+    surgeMultiplier?: FloatNullableFilter<"Visit"> | number | null
     DailyEntry?: DailyEntryListRelationFilter
     incidents?: IncidentListRelationFilter
     assignments?: ShiftAssignmentListRelationFilter
@@ -34241,6 +34273,8 @@ export namespace Prisma {
     crisisMode?: SortOrderInput | SortOrder
     priority?: SortOrderInput | SortOrder
     requiredSkills?: SortOrder
+    isSurgeActive?: SortOrderInput | SortOrder
+    surgeMultiplier?: SortOrderInput | SortOrder
     DailyEntry?: DailyEntryOrderByRelationAggregateInput
     incidents?: IncidentOrderByRelationAggregateInput
     assignments?: ShiftAssignmentOrderByRelationAggregateInput
@@ -34283,6 +34317,8 @@ export namespace Prisma {
     crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
     priority?: StringNullableFilter<"Visit"> | string | null
     requiredSkills?: StringNullableListFilter<"Visit">
+    isSurgeActive?: BoolNullableFilter<"Visit"> | boolean | null
+    surgeMultiplier?: FloatNullableFilter<"Visit"> | number | null
     DailyEntry?: DailyEntryListRelationFilter
     incidents?: IncidentListRelationFilter
     assignments?: ShiftAssignmentListRelationFilter
@@ -34322,6 +34358,8 @@ export namespace Prisma {
     crisisMode?: SortOrderInput | SortOrder
     priority?: SortOrderInput | SortOrder
     requiredSkills?: SortOrder
+    isSurgeActive?: SortOrderInput | SortOrder
+    surgeMultiplier?: SortOrderInput | SortOrder
     _count?: VisitCountOrderByAggregateInput
     _avg?: VisitAvgOrderByAggregateInput
     _max?: VisitMaxOrderByAggregateInput
@@ -34357,6 +34395,8 @@ export namespace Prisma {
     crisisMode?: BoolNullableWithAggregatesFilter<"Visit"> | boolean | null
     priority?: StringNullableWithAggregatesFilter<"Visit"> | string | null
     requiredSkills?: StringNullableListFilter<"Visit">
+    isSurgeActive?: BoolNullableWithAggregatesFilter<"Visit"> | boolean | null
+    surgeMultiplier?: FloatNullableWithAggregatesFilter<"Visit"> | number | null
   }
 
   export type ServiceWhereInput = {
@@ -36766,6 +36806,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -36805,6 +36847,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -36834,6 +36878,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -36873,6 +36919,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -36907,6 +36955,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type VisitUpdateManyMutationInput = {
@@ -36929,6 +36979,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type VisitUncheckedUpdateManyInput = {
@@ -36956,6 +37008,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ServiceCreateInput = {
@@ -39507,12 +39561,15 @@ export namespace Prisma {
     crisisMode?: SortOrder
     priority?: SortOrder
     requiredSkills?: SortOrder
+    isSurgeActive?: SortOrder
+    surgeMultiplier?: SortOrder
   }
 
   export type VisitAvgOrderByAggregateInput = {
     durationMinutes?: SortOrder
     serviceLat?: SortOrder
     serviceLng?: SortOrder
+    surgeMultiplier?: SortOrder
   }
 
   export type VisitMaxOrderByAggregateInput = {
@@ -39539,6 +39596,8 @@ export namespace Prisma {
     bookingId?: SortOrder
     crisisMode?: SortOrder
     priority?: SortOrder
+    isSurgeActive?: SortOrder
+    surgeMultiplier?: SortOrder
   }
 
   export type VisitMinOrderByAggregateInput = {
@@ -39565,12 +39624,15 @@ export namespace Prisma {
     bookingId?: SortOrder
     crisisMode?: SortOrder
     priority?: SortOrder
+    isSurgeActive?: SortOrder
+    surgeMultiplier?: SortOrder
   }
 
   export type VisitSumOrderByAggregateInput = {
     durationMinutes?: SortOrder
     serviceLat?: SortOrder
     serviceLng?: SortOrder
+    surgeMultiplier?: SortOrder
   }
 
   export type EnumVisitStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -45961,6 +46023,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -45998,6 +46062,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -46644,6 +46710,8 @@ export namespace Prisma {
     crisisMode?: BoolNullableFilter<"Visit"> | boolean | null
     priority?: StringNullableFilter<"Visit"> | string | null
     requiredSkills?: StringNullableListFilter<"Visit">
+    isSurgeActive?: BoolNullableFilter<"Visit"> | boolean | null
+    surgeMultiplier?: FloatNullableFilter<"Visit"> | number | null
   }
 
   export type ApiKeyUpsertWithWhereUniqueWithoutTenantInput = {
@@ -47265,6 +47333,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -47302,6 +47372,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -47935,6 +48007,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -47972,6 +48046,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -49255,6 +49331,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -49292,6 +49370,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -49607,6 +49687,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -49645,6 +49727,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -49888,6 +49972,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -49926,6 +50012,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -50009,6 +50097,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -50047,6 +50137,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -50152,6 +50244,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -50190,6 +50284,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -50273,6 +50369,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -50311,6 +50409,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -50416,6 +50516,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -50454,6 +50556,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -50608,6 +50712,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -50646,6 +50752,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
@@ -50828,6 +50936,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -50866,6 +50976,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
@@ -51347,6 +51459,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -51385,6 +51499,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -51468,6 +51584,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -51506,6 +51624,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -52901,6 +53021,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
@@ -52938,6 +53060,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
@@ -53527,6 +53651,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -53565,6 +53691,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
@@ -53749,6 +53877,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -53787,6 +53917,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
@@ -54334,6 +54466,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     incidents?: IncidentCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
@@ -54372,6 +54506,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
     incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
     assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
     timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
@@ -54613,6 +54749,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
@@ -54651,6 +54789,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
     timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
@@ -55444,6 +55584,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type ApiKeyCreateManyTenantInput = {
@@ -56109,6 +56251,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -56146,6 +56290,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -56179,6 +56325,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ApiKeyUpdateWithoutTenantInput = {
@@ -56399,6 +56547,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type BookingUpdateWithoutClientInput = {
@@ -56577,6 +56727,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -56614,6 +56766,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -56647,6 +56801,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type MessageThreadCreateManyPswInput = {
@@ -56756,6 +56912,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type MessageThreadUpdateWithoutPswInput = {
@@ -57031,6 +57189,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -57068,6 +57228,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -57101,6 +57263,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type DailyEntryCreateManyVisitInput = {
@@ -57435,6 +57599,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type VisitUpdateWithoutServiceInput = {
@@ -57457,6 +57623,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -57494,6 +57662,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -57527,6 +57697,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type TimesheetItemCreateManyTimesheetInput = {
@@ -57645,6 +57817,8 @@ export namespace Prisma {
     crisisMode?: boolean | null
     priority?: string | null
     requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
   }
 
   export type VisitUpdateWithoutBookingInput = {
@@ -57667,6 +57841,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
@@ -57704,6 +57880,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
     DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
     incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
     assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
@@ -57737,6 +57915,8 @@ export namespace Prisma {
     crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
     priority?: NullableStringFieldUpdateOperationsInput | string | null
     requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
 

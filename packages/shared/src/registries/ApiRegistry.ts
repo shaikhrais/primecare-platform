@@ -46,20 +46,27 @@ export const ApiRegistry = {
         BOOKINGS: '/v1/client/bookings',
         INVOICES: '/v1/client/invoices',
         SERVICES: '/v1/client/services',
+        DASHBOARD_STATS: '/v1/client/dashboard/stats',
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
         CHECK_IN: (id: string) => `/v1/psw/schedule/visits/${id}/check-in`,
         CHECK_OUT: (id: string) => `/v1/psw/schedule/visits/${id}/check-out`,
         PAYOUT_REQUEST: '/v1/psw/schedule/payouts/request',
+        DASHBOARD_STATS: '/v1/psw/dashboard/stats',
+    },
+    RN: {
+        DASHBOARD_STATS: '/v1/rn/dashboard/stats',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',
         MARK_READ: (id: string) => `/v1/system/notifications/${id}/read`,
+        PLATFORM_STATS: '/v1/system/platform/stats',
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',
         TICKETS: '/v1/staff/tickets',
+        DASHBOARD_STATS: '/v1/staff/dashboard/stats',
     },
     SUPPORT: {
         CHAT_HISTORY: '/v1/support/chat',

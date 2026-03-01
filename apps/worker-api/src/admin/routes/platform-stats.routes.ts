@@ -2,11 +2,11 @@ import { Hono } from 'hono';
 import { PrismaClient } from '@prisma/client';
 
 const platformStats = new Hono();
-const prisma = new PrismaClient();
 
-platformStats.get('/stats', async (c) => {
+platformStats.get('/stats', async (c: any) => {
     // Aggregating across ALL tenants (bypass tenant isolation if needed or use system context)
     // Note: The Super Admin role in our middleware already allows bypassing tenant filters.
+    const prisma = c.get('prisma');
 
     const [tenants, users, visits] = await Promise.all([
         prisma.tenant.count(),

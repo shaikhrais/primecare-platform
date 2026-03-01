@@ -225,7 +225,9 @@ exports.Prisma.VisitScalarFieldEnum = {
   bookingId: 'bookingId',
   crisisMode: 'crisisMode',
   priority: 'priority',
-  requiredSkills: 'requiredSkills'
+  requiredSkills: 'requiredSkills',
+  isSurgeActive: 'isSurgeActive',
+  surgeMultiplier: 'surgeMultiplier'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {

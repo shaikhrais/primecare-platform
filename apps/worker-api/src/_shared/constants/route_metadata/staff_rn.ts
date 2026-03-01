@@ -19,6 +19,11 @@ export const STAFF_METADATA = {
         description: 'Allows staff to create a new visit (open shift) for a client.',
         tags: ['Staff Scheduling'],
     },
+    DASHBOARD_STATS: {
+        summary: 'Get Staff Dashboard Statistics',
+        description: 'Retrieve various operational statistics for the staff coordinator dashboard.',
+        tags: ['Staff Dashboard'],
+    },
 };
 
 export const RN_METADATA = {

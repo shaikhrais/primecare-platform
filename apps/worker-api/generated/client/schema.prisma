@@ -180,6 +180,8 @@ model Visit {
   crisisMode          Boolean?          @default(false) @map("crisis_mode")
   priority            String?           @default("normal")
   requiredSkills      String[]          @map("required_skills")
+  isSurgeActive       Boolean?          @default(false) @map("is_surge_active")
+  surgeMultiplier     Float?            @default(1.0) @map("surge_multiplier")
   DailyEntry          DailyEntry[]
   incidents           Incident[]
   assignments         ShiftAssignment[]
