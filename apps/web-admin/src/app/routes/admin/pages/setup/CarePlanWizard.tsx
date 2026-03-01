@@ -65,7 +65,7 @@ export default function CarePlanWizard() {
             </div>
 
             <div style={{ marginBottom: '3.5rem', display: 'flex', gap: '1.5rem' }}>
-                {t(ContentRegistry.CARE_WIZARD.STEPS.map)((label, i) => (
+                {ContentRegistry.CARE_WIZARD.STEPS.map((label, i) => (
                     <div key={label} style={{ flex: 1 }}>
                         <div style={{ height: '6px', background: (i + 1) <= step ? '#004d40' : '#e5e7eb', borderRadius: '3px', marginBottom: '0.75rem', transition: 'all 0.4s ease' }} />
                         <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: (i + 1) === step ? '#004d40' : '#9ca3af' }}>{label}</span>

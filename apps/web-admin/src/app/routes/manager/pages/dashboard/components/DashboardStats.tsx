@@ -26,6 +26,7 @@ interface DashboardStatsProps {
 }
 
 export const DashboardStats: React.FC<DashboardStatsProps> = ({ activeClients, staffOnDuty, openIncidents, todayShifts }) => {
+    const { t } = useTranslation();
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
             <KPICard label={t(ContentRegistry.MANAGER_DASHBOARD.KPI.TODAY_SHIFTS)} value={todayShifts} color="#2196f3" dataCy="kpi-today-shifts" />

@@ -22,6 +22,7 @@ interface ShiftListProps {
 }
 
 export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile, onCheckIn, onCheckOut }) => {
+    const { t } = useTranslation();
     return (
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
             <div data-cy="section.shifts" style={{ padding: '20px 24px', borderBottom: '1px solid #E5E7EB', fontWeight: 700, fontSize: '1.2rem' }}>

@@ -14,6 +14,7 @@ interface AnalyticsSectionProps {
 }
 
 export const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({ displayData, isDemo }) => {
+    const { t } = useTranslation();
     return (
         <>
             <h2 data-cy="section.analytics" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>

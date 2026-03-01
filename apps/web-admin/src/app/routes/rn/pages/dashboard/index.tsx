@@ -33,6 +33,7 @@ const KPICard = ({ label, value, color, dataCy }: any) => (
 );
 
 export const Dashboard: React.FC = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [stats, setStats] = useState<KPIData>({ pendingCarePlans: 0, dailyReviewsNeed: 0, supervisedPswCount: 0 });
     const [chartData, setChartData] = useState<any>(null);

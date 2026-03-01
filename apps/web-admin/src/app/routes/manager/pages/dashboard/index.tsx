@@ -111,7 +111,7 @@ export default function ManagerDashboard() {
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
-                        {t(ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map)(p => (
+                        {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map(p => (
                             <button
                                 key={p}
                                 onClick={() => setPerspective(p)}

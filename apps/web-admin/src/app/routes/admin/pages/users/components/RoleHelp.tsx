@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 const { ContentRegistry } = AdminRegistry;
 
 export const RoleHelp: React.FC = () => {
+    const { t } = useTranslation();
     return (
         <div style={{ padding: '1.5rem', backgroundColor: '#fff7ed', borderRadius: '1rem', border: '1px solid #ffedd5', height: 'fit-content' }}>
             <h4 style={{ margin: '0 0 1rem 0', color: '#9a3412', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

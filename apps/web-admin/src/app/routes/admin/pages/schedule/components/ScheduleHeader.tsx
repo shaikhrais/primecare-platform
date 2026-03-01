@@ -10,6 +10,7 @@ interface ScheduleHeaderProps {
 }
 
 export const ScheduleHeader: React.FC<ScheduleHeaderProps> = ({ onCreateVisit }) => {
+    const { t } = useTranslation();
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <div>

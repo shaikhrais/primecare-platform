@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
 const PlatformDashboard: React.FC = () => {
+    const { t } = useTranslation();
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 

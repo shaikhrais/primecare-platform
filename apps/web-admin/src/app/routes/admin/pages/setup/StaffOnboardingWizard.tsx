@@ -51,7 +51,7 @@ export default function StaffOnboardingWizard() {
             </div>
 
             <div style={{ marginBottom: '3rem', display: 'flex', gap: '1rem', position: 'relative' }}>
-                {t(ContentRegistry.STAFF_WIZARD.STEPS.map)((label, i) => (
+                {ContentRegistry.STAFF_WIZARD.STEPS.map((label, i) => (
                     <div key={label} style={{ flex: 1 }}>
                         <div style={{ height: '4px', background: (i + 1) <= step ? '#004d40' : '#e5e7eb', borderRadius: '2px', transition: 'background 0.3s', marginBottom: '0.5rem' }} />
                         <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: (i + 1) === step ? '#004d40' : '#9ca3af' }}>{label}</span>

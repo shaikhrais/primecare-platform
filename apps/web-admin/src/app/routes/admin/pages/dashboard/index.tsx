@@ -253,11 +253,11 @@ export default function AdminDashboard() {
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--card-border)' }} data-cy="status-item-client-app">
                                 <span style={{ color: 'var(--text-200)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.STATUS.CLIENT_APP)}</span>
-                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{t(ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE)('1.0.4')}</span>
+                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE('1.0.4')}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0' }} data-cy="status-item-psw-app">
                                 <span style={{ color: 'var(--text-200)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.STATUS.PSW_APP)}</span>
-                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{t(ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE)('1.0.4')}</span>
+                                <span style={{ color: 'var(--success-600)', fontWeight: '900' }}>{ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE('1.0.4')}</span>
                             </div>
                         </div>
                     </div>

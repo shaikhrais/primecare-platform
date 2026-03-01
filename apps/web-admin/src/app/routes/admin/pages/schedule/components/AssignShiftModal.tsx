@@ -42,6 +42,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
     onOffer,
     isSuggesting
 }) => {
+    const { t } = useTranslation();
     if (!isOpen || !selectedVisit) return null;
 
     return (

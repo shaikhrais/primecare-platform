@@ -31,6 +31,7 @@ const QuickActionCard = ({ label, icon, onClick, dataCy }: QuickActionCardProps)
 );
 
 export const QuickActions: React.FC = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     return (

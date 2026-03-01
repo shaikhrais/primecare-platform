@@ -20,6 +20,7 @@ interface ServiceBookingModalProps {
 }
 
 export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen, onClose, services, onSuccess, showToast }) => {
+    const { t } = useTranslation();
     const [newRequest, setNewRequest] = useState({
         serviceId: '',
         requestedStartAt: '',

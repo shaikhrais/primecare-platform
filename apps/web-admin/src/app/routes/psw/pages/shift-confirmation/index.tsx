@@ -1,3 +1,4 @@
+import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
