@@ -61,7 +61,7 @@ export default function StaffOnboardingWizard() {
 
             {step === 1 && (
                 <form onSubmit={handleCreateAccount}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>Step 1: {t(ContentRegistry.STAFF_WIZARD.STEPS)[0]}</h2>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>Step 1: {ContentRegistry.STAFF_WIZARD.STEPS[0]}</h2>
                     <div style={{ display: 'grid', gap: '1.5rem' }}>
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t(ContentRegistry.STAFF_WIZARD.FORM.NAME_LABEL)}</label>
@@ -120,7 +120,7 @@ export default function StaffOnboardingWizard() {
 
             {step === 2 && (
                 <div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>Step 2: {t(ContentRegistry.STAFF_WIZARD.STEPS)[1]}</h2>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>Step 2: {ContentRegistry.STAFF_WIZARD.STEPS[1]}</h2>
                     <p style={{ color: '#6b7280', marginBottom: '2rem' }}>Upload mandatory clearance documents for <strong>{formData.fullName}</strong>.</p>
                     <div style={{ display: 'grid', gap: '1rem' }}>
                         <div style={{ border: '2px dashed #d1d5db', padding: '2rem', textAlign: 'center', borderRadius: '1rem', color: '#6b7280' }}>
