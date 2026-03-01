@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
-import { ROUTE_METADATA } from '../../../constants/route_metadata';
+import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -85,7 +85,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             });
 
             const totalRecentVisits = cancelledVisits + completedVisits;
-            const cancelRatio = totalRecentVisits > 0 ? (cancelledVisits // totalRecentVisits) : 0;
+            const cancelRatio = totalRecentVisits > 0 ? (cancelledVisits / totalRecentVisits) : 0;
 
             // 3. User Risk: High ratio of inactive users
             const inactiveUsers = await prisma.user.count({
@@ -95,7 +95,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
                 }
             });
             const totalUsers = tenant._count.users;
-            const inactiveRatio = totalUsers > 0 ? (inactiveUsers // totalUsers) : 0;
+            const inactiveRatio = totalUsers > 0 ? (inactiveUsers / totalUsers) : 0;
 
             // Calculate Risk Score (0-100, higher is worse)
             let riskScore = 0;

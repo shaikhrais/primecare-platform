@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
+import { Bindings, Variables } from '../../../bindings';
 import { AdminClientService } from './clients.service';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

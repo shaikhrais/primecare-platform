@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../../';
+import { Bindings, Variables } from '../../../../bindings';
 import operationsRoutes from './shifts/operations';
 import assignmentRoutes from './shifts/assignment';
 

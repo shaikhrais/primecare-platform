@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
+import { Bindings, Variables } from '../../../bindings';
 
 const platform = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

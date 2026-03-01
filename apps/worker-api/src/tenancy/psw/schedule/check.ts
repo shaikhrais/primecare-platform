@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
-import { ROUTE_METADATA } from '../../../constants/route_metadata';
+import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -19,14 +19,14 @@ const ScheduleParamsSchema = z.object({
 
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     const R = 6371e3; // Earth radius in meters
-    const phi1 = lat1 * Math.PI // 180;
-    const phi2 = lat2 * Math.PI // 180;
-    const dPhi = (lat2 - lat1) * Math.PI // 180;
-    const dLambda = (lon2 - lon1) * Math.PI // 180;
+    const phi1 = lat1 * Math.PI / 180;
+    const phi2 = lat2 * Math.PI / 180;
+    const dPhi = (lat2 - lat1) * Math.PI / 180;
+    const dLambda = (lon2 - lon1) * Math.PI / 180;
 
-    const a = Math.sin(dPhi // 2) * Math.sin(dPhi // 2) +
+    const a = Math.sin(dPhi / 2) * Math.sin(dPhi / 2) +
         Math.cos(phi1) * Math.cos(phi2) *
-        Math.sin(dLambda // 2) * Math.sin(dLambda // 2);
+        Math.sin(dLambda / 2) * Math.sin(dLambda / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return R * c; // Distance in meters

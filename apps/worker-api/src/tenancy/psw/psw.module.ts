@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../';
-import { requireAuth } from '../../middleware/auth';
+import { Bindings, Variables } from '../../bindings';
+import { requireAuth } from '../../_shared/middleware/auth';
 import dashboardRoutes from './dashboard/dashboard.routes';
 import scheduleRoutes from './schedule/schedule.routes';
 import dailyEntryRoutes from './dailyEntry/dailyEntry.routes';

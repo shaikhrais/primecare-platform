@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../';
-import { requireRole } from '../../middleware/rbac';
+import { Bindings, Variables } from '../../bindings';
+import { requireRole } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

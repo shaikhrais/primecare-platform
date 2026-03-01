@@ -1,8 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
+import { Bindings, Variables } from '../../../bindings';
 import { logAudit } from '../../../utils/audit';
 import { AdminUserService } from './users.service';
-import { ROUTE_METADATA } from '../../../constants/route_metadata';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

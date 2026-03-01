@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../';
-import { requireAuth } from '../../middleware/auth';
-import { requireRole } from '../../middleware/rbac';
+import { Bindings, Variables } from '../../bindings';
+import { requireAuth } from '../../_shared/middleware/auth';
+import { requireRole } from '../../_shared/middleware/rbac';
 import userRoutes from './users/users.routes';
 import visitRoutes from './visits/visits.routes';
 import leadRoutes from './leads/leads.routes';

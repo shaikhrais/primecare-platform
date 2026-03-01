@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../';
-import { requireAuth } from '../../middleware/auth';
-import { requireRole } from '../../middleware/rbac';
+import { Bindings, Variables } from '../../bindings';
+import { requireAuth } from '../../_shared/middleware/auth';
+import { requireRole } from '../../_shared/middleware/rbac';
 import dashboardRoutes from './dashboard/dashboard.routes';
 
 const manager = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

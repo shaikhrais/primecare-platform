@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../';
-import { ROUTE_METADATA } from '../../../constants/route_metadata';
-import { requireRole } from '../../../middleware/rbac';
+import { Bindings, Variables } from '../../../bindings';
+import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
+import { requireRole } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -46,7 +46,7 @@ r.openapi(getDashboardStatsRoute, async (c) => {
 
     const earningsData = timesheets.reverse().map((ts: any) => ({
         name: ts.weekId,
-        earnings: ((ts.totalMinutes || 0) // 60) * 25
+        earnings: ((ts.totalMinutes || 0) / 60) * 25
     }));
 
     if (earningsData.length === 0) {

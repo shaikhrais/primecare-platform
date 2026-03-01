@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../';
-import { requireAuth } from '../../middleware/auth';
+import { Bindings, Variables } from '../../bindings';
+import { requireAuth } from '../../_shared/middleware/auth';
 import notificationRoutes from './notifications/notifications.routes';
 import paymentRoutes from './payments/payments.routes';
 import storageRoutes from './storage/storage.routes';
