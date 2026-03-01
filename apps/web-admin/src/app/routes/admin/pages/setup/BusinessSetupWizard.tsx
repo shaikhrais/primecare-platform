@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
 type Step = 'services' | 'staff' | 'clients' | 'success';
 
 export default function BusinessSetupWizard() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [currentStep, setCurrentStep] = useState<Step>('services');
@@ -80,10 +82,10 @@ export default function BusinessSetupWizard() {
 
     const renderProgress = () => {
         const steps: { key: Step; label: string }[] = [
-            { key: 'services', label: ContentRegistry.SETUP_WIZARD.STEPS.SERVICES },
-            { key: 'staff', label: ContentRegistry.SETUP_WIZARD.STEPS.STAFF },
-            { key: 'clients', label: ContentRegistry.SETUP_WIZARD.STEPS.CLIENTS },
-            { key: 'success', label: ContentRegistry.SETUP_WIZARD.STEPS.FINISH },
+            { key: 'services', label: t(ContentRegistry.SETUP_WIZARD.STEPS.SERVICES) },
+            { key: 'staff', label: t(ContentRegistry.SETUP_WIZARD.STEPS.STAFF) },
+            { key: 'clients', label: t(ContentRegistry.SETUP_WIZARD.STEPS.CLIENTS) },
+            { key: 'success', label: t(ContentRegistry.SETUP_WIZARD.STEPS.FINISH) },
         ];
 
         return (
@@ -122,8 +124,8 @@ export default function BusinessSetupWizard() {
     return (
         <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>{ContentRegistry.SETUP_WIZARD.TITLE}</h1>
-                <p style={{ color: '#6b7280' }}>{ContentRegistry.SETUP_WIZARD.SUBTITLE}</p>
+                <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>{t(ContentRegistry.SETUP_WIZARD.TITLE)}</h1>
+                <p style={{ color: '#6b7280' }}>{t(ContentRegistry.SETUP_WIZARD.SUBTITLE)}</p>
             </div>
 
             {renderProgress()}
@@ -158,7 +160,7 @@ export default function BusinessSetupWizard() {
                             </div>
                         </div>
                         <button type="submit" disabled={loading} style={{ width: '100%', marginTop: '2.5rem', padding: '1rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '0.75rem', border: 'none', cursor: 'pointer' }}>
-                            {loading ? 'Saving...' : ContentRegistry.SETUP_WIZARD.BUTTONS.NEXT}
+                            {loading ? 'Saving...' : t(ContentRegistry.SETUP_WIZARD.BUTTONS.NEXT)}
                         </button>
                     </form>
                 )}
@@ -190,9 +192,9 @@ export default function BusinessSetupWizard() {
                             </div>
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem' }}>
-                            <button type="button" onClick={() => setCurrentStep('services')} style={{ flex: 1, padding: '1rem', background: '#f3f4f6', fontWeight: '600', borderRadius: '0.75rem', border: '1px solid #d1d5db', cursor: 'pointer' }}>{ContentRegistry.SETUP_WIZARD.BUTTONS.BACK}</button>
+                            <button type="button" onClick={() => setCurrentStep('services')} style={{ flex: 1, padding: '1rem', background: '#f3f4f6', fontWeight: '600', borderRadius: '0.75rem', border: '1px solid #d1d5db', cursor: 'pointer' }}>{t(ContentRegistry.SETUP_WIZARD.BUTTONS.BACK)}</button>
                             <button type="submit" disabled={loading} style={{ flex: 2, padding: '1rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '0.75rem', border: 'none', cursor: 'pointer' }}>
-                                {loading ? 'Saving...' : ContentRegistry.SETUP_WIZARD.BUTTONS.NEXT}
+                                {loading ? 'Saving...' : t(ContentRegistry.SETUP_WIZARD.BUTTONS.NEXT)}
                             </button>
                         </div>
                     </form>
@@ -222,9 +224,9 @@ export default function BusinessSetupWizard() {
                             </div>
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem' }}>
-                            <button type="button" onClick={() => setCurrentStep('staff')} style={{ flex: 1, padding: '1rem', background: '#f3f4f6', fontWeight: '600', borderRadius: '0.75rem', border: '1px solid #d1d5db', cursor: 'pointer' }}>{ContentRegistry.SETUP_WIZARD.BUTTONS.BACK}</button>
+                            <button type="button" onClick={() => setCurrentStep('staff')} style={{ flex: 1, padding: '1rem', background: '#f3f4f6', fontWeight: '600', borderRadius: '0.75rem', border: '1px solid #d1d5db', cursor: 'pointer' }}>{t(ContentRegistry.SETUP_WIZARD.BUTTONS.BACK)}</button>
                             <button type="submit" disabled={loading} style={{ flex: 2, padding: '1rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '0.75rem', border: 'none', cursor: 'pointer' }}>
-                                {loading ? 'Saving...' : ContentRegistry.SETUP_WIZARD.BUTTONS.FINISH}
+                                {loading ? 'Saving...' : t(ContentRegistry.SETUP_WIZARD.BUTTONS.FINISH)}
                             </button>
                         </div>
                     </form>
@@ -233,8 +235,8 @@ export default function BusinessSetupWizard() {
                 {currentStep === 'success' && (
                     <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                         <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>🎉</div>
-                        <h2 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '1rem' }}>{ContentRegistry.SETUP_WIZARD.SUCCESS.TITLE}</h2>
-                        <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '2.5rem' }}>{ContentRegistry.SETUP_WIZARD.SUCCESS.MESSAGE}</p>
+                        <h2 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '1rem' }}>{t(ContentRegistry.SETUP_WIZARD.SUCCESS.TITLE)}</h2>
+                        <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '2.5rem' }}>{t(ContentRegistry.SETUP_WIZARD.SUCCESS.MESSAGE)}</p>
                         <button onClick={() => navigate(RouteRegistry.SCHEDULE)} style={{ width: '100%', padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '1rem', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
                             Go to Schedule & Start Booking
                         </button>

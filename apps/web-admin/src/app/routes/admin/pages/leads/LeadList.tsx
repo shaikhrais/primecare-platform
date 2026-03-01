@@ -6,6 +6,7 @@ import { apiClient } from '@/shared/utils/apiClient';
 
 // Components
 import { LeadsTable } from './components/LeadsTable';
+import { useTranslation } from 'react-i18next';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -22,6 +23,7 @@ interface Lead {
 }
 
 export default function LeadsPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [leads, setLeads] = useState<Lead[]>([]);
@@ -89,22 +91,22 @@ export default function LeadsPage() {
         <div style={{ padding: '2rem' }} data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', margin: 0 }}>{ContentRegistry.LEADS.TITLE}</h2>
-                    <p style={{ color: '#6b7280', marginTop: '0.25rem' }}>{ContentRegistry.LEADS.SUBTITLE}</p>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', margin: 0 }}>{t(ContentRegistry.LEADS.TITLE)}</h2>
+                    <p style={{ color: '#6b7280', marginTop: '0.25rem' }}>{t(ContentRegistry.LEADS.SUBTITLE)}</p>
                 </div>
                 <button
                     onClick={() => navigate(RouteRegistry.LEADS_NEW)}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                     data-cy="btn-new-lead"
                 >
-                    {ContentRegistry.LEADS.ADD_BTN}
+                    {t(ContentRegistry.LEADS.ADD_BTN)}
                 </button>
             </div>
 
             <div style={{ marginBottom: '1.5rem', maxWidth: '400px' }}>
                 <input
                     type="text"
-                    placeholder={ContentRegistry.LEADS.SEARCH_PLACEHOLDER}
+                    placeholder={t(ContentRegistry.LEADS.SEARCH_PLACEHOLDER)}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}

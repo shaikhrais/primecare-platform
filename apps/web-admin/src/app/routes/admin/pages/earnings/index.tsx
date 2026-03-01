@@ -6,10 +6,12 @@ import { EarningStats } from './components/EarningStats';
 import { EarningsTable } from './components/EarningsTable';
 import { EarningsFilters } from './components/EarningsFilters';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
 export default function AdminEarningsPage() {
+    const { t } = useTranslation();
     const [searchParams, setSearchParams] = useSearchParams();
     const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'Overview');
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
@@ -65,10 +67,10 @@ export default function AdminEarningsPage() {
     const payoutsPending = filteredEarnings.filter(r => r.payoutStatus === 'Pending').reduce((acc: number, curr: EarningRecord) => acc + curr.payroll, 0);
 
     const stats = [
-        { label: ContentRegistry.EARNINGS.STATS.REVENUE, value: `$${totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+12.5%', color: '#00875A' },
-        { label: ContentRegistry.EARNINGS.STATS.PAYROLL, value: `$${totalPayroll.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+8.2%', color: '#3B82F6' },
-        { label: ContentRegistry.EARNINGS.STATS.PROFIT, value: `$${netProfit.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+18.4%', color: '#8B5CF6' },
-        { label: ContentRegistry.EARNINGS.STATS.PENDING, value: `$${payoutsPending.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '-5.1%', color: '#F59E0B' },
+        { label: t(ContentRegistry.EARNINGS.STATS.REVENUE), value: `$${totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+12.5%', color: '#00875A' },
+        { label: t(ContentRegistry.EARNINGS.STATS.PAYROLL), value: `$${totalPayroll.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+8.2%', color: '#3B82F6' },
+        { label: t(ContentRegistry.EARNINGS.STATS.PROFIT), value: `$${netProfit.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '+18.4%', color: '#8B5CF6' },
+        { label: t(ContentRegistry.EARNINGS.STATS.PENDING), value: `$${payoutsPending.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, trend: '-5.1%', color: '#F59E0B' },
     ];
 
     const handleExport = () => {
@@ -117,8 +119,8 @@ export default function AdminEarningsPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
                         <SmartBreadcrumbs />
-                        <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '2.5rem', fontWeight: 900, color: '#111827' }}>{ContentRegistry.EARNINGS.TITLE}</h1>
-                        <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontWeight: 500 }}>{ContentRegistry.EARNINGS.SUBTITLE}</p>
+                        <h1 style={{ margin: '0.5rem 0 0 0', fontSize: '2.5rem', fontWeight: 900, color: '#111827' }}>{t(ContentRegistry.EARNINGS.TITLE)}</h1>
+                        <p style={{ margin: '4px 0 0 0', color: '#6B7280', fontWeight: 500 }}>{t(ContentRegistry.EARNINGS.SUBTITLE)}</p>
                     </div>
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                         {showDatePicker && (
@@ -142,13 +144,13 @@ export default function AdminEarningsPage() {
                             onClick={() => setShowDatePicker(!showDatePicker)}
                             style={{ padding: '12px 20px', backgroundColor: showDatePicker ? '#E5E7EB' : '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}
                         >
-                            📅 {dateRange.start || dateRange.end ? ContentRegistry.EARNINGS.ACTIONS.FILTER_ACTIVE : ContentRegistry.EARNINGS.ACTIONS.DATE_RANGE}
+                            📅 {dateRange.start || dateRange.end ? t(ContentRegistry.EARNINGS.ACTIONS.FILTER_ACTIVE) : t(ContentRegistry.EARNINGS.ACTIONS.DATE_RANGE)}
                         </button>
                         <button
                             onClick={handleExport}
                             style={{ padding: '12px 24px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0, 0, 0, 0.2)' }}
                         >
-                            📤 {ContentRegistry.EARNINGS.ACTIONS.EXPORT}
+                            📤 {t(ContentRegistry.EARNINGS.ACTIONS.EXPORT)}
                         </button>
                     </div>
                 </div>
@@ -158,10 +160,10 @@ export default function AdminEarningsPage() {
                 {/* Tab System */}
                 <div style={{ display: 'flex', gap: '2rem', borderBottom: '1px solid #E5E7EB', padding: '0 8px' }}>
                     {[
-                        ContentRegistry.EARNINGS.TABS.OVERVIEW,
-                        ContentRegistry.EARNINGS.TABS.INVOICES,
-                        ContentRegistry.EARNINGS.TABS.PAYOUTS,
-                        ContentRegistry.EARNINGS.TABS.REPORTS
+                        t(ContentRegistry.EARNINGS.TABS.OVERVIEW),
+                        t(ContentRegistry.EARNINGS.TABS.INVOICES),
+                        t(ContentRegistry.EARNINGS.TABS.PAYOUTS),
+                        t(ContentRegistry.EARNINGS.TABS.REPORTS)
                     ].map(tab => (
                         <button
                             key={tab}

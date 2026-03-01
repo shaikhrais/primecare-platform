@@ -29,8 +29,10 @@ interface Visit {
 
 import { ScheduleHeader } from './components/ScheduleHeader';
 import { ViewToggle } from './components/ViewToggle';
+import { useTranslation } from 'react-i18next';
 
 export default function Schedule() {
+    const { t } = useTranslation();
     const { showToast } = useNotification();
     const [events, setEvents] = useState<any[]>([]);
     const [visits, setVisits] = useState<Visit[]>([]);
@@ -214,7 +216,7 @@ export default function Schedule() {
 
     const handleDeleteVisit = async () => {
         if (!selectedVisit) return;
-        if (!confirm(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE)) return;
+        if (!confirm(t(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE))) return;
 
         try {
             const token = localStorage.getItem('token');

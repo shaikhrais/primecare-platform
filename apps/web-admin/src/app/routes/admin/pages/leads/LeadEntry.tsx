@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function LeadEntryForm() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [isDirty, setIsDirty] = useState(false);
@@ -36,24 +38,24 @@ export default function LeadEntryForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2>{ContentRegistry.LEADS.FORM.DISCARD_TITLE}</h2>
+                        <h2>{t(ContentRegistry.LEADS.FORM.DISCARD_TITLE)}</h2>
                         <div style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{ContentRegistry.USERS.MODAL.DISCARD_BTN}</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{ContentRegistry.USERS.MODAL.STAY_BTN}</button>
+                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
+                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
                         </div>
                     </div>
                 </div>
             )}
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">{ContentRegistry.LEADS.FORM.TITLE}</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.LEADS.FORM.SUBTITLE}</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">{t(ContentRegistry.LEADS.FORM.TITLE)}</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{t(ContentRegistry.LEADS.FORM.SUBTITLE)}</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{ContentRegistry.LEADS.FORM.SOURCE_LABEL}</label>
+                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{t(ContentRegistry.LEADS.FORM.SOURCE_LABEL)}</label>
                         <select
                             data-cy="form.lead.source"
                             value={formData.source}
@@ -67,7 +69,7 @@ export default function LeadEntryForm() {
                         </select>
                     </div>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{ContentRegistry.LEADS.FORM.NAME_LABEL}</label>
+                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{t(ContentRegistry.LEADS.FORM.NAME_LABEL)}</label>
                         <input
                             data-cy="form.lead.fullName"
                             required
@@ -85,7 +87,7 @@ export default function LeadEntryForm() {
                         data-cy="form.lead.save"
                         style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
                     >
-                        {submitting ? ContentRegistry.LEADS.FORM.SAVING : ContentRegistry.LEADS.FORM.SUBMIT_BTN}
+                        {submitting ? t(ContentRegistry.LEADS.FORM.SAVING) : t(ContentRegistry.LEADS.FORM.SUBMIT_BTN)}
                     </button>
                 </div>
             </form>

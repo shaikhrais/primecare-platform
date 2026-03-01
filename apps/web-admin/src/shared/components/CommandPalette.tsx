@@ -27,7 +27,7 @@ export const CommandPalette: React.FC = () => {
     // Initial Commands (We can expand this to be dynamic later)
     const commands: Command[] = useMemo(() => [
         // Navigation
-        { id: 'nav-home', label: 'Go to Dashboard', category: 'Navigation', icon: '🏠', action: () => navigate(RouteRegistry.ADMIN_DASHBOARD) },
+        { id: 'nav-home', label: 'Go to Dashboard', category: 'Navigation', icon: '🏠', action: () => navigate(RouteRegistry.DASHBOARD) },
         { id: 'nav-users', label: 'Go to Users', category: 'Navigation', icon: '👥', action: () => navigate(RouteRegistry.USERS) },
         { id: 'nav-leads', label: 'Go to Leads', category: 'Navigation', icon: '📥', action: () => navigate(RouteRegistry.LEADS) },
         { id: 'nav-schedule', label: 'Go to Schedule', category: 'Navigation', icon: '📅', action: () => navigate(RouteRegistry.SCHEDULE) },

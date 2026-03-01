@@ -11,10 +11,12 @@ import { UserRoles } from './components/UserRoles';
 import { UserRoleDetails } from './components/UserRoleDetails';
 import { UserPermissions } from './components/UserPermissions';
 import { RoleHelp } from './components/RoleHelp';
+import { useTranslation } from 'react-i18next';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function UserEntryForm() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
     const { showToast } = useNotification();
@@ -77,7 +79,7 @@ export default function UserEntryForm() {
             });
 
             if (response.ok) {
-                showToast(id ? ContentRegistry.USERS.FORM.SUCCESS_UPDATE : ContentRegistry.USERS.FORM.SUCCESS_CREATE, 'success');
+                showToast(id ? t(ContentRegistry.USERS.FORM.SUCCESS_UPDATE) : t(ContentRegistry.USERS.FORM.SUCCESS_CREATE), 'success');
                 setIsDirty(false);
                 navigate(RouteRegistry.USERS);
             } else {
@@ -105,7 +107,7 @@ export default function UserEntryForm() {
         setIsDirty(true);
     };
 
-    if (loading) return <div style={{ padding: '2rem' }}>{ContentRegistry.USERS.FORM.LOADING}</div>;
+    if (loading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.USERS.FORM.LOADING)}</div>;
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
@@ -116,8 +118,8 @@ export default function UserEntryForm() {
             />
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{id ? ContentRegistry.USERS.FORM.TITLE_EDIT : ContentRegistry.USERS.FORM.TITLE_CREATE}</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.USERS.FORM.SUBTITLE}</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{id ? t(ContentRegistry.USERS.FORM.TITLE_EDIT) : t(ContentRegistry.USERS.FORM.TITLE_CREATE)}</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{t(ContentRegistry.USERS.FORM.SUBTITLE)}</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem', alignItems: 'start' }}>
@@ -155,7 +157,7 @@ export default function UserEntryForm() {
                             onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                             style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', fontWeight: 500 }}
                         >
-                            {ContentRegistry.USERS.FORM.BTN_CANCEL}
+                            {t(ContentRegistry.USERS.FORM.BTN_CANCEL)}
                         </button>
                         <button
                             type="submit"
@@ -163,7 +165,7 @@ export default function UserEntryForm() {
                             data-cy="form.user.save"
                             style={{ padding: '0.75rem 2.5rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
                         >
-                            {submitting ? ContentRegistry.COMMON.PROCESSING : (id ? ContentRegistry.USERS.FORM.BTN_UPDATE : ContentRegistry.USERS.FORM.BTN_CREATE)}
+                            {submitting ? t(ContentRegistry.COMMON.PROCESSING) : (id ? t(ContentRegistry.USERS.FORM.BTN_UPDATE) : t(ContentRegistry.USERS.FORM.BTN_CREATE))}
                         </button>
                     </div>
                 </form>

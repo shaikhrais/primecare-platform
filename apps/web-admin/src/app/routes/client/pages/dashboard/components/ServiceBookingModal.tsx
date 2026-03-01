@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -61,8 +62,8 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }}>
             <form onSubmit={handleSubmitRequest} className="pc-card" style={{ padding: '2.5rem', maxWidth: '500px', width: '90%', border: '1px solid var(--brand-500)' }}>
-                <h3 className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE}</h3>
-                <p style={{ color: 'var(--text-300)', marginBottom: '2rem' }}>{ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE}</p>
+                <h3 className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE)}</h3>
+                <p style={{ color: 'var(--text-300)', marginBottom: '2rem' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE)}</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Select Care Service</label>

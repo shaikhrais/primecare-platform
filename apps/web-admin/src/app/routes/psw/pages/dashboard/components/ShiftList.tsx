@@ -1,5 +1,6 @@
 import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -24,7 +25,7 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
     return (
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
             <div data-cy="section.shifts" style={{ padding: '20px 24px', borderBottom: '1px solid #E5E7EB', fontWeight: 700, fontSize: '1.2rem' }}>
-                {ContentRegistry.PSW_DASHBOARD.SECTION_SHIFTS}
+                {t(ContentRegistry.PSW_DASHBOARD.SECTION_SHIFTS)}
             </div>
             <div style={{ padding: isMobile ? '16px' : '24px' }}>
                 {loading ? (

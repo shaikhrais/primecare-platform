@@ -47,7 +47,7 @@ export default function ServiceReviewForm() {
             if (response.ok) {
                 showToast('Service review completed successfully!', 'success');
                 setIsDirty(false);
-                navigate('/manager/dashboard');
+                navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
             } else {
                 showToast('Failed to submit review', 'error');
             }

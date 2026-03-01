@@ -48,7 +48,7 @@ export default function EvaluationForm() {
             if (response.ok) {
                 showToast('Staff evaluation submitted successfully!', 'success');
                 setIsDirty(false);
-                navigate('/manager/dashboard');
+                navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
             } else {
                 showToast('Failed to submit evaluation', 'error');
             }

@@ -1,41 +1,43 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function WizardHub() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const wizards = [
         {
-            title: ContentRegistry.WIZARD_HUB.STRATEGY.TITLE,
-            desc: ContentRegistry.WIZARD_HUB.STRATEGY.DESC,
-            action: ContentRegistry.WIZARD_HUB.STRATEGY.ACTION,
+            title: t(ContentRegistry.WIZARD_HUB.STRATEGY.TITLE),
+            desc: t(ContentRegistry.WIZARD_HUB.STRATEGY.DESC),
+            action: t(ContentRegistry.WIZARD_HUB.STRATEGY.ACTION),
             route: RouteRegistry.BUSINESS_MODEL_WIZARD,
             icon: '🚀',
             color: '#4f46e5'
         },
         {
-            title: ContentRegistry.WIZARD_HUB.STAFF.TITLE,
-            desc: ContentRegistry.WIZARD_HUB.STAFF.DESC,
-            action: ContentRegistry.WIZARD_HUB.STAFF.ACTION,
+            title: t(ContentRegistry.WIZARD_HUB.STAFF.TITLE),
+            desc: t(ContentRegistry.WIZARD_HUB.STAFF.DESC),
+            action: t(ContentRegistry.WIZARD_HUB.STAFF.ACTION),
             route: RouteRegistry.STAFF_ONBOARDING,
             icon: '🛡️',
             color: '#004d40'
         },
         {
-            title: ContentRegistry.WIZARD_HUB.CLIENT.TITLE,
-            desc: ContentRegistry.WIZARD_HUB.CLIENT.DESC,
-            action: ContentRegistry.WIZARD_HUB.CLIENT.ACTION,
+            title: t(ContentRegistry.WIZARD_HUB.CLIENT.TITLE),
+            desc: t(ContentRegistry.WIZARD_HUB.CLIENT.DESC),
+            action: t(ContentRegistry.WIZARD_HUB.CLIENT.ACTION),
             route: RouteRegistry.CARE_PLAN_WIZARD,
             icon: '📋',
             color: '#0284c7'
         },
         {
-            title: ContentRegistry.WIZARD_HUB.FINANCE.TITLE,
-            desc: ContentRegistry.WIZARD_HUB.FINANCE.DESC,
-            action: ContentRegistry.WIZARD_HUB.FINANCE.ACTION,
+            title: t(ContentRegistry.WIZARD_HUB.FINANCE.TITLE),
+            desc: t(ContentRegistry.WIZARD_HUB.FINANCE.DESC),
+            action: t(ContentRegistry.WIZARD_HUB.FINANCE.ACTION),
             route: RouteRegistry.REVENUE_WIZARD,
             icon: '💰',
             color: '#059669'
@@ -46,10 +48,10 @@ export default function WizardHub() {
         <div style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
                 <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>
-                    {ContentRegistry.WIZARD_HUB.TITLE}
+                    {t(ContentRegistry.WIZARD_HUB.TITLE)}
                 </h1>
                 <p style={{ fontSize: '1.125rem', color: '#6b7280' }}>
-                    {ContentRegistry.WIZARD_HUB.SUBTITLE}
+                    {t(ContentRegistry.WIZARD_HUB.SUBTITLE)}
                 </p>
             </div>
 

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Register() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -74,7 +76,7 @@ export default function Register() {
                     <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
-                    {ContentRegistry.AUTH.REGISTER_TITLE}
+                    {t(ContentRegistry.AUTH.REGISTER_TITLE)}
                 </h1>
                 <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem', fontSize: '0.9rem' }} data-cy="page.subtitle">
                     Create your {roleParam} account
@@ -85,7 +87,7 @@ export default function Register() {
                 <form onSubmit={handleRegister}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            {ContentRegistry.AUTH.EMAIL_LABEL}
+                            {t(ContentRegistry.AUTH.EMAIL_LABEL)}
                         </label>
                         <input
                             data-cy="inp-email"
@@ -98,7 +100,7 @@ export default function Register() {
                     </div>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            {ContentRegistry.AUTH.PASSWORD_LABEL}
+                            {t(ContentRegistry.AUTH.PASSWORD_LABEL)}
                         </label>
                         <input
                             data-cy="inp-password"
@@ -132,7 +134,7 @@ export default function Register() {
                             width: '100%', padding: '0.75rem', backgroundColor: '#059669', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
-                        {loading ? 'Creating Account...' : ContentRegistry.AUTH.BUTTON_REGISTER}
+                        {loading ? 'Creating Account...' : t(ContentRegistry.AUTH.BUTTON_REGISTER)}
                     </button>
 
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>

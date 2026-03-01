@@ -47,7 +47,7 @@ export default function BookingRequestForm() {
             if (response.ok) {
                 showToast('Booking request sent!', 'success');
                 setIsDirty(false);
-                navigate('/bookings');
+                navigate(AdminRegistry.RouteRegistry.CLIENT.BOOKINGS);
             } else {
                 showToast('Failed to send request', 'error');
             }

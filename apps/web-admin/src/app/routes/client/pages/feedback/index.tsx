@@ -48,7 +48,7 @@ export default function FeedbackForm() {
             if (response.ok) {
                 showToast('Thank you for your feedback!', 'success');
                 setIsDirty(false);
-                navigate('/bookings');
+                navigate(AdminRegistry.RouteRegistry.CLIENT.BOOKINGS);
             } else {
                 showToast('Failed to submit feedback', 'error');
             }

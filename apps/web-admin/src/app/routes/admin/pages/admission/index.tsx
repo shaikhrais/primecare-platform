@@ -41,7 +41,7 @@ export default function ClientAdmissionForm() {
             if (response.ok) {
                 showToast('Client admitted successfully!', 'success');
                 setIsDirty(false);
-                navigate('/admin/customers');
+                navigate(AdminRegistry.RouteRegistry.USERS);
             } else {
                 showToast('Failed to admit client', 'error');
             }

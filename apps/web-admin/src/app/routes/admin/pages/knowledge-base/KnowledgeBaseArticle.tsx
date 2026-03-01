@@ -34,7 +34,7 @@ const KnowledgeBaseArticle: React.FC = () => {
     return (
         <div style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
             <Link
-                to="/admin/knowledge-base"
+                to={AdminRegistry.RouteRegistry.SUPPORT}
                 style={{
                     display: 'inline-flex',
                     alignItems: 'center',

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
 export default function SettingsPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [settings, setSettings] = useState({
@@ -58,17 +60,17 @@ export default function SettingsPage() {
                 </div>
             )}
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">{ContentRegistry.SETTINGS.TITLE}</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.SETTINGS.SUBTITLE}</p>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">{t(ContentRegistry.SETTINGS.TITLE)}</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{t(ContentRegistry.SETTINGS.SUBTITLE)}</p>
             </div>
 
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }} data-cy="form.settings">
                 <div style={{ marginBottom: '2.5rem' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{ContentRegistry.SETTINGS.NOTIFICATIONS.TITLE}</h3>
+                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.TITLE)}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: '500' }}>{ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_ALERTS}</div>
-                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_DESC}</div>
+                            <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_ALERTS)}</div>
+                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_DESC)}</div>
                         </div>
                         <input
                             type="checkbox"
@@ -81,11 +83,11 @@ export default function SettingsPage() {
                 </div>
 
                 <div style={{ marginBottom: '2.5rem' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{ContentRegistry.SETTINGS.SCHEDULING.TITLE}</h3>
+                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.TITLE)}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem', marginBottom: '1rem' }}>
                         <div>
-                            <div style={{ fontWeight: '500' }}>{ContentRegistry.SETTINGS.SCHEDULING.AUTO_ASSIGN}</div>
-                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{ContentRegistry.SETTINGS.SCHEDULING.AUTO_DESC}</div>
+                            <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_ASSIGN)}</div>
+                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_DESC)}</div>
                         </div>
                         <input
                             type="checkbox"
@@ -97,8 +99,8 @@ export default function SettingsPage() {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>
                         <div>
-                            <div style={{ fontWeight: '500' }}>{ContentRegistry.SETTINGS.SCHEDULING.GRACE_PERIOD}</div>
-                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{ContentRegistry.SETTINGS.SCHEDULING.GRACE_DESC}</div>
+                            <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_PERIOD)}</div>
+                            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_DESC)}</div>
                         </div>
                         <select
                             value={settings.gracePeriod}
@@ -118,7 +120,7 @@ export default function SettingsPage() {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <button
                             data-cy="btn.nav.roles"
-                            onClick={() => navigate('/roles')}
+                            onClick={() => navigate(AdminRegistry.RouteRegistry.USERS)}
                             style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
                         >
                             <div style={{ fontWeight: '600' }}>Role Permissions</div>
@@ -126,7 +128,7 @@ export default function SettingsPage() {
                         </button>
                         <button
                             data-cy="btn.nav.templates"
-                            onClick={() => navigate('/templates')}
+                            onClick={() => navigate(AdminRegistry.RouteRegistry.CONTENT)}
                             style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
                         >
                             <div style={{ fontWeight: '600' }}>Message Templates</div>
@@ -141,14 +143,14 @@ export default function SettingsPage() {
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                         data-cy="form.settings.reset"
                     >
-                        {ContentRegistry.SETTINGS.ACTIONS.RESET}
+                        {t(ContentRegistry.SETTINGS.ACTIONS.RESET)}
                     </button>
                     <button
                         onClick={handleSave}
                         style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                         data-cy="form.settings.save"
                     >
-                        {ContentRegistry.SETTINGS.ACTIONS.SAVE}
+                        {t(ContentRegistry.SETTINGS.ACTIONS.SAVE)}
                     </button>
                 </div>
             </div>

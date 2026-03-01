@@ -24,7 +24,7 @@ export default function TimesheetAdjForm() {
         setTimeout(() => {
             showToast('Timesheet adjustment saved', 'success');
             setIsDirty(false);
-            navigate('/timesheets');
+            navigate(AdminRegistry.RouteRegistry.TIMESHEETS);
             setSubmitting(false);
         }, 1000);
     };

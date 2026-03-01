@@ -47,7 +47,7 @@ export default function SupportTicketForm() {
             if (response.ok) {
                 showToast('Support ticket created!', 'success');
                 setIsDirty(false);
-                navigate('/support/manual');
+                navigate(AdminRegistry.RouteRegistry.SUPPORT);
             } else {
                 showToast('Failed to create ticket', 'error');
             }

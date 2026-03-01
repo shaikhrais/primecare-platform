@@ -16,4 +16,10 @@ export const RolePermissions: Record<Role, Permission[]> = {
     rn: ['view_dashboard', 'clinical_oversight', 'view_schedule'],
     psw: ['view_dashboard', 'view_schedule'],
     client: ['view_dashboard'],
+    coordinator: ['view_dashboard', 'view_schedule'],
+    finance: ['view_dashboard', 'view_reports'],
+    hr: ['view_dashboard', 'manage_users'],
+    compliance: ['view_dashboard', 'manage_incidents', 'view_reports'],
+    crm: ['view_dashboard', 'manage_leads'],
+    training: ['view_dashboard'],
 };

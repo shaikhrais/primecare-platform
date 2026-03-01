@@ -5,6 +5,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useTranslation } from 'react-i18next';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -19,6 +20,7 @@ interface User {
 }
 
 export default function UserList() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const { showToast } = useNotification();
@@ -121,32 +123,32 @@ export default function UserList() {
     return (
         <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{ContentRegistry.USERS.TITLE}</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.USERS.TITLE)}</h2>
                 <button
                     data-cy="btn.user.add"
                     onClick={() => navigate(RouteRegistry.USERS_NEW)}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
-                    {ContentRegistry.USERS.ADD_BTN}
+                    {t(ContentRegistry.USERS.ADD_BTN)}
                 </button>
 
             </div>
 
             {(searchParams.get('role') || searchParams.get('status')) && (
                 <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{ContentRegistry.USERS.ACTIVE_FILTERS}</span>
+                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.USERS.ACTIVE_FILTERS)}</span>
                     {searchParams.get('role') && (
                         <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#e0f2fe', color: '#0369a1', borderRadius: '9999px', fontSize: '0.875rem' }}>
-                            {ContentRegistry.USERS.ROLE}: {searchParams.get('role')}
+                            {t(ContentRegistry.USERS.ROLE)}: {searchParams.get('role')}
                         </span>
                     )}
                     {searchParams.get('status') && (
                         <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '9999px', fontSize: '0.875rem' }}>
-                            {ContentRegistry.USERS.STATUS}: {searchParams.get('status')}
+                            {t(ContentRegistry.USERS.STATUS)}: {searchParams.get('status')}
                         </span>
                     )}
                     <button onClick={() => navigate(RouteRegistry.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>
-                        {ContentRegistry.USERS.CLEAR_FILTERS}
+                        {t(ContentRegistry.USERS.CLEAR_FILTERS)}
                     </button>
                 </div>
             )}
@@ -155,15 +157,15 @@ export default function UserList() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.users">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{ContentRegistry.USERS.TITLE}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{ContentRegistry.USERS.ROLE}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{ContentRegistry.USERS.ID_VERIFICATION}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{ContentRegistry.USERS.ACTIONS}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.TITLE)}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ROLE)}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ID_VERIFICATION)}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ACTIONS)}</th>
                         </tr>
                     </thead>
                     <tbody style={{ backgroundColor: 'white' }}>
                         {loading ? (
-                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.USERS.MESSAGES.LOADING}</td></tr>
+                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{t(ContentRegistry.USERS.MESSAGES.LOADING)}</td></tr>
                         ) : (
                             filteredUsers.map(user => (
                                 <tr key={user.id} data-cy={`user-row-${user.id}`} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', transition: 'background-color 0.2s' }}
@@ -195,7 +197,7 @@ export default function UserList() {
                                                     {user.profile?.isVerified ? '✅' : '⏳'}
                                                 </span>
                                                 <span data-cy="user-verification-text" style={{ fontSize: '0.875rem', color: user.profile?.isVerified ? '#059669' : '#d97706', fontWeight: '500' }}>
-                                                    {user.profile?.isVerified ? ContentRegistry.USERS.VERIFIED : ContentRegistry.USERS.PENDING}
+                                                    {user.profile?.isVerified ? t(ContentRegistry.USERS.VERIFIED) : t(ContentRegistry.USERS.PENDING)}
                                                 </span>
                                             </div>
                                         ) : '-'}
@@ -207,7 +209,7 @@ export default function UserList() {
                                                 onClick={() => handleEdit(user)}
                                                 style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}
                                             >
-                                                {ContentRegistry.USERS.EDIT_BTN}
+                                                {t(ContentRegistry.USERS.EDIT_BTN)}
                                             </button>
                                             {user.roles.includes('psw') && !user.profile?.isVerified && (
                                                 <button
@@ -215,7 +217,7 @@ export default function UserList() {
                                                     onClick={() => handleApprove(user.id)}
                                                     style={{ color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}
                                                 >
-                                                    {ContentRegistry.USERS.VERIFY_BTN}
+                                                    {t(ContentRegistry.USERS.VERIFY_BTN)}
                                                 </button>
                                             )}
                                         </div>
@@ -224,7 +226,7 @@ export default function UserList() {
                             ))
                         )}
                         {filteredUsers.length === 0 && !loading && (
-                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{ContentRegistry.USERS.MESSAGES.EMPTY}</td></tr>
+                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{t(ContentRegistry.USERS.MESSAGES.EMPTY)}</td></tr>
                         )}
                     </tbody>
                 </table>
@@ -235,19 +237,19 @@ export default function UserList() {
                     {showGuard && (
                         <div data-cy="guard.unsaved.dialog" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1001, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '0.5rem' }}>
                             <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '350px', textAlign: 'center' }}>
-                                <h4 style={{ margin: '0 0 1rem 0' }}>{ContentRegistry.USERS.MODAL.DISCARD_TITLE}</h4>
-                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>{ContentRegistry.USERS.MODAL.DISCARD_DESC}</p>
+                                <h4 style={{ margin: '0 0 1rem 0' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_TITLE)}</h4>
+                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_DESC)}</p>
                                 <div style={{ display: 'flex', gap: '1rem' }}>
-                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{ContentRegistry.USERS.MODAL.DISCARD_BTN}</button>
-                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{ContentRegistry.USERS.MODAL.STAY_BTN}</button>
+                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
+                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
                                 </div>
                             </div>
                         </div>
                     )}
                     <form onSubmit={handleInvite} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', width: '90%', position: 'relative' }} data-cy="modal.user.invite.container">
-                        <h3 style={{ marginTop: 0 }}>{ContentRegistry.USERS.MODAL.INVITE_TITLE}</h3>
+                        <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.USERS.MODAL.INVITE_TITLE)}</h3>
                         <div style={{ marginTop: '1.5rem' }}>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{ContentRegistry.AUTH.EMAIL_LABEL}</label>
+                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.AUTH.EMAIL_LABEL)}</label>
                             <input
                                 data-cy="modal.user.invite.email"
                                 type="email"
@@ -255,7 +257,7 @@ export default function UserList() {
                                 onChange={(e) => { setInviteEmail(e.target.value); setIsDirty(true); }}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                                 required
-                                placeholder={ContentRegistry.USERS.INVITE_PROMPT}
+                                placeholder={t(ContentRegistry.USERS.INVITE_PROMPT)}
                             />
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
@@ -265,7 +267,7 @@ export default function UserList() {
                                 onClick={() => isDirty ? setShowGuard(true) : setIsModalOpen(false)}
                                 style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
                             >
-                                {ContentRegistry.SCHEDULE.ACTIONS.CLOSE}
+                                {t(ContentRegistry.SCHEDULE.ACTIONS.CLOSE)}
                             </button>
                             <button
                                 type="submit"
@@ -273,7 +275,7 @@ export default function UserList() {
                                 disabled={submitting}
                                 style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                             >
-                                {submitting ? ContentRegistry.USERS.MODAL.SENDING : ContentRegistry.USERS.MODAL.SEND_BTN}
+                                {submitting ? t(ContentRegistry.USERS.MODAL.SENDING) : t(ContentRegistry.USERS.MODAL.SEND_BTN)}
                             </button>
                         </div>
                     </form>

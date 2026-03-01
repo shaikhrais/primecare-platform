@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useAuth } from '@/shared/context/AuthContext';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 import { MOCK_PSW_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
@@ -9,6 +10,7 @@ import { MOCK_PSW_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 import { PswStats } from './components/PswStats';
 import { ShiftList } from './components/ShiftList';
 import { ComplianceSection } from './components/ComplianceSection';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -23,6 +25,7 @@ interface Shift {
 }
 
 export default function PswDashboard() {
+    const { t } = useTranslation();
     const { showToast } = useNotification();
     const navigate = useNavigate();
     const [shifts, setShifts] = useState<Shift[]>([]);
@@ -36,7 +39,7 @@ export default function PswDashboard() {
             const token = localStorage.getItem('token');
             const [shiftsRes, statsRes] = await Promise.all([
                 fetch(`${API_URL}${ApiRegistry.PSW.VISITS}`, { headers: { 'Authorization': `Bearer ${token}` } }),
-                fetch(`${API_URL}/psw/dashboard/stats`, { headers: { 'Authorization': `Bearer ${token}` } })
+                fetch(`${API_URL}${ApiRegistry.PSW.DASHBOARD_STATS}`, { headers: { 'Authorization': `Bearer ${token}` } })
             ]);
 
             if (shiftsRes.ok) {
@@ -51,7 +54,7 @@ export default function PswDashboard() {
 
         } catch (error) {
             console.error('Failed to fetch dashboard data', error);
-            showToast('Failed to load dashboard data', 'error');
+            showToast(ContentRegistry.COMMON.NETWORK_ERROR, 'error');
         } finally {
             setLoading(false);
         }
@@ -137,6 +140,7 @@ export default function PswDashboard() {
         return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading PSW Dashboard...</div>;
     }
 
+    const { user } = useAuth();
     return (
         <div data-cy="page.container" style={{ padding: isMobile ? '0' : '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
@@ -149,15 +153,15 @@ export default function PswDashboard() {
             }}>
                 <div>
                     <h1 data-cy="page.title" style={{ margin: '0', fontSize: isMobile ? '2rem' : '2.5rem', fontWeight: 800, color: '#000000', lineHeight: 1.1 }}>
-                        {ContentRegistry.PSW_DASHBOARD.TITLE}
+                        {user?.tenantId ? 'My Provider Dashboard' : t(ContentRegistry.PSW_DASHBOARD.TITLE)}
                     </h1>
                     <p data-cy="page.subtitle" style={{ margin: '12px 0 0 0', color: '#4B5563', fontSize: isMobile ? '1rem' : '1.1rem' }}>
-                        {ContentRegistry.PSW_DASHBOARD.SUBTITLE}
+                        {user?.email ? `${user.email} • Independent Provider` : t(ContentRegistry.PSW_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
                 <button
                     data-cy="btn-view-all-shifts"
-                    onClick={() => navigate('/psw/schedule')}
+                    onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
                     style={{
                         padding: '12px 24px',
                         backgroundColor: '#000000',
@@ -169,7 +173,7 @@ export default function PswDashboard() {
                         width: isMobile ? '100%' : 'auto'
                     }}
                 >
-                    {ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE}
+                    {t(ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE)}
                 </button>
             </div>
 

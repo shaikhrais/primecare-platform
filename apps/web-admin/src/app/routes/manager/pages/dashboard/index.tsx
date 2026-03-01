@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useAuth } from '@/shared/context/AuthContext';
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
@@ -8,6 +9,7 @@ import { DashboardStats } from './components/DashboardStats';
 import { QuickActions } from './components/QuickActions';
 import { AnalyticsSection } from './components/AnalyticsSection';
 import { ShiftTimeline } from './components/ShiftTimeline';
+import { useTranslation } from 'react-i18next';
 
 interface KPIData {
     activeClients: number;
@@ -25,6 +27,7 @@ interface ShiftDisplay {
 }
 
 export default function ManagerDashboard() {
+    const { t } = useTranslation();
     const [kpi, setKpi] = useState<KPIData>({ activeClients: 0, staffOnDuty: 0, openIncidents: 0, todayShifts: 0 });
     const [shifts, setShifts] = useState<ShiftDisplay[]>([]);
     const [loading, setLoading] = useState(true);
@@ -87,10 +90,12 @@ export default function ManagerDashboard() {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
                 <div className="spinner"></div>
-                <p style={{ color: 'var(--text-300)' }}>{ContentRegistry.MANAGER_DASHBOARD.MESSAGES.LOADING}</p>
+                <p style={{ color: 'var(--text-300)' }}>{t(ContentRegistry.MANAGER_DASHBOARD.MESSAGES.LOADING)}</p>
             </div>
         );
     }
+
+    const { user } = useAuth();
 
     return (
         <div data-cy="page.container">
@@ -98,11 +103,15 @@ export default function ManagerDashboard() {
 
                 <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
-                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">{ContentRegistry.MANAGER_DASHBOARD.TITLE}</h1>
-                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.MANAGER_DASHBOARD.SUBTITLE}</p>
+                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                            {user?.tenantId ? t(ContentRegistry.MANAGER_DASHBOARD.TITLE) : t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}
+                        </h1>
+                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                            {user?.email ? `${user.email} • ${t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}` : t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}
+                        </p>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
-                        {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map(p => (
+                        {t(ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map)(p => (
                             <button
                                 key={p}
                                 onClick={() => setPerspective(p)}

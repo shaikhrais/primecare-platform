@@ -89,6 +89,9 @@ const PswExpenses = React.lazy(() => import('./routes/psw/pages/expenses'));
 // RN Pages
 const RnDashboard = React.lazy(() => import('./routes/rn/pages/dashboard'));
 
+// Staff Pages
+const StaffDashboard = React.lazy(() => import('./routes/staff/pages/dashboard'));
+
 // Platform Portal (Super Admin)
 const PlatformDashboard = React.lazy(() => import('./routes/platform/pages/dashboard'));
 const PlatformAuditLogs = React.lazy(() => import('./routes/platform/pages/audit-logs'));
@@ -229,7 +232,7 @@ export const AppRouter: React.FC = () => {
 
                         {/* STAFF PORTAL */}
                         <Route path="/staff" element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
-                            <Route path="dashboard" element={<AdminDashboard />} />
+                            <Route path="dashboard" element={<StaffDashboard />} />
                             <Route path="customers" element={<UserList />} />
                         </Route>
 

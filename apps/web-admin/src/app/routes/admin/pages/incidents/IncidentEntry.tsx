@@ -5,8 +5,10 @@ import { AdminRegistry } from 'prime-care-shared';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 import { apiClient } from '@/shared/utils/apiClient';
+import { useTranslation } from 'react-i18next';
 
 export default function IncidentEntryForm() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
     const { showToast } = useNotification();
@@ -55,25 +57,25 @@ export default function IncidentEntryForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2>{ContentRegistry.INCIDENTS.RESOLVE.DISCARD_TITLE}</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>{ContentRegistry.INCIDENTS.RESOLVE.DISCARD_DESC}</p>
+                        <h2>{t(ContentRegistry.INCIDENTS.RESOLVE.DISCARD_TITLE)}</h2>
+                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>{t(ContentRegistry.INCIDENTS.RESOLVE.DISCARD_DESC)}</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{ContentRegistry.USERS.MODAL.DISCARD_BTN}</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{ContentRegistry.USERS.MODAL.STAY_BTN}</button>
+                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
+                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
                         </div>
                     </div>
                 </div>
             )}
 
             <div style={{ marginBottom: '2rem' }} data-cy="page.header">
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{ContentRegistry.INCIDENTS.FORM.TITLE}</h2>
-                <p style={{ color: '#6b7280' }}>{ContentRegistry.INCIDENTS.SUBTITLE}</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{t(ContentRegistry.INCIDENTS.FORM.TITLE)}</h2>
+                <p style={{ color: '#6b7280' }}>{t(ContentRegistry.INCIDENTS.SUBTITLE)}</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.INCIDENTS.FORM.TYPE_LABEL}</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{t(ContentRegistry.INCIDENTS.FORM.TYPE_LABEL)}</label>
                         <select
                             data-cy="form.incident.type"
                             value={formData.type}
@@ -87,7 +89,7 @@ export default function IncidentEntryForm() {
                         </select>
                     </div>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.INCIDENTS.FORM.SEVERITY_LABEL}</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{t(ContentRegistry.INCIDENTS.FORM.SEVERITY_LABEL)}</label>
                         <select
                             data-cy="form.incident.severity"
                             value={formData.severity}
@@ -101,7 +103,7 @@ export default function IncidentEntryForm() {
                         </select>
                     </div>
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.INCIDENTS.FORM.DESC_LABEL}</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{t(ContentRegistry.INCIDENTS.FORM.DESC_LABEL)}</label>
                         <textarea
                             data-cy="form.incident.description"
                             required
@@ -119,7 +121,7 @@ export default function IncidentEntryForm() {
                         data-cy="btn-cancel"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
-                        {ContentRegistry.USERS.FORM.BTN_CANCEL}
+                        {t(ContentRegistry.USERS.FORM.BTN_CANCEL)}
                     </button>
                     <button
                         type="submit"
@@ -127,7 +129,7 @@ export default function IncidentEntryForm() {
                         data-cy="form.incident.save"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#e11d48', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
                     >
-                        {submitting ? ContentRegistry.INCIDENTS.FORM.REPORTING : ContentRegistry.INCIDENTS.FORM.SUBMIT_BTN}
+                        {submitting ? t(ContentRegistry.INCIDENTS.FORM.REPORTING) : t(ContentRegistry.INCIDENTS.FORM.SUBMIT_BTN)}
                     </button>
                 </div>
             </form>

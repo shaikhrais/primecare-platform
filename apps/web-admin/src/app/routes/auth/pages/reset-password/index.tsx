@@ -46,7 +46,7 @@ export default function ResetPassword() {
             if (response.ok) {
                 setMessage('Password reset successfully. Redirecting to login...');
                 setTimeout(() => {
-                    navigate('/login');
+                    navigate(AdminRegistry.RouteRegistry.LOGIN);
                 }, 2000);
             } else {
                 setError(data.error || 'Reset failed');

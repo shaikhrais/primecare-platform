@@ -63,7 +63,7 @@ export default function AvailabilityForm() {
             if (response.ok) {
                 showToast('Availability updated successfully!', 'success');
                 setIsDirty(false);
-                navigate('/psw/dashboard');
+                navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
             } else {
                 showToast('Failed to update availability', 'error');
             }

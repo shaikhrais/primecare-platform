@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useTranslation } from 'react-i18next';
 
 const { RouteRegistry, ApiRegistry, ContentRegistry } = AdminRegistry;
 
 export default function RevenueWizard() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [loading, setLoading] = useState(false);
@@ -39,15 +41,15 @@ export default function RevenueWizard() {
     return (
         <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '2.5rem', background: '#fff', borderRadius: '2rem', border: '1px solid #e5e7eb', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>💰 {ContentRegistry.REVENUE_WIZARD.TITLE}</h1>
-                <p style={{ color: '#6b7280' }}>{ContentRegistry.REVENUE_WIZARD.SUBTITLE}</p>
+                <h1 style={{ fontSize: '2rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>💰 {t(ContentRegistry.REVENUE_WIZARD.TITLE)}</h1>
+                <p style={{ color: '#6b7280' }}>{t(ContentRegistry.REVENUE_WIZARD.SUBTITLE)}</p>
             </div>
 
             <div style={{ display: 'grid', gap: '2rem' }}>
                 <div style={{ background: '#f9fafb', padding: '2rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb' }}>
-                    <h2 style={{ fontSize: '1.125rem', fontWeight: '800', marginBottom: '1.5rem', color: '#374151' }}>{ContentRegistry.REVENUE_WIZARD.ECONOMICS_TITLE}</h2>
+                    <h2 style={{ fontSize: '1.125rem', fontWeight: '800', marginBottom: '1.5rem', color: '#374151' }}>{t(ContentRegistry.REVENUE_WIZARD.ECONOMICS_TITLE)}</h2>
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{ContentRegistry.REVENUE_WIZARD.RATE_LABEL}</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.REVENUE_WIZARD.RATE_LABEL)}</label>
                         <div style={{ position: 'relative' }}>
                             <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 'bold' }}>$</span>
                             <input
@@ -59,7 +61,7 @@ export default function RevenueWizard() {
                         </div>
                     </div>
                     <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{ContentRegistry.REVENUE_WIZARD.CYCLE_LABEL}</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.REVENUE_WIZARD.CYCLE_LABEL)}</label>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                             {['weekly', 'bi-weekly', 'monthly'].map(cycle => (
                                 <button
@@ -87,8 +89,8 @@ export default function RevenueWizard() {
 
                 <div style={{ background: '#f0fdf4', padding: '2rem', borderRadius: '1.5rem', border: '1px solid #dcfce7', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                        <h3 style={{ fontWeight: '800', color: '#166534' }}>{ContentRegistry.REVENUE_WIZARD.TAX_TITLE}</h3>
-                        <p style={{ fontSize: '0.875rem', color: '#166534' }}>{ContentRegistry.REVENUE_WIZARD.TAX_DESC}</p>
+                        <h3 style={{ fontWeight: '800', color: '#166534' }}>{t(ContentRegistry.REVENUE_WIZARD.TAX_TITLE)}</h3>
+                        <p style={{ fontSize: '0.875rem', color: '#166534' }}>{t(ContentRegistry.REVENUE_WIZARD.TAX_DESC)}</p>
                     </div>
                     <label style={{ position: 'relative', display: 'inline-block', width: '50px', height: '26px' }}>
                         <input
@@ -127,7 +129,7 @@ export default function RevenueWizard() {
                     disabled={loading}
                     style={{ padding: '0.875rem 3rem', background: '#004d40', color: 'white', fontWeight: '900', borderRadius: '1.25rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0,77,64,0.39)' }}
                 >
-                    {loading ? ContentRegistry.REVENUE_WIZARD.SAVING : ContentRegistry.REVENUE_WIZARD.SUBMIT_BTN}
+                    {loading ? t(ContentRegistry.REVENUE_WIZARD.SAVING) : t(ContentRegistry.REVENUE_WIZARD.SUBMIT_BTN)}
                 </button>
             </div>
         </div>

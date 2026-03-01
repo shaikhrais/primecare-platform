@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useAuth } from '@/shared/context/AuthContext';
 
 // Components
 import { ClientOverview } from './components/ClientOverview';
 import { ServiceBookingModal } from './components/ServiceBookingModal';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -18,6 +20,7 @@ interface Booking {
 }
 
 export default function ClientDashboard() {
+    const { t } = useTranslation();
     const { showToast } = useNotification();
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
@@ -58,7 +61,7 @@ export default function ClientDashboard() {
     const fetchStats = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/client/dashboard/stats`, {
+            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.DASHBOARD_STATS}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -77,23 +80,28 @@ export default function ClientDashboard() {
     }, []);
 
     if (loading) {
-        return <div style={{ padding: '2rem', textAlign: 'center' }}>{ContentRegistry.CLIENT_DASHBOARD.MESSAGES.LOADING}</div>;
+        return <div style={{ padding: '2rem', textAlign: 'center' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MESSAGES.LOADING)}</div>;
     }
 
+    const { user } = useAuth();
     return (
         <div data-cy="page.container">
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">{ContentRegistry.CLIENT_DASHBOARD.TITLE}</h1>
-                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                        {user?.tenantId ? 'Patient Care Portal' : t(ContentRegistry.CLIENT_DASHBOARD.TITLE)}
+                    </h1>
+                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                        {user?.email ? `${user.email} • Your Care Team` : t(ContentRegistry.CLIENT_DASHBOARD.SUBTITLE)}
+                    </p>
                 </div>
                 <button
                     data-cy="btn-request-care"
                     className="btn btn-primary"
                     onClick={() => setIsModalOpen(true)}
                 >
-                    {ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST}
+                    {t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
                 </button>
             </div>
 

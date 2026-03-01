@@ -52,7 +52,7 @@ export default function OpenShifts() {
                 showToast('Shift accepted successfully!', 'success');
                 fetchOpenShifts(); // Refresh list
                 // Optionally navigate to schedule
-                // navigate('/psw/schedule');
+                // navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
             } else {
                 const err = await response.json();
                 showToast(err.error || 'Failed to accept shift', 'error');

@@ -44,7 +44,7 @@ export default function DailyEntryPage() {
         if (isDirty) {
             setShowGuard(true);
         } else {
-            navigate('/manager/dashboard');
+            navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
         }
     };
 
@@ -94,7 +94,7 @@ export default function DailyEntryPage() {
 
             if (res.ok) {
                 showToast(isDraft ? 'Draft saved!' : 'Daily entry submitted successfully!', 'success');
-                if (!isDraft) navigate('/manager/dashboard');
+                if (!isDraft) navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
             } else {
                 showToast('Failed to save entry', 'error');
             }
@@ -115,7 +115,7 @@ export default function DailyEntryPage() {
                         <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes. Navigating away will discard them. Would you like to stay and save?</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate('/manager/dashboard')} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--line)', background: 'transparent', cursor: 'pointer', color: 'var(--text)' }}>Leave</button>
+                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--line)', background: 'transparent', cursor: 'pointer', color: 'var(--text)' }}>Leave</button>
                             <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: 'var(--primary)', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
                         </div>
                     </div>

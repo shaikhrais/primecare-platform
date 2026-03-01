@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useAuth } from '@/shared/context/AuthContext';
 import { PatientAcuityDistribution } from '@/shared/components/charts/PatientAcuityDistribution';
 import { AssessmentComplianceChart } from '@/shared/components/charts/AssessmentComplianceChart';
 import { ClinicalIncidentHeatmap } from '@/shared/components/charts/ClinicalIncidentHeatmap';
 import { CarePlanAdherenceGauge } from '@/shared/components/charts/CarePlanAdherenceGauge';
 import { MOCK_RN_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -42,7 +44,7 @@ export const Dashboard: React.FC = () => {
             try {
                 const token = localStorage.getItem('token');
                 // Fetch Stats for Charts
-                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}/v1/rn/dashboard/stats`, {
+                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}${AdminRegistry.ApiRegistry.RN.DASHBOARD_STATS}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -73,22 +75,28 @@ export const Dashboard: React.FC = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                {ContentRegistry.RN_DASHBOARD.MESSAGES.LOADING}
+                {t(ContentRegistry.RN_DASHBOARD.MESSAGES.LOADING)}
             </div>
         );
     }
 
+    const { user } = useAuth();
+
     return (
         <div data-cy="page.container">
             <div style={{ marginBottom: '2.5rem' }}>
-                <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">{ContentRegistry.RN_DASHBOARD.TITLE}</h1>
-                <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">{ContentRegistry.RN_DASHBOARD.SUBTITLE}</p>
+                <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                    {user?.tenantId ? 'Clinical Dashboard (Branch)' : t(ContentRegistry.RN_DASHBOARD.TITLE)}
+                </h1>
+                <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                    {user?.email ? `${user.email} • Registered Nurse` : t(ContentRegistry.RN_DASHBOARD.SUBTITLE)}
+                </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.PENDING_CARE_PLANS} value={stats.pendingCarePlans} color="#ff9800" dataCy="kpi-pending-plans" />
-                <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.DAILY_REVIEWS} value={stats.dailyReviewsNeed} color="#2196f3" dataCy="kpi-daily-reviews" />
-                <KPICard label={ContentRegistry.RN_DASHBOARD.STATS.SUPERVISED_PSWS} value={stats.supervisedPswCount} color="#4caf50" dataCy="kpi-psw-count" />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.PENDING_CARE_PLANS)} value={stats.pendingCarePlans} color="#ff9800" dataCy="kpi-pending-plans" />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.DAILY_REVIEWS)} value={stats.dailyReviewsNeed} color="#2196f3" dataCy="kpi-daily-reviews" />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.SUPERVISED_PSWS)} value={stats.supervisedPswCount} color="#4caf50" dataCy="kpi-psw-count" />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
@@ -99,13 +107,13 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }} data-cy="section.tasks">
-                {ContentRegistry.RN_DASHBOARD.TASKS.TITLE}
+                {t(ContentRegistry.RN_DASHBOARD.TASKS.TITLE)}
             </h2>
             <div className="pc-card">
                 <div className="pc-card-b" style={{ padding: '0 24px' }}>
                     {tasks.length === 0 ? (
                         <p data-cy="tasks-empty-message" style={{ color: 'var(--text-300)', textAlign: 'center', padding: '40px' }}>
-                            {ContentRegistry.RN_DASHBOARD.TASKS.EMPTY}
+                            {t(ContentRegistry.RN_DASHBOARD.TASKS.EMPTY)}
                         </p>
                     ) : (
                         tasks.map((task) => (
@@ -119,11 +127,11 @@ export const Dashboard: React.FC = () => {
                                 <div style={{ flex: 1 }}>
                                     <div data-cy="task-description" style={{ fontWeight: 900, color: 'var(--text-100)', fontSize: '1.05rem' }}>{task.description}</div>
                                     <div data-cy="task-target" style={{ fontSize: '0.85rem', color: 'var(--text-300)', marginTop: '2px' }}>
-                                        {ContentRegistry.RN_DASHBOARD.TASKS.PATIENT_LABEL}{task.targetName}
+                                        {t(ContentRegistry.RN_DASHBOARD.TASKS.PATIENT_LABEL)}{task.targetName}
                                     </div>
                                 </div>
                                 <button data-cy={`btn-action-${task.id}`} className="btn" style={{ padding: '8px 16px', fontSize: '13px' }}>
-                                    {ContentRegistry.RN_DASHBOARD.TASKS.RESOLVE_BTN}
+                                    {t(ContentRegistry.RN_DASHBOARD.TASKS.RESOLVE_BTN)}
                                 </button>
                             </div>
                         ))

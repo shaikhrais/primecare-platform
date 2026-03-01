@@ -17,6 +17,7 @@ export const apiClient = {
         const userStr = localStorage.getItem('user');
         const userData = userStr ? JSON.parse(userStr) : null;
         const tenantId = userData?.tenantId;
+        const token = localStorage.getItem('token');
 
         const isFormData = init.body instanceof FormData;
         const defaultOptions: RequestInit = {

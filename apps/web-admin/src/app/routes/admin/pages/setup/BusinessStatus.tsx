@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -19,6 +20,7 @@ interface BusinessStatusData {
 }
 
 export default function BusinessStatus() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [stats, setStats] = useState<BusinessStatusData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ export default function BusinessStatus() {
     const domains = [
         {
             id: 'strategy',
-            name: ContentRegistry.BUSINESS_STATUS.DOMAINS.STRATEGY,
+            name: t(ContentRegistry.BUSINESS_STATUS.DOMAINS.STRATEGY),
             status: stats && stats.modelScore > 0 ? 'Active' : 'Pending',
             count: `${stats?.modelScore || 0}% Complete`,
             icon: '🚀',
@@ -53,7 +55,7 @@ export default function BusinessStatus() {
         },
         {
             id: 'services',
-            name: ContentRegistry.BUSINESS_STATUS.DOMAINS.SERVICES,
+            name: t(ContentRegistry.BUSINESS_STATUS.DOMAINS.SERVICES),
             status: 'Operational',
             count: `${stats?.totalVisits || 0} Total Visits`,
             icon: '🩺',
@@ -63,7 +65,7 @@ export default function BusinessStatus() {
         },
         {
             id: 'staff',
-            name: ContentRegistry.BUSINESS_STATUS.DOMAINS.STAFF,
+            name: t(ContentRegistry.BUSINESS_STATUS.DOMAINS.STAFF),
             status: stats && stats.totalUsers > 0 ? 'Staffed' : 'Empty',
             count: `${stats?.totalUsers || 0} Providers`,
             icon: '👥',
@@ -73,7 +75,7 @@ export default function BusinessStatus() {
         },
         {
             id: 'clients',
-            name: ContentRegistry.BUSINESS_STATUS.DOMAINS.CLIENTS,
+            name: t(ContentRegistry.BUSINESS_STATUS.DOMAINS.CLIENTS),
             status: stats && stats.totalLeads > 0 ? 'Active' : 'Scanning',
             count: `${stats?.totalLeads || 0} Leads/Clients`,
             icon: '🏠',
@@ -83,7 +85,7 @@ export default function BusinessStatus() {
         },
         {
             id: 'finance',
-            name: ContentRegistry.BUSINESS_STATUS.DOMAINS.FINANCE,
+            name: t(ContentRegistry.BUSINESS_STATUS.DOMAINS.FINANCE),
             status: 'Ready',
             count: 'Billing Active',
             icon: '💰',
@@ -94,17 +96,17 @@ export default function BusinessStatus() {
     ];
 
     if (loading) {
-        return <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-300)' }}>{ContentRegistry.BUSINESS_STATUS.INITIALIZING}</div>;
+        return <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-300)' }}>{t(ContentRegistry.BUSINESS_STATUS.INITIALIZING)}</div>;
     }
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
             <div style={{ marginBottom: '3rem' }}>
                 <h1 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#111827', margin: 0 }}>
-                    {ContentRegistry.BUSINESS_STATUS.TITLE}
+                    {t(ContentRegistry.BUSINESS_STATUS.TITLE)}
                 </h1>
                 <p style={{ fontSize: '1.125rem', color: '#6b7280', marginTop: '0.5rem' }}>
-                    {ContentRegistry.BUSINESS_STATUS.SUBTITLE}
+                    {t(ContentRegistry.BUSINESS_STATUS.SUBTITLE)}
                 </p>
             </div>
 
@@ -223,11 +225,11 @@ export default function BusinessStatus() {
 
             {/* Quick Actions Footer */}
             <div style={{ marginTop: '4rem', padding: '2rem', background: '#f9fafb', borderRadius: '1.5rem', textAlign: 'center' }}>
-                <h4 style={{ fontWeight: '800', marginBottom: '1rem' }}>{ContentRegistry.BUSINESS_STATUS.FOOTER.TITLE}</h4>
+                <h4 style={{ fontWeight: '800', marginBottom: '1rem' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.TITLE)}</h4>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-                    <Link to={RouteRegistry.USERS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{ContentRegistry.BUSINESS_STATUS.FOOTER.VIEW_STAFF}</Link>
-                    <Link to={RouteRegistry.LEADS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{ContentRegistry.BUSINESS_STATUS.FOOTER.MANAGE_LEADS}</Link>
-                    <Link to={RouteRegistry.SCHEDULE} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{ContentRegistry.BUSINESS_STATUS.FOOTER.DISPATCH_SHIFTS}</Link>
+                    <Link to={RouteRegistry.USERS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.VIEW_STAFF)}</Link>
+                    <Link to={RouteRegistry.LEADS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.MANAGE_LEADS)}</Link>
+                    <Link to={RouteRegistry.SCHEDULE} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.DISPATCH_SHIFTS)}</Link>
                 </div>
             </div>
         </div>

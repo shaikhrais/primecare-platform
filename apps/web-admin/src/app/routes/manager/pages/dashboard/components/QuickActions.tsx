@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -35,14 +36,14 @@ export const QuickActions: React.FC = () => {
     return (
         <>
             <h2 data-cy="section.quick-actions" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
-                {ContentRegistry.MANAGER_DASHBOARD.QUICK_ACTIONS}
+                {t(ContentRegistry.MANAGER_DASHBOARD.QUICK_ACTIONS)}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                <QuickActionCard label={ContentRegistry.MANAGER_DASHBOARD.ACTIONS.DAILY_CARE} icon="📝" onClick={() => navigate(RouteRegistry.MANAGER.DAILY_ENTRY)} dataCy="qa-daily-entry" />
-                <QuickActionCard label={ContentRegistry.MANAGER_DASHBOARD.ACTIONS.STAFF_EVAL} icon="📋" onClick={() => navigate(RouteRegistry.MANAGER.EVALUATIONS)} dataCy="qa-evaluations" />
-                <QuickActionCard label={ContentRegistry.MANAGER_DASHBOARD.ACTIONS.SERVICE_REVIEW} icon="⭐" onClick={() => navigate(RouteRegistry.MANAGER.SERVICE_REVIEW)} dataCy="qa-service-reviews" />
-                <QuickActionCard label={ContentRegistry.MANAGER_DASHBOARD.ACTIONS.LOG_INCIDENT} icon="⚠️" onClick={() => navigate(RouteRegistry.INCIDENTS)} dataCy="qa-log-incident" />
-                <QuickActionCard label={ContentRegistry.MANAGER_DASHBOARD.ACTIONS.VIEW_CLIENTS} icon="👥" onClick={() => navigate(RouteRegistry.STAFF.CUSTOMERS)} dataCy="qa-view-clients" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.DAILY_CARE)} icon="📝" onClick={() => navigate(RouteRegistry.MANAGER.DAILY_ENTRY)} dataCy="qa-daily-entry" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.STAFF_EVAL)} icon="📋" onClick={() => navigate(RouteRegistry.MANAGER.EVALUATIONS)} dataCy="qa-evaluations" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.SERVICE_REVIEW)} icon="⭐" onClick={() => navigate(RouteRegistry.MANAGER.SERVICE_REVIEW)} dataCy="qa-service-reviews" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.LOG_INCIDENT)} icon="⚠️" onClick={() => navigate(RouteRegistry.INCIDENTS)} dataCy="qa-log-incident" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.VIEW_CLIENTS)} icon="👥" onClick={() => navigate(RouteRegistry.STAFF.CUSTOMERS)} dataCy="qa-view-clients" />
             </div>
         </>
     );
