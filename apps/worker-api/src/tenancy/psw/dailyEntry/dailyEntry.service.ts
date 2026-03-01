@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../client/edge';
+import { PrismaClient } from '../../../../generated/client/edge';
 
 export class DailyEntryService {
     constructor(private prisma: any) { }

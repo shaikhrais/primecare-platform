@@ -3,7 +3,7 @@ import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 import { requirePermission } from '../../../_shared/middleware/rbac';
 import { requireClientAssignedToPSW } from '../../../_shared/middleware/ownership';
-import { logAudit } from '../../../utils/audit';
+import { logAudit } from '../../../_shared/utils/audit';
 import { DailyEntryService } from './dailyEntry.service';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

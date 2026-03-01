@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../../../client/edge';
+import { PrismaClient } from '../../../../../../generated/client/edge';
 
 export const getIncidentStats = async (prisma: any) => {
     const sixMonthsAgo = new Date();

@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import Stripe from 'stripe';
 import { Bindings, Variables } from '../../../bindings';
-import { logAudit } from '../../../utils/audit';
+import { logAudit } from '../../../_shared/utils/audit';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

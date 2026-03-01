@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
-import { logAudit } from '../../../utils/audit';
+import { logAudit } from '../../../_shared/utils/audit';
 import { AdminUserService } from './users.service';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
