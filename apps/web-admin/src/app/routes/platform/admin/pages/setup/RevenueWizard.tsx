@@ -27,7 +27,7 @@ export default function RevenueWizard() {
             });
             if (response.ok) {
                 showToast(ContentRegistry.REVENUE_WIZARD.SUCCESS, 'success');
-                navigate(RouteRegistry.BUSINESS_STATUS);
+                navigate(RouteRegistry.ADMIN.BUSINESS_STATUS);
             } else {
                 showToast('Failed to save settings', 'error');
             }
@@ -123,7 +123,7 @@ export default function RevenueWizard() {
             </div>
 
             <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <button onClick={() => navigate(RouteRegistry.BUSINESS_STATUS)} style={{ color: '#6b7280', fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer' }}>Skip setup</button>
+                <button onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ color: '#6b7280', fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer' }}>Skip setup</button>
                 <button
                     onClick={handleSaveRevenue}
                     disabled={loading}

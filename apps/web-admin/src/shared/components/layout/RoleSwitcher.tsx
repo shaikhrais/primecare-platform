@@ -72,7 +72,7 @@ export default function RoleSwitcher() {
                 setIsOpen(false);
 
                 const { RouteRegistry } = AdminRegistry;
-                const targetPath = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.DASHBOARD;
+                const targetPath = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
                 navigate(targetPath);
             }
         } catch (err) {

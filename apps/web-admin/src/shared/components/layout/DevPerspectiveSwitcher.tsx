@@ -56,7 +56,7 @@ export default function DevPerspectiveSwitcher() {
             const updatedUser = { ...currentUser, activeRole: targetRole };
             localStorage.setItem('user', JSON.stringify(updatedUser));
 
-            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.DASHBOARD;
+            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
             navigate(target);
             setIsOpen(false);
         } finally {
@@ -76,7 +76,7 @@ export default function DevPerspectiveSwitcher() {
                 }
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));
-                window.location.href = RouteRegistry.DASHBOARD;
+                window.location.href = RouteRegistry.ADMIN.DASHBOARD;
             }
         } catch (err) {
             console.error('Impersonation failed', err);
@@ -93,7 +93,7 @@ export default function DevPerspectiveSwitcher() {
             localStorage.setItem('token', originalToken);
             sessionStorage.removeItem('originalAdmin');
             sessionStorage.removeItem('originalToken');
-            window.location.href = RouteRegistry.DASHBOARD;
+            window.location.href = RouteRegistry.ADMIN.DASHBOARD;
         }
     };
 

@@ -31,7 +31,7 @@ export default function RolesList() {
                 </div>
                 <button
                     data-cy="btn-new-role"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.USERS_NEW)}
+                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.USERS_NEW)}
                     style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >
                     + New Role

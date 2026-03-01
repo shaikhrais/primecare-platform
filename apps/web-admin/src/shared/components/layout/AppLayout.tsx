@@ -46,7 +46,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
         }
 
         if (roleGated && !roleGated.includes(role)) {
-            navigate(RouteRegistry.DASHBOARD);
+            navigate(RouteRegistry.ADMIN.DASHBOARD);
         }
     }, [navigate, role, roleGated]);
 

@@ -237,10 +237,10 @@ export default function BusinessSetupWizard() {
                         <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>🎉</div>
                         <h2 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '1rem' }}>{t(ContentRegistry.SETUP_WIZARD.SUCCESS.TITLE)}</h2>
                         <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '2.5rem' }}>{t(ContentRegistry.SETUP_WIZARD.SUCCESS.MESSAGE)}</p>
-                        <button onClick={() => navigate(RouteRegistry.SCHEDULE)} style={{ width: '100%', padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '1rem', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
+                        <button onClick={() => navigate(RouteRegistry.ADMIN.SCHEDULE)} style={{ width: '100%', padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '1rem', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
                             Go to Schedule & Start Booking
                         </button>
-                        <button onClick={() => navigate(RouteRegistry.DASHBOARD)} style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'transparent', color: '#6b7280', fontWeight: '600', borderRadius: '1rem', border: 'none', cursor: 'pointer' }}>
+                        <button onClick={() => navigate(RouteRegistry.ADMIN.DASHBOARD)} style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'transparent', color: '#6b7280', fontWeight: '600', borderRadius: '1rem', border: 'none', cursor: 'pointer' }}>
                             Back to Dashboard
                         </button>
                     </div>

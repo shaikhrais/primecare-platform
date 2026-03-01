@@ -22,7 +22,7 @@ export const VisitVolumeChart = React.memo(({ data, isDemo }: Props) => {
 
     const handleClick = (data: any) => {
         // Drill down to schedule
-        navigate(`${RouteRegistry.SCHEDULE}?view=week`);
+        navigate(`${RouteRegistry.ADMIN.SCHEDULE}?view=week`);
     };
 
     return (

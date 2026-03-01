@@ -52,7 +52,7 @@ export default function Register() {
                 const data = await loginResponse.json();
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                navigate(RouteRegistry.DASHBOARD);
+                navigate(RouteRegistry.ADMIN.DASHBOARD);
             } else {
                 // If auto-login fails, redirect to login page
                 navigate(`${RouteRegistry.LOGIN}?role=${roleParam}`);

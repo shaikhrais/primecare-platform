@@ -48,7 +48,7 @@ export default function ExpenseReportForm() {
             if (response.ok) {
                 showToast('Expense report submitted!', 'success');
                 setIsDirty(false);
-                navigate(AdminRegistry.RouteRegistry.EARNINGS);
+                navigate(AdminRegistry.RouteRegistry.ADMIN.EARNINGS);
             } else {
                 showToast('Failed to submit expense', 'error');
             }

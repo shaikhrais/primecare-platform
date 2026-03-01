@@ -66,7 +66,7 @@ export default function Login() {
         const userWithActiveRole = { ...user, activeRole };
         login(userWithActiveRole, token);
 
-        const target = RouteRegistry.ROLE_DASHBOARDS[activeRole] || RouteRegistry.DASHBOARD;
+        const target = RouteRegistry.ROLE_DASHBOARDS[activeRole] || RouteRegistry.ADMIN.DASHBOARD;
         navigate(target);
     };
 

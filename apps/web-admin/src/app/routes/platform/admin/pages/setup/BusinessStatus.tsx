@@ -51,7 +51,7 @@ export default function BusinessStatus() {
             icon: '🚀',
             color: '#4f46e5',
             action: 'Update Strategy',
-            route: RouteRegistry.BUSINESS_MODEL_WIZARD
+            route: RouteRegistry.ADMIN.BUSINESS_MODEL_WIZARD
         },
         {
             id: 'services',
@@ -71,7 +71,7 @@ export default function BusinessStatus() {
             icon: '👥',
             color: '#10b981',
             action: 'Add Provider',
-            route: RouteRegistry.STAFF_ONBOARDING
+            route: RouteRegistry.ADMIN.STAFF_ONBOARDING
         },
         {
             id: 'clients',
@@ -227,9 +227,9 @@ export default function BusinessStatus() {
             <div style={{ marginTop: '4rem', padding: '2rem', background: '#f9fafb', borderRadius: '1.5rem', textAlign: 'center' }}>
                 <h4 style={{ fontWeight: '800', marginBottom: '1rem' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.TITLE)}</h4>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-                    <Link to={RouteRegistry.USERS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.VIEW_STAFF)}</Link>
-                    <Link to={RouteRegistry.LEADS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.MANAGE_LEADS)}</Link>
-                    <Link to={RouteRegistry.SCHEDULE} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.DISPATCH_SHIFTS)}</Link>
+                    <Link to={RouteRegistry.ADMIN.USERS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.VIEW_STAFF)}</Link>
+                    <Link to={RouteRegistry.ADMIN.LEADS} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.MANAGE_LEADS)}</Link>
+                    <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ color: '#4f46e5', fontWeight: '600', textDecoration: 'none' }}>{t(ContentRegistry.BUSINESS_STATUS.FOOTER.DISPATCH_SHIFTS)}</Link>
                 </div>
             </div>
         </div>

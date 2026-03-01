@@ -81,7 +81,7 @@ export default function UserEntryForm() {
             if (response.ok) {
                 showToast(id ? t(ContentRegistry.USERS.FORM.SUCCESS_UPDATE) : t(ContentRegistry.USERS.FORM.SUCCESS_CREATE), 'success');
                 setIsDirty(false);
-                navigate(RouteRegistry.USERS);
+                navigate(RouteRegistry.ADMIN.USERS);
             } else {
                 showToast(ContentRegistry.USERS.FORM.ERROR_ACTION, 'error');
             }

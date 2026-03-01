@@ -75,7 +75,7 @@ export default function TimesheetList() {
                             >
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-service-provider">
                                     <Link
-                                        to={`${RouteRegistry.USERS}?search=${ts.psw?.email}`}
+                                        to={`${RouteRegistry.ADMIN.USERS}?search=${ts.psw?.email}`}
                                         onClick={(e) => e.stopPropagation()}
                                         style={{ color: '#00875A', fontWeight: 600, textDecoration: 'none' }}
                                     >

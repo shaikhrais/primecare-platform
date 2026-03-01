@@ -110,7 +110,7 @@ export default function CarePlanWizard() {
                         </div>
                     </div>
                     <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                        <button type="button" onClick={() => navigate(RouteRegistry.BUSINESS_STATUS)} style={{ padding: '0.875rem 1.75rem', borderRadius: '1rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>Cancel</button>
+                        <button type="button" onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ padding: '0.875rem 1.75rem', borderRadius: '1rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>Cancel</button>
                         <button type="submit" disabled={loading} style={{ padding: '0.875rem 2.5rem', background: '#004d40', color: 'white', fontWeight: '800', borderRadius: '1rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0,77,64,0.39)' }}>
                             {loading ? t(ContentRegistry.CARE_WIZARD.FORM.ADMITTING) : t(ContentRegistry.CARE_WIZARD.FORM.NEXT_BTN)}
                         </button>
@@ -162,7 +162,7 @@ export default function CarePlanWizard() {
                         ))}
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <button onClick={() => navigate(RouteRegistry.BUSINESS_STATUS)} style={{ padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: '900', borderRadius: '1.25rem', border: 'none', cursor: 'pointer', fontSize: '1.125rem', boxShadow: '0 10px 15px -3px rgba(0, 77, 64, 0.4)' }}>
+                        <button onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: '900', borderRadius: '1.25rem', border: 'none', cursor: 'pointer', fontSize: '1.125rem', boxShadow: '0 10px 15px -3px rgba(0, 77, 64, 0.4)' }}>
                             {t(ContentRegistry.CARE_WIZARD.FORM.SUBMIT_BTN)}
                         </button>
                         <button onClick={() => setStep(1)} style={{ padding: '1rem', background: 'transparent', color: '#6b7280', fontWeight: '600', border: 'none', cursor: 'pointer' }}>Restart Wizard</button>

@@ -79,7 +79,7 @@ export default function IncidentList() {
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">{t(ContentRegistry.INCIDENTS.TITLE)}</h2>
                 <button
                     data-cy="btn.incident.report"
-                    onClick={() => navigate(RouteRegistry.INCIDENTS_NEW)}
+                    onClick={() => navigate(RouteRegistry.ADMIN.INCIDENTS_NEW)}
                     style={{ padding: '0.625rem 1.25rem', backgroundColor: '#e11d48', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {t(ContentRegistry.INCIDENTS.ADD_BTN)}
@@ -102,7 +102,7 @@ export default function IncidentList() {
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
                                 <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">
                                     <Link
-                                        to={`${AdminRegistry.RouteRegistry.USERS}?search=${incident.reporter?.email}`}
+                                        to={`${AdminRegistry.RouteRegistry.ADMIN.USERS}?search=${incident.reporter?.email}`}
                                         style={{ color: '#00875A', textDecoration: 'none', fontWeight: 500 }}
                                     >
                                         {incident.reporter?.email}

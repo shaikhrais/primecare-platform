@@ -228,7 +228,6 @@ export const AppRouter: React.FC = () => {
                             <Route path="evaluations" element={<Evaluations />} />
                             <Route path="service-review" element={<ServiceReview />} />
                             <Route path=":category" element={<ManagerDashboard />} />
-                            <Route index element={<Portfolio />} />
                         </Route>
 
                         {/* STAFF PORTAL */}
@@ -269,7 +268,6 @@ export const AppRouter: React.FC = () => {
                             <Route path="audit-logs" element={<PlatformAuditLogs />} />
                             <Route path="sla" element={<SLAMonitoring />} />
                             <Route path="risk-surveillance" element={<RiskSurveillanceDashboard />} />
-                            <Route index element={<PlatformDashboard />} />
                         </Route>
 
                         {/* SHARED PROTECTED ROUTES */}

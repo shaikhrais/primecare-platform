@@ -28,7 +28,7 @@ export default function LeadEntryForm() {
         setTimeout(() => {
             showToast(ContentRegistry.LEADS.FORM.SUCCESS_MSG, 'success');
             setIsDirty(false);
-            navigate(RouteRegistry.LEADS);
+            navigate(RouteRegistry.ADMIN.LEADS);
             setSubmitting(false);
         }, 800);
     };

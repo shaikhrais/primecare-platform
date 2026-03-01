@@ -95,7 +95,7 @@ export default function LeadsPage() {
                     <p style={{ color: '#6b7280', marginTop: '0.25rem' }}>{t(ContentRegistry.LEADS.SUBTITLE)}</p>
                 </div>
                 <button
-                    onClick={() => navigate(RouteRegistry.LEADS_NEW)}
+                    onClick={() => navigate(RouteRegistry.ADMIN.LEADS_NEW)}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                     data-cy="btn-new-lead"
                 >

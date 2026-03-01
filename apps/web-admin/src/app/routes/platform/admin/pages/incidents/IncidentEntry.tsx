@@ -41,7 +41,7 @@ export default function IncidentEntryForm() {
             if (response.ok) {
                 showToast(ContentRegistry.INCIDENTS.FORM.SUCCESS_MSG, 'success');
                 setIsDirty(false);
-                navigate(RouteRegistry.INCIDENTS);
+                navigate(RouteRegistry.ADMIN.INCIDENTS);
             } else {
                 showToast(ContentRegistry.INCIDENTS.FORM.ERROR_MSG, 'error');
             }

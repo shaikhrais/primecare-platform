@@ -48,7 +48,7 @@ export default function CustomerList() {
                 </div>
                 <button
                     data-cy="btn-admit-client"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMISSION)}
+                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.ADMISSION)}
                     style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >
                     + Admit New Client
@@ -61,7 +61,7 @@ export default function CustomerList() {
                     <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#dcfce7', color: '#166534', borderRadius: '9999px', fontSize: '0.875rem' }}>
                         Status: {searchParams.get('status')}
                     </span>
-                    <button onClick={() => navigate(AdminRegistry.RouteRegistry.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>Clear All</button>
+                    <button onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>Clear All</button>
                 </div>
             )}
 

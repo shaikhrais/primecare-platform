@@ -43,7 +43,7 @@ export const QuickActions: React.FC = () => {
                 <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.DAILY_CARE)} icon="📝" onClick={() => navigate(RouteRegistry.MANAGER.DAILY_ENTRY)} dataCy="qa-daily-entry" />
                 <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.STAFF_EVAL)} icon="📋" onClick={() => navigate(RouteRegistry.MANAGER.EVALUATIONS)} dataCy="qa-evaluations" />
                 <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.SERVICE_REVIEW)} icon="⭐" onClick={() => navigate(RouteRegistry.MANAGER.SERVICE_REVIEW)} dataCy="qa-service-reviews" />
-                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.LOG_INCIDENT)} icon="⚠️" onClick={() => navigate(RouteRegistry.INCIDENTS)} dataCy="qa-log-incident" />
+                <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.LOG_INCIDENT)} icon="⚠️" onClick={() => navigate(RouteRegistry.ADMIN.INCIDENTS)} dataCy="qa-log-incident" />
                 <QuickActionCard label={t(ContentRegistry.MANAGER_DASHBOARD.ACTIONS.VIEW_CLIENTS)} icon="👥" onClick={() => navigate(RouteRegistry.STAFF.CUSTOMERS)} dataCy="qa-view-clients" />
             </div>
         </>

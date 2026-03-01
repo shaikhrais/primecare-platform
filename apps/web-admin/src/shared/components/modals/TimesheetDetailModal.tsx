@@ -42,7 +42,7 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
                 <div style={{ marginBottom: '2rem', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.75rem' }}>
                     <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.5rem' }}>Service Provider</div>
                     <div style={{ fontSize: '1.125rem', fontWeight: 600, color: '#111827' }}>
-                        <Link to={`${RouteRegistry.USERS}?search=${timesheet.psw?.email}`} style={{ color: '#00875A', textDecoration: 'none' }}>
+                        <Link to={`${RouteRegistry.ADMIN.USERS}?search=${timesheet.psw?.email}`} style={{ color: '#00875A', textDecoration: 'none' }}>
                             {timesheet.psw?.fullName} →
                         </Link>
                     </div>
@@ -58,7 +58,7 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
                                 <span style={{ color: '#6b7280' }}>{shift.hours} hrs</span>
                             </div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                Client: <Link to={`${RouteRegistry.USERS}?role=client`} style={{ color: '#00875A' }}>{shift.clientName || 'Unknown'}</Link>
+                                Client: <Link to={`${RouteRegistry.ADMIN.USERS}?role=client`} style={{ color: '#00875A' }}>{shift.clientName || 'Unknown'}</Link>
                             </div>
                         </div>
                     )) : (

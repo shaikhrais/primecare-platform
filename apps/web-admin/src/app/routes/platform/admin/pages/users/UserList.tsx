@@ -116,7 +116,7 @@ export default function UserList() {
     };
 
     const handleEdit = (user: User) => {
-        navigate(`/admin/users/${user.id}/edit`);
+        navigate(RouteRegistry.ADMIN.USERS_EDIT(user.id));
     };
 
 
@@ -126,7 +126,7 @@ export default function UserList() {
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.USERS.TITLE)}</h2>
                 <button
                     data-cy="btn.user.add"
-                    onClick={() => navigate(RouteRegistry.USERS_NEW)}
+                    onClick={() => navigate(RouteRegistry.ADMIN.USERS_NEW)}
                     style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                 >
                     {t(ContentRegistry.USERS.ADD_BTN)}
@@ -147,7 +147,7 @@ export default function UserList() {
                             {t(ContentRegistry.USERS.STATUS)}: {searchParams.get('status')}
                         </span>
                     )}
-                    <button onClick={() => navigate(RouteRegistry.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>
+                    <button onClick={() => navigate(RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>
                         {t(ContentRegistry.USERS.CLEAR_FILTERS)}
                     </button>
                 </div>

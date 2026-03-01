@@ -72,7 +72,7 @@ export default function AdminDashboard() {
                         <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TITLE)}</h2>
                         <p style={{ opacity: 0.9 }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.SUBTITLE)}</p>
                     </div>
-                    <Link to={RouteRegistry.BUSINESS_STATUS}>
+                    <Link to={RouteRegistry.ADMIN.BUSINESS_STATUS}>
                         <button style={{
                             padding: '1rem 2rem',
                             background: 'white',
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
                         }} />
                     </div>
                     <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.75rem' }}>
-                        Complete your <Link to={RouteRegistry.BUSINESS_MODEL_WIZARD} style={{ color: '#4f46e5', fontWeight: '600' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_LINK)}</Link> {t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_DESC)}
+                        Complete your <Link to={RouteRegistry.ADMIN.BUSINESS_MODEL_WIZARD} style={{ color: '#4f46e5', fontWeight: '600' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_LINK)}</Link> {t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.STRATEGY_DESC)}
                     </p>
                 </div>
             </div>

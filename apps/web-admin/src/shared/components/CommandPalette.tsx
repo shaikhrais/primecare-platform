@@ -27,16 +27,16 @@ export const CommandPalette: React.FC = () => {
     // Initial Commands (We can expand this to be dynamic later)
     const commands: Command[] = useMemo(() => [
         // Navigation
-        { id: 'nav-home', label: 'Go to Dashboard', category: 'Navigation', icon: '🏠', action: () => navigate(RouteRegistry.DASHBOARD) },
-        { id: 'nav-users', label: 'Go to Users', category: 'Navigation', icon: '👥', action: () => navigate(RouteRegistry.USERS) },
-        { id: 'nav-leads', label: 'Go to Leads', category: 'Navigation', icon: '📥', action: () => navigate(RouteRegistry.LEADS) },
-        { id: 'nav-schedule', label: 'Go to Schedule', category: 'Navigation', icon: '📅', action: () => navigate(RouteRegistry.SCHEDULE) },
-        { id: 'nav-earnings', label: 'Go to Earnings', category: 'Navigation', icon: '💰', action: () => navigate(RouteRegistry.EARNINGS) },
-        { id: 'nav-settings', label: 'Go to Settings', category: 'Navigation', icon: '⚙️', action: () => navigate(RouteRegistry.SETTINGS) },
+        { id: 'nav-home', label: 'Go to Dashboard', category: 'Navigation', icon: '🏠', action: () => navigate(RouteRegistry.ADMIN.DASHBOARD) },
+        { id: 'nav-users', label: 'Go to Users', category: 'Navigation', icon: '👥', action: () => navigate(RouteRegistry.ADMIN.USERS) },
+        { id: 'nav-leads', label: 'Go to Leads', category: 'Navigation', icon: '📥', action: () => navigate(RouteRegistry.ADMIN.LEADS) },
+        { id: 'nav-schedule', label: 'Go to Schedule', category: 'Navigation', icon: '📅', action: () => navigate(RouteRegistry.ADMIN.SCHEDULE) },
+        { id: 'nav-earnings', label: 'Go to Earnings', category: 'Navigation', icon: '💰', action: () => navigate(RouteRegistry.ADMIN.EARNINGS) },
+        { id: 'nav-settings', label: 'Go to Settings', category: 'Navigation', icon: '⚙️', action: () => navigate(RouteRegistry.ADMIN.SETTINGS) },
 
         // Actions (Mock for now)
-        { id: 'act-new-visit', label: 'Create New Visit', category: 'Action', icon: '➕', action: () => { navigate(RouteRegistry.SCHEDULE); close(); } },
-        { id: 'act-new-user', label: 'Invite New User', category: 'Action', icon: '✉️', action: () => { navigate(RouteRegistry.USERS); close(); } },
+        { id: 'act-new-visit', label: 'Create New Visit', category: 'Action', icon: '➕', action: () => { navigate(RouteRegistry.ADMIN.SCHEDULE); close(); } },
+        { id: 'act-new-user', label: 'Invite New User', category: 'Action', icon: '✉️', action: () => { navigate(RouteRegistry.ADMIN.USERS); close(); } },
 
     ], [navigate, close]);
 

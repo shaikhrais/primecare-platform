@@ -51,7 +51,7 @@ export default function PswOnboardingForm() {
             if (response.ok) {
                 showToast('PSW onboarded successfully!', 'success');
                 setIsDirty(false);
-                navigate(AdminRegistry.RouteRegistry.USERS);
+                navigate(AdminRegistry.RouteRegistry.ADMIN.USERS);
             } else {
                 showToast('Failed to onboard PSW', 'error');
             }

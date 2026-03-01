@@ -120,7 +120,7 @@ export default function SettingsPage() {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <button
                             data-cy="btn.nav.roles"
-                            onClick={() => navigate(AdminRegistry.RouteRegistry.USERS)}
+                            onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.USERS)}
                             style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
                         >
                             <div style={{ fontWeight: '600' }}>Role Permissions</div>
@@ -128,7 +128,7 @@ export default function SettingsPage() {
                         </button>
                         <button
                             data-cy="btn.nav.templates"
-                            onClick={() => navigate(AdminRegistry.RouteRegistry.CONTENT)}
+                            onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.CONTENT)}
                             style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer', textAlign: 'left' }}
                         >
                             <div style={{ fontWeight: '600' }}>Message Templates</div>

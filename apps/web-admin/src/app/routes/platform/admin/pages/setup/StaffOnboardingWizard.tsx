@@ -150,7 +150,7 @@ export default function StaffOnboardingWizard() {
                         They can now be assigned to shifts once their documents are verified.
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <button onClick={() => navigate(RouteRegistry.BUSINESS_STATUS)} style={{ padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '1rem', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
+                        <button onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '1rem', border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
                             Return to Command Center
                         </button>
                         <button onClick={() => { setStep(1); setFormData({ fullName: '', email: '', role: 'psw', sin: '' }); }} style={{ padding: '1rem', background: 'transparent', color: '#004d40', fontWeight: '700', borderRadius: '1rem', border: 'none', cursor: 'pointer' }}>
