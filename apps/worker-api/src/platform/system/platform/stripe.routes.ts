@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
-import { StripeService } from '../../../services/stripe';
+import { StripeService } from '../../../_shared/services/stripe';
 
 const stripeRoutes = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
