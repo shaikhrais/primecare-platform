@@ -108,10 +108,10 @@ export default function AdminDashboard() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }} data-cy="stats-cards">
                 {[
-                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_USERS), value: stats.totalUsers, icon: '👥', link: `${RouteRegistry.USERS}?role=psw` },
-                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.NEW_INQUIRIES), value: stats.totalLeads, icon: '📥', link: `${RouteRegistry.LEADS}?status=new` },
-                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.PENDING_VISITS), value: stats.pendingVisits, icon: '📝', link: `${RouteRegistry.SCHEDULE}` },
-                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_VISITS), value: stats.totalVisits, icon: '📋', link: `${RouteRegistry.SCHEDULE}` },
+                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_USERS), value: stats.totalUsers, icon: '👥', link: `${RouteRegistry.ADMIN.USERS}?role=psw` },
+                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.NEW_INQUIRIES), value: stats.totalLeads, icon: '📥', link: `${RouteRegistry.ADMIN.LEADS}?status=new` },
+                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.PENDING_VISITS), value: stats.pendingVisits, icon: '📝', link: `${RouteRegistry.ADMIN.SCHEDULE}` },
+                    { label: t(ContentRegistry.ADMIN_DASHBOARD.STATS.TOTAL_VISITS), value: stats.totalVisits, icon: '📋', link: `${RouteRegistry.ADMIN.SCHEDULE}` },
                 ].map((card, index) => (
                     <Link key={index} to={card.link} style={{ textDecoration: 'none' }}>
                         <div className="pc-card" data-cy={`stat-card-${card.label.toLowerCase().replace(/\s+/g, '-')}`} style={{
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
                         <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#9B2C2C' }}>{(stats as any).healthAlerts?.complianceRisk || 0}</div>
                         <div style={{ fontSize: '0.75rem', color: '#E53E3E' }}>{t(ContentRegistry.HEALTH_ALERTS.COMPLIANCE.DESC)}</div>
                     </div>
-                    <Link to={RouteRegistry.STAFF_ONBOARDING} style={{ marginLeft: 'auto' }}>
+                    <Link to={RouteRegistry.ADMIN.STAFF_ONBOARDING} style={{ marginLeft: 'auto' }}>
                         <button style={{ background: '#C53030', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>Fix</button>
                     </Link>
                 </div>
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
                         <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#92400E' }}>{(stats as any).healthAlerts?.coverageGap || 0}</div>
                         <div style={{ fontSize: '0.75rem', color: '#B45309' }}>{t(ContentRegistry.HEALTH_ALERTS.COVERAGE.DESC)}</div>
                     </div>
-                    <Link to={RouteRegistry.SCHEDULE} style={{ marginLeft: 'auto' }}>
+                    <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ marginLeft: 'auto' }}>
                         <button style={{ background: '#D97706', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>View</button>
                     </Link>
                 </div>
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
                         <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#276749' }}>{(stats as any).healthAlerts?.pipelineStagnation || 0}</div>
                         <div style={{ fontSize: '0.75rem', color: '#2F855A' }}>{t(ContentRegistry.HEALTH_ALERTS.PIPELINE.DESC)}</div>
                     </div>
-                    <Link to={RouteRegistry.LEADS} style={{ marginLeft: 'auto' }}>
+                    <Link to={RouteRegistry.ADMIN.LEADS} style={{ marginLeft: 'auto' }}>
                         <button style={{ background: '#38A169', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>Action</button>
                     </Link>
                 </div>
@@ -203,25 +203,25 @@ export default function AdminDashboard() {
                     </div>
                     <div className="pc-card-b">
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
-                            <Link to={RouteRegistry.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
+                            <Link to={RouteRegistry.ADMIN.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.USERS.TITLE)}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.CHECK_CERTS)}</div>
                                 </button>
                             </Link>
-                            <Link to={RouteRegistry.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
+                            <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_SCHEDULE)}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.MANAGE_ASSIGNMENTS)}</div>
                                 </button>
                             </Link>
-                            <Link to={RouteRegistry.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
+                            <Link to={RouteRegistry.ADMIN.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.REVIEW_LEADS)}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.RESPOND_INQUIRIES)}</div>
                                 </button>
                             </Link>
-                            <Link to={RouteRegistry.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
+                            <Link to={RouteRegistry.ADMIN.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
                                 <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                                     <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.SYSTEM_CONFIG)}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.APP_ADJUSTS)}</div>

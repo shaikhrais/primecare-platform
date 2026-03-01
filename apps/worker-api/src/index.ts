@@ -32,7 +32,7 @@ app.use('*', cors({
         return 'https://primecare-admin.pages.dev';
     },
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status', 'x-tenant-id'],
     exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
     maxAge: 600,
     credentials: true,

@@ -97,8 +97,13 @@ export default function Schedule() {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
-            const filteredPsws = data.filter((u: any) => u.role === 'psw');
-            setPsws(filteredPsws);
+            if (Array.isArray(data)) {
+                const filteredPsws = data.filter((u: any) => u.role === 'psw');
+                setPsws(filteredPsws);
+            } else {
+                console.warn('fetchPsws: expected array but got:', data);
+                setPsws([]);
+            }
         } catch (err) {
             console.error(err);
         }
