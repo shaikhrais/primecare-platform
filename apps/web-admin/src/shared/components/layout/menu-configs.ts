@@ -26,10 +26,12 @@ export const adminMenu: MenuItem[] = [
     { label: 'Automation', path: RouteRegistry.ADMIN.AUTOPILOT, icon: '🤖' },
     { label: 'Growth Strategy', path: RouteRegistry.ADMIN.GROWTH_STRATEGY, icon: '📈' },
     { label: 'Knowledge Base', path: RouteRegistry.ADMIN.KNOWLEDGE_BASE, icon: '📚' },
-    { label: 'Reseller Hub', path: RouteRegistry.ADMIN.RESYLLER, icon: '🏢' },
-    { label: 'Private Market', path: RouteRegistry.PRIVATE_MARKETPLACE, icon: '🏪' },
+    { label: 'Reseller Hub', path: RouteRegistry.ADMIN.RESELLER, icon: '🏢' },
+    { label: 'Private Market', path: RouteRegistry.ADMIN.PRIVATE_MARKETPLACE, icon: '🏪' },
     { label: 'My Identity', path: RouteRegistry.ADMIN.SOVEREIGN, icon: '🆔' },
     { label: 'Public Marketplace', path: RouteRegistry.ADMIN.MARKETPLACE, icon: '🌐' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
+    { label: 'Developer Audit', path: RouteRegistry.ADMIN.DEV_KB, icon: '🛠️' },
 
     // Explicit Role-Based Knowledge Base Routes
     { label: 'KB: Super Admin', path: `${RouteRegistry.ADMIN.KNOWLEDGE_BASE}/role-super-admin`, icon: '🎭' },
@@ -60,9 +62,9 @@ export const platformMenu: MenuItem[] = [
     { label: 'Risk Surveillance', path: RouteRegistry.SUPERUSER.RISK_SURVEILLANCE, icon: '🛡️' },
     { label: 'Audit Logs', path: RouteRegistry.SUPERUSER.AUDIT_LOGS, icon: '📜' },
     { label: 'SLA Monitoring', path: RouteRegistry.SUPERUSER.SLA, icon: '🌐' },
-    { label: 'Tenants', path: RouteRegistry.TENANTS, icon: '🏢' },
-    { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-super-admin`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
+    { label: 'Developer Audit', path: RouteRegistry.ADMIN.DEV_KB, icon: '🛠️' },
 ];
 
 export const clientMenu: MenuItem[] = [
@@ -71,8 +73,8 @@ export const clientMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-client`, icon: '🎭' },
-    { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
     { label: ContentRegistry.MENU.SUPPORT, path: RouteRegistry.SUPPORT, icon: '💬' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const staffMenu: MenuItem[] = [
@@ -85,6 +87,7 @@ export const staffMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-staff`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const pswMenu: MenuItem[] = [
@@ -96,6 +99,7 @@ export const pswMenu: MenuItem[] = [
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-psw`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
     { label: ContentRegistry.MENU.HELP_DESK, path: RouteRegistry.SUPPORT, icon: '❓' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const rnMenu: MenuItem[] = [
@@ -105,6 +109,7 @@ export const rnMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-rn`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const managerMenu: MenuItem[] = [
@@ -115,6 +120,7 @@ export const managerMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-manager`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const coordinatorMenu: MenuItem[] = [
@@ -125,6 +131,7 @@ export const coordinatorMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.ADMIN.INCIDENTS, icon: '⚠️' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-coordinator`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const financeMenu: MenuItem[] = [
@@ -134,6 +141,7 @@ export const financeMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.REPORTS, path: RouteRegistry.ADMIN.REPORTS, icon: '📈' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-finance`, icon: '🎭' },
     { label: 'Knowledge Base', path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const getManagerRoleMenu = (role: string): MenuItem[] => {

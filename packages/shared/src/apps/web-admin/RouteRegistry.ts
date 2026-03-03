@@ -45,6 +45,7 @@ const TENANCY = {
 const PLATFORM = {
     ADMIN: {
         DASHBOARD: '/platform/admin',
+        CUSTOMERS: '/platform/admin/customers',
         USERS: '/platform/admin/users',
         USERS_NEW: '/platform/admin/users/new',
         USERS_EDIT: (id: string) => `/platform/admin/users/${id}/edit`,
@@ -77,7 +78,7 @@ const PLATFORM = {
         BUSINESS_MODEL_WIZARD: '/platform/admin/wizards/business-strategy',
         BUSINESS_STATUS: '/platform/admin/business-status',
         DEVELOPER: '/platform/admin/developer',
-        RESYLLER: '/platform/admin/reseller',
+        RESELLER: '/platform/admin/reseller',
         GROWTH_STRATEGY: '/platform/admin/strategy',
         KNOWLEDGE_BASE: '/platform/admin/knowledge-base',
         KNOWLEDGE_BASE_ARTICLE: (slug: string) => `/platform/admin/knowledge-base/${slug}`,
@@ -88,6 +89,7 @@ const PLATFORM = {
         SOVEREIGN: '/platform/admin/sovereign',
         TEMPLATE_EDITOR: '/platform/admin/template-editor',
         ROLE_EDITOR: '/platform/admin/role-editor',
+        DEV_KB: '/platform/admin/dev-kb',
         PRIVATE_MARKETPLACE: '/platform/admin/private-marketplace',
     },
     SUPERUSER: {
@@ -114,6 +116,7 @@ const SHARED = {
     SUPPORT_TICKETS_NEW: '/support/tickets/new',
     VISITS_DETAILS: (id: string) => `/visits/${id}`,
     VISITS_COMPLETE: (id: string) => `/visits/${id}/complete`,
+    LEARN: '/learn',
     KNOWLEDGE_BASE: '/knowledge-base',
     KNOWLEDGE_BASE_ARTICLE: (slug: string) => `/knowledge-base/${slug}`,
     NOT_FOUND: '/shared/404',
@@ -141,6 +144,7 @@ export const RouteRegistry = {
 
     ROLE_DASHBOARDS: {
         admin: PLATFORM.ADMIN.DASHBOARD,
+        reseller: PLATFORM.ADMIN.RESELLER,
         manager: TENANCY.MANAGER.DASHBOARD,
         marketing_manager: TENANCY.MANAGER.MARKETING,
         operations_manager: TENANCY.MANAGER.OPERATIONS,

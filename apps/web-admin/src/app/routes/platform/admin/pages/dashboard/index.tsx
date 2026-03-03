@@ -47,13 +47,32 @@ export default function AdminDashboard() {
 
     return (
         <div data-cy="page.container">
-            <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ margin: '0 0 6px 0', fontSize: '32px', color: 'var(--text)' }} data-cy="page.title">
-                    {user?.tenantId ? `Master Dashboard` : t(ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME)}
-                </h1>
-                <p style={{ margin: 0, opacity: 0.6 }} data-cy="page.subtitle">
-                    {user?.email} • Franchise Command Center
-                </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '32px', color: 'var(--text)' }} data-cy="page.title">
+                        {user?.tenantId ? `Master Dashboard` : t(ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME)}
+                    </h1>
+                    <p style={{ margin: 0, opacity: 0.6 }} data-cy="page.subtitle">
+                        {user?.email} • Franchise Command Center
+                    </p>
+                </div>
+                <Link to={RouteRegistry.ADMIN.DEV_KB}>
+                    <button style={{
+                        padding: '0.5rem 1rem',
+                        background: '#f3f4f6',
+                        color: '#4b5563',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '0.75rem',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem'
+                    }}>
+                        🛠️ Developer Audit
+                    </button>
+                </Link>
             </div>
 
             {/* Business Model Score & Setup Wizard Banner */}
@@ -72,19 +91,34 @@ export default function AdminDashboard() {
                         <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TITLE)}</h2>
                         <p style={{ opacity: 0.9 }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.SUBTITLE)}</p>
                     </div>
-                    <Link to={RouteRegistry.ADMIN.BUSINESS_STATUS}>
-                        <button style={{
-                            padding: '1rem 2rem',
-                            background: 'white',
-                            color: '#004d40',
-                            fontWeight: 'bold',
-                            border: 'none',
-                            borderRadius: '1rem',
-                            cursor: 'pointer'
-                        }}>
-                            {t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.ACTION)}
-                        </button>
-                    </Link>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <Link to={RouteRegistry.LEARN}>
+                            <button style={{
+                                padding: '1rem 2rem',
+                                background: 'rgba(255,255,255,0.1)',
+                                color: 'white',
+                                fontWeight: 'bold',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '1rem',
+                                cursor: 'pointer'
+                            }}>
+                                🎓 System Training
+                            </button>
+                        </Link>
+                        <Link to={RouteRegistry.ADMIN.BUSINESS_STATUS}>
+                            <button style={{
+                                padding: '1rem 2rem',
+                                background: 'white',
+                                color: '#004d40',
+                                fontWeight: 'bold',
+                                border: 'none',
+                                borderRadius: '1rem',
+                                cursor: 'pointer'
+                            }}>
+                                {t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.ACTION)}
+                            </button>
+                        </Link>
+                    </div>
                 </div>
 
                 <div style={{ background: 'white', padding: '1.5rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -272,6 +306,6 @@ export default function AdminDashboard() {
                     showToast(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.POST_SUCCESS, 'success');
                 }}
             />
-        </div>
+        </div >
     );
 }

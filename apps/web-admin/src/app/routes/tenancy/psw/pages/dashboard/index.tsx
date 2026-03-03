@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
@@ -159,22 +159,42 @@ export default function PswDashboard() {
                         {user?.email ? `${user.email} • Independent Provider` : t(ContentRegistry.PSW_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <button
-                    data-cy="btn-view-all-shifts"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
-                    style={{
-                        padding: '12px 24px',
-                        backgroundColor: '#000000',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        width: isMobile ? '100%' : 'auto'
-                    }}
-                >
-                    {t(ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE)}
-                </button>
+                <div style={{ display: 'flex', gap: '12px', width: isMobile ? '100%' : 'auto' }}>
+                    <Link to={AdminRegistry.RouteRegistry.LEARN} style={{ flex: isMobile ? 1 : 'none' }}>
+                        <button style={{
+                            padding: '12px 24px',
+                            backgroundColor: '#FFFFFF',
+                            color: '#000000',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '8px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px'
+                        }}>
+                            🎓 Training
+                        </button>
+                    </Link>
+                    <button
+                        data-cy="btn-view-all-shifts"
+                        onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
+                        style={{
+                            padding: '12px 24px',
+                            backgroundColor: '#000000',
+                            color: '#FFFFFF',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            flex: isMobile ? 1 : 'none'
+                        }}
+                    >
+                        {t(ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE)}
+                    </button>
+                </div>
             </div>
 
             <PswStats chartData={chartData} />

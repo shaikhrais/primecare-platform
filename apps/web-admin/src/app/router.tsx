@@ -71,6 +71,9 @@ const FHIRCenter = React.lazy(() => import('./routes/platform/admin/pages/intero
 const SovereignWallet = React.lazy(() => import('./routes/platform/admin/pages/sovereign/SovereignWallet'));
 const Locations = React.lazy(() => import('./routes/platform/admin/pages/locations'));
 const RoleEditor = React.lazy(() => import('./routes/platform/admin/pages/role-editor'));
+const AdminCustomerList = React.lazy(() => import('./routes/platform/admin/pages/customers'));
+const TemplateEditor = React.lazy(() => import('./routes/platform/admin/pages/template-editor'));
+const DeveloperKBPage = React.lazy(() => import('./routes/platform/admin/pages/developer-kb'));
 
 // Manager Pages
 const ManagerDashboard = React.lazy(() => import('./routes/tenancy/manager/pages/dashboard'));
@@ -100,6 +103,7 @@ const PlatformDashboard = React.lazy(() => import('./routes/platform/pages/dashb
 const PlatformAuditLogs = React.lazy(() => import('./routes/platform/pages/audit-logs'));
 const SLAMonitoring = React.lazy(() => import('./routes/platform/pages/sla-monitoring'));
 const RiskSurveillanceDashboard = React.lazy(() => import('./routes/platform/superuser/super-admin/pages/RiskSurveillanceDashboard'));
+const TenantList = React.lazy(() => import('./routes/platform/pages/tenants'));
 
 // Client Pages
 const ClientDashboard = React.lazy(() => import('./routes/tenancy/client/pages/dashboard'));
@@ -115,6 +119,7 @@ const SupportTicket = React.lazy(() => import('./routes/shared/pages/support-tic
 const Messaging = React.lazy(() => import('./routes/shared/pages/messaging'));
 const VisitDetails = React.lazy(() => import('./routes/shared/pages/visit-details'));
 const VisitCompletion = React.lazy(() => import('./routes/shared/pages/visit-completion'));
+const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training'));
 
 // Fallback Loader
 const LoadingFallback = () => (
@@ -179,73 +184,79 @@ export const AppRouter: React.FC = () => {
                         {/* ADMIN PORTAL */}
                         <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
                             <Route index element={<AdminDashboard />} />
-                            <Route path="users" element={<UserList />} />
-                            <Route path="users/new" element={<UserEntry />} />
-                            <Route path="users/:id/edit" element={<UserEntry />} />
-                            <Route path="schedule" element={<Schedule />} />
-                            <Route path="earnings" element={<AdminEarningsPage />} />
-                            <Route path="incidents" element={<IncidentList />} />
-                            <Route path="incidents/new" element={<IncidentEntry />} />
-                            <Route path="timesheets" element={<Timesheets />} />
-                            <Route path="timesheets/adjust" element={<TimesheetAdjustment />} />
-                            <Route path="leads" element={<LeadsPage />} />
-                            <Route path="leads/new" element={<LeadEntryForm />} />
-                            <Route path="services" element={<Services />} />
-                            <Route path="settings" element={<Settings />} />
-                            <Route path="content" element={<ContentManager />} />
-                            <Route path="audits" element={<AuditLogs />} />
-                            <Route path="admission" element={<LeadAdmission />} />
-                            <Route path="onboarding" element={<Onboarding />} />
-                            <Route path="reports" element={<ReportCenter />} />
-                            <Route path="invoices/new" element={<InvoicesNew />} />
-                            <Route path="setup-wizard" element={<BusinessSetupWizard />} />
-                            <Route path="wizard-hub" element={<WizardHub />} />
-                            <Route path="wizards/staff-onboarding" element={<StaffOnboardingWizard />} />
-                            <Route path="wizards/care-plan" element={<CarePlanWizard />} />
-                            <Route path="wizards/revenue" element={<RevenueWizard />} />
-                            <Route path="wizards/business-strategy" element={<BusinessModelWizard />} />
-                            <Route path="business-status" element={<BusinessStatus />} />
-                            <Route path="developer" element={<DeveloperPortal />} />
-                            <Route path="marketplace" element={<Marketplace />} />
-                            <Route path="reseller" element={<ResellerDashboard />} />
-                            <Route path="private-marketplace" element={<PrivateMarketplace />} />
-                            <Route path="growth-strategy" element={<GrowthStrategy />} />
-                            <Route path="knowledge-base" element={<KnowledgeBaseIndex />} />
-                            <Route path="knowledge-base/:slug" element={<KnowledgeBaseArticle />} />
-                            <Route path="insights" element={<AIInsights />} />
-                            <Route path="clinical-assistant" element={<ClinicalAssistant />} />
-                            <Route path="automation/clinical-autopilot" element={<AutoPilotDashboard />} />
-                            <Route path="interop" element={<FHIRCenter />} />
-                            <Route path="sovereign" element={<SovereignWallet />} />
-                            <Route path="locations" element={<Locations />} />
-                            <Route path="role-editor" element={<RoleEditor />} />
+                            <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
+                            <Route path={RouteRegistry.ADMIN.USERS_NEW} element={<UserEntry />} />
+                            <Route path={RouteRegistry.ADMIN.USERS_EDIT(':id')} element={<UserEntry />} />
+                            <Route path={RouteRegistry.ADMIN.SCHEDULE} element={<Schedule />} />
+                            <Route path={RouteRegistry.ADMIN.EARNINGS} element={<AdminEarningsPage />} />
+                            <Route path={RouteRegistry.ADMIN.INCIDENTS} element={<IncidentList />} />
+                            <Route path={RouteRegistry.ADMIN.INCIDENTS_NEW} element={<IncidentEntry />} />
+                            <Route path={RouteRegistry.ADMIN.INCIDENTS_EDIT(':id')} element={<IncidentEntry />} />
+                            <Route path={RouteRegistry.ADMIN.TIMESHEETS} element={<Timesheets />} />
+                            <Route path={RouteRegistry.ADMIN.TIMESHEET_ADJUST} element={<TimesheetAdjustment />} />
+                            <Route path={RouteRegistry.ADMIN.LEADS} element={<LeadsPage />} />
+                            <Route path={RouteRegistry.ADMIN.LEADS_NEW} element={<LeadEntryForm />} />
+                            <Route path={RouteRegistry.ADMIN.LEADS_EDIT(':id')} element={<LeadEntryForm />} />
+                            <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
+                            <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
+                            <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />
+                            <Route path={RouteRegistry.ADMIN.AUDITS} element={<AuditLogs />} />
+                            <Route path={RouteRegistry.ADMIN.ADMISSION} element={<LeadAdmission />} />
+                            <Route path={RouteRegistry.ADMIN.ONBOARDING} element={<Onboarding />} />
+                            <Route path={RouteRegistry.ADMIN.REPORTS} element={<ReportCenter />} />
+                            <Route path={RouteRegistry.ADMIN.INVOICES_NEW} element={<InvoicesNew />} />
+                            <Route path={RouteRegistry.ADMIN.INVOICES_EDIT(':id')} element={<InvoicesNew />} />
+                            <Route path={RouteRegistry.ADMIN.SETUP_WIZARD} element={<BusinessSetupWizard />} />
+                            <Route path={RouteRegistry.ADMIN.WIZARD_HUB} element={<WizardHub />} />
+                            <Route path={RouteRegistry.ADMIN.STAFF_ONBOARDING} element={<StaffOnboardingWizard />} />
+                            <Route path={RouteRegistry.ADMIN.CARE_PLAN_WIZARD} element={<CarePlanWizard />} />
+                            <Route path={RouteRegistry.ADMIN.REVENUE_WIZARD} element={<RevenueWizard />} />
+                            <Route path={RouteRegistry.ADMIN.BUSINESS_MODEL_WIZARD} element={<BusinessModelWizard />} />
+                            <Route path={RouteRegistry.ADMIN.BUSINESS_STATUS} element={<BusinessStatus />} />
+                            <Route path={RouteRegistry.ADMIN.DEVELOPER} element={<DeveloperPortal />} />
+                            <Route path={RouteRegistry.ADMIN.MARKETPLACE} element={<Marketplace />} />
+                            <Route path={RouteRegistry.ADMIN.RESELLER} element={<ResellerDashboard />} />
+                            <Route path={RouteRegistry.ADMIN.PRIVATE_MARKETPLACE} element={<PrivateMarketplace />} />
+                            <Route path={RouteRegistry.ADMIN.GROWTH_STRATEGY} element={<GrowthStrategy />} />
+                            <Route path={RouteRegistry.ADMIN.KNOWLEDGE_BASE} element={<KnowledgeBaseIndex />} />
+                            <Route path={RouteRegistry.ADMIN.KNOWLEDGE_BASE_ARTICLE(':slug')} element={<KnowledgeBaseArticle />} />
+                            <Route path={RouteRegistry.ADMIN.AI_INSIGHTS} element={<AIInsights />} />
+                            <Route path={RouteRegistry.ADMIN.CLINICAL_ASSISTANT} element={<ClinicalAssistant />} />
+                            <Route path={RouteRegistry.ADMIN.AUTOPILOT} element={<AutoPilotDashboard />} />
+                            <Route path={RouteRegistry.ADMIN.INTEROP} element={<FHIRCenter />} />
+                            <Route path={RouteRegistry.ADMIN.SOVEREIGN} element={<SovereignWallet />} />
+                            <Route path={RouteRegistry.ADMIN.LOCATIONS} element={<Locations />} />
+                            <Route path={RouteRegistry.ADMIN.ROLE_EDITOR} element={<RoleEditor />} />
+                            <Route path={RouteRegistry.ADMIN.CUSTOMERS} element={<AdminCustomerList />} />
+                            <Route path={RouteRegistry.ADMIN.TEMPLATE_EDITOR} element={<TemplateEditor />} />
+                            <Route path={RouteRegistry.ADMIN.DEV_KB} element={<DeveloperKBPage />} />
                         </Route>
 
                         {/* MANAGER PORTAL */}
                         <Route path={RouteRegistry.MANAGER.DASHBOARD} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
                             <Route index element={<Portfolio />} />
-                            <Route path="daily-entry" element={<DailyEntry />} />
-                            <Route path="evaluations" element={<Evaluations />} />
-                            <Route path="service-review" element={<ServiceReview />} />
+                            <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
+                            <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
+                            <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
                             <Route path=":category" element={<ManagerDashboard />} />
                         </Route>
 
                         {/* STAFF PORTAL */}
                         <Route path={RouteRegistry.STAFF.DASHBOARD} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
                             <Route index element={<StaffDashboard />} />
-                            <Route path="customers" element={<UserList />} />
+                            <Route path={RouteRegistry.STAFF.CUSTOMERS} element={<UserList />} />
                         </Route>
 
                         {/* PSW / PROVIDER PORTAL */}
                         <Route path={RouteRegistry.PSW.DASHBOARD} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
                             <Route index element={<PswDashboard />} />
-                            <Route path="schedule" element={<PswSchedule />} />
-                            <Route path="open-shifts" element={<PswOpenShifts />} />
-                            <Route path="offers" element={<PswOpenOffers />} />
-                            <Route path="availability" element={<PswAvailability />} />
-                            <Route path="earnings" element={<PswEarnings />} />
-                            <Route path="expenses" element={<PswExpenses />} />
-                            <Route path="shift-confirmation" element={<PswShiftConfirmation />} />
+                            <Route path={RouteRegistry.PSW.SCHEDULE} element={<PswSchedule />} />
+                            <Route path={RouteRegistry.PSW.OPEN_SHIFTS} element={<PswOpenShifts />} />
+                            <Route path={RouteRegistry.PSW.OFFERS} element={<PswOpenOffers />} />
+                            <Route path={RouteRegistry.PSW.AVAILABILITY} element={<PswAvailability />} />
+                            <Route path={RouteRegistry.PSW.EARNINGS} element={<PswEarnings />} />
+                            <Route path={RouteRegistry.PSW.EXPENSES} element={<PswExpenses />} />
+                            <Route path={RouteRegistry.PSW.SHIFT_CONFIRMATION} element={<PswShiftConfirmation />} />
                         </Route>
 
                         {/* RN PORTAL */}
@@ -256,18 +267,19 @@ export const AppRouter: React.FC = () => {
                         {/* CLIENT PORTAL */}
                         <Route path={RouteRegistry.CLIENT.DASHBOARD} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
                             <Route index element={<ClientDashboard />} />
-                            <Route path="bookings" element={<ClientBookings />} />
-                            <Route path="billing" element={<ClientBilling />} />
-                            <Route path="feedback" element={<ClientFeedback />} />
-                            <Route path="request-booking" element={<RequestBooking />} />
+                            <Route path={RouteRegistry.CLIENT.BOOKINGS} element={<ClientBookings />} />
+                            <Route path={RouteRegistry.CLIENT.BILLING} element={<ClientBilling />} />
+                            <Route path={RouteRegistry.CLIENT.FEEDBACK} element={<ClientFeedback />} />
+                            <Route path={RouteRegistry.CLIENT.REQUEST_BOOKING} element={<RequestBooking />} />
                         </Route>
 
                         {/* PLATFORM PORTAL (SUPER ADMIN) */}
                         <Route path={RouteRegistry.SUPERUSER.DASHBOARD} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
                             <Route index element={<PlatformDashboard />} />
-                            <Route path="audit-logs" element={<PlatformAuditLogs />} />
-                            <Route path="sla" element={<SLAMonitoring />} />
-                            <Route path="risk-surveillance" element={<RiskSurveillanceDashboard />} />
+                            <Route path={RouteRegistry.SUPERUSER.TENANTS} element={<TenantList />} />
+                            <Route path={RouteRegistry.SUPERUSER.AUDIT_LOGS} element={<PlatformAuditLogs />} />
+                            <Route path={RouteRegistry.SUPERUSER.SLA} element={<SLAMonitoring />} />
+                            <Route path={RouteRegistry.SUPERUSER.RISK_SURVEILLANCE} element={<RiskSurveillanceDashboard />} />
                         </Route>
 
                         {/* SHARED PROTECTED ROUTES */}
@@ -280,6 +292,7 @@ export const AppRouter: React.FC = () => {
                             <Route path={RouteRegistry.VISITS_COMPLETE(':id')} element={<VisitCompletion />} />
                             <Route path={RouteRegistry.KNOWLEDGE_BASE} element={<KnowledgeBaseIndex />} />
                             <Route path={RouteRegistry.KNOWLEDGE_BASE_ARTICLE(':slug')} element={<KnowledgeBaseArticle />} />
+                            <Route path={RouteRegistry.LEARN} element={<UserTrainingPage />} />
                             <Route path={RouteRegistry.NOT_FOUND} element={<NotFound />} />
                             <Route path={RouteRegistry.UNAUTHORIZED} element={<Unauthorized />} />
                             <Route path={RouteRegistry.SERVER_ERROR} element={<ServerError />} />

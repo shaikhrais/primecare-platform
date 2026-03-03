@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
 
@@ -8,7 +10,6 @@ import { ClientOverview } from './components/ClientOverview';
 import { ServiceBookingModal } from './components/ServiceBookingModal';
 import { useTranslation } from 'react-i18next';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Booking {
@@ -96,13 +97,33 @@ export default function ClientDashboard() {
                         {user?.email ? `${user.email} • Your Care Team` : t(ContentRegistry.CLIENT_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <button
-                    data-cy="btn-request-care"
-                    className="btn btn-primary"
-                    onClick={() => setIsModalOpen(true)}
-                >
-                    {t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
-                </button>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <Link to={RouteRegistry.LEARN}>
+                        <button
+                            className="btn btn-secondary"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '12px 24px',
+                                borderRadius: '12px',
+                                fontWeight: 700,
+                                fontSize: '0.9rem',
+                                border: '1px solid var(--border)',
+                                background: 'white'
+                            }}
+                        >
+                            🎓 Training Hub
+                        </button>
+                    </Link>
+                    <button
+                        data-cy="btn-request-care"
+                        className="btn btn-primary"
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        {t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
+                    </button>
+                </div>
             </div>
 
             <ClientOverview stats={stats} />

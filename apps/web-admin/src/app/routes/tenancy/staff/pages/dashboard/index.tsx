@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/shared/context/AuthContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
-
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function StaffDashboard() {
     const { t } = useTranslation();
@@ -21,13 +21,33 @@ export default function StaffDashboard() {
 
     return (
         <div data-cy="page.container">
-            <div style={{ marginBottom: '2.5rem' }}>
-                <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
-                    {user?.tenantId ? t(ContentRegistry.STAFF_DASHBOARD.TITLE_BRANCH) : t(ContentRegistry.STAFF_DASHBOARD.TITLE_NETWORK)}
-                </h1>
-                <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
-                    {user?.email ? `${user.email} • ${t(ContentRegistry.ROLES.STAFF)}` : t(ContentRegistry.STAFF_DASHBOARD.SUBTITLE)}
-                </p>
+            <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                        {user?.tenantId ? t(ContentRegistry.STAFF_DASHBOARD.TITLE_BRANCH) : t(ContentRegistry.STAFF_DASHBOARD.TITLE_NETWORK)}
+                    </h1>
+                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                        {user?.email ? `${user.email} • ${t(ContentRegistry.ROLES.STAFF)}` : t(ContentRegistry.STAFF_DASHBOARD.SUBTITLE)}
+                    </p>
+                </div>
+                <Link to={RouteRegistry.LEARN}>
+                    <button style={{
+                        padding: '10px 20px',
+                        borderRadius: '10px',
+                        border: '1px solid #e5e7eb',
+                        backgroundColor: 'white',
+                        color: '#111827',
+                        fontWeight: 700,
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                    }}>
+                        🎓 System Training
+                    </button>
+                </Link>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
