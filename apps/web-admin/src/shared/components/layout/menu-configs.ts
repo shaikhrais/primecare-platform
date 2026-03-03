@@ -67,6 +67,15 @@ export const platformMenu: MenuItem[] = [
     { label: 'Developer Audit', path: RouteRegistry.ADMIN.DEV_KB, icon: '🛠️' },
 ];
 
+export const scrumMasterMenu: MenuItem[] = [
+    { label: 'SM Dashboard', path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
+    { label: 'API Endpoints', path: RouteRegistry.SCRUM_MASTER.API_ENDPOINTS, icon: '🔌' },
+    { label: 'Pages Audit', path: RouteRegistry.SCRUM_MASTER.PAGES, icon: '📄' },
+    { label: 'Components', path: RouteRegistry.SCRUM_MASTER.COMPONENTS, icon: '🧩' },
+    { label: 'Role Flows', path: RouteRegistry.SCRUM_MASTER.ROLE_FLOWS, icon: '🔄' },
+    { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
+];
+
 export const clientMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.DASHBOARD, icon: '🏠' },
     { label: ContentRegistry.MENU.CLIENT_BOOKINGS, path: RouteRegistry.CLIENT.BOOKINGS, icon: '📅' },

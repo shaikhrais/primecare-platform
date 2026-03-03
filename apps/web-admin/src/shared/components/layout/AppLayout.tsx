@@ -10,7 +10,7 @@ import SideFloatingButton from './SideFloatingButton';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
-import { adminMenu, clientMenu, staffMenu, pswMenu, rnMenu, managerMenu, coordinatorMenu, financeMenu, platformMenu } from './menu-configs';
+import { adminMenu, clientMenu, staffMenu, pswMenu, rnMenu, managerMenu, coordinatorMenu, financeMenu, platformMenu, scrumMasterMenu } from './menu-configs';
 
 interface AppLayoutProps {
     children?: React.ReactNode;
@@ -65,6 +65,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
         if (lowerRole === 'rn') return rnMenu;
         if (['psw', 'rmt', 'rpt', 'rch'].includes(lowerRole)) return pswMenu;
         if (lowerRole === 'super_admin') return platformMenu;
+        if (lowerRole === 'scrum_master') return scrumMasterMenu;
 
         return clientMenu;
     };

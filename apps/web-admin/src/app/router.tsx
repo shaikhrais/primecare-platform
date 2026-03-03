@@ -75,6 +75,12 @@ const AdminCustomerList = React.lazy(() => import('./routes/platform/admin/pages
 const TemplateEditor = React.lazy(() => import('./routes/platform/admin/pages/template-editor'));
 const DeveloperKBPage = React.lazy(() => import('./routes/platform/admin/pages/developer-kb'));
 
+// Scrum Master Pages
+const ScrumMasterDashboard = React.lazy(() => import('./routes/platform/scrum-master/pages/dashboard'));
+const ApiEndpointsHub = React.lazy(() => import('./routes/platform/scrum-master/pages/testing/ApiEndpointsHub'));
+const TechnicalAuditPortal = React.lazy(() => import('./routes/platform/scrum-master/pages/audit/TechnicalAuditPortal'));
+const RoleFlowsPage = React.lazy(() => import('./routes/platform/scrum-master/pages/flows/RoleFlowsPage'));
+
 // Manager Pages
 const ManagerDashboard = React.lazy(() => import('./routes/tenancy/manager/pages/dashboard'));
 const Portfolio = React.lazy(() => import('./routes/tenancy/manager/pages/portfolio'));
@@ -282,6 +288,15 @@ export const AppRouter: React.FC = () => {
                             <Route path={RouteRegistry.SUPERUSER.RISK_SURVEILLANCE} element={<RiskSurveillanceDashboard />} />
                         </Route>
 
+                        {/* SCRUM MASTER PORTAL */}
+                        <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
+                            <Route index element={<ScrumMasterDashboard />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.API_ENDPOINTS} element={<ApiEndpointsHub />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.PAGES} element={<TechnicalAuditPortal />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.COMPONENTS} element={<TechnicalAuditPortal />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.ROLE_FLOWS} element={<RoleFlowsPage />} />
+                        </Route>
+
                         {/* SHARED PROTECTED ROUTES */}
                         <Route element={<RequireRole allowedRoles={['super_admin', 'admin', 'staff', 'manager', 'operations_manager', 'clinical_manager', 'hr_manager', 'finance_manager', 'regional_manager', 'marketing_manager', 'recruiting_manager', 'coordinator', 'finance', 'psw', 'rn', 'rmt', 'rpt', 'rch', 'client']}><AppLayout /></RequireRole>}>
                             <Route path={RouteRegistry.PROFILE} element={<Profile />} />
@@ -306,7 +321,7 @@ export const AppRouter: React.FC = () => {
                     </Routes>
                 </Suspense>
             </ErrorBoundary>
-        </NotificationCenterProvider>
+        </NotificationCenterProvider >
     );
 };
 

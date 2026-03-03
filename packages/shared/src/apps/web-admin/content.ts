@@ -50,5 +50,28 @@ export const ContentRegistry = {
             ERROR_DELETE: 'Failed to cancel visit',
             ERROR_UPDATE: 'Failed to update status'
         }
+    },
+    SCRUM_MASTER: {
+        DASHBOARD: {
+            TITLE: 'Scrum Master Dashboard',
+            SUBTITLE: 'Technical system audit and testing center',
+        },
+        API_ENDPOINTS: {
+            TITLE: 'API Endpoints Registry',
+            SUBTITLE: 'Monitor and test system-wide endpoints',
+            TEST_BTN: 'Test Endpoint',
+        },
+        PAGES: {
+            TITLE: 'System Pages Audit',
+            SUBTITLE: 'Physical components and route mapping',
+        },
+        COMPONENTS: {
+            TITLE: 'UI Components Library',
+            SUBTITLE: 'Shared components and design tokens',
+        },
+        ROLE_FLOWS: {
+            TITLE: 'Role Navigation Flows',
+            SUBTITLE: 'Audit user journeys and permissions',
+        },
     }
 } as const;

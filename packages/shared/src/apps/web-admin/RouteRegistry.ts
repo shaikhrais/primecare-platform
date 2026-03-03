@@ -98,6 +98,13 @@ const PLATFORM = {
         AUDIT_LOGS: '/platform/audit-logs',
         SLA: '/platform/sla',
         RISK_SURVEILLANCE: '/platform/risk-surveillance',
+    },
+    SCRUM_MASTER: {
+        DASHBOARD: '/platform/scrum-master',
+        API_ENDPOINTS: '/platform/scrum-master/api-endpoints',
+        PAGES: '/platform/scrum-master/pages',
+        COMPONENTS: '/platform/scrum-master/components',
+        ROLE_FLOWS: '/platform/scrum-master/role-flows',
     }
 } as const;
 
@@ -141,6 +148,7 @@ export const RouteRegistry = {
     PSW: TENANCY.PSW,
     RN: TENANCY.RN,
     CLIENT: TENANCY.CLIENT,
+    SCRUM_MASTER: PLATFORM.SCRUM_MASTER,
 
     ROLE_DASHBOARDS: {
         admin: PLATFORM.ADMIN.DASHBOARD,
@@ -164,7 +172,8 @@ export const RouteRegistry = {
         rpt: TENANCY.PSW.DASHBOARD,
         rch: TENANCY.PSW.DASHBOARD,
         client: TENANCY.CLIENT.DASHBOARD,
-        super_admin: PLATFORM.SUPERUSER.DASHBOARD
+        super_admin: PLATFORM.SUPERUSER.DASHBOARD,
+        scrum_master: PLATFORM.SCRUM_MASTER.DASHBOARD
     } as Record<string, string>,
 
     ROLE_EDITOR: PLATFORM.ADMIN.ROLE_EDITOR,

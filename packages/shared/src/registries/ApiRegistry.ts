@@ -52,6 +52,10 @@ const PLATFORM = {
         NOTIFICATIONS: '/v1/system/notifications',
         MARK_READ: (id: string) => `/v1/system/notifications/${id}/read`,
         PLATFORM_STATS: '/v1/system/platform/stats',
+    },
+    SUPERUSER: {
+        TENANTS: '/v1/superuser/tenants',
+        AUDIT_LOGS: '/v1/superuser/audit-logs',
     }
 } as const;
 
