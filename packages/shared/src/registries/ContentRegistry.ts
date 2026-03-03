@@ -611,6 +611,131 @@ export const ContentRegistry = {
         PAYROLL: 'Payroll',
         PROFIT: 'Profit',
     },
+    ADMISSION: {
+        TITLE: 'Client Admission',
+        SUBTITLE: 'Register a new client and configure their care requirements.',
+        FORM: {
+            FULL_NAME: 'Full Name',
+            EMAIL: 'Email Address',
+            PHONE: 'Phone Number',
+            ADDRESS: 'Residential Address',
+            EMERGENCY: 'Emergency Contact Name & Phone',
+            NOTES: 'Medical Notes / Primary Concern',
+            SUBMIT: 'Complete Admission',
+            PROCESSING: 'Processing...',
+            CANCEL: 'Cancel',
+            DISCARD_TITLE: 'Unsaved Changes',
+            DISCARD_DESC: 'You have unsaved admission data. Navigating away will discard it.',
+        },
+        MESSAGES: {
+            SUCCESS: 'Client admitted successfully!',
+            ERROR: 'Failed to admit client',
+            ERROR_SUBMISSION: 'Error during admission',
+        }
+    },
+    ONBOARDING: {
+        TITLE: 'PSW Professional Onboarding',
+        SUBTITLE: 'Register a new Personal Support Worker and verify credentials.',
+        FORM: {
+            FULL_NAME: 'Full Name',
+            EMAIL: 'Email Address',
+            PHONE: 'Phone Number',
+            ADDRESS: 'Home Address',
+            SIN: 'SIN (Security Encrypted)',
+            BACKGROUND_CHECK: 'Background Check Status',
+            CERTIFICATIONS: 'Certifications',
+            SUBMIT: 'Complete Onboarding',
+            PROCESSING: 'Registering...',
+            CANCEL: 'Cancel',
+            DISCARD_TITLE: 'Unsaved Changes',
+            DISCARD_DESC: 'You have unsaved onboarding data. Navigating away will discard it.',
+            STATUS_OPTIONS: {
+                PENDING: 'Pending',
+                CLEARED: 'Cleared',
+                FLAGGED: 'Flagged'
+            }
+        },
+        MESSAGES: {
+            SUCCESS: 'PSW onboarded successfully!',
+            ERROR: 'Failed to onboard PSW',
+            ERROR_SUBMISSION: 'Error during onboarding',
+        }
+    },
+    INSIGHTS: {
+        TITLE: 'PrimeCare AI Insights',
+        SUBTITLE: 'Predictive models and clinical intelligence for your agency.',
+        CARDS: {
+            BURNOUT: {
+                LABEL: 'Staff Burnout Risk',
+                DESC: 'PSWs exceed recommended overtime hours.'
+            },
+            COMPLIANCE: {
+                LABEL: 'Compliance Probability',
+                DESC: 'Based on automated documentation audits.'
+            },
+            DEMAND: {
+                LABEL: 'Shift Demand Forecast',
+                DESC: 'Expected increase in weekend shift requests.'
+            }
+        },
+        CHARTS: {
+            RISK_PERFORMANCE: 'Risk vs. Performance (Weekly Prediction)',
+        },
+        TIPS: {
+            TITLE: 'AI-Generated Care Tips',
+            DOC_GAP: {
+                TITLE: 'Documentation Gap',
+                DESC: 'Client has missing daily notes. Risk: Moderate.'
+            },
+            STAFF_OPT: {
+                TITLE: 'Staff Optimization',
+                DESC: 'PSWs in specific regions are under-utilized.'
+            }
+        }
+    },
+    CLINICAL_ASSISTANT: {
+        TITLE: 'AI Clinical Assistant',
+        SUBTITLE: 'Transform assessment notes into detailed care plans in seconds.',
+        INPUT_LABEL: 'Input Assessment Notes',
+        INPUT_PLACEHOLDER: 'e.g. Client shows signs of fatigue during transfers...',
+        GENERATE_BTN: '🪄 Generate Care Plan',
+        GENERATING: 'Generating Plan...',
+        DRAFT_TITLE: 'Generated Plan Draft',
+        DRAFT_EMPTY: 'Your AI-generated plan will appear here.',
+        ANALYZING: 'Analysing clinical data...',
+        APPROVE_BTN: 'Approve & Save',
+        EDIT_BTN: 'Edit Draft'
+    },
+    LOCATIONS: {
+        TITLE: 'Facility & Location Manager',
+        SUBTITLE: 'Configure care facilities, clinics, and regional operating hubs.',
+        FORM: {
+            NAME: 'Facility Name',
+            MANAGER: 'Facility Manager',
+            MANAGER_SELECT: 'Select Manager...',
+            CAPACITY: 'Max Patient Capacity',
+            ADDRESS: 'Full Address',
+            SAVE_BTN: 'Save Location',
+            SAVING: 'Saving...',
+            CANCEL: 'Cancel',
+            DISCARD_TITLE: 'Unsaved Location',
+            DISCARD_DESC: 'Location details are not saved. Discard them?',
+        },
+        MESSAGES: {
+            SUCCESS: 'Care location saved!',
+            ERROR: 'Failed to save location',
+            ERROR_SUBMISSION: 'Error during submission',
+        }
+    },
+    MARKETPLACE: {
+        TITLE: 'Marketplace',
+        SUBTITLE: 'Discover services and resources from the PrimeCare network.',
+        INQUIRE_BTN: 'Inquire Now',
+        OFFER_TITLE: 'Have something to offer?',
+        OFFER_DESC: 'List your surplus staff or consulting services.',
+        CREATE_BTN: 'Create Listing',
+        PRICE_UNIT: '/hr'
+    },
     COMMON: {
         LOAD_MORE: 'Load More',
         RETRY: 'Retry',

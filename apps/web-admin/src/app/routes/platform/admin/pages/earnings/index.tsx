@@ -81,13 +81,13 @@ export default function AdminEarningsPage() {
 
         // CSV Headers
         const headers = [
-            t(ContentRegistry.EARNINGS.INVOICE_ID || 'Invoice ID'),
-            t(ContentRegistry.SHARED.STATUS || 'Status'),
-            t(ContentRegistry.EARNINGS.CLIENT || 'Client'),
-            t(ContentRegistry.EARNINGS.PSW || 'PSW'),
-            t(ContentRegistry.EARNINGS.REVENUE || 'Revenue'),
-            t(ContentRegistry.EARNINGS.PAYROLL || 'Payroll'),
-            t(ContentRegistry.EARNINGS.PROFIT || 'Profit')
+            t(ContentRegistry.EARNINGS.INVOICE_ID),
+            t(ContentRegistry.SHARED.STATUS),
+            t(ContentRegistry.EARNINGS.CLIENT),
+            t(ContentRegistry.EARNINGS.PSW),
+            t(ContentRegistry.EARNINGS.REVENUE),
+            t(ContentRegistry.EARNINGS.PAYROLL),
+            t(ContentRegistry.EARNINGS.PROFIT)
         ];
 
         // CSV Rows

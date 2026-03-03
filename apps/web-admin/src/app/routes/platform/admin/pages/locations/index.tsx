@@ -1,7 +1,9 @@
+import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 
+const { ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function LocationForm() {
@@ -46,14 +48,14 @@ export default function LocationForm() {
             });
 
             if (response.ok) {
-                showToast('Care location saved!', 'success');
+                showToast(ContentRegistry.LOCATIONS.MESSAGES.SUCCESS, 'success');
                 setIsDirty(false);
-                navigate('/customers');
+                navigate(AdminRegistry.RouteRegistry.ADMIN.CUSTOMERS);
             } else {
-                showToast('Failed to save location', 'error');
+                showToast(ContentRegistry.LOCATIONS.MESSAGES.ERROR, 'error');
             }
         } catch (error) {
-            showToast('Error during submission', 'error');
+            showToast(ContentRegistry.LOCATIONS.MESSAGES.ERROR_SUBMISSION, 'error');
         } finally {
             setSubmitting(false);
         }
@@ -64,8 +66,8 @@ export default function LocationForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>Unsaved Location</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>Location details are not saved. Discard them?</p>
+                        <h2 style={{ marginTop: 0 }}>{ContentRegistry.LOCATIONS.FORM.DISCARD_TITLE}</h2>
+                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>{ContentRegistry.LOCATIONS.FORM.DISCARD_DESC}</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
                             <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
@@ -75,14 +77,14 @@ export default function LocationForm() {
             )}
 
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">Facility & Location Manager</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Configure care facilities, clinics, and regional operating hubs.</p>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold' }} data-cy="page.title">{ContentRegistry.LOCATIONS.TITLE}</h2>
+                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.LOCATIONS.SUBTITLE}</p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Facility Name</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.LOCATIONS.FORM.NAME}</label>
                         <input
                             data-cy="form.location.name"
                             required
@@ -93,7 +95,7 @@ export default function LocationForm() {
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Facility Manager</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.LOCATIONS.FORM.MANAGER}</label>
                         <select
                             data-cy="form.location.manager"
                             required
@@ -101,14 +103,14 @@ export default function LocationForm() {
                             onChange={(e) => { setFormData({ ...formData, managerId: e.target.value }); setIsDirty(true); }}
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                         >
-                            <option value="">Select Manager...</option>
+                            <option value="">{ContentRegistry.LOCATIONS.FORM.MANAGER_SELECT}</option>
                             <option value="m-1">Sarah Connor</option>
                             <option value="m-2">James Miller</option>
                         </select>
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Max Patient Capacity</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.LOCATIONS.FORM.CAPACITY}</label>
                         <input
                             data-cy="form.location.capacity"
                             type="number"
@@ -119,7 +121,7 @@ export default function LocationForm() {
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Full Address</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.LOCATIONS.FORM.ADDRESS}</label>
                         <input
                             data-cy="form.location.address"
                             required
@@ -137,7 +139,7 @@ export default function LocationForm() {
                         data-cy="btn-cancel"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
                     >
-                        Cancel
+                        {ContentRegistry.LOCATIONS.FORM.CANCEL}
                     </button>
                     <button
                         type="submit"
@@ -145,7 +147,7 @@ export default function LocationForm() {
                         data-cy="form.location.save"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
                     >
-                        {submitting ? 'Saving...' : 'Save Location'}
+                        {submitting ? ContentRegistry.LOCATIONS.FORM.SAVING : ContentRegistry.LOCATIONS.FORM.SAVE_BTN}
                     </button>
                 </div>
             </form>
