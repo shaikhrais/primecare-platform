@@ -1,6 +1,6 @@
-import React from 'react';
 import { useAuth } from '@/shared/context/AuthContext';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -59,6 +59,7 @@ const roleTrainingData: Record<string, TrainingModule[]> = {
 };
 
 const UserTrainingPage: React.FC = () => {
+    const { t } = useTranslation();
     const { user } = useAuth();
     const role = user?.activeRole || 'client';
     const modules = roleTrainingData[role] || roleTrainingData['client'];
@@ -67,10 +68,10 @@ const UserTrainingPage: React.FC = () => {
         <div style={{ padding: '40px', maxWidth: '1000px', margin: '0 auto' }}>
             <header style={{ marginBottom: '48px', textAlign: 'center' }}>
                 <h1 style={{ fontSize: '36px', fontWeight: '900', color: '#111827', marginBottom: '16px', letterSpacing: '-0.025em' }}>
-                    Welcome to PrimeCare Training Hub
+                    {t(ContentRegistry.LEARN.TITLE)}
                 </h1>
                 <p style={{ fontSize: '18px', color: '#6B7280', maxWidth: '600px', margin: '0 auto' }}>
-                    Master the system with these role-specific guides tailored for your <strong>{role.toUpperCase()}</strong> perspective.
+                    {t(ContentRegistry.LEARN.SUBTITLE)} (<strong>{role.toUpperCase()}</strong> perspective)
                 </p>
             </header>
 
@@ -106,7 +107,7 @@ const UserTrainingPage: React.FC = () => {
 
                             <div style={{ backgroundColor: '#F9FAFB', borderRadius: '16px', padding: '24px' }}>
                                 <h3 style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#6B7280', marginBottom: '16px' }}>
-                                    Step-by-Step Guide
+                                    {t(ContentRegistry.LEARN.WHAT_YOU_CAN_DO)}
                                 </h3>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     {module.steps.map((step, sIdx) => (

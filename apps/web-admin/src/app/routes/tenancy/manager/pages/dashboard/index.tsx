@@ -112,23 +112,23 @@ export default function ManagerDashboard() {
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <Link to={RouteRegistry.LEARN}>
-                            <button style={{
-                                padding: '10px 20px',
-                                borderRadius: '10px',
-                                border: '1px solid #e5e7eb',
-                                backgroundColor: 'white',
-                                color: '#111827',
-                                fontWeight: 700,
-                                fontSize: '0.85rem',
-                                cursor: 'pointer',
-                                display: 'flex',
+                        <Link
+                            to={RouteRegistry.LEARN}
+                            style={{
+                                display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                            }}>
-                                🎓 System Training
-                            </button>
+                                padding: '10px 20px',
+                                backgroundColor: '#f8fafc',
+                                color: '#475569',
+                                borderRadius: '10px',
+                                textDecoration: 'none',
+                                fontWeight: 700,
+                                fontSize: '0.9rem',
+                                border: '1px solid #e2e8f0'
+                            }}
+                        >
+                            🎓 {t(ContentRegistry.LEARN.TITLE)}
                         </Link>
                         <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
                             {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map(p => (
@@ -161,13 +161,15 @@ export default function ManagerDashboard() {
                         todayShifts={kpi.todayShifts}
                     />
 
-                    <QuickActions />
-
-                    <AnalyticsSection displayData={displayData} isDemo={!chartData} />
-
-                    <ShiftTimeline shifts={shifts} />
-
                 </div>
+
+                <QuickActions />
+
+                <AnalyticsSection displayData={displayData} isDemo={!chartData} />
+
+                <ShiftTimeline shifts={shifts} />
+
             </div>
-            );
+        </div>
+    );
 }

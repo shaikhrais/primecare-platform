@@ -73,6 +73,10 @@ export const scrumMasterMenu: MenuItem[] = [
     { label: 'Pages Audit', path: RouteRegistry.SCRUM_MASTER.PAGES, icon: '📄' },
     { label: 'Components', path: RouteRegistry.SCRUM_MASTER.COMPONENTS, icon: '🧩' },
     { label: 'Role Flows', path: RouteRegistry.SCRUM_MASTER.ROLE_FLOWS, icon: '🔄' },
+    { label: 'System Health', path: RouteRegistry.SCRUM_MASTER.MONITORING, icon: '💓' },
+    { label: 'Env Audit', path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, icon: '🌐' },
+    { label: 'Registry Check', path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, icon: '📋' },
+    { label: 'DB Schema', path: RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA, icon: '🗄️' },
     { label: 'System Training', path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 

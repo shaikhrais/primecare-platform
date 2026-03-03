@@ -30,23 +30,22 @@ export default function StaffDashboard() {
                         {user?.email ? `${user.email} • ${t(ContentRegistry.ROLES.STAFF)}` : t(ContentRegistry.STAFF_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <Link to={RouteRegistry.LEARN}>
-                    <button style={{
-                        padding: '10px 20px',
-                        borderRadius: '10px',
-                        border: '1px solid #e5e7eb',
-                        backgroundColor: 'white',
-                        color: '#111827',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        cursor: 'pointer',
-                        display: 'flex',
+                <Link
+                    to={RouteRegistry.LEARN}
+                    style={{
+                        display: 'inline-flex',
                         alignItems: 'center',
                         gap: '8px',
-                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                    }}>
-                        🎓 System Training
-                    </button>
+                        padding: '10px 20px',
+                        backgroundColor: '#f1f5f9',
+                        color: '#475569',
+                        borderRadius: '10px',
+                        textDecoration: 'none',
+                        fontWeight: 700,
+                        fontSize: '0.9rem'
+                    }}
+                >
+                    🎓 {t(ContentRegistry.LEARN.TITLE)}
                 </Link>
             </div>
 

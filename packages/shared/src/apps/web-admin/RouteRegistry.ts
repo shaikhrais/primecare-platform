@@ -105,6 +105,10 @@ const PLATFORM = {
         PAGES: '/platform/scrum-master/pages',
         COMPONENTS: '/platform/scrum-master/components',
         ROLE_FLOWS: '/platform/scrum-master/role-flows',
+        MONITORING: '/platform/scrum-master/monitoring',
+        ENV_AUDIT: '/platform/scrum-master/env-audit',
+        REGISTRY_CHECK: '/platform/scrum-master/registry-check',
+        DATABASE_SCHEMA: '/platform/scrum-master/database-schema',
     }
 } as const;
 

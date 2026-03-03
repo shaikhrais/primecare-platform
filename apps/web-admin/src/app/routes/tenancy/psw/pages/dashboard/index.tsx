@@ -12,7 +12,7 @@ import { ShiftList } from './components/ShiftList';
 import { ComplianceSection } from './components/ComplianceSection';
 import { useTranslation } from 'react-i18next';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
+const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Shift {
@@ -160,7 +160,7 @@ export default function PswDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', width: isMobile ? '100%' : 'auto' }}>
-                    <Link to={AdminRegistry.RouteRegistry.LEARN} style={{ flex: isMobile ? 1 : 'none' }}>
+                    <Link to={RouteRegistry.LEARN} style={{ flex: isMobile ? 1 : 'none', textDecoration: 'none' }}>
                         <button style={{
                             padding: '12px 24px',
                             backgroundColor: '#FFFFFF',
@@ -175,7 +175,7 @@ export default function PswDashboard() {
                             justifyContent: 'center',
                             gap: '8px'
                         }}>
-                            🎓 Training
+                            🎓 {t(ContentRegistry.LEARN.TITLE)}
                         </button>
                     </Link>
                     <button

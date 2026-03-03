@@ -80,6 +80,10 @@ const ScrumMasterDashboard = React.lazy(() => import('./routes/platform/scrum-ma
 const ApiEndpointsHub = React.lazy(() => import('./routes/platform/scrum-master/pages/testing/ApiEndpointsHub'));
 const TechnicalAuditPortal = React.lazy(() => import('./routes/platform/scrum-master/pages/audit/TechnicalAuditPortal'));
 const RoleFlowsPage = React.lazy(() => import('./routes/platform/scrum-master/pages/flows/RoleFlowsPage'));
+const SystemHealthMonitor = React.lazy(() => import('./routes/platform/scrum-master/pages/monitoring/SystemHealthMonitor'));
+const EnvironmentAudit = React.lazy(() => import('./routes/platform/scrum-master/pages/audit/EnvironmentAudit'));
+const RegistryIntegrityCheck = React.lazy(() => import('./routes/platform/scrum-master/pages/audit/RegistryIntegrityCheck'));
+const DatabaseSchemaAudit = React.lazy(() => import('./routes/platform/scrum-master/pages/audit/DatabaseSchemaAudit'));
 
 // Manager Pages
 const ManagerDashboard = React.lazy(() => import('./routes/tenancy/manager/pages/dashboard'));
@@ -295,6 +299,10 @@ export const AppRouter: React.FC = () => {
                             <Route path={RouteRegistry.SCRUM_MASTER.PAGES} element={<TechnicalAuditPortal />} />
                             <Route path={RouteRegistry.SCRUM_MASTER.COMPONENTS} element={<TechnicalAuditPortal />} />
                             <Route path={RouteRegistry.SCRUM_MASTER.ROLE_FLOWS} element={<RoleFlowsPage />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.MONITORING} element={<SystemHealthMonitor />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.ENV_AUDIT} element={<EnvironmentAudit />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK} element={<RegistryIntegrityCheck />} />
+                            <Route path={RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA} element={<DatabaseSchemaAudit />} />
                         </Route>
 
                         {/* SHARED PROTECTED ROUTES */}

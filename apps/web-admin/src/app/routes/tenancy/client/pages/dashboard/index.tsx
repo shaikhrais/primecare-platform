@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
 import { useNotification } from '@/shared/context/NotificationContext';
@@ -98,23 +98,23 @@ export default function ClientDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <Link to={RouteRegistry.LEARN}>
-                        <button
-                            className="btn btn-secondary"
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                padding: '12px 24px',
-                                borderRadius: '12px',
-                                fontWeight: 700,
-                                fontSize: '0.9rem',
-                                border: '1px solid var(--border)',
-                                background: 'white'
-                            }}
-                        >
-                            🎓 Training Hub
-                        </button>
+                    <Link
+                        to={RouteRegistry.LEARN}
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '12px 24px',
+                            backgroundColor: 'white',
+                            color: 'var(--brand-600)',
+                            borderRadius: '12px',
+                            textDecoration: 'none',
+                            fontWeight: 700,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                            transition: 'all 0.2s'
+                        }}
+                    >
+                        🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
                     <button
                         data-cy="btn-request-care"

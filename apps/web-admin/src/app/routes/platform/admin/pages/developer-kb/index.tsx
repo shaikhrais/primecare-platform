@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
-const { RouteRegistry } = AdminRegistry;
+const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
 interface ImplementationAudit {
     pageCount: number;
@@ -46,6 +47,7 @@ const auditData: Record<string, ImplementationAudit> = {
 };
 
 const DeveloperKBPage: React.FC = () => {
+    const { t } = useTranslation();
     const [selectedRole, setSelectedRole] = useState<string>('admin');
     const audit = auditData[selectedRole] || auditData['admin'];
 
@@ -53,8 +55,12 @@ const DeveloperKBPage: React.FC = () => {
         <div style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
                 <div>
-                    <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#111827', margin: 0 }}>Developer Implementation Audit</h1>
-                    <p style={{ color: '#6B7280', marginTop: '8px' }}>Technical reference for role-based features and infrastructure.</p>
+                    <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#111827', margin: 0 }}>
+                        {t(ContentRegistry.DEV_KB.TITLE)}
+                    </h1>
+                    <p style={{ color: '#6B7280', marginTop: '8px' }}>
+                        {t(ContentRegistry.DEV_KB.SUBTITLE)}
+                    </p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px', padding: '6px', backgroundColor: '#F3F4F6', borderRadius: '12px' }}>
                     {Object.keys(auditData).map(role => (
