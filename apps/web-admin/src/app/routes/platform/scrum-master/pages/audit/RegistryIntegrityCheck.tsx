@@ -39,30 +39,61 @@ export default function RegistryIntegrityCheck() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-                {integrityStats.map((stat, idx) => (
-                    <div key={idx} className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--text-400)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '8px' }}>
-                            {stat.label}
-                        </div>
-                        <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
-                            {stat.value}
-                        </div>
-                        <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
-                            ● {stat.status}
-                        </div>
+                <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-400)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '8px' }}>
+                        {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.TOTAL_ROUTES)}
                     </div>
-                ))}
+                    <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
+                        {Object.keys(RouteRegistry).length}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
+                        ● Healthy
+                    </div>
+                </div>
+                <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-400)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '8px' }}>
+                        {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.API_MAPPINGS)}
+                    </div>
+                    <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
+                        {Object.keys(ApiRegistry).length}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
+                        ● Healthy
+                    </div>
+                </div>
+                <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-400)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '8px' }}>
+                        {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.TRANSLATION_OVERLAP)}
+                    </div>
+                    <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
+                        100%
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
+                        ● Healthy
+                    </div>
+                </div>
+                <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-400)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '8px' }}>
+                        {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.BROKEN_LINKS)}
+                    </div>
+                    <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
+                        0
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
+                        ● Healthy
+                    </div>
+                </div>
             </div>
 
-            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-100)' }}>🔍 Detected Anomalies</h3>
+            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-100)' }}>🔍 {t(ContentRegistry.SCRUM_MASTER.ANOMALIES.TITLE)}</h3>
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#fef2f2', color: '#991b1b', fontSize: '0.85rem' }}>
                         <tr>
-                            <th style={{ padding: '1rem 1.5rem' }}>Severity</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Component</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Observation</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Technical Suggestion</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.ANOMALIES.SEVERITY)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.ANOMALIES.COMPONENT)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.ANOMALIES.OBSERVATION)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.ANOMALIES.TECHNICAL_SUGGESTION)}</th>
                         </tr>
                     </thead>
                     <tbody>

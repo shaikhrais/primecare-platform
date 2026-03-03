@@ -152,34 +152,34 @@ export default function ScrumMasterDashboard() {
                 <div style={{ position: 'absolute', bottom: '-50px', left: '-50px', width: '200px', height: '200px', background: '#ec4899', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
 
                 <h2 style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '2rem', fontWeight: 800 }}>
-                    <span>🚀</span> System Readiness Health
+                    <span>🚀</span> {t(ContentRegistry.SCRUM_MASTER.DASHBOARD.TITLE)} {t(ContentRegistry.SHARED.STATUS)}
                 </h2>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '3rem' }}>
                     <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>System Endpoints</div>
+                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}</div>
                         <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>142</div>
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 10px #10b981' }}></div>
-                            100% Operational
+                            100% {t(ContentRegistry.SHARED.STATUS)}
                         </div>
                     </div>
 
                     <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Registry Pages</div>
+                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.PAGES.TITLE)}</div>
                         <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>68</div>
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#3b82f6', boxShadow: '0 0 10px #3b82f6' }}></div>
-                            Fully Synchronized
+                            {t(ContentRegistry.SHARED.STATUS)}
                         </div>
                     </div>
 
                     <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Role Coverage</div>
+                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.TITLE)}</div>
                         <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>100%</div>
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }}></div>
-                            Validated Architecture
+                            {t(ContentRegistry.SHARED.STATUS)}
                         </div>
                     </div>
                 </div>

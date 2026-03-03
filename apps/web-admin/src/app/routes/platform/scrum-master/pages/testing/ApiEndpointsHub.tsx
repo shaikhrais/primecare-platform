@@ -59,10 +59,10 @@ export default function ApiEndpointsHub() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem', textTransform: 'uppercase' }}>
                         <tr>
-                            <th style={{ padding: '1rem 1.5rem' }}>Endpoint Mapping</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Server Path</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Status</th>
-                            <th style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>Integration Test</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.AUDIT.TABLE.MODULE)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.AUDIT.TABLE.PATH)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.STATUS)}</th>
+                            <th style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>{t(ContentRegistry.AUDIT.TABS.ROUTES)}</th>
                         </tr>
                     </thead>
                     <tbody>

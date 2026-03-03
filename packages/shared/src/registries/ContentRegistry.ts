@@ -650,5 +650,77 @@ export const ContentRegistry = {
             TITLE: 'Role Navigation Flows',
             SUBTITLE: 'Audit user journeys and permissions',
         },
+        MONITORING: {
+            TITLE: 'System Health Monitor',
+            SUBTITLE: 'Real-time operational status and infrastructure telemetry',
+        },
+        ENV_AUDIT: {
+            TITLE: 'Environment Audit',
+            SUBTITLE: 'Sanitized system configuration and environment mapping',
+        },
+        REGISTRY_CHECK: {
+            TITLE: 'Registry Integrity Monitor',
+            SUBTITLE: 'Cross-referencing shared registries for consistency',
+        },
+        DATABASE_SCHEMA: {
+            TITLE: 'Database Schema Audit',
+            SUBTITLE: 'Prisma model overview and relationship mapping',
+            MODEL_NAME: 'Model Name',
+            CORE_FIELDS: 'Core Fields',
+            RELATIONS: 'Relations',
+            SYNC_STATUS: 'Sync Status',
+        },
+        INTEGRITY: {
+            TOTAL_ROUTES: 'Total Route Definitions',
+            API_MAPPINGS: 'API Endpoint Mappings',
+            TRANSLATION_OVERLAP: 'Translation Keys Overlap',
+            BROKEN_LINKS: 'Broken Internal Links',
+        },
+        ANOMALIES: {
+            TITLE: 'Detected Anomalies',
+            SEVERITY: 'Severity',
+            COMPONENT: 'Component',
+            OBSERVATION: 'Observation',
+            TECHNICAL_SUGGESTION: 'Technical Suggestion',
+        }
+    },
+    SHARED: {
+        VARIABLE_KEY: 'Variable Key',
+        CURRENT_VALUE: 'Current Value',
+        SECURITY_LEVEL: 'Security Level',
+        STATUS: 'Status',
+        ARCHITECTURE_INSIGHT: 'Architecture Insight',
+        SECURITY_NOTE: 'Security Note',
+    },
+    LEARN: {
+        TITLE: 'System Training Hub',
+        SUBTITLE: 'Learn how to effectively use the PrimeCare platform',
+        WHAT_YOU_CAN_DO: 'What You Can Do',
+        PRO_TIPS: 'Pro Tips & Efficient Workflows',
+    },
+    DEV_KB: {
+        TITLE: 'Developer Knowledge Base',
+        SUBTITLE: 'Technical documentation and system architecture audit',
+    },
+    AUDIT: {
+        TABS: {
+            ROUTES: 'System Routes',
+            COMPONENTS: 'Core Components',
+        },
+        TABLE: {
+            ROUTE_NAME: 'Route Name',
+            PATH: 'Browser Path',
+            REFERENCE: 'Registry Reference',
+            MODULE: 'Module',
+            COMPONENT_NAME: 'Component Name',
+            LAYER: 'Architecture Layer',
+        }
+    },
+    ROLE_LABELS: {
+        ADMIN: 'Master Franchise',
+        MANAGER: 'Agency Operator',
+        STAFF: 'Staff Member',
+        PSW: 'Caregiver (PSW)',
+        CLIENT: 'Client / Family',
     }
 } as const;

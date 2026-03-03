@@ -32,10 +32,10 @@ export default function EnvironmentAudit() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem' }}>
                         <tr>
-                            <th style={{ padding: '1rem 1.5rem' }}>Variable Key</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Current Value</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Security Level</th>
-                            <th style={{ padding: '1rem 1.5rem' }}>Status</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.VARIABLE_KEY)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.CURRENT_VALUE)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.SECURITY_LEVEL)}</th>
+                            <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.STATUS)}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@ export default function EnvironmentAudit() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem' }}>
-                                    <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.8rem' }}>● SYNCED</span>
+                                    <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.8rem' }}>● {t(ContentRegistry.SHARED.STATUS)}</span>
                                 </td>
                             </tr>
                         ))}
@@ -66,7 +66,7 @@ export default function EnvironmentAudit() {
             </div>
 
             <div style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: 'var(--brand-50)', borderRadius: '12px', border: '1px solid var(--brand-100)' }}>
-                <h4 style={{ margin: '0 0 8px 0', color: 'var(--brand-600)' }}>🔒 Security Note</h4>
+                <h4 style={{ margin: '0 0 8px 0', color: 'var(--brand-600)' }}>🔒 {t(ContentRegistry.SHARED.SECURITY_NOTE)}</h4>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--brand-700)', lineHeight: 1.5 }}>
                     Sensitive keys like <code>DATABASE_URL</code>, <code>JWT_SECRET</code>, and <code>API_KEYS</code> are never exposed in the UI.
                     Only configuration flags and public-facing service URLs are visible here for technical auditing.

@@ -42,19 +42,19 @@ export default function SystemHealthMonitor() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2.5rem' }}>
                 <div className="pc-card" style={{ padding: '2rem', background: 'linear-gradient(135deg, #1e293b, #0f172a)', color: 'white' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>Worker API Cluster</h4>
-                        <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>LIVE</span>
+                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{t(ContentRegistry.MENU.DEVELOPER)} API Cluster</h4>
+                        <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>{t(ContentRegistry.SHARED.STATUS).toUpperCase()}</span>
                     </div>
-                    <div style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '0.5rem' }}>99.98%</div>
+                    <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>99.98%</div>
                     <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Uptime 24h • Average Latency 42ms</div>
                 </div>
 
                 <div className="pc-card" style={{ padding: '2rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', color: 'white' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>Database Instance</h4>
-                        <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>HEALTHY</span>
+                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.TITLE)}</h4>
+                        <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>{t(ContentRegistry.SHARED.STATUS).toUpperCase()}</span>
                     </div>
-                    <div style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '0.5rem' }}>312ms</div>
+                    <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>312ms</div>
                     <div style={{ color: '#bae6fd', fontSize: '0.9rem' }}>Complex P99 • 8.4GB Cache usage</div>
                 </div>
             </div>
