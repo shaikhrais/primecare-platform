@@ -5,19 +5,22 @@ import { Link } from 'react-router-dom';
 
 // Components
 import { DashboardStatus } from './components/DashboardStatus';
-import { EndpointDrillModal, PageAuditModal, RoleFlowDrillModal } from './components/DrillDownModals';
+import { EndpointDrillModal, PageAuditModal, RoleFlowDrillModal, ServiceMeshModal } from './components/DrillDownModals';
 import { SystemHealthCharts } from './components/SystemHealthCharts';
 import { HealthAlerts } from './components/HealthAlerts';
 import { ProductRoadmap } from './components/ProductRoadmap';
 import { TechnicalGovernance } from './components/TechnicalGovernance';
 import { ScrumMasterCopilot } from './components/ScrumMasterCopilot';
 import { AdvancedAnalytics } from './components/AdvancedAnalytics';
+import { GlobalHealthMap } from './components/GlobalHealthMap';
+import { SelfHealingAudit } from './components/SelfHealingAudit';
+import { ProposalBoard } from './components/ProposalBoard';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function ScrumMasterDashboard() {
     const { t } = useTranslation();
-    const [drillType, setDrillType] = useState<'endpoints' | 'pages' | 'flows' | null>(null);
+    const [drillType, setDrillType] = useState<'endpoints' | 'pages' | 'flows' | 'mesh' | null>(null);
 
     const closeModal = () => setDrillType(null);
 
@@ -93,9 +96,15 @@ export default function ScrumMasterDashboard() {
                 />
             </div>
 
+            {/* Global Infrastructure & Self-Healing Audit */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
+                <GlobalHealthMap />
+                <SelfHealingAudit />
+            </div>
+
             {/* Advanced Multi-dimensional Analytics */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '2rem', marginBottom: '3rem' }}>
-                <AdvancedAnalytics />
+                <AdvancedAnalytics onDrillMesh={() => setDrillType('mesh')} />
                 <HealthAlerts />
             </div>
 
@@ -145,6 +154,9 @@ export default function ScrumMasterDashboard() {
                 </Link>
             </div>
 
+            {/* Strategic Enhancement Proposal Board */}
+            <ProposalBoard />
+
             {/* Strategic Roadmap */}
             <ProductRoadmap />
 
@@ -159,6 +171,10 @@ export default function ScrumMasterDashboard() {
             />
             <RoleFlowDrillModal
                 isOpen={drillType === 'flows'}
+                onClose={closeModal}
+            />
+            <ServiceMeshModal
+                isOpen={drillType === 'mesh'}
                 onClose={closeModal}
             />
         </div>

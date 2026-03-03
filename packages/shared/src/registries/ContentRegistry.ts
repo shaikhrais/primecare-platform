@@ -1034,6 +1034,27 @@ export const ContentRegistry = {
             JOURNEY_MAP: 'Operational Route Mapping',
             PERMISSION_LATENCY: 'Permission Evaluation Time',
         },
+        GLOBAL_NODES: {
+            TITLE: 'Global Infrastructure Map',
+            SUBTITLE: 'Real-time node status across US, EU, and Asia Pacific clusters',
+            US_EAST: 'US East (Virginia)',
+            EU_WEST: 'EU West (Dublin)',
+            ASIA_PACIFIC: 'Asia Pacific (Singapore)',
+        },
+        SELF_HEALING: {
+            TITLE: 'Autonomous Recovery Audit',
+            SUBTITLE: 'Transparency log of self-healing system actions',
+            ACTION_RESTART: 'Auto-restart Cluster Node',
+            ACTION_CACHE: 'Cache Pool Refresh',
+            ACTION_SYNC: 'Registry Resync',
+        },
+        PROPOSAL_BOARD: {
+            TITLE: 'Strategic Enhancement Proposals',
+            SUBTITLE: 'Community and technical roadmap voting',
+            P1: 'Multi-Cloud High Availability',
+            P2: 'Edge Computing for Sub-10ms Latency',
+            P3: 'Quantum-Safe Encryption Layer',
+        },
         API_ENDPOINTS: {
             TITLE: 'API Endpoints Registry',
             SUBTITLE: 'Monitor and test system-wide endpoints',

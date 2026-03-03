@@ -102,6 +102,36 @@ export const RoleFlowDrillModal: React.FC<ModalProps> = ({ isOpen, onClose }) =>
     );
 };
 
+export const ServiceMeshModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+    const { t } = useTranslation();
+    if (!isOpen) return null;
+
+    return (
+        <PerspectiveModalWrap title="Service Dependency Mesh" onClose={onClose}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <p style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>Visualizing technical nervous system flows:</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', padding: '20px', background: '#0f172a', borderRadius: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#60a5fa', fontWeight: 800 }}>
+                        <span>🌐 Web Admin UI</span>
+                        <span style={{ opacity: 0.5 }}>─────→</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#818cf8', fontWeight: 800 }}>
+                        <span>🔌 API Worker (JSON)</span>
+                        <span style={{ opacity: 0.5 }}>─────→</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#c084fc', fontWeight: 800 }}>
+                        <span>💾 DB Connection Pool</span>
+                        <span style={{ opacity: 0.5 }}>──→ [OK]</span>
+                    </div>
+                    <div style={{ marginTop: '10px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', fontSize: '0.75rem', color: '#94a3b8', fontStyle: 'italic' }}>
+                        All internal traffic is secured via JWT session binding and tenantId isolation headers.
+                    </div>
+                </div>
+            </div>
+        </PerspectiveModalWrap>
+    );
+};
+
 // Reusable Modal Wrapper using modern aesthetics
 const PerspectiveModalWrap: React.FC<{ title: string; onClose: () => void; children: React.ReactNode }> = ({ title, onClose, children }) => (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>

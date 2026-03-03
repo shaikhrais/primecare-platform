@@ -5,7 +5,11 @@ import { CoreRadarChart } from '@/shared/components/charts/core/CoreRadarChart';
 
 const { ContentRegistry } = AdminRegistry;
 
-export const AdvancedAnalytics: React.FC = () => {
+interface AdvancedAnalyticsProps {
+    onDrillMesh: () => void;
+}
+
+export const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ onDrillMesh }) => {
     const { t } = useTranslation();
 
     const radarData = [
@@ -29,6 +33,7 @@ export const AdvancedAnalytics: React.FC = () => {
                     radiusKey="value"
                     radarName="Platform Core"
                     color="var(--brand-500)"
+                    onRadarClick={onDrillMesh}
                 />
             </div>
         </div>
