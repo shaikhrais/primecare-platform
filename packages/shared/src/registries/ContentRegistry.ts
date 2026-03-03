@@ -1015,6 +1015,25 @@ export const ContentRegistry = {
             STATUS_IN_PROGRESS: 'In Progress',
             STATUS_COMPLETED: 'Completed',
         },
+        COPILOT: {
+            TITLE: 'Scrum Master AI Copilot',
+            SUBTITLE: 'Predictive analytics and autonomous health management',
+            SUGGESTION_1: 'Optimize API caching for /v1/admission',
+            SUGGESTION_2: 'Unusual latency spike detected in US-EAST cluster',
+            SUGGESTION_3: 'Schema drift detected in Earnings module',
+        },
+        GOVERNANCE: {
+            TITLE: 'Security & Compliance Guardrails',
+            DATA_ISOLATION: 'Tenant Data Isolation',
+            ENCRYPTION: 'At-Rest Encryption',
+            AUDIT_TRAIL: 'Immutable Audit Logs',
+            STATUS_LOCKED: 'Secured',
+        },
+        FLOW_DRILL: {
+            TITLE: 'User Journey Deep-Dive',
+            JOURNEY_MAP: 'Operational Route Mapping',
+            PERMISSION_LATENCY: 'Permission Evaluation Time',
+        },
         API_ENDPOINTS: {
             TITLE: 'API Endpoints Registry',
             SUBTITLE: 'Monitor and test system-wide endpoints',

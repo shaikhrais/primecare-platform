@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 
 // Components
 import { DashboardStatus } from './components/DashboardStatus';
-import { EndpointDrillModal, PageAuditModal } from './components/DrillDownModals';
+import { EndpointDrillModal, PageAuditModal, RoleFlowDrillModal } from './components/DrillDownModals';
 import { SystemHealthCharts } from './components/SystemHealthCharts';
 import { HealthAlerts } from './components/HealthAlerts';
 import { ProductRoadmap } from './components/ProductRoadmap';
+import { TechnicalGovernance } from './components/TechnicalGovernance';
+import { ScrumMasterCopilot } from './components/ScrumMasterCopilot';
+import { AdvancedAnalytics } from './components/AdvancedAnalytics';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -75,6 +78,12 @@ export default function ScrumMasterDashboard() {
                 </div>
             </div>
 
+            {/* AI Copilot & Technical Governance (The "Future" layer) */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
+                <ScrumMasterCopilot />
+                <TechnicalGovernance />
+            </div>
+
             {/* Core Stats Section (Clickable for Drills) */}
             <div style={{ marginBottom: '3rem' }}>
                 <DashboardStatus
@@ -84,8 +93,11 @@ export default function ScrumMasterDashboard() {
                 />
             </div>
 
-            {/* Alerts Section */}
-            <HealthAlerts />
+            {/* Advanced Multi-dimensional Analytics */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '2rem', marginBottom: '3rem' }}>
+                <AdvancedAnalytics />
+                <HealthAlerts />
+            </div>
 
             {/* Health Analytics Section */}
             <SystemHealthCharts />
@@ -143,6 +155,10 @@ export default function ScrumMasterDashboard() {
             />
             <PageAuditModal
                 isOpen={drillType === 'pages'}
+                onClose={closeModal}
+            />
+            <RoleFlowDrillModal
+                isOpen={drillType === 'flows'}
                 onClose={closeModal}
             />
         </div>

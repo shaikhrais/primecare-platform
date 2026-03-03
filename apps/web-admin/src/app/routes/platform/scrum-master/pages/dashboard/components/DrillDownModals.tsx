@@ -70,6 +70,38 @@ export const PageAuditModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     );
 };
 
+export const RoleFlowDrillModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+    const { t } = useTranslation();
+    if (!isOpen) return null;
+
+    const flows = [
+        { role: 'Admin', path: '/platform/admin/*', status: 'Optimum', latency: '12ms' },
+        { role: 'Manager', path: '/tenancy/manager/*', status: 'Active', latency: '45ms' },
+        { role: 'Staff', path: '/tenancy/staff/*', status: 'Audited', latency: '32ms' },
+        { role: 'PSW / Client', path: '/mobile/*', status: 'Secured', latency: '18ms' }
+    ];
+
+    return (
+        <PerspectiveModalWrap title={t(ContentRegistry.SCRUM_MASTER.FLOW_DRILL.TITLE)} onClose={onClose}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <p style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>{t(ContentRegistry.SCRUM_MASTER.FLOW_DRILL.JOURNEY_MAP)}:</p>
+                {flows.map((f, i) => (
+                    <div key={i} style={{ padding: '15px', background: '#F8FAFC', borderRadius: '14px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <div style={{ fontWeight: 800, color: 'var(--text-400)', fontSize: '0.9rem' }}>{f.role} {t(ContentRegistry.SHARED.STATUS)}</div>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--brand-500)', fontFamily: 'monospace' }}>{f.path}</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ color: '#10b981', fontWeight: 800, fontSize: '0.75rem' }}>{f.status}</div>
+                            <div style={{ fontSize: '0.65rem', opacity: 0.5 }}>{f.latency}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </PerspectiveModalWrap>
+    );
+};
+
 // Reusable Modal Wrapper using modern aesthetics
 const PerspectiveModalWrap: React.FC<{ title: string; onClose: () => void; children: React.ReactNode }> = ({ title, onClose, children }) => (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
