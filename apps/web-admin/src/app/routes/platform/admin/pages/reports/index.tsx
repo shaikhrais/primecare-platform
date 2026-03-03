@@ -4,6 +4,8 @@ import { RevenueTrendChart } from '@/shared/components/charts/RevenueTrendChart'
 import { StaffUtilizationChart } from '@/shared/components/charts/StaffUtilizationChart';
 import { ClientGrowthChart } from '@/shared/components/charts/ClientGrowthChart';
 
+const { ContentRegistry } = AdminRegistry;
+
 export default function ReportsPage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'financial' | 'staff' | 'clients'>('overview');
     const [dateRange, setDateRange] = useState('30d');
@@ -24,8 +26,8 @@ export default function ReportsPage() {
         <div data-cy="page.reports">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Reports & Analytics</h2>
-                    <p style={{ color: '#6B7280', margin: '0.5rem 0 0 0' }}>Visualize key performance indicators and operational metrics.</p>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.REPORTS.TITLE}</h2>
+                    <p style={{ color: '#6B7280', margin: '0.5rem 0 0 0' }}>{ContentRegistry.REPORTS.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <select
@@ -33,28 +35,33 @@ export default function ReportsPage() {
                         onChange={(e) => setDateRange(e.target.value)}
                         style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #D1D5DB' }}
                     >
-                        <option value="7d">Last 7 Days</option>
-                        <option value="30d">Last 30 Days</option>
-                        <option value="90d">Last Quarter</option>
-                        <option value="ytd">Year to Date</option>
+                        <option value="7d">{ContentRegistry.REPORTS.DATE_RANGES[7]}</option>
+                        <option value="30d">{ContentRegistry.REPORTS.DATE_RANGES[30]}</option>
+                        <option value="90d">{ContentRegistry.REPORTS.DATE_RANGES[90]}</option>
+                        <option value="ytd">{ContentRegistry.REPORTS.DATE_RANGES.YEAR}</option>
                     </select>
                     <button
                         onClick={handleExport}
                         style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 600 }}
                     >
-                        Export CSV
+                        {ContentRegistry.REPORTS.EXPORT_BTN}
                     </button>
                 </div>
             </div>
 
             {/* Tabs */}
             <div style={{ display: 'flex', borderBottom: '1px solid #E5E7EB', marginBottom: '2rem' }}>
-                {['Overview', 'Financial', 'Staff', 'Clients'].map((tab) => {
-                    const key = tab.toLowerCase() as any;
+                {[
+                    { key: 'overview', label: ContentRegistry.REPORTS.TABS.OVERVIEW },
+                    { key: 'financial', label: ContentRegistry.REPORTS.TABS.FINANCIAL },
+                    { key: 'staff', label: ContentRegistry.REPORTS.TABS.STAFF },
+                    { key: 'clients', label: ContentRegistry.REPORTS.TABS.CLIENTS },
+                ].map((tab) => {
+                    const { key, label } = tab;
                     return (
                         <button
                             key={key}
-                            onClick={() => setActiveTab(key)}
+                            onClick={() => setActiveTab(key as any)}
                             style={{
                                 padding: '1rem 1.5rem',
                                 borderBottom: activeTab === key ? '2px solid #00875A' : '2px solid transparent',
@@ -68,7 +75,7 @@ export default function ReportsPage() {
                                 fontSize: '1rem'
                             }}
                         >
-                            {tab}
+                            {label}
                         </button>
                     );
                 })}

@@ -353,6 +353,64 @@ export const ContentRegistry = {
             TRAINING: 'Training',
         }
     },
+    CUSTOMERS: {
+        TITLE: 'Customer Management',
+        SUBTITLE: 'Manage active clients and oversee care admissions.',
+        ADD_BTN: '+ Admit New Client',
+        SEARCH_PLACEHOLDER: 'Search clients...',
+        TABLE: {
+            NAME: 'Full Name',
+            EMAIL: 'Email',
+            STATUS: 'Status',
+            ACTIONS: 'Actions',
+            EMPTY: 'No customers found in the registry.',
+            ANONYMOUS: 'Anonymous Customer',
+            VIEW_DETAILS: 'View Details',
+        },
+        FILTERS: {
+            ACTIVE_FILTERS: 'Active Filters:',
+            CLEAR_ALL: 'Clear All',
+            STATUS_LABEL: 'Status: ',
+        },
+        MESSAGES: {
+            LOADING: 'Loading customer registry...',
+        }
+    },
+    INVOICES: {
+        TITLE: 'Invoice Management',
+        SUBTITLE: 'Generate and track billing across the network.',
+        FORM: {
+            CREATE_TITLE: 'Create New Invoice',
+            DESC_PLACEHOLDER: 'Description of service',
+            AMOUNT_PLACEHOLDER: 'Amount ($)',
+            ADD_ITEM: '+ Add Line Item',
+            SUBMIT_BTN: 'Generate & Send Invoice',
+            CANCEL_BTN: 'Cancel',
+            DISCARD_TITLE: 'Discard Invoice?',
+            DISCARD_DESC: 'Are you sure you want to cancel this invoice? Unsaved changes will be lost.',
+        },
+        MESSAGES: {
+            SUCCESS_GENERATE: 'Invoice generated and sent successfully',
+            ERROR_GENERATE: 'Failed to generate invoice',
+        }
+    },
+    REPORTS: {
+        TITLE: 'Reports & Analytics',
+        SUBTITLE: 'Visualize key performance indicators and operational metrics.',
+        EXPORT_BTN: 'Export CSV',
+        DATE_RANGES: {
+            7: 'Last 7 Days',
+            30: 'Last 30 Days',
+            90: 'Last Quarter',
+            YEAR: 'Year to Date',
+        },
+        TABS: {
+            OVERVIEW: 'Overview',
+            FINANCIAL: 'Financials',
+            STAFF: 'Staff Utilization',
+            CLIENTS: 'Client Growth',
+        }
+    },
     SETTINGS: {
         TITLE: 'System Settings',
         SUBTITLE: 'Configure global parameters and administrative preferences.',

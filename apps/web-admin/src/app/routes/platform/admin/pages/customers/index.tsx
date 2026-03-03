@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { CustomerQuickViewModal } from '@/shared/components/modals/CustomerQuickViewModal';
 
-const { ApiRegistry } = AdminRegistry;
+const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function CustomerList() {
@@ -38,30 +38,30 @@ export default function CustomerList() {
             .catch(() => setLoading(false));
     }, [token]);
 
-    if (loading) return <div style={{ padding: '2rem' }}>Loading customers...</div>;
+    if (loading) return <div style={{ padding: '2rem' }}>{ContentRegistry.CUSTOMERS.MESSAGES.LOADING}</div>;
 
     return (
         <div style={{ padding: '2rem' }} data-cy="customer-list-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }} data-cy="page.header">
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }} data-cy="page.title">Customer Management</h2>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }} data-cy="page.title">{ContentRegistry.CUSTOMERS.TITLE}</h2>
                 </div>
                 <button
                     data-cy="btn-admit-client"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.ADMISSION)}
+                    onClick={() => navigate(RouteRegistry.ADMIN.ADMISSION)}
                     style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
                 >
-                    + Admit New Client
+                    {ContentRegistry.CUSTOMERS.ADD_BTN}
                 </button>
             </div>
 
             {searchParams.get('status') && (
                 <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>Active Filters:</span>
+                    <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{ContentRegistry.CUSTOMERS.FILTERS.ACTIVE_FILTERS}</span>
                     <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#dcfce7', color: '#166534', borderRadius: '9999px', fontSize: '0.875rem' }}>
-                        Status: {searchParams.get('status')}
+                        {ContentRegistry.CUSTOMERS.FILTERS.STATUS_LABEL}{searchParams.get('status')}
                     </span>
-                    <button onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>Clear All</button>
+                    <button onClick={() => navigate(RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>{ContentRegistry.CUSTOMERS.FILTERS.CLEAR_ALL}</button>
                 </div>
             )}
 
@@ -69,20 +69,26 @@ export default function CustomerList() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl-customers">
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
-                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Full Name</th>
-                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Email</th>
-                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Status</th>
-                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Actions</th>
+                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>{ContentRegistry.CUSTOMERS.TABLE.NAME}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>{ContentRegistry.CUSTOMERS.TABLE.EMAIL}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>{ContentRegistry.CUSTOMERS.TABLE.STATUS}</th>
+                            <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>{ContentRegistry.CUSTOMERS.TABLE.ACTIONS}</th>
                         </tr>
                     </thead>
                     <tbody style={{ borderTop: '1px solid #e5e7eb' }}>
-                        {filteredCustomers.map((customer) => (
+                        {filteredCustomers.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} style={{ padding: '2rem', textAlign: 'center', color: '#6b7280', fontSize: '0.875rem' }}>
+                                    {ContentRegistry.CUSTOMERS.TABLE.EMPTY}
+                                </td>
+                            </tr>
+                        ) : filteredCustomers.map((customer) => (
                             <tr key={customer.id} data-cy={`customer-row-${customer.id}`} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', transition: 'background-color 0.2s' }}
                                 onClick={() => { setSelectedCustomer(customer); setIsQuickViewOpen(true); }}
                                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
                                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                             >
-                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }} data-cy="customer-name">{customer?.fullName || 'Anonymous Customer'}</td>
+                                <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }} data-cy="customer-name">{customer?.fullName || ContentRegistry.CUSTOMERS.TABLE.ANONYMOUS}</td>
                                 <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#6b7280' }} data-cy="customer-email">{customer.user?.email}</td>
                                 <td style={{ padding: '1rem' }}>
                                     <span data-cy="customer-status" style={{
@@ -98,7 +104,7 @@ export default function CustomerList() {
                                 </td>
                                 <td style={{ padding: '1rem' }}>
                                     <button data-cy="btn-view-customer" style={{ color: 'var(--pc-primary)', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}>
-                                        View Details
+                                        {ContentRegistry.CUSTOMERS.TABLE.VIEW_DETAILS}
                                     </button>
                                 </td>
                             </tr>
