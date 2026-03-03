@@ -1,23 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { useAuth } from '@/shared/context/AuthContext';
 import { Link } from 'react-router-dom';
+
+// Components
+import { DashboardStatus } from './components/DashboardStatus';
+import { EndpointDrillModal, PageAuditModal } from './components/DrillDownModals';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
-/*
-## Phase 6: Registry Centralization [/]
-- [x] Update `ContentRegistry.ts` in shared project
-- [/] [Part 1] Refactor `ScrumMasterDashboard` & Base Tools
-- [ ] [Part 2] Refactor Audit Tools & Page Hubs
-- [ ] [Part 3] Global Dashboard Sync
-- [ ] Verify platform-wide string consistency
-*/
-
 export default function ScrumMasterDashboard() {
     const { t } = useTranslation();
-    const { user } = useAuth();
+    const [drillType, setDrillType] = useState<'endpoints' | 'pages' | 'flows' | null>(null);
+
+    const closeModal = () => setDrillType(null);
 
     return (
         <div data-cy="scrum-master-dashboard" style={{ animation: 'fadeIn 0.6s ease-out' }}>
@@ -78,7 +74,7 @@ export default function ScrumMasterDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
                 <Link to={RouteRegistry.SCRUM_MASTER.API_ENDPOINTS} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
-                        <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))' }}>�</div>
+                        <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))' }}></div>
                         <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.SUBTITLE)}
@@ -147,43 +143,20 @@ export default function ScrumMasterDashboard() {
                 </Link>
             </div>
 
-            <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', borderRadius: '32px', padding: '3rem', position: 'relative', overflow: 'hidden', color: 'white' }}>
-                <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'var(--brand-500)', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
-                <div style={{ position: 'absolute', bottom: '-50px', left: '-50px', width: '200px', height: '200px', background: '#ec4899', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
+            <DashboardStatus
+                onDrillEndpoints={() => setDrillType('endpoints')}
+                onDrillPages={() => setDrillType('pages')}
+                onDrillFlows={() => setDrillType('flows')}
+            />
 
-                <h2 style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '2rem', fontWeight: 800 }}>
-                    <span>🚀</span> {t(ContentRegistry.SCRUM_MASTER.DASHBOARD.TITLE)} {t(ContentRegistry.SHARED.STATUS)}
-                </h2>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '3rem' }}>
-                    <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}</div>
-                        <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>142</div>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
-                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 10px #10b981' }}></div>
-                            100% {t(ContentRegistry.SHARED.STATUS)}
-                        </div>
-                    </div>
-
-                    <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.PAGES.TITLE)}</div>
-                        <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>68</div>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
-                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#3b82f6', boxShadow: '0 0 10px #3b82f6' }}></div>
-                            {t(ContentRegistry.SHARED.STATUS)}
-                        </div>
-                    </div>
-
-                    <div style={{ transition: 'transform 0.3s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-                        <div style={{ fontSize: '0.9rem', opacity: 0.6, textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.TITLE)}</div>
-                        <div style={{ fontSize: '3.5rem', fontWeight: 900, margin: '10px 0', background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>100%</div>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 12px', background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 700 }}>
-                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }}></div>
-                            {t(ContentRegistry.SHARED.STATUS)}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <EndpointDrillModal
+                isOpen={drillType === 'endpoints'}
+                onClose={closeModal}
+            />
+            <PageAuditModal
+                isOpen={drillType === 'pages'}
+                onClose={closeModal}
+            />
         </div>
     );
 }
