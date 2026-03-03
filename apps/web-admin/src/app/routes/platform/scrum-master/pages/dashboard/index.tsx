@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 // Components
 import { DashboardStatus } from './components/DashboardStatus';
 import { EndpointDrillModal, PageAuditModal } from './components/DrillDownModals';
+import { SystemHealthCharts } from './components/SystemHealthCharts';
+import { HealthAlerts } from './components/HealthAlerts';
+import { ProductRoadmap } from './components/ProductRoadmap';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -52,6 +55,7 @@ export default function ScrumMasterDashboard() {
                 `}
             </style>
 
+            {/* Header section with Utility Links */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3rem' }}>
                 <div>
                     <h1 style={{ margin: '0 0 8px 0', fontSize: '40px', fontWeight: 900, background: 'linear-gradient(90deg, var(--text-100), var(--brand-600))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -71,10 +75,26 @@ export default function ScrumMasterDashboard() {
                 </div>
             </div>
 
+            {/* Core Stats Section (Clickable for Drills) */}
+            <div style={{ marginBottom: '3rem' }}>
+                <DashboardStatus
+                    onDrillEndpoints={() => setDrillType('endpoints')}
+                    onDrillPages={() => setDrillType('pages')}
+                    onDrillFlows={() => setDrillType('flows')}
+                />
+            </div>
+
+            {/* Alerts Section */}
+            <HealthAlerts />
+
+            {/* Health Analytics Section */}
+            <SystemHealthCharts />
+
+            {/* Module Mapping Section */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
                 <Link to={RouteRegistry.SCRUM_MASTER.API_ENDPOINTS} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
-                        <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))' }}></div>
+                        <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))' }}>🔌</div>
                         <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.SUBTITLE)}
@@ -111,44 +131,12 @@ export default function ScrumMasterDashboard() {
                         </p>
                     </div>
                 </Link>
-
-                <Link to={RouteRegistry.SCRUM_MASTER.ENV_AUDIT} style={{ textDecoration: 'none' }}>
-                    <div className="sm-card">
-                        <div style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(6, 182, 212, 0.3))' }}>🌐</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.ENV_AUDIT.TITLE)}</h3>
-                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
-                            {t(ContentRegistry.SCRUM_MASTER.ENV_AUDIT.SUBTITLE)}
-                        </p>
-                    </div>
-                </Link>
-
-                <Link to={RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK} style={{ textDecoration: 'none' }}>
-                    <div className="sm-card">
-                        <div style={{ background: 'linear-gradient(135deg, #f43f5e, #e11d48)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(244, 63, 94, 0.3))' }}>📋</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.TITLE)}</h3>
-                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
-                            {t(ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.SUBTITLE)}
-                        </p>
-                    </div>
-                </Link>
-
-                <Link to={RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA} style={{ textDecoration: 'none' }}>
-                    <div className="sm-card">
-                        <div style={{ background: 'linear-gradient(135deg, #a855f7, #7c3aed)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(168, 85, 247, 0.3))' }}>🗄️</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.TITLE)}</h3>
-                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
-                            {t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.SUBTITLE)}
-                        </p>
-                    </div>
-                </Link>
             </div>
 
-            <DashboardStatus
-                onDrillEndpoints={() => setDrillType('endpoints')}
-                onDrillPages={() => setDrillType('pages')}
-                onDrillFlows={() => setDrillType('flows')}
-            />
+            {/* Strategic Roadmap */}
+            <ProductRoadmap />
 
+            {/* Drill-down Modals */}
             <EndpointDrillModal
                 isOpen={drillType === 'endpoints'}
                 onClose={closeModal}
