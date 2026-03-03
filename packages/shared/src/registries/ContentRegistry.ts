@@ -520,6 +520,43 @@ export const ContentRegistry = {
             LOADING: 'Loading Dashboard...',
         }
     },
+    DAILY_ENTRY: {
+        TITLE: 'Daily Care Entry',
+        LEFT_PANEL_TITLE: 'Select Context',
+        CLIENT_LABEL: 'Client',
+        CLIENT_PLACEHOLDER: 'Select Client...',
+        TIP_TITLE: '💡 Tip',
+        TIP_CONTENT: 'Auto-save is enabled for drafts. Submitting requires a signature.',
+        ADL_TITLE: 'ADL Checklist',
+        VITALS_TITLE: 'Vitals & Wellness',
+        VITALS: {
+            BP: 'BP',
+            PULSE: 'Pulse',
+            TEMP: 'Temp',
+            MOOD_LABEL: 'Client Mood (1-5)',
+        },
+        NOTES_TITLE: 'Notes & Signature',
+        NOTES_PLACEHOLDER: 'Daily progress notes, observations, or incidents...',
+        SIGNATURE_LABEL: 'Digital Signature',
+        SIGNATURE_PLACEHOLDER: 'Type full name to sign',
+        SAVE_DRAFT: 'Save Draft',
+        SUBMIT: 'Submit Entry',
+        SUBMITTING: 'Submitting...',
+        GUARD: {
+            TITLE: 'Unsaved Changes',
+            DESC: 'You have unsaved changes. Navigating away will discard them. Would you like to stay and save?',
+            LEAVE: 'Leave',
+            STAY: 'Stay',
+        },
+        MESSAGES: {
+            SELECT_CLIENT: 'Please select a client',
+            SIGNATURE_REQUIRED: 'Signature required for submission',
+            SUCCESS_DRAFT: 'Draft saved!',
+            SUCCESS_SUBMIT: 'Daily entry submitted successfully!',
+            ERROR_SAVE: 'Failed to save entry',
+            ERROR_SERVER: 'Error communicating with server',
+        }
+    },
     LAYOUT: {
         LOGOUT: 'Sign Out',
         PROFILE_TITLE: 'Account Profile',
@@ -533,6 +570,23 @@ export const ContentRegistry = {
         MOBILE_MENU: 'Toggle Menu',
         SEARCH_LABEL: 'Search Registry',
         LOGGED_IN_AS: 'Active Session: ',
+        PERSPECTIVE_MODAL: {
+            TITLE_MAIN: 'Umbrella Perspective',
+            TITLE_IMPERSONATE: 'User Impersonation Tool',
+            SUBTITLE_MAIN: 'Switch between platform umbrellas or impersonate users',
+            SUBTITLE_IMPERSONATE: 'Viewing system as another user',
+            SECTION_ROLE: 'SWITCH UMBRELLA',
+            SECTION_IMPERSONATE: 'SEARCH SYSTEM USERS',
+            EXIT_IMPERSONATE: 'EXIT IMPERSONATION',
+            SEARCH_PLACEHOLDER: 'Search by name, email or UID...',
+            IMPERSONATE_ACTION: 'IMPERSONATE →',
+            GROUPS: {
+                ADMIN: 'Administration',
+                STAFF: 'Staff Operations',
+                MANAGEMENT: 'Management',
+                HEALTHCARE: 'Healthcare Workers',
+            }
+        }
     },
     ROLE_HELP: {
         TITLE: '💡 Umbrella Role System',
@@ -758,6 +812,11 @@ export const ContentRegistry = {
             CLIENTS: 'Admit Clients',
             FINISH: 'Ready to Go!'
         },
+        HEADERS: {
+            STEP_1: 'Step 1: Define Your Care Services',
+            STEP_2: 'Step 2: Onboard Your First Healthcare Worker',
+            STEP_3: 'Step 3: Admit Your First Client',
+        },
         BUTTONS: {
             NEXT: 'Next Step',
             BACK: 'Back',
@@ -791,6 +850,51 @@ export const ContentRegistry = {
             TITLE: 'Business Strategy',
             DESC: 'Define margins, tax IDs, and brand identity.',
             ACTION: 'Setup Strategy'
+        }
+    },
+    STRATEGY_WIZARD: {
+        TITLE: 'Business Strategy Wizard',
+        SUBTITLE: 'Define your core business parameters and margins.',
+        STEPS: {
+            BRANDING: 'Branding & Identity',
+            COMPLIANCE: 'Tax & Legal Compliance',
+            MARGIN: 'Profit Margin Strategy',
+        },
+        BRANDING: {
+            EMAIL_LABEL: 'Public Support Email',
+            EMAIL_PLACEHOLDER: 'support@yourcare.com',
+            LOGO_UPLOAD: 'Upload Business Logo',
+            LOGO_UPLOADING: 'Uploading...',
+            LOGO_CHANGE: 'Change Logo',
+            LOGO_HINT: 'PNG or SVG, Max 2MB',
+            LOGO_ERROR_SIZE: 'Logo must be smaller than 2MB',
+        },
+        COMPLIANCE: {
+            BN_LABEL: 'Business Registration Number (BN)',
+            BN_PLACEHOLDER: 'e.g. 12345 6789 RT0001',
+            TAX_LABEL: 'Automatically apply HST/GST to invoices',
+            TAX_DESC: 'Based on your primary business location settings.',
+        },
+        MARGIN: {
+            DESC: 'Set your target gross margin. This helps calculate what you pay providers versus what you charge clients.',
+            LABEL: 'TARGET MARGIN',
+            LOW: 'Lean (10%)',
+            MID: 'Industry Standard (30%)',
+            HIGH: 'Premium (60%)',
+        },
+        BUTTONS: {
+            SAVE_CONTINUE: 'Save & Continue',
+            COMPLETE: 'Complete Setup',
+            BACK: 'Back',
+            CANCEL: 'Cancel',
+            PROCESSING: 'Processing...',
+        },
+        MESSAGES: {
+            SUCCESS_LOGO: 'Logo uploaded successfully!',
+            ERROR_LOGO: 'Failed to upload logo',
+            SUCCESS_SAVE: 'Business Strategy saved!',
+            ERROR_SAVE: 'Failed to save settings',
+            ERROR_SERVER: 'Error connecting to server',
         }
     },
     BUSINESS_STATUS: {
