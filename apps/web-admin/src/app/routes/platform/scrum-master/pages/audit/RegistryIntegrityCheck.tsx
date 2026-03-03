@@ -58,7 +58,7 @@ export default function RegistryIntegrityCheck() {
                         {Object.keys(ApiRegistry).length}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
-                        ● Healthy
+                        ● {t(ContentRegistry.SHARED.HEALTHY)}
                     </div>
                 </div>
                 <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
@@ -69,7 +69,7 @@ export default function RegistryIntegrityCheck() {
                         100%
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
-                        ● Healthy
+                        ● {t(ContentRegistry.SHARED.HEALTHY)}
                     </div>
                 </div>
                 <div className="pc-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
@@ -105,7 +105,7 @@ export default function RegistryIntegrityCheck() {
                                         color: issue.severity === 'Low' ? '#475569' : '#c2410c',
                                         padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700
                                     }}>
-                                        {issue.severity}
+                                        {issue.severity === 'Low' ? t(ContentRegistry.SHARED.LOW) : t(ContentRegistry.SHARED.MEDIUM)}
                                     </span>
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem', fontWeight: 600 }}>{issue.component}</td>
@@ -118,6 +118,6 @@ export default function RegistryIntegrityCheck() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 }

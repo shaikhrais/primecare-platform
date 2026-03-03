@@ -53,11 +53,11 @@ export default function EnvironmentAudit() {
                                         color: env.security === 'Public' ? '#059669' : env.security === 'System' ? '#0284c7' : '#d97706',
                                         padding: '4px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700
                                     }}>
-                                        {env.security}
+                                        {env.security === 'Public' ? t(ContentRegistry.SHARED.PUBLIC) : env.security === 'System' ? t(ContentRegistry.SHARED.SYSTEM) : t(ContentRegistry.SHARED.SENSITIVE)}
                                     </span>
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem' }}>
-                                    <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.8rem' }}>● {t(ContentRegistry.SHARED.STATUS)}</span>
+                                    <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.8rem' }}>● {t(ContentRegistry.SHARED.HEALTHY)}</span>
                                 </td>
                             </tr>
                         ))}

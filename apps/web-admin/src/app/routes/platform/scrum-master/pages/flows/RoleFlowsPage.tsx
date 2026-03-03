@@ -105,7 +105,7 @@ export default function RoleFlowsPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '3rem' }}>
                 <div>
-                    <h3 style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: 'var(--text-400)', textTransform: 'uppercase', letterSpacing: '1px' }}>Security Roles</h3>
+                    <h3 style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: 'var(--text-400)', textTransform: 'uppercase', letterSpacing: '1px' }}>{t(ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.SECURITY_ROLES)}</h3>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {Object.entries(roleFlows).map(([id, data]) => (
                             <button
@@ -129,7 +129,7 @@ export default function RoleFlowsPage() {
                     </div>
 
                     <h2 style={{ margin: '0 0 3rem 0', fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-100)' }}>
-                        {roleFlows[selectedRole].label} Workflow pathway
+                        {roleFlows[selectedRole].label} {t(ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.WORKFLOW_PATHWAY)}
                     </h2>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -146,11 +146,11 @@ export default function RoleFlowsPage() {
                                     <div style={{ padding: '1rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #f1f5f9', maxWidth: '500px' }}>
                                         <div style={{ color: 'var(--text-300)', fontSize: '0.9rem', marginBottom: '8px', lineHeight: 1.5 }}>
                                             Validated via <strong>RequireRole({selectedRole})</strong> and linked to
-                                            registry path <code>{Object.values(RouteRegistry.ROLE_DASHBOARDS).includes(step) ? 'MATCH' : 'SECURE'}</code>.
+                                            registry path <code>{Object.values(RouteRegistry.ROLE_DASHBOARDS).includes(step) ? t(ContentRegistry.SHARED.MATCH) : t(ContentRegistry.SHARED.SECURE)}</code>.
                                         </div>
                                         <div style={{ display: 'flex', gap: '12px' }}>
-                                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: roleFlows[selectedRole].color }}>● ACCESSIBLE</span>
-                                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8' }}>● VERIFIED</span>
+                                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: roleFlows[selectedRole].color }}>● {t(ContentRegistry.SHARED.ACCESSIBLE).toUpperCase()}</span>
+                                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8' }}>● {t(ContentRegistry.SHARED.VERIFIED).toUpperCase()}</span>
                                         </div>
                                     </div>
                                 </div>
