@@ -2,10 +2,13 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useTranslation } from 'react-i18next';
+
+// Sub-components
+import { UserTable } from './components/UserTable';
+import { UserInviteModal } from './components/UserInviteModal';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 
@@ -27,16 +30,12 @@ export default function UserList() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [inviteEmail, setInviteEmail] = useState('');
-    const [isDirty, setIsDirty] = useState(false);
-    const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
 
     // Quick View State
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [quickViewOpen, setQuickViewOpen] = useState(false);
 
-    // Filter Logic
     const filteredUsers = useMemo(() => {
         const roleFilter = searchParams.get('role');
         const statusFilter = searchParams.get('status');
@@ -50,17 +49,6 @@ export default function UserList() {
     }, [users, searchParams]);
 
     useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty && isModalOpen) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty, isModalOpen]);
-
-    useEffect(() => {
         fetchUsers();
     }, []);
 
@@ -70,7 +58,6 @@ export default function UserList() {
             const response = await apiClient.get(ApiRegistry.ADMIN.USERS);
             if (response.ok) {
                 const data = await response.json();
-                // Map API response to UI model
                 const mapped = data.map((u: any) => ({
                     id: u.id,
                     email: u.email,
@@ -83,8 +70,7 @@ export default function UserList() {
                 setUsers(mapped);
             }
         } catch (error) {
-            console.error('Failed to fetch users', error);
-            showToast('Failed to load user list', 'error');
+            showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_LOAD), 'error');
         } finally {
             setLoading(false);
         }
@@ -95,43 +81,50 @@ export default function UserList() {
             const response = await apiClient.post(ApiRegistry.ADMIN.USERS_VERIFY(id));
             if (response.ok) {
                 setUsers(prev => prev.map(u => u.id === id ? { ...u, profile: { ...u.profile!, isVerified: true } } : u));
-                showToast('User extracted and verified successfully', 'success');
+                showToast(t(ContentRegistry.USERS.MESSAGES.SUCCESS_VERIFY), 'success');
             }
         } catch (error) {
-            showToast(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY, 'error');
+            showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY), 'error');
         }
     };
 
-    const handleInvite = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!inviteEmail) return;
+    const handleInvite = async (email: string) => {
         setSubmitting(true);
-        // Simulate API call
-        setTimeout(() => {
-            showToast(ContentRegistry.USERS.INVITE_SUCCESS(inviteEmail), 'success');
+        try {
+            // Simulate API call for now (as per original logic)
+            await new Promise(resolve => setTimeout(resolve, 800));
+            showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
             setIsModalOpen(false);
-            setIsDirty(false);
+        } catch (error) {
+            showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_ACTION), 'error');
+        } finally {
             setSubmitting(false);
-        }, 800);
+        }
     };
 
     const handleEdit = (user: User) => {
         navigate(RouteRegistry.ADMIN.USERS_EDIT(user.id));
     };
 
-
     return (
         <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.USERS.TITLE)}</h2>
-                <button
-                    data-cy="btn.user.add"
-                    onClick={() => navigate(RouteRegistry.ADMIN.USERS_NEW)}
-                    style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
-                >
-                    {t(ContentRegistry.USERS.ADD_BTN)}
-                </button>
-
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        style={{ padding: '0.5rem 1rem', backgroundColor: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
+                    >
+                        {t(ContentRegistry.USERS.INVITE_BTN)}
+                    </button>
+                    <button
+                        data-cy="btn.user.add"
+                        onClick={() => navigate(RouteRegistry.ADMIN.USERS_NEW)}
+                        style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
+                    >
+                        {t(ContentRegistry.USERS.ADD_BTN)}
+                    </button>
+                </div>
             </div>
 
             {(searchParams.get('role') || searchParams.get('status')) && (
@@ -153,134 +146,20 @@ export default function UserList() {
                 </div>
             )}
 
-            <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.users">
-                    <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
-                        <tr>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.TITLE)}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ROLE)}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ID_VERIFICATION)}</th>
-                            <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ACTIONS)}</th>
-                        </tr>
-                    </thead>
-                    <tbody style={{ backgroundColor: 'white' }}>
-                        {loading ? (
-                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{t(ContentRegistry.USERS.MESSAGES.LOADING)}</td></tr>
-                        ) : (
-                            filteredUsers.map(user => (
-                                <tr key={user.id} data-cy={`user-row-${user.id}`} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer', transition: 'background-color 0.2s' }}
-                                    onClick={() => { setSelectedUser(user); setQuickViewOpen(true); }}
-                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                                >
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ fontWeight: '600', color: '#111827' }} data-cy="user-fullname">{user.profile?.fullName}</div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }} data-cy="user-email">{user.email}</div>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                                            {user.roles.map(r => (
-                                                <span key={r} data-cy="user-role" style={{
-                                                    padding: '0.25rem 0.625rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: '600',
-                                                    backgroundColor: r === 'psw' ? '#e0f2fe' : r === 'admin' ? '#fef3c7' : '#f3f4f6',
-                                                    color: r === 'psw' ? '#0369a1' : r === 'admin' ? '#92400e' : '#374151'
-                                                }}>
-                                                    {r.toUpperCase()}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        {user.roles.includes('psw') ? (
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                <span data-cy="user-verification-icon" style={{ color: user.profile?.isVerified ? '#059669' : '#d97706', fontSize: '1.2rem' }}>
-                                                    {user.profile?.isVerified ? '✅' : '⏳'}
-                                                </span>
-                                                <span data-cy="user-verification-text" style={{ fontSize: '0.875rem', color: user.profile?.isVerified ? '#059669' : '#d97706', fontWeight: '500' }}>
-                                                    {user.profile?.isVerified ? t(ContentRegistry.USERS.VERIFIED) : t(ContentRegistry.USERS.PENDING)}
-                                                </span>
-                                            </div>
-                                        ) : '-'}
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                            <button
-                                                data-cy="btn-edit-user"
-                                                onClick={() => handleEdit(user)}
-                                                style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '500' }}
-                                            >
-                                                {t(ContentRegistry.USERS.EDIT_BTN)}
-                                            </button>
-                                            {user.roles.includes('psw') && !user.profile?.isVerified && (
-                                                <button
-                                                    data-cy="btn.user.verify"
-                                                    onClick={() => handleApprove(user.id)}
-                                                    style={{ color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '600' }}
-                                                >
-                                                    {t(ContentRegistry.USERS.VERIFY_BTN)}
-                                                </button>
-                                            )}
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                        {filteredUsers.length === 0 && !loading && (
-                            <tr><td colSpan={4} style={{ padding: '3rem', textAlign: 'center', color: '#6b7280' }}>{t(ContentRegistry.USERS.MESSAGES.EMPTY)}</td></tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <UserTable
+                users={filteredUsers}
+                loading={loading}
+                onEdit={handleEdit}
+                onApprove={handleApprove}
+                onSelectUser={(user) => { setSelectedUser(user); setQuickViewOpen(true); }}
+            />
 
-            {isModalOpen && (
-                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    {showGuard && (
-                        <div data-cy="guard.unsaved.dialog" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1001, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '0.5rem' }}>
-                            <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '350px', textAlign: 'center' }}>
-                                <h4 style={{ margin: '0 0 1rem 0' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_TITLE)}</h4>
-                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_DESC)}</p>
-                                <div style={{ display: 'flex', gap: '1rem' }}>
-                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
-                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    <form onSubmit={handleInvite} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', width: '90%', position: 'relative' }} data-cy="modal.user.invite.container">
-                        <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.USERS.MODAL.INVITE_TITLE)}</h3>
-                        <div style={{ marginTop: '1.5rem' }}>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.AUTH.EMAIL_LABEL)}</label>
-                            <input
-                                data-cy="modal.user.invite.email"
-                                type="email"
-                                value={inviteEmail}
-                                onChange={(e) => { setInviteEmail(e.target.value); setIsDirty(true); }}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                                required
-                                placeholder={t(ContentRegistry.USERS.INVITE_PROMPT)}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button
-                                type="button"
-                                data-cy="modal.user.invite.close"
-                                onClick={() => isDirty ? setShowGuard(true) : setIsModalOpen(false)}
-                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
-                            >
-                                {t(ContentRegistry.SCHEDULE.ACTIONS.CLOSE)}
-                            </button>
-                            <button
-                                type="submit"
-                                data-cy="modal.user.invite.save"
-                                disabled={submitting}
-                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                            >
-                                {submitting ? t(ContentRegistry.USERS.MODAL.SENDING) : t(ContentRegistry.USERS.MODAL.SEND_BTN)}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            )}
+            <UserInviteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleInvite}
+                submitting={submitting}
+            />
 
             <UserQuickViewModal
                 isOpen={quickViewOpen}

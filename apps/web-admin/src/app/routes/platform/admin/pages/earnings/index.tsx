@@ -75,12 +75,20 @@ export default function AdminEarningsPage() {
 
     const handleExport = () => {
         if (filteredEarnings.length === 0) {
-            alert('No data to export');
+            alert(t(ContentRegistry.COMMON.NO_RESULTS));
             return;
         }
 
         // CSV Headers
-        const headers = ['Invoice ID', 'Date', 'Shift ID', 'Client', 'PSW', 'Revenue', 'Payroll', 'Profit', 'Status'];
+        const headers = [
+            t(ContentRegistry.EARNINGS.INVOICE_ID || 'Invoice ID'),
+            t(ContentRegistry.SHARED.STATUS || 'Status'),
+            t(ContentRegistry.EARNINGS.CLIENT || 'Client'),
+            t(ContentRegistry.EARNINGS.PSW || 'PSW'),
+            t(ContentRegistry.EARNINGS.REVENUE || 'Revenue'),
+            t(ContentRegistry.EARNINGS.PAYROLL || 'Payroll'),
+            t(ContentRegistry.EARNINGS.PROFIT || 'Profit')
+        ];
 
         // CSV Rows
         const rows = filteredEarnings.map((r: EarningRecord) => [

@@ -3,13 +3,14 @@ import { SmartBreadcrumbs } from '@/shared/components/SmartBreadcrumbs';
 import { useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 
 // Components
 import { ScheduleCalendar } from './components/ScheduleCalendar';
 import { ScheduleList } from './components/ScheduleList';
-import { AssignShiftModal } from './components/AssignShiftModal';
-import { SurgePricingModal } from './components/SurgePricingModal';
+import { ScheduleHeader } from './components/ScheduleHeader';
+import { ViewToggle } from './components/ViewToggle';
+import { ScheduleModalsContainer } from './components/ScheduleModalsContainer';
+import { useTranslation } from 'react-i18next';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
@@ -26,10 +27,6 @@ interface Visit {
     surgeMultiplier?: number;
     service?: { providerRateHourly?: string | number };
 }
-
-import { ScheduleHeader } from './components/ScheduleHeader';
-import { ViewToggle } from './components/ViewToggle';
-import { useTranslation } from 'react-i18next';
 
 export default function Schedule() {
     const { t } = useTranslation();
@@ -101,7 +98,6 @@ export default function Schedule() {
                 const filteredPsws = data.filter((u: any) => u.role === 'psw');
                 setPsws(filteredPsws);
             } else {
-                console.warn('fetchPsws: expected array but got:', data);
                 setPsws([]);
             }
         } catch (err) {
@@ -129,10 +125,10 @@ export default function Schedule() {
             if (response.ok) {
                 setIsAssignModalOpen(false);
                 fetchVisits();
-                showToast(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_ASSIGN, 'success');
+                showToast(t(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_ASSIGN), 'success');
             }
         } catch (err) {
-            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_ASSIGN, 'error');
+            showToast(t(ContentRegistry.SCHEDULE.MESSAGES.ERROR_ASSIGN), 'error');
         }
     };
 
@@ -166,12 +162,12 @@ export default function Schedule() {
                 body: JSON.stringify({ pswIds })
             });
             if (res.ok) {
-                showToast('Offers sent successfully', 'success');
+                showToast(t(ContentRegistry.SCHEDULE.MESSAGES.OFFERS_SENT), 'success');
                 setIsAssignModalOpen(false);
                 fetchVisits();
             }
         } catch (err) {
-            showToast('Failed to send offers', 'error');
+            showToast(t(ContentRegistry.SCHEDULE.MESSAGES.OFFERS_FAILED), 'error');
         }
     };
 
@@ -188,15 +184,14 @@ export default function Schedule() {
             });
 
             if (res.ok) {
-                showToast('Surge pricing updated successfully', 'success');
+                showToast(t(ContentRegistry.SCHEDULE.MESSAGES.SURGE_SUCCESS), 'success');
                 setIsSurgeModalOpen(false);
                 fetchVisits();
             } else {
-                showToast('Failed to apply surge pricing', 'error');
+                showToast(t(ContentRegistry.SCHEDULE.MESSAGES.SURGE_ERROR), 'error');
             }
         } catch (err) {
-            console.error(err);
-            showToast('Network error while applying surge', 'error');
+            showToast(t(ContentRegistry.SCHEDULE.MESSAGES.NETWORK_ERROR), 'error');
         }
     };
 
@@ -232,10 +227,10 @@ export default function Schedule() {
             if (response.ok) {
                 setIsAssignModalOpen(false);
                 fetchVisits();
-                showToast(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_CANCEL, 'success');
+                showToast(t(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_CANCEL), 'success');
             }
         } catch (err) {
-            showToast(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE, 'error');
+            showToast(t(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE), 'error');
         }
     };
 
@@ -283,48 +278,28 @@ export default function Schedule() {
                 />
             )}
 
-            <AssignShiftModal
-                isOpen={isAssignModalOpen}
-                onClose={() => setIsAssignModalOpen(false)}
+            <ScheduleModalsContainer
+                isAssignModalOpen={isAssignModalOpen}
+                setIsAssignModalOpen={setIsAssignModalOpen}
                 selectedVisit={selectedVisit}
                 psws={psws}
                 assignedPswId={assignedPswId}
                 setAssignedPswId={setAssignedPswId}
                 handleAssign={handleAssign}
                 handleDeleteVisit={handleDeleteVisit}
-                openEditModal={() => {
-                    setIsAssignModalOpen(false);
-                    setIsCreateVisitModalOpen(true);
-                }}
+                setIsCreateVisitModalOpen={setIsCreateVisitModalOpen}
                 suggestions={suggestions}
-                onFetchSuggestions={fetchSuggestions}
-                onOffer={handleOffer}
+                fetchSuggestions={fetchSuggestions}
+                handleOffer={handleOffer}
                 isSuggesting={isSuggesting}
+                isCreateVisitModalOpen={isCreateVisitModalOpen}
+                fetchVisits={fetchVisits}
+                setSelectedVisit={setSelectedVisit}
+                isSurgeModalOpen={isSurgeModalOpen}
+                surgeTargetVisit={surgeTargetVisit}
+                setIsSurgeModalOpen={setIsSurgeModalOpen}
+                handleApplySurge={handleApplySurge}
             />
-
-            <CreateVisitModal
-                isOpen={isCreateVisitModalOpen}
-                onClose={() => {
-                    setIsCreateVisitModalOpen(false);
-                }}
-                onSuccess={() => {
-                    fetchVisits();
-                    setSelectedVisit(null);
-                }}
-                visit={selectedVisit}
-            />
-
-            {isSurgeModalOpen && surgeTargetVisit && (
-                <SurgePricingModal
-                    visitId={surgeTargetVisit.id}
-                    clientName={surgeTargetVisit.client?.fullName || 'the client'}
-                    currentMultiplier={surgeTargetVisit.surgeMultiplier || 1.0}
-                    isActive={surgeTargetVisit.isSurgeActive || false}
-                    basePayout={Number(surgeTargetVisit.service?.providerRateHourly || 25) * (surgeTargetVisit.durationMinutes / 60)}
-                    onClose={() => setIsSurgeModalOpen(false)}
-                    onSave={handleApplySurge}
-                />
-            )}
         </div>
     );
 }

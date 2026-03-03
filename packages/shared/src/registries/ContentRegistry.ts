@@ -174,6 +174,7 @@ export const ContentRegistry = {
             ERROR_VERIFY: 'Failed to approve worker',
             ERROR_LOAD: 'Failed to load user list',
             SUCCESS_VERIFY: 'User extracted and verified successfully',
+            ERROR_ACTION: 'Action failed',
         },
         MODAL: {
             INVITE_TITLE: 'Invite New User',
@@ -299,6 +300,11 @@ export const ContentRegistry = {
             ERROR_ASSIGN: 'Assignment failed',
             ERROR_DELETE: 'Failed to delete visit',
             ERROR_UPDATE: 'Status update failed',
+            OFFERS_SENT: 'Offers sent successfully',
+            OFFERS_FAILED: 'Failed to send offers',
+            SURGE_SUCCESS: 'Surge pricing updated successfully',
+            SURGE_ERROR: 'Failed to apply surge pricing',
+            NETWORK_ERROR: 'Network error while applying surge',
         }
     },
     SETTINGS: {
@@ -493,7 +499,13 @@ export const ContentRegistry = {
             EXPORT: 'Export Report',
             DATE_RANGE: 'Date Range',
             FILTER_ACTIVE: 'Filter Active',
-        }
+        },
+        INVOICE_ID: 'Invoice ID',
+        CLIENT: 'Client',
+        PSW: 'PSW',
+        REVENUE: 'Revenue',
+        PAYROLL: 'Payroll',
+        PROFIT: 'Profit',
     },
     COMMON: {
         LOAD_MORE: 'Load More',
