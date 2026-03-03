@@ -46,7 +46,7 @@ export default function TimesheetList() {
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">Timesheet Review</h2>
                 <button
                     data-cy="btn.timesheet.adjust"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.TIMESHEET_ADJUST)}
+                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.TIMESHEET_ADJUST)}
                     style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     Manual Adjustment

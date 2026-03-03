@@ -221,6 +221,8 @@ export const ContentRegistry = {
             RESOLVING_LOADING: 'Resolving...',
             DISCARD_TITLE: 'Discard Changes?',
             DISCARD_DESC: 'You have typed resolution notes. Are you sure you want to cancel?',
+            SUCCESS: 'Incident resolved successfully',
+            ERROR: 'Failed to resolve incident',
         },
         TABLE: {
             TYPE: 'Type',
@@ -275,7 +277,10 @@ export const ContentRegistry = {
             LOADING: 'Loading leads repository...',
             EMPTY: 'No leads found.',
             ERROR: 'Failed to fetch leads',
+            SUCCESS_UPDATE: 'Status updated successfully',
             ERROR_UPDATE: 'Failed to update status',
+            SUCCESS_DELETE: 'Lead deleted successfully',
+            ERROR_DELETE: 'Error deleting lead',
         }
     },
     SCHEDULE: {
@@ -305,6 +310,47 @@ export const ContentRegistry = {
             SURGE_SUCCESS: 'Surge pricing updated successfully',
             SURGE_ERROR: 'Failed to apply surge pricing',
             NETWORK_ERROR: 'Network error while applying surge',
+        }
+    },
+    SERVICES: {
+        TITLE: 'Services & Pricing',
+        SUBTITLE: 'Manage the care packages and hourly rates offered to clients.',
+        ADD_BTN: '+ Add New Service',
+        TABLE: {
+            NAME: 'Service Name',
+            CATEGORY: 'Category',
+            RATE: 'Hourly Rate',
+            DESC: 'Description',
+            ACTIONS: 'Actions',
+            LOADING: 'Loading services...',
+            EMPTY: 'No services configured.',
+        },
+        FORM: {
+            TITLE_CREATE: 'Add New Service',
+            TITLE_EDIT: 'Edit Service',
+            NAME_LABEL: 'Service Name',
+            RATE_LABEL: 'Hourly Rate ($)',
+            CATEGORY_LABEL: 'Category',
+            DESC_LABEL: 'Description',
+            SAVE_BTN: 'Save Service',
+            CANCEL_BTN: 'Cancel',
+            DISCARD_TITLE: 'Discard Changes?',
+            DISCARD_DESC: 'You have unsaved changes in this service. Are you sure you want to close?',
+        },
+        MESSAGES: {
+            SUCCESS_CREATE: 'Service created successfully!',
+            SUCCESS_UPDATE: 'Service updated successfully!',
+            SUCCESS_DELETE: 'Service deleted successfully',
+            ERROR_SAVE: 'Failed to save service',
+            ERROR_DELETE: 'Failed to delete service',
+            ERROR_LOAD: 'Failed to load services',
+            CONFIRM_DELETE: 'Are you sure you want to delete this service?',
+        },
+        CATEGORIES: {
+            SENIOR_CARE: 'Senior Care',
+            FOOT_CARE: 'Foot Care',
+            CONSULTING: 'Consulting',
+            TRAINING: 'Training',
         }
     },
     SETTINGS: {

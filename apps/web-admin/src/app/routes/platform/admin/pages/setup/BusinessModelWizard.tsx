@@ -60,7 +60,7 @@ export default function BusinessModelWizard() {
             if (response.ok) {
                 showToast('Business Strategy saved!', 'success');
                 if (step < 3) setStep(step + 1);
-                else navigate(RouteRegistry.WIZARD_HUB);
+                else navigate(RouteRegistry.ADMIN.WIZARD_HUB);
             } else {
                 showToast('Failed to save settings', 'error');
             }
@@ -195,7 +195,7 @@ export default function BusinessModelWizard() {
 
             <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem' }}>
                 <button
-                    onClick={() => step > 1 ? setStep(step - 1) : navigate(RouteRegistry.WIZARD_HUB)}
+                    onClick={() => step > 1 ? setStep(step - 1) : navigate(RouteRegistry.ADMIN.WIZARD_HUB)}
                     style={{ flex: 1, padding: '1rem', background: 'white', border: '1px solid #d1d5db', borderRadius: '1rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {step === 1 ? 'Cancel' : 'Back'}

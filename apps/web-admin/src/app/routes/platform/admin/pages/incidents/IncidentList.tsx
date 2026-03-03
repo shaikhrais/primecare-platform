@@ -3,31 +3,22 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useTranslation } from 'react-i18next';
+import { useNotification } from '@/shared/context/NotificationContext';
+
+// Components
+import { IncidentResolutionModal } from './components/IncidentResolutionModal';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function IncidentList() {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { showToast } = useNotification();
     const [incidents, setIncidents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedIncident, setSelectedIncident] = useState<string | null>(null);
-    const [resolutionNotes, setResolutionNotes] = useState('');
-    const [isDirty, setIsDirty] = useState(false);
-    const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-
-    useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty && isModalOpen) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty, isModalOpen]);
 
     useEffect(() => {
         fetchIncidents();
@@ -48,9 +39,8 @@ export default function IncidentList() {
         }
     };
 
-    const handleResolve = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!selectedIncident || !resolutionNotes) return;
+    const handleResolve = async (resolutionNotes: string) => {
+        if (!selectedIncident) return;
         setSubmitting(true);
 
         try {
@@ -62,10 +52,10 @@ export default function IncidentList() {
             if (response.ok) {
                 setIncidents(incidents.map((inc: any) => inc.id === selectedIncident ? { ...inc, status: 'resolved', resolutionNotes } : inc));
                 setIsModalOpen(false);
-                setIsDirty(false);
+                showToast(t(ContentRegistry.INCIDENTS.RESOLVE.SUCCESS), 'success');
             }
         } catch (error) {
-            console.error('Failed to resolve incident', error);
+            showToast(t(ContentRegistry.INCIDENTS.RESOLVE.ERROR), 'error');
         } finally {
             setSubmitting(false);
         }
@@ -126,9 +116,7 @@ export default function IncidentList() {
                                             data-cy="btn.incident.resolve"
                                             onClick={() => {
                                                 setSelectedIncident(incident.id);
-                                                setResolutionNotes('');
                                                 setIsModalOpen(true);
-                                                setIsDirty(false);
                                             }}
                                             style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
                                         >
@@ -142,54 +130,12 @@ export default function IncidentList() {
                 </table>
             </div>
 
-            {isModalOpen && (
-                <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-                    {showGuard && (
-                        <div data-cy="guard.unsaved.dialog" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1001, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '0.5rem' }}>
-                            <div style={{ background: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '350px', textAlign: 'center' }}>
-                                <h4 style={{ margin: '0 0 1rem 0' }}>{t(ContentRegistry.INCIDENTS.RESOLVE.DISCARD_TITLE)}</h4>
-                                <p style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '1.5rem' }}>{t(ContentRegistry.INCIDENTS.RESOLVE.DISCARD_DESC)}</p>
-                                <div style={{ display: 'flex', gap: '1rem' }}>
-                                    <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); setIsModalOpen(false); }} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
-                                    <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '0.625rem', borderRadius: '0.375rem', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    <form onSubmit={handleResolve} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }} data-cy="modal.incident.resolve.container">
-                        <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.INCIDENTS.RESOLVE.TITLE)}</h3>
-                        <div style={{ marginTop: '1.5rem' }}>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.INCIDENTS.RESOLVE.NOTES_LABEL)}</label>
-                            <textarea
-                                data-cy="modal.incident.resolve.notes"
-                                value={resolutionNotes}
-                                onChange={(e) => { setResolutionNotes(e.target.value); setIsDirty(true); }}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '120px' }}
-                                required
-                                placeholder={t(ContentRegistry.INCIDENTS.RESOLVE.NOTES_PLACEHOLDER)}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                            <button
-                                type="button"
-                                data-cy="modal.incident.resolve.close"
-                                onClick={() => isDirty ? setShowGuard(true) : setIsModalOpen(false)}
-                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
-                            >
-                                {t(ContentRegistry.COMMON.BACK)}
-                            </button>
-                            <button
-                                type="submit"
-                                data-cy="modal.incident.resolve.save"
-                                disabled={submitting}
-                                style={{ flex: 1, padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                            >
-                                {submitting ? t(ContentRegistry.INCIDENTS.RESOLVE.RESOLVING_LOADING) : t(ContentRegistry.INCIDENTS.RESOLVE.TITLE)}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            )}
+            <IncidentResolutionModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onResolve={handleResolve}
+                submitting={submitting}
+            />
         </div>
     );
 }

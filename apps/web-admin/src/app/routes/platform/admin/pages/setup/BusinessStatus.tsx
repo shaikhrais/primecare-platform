@@ -61,7 +61,7 @@ export default function BusinessStatus() {
             icon: '🩺',
             color: '#0ea5e9',
             action: 'Configure Services',
-            route: RouteRegistry.SETUP_WIZARD // Step 1 is services
+            route: RouteRegistry.ADMIN.SETUP_WIZARD // Step 1 is services
         },
         {
             id: 'staff',
@@ -81,7 +81,7 @@ export default function BusinessStatus() {
             icon: '🏠',
             color: '#f59e0b',
             action: 'Admit Client',
-            route: RouteRegistry.CARE_PLAN_WIZARD
+            route: RouteRegistry.ADMIN.CARE_PLAN_WIZARD
         },
         {
             id: 'finance',
@@ -91,7 +91,7 @@ export default function BusinessStatus() {
             icon: '💰',
             color: '#8b5cf6',
             action: 'Manage Billing',
-            route: RouteRegistry.REVENUE_WIZARD
+            route: RouteRegistry.ADMIN.REVENUE_WIZARD
         }
     ];
 
@@ -203,7 +203,7 @@ export default function BusinessStatus() {
                             >
                                 {domain.action}
                             </button>
-                            <Link to={RouteRegistry.WIZARD_HUB} style={{ flex: 1 }}>
+                            <Link to={RouteRegistry.ADMIN.WIZARD_HUB} style={{ flex: 1 }}>
                                 <button style={{
                                     width: '100%',
                                     padding: '0.75rem',

@@ -110,7 +110,7 @@ export default function StaffOnboardingWizard() {
                         </div>
                     </div>
                     <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                        <button type="button" onClick={() => navigate(RouteRegistry.WIZARD_HUB)} style={{ padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>Cancel</button>
+                        <button type="button" onClick={() => navigate(RouteRegistry.ADMIN.WIZARD_HUB)} style={{ padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>Cancel</button>
                         <button type="submit" disabled={loading} style={{ padding: '0.75rem 2rem', background: '#004d40', color: 'white', fontWeight: 'bold', borderRadius: '0.75rem', border: 'none', cursor: 'pointer' }}>
                             {loading ? t(ContentRegistry.STAFF_WIZARD.FORM.SUBMITTING) : 'Continue to Compliance'}
                         </button>

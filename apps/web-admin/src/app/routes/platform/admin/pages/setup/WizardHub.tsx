@@ -30,7 +30,7 @@ export default function WizardHub() {
             title: t(ContentRegistry.WIZARD_HUB.CLIENT.TITLE),
             desc: t(ContentRegistry.WIZARD_HUB.CLIENT.DESC),
             action: t(ContentRegistry.WIZARD_HUB.CLIENT.ACTION),
-            route: RouteRegistry.CARE_PLAN_WIZARD,
+            route: RouteRegistry.ADMIN.CARE_PLAN_WIZARD,
             icon: '📋',
             color: '#0284c7'
         },
@@ -38,7 +38,7 @@ export default function WizardHub() {
             title: t(ContentRegistry.WIZARD_HUB.FINANCE.TITLE),
             desc: t(ContentRegistry.WIZARD_HUB.FINANCE.DESC),
             action: t(ContentRegistry.WIZARD_HUB.FINANCE.ACTION),
-            route: RouteRegistry.REVENUE_WIZARD,
+            route: RouteRegistry.ADMIN.REVENUE_WIZARD,
             icon: '💰',
             color: '#059669'
         }

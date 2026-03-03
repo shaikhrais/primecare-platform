@@ -35,7 +35,7 @@ export default function OnboardBusiness() {
             if (response.ok) {
                 const data = await response.json();
                 login({ ...data.user, activeRole: 'admin' }, data.token);
-                navigate(RouteRegistry.SETUP_WIZARD);
+                navigate(RouteRegistry.ADMIN.SETUP_WIZARD);
             } else {
                 const data = await response.json();
                 setError(data.error || 'Onboarding failed');
