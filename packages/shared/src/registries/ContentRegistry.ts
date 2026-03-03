@@ -890,6 +890,8 @@ export const ContentRegistry = {
             TITLE: 'API Endpoints Registry',
             SUBTITLE: 'Monitor and test system-wide endpoints',
             TEST_BTN: 'Test Endpoint',
+            READY: 'Ready',
+            TESTING: '⌛ Testing...',
         },
         PAGES: {
             TITLE: 'System Pages Audit',
@@ -904,14 +906,27 @@ export const ContentRegistry = {
             SUBTITLE: 'Audit user journeys and permissions',
             SECURITY_ROLES: 'Security Roles',
             WORKFLOW_PATHWAY: 'Workflow pathway',
+            STEPS: {
+                ADMIN: ['Dashboard Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'],
+                MANAGER: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'],
+                STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
+                PSW: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'],
+                CLIENT: ['Care Hub', 'New Request', 'Assigned Team', 'Digital Invoices', 'Feedback Gateway'],
+            }
         },
         MONITORING: {
             TITLE: 'System Health Monitor',
             SUBTITLE: 'Real-time operational status and infrastructure telemetry',
+            API_CLUSTER: 'API Cluster',
+            UPTIME_DESC: 'Uptime 24h • Average Latency 42ms',
+            DB_TELEMETRY: 'Complex P99 • 8.4GB Cache usage',
+            LOGS_TITLE: 'Live Logs Stream',
+            HEARTBEAT: 'Heartbeat check: OK.',
         },
         ENV_AUDIT: {
             TITLE: 'Environment Audit',
             SUBTITLE: 'Sanitized system configuration and environment mapping',
+            SECURITY_NOTE: 'Sensitive keys like DATABASE_URL, JWT_SECRET, and API_KEYS are never exposed in the UI. Only configuration flags and public-facing service URLs are visible here for technical auditing.',
         },
         REGISTRY_CHECK: {
             TITLE: 'Registry Integrity Monitor',
@@ -924,6 +939,7 @@ export const ContentRegistry = {
             CORE_FIELDS: 'Core Fields',
             RELATIONS: 'Relations',
             SYNC_STATUS: 'Sync Status',
+            INSIGHT: 'The current schema follows a Multi-Tenant Shared Database pattern. Data isolation is enforced at the application level via tenantId scoping in the api-worker middleware. All structural changes must be verified against the Prisma Migration Logs available in the Environment Audit section.',
         },
         INTEGRITY: {
             TOTAL_ROUTES: 'Total Route Definitions',

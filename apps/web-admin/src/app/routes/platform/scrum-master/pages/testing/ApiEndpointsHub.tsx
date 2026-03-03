@@ -80,7 +80,7 @@ export default function ApiEndpointsHub() {
                                             <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{testResults[idx].status} ({testResults[idx].time})</span>
                                         </div>
                                     ) : (
-                                        <span style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>Ready</span>
+                                        <span style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.READY)}</span>
                                     )}
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem', textAlign: 'right' }}>
@@ -100,7 +100,7 @@ export default function ApiEndpointsHub() {
                                             transition: '0.2s'
                                         }}
                                     >
-                                        {testingId === idx.toString() ? '⌛ Testing...' : t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TEST_BTN)}
+                                        {testingId === idx.toString() ? t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TESTING) : t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TEST_BTN)}
                                     </button>
                                 </td>
                             </tr>

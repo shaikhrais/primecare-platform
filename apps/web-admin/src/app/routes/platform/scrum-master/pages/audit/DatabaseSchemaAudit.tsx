@@ -66,9 +66,7 @@ export default function DatabaseSchemaAudit() {
             <div style={{ marginTop: '2.5rem', padding: '2rem', backgroundColor: '#f1f5f9', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
                 <h3 style={{ margin: '0 0 1rem 0', color: '#1e293b' }}>🧠 {t(ContentRegistry.SHARED.ARCHITECTURE_INSIGHT)}</h3>
                 <p style={{ margin: 0, color: '#475569', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                    The current schema follows a <strong>Multi-Tenant Shared Database</strong> pattern.
-                    Data isolation is enforced at the application level via <code>tenantId</code> scoping in the <code>api-worker</code> middleware.
-                    All structural changes must be verified against the <strong>Prisma Migration Logs</strong> available in the Environment Audit section.
+                    {t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.INSIGHT)}
                 </p>
             </div>
         </div>

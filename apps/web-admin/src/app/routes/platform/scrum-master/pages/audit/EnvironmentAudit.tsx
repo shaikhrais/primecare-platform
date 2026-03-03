@@ -68,8 +68,7 @@ export default function EnvironmentAudit() {
             <div style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: 'var(--brand-50)', borderRadius: '12px', border: '1px solid var(--brand-100)' }}>
                 <h4 style={{ margin: '0 0 8px 0', color: 'var(--brand-600)' }}>🔒 {t(ContentRegistry.SHARED.SECURITY_NOTE)}</h4>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--brand-700)', lineHeight: 1.5 }}>
-                    Sensitive keys like <code>DATABASE_URL</code>, <code>JWT_SECRET</code>, and <code>API_KEYS</code> are never exposed in the UI.
-                    Only configuration flags and public-facing service URLs are visible here for technical auditing.
+                    {t(ContentRegistry.SCRUM_MASTER.ENV_AUDIT.SECURITY_NOTE)}
                 </p>
             </div>
         </div>

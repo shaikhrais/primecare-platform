@@ -8,36 +8,36 @@ export default function RoleFlowsPage() {
     const { t } = useTranslation();
     const [selectedRole, setSelectedRole] = useState('admin');
 
-    const roleFlows: Record<string, { label: string; steps: string[]; color: string; icon: string }> = {
+    const roleFlows: Record<string, { label: string; steps: readonly string[]; color: string; icon: string }> = {
         admin: {
             label: t(ContentRegistry.ROLE_LABELS.ADMIN),
             icon: '👑',
             color: 'var(--brand-500)',
-            steps: ['Dashboard Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'],
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.ADMIN,
         },
         manager: {
             label: t(ContentRegistry.ROLE_LABELS.MANAGER),
             icon: '🏢',
             color: '#3b82f6',
-            steps: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'],
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.MANAGER,
         },
         staff: {
             label: t(ContentRegistry.ROLE_LABELS.STAFF),
             icon: '👤',
             color: '#10b981',
-            steps: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.STAFF,
         },
         psw: {
             label: t(ContentRegistry.ROLE_LABELS.PSW),
             icon: '🩺',
             color: '#f59e0b',
-            steps: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'],
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.PSW,
         },
         client: {
             label: t(ContentRegistry.ROLE_LABELS.CLIENT),
             icon: '🏠',
             color: '#ec4899',
-            steps: ['Care Hub', 'New Request', 'Assigned Team', 'Digital Invoices', 'Feedback Gateway'],
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.CLIENT,
         },
     };
 

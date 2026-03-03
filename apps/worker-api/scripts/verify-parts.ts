@@ -4,14 +4,14 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 // Modules to verify
 const modules = [
     { name: 'Auth', path: '../src/auth/auth.routes' },
-    { name: 'Admin', path: '../src/admin/admin.module' },
-    { name: 'Manager', path: '../src/manager/manager.module' },
-    { name: 'Staff', path: '../src/staff/staff.module' },
-    { name: 'RN', path: '../src/rn/rn.module' },
-    { name: 'PSW', path: '../src/psw/psw.module' },
-    { name: 'Client', path: '../src/client/client.module' },
+    { name: 'Admin', path: '../src/platform/admin/admin.module' },
+    { name: 'Manager', path: '../src/tenancy/manager/manager.module' },
+    { name: 'Staff', path: '../src/tenancy/staff/staff.module' },
+    { name: 'RN', path: '../src/tenancy/rn/rn.module' },
+    { name: 'PSW', path: '../src/tenancy/psw/psw.module' },
+    { name: 'Client', path: '../src/tenancy/client/client.module' },
     { name: 'User', path: '../src/user/user.routes' },
-    { name: 'System', path: '../src/system/system.module' },
+    { name: 'System', path: '../src/platform/system/system.module' },
 ];
 
 async function verifyModule(modName: string, modPath: string) {

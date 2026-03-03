@@ -21,12 +21,12 @@ export default function SystemHealthMonitor() {
         setLogs(mockLogs);
 
         const interval = setInterval(() => {
-            const newLog = `[${new Date().toLocaleTimeString()}] Heartbeat check: OK.`;
+            const newLog = `[${new Date().toLocaleTimeString()}] ${t(ContentRegistry.SCRUM_MASTER.MONITORING.HEARTBEAT)}`;
             setLogs(prev => [newLog, ...prev].slice(0, 10));
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [t]);
 
     return (
         <div data-cy="system-health-monitor-page">
@@ -42,11 +42,11 @@ export default function SystemHealthMonitor() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2.5rem' }}>
                 <div className="pc-card" style={{ padding: '2rem', background: 'linear-gradient(135deg, #1e293b, #0f172a)', color: 'white' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{t(ContentRegistry.MENU.DEVELOPER)} API Cluster</h4>
+                        <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{t(ContentRegistry.MENU.DEVELOPER)} {t(ContentRegistry.SCRUM_MASTER.MONITORING.API_CLUSTER)}</h4>
                         <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>{t(ContentRegistry.SHARED.STATUS).toUpperCase()}</span>
                     </div>
                     <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>99.98%</div>
-                    <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Uptime 24h • Average Latency 42ms</div>
+                    <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>{t(ContentRegistry.SCRUM_MASTER.MONITORING.UPTIME_DESC)}</div>
                 </div>
 
                 <div className="pc-card" style={{ padding: '2rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', color: 'white' }}>
@@ -55,14 +55,14 @@ export default function SystemHealthMonitor() {
                         <span style={{ backgroundColor: '#10b981', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800 }}>{t(ContentRegistry.SHARED.STATUS).toUpperCase()}</span>
                     </div>
                     <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>312ms</div>
-                    <div style={{ color: '#bae6fd', fontSize: '0.9rem' }}>Complex P99 • 8.4GB Cache usage</div>
+                    <div style={{ color: '#bae6fd', fontSize: '0.9rem' }}>{t(ContentRegistry.SCRUM_MASTER.MONITORING.DB_TELEMETRY)}</div>
                 </div>
             </div>
 
             <div className="pc-card" style={{ padding: '2rem', backgroundColor: '#0f172a' }}>
                 <h3 style={{ margin: '0 0 1.5rem 0', color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981', display: 'inline-block' }}></span>
-                    Live Logs Stream
+                    {t(ContentRegistry.SCRUM_MASTER.MONITORING.LOGS_TITLE)}
                 </h3>
                 <div style={{
                     fontFamily: 'monospace',

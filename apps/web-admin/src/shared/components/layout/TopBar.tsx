@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import QuickActions from '@/shared/components/dashboard/QuickActions';
-import NotificationHub from '@/shared/components/layout/NotificationHub';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTheme } from '@/shared/context/ThemeContext';
-import { useTranslation } from 'react-i18next';
+
+// Components
+import { TopBarIdentity } from './topbar/TopBarIdentity';
+import { TopBarActions } from './topbar/TopBarActions';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -25,7 +26,6 @@ export const TopBar: React.FC<TopBarProps> = ({
     user
 }) => {
     const { branding } = useTheme();
-    const { i18n } = useTranslation();
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -46,11 +46,6 @@ export const TopBar: React.FC<TopBarProps> = ({
                 setIsFullscreen(false);
             }
         }
-    };
-
-    const getRoleTitle = (role: string) => {
-        const r = role.toUpperCase();
-        return ContentRegistry.ROLES[r as keyof typeof ContentRegistry.ROLES] || ContentRegistry.ROLES.STAFF;
     };
 
     return (
@@ -98,7 +93,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     </button>
                 )}
 
-                {/* Desktop Toggle (when collapsed or to allow collapsing from top) */}
+                {/* Desktop Toggle */}
                 {!isMobile && (
                     <button
                         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -124,98 +119,21 @@ export const TopBar: React.FC<TopBarProps> = ({
                     </button>
                 )}
 
-                {/* Logo in topbar when sidebar can't show it */}
+                {/* Logo when sidebar is hidden/collapsed */}
                 {(isMobile || isCollapsed) && <img src={branding?.logoUrl || "/logo.png"} alt={branding?.name || ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto' }} />}
 
-                {/* Only show vertical divider if logo is present */}
                 {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 900, color: '#111827', textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>
-                        {getRoleTitle(role)}
-                    </span>
-                    {!isMobile && (
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#6B7280', marginTop: '2px' }}>
-                            {ContentRegistry.LAYOUT.LOGGED_IN_AS} <span style={{ color: 'var(--brand-600)' }}>{user.fullName || user.email}</span>
-                        </span>
-                    )}
-                </div>
+                <TopBarIdentity role={role} user={user} isMobile={isMobile} />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                {!isMobile && (
-                    <>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            padding: '6px 16px',
-                            backgroundColor: '#000000',
-                            color: 'white',
-                            borderRadius: '12px',
-                            fontSize: '0.9rem',
-                            fontWeight: 900,
-                            marginRight: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                        }}>
-                            <span style={{ opacity: 0.7 }}>🕒</span>
-                            {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
-                        </div>
-                        <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title={ContentRegistry.LAYOUT.SEARCH_LABEL}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                        </button>
-                        <NotificationHub />
-                        <button
-                            onClick={toggleFullscreen}
-                            className="btn-icon"
-                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}
-                            title={isFullscreen ? ContentRegistry.LAYOUT.FULLSCREEN_EXIT : ContentRegistry.LAYOUT.FULLSCREEN_ENTER}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-                            </svg>
-                        </button>
-                    </>
-                )}
-                <div className="chip" style={{
-                    backgroundColor: '#F3F4F6',
-                    padding: '6px 12px',
-                    borderRadius: '20px',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    color: '#374151',
-                    display: isMobile ? 'none' : 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                }}>
-                    📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                </div>
-
-                {/* Language Switcher */}
-                <select
-                    value={i18n.language}
-                    onChange={(e) => i18n.changeLanguage(e.target.value)}
-                    style={{
-                        padding: '6px 12px',
-                        borderRadius: '8px',
-                        border: '1px solid #E5E7EB',
-                        backgroundColor: '#F9FAFB',
-                        fontSize: '0.85rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        outline: 'none',
-                        color: '#374151'
-                    }}
-                >
-                    <option value="en">EN</option>
-                    <option value="fr">FR</option>
-                </select>
-
-                <QuickActions role={role} />
-            </div>
+            <TopBarActions
+                isMobile={isMobile}
+                currentTime={currentTime}
+                isFullscreen={isFullscreen}
+                toggleFullscreen={toggleFullscreen}
+                role={role}
+            />
         </header>
     );
 };

@@ -1,0 +1,105 @@
+import React, { lazy } from 'react';
+import { Route } from 'react-router-dom';
+import { AdminRegistry } from 'prime-care-shared';
+import RequireRole from '@/shared/rbac/RequireRole';
+import AppLayout from '@/shared/components/layout/AppLayout';
+
+const { RouteRegistry } = AdminRegistry;
+
+// Admin components (Eagerly loaded to avoid layout shifts on dashboard)
+import AdminDashboard from './pages/dashboard';
+import { UserList, UserEntry } from './pages/users';
+import AdminEarningsPage from './pages/earnings';
+
+// Admin Pages (Lazy loaded)
+const Schedule = lazy(() => import('./pages/schedule'));
+const IncidentList = lazy(() => import('./pages/incidents').then(m => ({ default: m.IncidentList })));
+const IncidentEntry = lazy(() => import('./pages/incidents').then(m => ({ default: m.IncidentEntry })));
+const LeadsPage = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadsPage })));
+const LeadEntryForm = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadEntryForm })));
+const Timesheets = lazy(() => import('./pages/timesheets'));
+const TimesheetAdjustment = lazy(() => import('./pages/timesheet-adjustment'));
+const Services = lazy(() => import('./pages/services'));
+const Settings = lazy(() => import('./pages/settings'));
+const ContentManager = lazy(() => import('./pages/content'));
+const AuditLogs = lazy(() => import('./pages/audits'));
+const LeadAdmission = lazy(() => import('./pages/admission'));
+const Onboarding = lazy(() => import('./pages/onboarding'));
+const ReportCenter = lazy(() => import('./pages/reports'));
+const InvoicesNew = lazy(() => import('./pages/invoices').then(m => ({ default: m.InvoiceEntry })));
+const BusinessSetupWizard = lazy(() => import('./pages/setup/BusinessSetupWizard'));
+const WizardHub = lazy(() => import('./pages/setup/WizardHub'));
+const StaffOnboardingWizard = lazy(() => import('./pages/setup/StaffOnboardingWizard'));
+const CarePlanWizard = lazy(() => import('./pages/setup/CarePlanWizard'));
+const RevenueWizard = lazy(() => import('./pages/setup/RevenueWizard'));
+const BusinessModelWizard = lazy(() => import('./pages/setup/BusinessModelWizard'));
+const BusinessStatus = lazy(() => import('./pages/setup/BusinessStatus'));
+const DeveloperPortal = lazy(() => import('./pages/developer'));
+const Marketplace = lazy(() => import('./pages/marketplace'));
+const ResellerDashboard = lazy(() => import('./pages/reseller/ResellerDashboard'));
+const PrivateMarketplace = lazy(() => import('./pages/reseller/PrivateMarketplace'));
+const GrowthStrategy = lazy(() => import('./pages/strategy/GrowthStrategy'));
+const KnowledgeBaseIndex = lazy(() => import('./pages/knowledge-base/KnowledgeBaseIndex'));
+const KnowledgeBaseArticle = lazy(() => import('./pages/knowledge-base/KnowledgeBaseArticle'));
+const AIInsights = lazy(() => import('./pages/insights'));
+const ClinicalAssistant = lazy(() => import('./pages/clinical-assistant'));
+const AutoPilotDashboard = lazy(() => import('./pages/automation/AutoPilotDashboard'));
+const FHIRCenter = lazy(() => import('./pages/interoperability/FHIRCenter'));
+const SovereignWallet = lazy(() => import('./pages/sovereign/SovereignWallet'));
+const Locations = lazy(() => import('./pages/locations'));
+const RoleEditor = lazy(() => import('./pages/role-editor'));
+const AdminCustomerList = lazy(() => import('./pages/customers'));
+const TemplateEditor = lazy(() => import('./pages/template-editor'));
+const DeveloperKBPage = lazy(() => import('./pages/developer-kb'));
+
+export const AdminRoutes = () => (
+    <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
+        <Route index element={<AdminDashboard />} />
+        <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
+        <Route path={RouteRegistry.ADMIN.USERS_NEW} element={<UserEntry />} />
+        <Route path={RouteRegistry.ADMIN.USERS_EDIT(':id')} element={<UserEntry />} />
+        <Route path={RouteRegistry.ADMIN.SCHEDULE} element={<Schedule />} />
+        <Route path={RouteRegistry.ADMIN.EARNINGS} element={<AdminEarningsPage />} />
+        <Route path={RouteRegistry.ADMIN.INCIDENTS} element={<IncidentList />} />
+        <Route path={RouteRegistry.ADMIN.INCIDENTS_NEW} element={<IncidentEntry />} />
+        <Route path={RouteRegistry.ADMIN.INCIDENTS_EDIT(':id')} element={<IncidentEntry />} />
+        <Route path={RouteRegistry.ADMIN.TIMESHEETS} element={<Timesheets />} />
+        <Route path={RouteRegistry.ADMIN.TIMESHEET_ADJUST} element={<TimesheetAdjustment />} />
+        <Route path={RouteRegistry.ADMIN.LEADS} element={<LeadsPage />} />
+        <Route path={RouteRegistry.ADMIN.LEADS_NEW} element={<LeadEntryForm />} />
+        <Route path={RouteRegistry.ADMIN.LEADS_EDIT(':id')} element={<LeadEntryForm />} />
+        <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
+        <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
+        <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />
+        <Route path={RouteRegistry.ADMIN.AUDITS} element={<AuditLogs />} />
+        <Route path={RouteRegistry.ADMIN.ADMISSION} element={<LeadAdmission />} />
+        <Route path={RouteRegistry.ADMIN.ONBOARDING} element={<Onboarding />} />
+        <Route path={RouteRegistry.ADMIN.REPORTS} element={<ReportCenter />} />
+        <Route path={RouteRegistry.ADMIN.INVOICES_NEW} element={<InvoicesNew />} />
+        <Route path={RouteRegistry.ADMIN.INVOICES_EDIT(':id')} element={<InvoicesNew />} />
+        <Route path={RouteRegistry.ADMIN.SETUP_WIZARD} element={<BusinessSetupWizard />} />
+        <Route path={RouteRegistry.ADMIN.WIZARD_HUB} element={<WizardHub />} />
+        <Route path={RouteRegistry.ADMIN.STAFF_ONBOARDING} element={<StaffOnboardingWizard />} />
+        <Route path={RouteRegistry.ADMIN.CARE_PLAN_WIZARD} element={<CarePlanWizard />} />
+        <Route path={RouteRegistry.ADMIN.REVENUE_WIZARD} element={<RevenueWizard />} />
+        <Route path={RouteRegistry.ADMIN.BUSINESS_MODEL_WIZARD} element={<BusinessModelWizard />} />
+        <Route path={RouteRegistry.ADMIN.BUSINESS_STATUS} element={<BusinessStatus />} />
+        <Route path={RouteRegistry.ADMIN.DEVELOPER} element={<DeveloperPortal />} />
+        <Route path={RouteRegistry.ADMIN.MARKETPLACE} element={<Marketplace />} />
+        <Route path={RouteRegistry.ADMIN.RESELLER} element={<ResellerDashboard />} />
+        <Route path={RouteRegistry.ADMIN.PRIVATE_MARKETPLACE} element={<PrivateMarketplace />} />
+        <Route path={RouteRegistry.ADMIN.GROWTH_STRATEGY} element={<GrowthStrategy />} />
+        <Route path={RouteRegistry.ADMIN.KNOWLEDGE_BASE} element={<KnowledgeBaseIndex />} />
+        <Route path={RouteRegistry.ADMIN.KNOWLEDGE_BASE_ARTICLE(':slug')} element={<KnowledgeBaseArticle />} />
+        <Route path={RouteRegistry.ADMIN.AI_INSIGHTS} element={<AIInsights />} />
+        <Route path={RouteRegistry.ADMIN.CLINICAL_ASSISTANT} element={<ClinicalAssistant />} />
+        <Route path={RouteRegistry.ADMIN.AUTOPILOT} element={<AutoPilotDashboard />} />
+        <Route path={RouteRegistry.ADMIN.INTEROP} element={<FHIRCenter />} />
+        <Route path={RouteRegistry.ADMIN.SOVEREIGN} element={<SovereignWallet />} />
+        <Route path={RouteRegistry.ADMIN.LOCATIONS} element={<Locations />} />
+        <Route path={RouteRegistry.ADMIN.ROLE_EDITOR} element={<RoleEditor />} />
+        <Route path={RouteRegistry.ADMIN.CUSTOMERS} element={<AdminCustomerList />} />
+        <Route path={RouteRegistry.ADMIN.TEMPLATE_EDITOR} element={<TemplateEditor />} />
+        <Route path={RouteRegistry.ADMIN.DEV_KB} element={<DeveloperKBPage />} />
+    </Route>
+);
