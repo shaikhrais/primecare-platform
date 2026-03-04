@@ -17,6 +17,7 @@ const IncidentList = lazy(() => import('./pages/incidents').then(m => ({ default
 const IncidentEntry = lazy(() => import('./pages/incidents').then(m => ({ default: m.IncidentEntry })));
 const LeadsPage = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadsPage })));
 const LeadEntryForm = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadEntryForm })));
+const LeadConversion = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadConversion })));
 const Timesheets = lazy(() => import('./pages/timesheets'));
 const TimesheetAdjustment = lazy(() => import('./pages/timesheet-adjustment'));
 const Services = lazy(() => import('./pages/services'));
@@ -64,6 +65,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.LEADS} element={<LeadsPage />} />
         <Route path={RouteRegistry.ADMIN.LEADS_NEW} element={<LeadEntryForm />} />
         <Route path={RouteRegistry.ADMIN.LEADS_EDIT(':id')} element={<LeadEntryForm />} />
+        <Route path={RouteRegistry.ADMIN.LEADS_CONVERT(':id')} element={<LeadConversion />} />
         <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
         <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
         <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />

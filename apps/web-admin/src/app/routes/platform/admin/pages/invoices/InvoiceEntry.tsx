@@ -66,11 +66,11 @@ export default function InvoiceEntryForm() {
                         {ContentRegistry.INVOICES.FORM.CANCEL_BTN}
                     </button>
                     <button
-                        data-cy="form.invoice.save"
+                        data-cy="btn-adm-billing-finalize"
                         onClick={() => { showToast(ContentRegistry.INVOICES.MESSAGES.SUCCESS_GENERATE, 'success'); setIsDirty(false); navigate(-1); }}
                         style={{ flex: 1, padding: '1rem', borderRadius: '0.5rem', background: '#004d40', color: 'white', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}
                     >
-                        {ContentRegistry.INVOICES.FORM.SUBMIT_BTN}
+                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-billing-finalize')?.label || ContentRegistry.INVOICES.FORM.SUBMIT_BTN}
                     </button>
                 </div>
             </div>

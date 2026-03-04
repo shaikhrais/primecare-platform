@@ -3628,6 +3628,7 @@ export namespace Prisma {
     shiftAssignments: number
     timesheets: number
     staffTasks: number
+    leads: number
     users: number
     checkEvents: number
     visits: number
@@ -3652,6 +3653,7 @@ export namespace Prisma {
     shiftAssignments?: boolean | TenantCountOutputTypeCountShiftAssignmentsArgs
     timesheets?: boolean | TenantCountOutputTypeCountTimesheetsArgs
     staffTasks?: boolean | TenantCountOutputTypeCountStaffTasksArgs
+    leads?: boolean | TenantCountOutputTypeCountLeadsArgs
     users?: boolean | TenantCountOutputTypeCountUsersArgs
     checkEvents?: boolean | TenantCountOutputTypeCountCheckEventsArgs
     visits?: boolean | TenantCountOutputTypeCountVisitsArgs
@@ -3762,6 +3764,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountStaffTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StaffTaskWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountLeadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadWhereInput
   }
 
   /**
@@ -5782,6 +5791,7 @@ export namespace Prisma {
     shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
     staffTasks?: boolean | Tenant$staffTasksArgs<ExtArgs>
+    leads?: boolean | Tenant$leadsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     checkEvents?: boolean | Tenant$checkEventsArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
@@ -5843,6 +5853,7 @@ export namespace Prisma {
     shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
     staffTasks?: boolean | Tenant$staffTasksArgs<ExtArgs>
+    leads?: boolean | Tenant$leadsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     checkEvents?: boolean | Tenant$checkEventsArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
@@ -5874,6 +5885,7 @@ export namespace Prisma {
       shiftAssignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
       timesheets: Prisma.$TimesheetPayload<ExtArgs>[]
       staffTasks: Prisma.$StaffTaskPayload<ExtArgs>[]
+      leads: Prisma.$LeadPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
       checkEvents: Prisma.$VisitCheckEventPayload<ExtArgs>[]
       visits: Prisma.$VisitPayload<ExtArgs>[]
@@ -6276,6 +6288,7 @@ export namespace Prisma {
     shiftAssignments<T extends Tenant$shiftAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$shiftAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     timesheets<T extends Tenant$timesheetsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$timesheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetPayload<ExtArgs>, T, "findMany"> | Null>
     staffTasks<T extends Tenant$staffTasksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$staffTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany"> | Null>
+    leads<T extends Tenant$leadsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany"> | Null>
     users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     checkEvents<T extends Tenant$checkEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$checkEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitCheckEventPayload<ExtArgs>, T, "findMany"> | Null>
     visits<T extends Tenant$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
@@ -6903,6 +6916,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.leads
+   */
+  export type Tenant$leadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lead
+     */
+    select?: LeadSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    where?: LeadWhereInput
+    orderBy?: LeadOrderByWithRelationInput | LeadOrderByWithRelationInput[]
+    cursor?: LeadWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeadScalarFieldEnum | LeadScalarFieldEnum[]
   }
 
   /**
@@ -24286,6 +24319,9 @@ export namespace Prisma {
     source: string | null
     status: string | null
     notes: string | null
+    convertedToUserId: string | null
+    conversionDate: Date | null
+    tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24299,6 +24335,9 @@ export namespace Prisma {
     source: string | null
     status: string | null
     notes: string | null
+    convertedToUserId: string | null
+    conversionDate: Date | null
+    tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24313,6 +24352,9 @@ export namespace Prisma {
     status: number
     serviceInterest: number
     notes: number
+    convertedToUserId: number
+    conversionDate: number
+    tenantId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -24328,6 +24370,9 @@ export namespace Prisma {
     source?: true
     status?: true
     notes?: true
+    convertedToUserId?: true
+    conversionDate?: true
+    tenantId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24341,6 +24386,9 @@ export namespace Prisma {
     source?: true
     status?: true
     notes?: true
+    convertedToUserId?: true
+    conversionDate?: true
+    tenantId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24355,6 +24403,9 @@ export namespace Prisma {
     status?: true
     serviceInterest?: true
     notes?: true
+    convertedToUserId?: true
+    conversionDate?: true
+    tenantId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -24442,6 +24493,9 @@ export namespace Prisma {
     status: string | null
     serviceInterest: string[]
     notes: string | null
+    convertedToUserId: string | null
+    conversionDate: Date | null
+    tenantId: string | null
     createdAt: Date
     updatedAt: Date
     _count: LeadCountAggregateOutputType | null
@@ -24473,8 +24527,12 @@ export namespace Prisma {
     status?: boolean
     serviceInterest?: boolean
     notes?: boolean
+    convertedToUserId?: boolean
+    conversionDate?: boolean
+    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | Lead$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["lead"]>
 
   export type LeadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24487,8 +24545,12 @@ export namespace Prisma {
     status?: boolean
     serviceInterest?: boolean
     notes?: boolean
+    convertedToUserId?: boolean
+    conversionDate?: boolean
+    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | Lead$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["lead"]>
 
   export type LeadSelectScalar = {
@@ -24501,14 +24563,25 @@ export namespace Prisma {
     status?: boolean
     serviceInterest?: boolean
     notes?: boolean
+    convertedToUserId?: boolean
+    conversionDate?: boolean
+    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
+  export type LeadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | Lead$tenantArgs<ExtArgs>
+  }
+  export type LeadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | Lead$tenantArgs<ExtArgs>
+  }
 
   export type $LeadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Lead"
-    objects: {}
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       fullName: string
@@ -24519,6 +24592,9 @@ export namespace Prisma {
       status: string | null
       serviceInterest: string[]
       notes: string | null
+      convertedToUserId: string | null
+      conversionDate: Date | null
+      tenantId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["lead"]>
@@ -24885,6 +24961,7 @@ export namespace Prisma {
    */
   export interface Prisma__LeadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends Lead$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Lead$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24923,6 +25000,9 @@ export namespace Prisma {
     readonly status: FieldRef<"Lead", 'String'>
     readonly serviceInterest: FieldRef<"Lead", 'String[]'>
     readonly notes: FieldRef<"Lead", 'String'>
+    readonly convertedToUserId: FieldRef<"Lead", 'String'>
+    readonly conversionDate: FieldRef<"Lead", 'DateTime'>
+    readonly tenantId: FieldRef<"Lead", 'String'>
     readonly createdAt: FieldRef<"Lead", 'DateTime'>
     readonly updatedAt: FieldRef<"Lead", 'DateTime'>
   }
@@ -24938,6 +25018,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * Filter, which Lead to fetch.
      */
     where: LeadWhereUniqueInput
@@ -24952,6 +25036,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * Filter, which Lead to fetch.
      */
     where: LeadWhereUniqueInput
@@ -24965,6 +25053,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Lead
      */
     select?: LeadSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
     /**
      * Filter, which Lead to fetch.
      */
@@ -25010,6 +25102,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * Filter, which Lead to fetch.
      */
     where?: LeadWhereInput
@@ -25054,6 +25150,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * Filter, which Leads to fetch.
      */
     where?: LeadWhereInput
@@ -25093,6 +25193,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * The data needed to create a Lead.
      */
     data: XOR<LeadCreateInput, LeadUncheckedCreateInput>
@@ -25122,6 +25226,10 @@ export namespace Prisma {
      */
     data: LeadCreateManyInput | LeadCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -25132,6 +25240,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Lead
      */
     select?: LeadSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
     /**
      * The data needed to update a Lead.
      */
@@ -25165,6 +25277,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * The filter to search for the Lead to update in case it exists.
      */
     where: LeadWhereUniqueInput
@@ -25187,6 +25303,10 @@ export namespace Prisma {
      */
     select?: LeadSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
+    /**
      * Filter which Lead to delete.
      */
     where: LeadWhereUniqueInput
@@ -25203,6 +25323,21 @@ export namespace Prisma {
   }
 
   /**
+   * Lead.tenant
+   */
+  export type Lead$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
    * Lead without action
    */
   export type LeadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25210,6 +25345,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Lead
      */
     select?: LeadSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadInclude<ExtArgs> | null
   }
 
 
@@ -36690,6 +36829,9 @@ export namespace Prisma {
     status: 'status',
     serviceInterest: 'serviceInterest',
     notes: 'notes',
+    convertedToUserId: 'convertedToUserId',
+    conversionDate: 'conversionDate',
+    tenantId: 'tenantId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -37316,6 +37458,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentListRelationFilter
     timesheets?: TimesheetListRelationFilter
     staffTasks?: StaffTaskListRelationFilter
+    leads?: LeadListRelationFilter
     users?: UserListRelationFilter
     checkEvents?: VisitCheckEventListRelationFilter
     visits?: VisitListRelationFilter
@@ -37355,6 +37498,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentOrderByRelationAggregateInput
     timesheets?: TimesheetOrderByRelationAggregateInput
     staffTasks?: StaffTaskOrderByRelationAggregateInput
+    leads?: LeadOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
     checkEvents?: VisitCheckEventOrderByRelationAggregateInput
     visits?: VisitOrderByRelationAggregateInput
@@ -37397,6 +37541,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentListRelationFilter
     timesheets?: TimesheetListRelationFilter
     staffTasks?: StaffTaskListRelationFilter
+    leads?: LeadListRelationFilter
     users?: UserListRelationFilter
     checkEvents?: VisitCheckEventListRelationFilter
     visits?: VisitListRelationFilter
@@ -38936,8 +39081,12 @@ export namespace Prisma {
     status?: StringNullableFilter<"Lead"> | string | null
     serviceInterest?: StringNullableListFilter<"Lead">
     notes?: StringNullableFilter<"Lead"> | string | null
+    convertedToUserId?: StringNullableFilter<"Lead"> | string | null
+    conversionDate?: DateTimeNullableFilter<"Lead"> | Date | string | null
+    tenantId?: StringNullableFilter<"Lead"> | string | null
     createdAt?: DateTimeFilter<"Lead"> | Date | string
     updatedAt?: DateTimeFilter<"Lead"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
   }
 
   export type LeadOrderByWithRelationInput = {
@@ -38950,8 +39099,12 @@ export namespace Prisma {
     status?: SortOrderInput | SortOrder
     serviceInterest?: SortOrder
     notes?: SortOrderInput | SortOrder
+    convertedToUserId?: SortOrderInput | SortOrder
+    conversionDate?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type LeadWhereUniqueInput = Prisma.AtLeast<{
@@ -38967,8 +39120,12 @@ export namespace Prisma {
     status?: StringNullableFilter<"Lead"> | string | null
     serviceInterest?: StringNullableListFilter<"Lead">
     notes?: StringNullableFilter<"Lead"> | string | null
+    convertedToUserId?: StringNullableFilter<"Lead"> | string | null
+    conversionDate?: DateTimeNullableFilter<"Lead"> | Date | string | null
+    tenantId?: StringNullableFilter<"Lead"> | string | null
     createdAt?: DateTimeFilter<"Lead"> | Date | string
     updatedAt?: DateTimeFilter<"Lead"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
   }, "id">
 
   export type LeadOrderByWithAggregationInput = {
@@ -38981,6 +39138,9 @@ export namespace Prisma {
     status?: SortOrderInput | SortOrder
     serviceInterest?: SortOrder
     notes?: SortOrderInput | SortOrder
+    convertedToUserId?: SortOrderInput | SortOrder
+    conversionDate?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LeadCountOrderByAggregateInput
@@ -39001,6 +39161,9 @@ export namespace Prisma {
     status?: StringNullableWithAggregatesFilter<"Lead"> | string | null
     serviceInterest?: StringNullableListFilter<"Lead">
     notes?: StringNullableWithAggregatesFilter<"Lead"> | string | null
+    convertedToUserId?: StringNullableWithAggregatesFilter<"Lead"> | string | null
+    conversionDate?: DateTimeNullableWithAggregatesFilter<"Lead"> | Date | string | null
+    tenantId?: StringNullableWithAggregatesFilter<"Lead"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Lead"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Lead"> | Date | string
   }
@@ -40089,6 +40252,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -40128,6 +40292,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -40165,6 +40330,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -40204,6 +40370,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -41847,8 +42014,11 @@ export namespace Prisma {
     status?: string | null
     serviceInterest?: LeadCreateserviceInterestInput | string[]
     notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutLeadsInput
   }
 
   export type LeadUncheckedCreateInput = {
@@ -41861,6 +42031,9 @@ export namespace Prisma {
     status?: string | null
     serviceInterest?: LeadCreateserviceInterestInput | string[]
     notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
+    tenantId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -41875,8 +42048,11 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceInterest?: LeadUpdateserviceInterestInput | string[]
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutLeadsNestedInput
   }
 
   export type LeadUncheckedUpdateInput = {
@@ -41889,6 +42065,9 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceInterest?: LeadUpdateserviceInterestInput | string[]
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41903,6 +42082,9 @@ export namespace Prisma {
     status?: string | null
     serviceInterest?: LeadCreateserviceInterestInput | string[]
     notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
+    tenantId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -41917,6 +42099,8 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceInterest?: LeadUpdateserviceInterestInput | string[]
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41931,6 +42115,9 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceInterest?: LeadUpdateserviceInterestInput | string[]
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43259,6 +43446,12 @@ export namespace Prisma {
     none?: StaffTaskWhereInput
   }
 
+  export type LeadListRelationFilter = {
+    every?: LeadWhereInput
+    some?: LeadWhereInput
+    none?: LeadWhereInput
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -43339,6 +43532,10 @@ export namespace Prisma {
   }
 
   export type StaffTaskOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LeadOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -44562,6 +44759,9 @@ export namespace Prisma {
     status?: SortOrder
     serviceInterest?: SortOrder
     notes?: SortOrder
+    convertedToUserId?: SortOrder
+    conversionDate?: SortOrder
+    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -44575,6 +44775,9 @@ export namespace Prisma {
     source?: SortOrder
     status?: SortOrder
     notes?: SortOrder
+    convertedToUserId?: SortOrder
+    conversionDate?: SortOrder
+    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -44588,6 +44791,9 @@ export namespace Prisma {
     source?: SortOrder
     status?: SortOrder
     notes?: SortOrder
+    convertedToUserId?: SortOrder
+    conversionDate?: SortOrder
+    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -45666,6 +45872,13 @@ export namespace Prisma {
     connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
   }
 
+  export type LeadCreateNestedManyWithoutTenantInput = {
+    create?: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput> | LeadCreateWithoutTenantInput[] | LeadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LeadCreateOrConnectWithoutTenantInput | LeadCreateOrConnectWithoutTenantInput[]
+    createMany?: LeadCreateManyTenantInputEnvelope
+    connect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+  }
+
   export type UserCreateNestedManyWithoutTenantInput = {
     create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
@@ -45817,6 +46030,13 @@ export namespace Prisma {
     connectOrCreate?: StaffTaskCreateOrConnectWithoutTenantInput | StaffTaskCreateOrConnectWithoutTenantInput[]
     createMany?: StaffTaskCreateManyTenantInputEnvelope
     connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+  }
+
+  export type LeadUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput> | LeadCreateWithoutTenantInput[] | LeadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LeadCreateOrConnectWithoutTenantInput | LeadCreateOrConnectWithoutTenantInput[]
+    createMany?: LeadCreateManyTenantInputEnvelope
+    connect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
   }
 
   export type UserUncheckedCreateNestedManyWithoutTenantInput = {
@@ -46063,6 +46283,20 @@ export namespace Prisma {
     update?: StaffTaskUpdateWithWhereUniqueWithoutTenantInput | StaffTaskUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: StaffTaskUpdateManyWithWhereWithoutTenantInput | StaffTaskUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+  }
+
+  export type LeadUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput> | LeadCreateWithoutTenantInput[] | LeadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LeadCreateOrConnectWithoutTenantInput | LeadCreateOrConnectWithoutTenantInput[]
+    upsert?: LeadUpsertWithWhereUniqueWithoutTenantInput | LeadUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: LeadCreateManyTenantInputEnvelope
+    set?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    disconnect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    delete?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    connect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    update?: LeadUpdateWithWhereUniqueWithoutTenantInput | LeadUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: LeadUpdateManyWithWhereWithoutTenantInput | LeadUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: LeadScalarWhereInput | LeadScalarWhereInput[]
   }
 
   export type UserUpdateManyWithoutTenantNestedInput = {
@@ -46367,6 +46601,20 @@ export namespace Prisma {
     update?: StaffTaskUpdateWithWhereUniqueWithoutTenantInput | StaffTaskUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: StaffTaskUpdateManyWithWhereWithoutTenantInput | StaffTaskUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+  }
+
+  export type LeadUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput> | LeadCreateWithoutTenantInput[] | LeadUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LeadCreateOrConnectWithoutTenantInput | LeadCreateOrConnectWithoutTenantInput[]
+    upsert?: LeadUpsertWithWhereUniqueWithoutTenantInput | LeadUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: LeadCreateManyTenantInputEnvelope
+    set?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    disconnect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    delete?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    connect?: LeadWhereUniqueInput | LeadWhereUniqueInput[]
+    update?: LeadUpdateWithWhereUniqueWithoutTenantInput | LeadUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: LeadUpdateManyWithWhereWithoutTenantInput | LeadUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: LeadScalarWhereInput | LeadScalarWhereInput[]
   }
 
   export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -48291,9 +48539,25 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type TenantCreateNestedOneWithoutLeadsInput = {
+    create?: XOR<TenantCreateWithoutLeadsInput, TenantUncheckedCreateWithoutLeadsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLeadsInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type LeadUpdateserviceInterestInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type TenantUpdateOneWithoutLeadsNestedInput = {
+    create?: XOR<TenantCreateWithoutLeadsInput, TenantUncheckedCreateWithoutLeadsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLeadsInput
+    upsert?: TenantUpsertWithoutLeadsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutLeadsInput, TenantUpdateWithoutLeadsInput>, TenantUncheckedUpdateWithoutLeadsInput>
   }
 
   export type ClientProfileCreateNestedOneWithoutBookingsInput = {
@@ -49579,6 +49843,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -49617,6 +49882,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -50070,6 +50336,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -50108,6 +50375,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -50654,6 +50922,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LeadCreateWithoutTenantInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    source: string
+    status?: string | null
+    serviceInterest?: LeadCreateserviceInterestInput | string[]
+    notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadUncheckedCreateWithoutTenantInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    source: string
+    status?: string | null
+    serviceInterest?: LeadCreateserviceInterestInput | string[]
+    notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadCreateOrConnectWithoutTenantInput = {
+    where: LeadWhereUniqueInput
+    create: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput>
+  }
+
+  export type LeadCreateManyTenantInputEnvelope = {
+    data: LeadCreateManyTenantInput | LeadCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserCreateWithoutTenantInput = {
     id?: string
     email: string
@@ -50963,6 +51273,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -51001,6 +51312,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -51042,6 +51354,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -51079,6 +51392,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -51486,6 +51800,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
   }
 
+  export type LeadUpsertWithWhereUniqueWithoutTenantInput = {
+    where: LeadWhereUniqueInput
+    update: XOR<LeadUpdateWithoutTenantInput, LeadUncheckedUpdateWithoutTenantInput>
+    create: XOR<LeadCreateWithoutTenantInput, LeadUncheckedCreateWithoutTenantInput>
+  }
+
+  export type LeadUpdateWithWhereUniqueWithoutTenantInput = {
+    where: LeadWhereUniqueInput
+    data: XOR<LeadUpdateWithoutTenantInput, LeadUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type LeadUpdateManyWithWhereWithoutTenantInput = {
+    where: LeadScalarWhereInput
+    data: XOR<LeadUpdateManyMutationInput, LeadUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type LeadScalarWhereInput = {
+    AND?: LeadScalarWhereInput | LeadScalarWhereInput[]
+    OR?: LeadScalarWhereInput[]
+    NOT?: LeadScalarWhereInput | LeadScalarWhereInput[]
+    id?: StringFilter<"Lead"> | string
+    fullName?: StringFilter<"Lead"> | string
+    email?: StringFilter<"Lead"> | string
+    phone?: StringNullableFilter<"Lead"> | string | null
+    message?: StringNullableFilter<"Lead"> | string | null
+    source?: StringFilter<"Lead"> | string
+    status?: StringNullableFilter<"Lead"> | string | null
+    serviceInterest?: StringNullableListFilter<"Lead">
+    notes?: StringNullableFilter<"Lead"> | string | null
+    convertedToUserId?: StringNullableFilter<"Lead"> | string | null
+    conversionDate?: DateTimeNullableFilter<"Lead"> | Date | string | null
+    tenantId?: StringNullableFilter<"Lead"> | string | null
+    createdAt?: DateTimeFilter<"Lead"> | Date | string
+    updatedAt?: DateTimeFilter<"Lead"> | Date | string
+  }
+
   export type UserUpsertWithWhereUniqueWithoutTenantInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
@@ -51714,6 +52064,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -51752,6 +52103,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -51855,6 +52207,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -51893,6 +52246,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -51945,6 +52299,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -51983,6 +52338,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -52056,6 +52412,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -52094,6 +52451,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -52471,6 +52829,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -52509,6 +52868,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -52788,6 +53148,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -52826,6 +53187,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -53223,6 +53585,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -53261,6 +53624,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -53909,6 +54273,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -53947,6 +54312,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -54340,6 +54706,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -54378,6 +54745,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -54413,6 +54781,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -54451,6 +54820,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -54585,6 +54955,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -54623,6 +54994,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -54784,6 +55156,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -54822,6 +55195,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -55071,6 +55445,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -55109,6 +55484,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -55832,6 +56208,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -55870,6 +56247,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -56058,6 +56436,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -56096,6 +56475,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -56347,6 +56727,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -56385,6 +56766,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -56573,6 +56955,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -56611,6 +56994,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -56936,6 +57320,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -56974,6 +57359,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -57117,6 +57503,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -57155,6 +57542,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -57428,6 +57816,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -57466,6 +57855,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -57658,6 +58048,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -57696,6 +58087,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -57949,6 +58341,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -57987,6 +58380,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -58098,6 +58492,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -58124,6 +58519,175 @@ export namespace Prisma {
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutLeadsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutLeadsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutLeadsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutLeadsInput, TenantUncheckedCreateWithoutLeadsInput>
+  }
+
+  export type TenantUpsertWithoutLeadsInput = {
+    update: XOR<TenantUpdateWithoutLeadsInput, TenantUncheckedUpdateWithoutLeadsInput>
+    create: XOR<TenantCreateWithoutLeadsInput, TenantUncheckedCreateWithoutLeadsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutLeadsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutLeadsInput, TenantUncheckedUpdateWithoutLeadsInput>
+  }
+
+  export type TenantUpdateWithoutLeadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutLeadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
@@ -58229,6 +58793,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -58267,6 +58832,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -58464,6 +59030,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -58502,6 +59069,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -58609,6 +59177,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -58647,6 +59216,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -58760,6 +59330,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -58798,6 +59369,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -58889,6 +59461,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -58927,6 +59500,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -59117,6 +59691,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -59155,6 +59730,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -59386,6 +59962,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -59424,6 +60001,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -59476,6 +60054,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -59514,6 +60093,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -59888,6 +60468,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -59926,6 +60507,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -60177,6 +60759,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -60215,6 +60798,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -60335,6 +60919,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -60373,6 +60958,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -60425,6 +61011,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -60463,6 +61050,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -60556,6 +61144,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -60594,6 +61183,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -60786,6 +61376,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -60824,6 +61415,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -61000,6 +61592,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -61038,6 +61631,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
     staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -61153,6 +61747,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -61191,6 +61786,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -61793,6 +62389,22 @@ export namespace Prisma {
     priority?: string
     dueDate?: Date | string | null
     assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadCreateManyTenantInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    source: string
+    status?: string | null
+    serviceInterest?: LeadCreateserviceInterestInput | string[]
+    notes?: string | null
+    convertedToUserId?: string | null
+    conversionDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -62448,6 +63060,54 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LeadUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceInterest?: LeadUpdateserviceInterestInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceInterest?: LeadUpdateserviceInterestInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceInterest?: LeadUpdateserviceInterestInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedToUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    conversionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -62790,6 +63450,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -62827,6 +63488,7 @@ export namespace Prisma {
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
     staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput

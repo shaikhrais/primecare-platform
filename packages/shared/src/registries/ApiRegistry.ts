@@ -6,6 +6,7 @@ const TENANCY = {
         PERFORMANCE: '/v1/manager/performance/rankings',
         FINANCE: '/v1/manager/finance/pl',
         PAYROLL_AUDIT: '/v1/manager/finance/payroll-audit',
+        BILLING_FINALIZE: '/v1/manager/finance/billing/finalize',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -71,6 +72,7 @@ const PLATFORM = {
         SETTINGS_LOGO: '/v1/admin/settings/logo',
         SEARCH: '/v1/admin/search',
         REPORTS: '/v1/admin/reports/export',
+        LEADS_CONVERT: (id: string) => `/v1/admin/leads/${id}/convert`,
     },
     SCRUM_MASTER: {
         DASHBOARD: '/v1/admin/stats',

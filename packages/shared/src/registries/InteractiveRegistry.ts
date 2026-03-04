@@ -55,9 +55,9 @@ export const ButtonRegistry: ButtonDef[] = [
     // Admin Module Mastery
     { id: 'btn-adm-admission-new', label: 'New Admission', role: 'admin', module: 'ADMISSION', type: 'primary', action: 'OPEN_MODAL', description: 'Starts the clinical admission intake.' },
     { id: 'btn-adm-automation-trigger', label: 'Launch Autopilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Triggers clinical autopilot routines.' },
-    { id: 'btn-adm-leads-convert', label: 'Convert Lead', role: 'admin', module: 'LEADS', type: 'primary', action: 'OPEN_MODAL', description: 'Converts a business lead to a customer.' },
+    { id: 'btn-adm-leads-convert', label: 'Convert Lead', role: 'admin', module: 'LEADS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.ADMIN.LEADS_CONVERT(':id'), description: 'Converts a business lead to a customer.' },
     { id: 'btn-adm-schedule-optimize', label: 'AI Shift Match', role: 'admin', module: 'SCHEDULE', type: 'primary', action: 'API_TRIGGER', description: 'Runs AI matching for unassigned shifts.' },
-    { id: 'btn-adm-billing-finalize', label: 'Lock Master Ledger', role: 'admin', module: 'INVOICES', type: 'danger', action: 'API_TRIGGER', description: 'Finalizes global billing state.' },
+    { id: 'btn-adm-billing-finalize', label: 'Lock Master Ledger', role: 'admin', module: 'INVOICES', type: 'danger', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.MANAGER.BILLING_FINALIZE, description: 'Finalizes global billing state.' },
     // SM Command Center Mastery
     { id: 'btn-sm-build-deploy', label: 'Deploy Staging', role: 'scrum_master', module: 'BUILDS', type: 'primary', action: 'CI_TRIGGER', description: 'Triggers a manual CI/CD deployment.' },
     { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' }

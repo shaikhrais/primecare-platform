@@ -79,6 +79,7 @@ const PLATFORM = {
         LEADS: '/platform/admin/leads',
         LEADS_NEW: '/platform/admin/leads/new',
         LEADS_EDIT: (id: string) => `/platform/admin/leads/${id}/edit`,
+        LEADS_CONVERT: (id: string) => `/platform/admin/leads/${id}/convert`,
         INVOICES_NEW: '/platform/admin/invoices/new',
         INVOICES_EDIT: (id: string) => `/platform/admin/invoices/${id}/edit`,
         TIMESHEETS: '/platform/admin/timesheets',

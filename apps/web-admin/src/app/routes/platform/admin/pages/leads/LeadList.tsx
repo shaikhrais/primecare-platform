@@ -87,9 +87,9 @@ export default function LeadsPage() {
                 <button
                     onClick={() => navigate(RouteRegistry.ADMIN.LEADS_NEW)}
                     style={{ padding: '0.75rem 1.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
-                    data-cy="btn-new-lead"
+                    data-cy="btn-adm-leads-new"
                 >
-                    {t(ContentRegistry.LEADS.ADD_BTN)}
+                    {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-admission-new')?.label || t(ContentRegistry.LEADS.ADD_BTN)}
                 </button>
             </div>
 

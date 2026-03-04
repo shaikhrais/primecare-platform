@@ -62,6 +62,7 @@ model Tenant {
   shiftAssignments ShiftAssignment[]
   timesheets       Timesheet[]
   staffTasks       StaffTask[]
+  leads            Lead[]
   users            User[]
   checkEvents      VisitCheckEvent[]
   visits           Visit[]
@@ -418,9 +419,14 @@ model Lead {
   status    String?  @default("new")
   serviceInterest String[] @default([]) @map("service_interest")
   notes           String?
+  convertedToUserId String? @map("converted_to_user_id")
+  conversionDate    DateTime? @map("conversion_date")
+  tenantId          String?   @map("tenant_id")
+  tenant            Tenant?   @relation(fields: [tenantId], references: [id])
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([tenantId])
   @@map("leads")
 }
 

@@ -378,6 +378,9 @@ exports.Prisma.LeadScalarFieldEnum = {
   status: 'status',
   serviceInterest: 'serviceInterest',
   notes: 'notes',
+  convertedToUserId: 'convertedToUserId',
+  conversionDate: 'conversionDate',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

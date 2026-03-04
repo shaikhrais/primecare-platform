@@ -1,4 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { RouteRegistry, ButtonRegistry } = AdminRegistry;
 
 interface Lead {
     id: string;
@@ -22,6 +26,7 @@ interface LeadsTableProps {
 }
 
 export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTerm, onStatusChange, onDelete }) => {
+    const navigate = useNavigate();
     const filteredLeads = leads.filter(l => {
         const search = searchTerm.toLowerCase();
         const first = (l.firstName || '').toLowerCase();
@@ -114,12 +119,19 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                 <td style={{ padding: '1rem', color: '#6b7280', fontSize: '0.875rem' }}>
                                     {new Date(lead.createdAt).toLocaleDateString()}
                                 </td>
-                                <td style={{ padding: '1rem', textAlign: 'right' }}>
+                                <td style={{ padding: '1rem', textAlign: 'right', display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                    <button
+                                        onClick={() => navigate(RouteRegistry.ADMIN.LEADS_CONVERT(lead.id))}
+                                        style={{ color: '#059669', background: '#ecfdf5', border: '1px solid #10b981', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', cursor: 'pointer', fontWeight: '600', fontSize: '0.75rem' }}
+                                        data-cy={`btn-adm-leads-convert-${lead.id}`}
+                                    >
+                                        {ButtonRegistry.find((b: any) => b.id === 'btn-adm-leads-convert')?.label || 'Convert'}
+                                    </button>
                                     <button
                                         onClick={() => {
                                             if (window.confirm('Delete this lead?')) onDelete(lead.id);
                                         }}
-                                        style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}
+                                        style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500', fontSize: '0.75rem' }}
                                         data-cy={`btn-delete-${lead.id}`}
                                     >
                                         Delete
