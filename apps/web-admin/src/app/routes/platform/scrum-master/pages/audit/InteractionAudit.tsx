@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 
-const { InteractionRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
+const { InteractionRegistry, RouteRegistry, ApiRegistry, InteractiveElementRegistry } = AdminRegistry;
 
 interface AuditResult {
     id: string;
@@ -22,7 +22,7 @@ const InteractionAudit: React.FC = () => {
         ...Object.values(InteractionRegistry).flatMap(module =>
             Object.values(module as object).flatMap(category => Object.values(category as object))
         ),
-        ...(AdminRegistry as any).InteractiveElementRegistry || []
+        ...InteractiveElementRegistry
     ];
 
     const runAudit = async () => {
@@ -34,14 +34,14 @@ const InteractionAudit: React.FC = () => {
             const item = allInteractions[i] as any;
             setCurrentAudit(item.label);
 
-            // Mocking dynamic check logic
-            await new Promise(resolve => setTimeout(resolve, 300));
+            // simulate connectivity depth check
+            await new Promise(resolve => setTimeout(resolve, 150));
 
             const result: AuditResult = {
                 id: item.id || `el-${i}`,
                 label: item.label,
                 module: item.module || (item as any).role || 'SYSTEM',
-                routeStatus: (item.route || item.path) ? 'valid' : 'none',
+                routeStatus: (item.route || (item.checkType === 'ROUTE' && item.path)) ? 'valid' : 'none',
                 apiStatus: (item.apiEndpoint || item.checkType === 'API') ? 'valid' : 'none',
                 timestamp: new Date().toLocaleTimeString()
             };
