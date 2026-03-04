@@ -1085,6 +1085,7 @@ export const ContentRegistry = {
                 FINANCE_MANAGER: ['Revenue Intelligence', 'Expense Audits', 'Payroll Reconciliation', 'Tax Compliance'],
                 REGIONAL_MANAGER: ['Regional P&L', 'Branch Benchmarking', 'Operational Overhead', 'Growth Strategy'],
                 CLINICAL_MANAGER: ['Clinical Audit', 'Medication Safety', 'QA Compliance', 'Incident Oversight'],
+                COORDINATOR: ['Live Dispatch Map', 'SOS Queue', 'Coverage Alerts', 'Emergency Check-in'],
                 RECRUITING_MANAGER: ['Job Postings', 'Candidate Screening', 'Interview Roster', 'Offer Management'],
                 STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
                 RN: ['Clinical Dashboard', 'Care Plan Manager', 'Daily Entry Audit', 'Supervision Hub'],

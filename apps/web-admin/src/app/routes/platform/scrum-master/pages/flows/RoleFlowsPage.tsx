@@ -86,6 +86,12 @@ export default function RoleFlowsPage() {
             color: '#e11d48',
             steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.CLINICAL_MANAGER,
         },
+        coordinator: {
+            label: 'Coordinator',
+            icon: '📡',
+            color: '#06b6d4',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.COORDINATOR,
+        },
         client: {
             label: t(ContentRegistry.ROLE_LABELS.CLIENT),
             icon: '🏠',

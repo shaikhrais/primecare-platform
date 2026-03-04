@@ -19,6 +19,7 @@ const MarketingDashboard = lazy(() => import('./marketing/MarketingDashboard'));
 const HrRecruitmentPortal = lazy(() => import('./hr/HrRecruitmentPortal'));
 const FinanceRegionalHub = lazy(() => import('./finance/FinanceRegionalHub'));
 const ClinicalQaDashboard = lazy(() => import('./qa/ClinicalQaDashboard'));
+const CoordinatorHub = lazy(() => import('./operations/CoordinatorHub'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -82,6 +83,11 @@ export const TenancyRoutes = () => (
         {/* CLINICAL QA DASHBOARD */}
         <Route path={RouteRegistry.MANAGER.CLINICAL} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<ClinicalQaDashboard />} />
+        </Route>
+
+        {/* COORDINATOR HUB */}
+        <Route path={RouteRegistry.MANAGER.COORDINATOR} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
+            <Route index element={<CoordinatorHub />} />
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}

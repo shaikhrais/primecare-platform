@@ -42,6 +42,10 @@ const TENANCY = {
         MESSAGES: '/v1/staff/messages/hub',
         INCIDENT_SUBMIT: '/v1/staff/ops/incidents/submit',
         COMPLIANCE_SCAN: '/v1/staff/ops/compliance/scan',
+        COORDINATOR: {
+            COVERAGE_ALERTS: '/v1/manager/coordinator/coverage-alerts',
+            SOS_DISPATCH: '/v1/manager/coordinator/sos-dispatch',
+        },
     },
 } as const;
 

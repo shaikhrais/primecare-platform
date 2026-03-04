@@ -4,6 +4,7 @@ export * from './registries/ContentRegistry';
 export * from './registries/DataRegistry';
 export * from './registries/ThemeRegistry';
 export * from './registries/InteractionRegistry';
+export * from './registries/InteractiveElementRegistry';
 
 // Existing
 export * from './theme';

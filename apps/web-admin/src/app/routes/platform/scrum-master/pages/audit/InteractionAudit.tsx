@@ -18,9 +18,12 @@ const InteractionAudit: React.FC = () => {
     const [results, setResults] = useState<AuditResult[]>([]);
     const [progress, setProgress] = useState(0);
 
-    const allInteractions = Object.values(InteractionRegistry).flatMap(module =>
-        Object.values(module as object).flatMap(category => Object.values(category as object))
-    );
+    const allInteractions = [
+        ...Object.values(InteractionRegistry).flatMap(module =>
+            Object.values(module as object).flatMap(category => Object.values(category as object))
+        ),
+        ...(AdminRegistry as any).InteractiveElementRegistry || []
+    ];
 
     const runAudit = async () => {
         setIsAuditing(true);
@@ -35,11 +38,11 @@ const InteractionAudit: React.FC = () => {
             await new Promise(resolve => setTimeout(resolve, 300));
 
             const result: AuditResult = {
-                id: item.id,
+                id: item.id || `el-${i}`,
                 label: item.label,
-                module: item.module,
-                routeStatus: item.route ? 'valid' : 'none',
-                apiStatus: item.apiEndpoint ? 'valid' : 'none',
+                module: item.module || (item as any).role || 'SYSTEM',
+                routeStatus: (item.route || item.path) ? 'valid' : 'none',
+                apiStatus: (item.apiEndpoint || item.checkType === 'API') ? 'valid' : 'none',
                 timestamp: new Date().toLocaleTimeString()
             };
 

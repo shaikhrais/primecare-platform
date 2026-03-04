@@ -166,5 +166,27 @@ export const InteractionRegistry = {
                 route: RouteRegistry.MANAGER.CLINICAL
             }
         }
+    },
+    COORDINATOR: {
+        HUB: {
+            SOS_RESPOND: {
+                id: 'coord-sos-respond',
+                label: 'Respond to SOS',
+                type: 'button',
+                module: 'SCRUM_MASTER' as any, // Placeholder for system-level ops
+                purpose: 'Acknowledge and dispatch help for an active SOS alert.',
+                permission: 'AUDIT_VIEW',
+                route: RouteRegistry.MANAGER.COORDINATOR
+            },
+            ASSIGN_EMERGENCY: {
+                id: 'coord-assign-emergency',
+                label: 'Assign Emergency',
+                type: 'button',
+                module: 'SCRUM_MASTER' as any,
+                purpose: 'Force-assign a high-priority visit to the nearest available PSW.',
+                permission: 'AUDIT_VIEW',
+                route: RouteRegistry.MANAGER.COORDINATOR
+            }
+        }
     }
 } as const;
