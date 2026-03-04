@@ -18,6 +18,9 @@ const IncidentEntry = lazy(() => import('./pages/incidents').then(m => ({ defaul
 const LeadsPage = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadsPage })));
 const LeadEntryForm = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadEntryForm })));
 const LeadConversion = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadConversion })));
+const LogisticsHub = lazy(() => import('../../tenancy/admin/pages/ops/LogisticsHub'));
+const RegionMapping = lazy(() => import('../../tenancy/admin/pages/ops/RegionMapping'));
+const RealtimeCapacity = lazy(() => import('../../tenancy/admin/pages/ops/RealtimeCapacity'));
 const Timesheets = lazy(() => import('./pages/timesheets'));
 const TimesheetAdjustment = lazy(() => import('./pages/timesheet-adjustment'));
 const Services = lazy(() => import('./pages/services'));
@@ -66,6 +69,9 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.LEADS_NEW} element={<LeadEntryForm />} />
         <Route path={RouteRegistry.ADMIN.LEADS_EDIT(':id')} element={<LeadEntryForm />} />
         <Route path={RouteRegistry.ADMIN.LEADS_CONVERT(':id')} element={<LeadConversion />} />
+        <Route path={RouteRegistry.ADMIN.OPERATIONS.LOGISTICS_HUB} element={<LogisticsHub />} />
+        <Route path={RouteRegistry.ADMIN.OPERATIONS.REGION_MAPPING} element={<RegionMapping />} />
+        <Route path={RouteRegistry.ADMIN.OPERATIONS.REALTIME_CAPACITY} element={<RealtimeCapacity />} />
         <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
         <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
         <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />

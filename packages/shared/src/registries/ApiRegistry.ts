@@ -76,6 +76,12 @@ const PLATFORM = {
         SEARCH: '/v1/admin/search',
         REPORTS: '/v1/admin/reports/export',
         LEADS_CONVERT: (id: string) => `/v1/admin/leads/${id}/convert`,
+        OPERATIONS: {
+            REALTIME_CAPACITY: '/v1/admin/ops/capacity',
+            REGION_MAPPING: '/v1/admin/ops/regions',
+            SUPPLY_DEMAND: '/v1/admin/ops/supply-demand',
+            LOGISTICS_HUB: '/v1/admin/ops/logistics',
+        }
     },
     SCRUM_MASTER: {
         DASHBOARD: '/v1/admin/stats',

@@ -61,6 +61,8 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-mgr-training-create', label: 'Create Training Module', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Initializes a new clinical training module.' },
     { id: 'btn-mgr-survey-new', label: 'New Satisfaction Survey', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Launches a new survey for staff or clients.' },
     { id: 'btn-mgr-evaluation-new', label: 'New Performance Evaluation', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Starts a staff performance review process.' },
+    { id: 'btn-adm-ops-optimize', label: 'Optimize Logistics', role: 'admin', module: 'OPERATIONS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.ADMIN.OPERATIONS.LOGISTICS_HUB, description: 'Triggers AI logistics optimization.' },
+    { id: 'btn-adm-region-new', label: 'Define New Region', role: 'admin', module: 'OPERATIONS', type: 'secondary', action: 'OPEN_MODAL', description: 'Creates a new operational geographic region.' },
     // SM Command Center Mastery
     { id: 'btn-sm-build-deploy', label: 'Deploy Staging', role: 'scrum_master', module: 'BUILDS', type: 'primary', action: 'CI_TRIGGER', description: 'Triggers a manual CI/CD deployment.' },
     { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' }

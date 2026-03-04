@@ -71,6 +71,7 @@ model Tenant {
   carePlans        CarePlan[]
   trainingModules  TrainingModule[]
   surveys          Survey[]
+  regions          Region[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -774,4 +775,34 @@ model SurveyResponse {
   survey      Survey   @relation(fields: [surveyId], references: [id])
 
   @@map("survey_responses")
+}
+
+model Region {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  city      String
+  province  String
+  boundary  Json?    @map("boundary_json")
+  status    String   @default("active")
+  createdAt DateTime @default(now()) @map("created_at")
+  tenantId  String   @map("tenant_id")
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  stats     BranchCapacity[]
+
+  @@index([tenantId])
+  @@map("regions")
+}
+
+model BranchCapacity {
+  id              String   @id @default(uuid())
+  regionId        String   @map("region_id")
+  totalStaff      Int      @default(0) @map("total_staff")
+  availableStaff  Int      @default(0) @map("available_staff")
+  activeVisits    Int      @default(0) @map("active_visits")
+  pendingBookings Int      @default(0) @map("pending_bookings")
+  utilizationRate Float?   @map("utilization_rate")
+  timestamp       DateTime @default(now())
+  region          Region   @relation(fields: [regionId], references: [id])
+
+  @@map("branch_capacity")
 }
