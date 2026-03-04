@@ -459,6 +459,7 @@ export const ContentRegistry = {
         SETTINGS: 'Settings',
         SUPPORT: 'Support',
         DEVELOPER: 'Developer',
+        THEME: 'Theme Center',
         INSIGHTS: 'Insights',
         CLINICAL_AI: 'Clinical AI',
         INTEROPERABILITY: 'Interoperability',
@@ -1122,6 +1123,10 @@ export const ContentRegistry = {
             COMPONENT: 'Component',
             OBSERVATION: 'Observation',
             TECHNICAL_SUGGESTION: 'Technical Suggestion',
+        },
+        THEME_CENTER: {
+            TITLE: 'Theme Core Center',
+            SUBTITLE: 'Live platform style management and CSS variable audit',
         }
     },
     SHARED: {
@@ -1173,5 +1178,25 @@ export const ContentRegistry = {
         STAFF: 'Staff Member',
         PSW: 'Caregiver (PSW)',
         CLIENT: 'Client / Family',
+    },
+    AI: {
+        TITLE: 'Clinical Intelligence Hub',
+        INSIGHTS: 'Predictive Care Patterns',
+        CHURN_RISK: 'Patient Churn Surveillance',
+        OPTIMIZATION: 'Workflow Visit Optimization',
+        AUTO_PILOT: 'Clinical Autopilot',
+    },
+    SECURITY: {
+        TITLE: 'Platform Security Lattice',
+        PERMISSIONS: 'Deep Permission Grid',
+        THREATS: 'Real-time Threat Surveillance',
+        SESSIONS: 'Active Session Governance',
+        CRYPTO: 'End-to-End Encryption Audit',
+    },
+    OPS: {
+        TITLE: 'Operational Nerve Center',
+        CAPACITY: 'Real-time Regional Capacity',
+        LOGISTICS: 'Logistics Chain Mapping',
+        REGION_MAPPING: 'Network Topology',
     }
 } as const;

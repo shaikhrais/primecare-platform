@@ -52,11 +52,29 @@ const PLATFORM = {
         NOTIFICATIONS: '/v1/system/notifications',
         MARK_READ: (id: string) => `/v1/system/notifications/${id}/read`,
         PLATFORM_STATS: '/v1/system/platform/stats',
+        CAPACITY: '/v1/system/ops/capacity',
+        REGIONS: '/v1/system/ops/regions',
+        LOGISTICS_HUB: '/v1/system/ops/logistics',
     },
     SUPERUSER: {
         TENANTS: '/v1/superuser/tenants',
         AUDIT_LOGS: '/v1/superuser/audit-logs',
-    }
+        GOVERNANCE: '/v1/superuser/governance',
+    },
+    AI: {
+        INSIGHTS: '/v1/ai/insights',
+        PREDICTIVE: '/v1/ai/predictive',
+        CHURN: '/v1/ai/churn',
+        OPTIMIZATION: '/v1/ai/optimization',
+        VISIT_SENTIMENT: '/v1/ai/visit-sentiment',
+    },
+    SECURITY: {
+        THREATS: '/v1/security/threats',
+        SESSIONS: '/v1/security/sessions',
+        PERMISSIONS: '/v1/security/permissions',
+        AUDIT_DETAIL: (id: string) => `/v1/security/audits/${id}`,
+        CRYPTO_HEALTH: '/v1/security/crypto-health',
+    },
 } as const;
 
 export const ApiRegistry = {

@@ -2,6 +2,7 @@
 export * from './registries/ApiRegistry';
 export * from './registries/ContentRegistry';
 export * from './registries/DataRegistry';
+export * from './registries/ThemeRegistry';
 
 // Existing
 export * from './theme';

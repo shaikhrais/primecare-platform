@@ -133,6 +133,7 @@ const PLATFORM = {
         ENV_AUDIT: '/platform/scrum-master/env-audit',
         REGISTRY_CHECK: '/platform/scrum-master/registry-check',
         DATABASE_SCHEMA: '/platform/scrum-master/database-schema',
+        THEME_CENTER: '/platform/scrum-master/theme-center',
     }
 } as const;
 

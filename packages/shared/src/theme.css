@@ -1,39 +1,43 @@
 :root {
-  /* --- 1. LIGHT MINIMAL CORE TOKENS --- */
-  --brand-500: var(--pc-brand-primary, #00875A);
-  --brand-600: var(--pc-brand-accent, #006B48);
+  /* --- 1. THEME REGISTRY DYNAMIC TOKENS --- */
+  --pc-primary: #00897b;
+  --pc-primary-dark: #004d40;
+  --pc-accent: #c2ffd9;
+  --pc-bg: #f9fafb;
+  --pc-surface: #ffffff;
+  --pc-border: #e5e7eb;
+  
+  --pc-text-base: #111827;
+  --pc-text-muted: #6b7280;
+  --pc-text-on-primary: #ffffff;
+
+  --pc-status-success: #16a34a;
+  --pc-status-warning: #d97706;
+  --pc-status-error: #dc2626;
+  --pc-status-info: #2563eb;
+
+  /* Brand Aliases */
+  --brand-500: var(--pc-primary);
+  --brand-600: var(--pc-primary-dark);
 
   /* Backgrounds */
-  --bg-900: #FFFFFF;
-  /* page base */
-  --bg-850: #FFFFFF;
-  /* sidebar/topbar base */
-  --bg-800: #F9FAFB;
-  /* panels */
-  --bg-grad-1: #FFFFFF;
-  /* gradient start */
-  --bg-grad-2: #FFFFFF;
-  /* mid */
-  --bg-grad-3: #FFFFFF;
-  /* end */
+  --bg-900: var(--pc-bg);
+  --bg-850: var(--pc-bg);
+  --bg-800: var(--pc-bg);
+  --bg-grad-1: var(--pc-surface);
+  --bg-grad-2: var(--pc-surface);
+  --bg-grad-3: var(--pc-surface);
 
   /* Surfaces */
-  --card: #FFFFFF;
-  /* default card base */
-  --card-soft: #F9FAFB;
-  /* slightly darker */
-  --card-border: #E5E7EB;
+  --card: var(--pc-surface);
+  --card-soft: var(--pc-bg);
+  --card-border: var(--pc-border);
 
   /* Text */
-  --text-100: #000000;
-  --text-200: #111827;
-  --text-300: #374151;
-  --muted: #6B7280;
-
-  /* Status */
-  --success-100: #DCFCE7;
-  --success-200: #BBF7D0;
-  --success-600: #16A34A;
+  --text-100: var(--pc-text-base);
+  --text-200: var(--pc-text-base);
+  --text-300: var(--pc-text-base);
+  --muted: var(--pc-text-muted);
 
   /* Shadows / radius */
   --r-16: 8px;
@@ -42,7 +46,7 @@
   --shadow-md: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
   /* Focus ring */
-  --ring: 0 0 0 2px #00875A;
+  --ring: 0 0 0 2px var(--pc-primary);
 
   /* Legacy Semantic Aliases */
   --primary: var(--brand-500);
@@ -50,14 +54,13 @@
   --bg: var(--bg-900);
   --bg-elev: var(--bg-850);
   --text: var(--text-100);
-  --text-muted: var(--text-300);
+  --text-muted: var(--muted);
   --line: var(--card-border);
   --line-bold: #D1D5DB;
 
   /* Typography Base */
   --pc-font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --pc-font-display: 'Inter', sans-serif;
-  /* Simplified from Outfit */
   --pc-transition: all 0.1s linear;
   --header-height: 72px;
   --sidebar-width: 260px;

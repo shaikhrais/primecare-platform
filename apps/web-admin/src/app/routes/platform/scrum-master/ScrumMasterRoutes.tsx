@@ -15,6 +15,7 @@ const SystemHealthMonitor = lazy(() => import('./pages/monitoring/SystemHealthMo
 const EnvironmentAudit = lazy(() => import('./pages/audit/EnvironmentAudit'));
 const RegistryIntegrityCheck = lazy(() => import('./pages/audit/RegistryIntegrityCheck'));
 const DatabaseSchemaAudit = lazy(() => import('./pages/audit/DatabaseSchemaAudit'));
+const ThemeCoreCenter = lazy(() => import('./pages/theme/ThemeCoreCenter'));
 
 export const ScrumMasterRoutes = () => (
     <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
@@ -27,5 +28,6 @@ export const ScrumMasterRoutes = () => (
         <Route path={RouteRegistry.SCRUM_MASTER.ENV_AUDIT} element={<EnvironmentAudit />} />
         <Route path={RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK} element={<RegistryIntegrityCheck />} />
         <Route path={RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA} element={<DatabaseSchemaAudit />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.THEME_CENTER} element={<ThemeCoreCenter />} />
     </Route>
 );
