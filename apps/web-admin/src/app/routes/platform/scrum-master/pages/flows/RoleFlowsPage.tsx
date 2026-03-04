@@ -44,6 +44,12 @@ export default function RoleFlowsPage() {
             color: '#f59e0b',
             steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.PSW,
         },
+        rn: {
+            label: t(ContentRegistry.ROLE_LABELS.RN),
+            icon: '🩺',
+            color: '#06b6d4',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.RN,
+        },
         client: {
             label: t(ContentRegistry.ROLE_LABELS.CLIENT),
             icon: '🏠',
@@ -130,6 +136,15 @@ export default function RoleFlowsPage() {
                     { name: 'Credentials', route: 'PSW.CREDENTIALS', component: 'CredentialVault', status: 'implemented', requirement: 'Submit and renew clinical certifications (CPR, VSS, etc.).' },
                     { name: 'Community', route: 'PSW.FEED', component: 'ProviderSocial', status: 'implemented', requirement: 'Peer support and regional announcements for caregivers.' },
                     { name: 'Live Visit', route: 'PSW.LIVE_VISIT', component: 'LiveVisit', status: 'implemented', requirement: 'Real-time check-in/out and interactive clinical task documentation.' },
+                ]
+            },
+            rn: {
+                mission: 'Maintain clinical oversight, audit caregiver documentation, and ensure professional nursing standards are met.',
+                pages: [
+                    { name: 'Dashboard', route: 'RN.DASHBOARD', component: 'RnDashboard', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
+                    { name: 'Care Plans', route: 'RN.CARE_PLANS', component: 'ClinicalCarePlans', status: 'implemented', requirement: 'Digitize and manage professional patient care protocols.' },
+                    { name: 'Daily Audit', route: 'RN.DAILY_AUDIT', component: 'DailyAudit', status: 'implemented', requirement: 'RN sign-off and verification of PSW daily care records.' },
+                    { name: 'Supervision', route: 'RN.SUPERVISION', component: 'SupervisionHub', status: 'implemented', requirement: 'Monitor caregiver quality standards and certification compliance.' },
                 ]
             },
             client: {

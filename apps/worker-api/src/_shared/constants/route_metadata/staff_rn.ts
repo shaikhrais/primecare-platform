@@ -52,4 +52,14 @@ export const RN_METADATA = {
         description: 'Allows an RN to review and sign off on a daily entry.',
         tags: ['RN Daily Review'],
     },
+    CARE_PLAN_LIST: {
+        summary: 'List Care Plans',
+        description: 'Retrieve a list of clinical care plans for clients.',
+        tags: ['RN Clinical'],
+    },
+    CARE_PLAN_REVIEW: {
+        summary: 'Review/Update Care Plan',
+        description: 'Update the clinical goals and interventions for a care plan.',
+        tags: ['RN Clinical'],
+    },
 };

@@ -41,6 +41,9 @@ const TENANCY = {
     },
     RN: {
         DASHBOARD: '/tenancy/rn',
+        CARE_PLANS: '/tenancy/rn/care-plans',
+        DAILY_AUDIT: '/tenancy/rn/entry-verify',
+        SUPERVISION: '/tenancy/rn/supervision',
     },
     CLIENT: {
         DASHBOARD: '/tenancy/client',
@@ -156,6 +159,7 @@ const PLATFORM = {
         BUILD_HEALTH: '/platform/scrum-master/builds',
         SECURITY_SCANS: '/platform/scrum-master/security-scans',
         LOCALIZATION: '/platform/scrum-master/locales',
+        INTERACTION_AUDIT: '/platform/scrum-master/interaction-audit',
         AUTO_FIX: '/platform/scrum-master/auto-fix',
         IMPERSONATE: '/platform/scrum-master/impersonate',
     }

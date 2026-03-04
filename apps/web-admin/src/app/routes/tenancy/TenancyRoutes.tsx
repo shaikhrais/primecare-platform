@@ -31,6 +31,9 @@ const LiveVisit = lazy(() => import('./psw/pages/schedule/LiveVisit'));
 
 // RN Pages
 const RnDashboard = lazy(() => import('./rn/pages/dashboard'));
+const ClinicalCarePlans = lazy(() => import('./rn/pages/care-plans/ClinicalCarePlans'));
+const DailyAudit = lazy(() => import('./rn/pages/audit/DailyAudit'));
+const SupervisionHub = lazy(() => import('./rn/pages/supervision/SupervisionHub'));
 
 // Client Pages
 const ClientDashboard = lazy(() => import('./client/pages/dashboard'));
@@ -73,8 +76,11 @@ export const TenancyRoutes = () => (
         </Route>
 
         {/* RN PORTAL */}
-        <Route path={RouteRegistry.RN.DASHBOARD} element={<RequireRole allowedRoles={['rn']}><AppLayout /></RequireRole>}>
+        <Route path={RouteRegistry.RN.DASHBOARD} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<RnDashboard />} />
+            <Route path={RouteRegistry.RN.CARE_PLANS} element={<ClinicalCarePlans />} />
+            <Route path={RouteRegistry.RN.DAILY_AUDIT} element={<DailyAudit />} />
+            <Route path={RouteRegistry.RN.SUPERVISION} element={<SupervisionHub />} />
         </Route>
 
         {/* CLIENT PORTAL */}

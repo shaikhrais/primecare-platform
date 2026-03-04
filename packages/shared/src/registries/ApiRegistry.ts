@@ -28,6 +28,11 @@ const TENANCY = {
     },
     RN: {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',
+        CARE_PLANS: '/v1/rn/clinical/care-plans',
+        CARE_PLAN_REVIEW: (id: string) => `/v1/rn/clinical/care-plans/${id}/review`,
+        DAILY_AUDIT_LIST: '/v1/rn/clinical/audit/entries',
+        DAILY_AUDIT_VERIFY: (id: string) => `/v1/rn/clinical/audit/entries/${id}/verify`,
+        SUPERVISION_ROSTER: '/v1/rn/clinical/supervision/roster',
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',

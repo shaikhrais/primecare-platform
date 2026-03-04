@@ -24,6 +24,7 @@ const SecurityScansPage = lazy(() => import('./pages/scans/SecurityScansPage'));
 const LocalizationPage = lazy(() => import('./pages/locales/LocalizationPage'));
 const RegistryAutoRepair = lazy(() => import('./pages/repair/RegistryAutoRepair'));
 const ImpersonationTool = lazy(() => import('./pages/impersonate/ImpersonationTool'));
+const InteractionAudit = lazy(() => import('./pages/audit/InteractionAudit'));
 
 export const ScrumMasterRoutes = () => (
     <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
@@ -45,5 +46,6 @@ export const ScrumMasterRoutes = () => (
         <Route path={RouteRegistry.SCRUM_MASTER.LOCALIZATION} element={<LocalizationPage />} />
         <Route path={RouteRegistry.SCRUM_MASTER.AUTO_FIX} element={<RegistryAutoRepair />} />
         <Route path={RouteRegistry.SCRUM_MASTER.IMPERSONATE} element={<ImpersonationTool />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.INTERACTION_AUDIT} element={<InteractionAudit />} />
     </Route>
 );

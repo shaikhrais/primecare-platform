@@ -158,6 +158,11 @@ export type MarketplaceListing = $Result.DefaultSelection<Prisma.$MarketplaceLis
  * 
  */
 export type Feedback = $Result.DefaultSelection<Prisma.$FeedbackPayload>
+/**
+ * Model CarePlan
+ * 
+ */
+export type CarePlan = $Result.DefaultSelection<Prisma.$CarePlanPayload>
 
 /**
  * Enums
@@ -749,6 +754,16 @@ export class PrismaClient<
     * ```
     */
   get feedback(): Prisma.FeedbackDelegate<ExtArgs>;
+
+  /**
+   * `prisma.carePlan`: Exposes CRUD operations for the **CarePlan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CarePlans
+    * const carePlans = await prisma.carePlan.findMany()
+    * ```
+    */
+  get carePlan(): Prisma.CarePlanDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1218,7 +1233,8 @@ export namespace Prisma {
     FAQ: 'FAQ',
     DailyEntry: 'DailyEntry',
     MarketplaceListing: 'MarketplaceListing',
-    Feedback: 'Feedback'
+    Feedback: 'Feedback',
+    CarePlan: 'CarePlan'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1234,7 +1250,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3268,6 +3284,76 @@ export namespace Prisma {
           }
         }
       }
+      CarePlan: {
+        payload: Prisma.$CarePlanPayload<ExtArgs>
+        fields: Prisma.CarePlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CarePlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CarePlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          findFirst: {
+            args: Prisma.CarePlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CarePlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          findMany: {
+            args: Prisma.CarePlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>[]
+          }
+          create: {
+            args: Prisma.CarePlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          createMany: {
+            args: Prisma.CarePlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CarePlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>[]
+          }
+          delete: {
+            args: Prisma.CarePlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          update: {
+            args: Prisma.CarePlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.CarePlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CarePlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CarePlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarePlanPayload>
+          }
+          aggregate: {
+            args: Prisma.CarePlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCarePlan>
+          }
+          groupBy: {
+            args: Prisma.CarePlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CarePlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CarePlanCountArgs<ExtArgs>
+            result: $Utils.Optional<CarePlanCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3545,6 +3631,7 @@ export namespace Prisma {
     visits: number
     apiKeys: number
     feedbacks: number
+    carePlans: number
     childTenants: number
     marketplaceListings: number
   }
@@ -3568,6 +3655,7 @@ export namespace Prisma {
     visits?: boolean | TenantCountOutputTypeCountVisitsArgs
     apiKeys?: boolean | TenantCountOutputTypeCountApiKeysArgs
     feedbacks?: boolean | TenantCountOutputTypeCountFeedbacksArgs
+    carePlans?: boolean | TenantCountOutputTypeCountCarePlansArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
   }
@@ -3712,6 +3800,13 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountCarePlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CarePlanWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountChildTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantWhereInput
   }
@@ -3735,6 +3830,7 @@ export namespace Prisma {
     messageThreads: number
     visits: number
     feedbacks: number
+    carePlans: number
   }
 
   export type ClientProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3744,6 +3840,7 @@ export namespace Prisma {
     messageThreads?: boolean | ClientProfileCountOutputTypeCountMessageThreadsArgs
     visits?: boolean | ClientProfileCountOutputTypeCountVisitsArgs
     feedbacks?: boolean | ClientProfileCountOutputTypeCountFeedbacksArgs
+    carePlans?: boolean | ClientProfileCountOutputTypeCountCarePlansArgs
   }
 
   // Custom InputTypes
@@ -3797,6 +3894,13 @@ export namespace Prisma {
    */
   export type ClientProfileCountOutputTypeCountFeedbacksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FeedbackWhereInput
+  }
+
+  /**
+   * ClientProfileCountOutputType without action
+   */
+  export type ClientProfileCountOutputTypeCountCarePlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CarePlanWhereInput
   }
 
 
@@ -5681,6 +5785,7 @@ export namespace Prisma {
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
     apiKeys?: boolean | Tenant$apiKeysArgs<ExtArgs>
     feedbacks?: boolean | Tenant$feedbacksArgs<ExtArgs>
+    carePlans?: boolean | Tenant$carePlansArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     marketplaceListings?: boolean | Tenant$marketplaceListingsArgs<ExtArgs>
@@ -5741,6 +5846,7 @@ export namespace Prisma {
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
     apiKeys?: boolean | Tenant$apiKeysArgs<ExtArgs>
     feedbacks?: boolean | Tenant$feedbacksArgs<ExtArgs>
+    carePlans?: boolean | Tenant$carePlansArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     marketplaceListings?: boolean | Tenant$marketplaceListingsArgs<ExtArgs>
@@ -5771,6 +5877,7 @@ export namespace Prisma {
       visits: Prisma.$VisitPayload<ExtArgs>[]
       apiKeys: Prisma.$ApiKeyPayload<ExtArgs>[]
       feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
+      carePlans: Prisma.$CarePlanPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       marketplaceListings: Prisma.$MarketplaceListingPayload<ExtArgs>[]
@@ -6172,6 +6279,7 @@ export namespace Prisma {
     visits<T extends Tenant$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
     apiKeys<T extends Tenant$apiKeysArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$apiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany"> | Null>
     feedbacks<T extends Tenant$feedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany"> | Null>
+    carePlans<T extends Tenant$carePlansArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$carePlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     marketplaceListings<T extends Tenant$marketplaceListingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$marketplaceListingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketplaceListingPayload<ExtArgs>, T, "findMany"> | Null>
@@ -6893,6 +7001,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.carePlans
+   */
+  export type Tenant$carePlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    where?: CarePlanWhereInput
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    cursor?: CarePlanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
   }
 
   /**
@@ -8224,6 +8352,7 @@ export namespace Prisma {
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     feedbacks?: boolean | ClientProfile$feedbacksArgs<ExtArgs>
+    carePlans?: boolean | ClientProfile$carePlansArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientProfile"]>
 
@@ -8278,6 +8407,7 @@ export namespace Prisma {
     messageThreads?: boolean | ClientProfile$messageThreadsArgs<ExtArgs>
     visits?: boolean | ClientProfile$visitsArgs<ExtArgs>
     feedbacks?: boolean | ClientProfile$feedbacksArgs<ExtArgs>
+    carePlans?: boolean | ClientProfile$carePlansArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClientProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8296,6 +8426,7 @@ export namespace Prisma {
       messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
       visits: Prisma.$VisitPayload<ExtArgs>[]
       feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
+      carePlans: Prisma.$CarePlanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8687,6 +8818,7 @@ export namespace Prisma {
     messageThreads<T extends ClientProfile$messageThreadsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany"> | Null>
     visits<T extends ClientProfile$visitsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
     feedbacks<T extends ClientProfile$feedbacksArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany"> | Null>
+    carePlans<T extends ClientProfile$carePlansArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$carePlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9168,6 +9300,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * ClientProfile.carePlans
+   */
+  export type ClientProfile$carePlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    where?: CarePlanWhereInput
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    cursor?: CarePlanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
   }
 
   /**
@@ -35226,6 +35378,993 @@ export namespace Prisma {
 
 
   /**
+   * Model CarePlan
+   */
+
+  export type AggregateCarePlan = {
+    _count: CarePlanCountAggregateOutputType | null
+    _min: CarePlanMinAggregateOutputType | null
+    _max: CarePlanMaxAggregateOutputType | null
+  }
+
+  export type CarePlanMinAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    tenantId: string | null
+    status: string | null
+    reviewDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CarePlanMaxAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    tenantId: string | null
+    status: string | null
+    reviewDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CarePlanCountAggregateOutputType = {
+    id: number
+    clientId: number
+    tenantId: number
+    diagnoses: number
+    clinicalGoals: number
+    interventions: number
+    status: number
+    reviewDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CarePlanMinAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    status?: true
+    reviewDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CarePlanMaxAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    status?: true
+    reviewDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CarePlanCountAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    diagnoses?: true
+    clinicalGoals?: true
+    interventions?: true
+    status?: true
+    reviewDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CarePlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CarePlan to aggregate.
+     */
+    where?: CarePlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CarePlans to fetch.
+     */
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CarePlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CarePlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CarePlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CarePlans
+    **/
+    _count?: true | CarePlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CarePlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CarePlanMaxAggregateInputType
+  }
+
+  export type GetCarePlanAggregateType<T extends CarePlanAggregateArgs> = {
+        [P in keyof T & keyof AggregateCarePlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCarePlan[P]>
+      : GetScalarType<T[P], AggregateCarePlan[P]>
+  }
+
+
+
+
+  export type CarePlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CarePlanWhereInput
+    orderBy?: CarePlanOrderByWithAggregationInput | CarePlanOrderByWithAggregationInput[]
+    by: CarePlanScalarFieldEnum[] | CarePlanScalarFieldEnum
+    having?: CarePlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CarePlanCountAggregateInputType | true
+    _min?: CarePlanMinAggregateInputType
+    _max?: CarePlanMaxAggregateInputType
+  }
+
+  export type CarePlanGroupByOutputType = {
+    id: string
+    clientId: string
+    tenantId: string
+    diagnoses: string[]
+    clinicalGoals: JsonValue | null
+    interventions: JsonValue | null
+    status: string
+    reviewDate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CarePlanCountAggregateOutputType | null
+    _min: CarePlanMinAggregateOutputType | null
+    _max: CarePlanMaxAggregateOutputType | null
+  }
+
+  type GetCarePlanGroupByPayload<T extends CarePlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CarePlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CarePlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CarePlanGroupByOutputType[P]>
+            : GetScalarType<T[P], CarePlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CarePlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    diagnoses?: boolean
+    clinicalGoals?: boolean
+    interventions?: boolean
+    status?: boolean
+    reviewDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["carePlan"]>
+
+  export type CarePlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    diagnoses?: boolean
+    clinicalGoals?: boolean
+    interventions?: boolean
+    status?: boolean
+    reviewDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["carePlan"]>
+
+  export type CarePlanSelectScalar = {
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    diagnoses?: boolean
+    clinicalGoals?: boolean
+    interventions?: boolean
+    status?: boolean
+    reviewDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CarePlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type CarePlanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $CarePlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CarePlan"
+    objects: {
+      client: Prisma.$ClientProfilePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      clientId: string
+      tenantId: string
+      diagnoses: string[]
+      clinicalGoals: Prisma.JsonValue | null
+      interventions: Prisma.JsonValue | null
+      status: string
+      reviewDate: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["carePlan"]>
+    composites: {}
+  }
+
+  type CarePlanGetPayload<S extends boolean | null | undefined | CarePlanDefaultArgs> = $Result.GetResult<Prisma.$CarePlanPayload, S>
+
+  type CarePlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CarePlanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CarePlanCountAggregateInputType | true
+    }
+
+  export interface CarePlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CarePlan'], meta: { name: 'CarePlan' } }
+    /**
+     * Find zero or one CarePlan that matches the filter.
+     * @param {CarePlanFindUniqueArgs} args - Arguments to find a CarePlan
+     * @example
+     * // Get one CarePlan
+     * const carePlan = await prisma.carePlan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CarePlanFindUniqueArgs>(args: SelectSubset<T, CarePlanFindUniqueArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CarePlan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CarePlanFindUniqueOrThrowArgs} args - Arguments to find a CarePlan
+     * @example
+     * // Get one CarePlan
+     * const carePlan = await prisma.carePlan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CarePlanFindUniqueOrThrowArgs>(args: SelectSubset<T, CarePlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CarePlan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanFindFirstArgs} args - Arguments to find a CarePlan
+     * @example
+     * // Get one CarePlan
+     * const carePlan = await prisma.carePlan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CarePlanFindFirstArgs>(args?: SelectSubset<T, CarePlanFindFirstArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CarePlan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanFindFirstOrThrowArgs} args - Arguments to find a CarePlan
+     * @example
+     * // Get one CarePlan
+     * const carePlan = await prisma.carePlan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CarePlanFindFirstOrThrowArgs>(args?: SelectSubset<T, CarePlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CarePlans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CarePlans
+     * const carePlans = await prisma.carePlan.findMany()
+     * 
+     * // Get first 10 CarePlans
+     * const carePlans = await prisma.carePlan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const carePlanWithIdOnly = await prisma.carePlan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CarePlanFindManyArgs>(args?: SelectSubset<T, CarePlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CarePlan.
+     * @param {CarePlanCreateArgs} args - Arguments to create a CarePlan.
+     * @example
+     * // Create one CarePlan
+     * const CarePlan = await prisma.carePlan.create({
+     *   data: {
+     *     // ... data to create a CarePlan
+     *   }
+     * })
+     * 
+     */
+    create<T extends CarePlanCreateArgs>(args: SelectSubset<T, CarePlanCreateArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CarePlans.
+     * @param {CarePlanCreateManyArgs} args - Arguments to create many CarePlans.
+     * @example
+     * // Create many CarePlans
+     * const carePlan = await prisma.carePlan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CarePlanCreateManyArgs>(args?: SelectSubset<T, CarePlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CarePlans and returns the data saved in the database.
+     * @param {CarePlanCreateManyAndReturnArgs} args - Arguments to create many CarePlans.
+     * @example
+     * // Create many CarePlans
+     * const carePlan = await prisma.carePlan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CarePlans and only return the `id`
+     * const carePlanWithIdOnly = await prisma.carePlan.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CarePlanCreateManyAndReturnArgs>(args?: SelectSubset<T, CarePlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CarePlan.
+     * @param {CarePlanDeleteArgs} args - Arguments to delete one CarePlan.
+     * @example
+     * // Delete one CarePlan
+     * const CarePlan = await prisma.carePlan.delete({
+     *   where: {
+     *     // ... filter to delete one CarePlan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CarePlanDeleteArgs>(args: SelectSubset<T, CarePlanDeleteArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CarePlan.
+     * @param {CarePlanUpdateArgs} args - Arguments to update one CarePlan.
+     * @example
+     * // Update one CarePlan
+     * const carePlan = await prisma.carePlan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CarePlanUpdateArgs>(args: SelectSubset<T, CarePlanUpdateArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CarePlans.
+     * @param {CarePlanDeleteManyArgs} args - Arguments to filter CarePlans to delete.
+     * @example
+     * // Delete a few CarePlans
+     * const { count } = await prisma.carePlan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CarePlanDeleteManyArgs>(args?: SelectSubset<T, CarePlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CarePlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CarePlans
+     * const carePlan = await prisma.carePlan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CarePlanUpdateManyArgs>(args: SelectSubset<T, CarePlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CarePlan.
+     * @param {CarePlanUpsertArgs} args - Arguments to update or create a CarePlan.
+     * @example
+     * // Update or create a CarePlan
+     * const carePlan = await prisma.carePlan.upsert({
+     *   create: {
+     *     // ... data to create a CarePlan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CarePlan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CarePlanUpsertArgs>(args: SelectSubset<T, CarePlanUpsertArgs<ExtArgs>>): Prisma__CarePlanClient<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CarePlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanCountArgs} args - Arguments to filter CarePlans to count.
+     * @example
+     * // Count the number of CarePlans
+     * const count = await prisma.carePlan.count({
+     *   where: {
+     *     // ... the filter for the CarePlans we want to count
+     *   }
+     * })
+    **/
+    count<T extends CarePlanCountArgs>(
+      args?: Subset<T, CarePlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CarePlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CarePlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CarePlanAggregateArgs>(args: Subset<T, CarePlanAggregateArgs>): Prisma.PrismaPromise<GetCarePlanAggregateType<T>>
+
+    /**
+     * Group by CarePlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarePlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CarePlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CarePlanGroupByArgs['orderBy'] }
+        : { orderBy?: CarePlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CarePlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCarePlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CarePlan model
+   */
+  readonly fields: CarePlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CarePlan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CarePlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CarePlan model
+   */ 
+  interface CarePlanFieldRefs {
+    readonly id: FieldRef<"CarePlan", 'String'>
+    readonly clientId: FieldRef<"CarePlan", 'String'>
+    readonly tenantId: FieldRef<"CarePlan", 'String'>
+    readonly diagnoses: FieldRef<"CarePlan", 'String[]'>
+    readonly clinicalGoals: FieldRef<"CarePlan", 'Json'>
+    readonly interventions: FieldRef<"CarePlan", 'Json'>
+    readonly status: FieldRef<"CarePlan", 'String'>
+    readonly reviewDate: FieldRef<"CarePlan", 'DateTime'>
+    readonly createdAt: FieldRef<"CarePlan", 'DateTime'>
+    readonly updatedAt: FieldRef<"CarePlan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CarePlan findUnique
+   */
+  export type CarePlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter, which CarePlan to fetch.
+     */
+    where: CarePlanWhereUniqueInput
+  }
+
+  /**
+   * CarePlan findUniqueOrThrow
+   */
+  export type CarePlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter, which CarePlan to fetch.
+     */
+    where: CarePlanWhereUniqueInput
+  }
+
+  /**
+   * CarePlan findFirst
+   */
+  export type CarePlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter, which CarePlan to fetch.
+     */
+    where?: CarePlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CarePlans to fetch.
+     */
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CarePlans.
+     */
+    cursor?: CarePlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CarePlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CarePlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CarePlans.
+     */
+    distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
+  }
+
+  /**
+   * CarePlan findFirstOrThrow
+   */
+  export type CarePlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter, which CarePlan to fetch.
+     */
+    where?: CarePlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CarePlans to fetch.
+     */
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CarePlans.
+     */
+    cursor?: CarePlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CarePlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CarePlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CarePlans.
+     */
+    distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
+  }
+
+  /**
+   * CarePlan findMany
+   */
+  export type CarePlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter, which CarePlans to fetch.
+     */
+    where?: CarePlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CarePlans to fetch.
+     */
+    orderBy?: CarePlanOrderByWithRelationInput | CarePlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CarePlans.
+     */
+    cursor?: CarePlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CarePlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CarePlans.
+     */
+    skip?: number
+    distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
+  }
+
+  /**
+   * CarePlan create
+   */
+  export type CarePlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CarePlan.
+     */
+    data: XOR<CarePlanCreateInput, CarePlanUncheckedCreateInput>
+  }
+
+  /**
+   * CarePlan createMany
+   */
+  export type CarePlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CarePlans.
+     */
+    data: CarePlanCreateManyInput | CarePlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CarePlan createManyAndReturn
+   */
+  export type CarePlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CarePlans.
+     */
+    data: CarePlanCreateManyInput | CarePlanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CarePlan update
+   */
+  export type CarePlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CarePlan.
+     */
+    data: XOR<CarePlanUpdateInput, CarePlanUncheckedUpdateInput>
+    /**
+     * Choose, which CarePlan to update.
+     */
+    where: CarePlanWhereUniqueInput
+  }
+
+  /**
+   * CarePlan updateMany
+   */
+  export type CarePlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CarePlans.
+     */
+    data: XOR<CarePlanUpdateManyMutationInput, CarePlanUncheckedUpdateManyInput>
+    /**
+     * Filter which CarePlans to update
+     */
+    where?: CarePlanWhereInput
+  }
+
+  /**
+   * CarePlan upsert
+   */
+  export type CarePlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CarePlan to update in case it exists.
+     */
+    where: CarePlanWhereUniqueInput
+    /**
+     * In case the CarePlan found by the `where` argument doesn't exist, create a new CarePlan with this data.
+     */
+    create: XOR<CarePlanCreateInput, CarePlanUncheckedCreateInput>
+    /**
+     * In case the CarePlan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CarePlanUpdateInput, CarePlanUncheckedUpdateInput>
+  }
+
+  /**
+   * CarePlan delete
+   */
+  export type CarePlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+    /**
+     * Filter which CarePlan to delete.
+     */
+    where: CarePlanWhereUniqueInput
+  }
+
+  /**
+   * CarePlan deleteMany
+   */
+  export type CarePlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CarePlans to delete
+     */
+    where?: CarePlanWhereInput
+  }
+
+  /**
+   * CarePlan without action
+   */
+  export type CarePlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarePlan
+     */
+    select?: CarePlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarePlanInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -35714,6 +36853,22 @@ export namespace Prisma {
   export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
 
 
+  export const CarePlanScalarFieldEnum: {
+    id: 'id',
+    clientId: 'clientId',
+    tenantId: 'tenantId',
+    diagnoses: 'diagnoses',
+    clinicalGoals: 'clinicalGoals',
+    interventions: 'interventions',
+    status: 'status',
+    reviewDate: 'reviewDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CarePlanScalarFieldEnum = (typeof CarePlanScalarFieldEnum)[keyof typeof CarePlanScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -36164,6 +37319,7 @@ export namespace Prisma {
     visits?: VisitListRelationFilter
     apiKeys?: ApiKeyListRelationFilter
     feedbacks?: FeedbackListRelationFilter
+    carePlans?: CarePlanListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     marketplaceListings?: MarketplaceListingListRelationFilter
@@ -36202,6 +37358,7 @@ export namespace Prisma {
     visits?: VisitOrderByRelationAggregateInput
     apiKeys?: ApiKeyOrderByRelationAggregateInput
     feedbacks?: FeedbackOrderByRelationAggregateInput
+    carePlans?: CarePlanOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     marketplaceListings?: MarketplaceListingOrderByRelationAggregateInput
@@ -36243,6 +37400,7 @@ export namespace Prisma {
     visits?: VisitListRelationFilter
     apiKeys?: ApiKeyListRelationFilter
     feedbacks?: FeedbackListRelationFilter
+    carePlans?: CarePlanListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     marketplaceListings?: MarketplaceListingListRelationFilter
@@ -36384,6 +37542,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadListRelationFilter
     visits?: VisitListRelationFilter
     feedbacks?: FeedbackListRelationFilter
+    carePlans?: CarePlanListRelationFilter
   }
 
   export type ClientProfileOrderByWithRelationInput = {
@@ -36412,6 +37571,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadOrderByRelationAggregateInput
     visits?: VisitOrderByRelationAggregateInput
     feedbacks?: FeedbackOrderByRelationAggregateInput
+    carePlans?: CarePlanOrderByRelationAggregateInput
   }
 
   export type ClientProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -36443,6 +37603,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadListRelationFilter
     visits?: VisitListRelationFilter
     feedbacks?: FeedbackListRelationFilter
+    carePlans?: CarePlanListRelationFilter
   }, "id" | "userId">
 
   export type ClientProfileOrderByWithAggregationInput = {
@@ -38672,6 +39833,89 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"Feedback"> | string
   }
 
+  export type CarePlanWhereInput = {
+    AND?: CarePlanWhereInput | CarePlanWhereInput[]
+    OR?: CarePlanWhereInput[]
+    NOT?: CarePlanWhereInput | CarePlanWhereInput[]
+    id?: StringFilter<"CarePlan"> | string
+    clientId?: StringFilter<"CarePlan"> | string
+    tenantId?: StringFilter<"CarePlan"> | string
+    diagnoses?: StringNullableListFilter<"CarePlan">
+    clinicalGoals?: JsonNullableFilter<"CarePlan">
+    interventions?: JsonNullableFilter<"CarePlan">
+    status?: StringFilter<"CarePlan"> | string
+    reviewDate?: DateTimeNullableFilter<"CarePlan"> | Date | string | null
+    createdAt?: DateTimeFilter<"CarePlan"> | Date | string
+    updatedAt?: DateTimeFilter<"CarePlan"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type CarePlanOrderByWithRelationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    diagnoses?: SortOrder
+    clinicalGoals?: SortOrderInput | SortOrder
+    interventions?: SortOrderInput | SortOrder
+    status?: SortOrder
+    reviewDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    client?: ClientProfileOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type CarePlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CarePlanWhereInput | CarePlanWhereInput[]
+    OR?: CarePlanWhereInput[]
+    NOT?: CarePlanWhereInput | CarePlanWhereInput[]
+    clientId?: StringFilter<"CarePlan"> | string
+    tenantId?: StringFilter<"CarePlan"> | string
+    diagnoses?: StringNullableListFilter<"CarePlan">
+    clinicalGoals?: JsonNullableFilter<"CarePlan">
+    interventions?: JsonNullableFilter<"CarePlan">
+    status?: StringFilter<"CarePlan"> | string
+    reviewDate?: DateTimeNullableFilter<"CarePlan"> | Date | string | null
+    createdAt?: DateTimeFilter<"CarePlan"> | Date | string
+    updatedAt?: DateTimeFilter<"CarePlan"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type CarePlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    diagnoses?: SortOrder
+    clinicalGoals?: SortOrderInput | SortOrder
+    interventions?: SortOrderInput | SortOrder
+    status?: SortOrder
+    reviewDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CarePlanCountOrderByAggregateInput
+    _max?: CarePlanMaxOrderByAggregateInput
+    _min?: CarePlanMinOrderByAggregateInput
+  }
+
+  export type CarePlanScalarWhereWithAggregatesInput = {
+    AND?: CarePlanScalarWhereWithAggregatesInput | CarePlanScalarWhereWithAggregatesInput[]
+    OR?: CarePlanScalarWhereWithAggregatesInput[]
+    NOT?: CarePlanScalarWhereWithAggregatesInput | CarePlanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CarePlan"> | string
+    clientId?: StringWithAggregatesFilter<"CarePlan"> | string
+    tenantId?: StringWithAggregatesFilter<"CarePlan"> | string
+    diagnoses?: StringNullableListFilter<"CarePlan">
+    clinicalGoals?: JsonNullableWithAggregatesFilter<"CarePlan">
+    interventions?: JsonNullableWithAggregatesFilter<"CarePlan">
+    status?: StringWithAggregatesFilter<"CarePlan"> | string
+    reviewDate?: DateTimeNullableWithAggregatesFilter<"CarePlan"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CarePlan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CarePlan"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -38848,6 +40092,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -38886,6 +40131,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -38922,6 +40168,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -38960,6 +40207,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -39107,6 +40355,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateInput = {
@@ -39133,6 +40382,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUpdateInput = {
@@ -39159,6 +40409,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateInput = {
@@ -39185,6 +40436,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileCreateManyInput = {
@@ -41562,6 +42814,95 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type CarePlanCreateInput = {
+    id?: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutCarePlansInput
+    tenant: TenantCreateNestedOneWithoutCarePlansInput
+  }
+
+  export type CarePlanUncheckedCreateInput = {
+    id?: string
+    clientId: string
+    tenantId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CarePlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutCarePlansNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutCarePlansNestedInput
+  }
+
+  export type CarePlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarePlanCreateManyInput = {
+    id?: string
+    clientId: string
+    tenantId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CarePlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarePlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -41940,6 +43281,12 @@ export namespace Prisma {
     none?: FeedbackWhereInput
   }
 
+  export type CarePlanListRelationFilter = {
+    every?: CarePlanWhereInput
+    some?: CarePlanWhereInput
+    none?: CarePlanWhereInput
+  }
+
   export type TenantNullableRelationFilter = {
     is?: TenantWhereInput | null
     isNot?: TenantWhereInput | null
@@ -42006,6 +43353,10 @@ export namespace Prisma {
   }
 
   export type FeedbackOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CarePlanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43750,6 +45101,39 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
+  export type CarePlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    diagnoses?: SortOrder
+    clinicalGoals?: SortOrder
+    interventions?: SortOrder
+    status?: SortOrder
+    reviewDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CarePlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    reviewDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CarePlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    reviewDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreaterolesInput = {
     set: $Enums.Role[]
   }
@@ -44315,6 +45699,13 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
+  export type CarePlanCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput> | CarePlanCreateWithoutTenantInput[] | CarePlanUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutTenantInput | CarePlanCreateOrConnectWithoutTenantInput[]
+    createMany?: CarePlanCreateManyTenantInputEnvelope
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+  }
+
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
     create?: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutChildTenantsInput
@@ -44459,6 +45850,13 @@ export namespace Prisma {
     connectOrCreate?: FeedbackCreateOrConnectWithoutTenantInput | FeedbackCreateOrConnectWithoutTenantInput[]
     createMany?: FeedbackCreateManyTenantInputEnvelope
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+  }
+
+  export type CarePlanUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput> | CarePlanCreateWithoutTenantInput[] | CarePlanUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutTenantInput | CarePlanCreateOrConnectWithoutTenantInput[]
+    createMany?: CarePlanCreateManyTenantInputEnvelope
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -44733,6 +46131,20 @@ export namespace Prisma {
     update?: FeedbackUpdateWithWhereUniqueWithoutTenantInput | FeedbackUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: FeedbackUpdateManyWithWhereWithoutTenantInput | FeedbackUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+  }
+
+  export type CarePlanUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput> | CarePlanCreateWithoutTenantInput[] | CarePlanUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutTenantInput | CarePlanCreateOrConnectWithoutTenantInput[]
+    upsert?: CarePlanUpsertWithWhereUniqueWithoutTenantInput | CarePlanUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CarePlanCreateManyTenantInputEnvelope
+    set?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    disconnect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    delete?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    update?: CarePlanUpdateWithWhereUniqueWithoutTenantInput | CarePlanUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CarePlanUpdateManyWithWhereWithoutTenantInput | CarePlanUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -45025,6 +46437,20 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
+  export type CarePlanUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput> | CarePlanCreateWithoutTenantInput[] | CarePlanUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutTenantInput | CarePlanCreateOrConnectWithoutTenantInput[]
+    upsert?: CarePlanUpsertWithWhereUniqueWithoutTenantInput | CarePlanUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CarePlanCreateManyTenantInputEnvelope
+    set?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    disconnect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    delete?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    update?: CarePlanUpdateWithWhereUniqueWithoutTenantInput | CarePlanUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CarePlanUpdateManyWithWhereWithoutTenantInput | CarePlanUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
     create?: XOR<TenantCreateWithoutParentTenantInput, TenantUncheckedCreateWithoutParentTenantInput> | TenantCreateWithoutParentTenantInput[] | TenantUncheckedCreateWithoutParentTenantInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutParentTenantInput | TenantCreateOrConnectWithoutParentTenantInput[]
@@ -45121,6 +46547,13 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
+  export type CarePlanCreateNestedManyWithoutClientInput = {
+    create?: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput> | CarePlanCreateWithoutClientInput[] | CarePlanUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutClientInput | CarePlanCreateOrConnectWithoutClientInput[]
+    createMany?: CarePlanCreateManyClientInputEnvelope
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+  }
+
   export type BookingUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
@@ -45161,6 +46594,13 @@ export namespace Prisma {
     connectOrCreate?: FeedbackCreateOrConnectWithoutClientInput | FeedbackCreateOrConnectWithoutClientInput[]
     createMany?: FeedbackCreateManyClientInputEnvelope
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+  }
+
+  export type CarePlanUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput> | CarePlanCreateWithoutClientInput[] | CarePlanUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutClientInput | CarePlanCreateOrConnectWithoutClientInput[]
+    createMany?: CarePlanCreateManyClientInputEnvelope
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -45271,6 +46711,20 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
+  export type CarePlanUpdateManyWithoutClientNestedInput = {
+    create?: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput> | CarePlanCreateWithoutClientInput[] | CarePlanUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutClientInput | CarePlanCreateOrConnectWithoutClientInput[]
+    upsert?: CarePlanUpsertWithWhereUniqueWithoutClientInput | CarePlanUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: CarePlanCreateManyClientInputEnvelope
+    set?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    disconnect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    delete?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    update?: CarePlanUpdateWithWhereUniqueWithoutClientInput | CarePlanUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: CarePlanUpdateManyWithWhereWithoutClientInput | CarePlanUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
   export type BookingUncheckedUpdateManyWithoutClientNestedInput = {
     create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
@@ -45353,6 +46807,20 @@ export namespace Prisma {
     update?: FeedbackUpdateWithWhereUniqueWithoutClientInput | FeedbackUpdateWithWhereUniqueWithoutClientInput[]
     updateMany?: FeedbackUpdateManyWithWhereWithoutClientInput | FeedbackUpdateManyWithWhereWithoutClientInput[]
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+  }
+
+  export type CarePlanUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput> | CarePlanCreateWithoutClientInput[] | CarePlanUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CarePlanCreateOrConnectWithoutClientInput | CarePlanCreateOrConnectWithoutClientInput[]
+    upsert?: CarePlanUpsertWithWhereUniqueWithoutClientInput | CarePlanUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: CarePlanCreateManyClientInputEnvelope
+    set?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    disconnect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    delete?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+    update?: CarePlanUpdateWithWhereUniqueWithoutClientInput | CarePlanUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: CarePlanUpdateManyWithWhereWithoutClientInput | CarePlanUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
   }
 
   export type PswProfileCreatelanguagesInput = {
@@ -47168,6 +48636,43 @@ export namespace Prisma {
     update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutFeedbacksInput, VisitUpdateWithoutFeedbacksInput>, VisitUncheckedUpdateWithoutFeedbacksInput>
   }
 
+  export type CarePlanCreatediagnosesInput = {
+    set: string[]
+  }
+
+  export type ClientProfileCreateNestedOneWithoutCarePlansInput = {
+    create?: XOR<ClientProfileCreateWithoutCarePlansInput, ClientProfileUncheckedCreateWithoutCarePlansInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutCarePlansInput
+    connect?: ClientProfileWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutCarePlansInput = {
+    create?: XOR<TenantCreateWithoutCarePlansInput, TenantUncheckedCreateWithoutCarePlansInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCarePlansInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type CarePlanUpdatediagnosesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ClientProfileUpdateOneRequiredWithoutCarePlansNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutCarePlansInput, ClientProfileUncheckedCreateWithoutCarePlansInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutCarePlansInput
+    upsert?: ClientProfileUpsertWithoutCarePlansInput
+    connect?: ClientProfileWhereUniqueInput
+    update?: XOR<XOR<ClientProfileUpdateToOneWithWhereWithoutCarePlansInput, ClientProfileUpdateWithoutCarePlansInput>, ClientProfileUncheckedUpdateWithoutCarePlansInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutCarePlansNestedInput = {
+    create?: XOR<TenantCreateWithoutCarePlansInput, TenantUncheckedCreateWithoutCarePlansInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCarePlansInput
+    upsert?: TenantUpsertWithoutCarePlansInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCarePlansInput, TenantUpdateWithoutCarePlansInput>, TenantUncheckedUpdateWithoutCarePlansInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -47784,6 +49289,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutUserInput = {
@@ -47809,6 +49315,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutUserInput = {
@@ -48074,6 +49581,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -48111,6 +49619,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -48271,6 +49780,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutUserInput = {
@@ -48296,6 +49806,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutStaffInput = {
@@ -48561,6 +50072,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -48598,6 +50110,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -48734,6 +50247,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutTenantInput = {
@@ -48759,6 +50273,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutTenantInput = {
@@ -49385,6 +50900,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CarePlanCreateWithoutTenantInput = {
+    id?: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutCarePlansInput
+  }
+
+  export type CarePlanUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CarePlanCreateOrConnectWithoutTenantInput = {
+    where: CarePlanWhereUniqueInput
+    create: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CarePlanCreateManyTenantInputEnvelope = {
+    data: CarePlanCreateManyTenantInput | CarePlanCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -49417,6 +50966,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
   }
@@ -49454,6 +51004,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -49494,6 +51045,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
   }
@@ -49530,6 +51082,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -50089,6 +51642,38 @@ export namespace Prisma {
     tenantId?: StringFilter<"Feedback"> | string
   }
 
+  export type CarePlanUpsertWithWhereUniqueWithoutTenantInput = {
+    where: CarePlanWhereUniqueInput
+    update: XOR<CarePlanUpdateWithoutTenantInput, CarePlanUncheckedUpdateWithoutTenantInput>
+    create: XOR<CarePlanCreateWithoutTenantInput, CarePlanUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CarePlanUpdateWithWhereUniqueWithoutTenantInput = {
+    where: CarePlanWhereUniqueInput
+    data: XOR<CarePlanUpdateWithoutTenantInput, CarePlanUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CarePlanUpdateManyWithWhereWithoutTenantInput = {
+    where: CarePlanScalarWhereInput
+    data: XOR<CarePlanUpdateManyMutationInput, CarePlanUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type CarePlanScalarWhereInput = {
+    AND?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+    OR?: CarePlanScalarWhereInput[]
+    NOT?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+    id?: StringFilter<"CarePlan"> | string
+    clientId?: StringFilter<"CarePlan"> | string
+    tenantId?: StringFilter<"CarePlan"> | string
+    diagnoses?: StringNullableListFilter<"CarePlan">
+    clinicalGoals?: JsonNullableFilter<"CarePlan">
+    interventions?: JsonNullableFilter<"CarePlan">
+    status?: StringFilter<"CarePlan"> | string
+    reviewDate?: DateTimeNullableFilter<"CarePlan"> | Date | string | null
+    createdAt?: DateTimeFilter<"CarePlan"> | Date | string
+    updatedAt?: DateTimeFilter<"CarePlan"> | Date | string
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -50132,6 +51717,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
   }
@@ -50169,6 +51755,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -50270,6 +51857,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -50307,6 +51895,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -50358,6 +51947,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -50395,6 +51985,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -50468,6 +52059,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -50505,6 +52097,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -50789,6 +52382,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CarePlanCreateWithoutClientInput = {
+    id?: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutCarePlansInput
+  }
+
+  export type CarePlanUncheckedCreateWithoutClientInput = {
+    id?: string
+    tenantId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CarePlanCreateOrConnectWithoutClientInput = {
+    where: CarePlanWhereUniqueInput
+    create: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput>
+  }
+
+  export type CarePlanCreateManyClientInputEnvelope = {
+    data: CarePlanCreateManyClientInput | CarePlanCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BookingUpsertWithWhereUniqueWithoutClientInput = {
     where: BookingWhereUniqueInput
     update: XOR<BookingUpdateWithoutClientInput, BookingUncheckedUpdateWithoutClientInput>
@@ -50847,6 +52474,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -50884,6 +52512,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -51027,6 +52656,22 @@ export namespace Prisma {
     data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyWithoutClientInput>
   }
 
+  export type CarePlanUpsertWithWhereUniqueWithoutClientInput = {
+    where: CarePlanWhereUniqueInput
+    update: XOR<CarePlanUpdateWithoutClientInput, CarePlanUncheckedUpdateWithoutClientInput>
+    create: XOR<CarePlanCreateWithoutClientInput, CarePlanUncheckedCreateWithoutClientInput>
+  }
+
+  export type CarePlanUpdateWithWhereUniqueWithoutClientInput = {
+    where: CarePlanWhereUniqueInput
+    data: XOR<CarePlanUpdateWithoutClientInput, CarePlanUncheckedUpdateWithoutClientInput>
+  }
+
+  export type CarePlanUpdateManyWithWhereWithoutClientInput = {
+    where: CarePlanScalarWhereInput
+    data: XOR<CarePlanUpdateManyMutationInput, CarePlanUncheckedUpdateManyWithoutClientInput>
+  }
+
   export type MessageThreadCreateWithoutPswInput = {
     id?: string
     threadType: string
@@ -51146,6 +52791,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -51183,6 +52829,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -51579,6 +53226,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -51616,6 +53264,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -52164,6 +53813,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutVisitsInput = {
@@ -52189,6 +53839,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutVisitsInput = {
@@ -52260,6 +53911,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -52297,6 +53949,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -52579,6 +54232,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutVisitsInput = {
@@ -52604,6 +54258,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceUpsertWithoutVisitsInput = {
@@ -52687,6 +54342,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -52724,6 +54380,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -52759,6 +54416,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -52796,6 +54454,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -52929,6 +54588,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -52966,6 +54626,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -53125,6 +54786,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -53162,6 +54824,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -53410,6 +55073,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -53447,6 +55111,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -54170,6 +55835,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -54207,6 +55873,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -54394,6 +56061,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -54431,6 +56099,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -54681,6 +56350,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -54718,6 +56388,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -54905,6 +56576,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -54942,6 +56614,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -55201,6 +56874,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutInvoicesInput = {
@@ -55226,6 +56900,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutInvoicesInput = {
@@ -55264,6 +56939,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -55301,6 +56977,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -55372,6 +57049,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutInvoicesInput = {
@@ -55397,6 +57075,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutInvoicesInput = {
@@ -55441,6 +57120,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -55478,6 +57158,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -55630,6 +57311,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMessageThreadsInput = {
@@ -55655,6 +57337,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMessageThreadsInput = {
@@ -55748,6 +57431,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -55785,6 +57469,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -55844,6 +57529,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMessageThreadsInput = {
@@ -55869,6 +57555,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PswProfileUpsertWithoutMessageThreadsInput = {
@@ -55974,6 +57661,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -56011,6 +57699,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -56263,6 +57952,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -56300,6 +57990,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -56410,6 +58101,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -56447,6 +58139,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -56474,6 +58167,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutBookingsInput = {
@@ -56499,6 +58193,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutBookingsInput = {
@@ -56537,6 +58232,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -56574,6 +58270,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -56699,6 +58396,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutBookingsInput = {
@@ -56724,6 +58422,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutBookingsInput = {
@@ -56768,6 +58467,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -56805,6 +58505,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -56911,6 +58612,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -56948,6 +58650,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -57060,6 +58763,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -57097,6 +58801,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -57187,6 +58892,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -57224,6 +58930,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -57413,6 +59120,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -57450,6 +59158,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -57680,6 +59389,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -57717,6 +59427,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -57768,6 +59479,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -57805,6 +59517,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -58060,6 +59773,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutDailyEntryInput = {
@@ -58085,6 +59799,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutDailyEntryInput = {
@@ -58176,6 +59891,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -58213,6 +59929,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -58333,6 +60050,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutDailyEntryInput = {
@@ -58358,6 +60076,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutDailyEntryInput = {
@@ -58461,6 +60180,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -58498,6 +60218,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -58617,6 +60338,7 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
   }
@@ -58654,6 +60376,7 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
   }
 
@@ -58705,6 +60428,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
   }
@@ -58742,6 +60466,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
   }
 
@@ -58768,6 +60493,7 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
     visits?: VisitCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutFeedbacksInput = {
@@ -58793,6 +60519,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
     messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
     visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutFeedbacksInput = {
@@ -58831,6 +60558,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -58868,6 +60596,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -58988,6 +60717,7 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutFeedbacksInput = {
@@ -59013,6 +60743,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutFeedbacksInput = {
@@ -59057,6 +60788,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -59094,6 +60826,7 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -59179,6 +60912,290 @@ export namespace Prisma {
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
     checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
     notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+  }
+
+  export type ClientProfileCreateWithoutCarePlansInput = {
+    id?: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
+    user: UserCreateNestedOneWithoutClientProfileInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
+    invoices?: InvoiceCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    visits?: VisitCreateNestedManyWithoutClientInput
+    feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileUncheckedCreateWithoutCarePlansInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileCreateOrConnectWithoutCarePlansInput = {
+    where: ClientProfileWhereUniqueInput
+    create: XOR<ClientProfileCreateWithoutCarePlansInput, ClientProfileUncheckedCreateWithoutCarePlansInput>
+  }
+
+  export type TenantCreateWithoutCarePlansInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCarePlansInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCarePlansInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutCarePlansInput, TenantUncheckedCreateWithoutCarePlansInput>
+  }
+
+  export type ClientProfileUpsertWithoutCarePlansInput = {
+    update: XOR<ClientProfileUpdateWithoutCarePlansInput, ClientProfileUncheckedUpdateWithoutCarePlansInput>
+    create: XOR<ClientProfileCreateWithoutCarePlansInput, ClientProfileUncheckedCreateWithoutCarePlansInput>
+    where?: ClientProfileWhereInput
+  }
+
+  export type ClientProfileUpdateToOneWithWhereWithoutCarePlansInput = {
+    where?: ClientProfileWhereInput
+    data: XOR<ClientProfileUpdateWithoutCarePlansInput, ClientProfileUncheckedUpdateWithoutCarePlansInput>
+  }
+
+  export type ClientProfileUpdateWithoutCarePlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    visits?: VisitUpdateManyWithoutClientNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateWithoutCarePlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+  }
+
+  export type TenantUpsertWithoutCarePlansInput = {
+    update: XOR<TenantUpdateWithoutCarePlansInput, TenantUncheckedUpdateWithoutCarePlansInput>
+    create: XOR<TenantCreateWithoutCarePlansInput, TenantUncheckedCreateWithoutCarePlansInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCarePlansInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCarePlansInput, TenantUncheckedUpdateWithoutCarePlansInput>
+  }
+
+  export type TenantUpdateWithoutCarePlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCarePlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -59859,6 +61876,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CarePlanCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TenantCreateManyParentTenantInput = {
     id?: string
     name: string
@@ -59983,6 +62012,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
     visits?: VisitUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutTenantInput = {
@@ -60008,6 +62038,7 @@ export namespace Prisma {
     messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
     visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateManyWithoutTenantInput = {
@@ -60694,6 +62725,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CarePlanUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutCarePlansNestedInput
+  }
+
+  export type CarePlanUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarePlanUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -60726,6 +62793,7 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
   }
@@ -60762,6 +62830,7 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -60902,6 +62971,18 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+  }
+
+  export type CarePlanCreateManyClientInput = {
+    id?: string
+    tenantId: string
+    diagnoses?: CarePlanCreatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    reviewDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BookingUpdateWithoutClientInput = {
@@ -61191,6 +63272,42 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CarePlanUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutCarePlansNestedInput
+  }
+
+  export type CarePlanUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarePlanUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diagnoses?: CarePlanUpdatediagnosesInput | string[]
+    clinicalGoals?: NullableJsonNullValueInput | InputJsonValue
+    interventions?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageThreadCreateManyPswInput = {
@@ -62518,6 +64635,10 @@ export namespace Prisma {
      * @deprecated Use FeedbackDefaultArgs instead
      */
     export type FeedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FeedbackDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CarePlanDefaultArgs instead
+     */
+    export type CarePlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CarePlanDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

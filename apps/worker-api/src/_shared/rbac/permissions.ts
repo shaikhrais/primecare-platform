@@ -5,6 +5,7 @@ export type Permission =
     | "CLIENT_VIEW_ASSIGNED"
     | "CARE_PLAN_CREATE"
     | "CARE_PLAN_UPDATE"
+    | "CARE_PLAN_VIEW"
     | "RISK_LEVEL_UPDATE"
     | "PSW_SUPERVISE"
     | "SHIFT_CREATE"

@@ -510,6 +510,19 @@ exports.Prisma.FeedbackScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.CarePlanScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  diagnoses: 'diagnoses',
+  clinicalGoals: 'clinicalGoals',
+  interventions: 'interventions',
+  status: 'status',
+  reviewDate: 'reviewDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -664,7 +677,8 @@ exports.Prisma.ModelName = {
   FAQ: 'FAQ',
   DailyEntry: 'DailyEntry',
   MarketplaceListing: 'MarketplaceListing',
-  Feedback: 'Feedback'
+  Feedback: 'Feedback',
+  CarePlan: 'CarePlan'
 };
 
 /**

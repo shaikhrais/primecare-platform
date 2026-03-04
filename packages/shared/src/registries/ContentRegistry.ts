@@ -1081,6 +1081,7 @@ export const ContentRegistry = {
                 SCRUM_MASTER: ['Technical Dashboard', 'API Registry Audit', 'Blueprint Gap Analysis', 'Performance Sweep', 'Security Surveillance', 'Theme Customization'],
                 MANAGER: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'],
                 STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
+                RN: ['Clinical Dashboard', 'Care Plan Manager', 'Daily Entry Audit', 'Supervision Hub'],
                 PSW: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'],
                 CLIENT: ['Care Hub', 'New Request', 'Assigned Team', 'Digital Invoices', 'Feedback Gateway'],
             }
@@ -1203,6 +1204,7 @@ export const ContentRegistry = {
         MANAGER: 'Agency Operator',
         STAFF: 'Staff Member',
         PSW: 'Caregiver (PSW)',
+        RN: 'Registered Nurse (RN)',
         CLIENT: 'Client / Family',
     },
     AI: {

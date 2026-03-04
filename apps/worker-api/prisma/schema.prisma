@@ -67,6 +67,7 @@ model Tenant {
   visits           Visit[]
   apiKeys          ApiKey[]
   feedbacks        Feedback[]
+  carePlans        CarePlan[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -126,6 +127,7 @@ model ClientProfile {
   messageThreads MessageThread[]
   visits         Visit[]
   feedbacks      Feedback[]
+  carePlans      CarePlan[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -688,4 +690,23 @@ model Feedback {
 
   @@index([tenantId])
   @@map("feedbacks")
+}
+
+model CarePlan {
+  id              String        @id @default(uuid())
+  clientId        String        @map("client_id")
+  tenantId        String        @map("tenant_id")
+  diagnoses       String[]      @default([])
+  clinicalGoals   Json?         @map("clinical_goals")
+  interventions   Json?         @map("interventions")
+  status          String        @default("active") // active, completed, archived
+  reviewDate      DateTime?     @map("review_date")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  
+  client          ClientProfile @relation(fields: [clientId], references: [id])
+  tenant          Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("care_plans")
 }
