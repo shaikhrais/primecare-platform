@@ -15,6 +15,10 @@ const ManagerDashboard = lazy(() => import('./manager/pages/dashboard'));
 const StaffRanker = lazy(() => import('./manager/pages/performance/StaffRanker'));
 const BranchPL = lazy(() => import('./manager/pages/finance/BranchP_L'));
 const PayrollVerification = lazy(() => import('./manager/pages/finance/PayrollVerification'));
+const MarketingDashboard = lazy(() => import('./marketing/MarketingDashboard'));
+const HrRecruitmentPortal = lazy(() => import('./hr/HrRecruitmentPortal'));
+const FinanceRegionalHub = lazy(() => import('./finance/FinanceRegionalHub'));
+const ClinicalQaDashboard = lazy(() => import('./qa/ClinicalQaDashboard'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -58,6 +62,26 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
             <Route path={RouteRegistry.MANAGER.PAYROLL} element={<PayrollVerification />} />
             <Route path=":category" element={<ManagerDashboard />} />
+        </Route>
+
+        {/* MARKETING PORTAL */}
+        <Route path={RouteRegistry.MANAGER.MARKETING} element={<RequireRole allowedRoles={['marketing_manager']}><AppLayout /></RequireRole>}>
+            <Route index element={<MarketingDashboard />} />
+        </Route>
+
+        {/* HR & RECRUITMENT PORTAL */}
+        <Route path={RouteRegistry.MANAGER.RECRUITING} element={<RequireRole allowedRoles={['hr_manager', 'recruiting_manager']}><AppLayout /></RequireRole>}>
+            <Route index element={<HrRecruitmentPortal />} />
+        </Route>
+
+        {/* FINANCE & REGIONAL HUB */}
+        <Route path={RouteRegistry.MANAGER.FINANCE} element={<RequireRole allowedRoles={['finance_manager', 'regional_manager']}><AppLayout /></RequireRole>}>
+            <Route index element={<FinanceRegionalHub />} />
+        </Route>
+
+        {/* CLINICAL QA DASHBOARD */}
+        <Route path={RouteRegistry.MANAGER.CLINICAL} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
+            <Route index element={<ClinicalQaDashboard />} />
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}

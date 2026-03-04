@@ -50,6 +50,42 @@ export default function RoleFlowsPage() {
             color: '#06b6d4',
             steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.RN,
         },
+        marketing_manager: {
+            label: 'Marketing Manager',
+            icon: '📈',
+            color: '#ec4899',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.MARKETING_MANAGER,
+        },
+        hr_manager: {
+            label: 'HR Manager',
+            icon: '👤',
+            color: '#8b5cf6',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.HR_MANAGER,
+        },
+        recruiting_manager: {
+            label: 'Recruiting Manager',
+            icon: '🤝',
+            color: '#6366f1',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.RECRUITING_MANAGER,
+        },
+        finance_manager: {
+            label: 'Finance Manager',
+            icon: '💰',
+            color: '#0ea5e9',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.FINANCE_MANAGER,
+        },
+        regional_manager: {
+            label: 'Regional Manager',
+            icon: '🏢',
+            color: '#0f172a',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.REGIONAL_MANAGER,
+        },
+        clinical_manager: {
+            label: 'Clinical Manager',
+            icon: '🩺',
+            color: '#e11d48',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.CLINICAL_MANAGER,
+        },
         client: {
             label: t(ContentRegistry.ROLE_LABELS.CLIENT),
             icon: '🏠',
@@ -145,6 +181,42 @@ export default function RoleFlowsPage() {
                     { name: 'Care Plans', route: 'RN.CARE_PLANS', component: 'ClinicalCarePlans', status: 'implemented', requirement: 'Digitize and manage professional patient care protocols.' },
                     { name: 'Daily Audit', route: 'RN.DAILY_AUDIT', component: 'DailyAudit', status: 'implemented', requirement: 'RN sign-off and verification of PSW daily care records.' },
                     { name: 'Supervision', route: 'RN.SUPERVISION', component: 'SupervisionHub', status: 'implemented', requirement: 'Monitor caregiver quality standards and certification compliance.' },
+                ]
+            },
+            marketing_manager: {
+                mission: 'Drive branch growth, manage the intake pipeline, and optimize client acquisition strategies.',
+                pages: [
+                    { name: 'Growth Pipeline', route: 'MANAGER.MARKETING', component: 'MarketingDashboard', status: 'implemented', requirement: 'Real-time visibility into lead conversion and campaign ROI.' },
+                ]
+            },
+            hr_manager: {
+                mission: 'Oversee regional talent acquisition, manage staff onboarding, and ensure clinical compliance.',
+                pages: [
+                    { name: 'Talent & Compliance', route: 'MANAGER.RECRUITING', component: 'HrRecruitmentPortal', status: 'implemented', requirement: 'Manage recruitment funnel and caregiver certification health.' },
+                ]
+            },
+            recruiting_manager: {
+                mission: 'Execute the recruitment pipeline, screen candidates, and manage the interview process.',
+                pages: [
+                    { name: 'Recruitment Hub', route: 'MANAGER.RECRUITING', component: 'HrRecruitmentPortal', status: 'implemented', requirement: 'Focus on candidate sourcing and offer management.' },
+                ]
+            },
+            finance_manager: {
+                mission: 'Maintain absolute financial integrity, oversee regional reconciliation, and manage audits.',
+                pages: [
+                    { name: 'Finance & Governance', route: 'MANAGER.FINANCE', component: 'FinanceRegionalHub', status: 'implemented', requirement: 'Real-time revenue intelligence and expense auditing.' },
+                ]
+            },
+            regional_manager: {
+                mission: 'Audit branch-level operational performance and optimize regional profitability.',
+                pages: [
+                    { name: 'Regional Hub', route: 'MANAGER.FINANCE', component: 'FinanceRegionalHub', status: 'implemented', requirement: 'High-level P&L visibility and benchmarking across locations.' },
+                ]
+            },
+            clinical_manager: {
+                mission: 'Maintain professional clinical safety standards, oversee medication QA, and audit high-risk incidents.',
+                pages: [
+                    { name: 'Clinical QA', route: 'MANAGER.CLINICAL', component: 'ClinicalQaDashboard', status: 'implemented', requirement: 'Real-time safety alerts and medication compliance oversight.' },
                 ]
             },
             client: {
