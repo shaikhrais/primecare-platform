@@ -498,6 +498,18 @@ exports.Prisma.MarketplaceListingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  visitId: 'visitId',
+  rating: 'rating',
+  comment: 'comment',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -651,7 +663,8 @@ exports.Prisma.ModelName = {
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
   DailyEntry: 'DailyEntry',
-  MarketplaceListing: 'MarketplaceListing'
+  MarketplaceListing: 'MarketplaceListing',
+  Feedback: 'Feedback'
 };
 
 /**

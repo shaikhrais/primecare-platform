@@ -49,4 +49,14 @@ export const CLIENT_METADATA = {
         description: 'Update an existing booking.',
         tags: ['Client Bookings'],
     },
+    TEAM_ROSTER: {
+        summary: 'Get Care Team Roster',
+        description: 'Retrieve the profiles and satisfaction ratings of caregivers assigned to the client.',
+        tags: ['Client Relationship'],
+    },
+    FEEDBACK_SUBMIT: {
+        summary: 'Submit Care Feedback',
+        description: 'Rate a recent visit and provide clinical or personal feedback for quality assurance.',
+        tags: ['Client Relationship'],
+    },
 };

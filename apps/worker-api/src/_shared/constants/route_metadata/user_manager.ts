@@ -17,4 +17,9 @@ export const MANAGER_METADATA = {
         description: 'Retrieve comprehensive dashboard statistics for managers and admins.',
         tags: ['Manager Dashboard'],
     },
+    PAYROLL_AUDIT: {
+        summary: 'Run Payroll Audit',
+        description: 'Retrieve payroll variance data and audit visit hours for branch-level financial oversight.',
+        tags: ['Manager Finance'],
+    },
 };

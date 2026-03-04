@@ -24,6 +24,16 @@ export const STAFF_METADATA = {
         description: 'Retrieve various operational statistics for the staff coordinator dashboard.',
         tags: ['Staff Dashboard'],
     },
+    INCIDENT_SUBMIT: {
+        summary: 'Submit Incident Report',
+        description: 'Log a new clinical or operational incident for branch tracking and triage.',
+        tags: ['Staff Operations'],
+    },
+    COMPLIANCE_SCAN: {
+        summary: 'Scan Branch Compliance',
+        description: 'Initiate a compliance scan of caregiver documents and registry statuses.',
+        tags: ['Staff Operations'],
+    },
 };
 
 export const RN_METADATA = {

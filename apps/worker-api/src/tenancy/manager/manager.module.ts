@@ -3,6 +3,7 @@ import { Bindings, Variables } from '../../bindings';
 import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
 import dashboardRoutes from './dashboard/dashboard.routes';
+import financeRoutes from './finance/finance.routes';
 
 const manager = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -15,5 +16,6 @@ manager.use('*', requireRole(['manager', 'admin']));
 
 // Routes
 manager.route('/dashboard', dashboardRoutes);
+manager.route('/finance', financeRoutes);
 
 export default manager;

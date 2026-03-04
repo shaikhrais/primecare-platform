@@ -66,6 +66,7 @@ model Tenant {
   checkEvents      VisitCheckEvent[]
   visits           Visit[]
   apiKeys          ApiKey[]
+  feedbacks        Feedback[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -124,6 +125,7 @@ model ClientProfile {
   invoices       Invoice[]
   messageThreads MessageThread[]
   visits         Visit[]
+  feedbacks      Feedback[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -194,6 +196,7 @@ model Visit {
   checkEvents         VisitCheckEvent[]
   checklists          VisitChecklist[]
   notes               VisitNote[]
+  feedbacks           Feedback[]
   psw                 PswProfile?       @relation("PswToVisits", fields: [assignedPswId], references: [id])
   booking             Booking?          @relation(fields: [bookingId], references: [id])
   client              ClientProfile     @relation(fields: [clientId], references: [id])
@@ -667,4 +670,22 @@ model MarketplaceListing {
 
   @@index([tenantId])
   @@map("marketplace_listings")
+}
+
+model Feedback {
+  id        String        @id @default(uuid())
+  clientId  String        @map("client_id")
+  visitId   String?       @map("visit_id")
+  rating    Int
+  comment   String?
+  status    String?       @default("pending") // pending, reviewed, archived
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  tenantId  String        @map("tenant_id")
+  client    ClientProfile @relation(fields: [clientId], references: [id])
+  tenant    Tenant        @relation(fields: [tenantId], references: [id])
+  visit     Visit?        @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("feedbacks")
 }

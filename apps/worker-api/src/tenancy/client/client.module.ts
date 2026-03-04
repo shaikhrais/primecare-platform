@@ -6,6 +6,7 @@ import bookingRoutes from './bookings/bookings.routes';
 import carePlanRoutes from './carePlan/carePlan.routes';
 import serviceRoutes from './services/services.routes';
 import profileRoutes from './profile.routes';
+import relationshipRoutes from './relationship/relationship.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -21,5 +22,6 @@ client.route('/bookings', bookingRoutes);
 client.route('/care-plan', carePlanRoutes);
 client.route('/', serviceRoutes);
 client.route('/', profileRoutes);
+client.route('/', relationshipRoutes);
 
 export default client;
