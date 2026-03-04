@@ -1078,6 +1078,7 @@ export const ContentRegistry = {
             WORKFLOW_PATHWAY: 'Workflow pathway',
             STEPS: {
                 ADMIN: ['Dashboard Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'],
+                SCRUM_MASTER: ['Technical Dashboard', 'API Registry Audit', 'Blueprint Gap Analysis', 'Performance Sweep', 'Security Surveillance', 'Theme Customization'],
                 MANAGER: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'],
                 STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
                 PSW: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'],
@@ -1198,6 +1199,7 @@ export const ContentRegistry = {
     },
     ROLE_LABELS: {
         ADMIN: 'Master Franchise',
+        SCRUM_MASTER: 'Scrum Master (Orchestrator)',
         MANAGER: 'Agency Operator',
         STAFF: 'Staff Member',
         PSW: 'Caregiver (PSW)',

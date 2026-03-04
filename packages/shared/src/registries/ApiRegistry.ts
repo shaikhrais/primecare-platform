@@ -3,12 +3,16 @@ const TENANCY = {
         DASHBOARD_KPI: '/v1/manager/dashboard/kpi',
         DASHBOARD_TODAY: '/v1/manager/dashboard/today',
         DASHBOARD_STATS: '/v1/manager/dashboard/stats',
+        PERFORMANCE: '/v1/manager/performance/rankings',
+        FINANCE: '/v1/manager/finance/pl',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
         INVOICES: '/v1/client/invoices',
         SERVICES: '/v1/client/services',
         DASHBOARD_STATS: '/v1/client/dashboard/stats',
+        CATALOG: '/v1/client/services/catalog',
+        SUPPORT: '/v1/client/support/nursing-chat',
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
@@ -16,6 +20,8 @@ const TENANCY = {
         CHECK_OUT: (id: string) => `/v1/psw/schedule/visits/${id}/check-out`,
         PAYOUT_REQUEST: '/v1/psw/schedule/payouts/request',
         DASHBOARD_STATS: '/v1/psw/dashboard/stats',
+        CREDENTIALS: '/v1/psw/credentials/vault',
+        FEED: '/v1/psw/feed/social',
     },
     RN: {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',
@@ -24,6 +30,8 @@ const TENANCY = {
         CUSTOMERS: '/v1/staff/customers',
         TICKETS: '/v1/staff/tickets',
         DASHBOARD_STATS: '/v1/staff/dashboard/stats',
+        TASKS: '/v1/staff/tasks/grid',
+        MESSAGES: '/v1/staff/messages/hub',
     },
 } as const;
 
@@ -47,6 +55,14 @@ const PLATFORM = {
         CLIENTS: '/v1/admin/clients',
         SETTINGS_BUSINESS_MODEL: '/v1/admin/settings/business-model',
         SETTINGS_LOGO: '/v1/admin/settings/logo',
+        SEARCH: '/v1/admin/search',
+        REPORTS: '/v1/admin/reports/export',
+    },
+    SCRUM_MASTER: {
+        DASHBOARD: '/v1/admin/stats',
+        API_ENDPOINTS: '/v1/admin/endpoints',
+        ENV_AUDIT: '/v1/admin/scrum/env-audit',
+        AUTO_FIX: '/v1/admin/scrum/auto-fix',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

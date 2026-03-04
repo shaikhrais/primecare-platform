@@ -240,7 +240,8 @@ exports.Prisma.ServiceScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  tenantId: 'tenantId'
+  tenantId: 'tenantId',
+  isFeatured: 'isFeatured'
 };
 
 exports.Prisma.VisitCheckEventScalarFieldEnum = {
@@ -427,6 +428,21 @@ exports.Prisma.BlogPostScalarFieldEnum = {
   seoTitle: 'seoTitle',
   seoDescription: 'seoDescription',
   canonicalUrl: 'canonicalUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  targetRole: 'targetRole',
+  category: 'category'
+};
+
+exports.Prisma.StaffTaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  dueDate: 'dueDate',
+  assigneeId: 'assigneeId',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -631,6 +647,7 @@ exports.Prisma.ModelName = {
   PswAvailability: 'PswAvailability',
   ShiftAssignment: 'ShiftAssignment',
   BlogPost: 'BlogPost',
+  StaffTask: 'StaffTask',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
   DailyEntry: 'DailyEntry',

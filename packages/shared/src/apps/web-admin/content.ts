@@ -58,6 +58,12 @@ export const ContentRegistry = {
         THEME_CENTER: {
             TITLE: 'Theme Core Center',
             SUBTITLE: 'Live platform style management and CSS variable audit',
+        },
+        ROLE_FLOWS: {
+            ...MasterContentRegistry.SCRUM_MASTER.ROLE_FLOWS,
+            STEPS: {
+                ...MasterContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS
+            }
         }
     }
 } as const;

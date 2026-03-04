@@ -45,6 +45,8 @@ const Locations = lazy(() => import('./pages/locations'));
 const RoleEditor = lazy(() => import('./pages/role-editor'));
 const AdminCustomerList = lazy(() => import('./pages/customers'));
 const TemplateEditor = lazy(() => import('./pages/template-editor'));
+const SearchPage = lazy(() => import('./pages/search/SearchPage'));
+const ExportPage = lazy(() => import('./pages/reports/ExportPage'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
@@ -80,5 +82,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.BUSINESS_STATUS} element={<BusinessStatus />} />
         <Route path={RouteRegistry.ADMIN.CUSTOMERS} element={<AdminCustomerList />} />
         <Route path={RouteRegistry.ADMIN.TEMPLATE_EDITOR} element={<TemplateEditor />} />
+        <Route path={RouteRegistry.ADMIN.SEARCH} element={<SearchPage />} />
+        <Route path={RouteRegistry.ADMIN.REPORT_EXPORT} element={<ExportPage />} />
     </Route>
 );

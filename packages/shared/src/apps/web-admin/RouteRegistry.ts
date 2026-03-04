@@ -14,10 +14,14 @@ const TENANCY = {
         SERVICE_REVIEW: '/tenancy/manager/service-review',
         TRAINING_MODULES: '/tenancy/manager/training/modules',
         SURVEYS: '/tenancy/manager/surveys',
+        PERFORMANCE: '/tenancy/manager/performance',
+        FINANCE: '/tenancy/manager/finance',
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',
         CUSTOMERS: '/tenancy/staff/customers',
+        TASKS: '/tenancy/staff/tasks',
+        MESSAGES: '/tenancy/staff/messages',
     },
     PSW: {
         DASHBOARD: '/tenancy/psw',
@@ -28,6 +32,8 @@ const TENANCY = {
         EARNINGS: '/tenancy/psw/earnings',
         EXPENSES: '/tenancy/psw/expenses',
         SHIFT_CONFIRMATION: '/tenancy/psw/shift-confirmation',
+        CREDENTIALS: '/tenancy/psw/credentials',
+        FEED: '/tenancy/psw/feed',
     },
     RN: {
         DASHBOARD: '/tenancy/rn',
@@ -38,6 +44,8 @@ const TENANCY = {
         BILLING: '/tenancy/client/billing',
         FEEDBACK: '/tenancy/client/feedback',
         REQUEST_BOOKING: '/tenancy/client/request-booking',
+        SERVICES: '/tenancy/client/services',
+        SUPPORT: '/tenancy/client/support',
     },
     CARE_PLANS: '/care-plans',
 } as const;
@@ -62,6 +70,8 @@ const PLATFORM = {
         TIMESHEETS: '/platform/admin/timesheets',
         TIMESHEET_ADJUST: '/platform/admin/timesheets/adjust',
         REPORTS: '/platform/admin/reports',
+        REPORT_EXPORT: '/platform/admin/reports/export',
+        SEARCH: '/platform/admin/search',
         SERVICES: '/platform/admin/services',
         SETTINGS: '/platform/admin/settings',
         CONTENT: '/platform/admin/content',
@@ -140,6 +150,8 @@ const PLATFORM = {
         BUILD_HEALTH: '/platform/scrum-master/builds',
         SECURITY_SCANS: '/platform/scrum-master/security-scans',
         LOCALIZATION: '/platform/scrum-master/locales',
+        AUTO_FIX: '/platform/scrum-master/auto-fix',
+        IMPERSONATE: '/platform/scrum-master/impersonate',
     }
 } as const;
 

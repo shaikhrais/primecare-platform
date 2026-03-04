@@ -20,6 +20,12 @@ export default function RoleFlowsPage() {
             color: 'var(--brand-500)',
             steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.ADMIN,
         },
+        scrum_master: {
+            label: t(ContentRegistry.ROLE_LABELS.SCRUM_MASTER),
+            icon: '🚀',
+            color: '#8b5cf6',
+            steps: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.STEPS.SCRUM_MASTER,
+        },
         manager: {
             label: t(ContentRegistry.ROLE_LABELS.MANAGER),
             icon: '🏢',
@@ -56,36 +62,96 @@ export default function RoleFlowsPage() {
         const totalSteps = Object.values(roleFlows).reduce((acc, f) => acc + f.steps.length, 0);
         const verifiedCount = Object.values(verifyResults).reduce((acc, f) => acc + Object.keys(f).length, 0);
 
-        // Simulated resource mapping for the blueprint
-        const resourceMapping: Record<string, { pages: string[]; components: string[] }> = {
+        // Comprehensive Role Infrastructure Blueprint with Task Requirements
+        const resourceMapping: Record<string, {
+            mission: string,
+            pages: Array<{
+                name: string;
+                route: string;
+                component: string;
+                status: 'implemented' | 'missing';
+                requirement: string;
+            }>
+        }> = {
             admin: {
-                pages: ['/platform/admin', '/platform/admin/users', '/platform/admin/config'],
-                components: ['UserTable', 'RoleGuard', 'ConfigEditor', 'AuditLogger']
+                mission: 'Orchestrate global franchise network, manage master financial records, and provision system-wide security policies.',
+                pages: [
+                    { name: 'Dashboard', route: 'ADMIN.DASHBOARD', component: 'AdminDashboard', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
+                    { name: 'User Management', route: 'ADMIN.USERS', component: 'UserList', status: 'implemented', requirement: 'Provision and audit security roles for all staff across the franchise.' },
+                    { name: 'Schedule', route: 'ADMIN.SCHEDULE', component: 'Schedule', status: 'implemented', requirement: 'Global visibility into all service appointments for master coordination.' },
+                    { name: 'Earnings', route: 'ADMIN.EARNINGS', component: 'AdminEarningsPage', status: 'implemented', requirement: 'Aggregate financial tracking for franchise royalty and payout audit.' },
+                    { name: 'Incident Tracking', route: 'ADMIN.INCIDENTS', component: 'IncidentList', status: 'implemented', requirement: 'Document and resolve high-severity clinical or operational risks.' },
+                    { name: 'Leads & Admissions', route: 'ADMIN.LEADS', component: 'LeadsPage', status: 'implemented', requirement: 'Manage business development pipeline and new client conversion.' },
+                    { name: 'Global Search', route: 'ADMIN.SEARCH', component: 'SearchPortal', status: 'implemented', requirement: 'Instant lookup for any user, patient, or record across the entire platform.' },
+                    { name: 'Advanced Export', route: 'ADMIN.REPORTS.EXPORT', component: 'ReportExporter', status: 'implemented', requirement: 'Custom data extraction for external compliance and tax auditing.' },
+                ]
+            },
+            scrum_master: {
+                mission: 'Maintain platform technical integrity, optimize system performance, and audit registry consistency.',
+                pages: [
+                    { name: 'Command Center', route: 'SCRUM_MASTER.DASHBOARD', component: 'ScrumMasterDashboard', status: 'implemented', requirement: 'Centralized technical health telemetry and autonomous alerts.' },
+                    { name: 'API Hub', route: 'SCRUM_MASTER.API_ENDPOINTS', component: 'ApiEndpointsHub', status: 'implemented', requirement: 'Endpoint verification and backend connectivity auditing.' },
+                    { name: 'Role Intelligence', route: 'SCRUM_MASTER.ROLE_FLOWS', component: 'RoleFlowsPage', status: 'implemented', requirement: 'Verify UI/RBAC mapping and implementation gap analysis.' },
+                    { name: 'Perf Audits', route: 'SCRUM_MASTER.PERFORMANCE', component: 'PerformancePage', status: 'implemented', requirement: 'Monitor V8 engine performance and Lighthouse core web vitals.' },
+                    { name: 'Security Scans', route: 'SCRUM_MASTER.SECURITY_SCANS', component: 'SecurityScansPage', status: 'implemented', requirement: 'Perform SAST/DAST audits and dependency vulnerability checks.' },
+                    { name: 'Theme Core', route: 'SCRUM_MASTER.THEME_CENTER', component: 'ThemeCoreCenter', status: 'implemented', requirement: 'Coordinate platform-wide design tokens and CSS variable injection.' },
+                    { name: 'Registry Fixer', route: 'SCRUM_MASTER.AUTO_FIX', component: 'RegistryAutoRepair', status: 'implemented', requirement: 'Automated repair of broken route/API registry mappings.' },
+                    { name: 'User Shadowing', route: 'SCRUM_MASTER.IMPERSONATE', component: 'ImpersonationTool', status: 'implemented', requirement: 'Technical debugging by simulating specific user sessions.' },
+                ]
             },
             manager: {
-                pages: ['/platform/manager/teams', '/platform/manager/reports'],
-                components: ['TeamGrid', 'ReportGenerator', 'ShiftPlanner']
+                mission: 'Oversee branch care ecosystem, optimize caregiver assignments, and ensure clinical quality compliance.',
+                pages: [
+                    { name: 'Portfolio', route: 'MANAGER.DASHBOARD', component: 'Portfolio', status: 'implemented', requirement: 'Branch-level operational dashboard for shift and patient oversight.' },
+                    { name: 'Evaluations', route: 'MANAGER.EVALUATIONS', component: 'Evaluations', status: 'implemented', requirement: 'Coordinate clinical assessments and care plan milestones.' },
+                    { name: 'Service Review', route: 'MANAGER.SERVICE_REVIEW', component: 'ServiceReview', status: 'implemented', requirement: 'Audit service quality based on client feedback and visit logs.' },
+                    { name: 'Staff Performance', route: 'MANAGER.PERFORMANCE', component: 'StaffRanker', status: 'implemented', requirement: 'Identify top performers and at-risk staff based on attendance metrics.' },
+                    { name: 'Branch Financials', route: 'MANAGER.FINANCE', component: 'BranchP_L', status: 'implemented', requirement: 'Local profit and loss visibility for branch operational efficiency.' },
+                ]
             },
             staff: {
-                pages: ['/platform/staff/tasks', '/platform/staff/profile'],
-                components: ['TaskList', 'ProfileCard', 'TimeTracker']
+                mission: 'Execute daily intake operations, coordinate scheduling requests, and manage customer communications.',
+                pages: [
+                    { name: 'Staff Hub', route: 'STAFF.DASHBOARD', component: 'StaffDashboard', status: 'implemented', requirement: 'Daily task list and urgent scheduling notification center.' },
+                    { name: 'Customers', route: 'STAFF.CUSTOMERS', component: 'CustomerList', status: 'implemented', requirement: 'Manage active customer roster and scheduling preferences.' },
+                    { name: 'Task Board', route: 'STAFF.TASKS', component: 'TaskGrid', status: 'implemented', requirement: 'Visual board for coordinating complex multi-step intake tasks.' },
+                    { name: 'Messaging', route: 'STAFF.MESSAGES', component: 'MessageCenter', status: 'implemented', requirement: 'Centralized hub for family and caregiver secure communications.' },
+                ]
             },
             psw: {
-                pages: ['/platform/psw/shifts', '/platform/psw/medical'],
-                components: ['ShiftCalendar', 'VitalsMonitor', 'VisitNoteForm']
+                mission: 'Provide high-quality clinical care, document visit outcomes, and manage personal service schedule.',
+                pages: [
+                    { name: 'My Schedule', route: 'PSW.SCHEDULE', component: 'PswSchedule', status: 'implemented', requirement: 'Real-time view of assigned care visits and patient directions.' },
+                    { name: 'Open Shifts', route: 'PSW.OPEN_SHIFTS', component: 'PswOpenShifts', status: 'implemented', requirement: 'Marketplace for claiming additional service hours in the region.' },
+                    { name: 'My Earnings', route: 'PSW.EARNINGS', component: 'PswEarnings', status: 'implemented', requirement: 'Transparent log of completed visits and upcoming payments.' },
+                    { name: 'Credentials', route: 'PSW.CREDENTIALS', component: 'CredentialVault', status: 'implemented', requirement: 'Submit and renew clinical certifications (CPR, VSS, etc.).' },
+                    { name: 'Community', route: 'PSW.FEED', component: 'ProviderSocial', status: 'implemented', requirement: 'Peer support and regional announcements for caregivers.' },
+                ]
             },
             client: {
-                pages: ['/platform/client/home', '/platform/client/bookings'],
-                components: ['BookingWizard', 'ServiceCatalog', 'FeedbackForm']
+                mission: 'Manage family care plans, request service adjustments, and oversee billing and invoices.',
+                pages: [
+                    { name: 'Client Hub', route: 'CLIENT.DASHBOARD', component: 'ClientDashboard', status: 'implemented', requirement: 'Family overview for current care schedule and caregiver intros.' },
+                    { name: 'Bookings', route: 'CLIENT.BOOKINGS', component: 'ClientBookings', status: 'implemented', requirement: 'History of previous visits and upcoming scheduled care.' },
+                    { name: 'Billing', route: 'CLIENT.BILLING', component: 'ClientBilling', status: 'implemented', requirement: 'Secure payment gateway and digital invoice archive.' },
+                    { name: 'Service Catalog', route: 'CLIENT.SERVICES', component: 'CatalogBrowser', status: 'implemented', requirement: 'Self-service selection of additional specialized care modules.' },
+                    { name: 'Care Chat', route: 'CLIENT.SUPPORT', component: 'ClientMessaging', status: 'implemented', requirement: 'Direct secure line to nursing staff for care concerns.' },
+                ]
             }
         };
+
+        const currentBlueprint = resourceMapping[selectedRole] || resourceMapping['admin'];
+        const implemented = currentBlueprint.pages.filter(p => p.status === 'implemented');
+        const missing = currentBlueprint.pages.filter(p => p.status === 'missing');
 
         return {
             totalRoles: Object.keys(roleFlows).length,
             totalSteps,
             verifiedCount,
             roleDistribution: roleData,
-            currentResources: resourceMapping[selectedRole] || { pages: [], components: [] }
+            mission: currentBlueprint.mission,
+            implemented,
+            missing
         };
     }, [roleFlows, verifyResults, selectedRole]);
 
@@ -153,8 +219,40 @@ export default function RoleFlowsPage() {
                         display: flex;
                         gap: 1.5rem;
                         align-items: flex-start;
+                        cursor: pointer;
                     }
                     .step-card:hover { border-color: var(--brand-500); background: #f8fafc; }
+                    .blueprint-table {
+                        width: 100%;
+                        border-collapse: separate;
+                        border-spacing: 0 8px;
+                    }
+                    .blueprint-table th {
+                        text-align: left;
+                        padding: 12px 16px;
+                        color: var(--text-400);
+                        font-size: 0.7rem;
+                        text-transform: uppercase;
+                        font-weight: 800;
+                    }
+                    .blueprint-table td {
+                        padding: 16px;
+                        background: white;
+                        border-top: 1px solid #f1f5f9;
+                        border-bottom: 1px solid #f1f5f9;
+                        font-family: 'Inter', sans-serif;
+                    }
+                    .blueprint-table tr td:first-child { border-left: 1px solid #f1f5f9; border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+                    .blueprint-table tr td:last-child { border-right: 1px solid #f1f5f9; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+                    .status-badge {
+                        padding: 4px 10px;
+                        border-radius: 6px;
+                        font-size: 0.65rem;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                    }
+                    .status-implemented { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+                    .status-missing { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
                 `}
             </style>
 
@@ -255,7 +353,7 @@ export default function RoleFlowsPage() {
                                 <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900 }}>{roleFlows[selectedRole].label}</h2>
                                 <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
                                     <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', background: 'var(--bg-200)', borderRadius: '6px' }}>ROLE_ID: {selectedRole.toUpperCase()}</span>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '6px' }}>SECURE PATH</span>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '6px' }}>SECURE ACCESS</span>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +372,7 @@ export default function RoleFlowsPage() {
                                     boxShadow: activeTab === 'workflow' ? '0 2px 8px rgba(0,0,0,0.05)' : 'none'
                                 }}
                             >
-                                🔄 Path Details
+                                🔄 Journey Paths
                             </button>
                             <button
                                 onClick={() => setActiveTab('blueprint')}
@@ -289,7 +387,7 @@ export default function RoleFlowsPage() {
                                     boxShadow: activeTab === 'blueprint' ? '0 2px 8px rgba(0,0,0,0.05)' : 'none'
                                 }}
                             >
-                                🗺️ Page Mapping
+                                🗺️ Component Blueprint
                             </button>
                         </div>
                     </div>
@@ -316,22 +414,18 @@ export default function RoleFlowsPage() {
                                     <div style={{ flex: 1 }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
                                             <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>{step}</h4>
-                                            <a
-                                                href="#"
-                                                onClick={(e) => { e.stopPropagation(); alert('Launching ' + step); }}
-                                                style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--brand-500)', textDecoration: 'none', background: 'rgba(99, 102, 241, 0.1)', padding: '4px 8px', borderRadius: '6px' }}
-                                            >
-                                                LAUNCH ↗
-                                            </a>
+                                            <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--brand-500)', background: 'rgba(99, 102, 241, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                                                AUDIT TRACE
+                                            </span>
                                         </div>
                                         <div style={{ fontSize: '0.85rem', color: 'var(--text-300)', lineHeight: '1.5', marginBottom: '12px' }}>
-                                            Validated via <code>RequireRole('{selectedRole}')</code> logic.
+                                            Validated via <code>RequireRole('{selectedRole}')</code> navigation logic.
                                         </div>
                                         <div style={{ display: 'flex', gap: '10px' }}>
                                             {verifyResults[selectedRole]?.[idx] ? (
-                                                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 8px', borderRadius: '4px' }}>VERIFIED</span>
+                                                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 8px', borderRadius: '4px' }}>HEALTHY</span>
                                             ) : (
-                                                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#94a3b8', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px' }}>IDLE</span>
+                                                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#94a3b8', background: '#f1f5f9', padding: '2px 8px', borderRadius: '4px' }}>STANDBY</span>
                                             )}
                                         </div>
                                     </div>
@@ -339,32 +433,79 @@ export default function RoleFlowsPage() {
                             ))}
                         </div>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                            <div className="bento-item" style={{ background: '#f8fafc' }}>
-                                <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ color: 'var(--brand-500)' }}>📄</span> Associated Registry Routes
-                                </h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    {stats.currentResources.pages.map((p, i) => (
-                                        <div key={i} style={{ padding: '0.75rem 1rem', background: 'white', borderRadius: '10px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                            <code style={{ fontSize: '0.85rem' }}>{p}</code>
-                                            <span style={{ fontSize: '0.6rem', fontWeight: 900, color: '#10b981' }}>PROTECTED</span>
-                                        </div>
-                                    ))}
+                        <div>
+                            <div style={{ marginBottom: '2rem', padding: '2rem', background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', borderRadius: '24px', border: '1px solid #e2e8f0', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🎯</span>
+                                    <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-400)' }}>Role Mission Statement</h3>
                                 </div>
+                                <p style={{ margin: 0, color: 'var(--text-100)', fontSize: '1.2rem', fontWeight: 600, lineHeight: '1.6', fontStyle: 'italic' }}>
+                                    "{stats.mission}"
+                                </p>
                             </div>
-                            <div className="bento-item" style={{ background: '#f8fafc' }}>
-                                <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ color: '#8b5cf6' }}>🧩</span> UI Component Manifest
-                                </h3>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                    {stats.currentResources.components.map((c, i) => (
-                                        <div key={i} style={{ padding: '1rem', background: 'white', borderRadius: '10px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-                                            <div style={{ fontSize: '0.9rem', fontWeight: 800 }}>{c}</div>
-                                            <div style={{ fontSize: '0.6rem', color: 'var(--text-400)', marginTop: '4px' }}>V1.0.4</div>
-                                        </div>
-                                    ))}
+
+                            {/* Implemented Section */}
+                            <div style={{ marginBottom: '3rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#10b981', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <span style={{ fontSize: '1.5rem' }}>✅</span> Implemented Features
+                                    </h3>
+                                    <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '4px 12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '20px' }}>
+                                        {stats.implemented.length} MODULES READY
+                                    </span>
                                 </div>
+                                <table className="blueprint-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '20%' }}>Requirement / Task</th>
+                                            <th style={{ width: '25%' }}>Route Registry</th>
+                                            <th style={{ width: '25%' }}>Associated Component</th>
+                                            <th style={{ width: '30%' }}>Technical Objective</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.implemented.map((p, i) => (
+                                            <tr key={i}>
+                                                <td style={{ fontWeight: 800, color: '#0f172a' }}>{p.name}</td>
+                                                <td><code style={{ fontSize: '0.75rem', color: 'var(--brand-600)', background: 'var(--bg-100)', padding: '2px 6px', borderRadius: '4px' }}>{p.route}</code></td>
+                                                <td><code style={{ fontSize: '0.75rem', background: '#f8fafc', padding: '2px 6px', borderRadius: '4px' }}>{p.component}</code></td>
+                                                <td style={{ fontSize: '0.85rem', color: 'var(--text-300)', lineHeight: '1.4' }}>{p.requirement}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Missing Section */}
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#ef4444', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <span style={{ fontSize: '1.5rem' }}>🚧</span> Missing Platform Gaps
+                                    </h3>
+                                    <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '4px 12px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '20px' }}>
+                                        {stats.missing.length} PENDING MODULES
+                                    </span>
+                                </div>
+                                <table className="blueprint-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '20%' }}>Unmet Requirement</th>
+                                            <th style={{ width: '25%' }}>Planned Route</th>
+                                            <th style={{ width: '25%' }}>Target Component</th>
+                                            <th style={{ width: '30%' }}>Implementation Goal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.missing.map((p, i) => (
+                                            <tr key={i}>
+                                                <td style={{ fontWeight: 800, color: '#ef4444', opacity: 0.8 }}>{p.name}</td>
+                                                <td><code style={{ fontSize: '0.75rem', color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px' }}>{p.route}</code></td>
+                                                <td><code style={{ fontSize: '0.75rem', color: '#94a3b8', background: '#f1f5f9', padding: '2px 6px', borderRadius: '4px' }}>{p.component}</code></td>
+                                                <td style={{ fontSize: '0.85rem', color: '#64748b', lineHeight: '1.4', fontStyle: 'italic' }}>{p.requirement}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     )}

@@ -12,6 +12,9 @@ import contentRoutes from './content/content.routes';
 import settingsRoutes from './settings/settings.routes';
 import clientRoutes from './clients/clients.routes';
 import developerRoutes from './developer/developer.routes';
+import searchRoutes from './search/search.routes';
+import reportRoutes from './reports/export.routes';
+import scrumRoutes from './scrum/scrum.routes';
 import { platformStats } from './routes/platform-stats.routes';
 import { predictiveStaffingRoutes } from './routes/predictive-staffing.routes';
 import { riskSurveillanceRoutes } from './routes/risk-surveillance.routes';
@@ -38,6 +41,9 @@ admin.route('/services', serviceRoutes);
 admin.route('/settings', settingsRoutes);
 admin.route('/clients', clientRoutes);
 admin.route('/developer', developerRoutes); // Keep in Tenant Admin for now as it's for their API Keys
+admin.route('/search', searchRoutes);
+admin.route('/reports', reportRoutes);
+admin.route('/scrum', scrumRoutes);
 admin.route('/', contentRoutes);
 
 // Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)

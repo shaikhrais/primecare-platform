@@ -61,6 +61,7 @@ model Tenant {
   services         Service[]
   shiftAssignments ShiftAssignment[]
   timesheets       Timesheet[]
+  staffTasks       StaffTask[]
   users            User[]
   checkEvents      VisitCheckEvent[]
   visits           Visit[]
@@ -214,6 +215,7 @@ model Service {
   createdAt          DateTime @default(now()) @map("created_at")
   updatedAt          DateTime @updatedAt @map("updated_at")
   tenantId           String   @map("tenant_id")
+  isFeatured         Boolean  @default(false) @map("is_featured")
   tenant             Tenant   @relation(fields: [tenantId], references: [id])
   visits             Visit[]
 
@@ -480,8 +482,27 @@ model BlogPost {
   createdAt         DateTime  @default(now()) @map("created_at")
   updatedAt         DateTime  @updatedAt @map("updated_at")
   author            User?     @relation(fields: [authorUserId], references: [id])
+  targetRole        Role?     @map("target_role")
+  category          String?   @default("announcement")
 
   @@map("blog_posts")
+}
+
+model StaffTask {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  status      String    @default("todo") // todo, in_progress, completed, blocked
+  priority    String    @default("medium") // low, medium, high, urgent
+  dueDate     DateTime? @map("due_date")
+  assigneeId  String?   @map("assignee_id")
+  tenantId    String    @map("tenant_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("staff_tasks")
 }
 
 model PswDocument {

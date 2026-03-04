@@ -12,6 +12,8 @@ const DailyEntry = lazy(() => import('./manager/pages/daily-entry'));
 const Evaluations = lazy(() => import('./manager/pages/evaluations'));
 const ServiceReview = lazy(() => import('./manager/pages/service-review'));
 const ManagerDashboard = lazy(() => import('./manager/pages/dashboard'));
+const StaffRanker = lazy(() => import('./manager/pages/performance/StaffRanker'));
+const BranchPL = lazy(() => import('./manager/pages/finance/BranchP_L'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -22,6 +24,8 @@ const PswAvailability = lazy(() => import('./psw/pages/availability'));
 const PswEarnings = lazy(() => import('./psw/pages/earnings'));
 const PswExpenses = lazy(() => import('./psw/pages/expenses'));
 const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation'));
+const CredentialVault = lazy(() => import('./psw/pages/credentials/CredentialVault'));
+const ProviderSocial = lazy(() => import('./psw/pages/feed/ProviderSocial'));
 
 // RN Pages
 const RnDashboard = lazy(() => import('./rn/pages/dashboard'));
@@ -32,6 +36,8 @@ const ClientBookings = lazy(() => import('./client/pages/bookings'));
 const ClientBilling = lazy(() => import('./client/pages/billing'));
 const ClientFeedback = lazy(() => import('./client/pages/feedback'));
 const RequestBooking = lazy(() => import('./client/pages/request-booking'));
+const CatalogBrowser = lazy(() => import('./client/pages/services/CatalogBrowser'));
+const ClientMessaging = lazy(() => import('./client/pages/support/ClientMessaging'));
 
 export const TenancyRoutes = () => (
     <>
@@ -41,6 +47,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
             <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
             <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
+            <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
+            <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
             <Route path=":category" element={<ManagerDashboard />} />
         </Route>
 
@@ -54,6 +62,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.PSW.EARNINGS} element={<PswEarnings />} />
             <Route path={RouteRegistry.PSW.EXPENSES} element={<PswExpenses />} />
             <Route path={RouteRegistry.PSW.SHIFT_CONFIRMATION} element={<PswShiftConfirmation />} />
+            <Route path={RouteRegistry.PSW.CREDENTIALS} element={<CredentialVault />} />
+            <Route path={RouteRegistry.PSW.FEED} element={<ProviderSocial />} />
         </Route>
 
         {/* RN PORTAL */}
@@ -68,6 +78,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.CLIENT.BILLING} element={<ClientBilling />} />
             <Route path={RouteRegistry.CLIENT.FEEDBACK} element={<ClientFeedback />} />
             <Route path={RouteRegistry.CLIENT.REQUEST_BOOKING} element={<RequestBooking />} />
+            <Route path={RouteRegistry.CLIENT.SERVICES} element={<CatalogBrowser />} />
+            <Route path={RouteRegistry.CLIENT.SUPPORT} element={<ClientMessaging />} />
         </Route>
     </>
 );

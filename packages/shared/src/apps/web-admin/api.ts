@@ -7,6 +7,8 @@ export const ApiRegistry = {
         PSW_APPROVE: (id: string) => `/v1/admin/psw/approve/${id}`,
         VISITS_UNASSIGNED: '/v1/admin/visits/unassigned',
         DASHBOARD_STATS: '/v1/admin/dashboard/stats',
+        SEARCH: '/v1/admin/search',
+        REPORTS: '/v1/admin/reports/export',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',

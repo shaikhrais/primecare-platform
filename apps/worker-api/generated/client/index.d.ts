@@ -129,6 +129,11 @@ export type ShiftAssignment = $Result.DefaultSelection<Prisma.$ShiftAssignmentPa
  */
 export type BlogPost = $Result.DefaultSelection<Prisma.$BlogPostPayload>
 /**
+ * Model StaffTask
+ * 
+ */
+export type StaffTask = $Result.DefaultSelection<Prisma.$StaffTaskPayload>
+/**
  * Model PswDocument
  * 
  */
@@ -681,6 +686,16 @@ export class PrismaClient<
   get blogPost(): Prisma.BlogPostDelegate<ExtArgs>;
 
   /**
+   * `prisma.staffTask`: Exposes CRUD operations for the **StaffTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffTasks
+    * const staffTasks = await prisma.staffTask.findMany()
+    * ```
+    */
+  get staffTask(): Prisma.StaffTaskDelegate<ExtArgs>;
+
+  /**
    * `prisma.pswDocument`: Exposes CRUD operations for the **PswDocument** model.
     * Example usage:
     * ```ts
@@ -1183,6 +1198,7 @@ export namespace Prisma {
     PswAvailability: 'PswAvailability',
     ShiftAssignment: 'ShiftAssignment',
     BlogPost: 'BlogPost',
+    StaffTask: 'StaffTask',
     PswDocument: 'PswDocument',
     FAQ: 'FAQ',
     DailyEntry: 'DailyEntry',
@@ -1202,7 +1218,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2816,6 +2832,76 @@ export namespace Prisma {
           }
         }
       }
+      StaffTask: {
+        payload: Prisma.$StaffTaskPayload<ExtArgs>
+        fields: Prisma.StaffTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          findMany: {
+            args: Prisma.StaffTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>[]
+          }
+          create: {
+            args: Prisma.StaffTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          createMany: {
+            args: Prisma.StaffTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          update: {
+            args: Prisma.StaffTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StaffTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffTask>
+          }
+          groupBy: {
+            args: Prisma.StaffTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffTaskCountAggregateOutputType> | number
+          }
+        }
+      }
       PswDocument: {
         payload: Prisma.$PswDocumentPayload<ExtArgs>
         fields: Prisma.PswDocumentFieldRefs
@@ -3367,6 +3453,7 @@ export namespace Prisma {
     services: number
     shiftAssignments: number
     timesheets: number
+    staffTasks: number
     users: number
     checkEvents: number
     visits: number
@@ -3388,6 +3475,7 @@ export namespace Prisma {
     services?: boolean | TenantCountOutputTypeCountServicesArgs
     shiftAssignments?: boolean | TenantCountOutputTypeCountShiftAssignmentsArgs
     timesheets?: boolean | TenantCountOutputTypeCountTimesheetsArgs
+    staffTasks?: boolean | TenantCountOutputTypeCountStaffTasksArgs
     users?: boolean | TenantCountOutputTypeCountUsersArgs
     checkEvents?: boolean | TenantCountOutputTypeCountCheckEventsArgs
     visits?: boolean | TenantCountOutputTypeCountVisitsArgs
@@ -3489,6 +3577,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountTimesheetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TimesheetWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountStaffTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffTaskWhereInput
   }
 
   /**
@@ -5467,6 +5562,7 @@ export namespace Prisma {
     services?: boolean | Tenant$servicesArgs<ExtArgs>
     shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
+    staffTasks?: boolean | Tenant$staffTasksArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     checkEvents?: boolean | Tenant$checkEventsArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
@@ -5525,6 +5621,7 @@ export namespace Prisma {
     services?: boolean | Tenant$servicesArgs<ExtArgs>
     shiftAssignments?: boolean | Tenant$shiftAssignmentsArgs<ExtArgs>
     timesheets?: boolean | Tenant$timesheetsArgs<ExtArgs>
+    staffTasks?: boolean | Tenant$staffTasksArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     checkEvents?: boolean | Tenant$checkEventsArgs<ExtArgs>
     visits?: boolean | Tenant$visitsArgs<ExtArgs>
@@ -5553,6 +5650,7 @@ export namespace Prisma {
       services: Prisma.$ServicePayload<ExtArgs>[]
       shiftAssignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
       timesheets: Prisma.$TimesheetPayload<ExtArgs>[]
+      staffTasks: Prisma.$StaffTaskPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
       checkEvents: Prisma.$VisitCheckEventPayload<ExtArgs>[]
       visits: Prisma.$VisitPayload<ExtArgs>[]
@@ -5952,6 +6050,7 @@ export namespace Prisma {
     services<T extends Tenant$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany"> | Null>
     shiftAssignments<T extends Tenant$shiftAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$shiftAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     timesheets<T extends Tenant$timesheetsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$timesheetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimesheetPayload<ExtArgs>, T, "findMany"> | Null>
+    staffTasks<T extends Tenant$staffTasksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$staffTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany"> | Null>
     users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     checkEvents<T extends Tenant$checkEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$checkEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitCheckEventPayload<ExtArgs>, T, "findMany"> | Null>
     visits<T extends Tenant$visitsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findMany"> | Null>
@@ -6557,6 +6656,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TimesheetScalarFieldEnum | TimesheetScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.staffTasks
+   */
+  export type Tenant$staffTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    where?: StaffTaskWhereInput
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    cursor?: StaffTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
   }
 
   /**
@@ -11638,6 +11757,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     tenantId: string | null
+    isFeatured: boolean | null
   }
 
   export type ServiceMaxAggregateOutputType = {
@@ -11651,6 +11771,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     tenantId: string | null
+    isFeatured: boolean | null
   }
 
   export type ServiceCountAggregateOutputType = {
@@ -11664,6 +11785,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     tenantId: number
+    isFeatured: number
     _all: number
   }
 
@@ -11689,6 +11811,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    isFeatured?: true
   }
 
   export type ServiceMaxAggregateInputType = {
@@ -11702,6 +11825,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    isFeatured?: true
   }
 
   export type ServiceCountAggregateInputType = {
@@ -11715,6 +11839,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     tenantId?: true
+    isFeatured?: true
     _all?: true
   }
 
@@ -11815,6 +11940,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     tenantId: string
+    isFeatured: boolean
     _count: ServiceCountAggregateOutputType | null
     _avg: ServiceAvgAggregateOutputType | null
     _sum: ServiceSumAggregateOutputType | null
@@ -11847,6 +11973,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    isFeatured?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     visits?: boolean | Service$visitsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -11863,6 +11990,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    isFeatured?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -11877,6 +12005,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenantId?: boolean
+    isFeatured?: boolean
   }
 
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11905,6 +12034,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       tenantId: string
+      isFeatured: boolean
     }, ExtArgs["result"]["service"]>
     composites: {}
   }
@@ -12310,6 +12440,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly updatedAt: FieldRef<"Service", 'DateTime'>
     readonly tenantId: FieldRef<"Service", 'String'>
+    readonly isFeatured: FieldRef<"Service", 'Boolean'>
   }
     
 
@@ -27789,6 +27920,8 @@ export namespace Prisma {
     canonicalUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    targetRole: $Enums.Role | null
+    category: string | null
   }
 
   export type BlogPostMaxAggregateOutputType = {
@@ -27806,6 +27939,8 @@ export namespace Prisma {
     canonicalUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    targetRole: $Enums.Role | null
+    category: string | null
   }
 
   export type BlogPostCountAggregateOutputType = {
@@ -27823,6 +27958,8 @@ export namespace Prisma {
     canonicalUrl: number
     createdAt: number
     updatedAt: number
+    targetRole: number
+    category: number
     _all: number
   }
 
@@ -27842,6 +27979,8 @@ export namespace Prisma {
     canonicalUrl?: true
     createdAt?: true
     updatedAt?: true
+    targetRole?: true
+    category?: true
   }
 
   export type BlogPostMaxAggregateInputType = {
@@ -27859,6 +27998,8 @@ export namespace Prisma {
     canonicalUrl?: true
     createdAt?: true
     updatedAt?: true
+    targetRole?: true
+    category?: true
   }
 
   export type BlogPostCountAggregateInputType = {
@@ -27876,6 +28017,8 @@ export namespace Prisma {
     canonicalUrl?: true
     createdAt?: true
     updatedAt?: true
+    targetRole?: true
+    category?: true
     _all?: true
   }
 
@@ -27966,6 +28109,8 @@ export namespace Prisma {
     canonicalUrl: string | null
     createdAt: Date
     updatedAt: Date
+    targetRole: $Enums.Role | null
+    category: string | null
     _count: BlogPostCountAggregateOutputType | null
     _min: BlogPostMinAggregateOutputType | null
     _max: BlogPostMaxAggregateOutputType | null
@@ -28000,6 +28145,8 @@ export namespace Prisma {
     canonicalUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    targetRole?: boolean
+    category?: boolean
     author?: boolean | BlogPost$authorArgs<ExtArgs>
   }, ExtArgs["result"]["blogPost"]>
 
@@ -28018,6 +28165,8 @@ export namespace Prisma {
     canonicalUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    targetRole?: boolean
+    category?: boolean
     author?: boolean | BlogPost$authorArgs<ExtArgs>
   }, ExtArgs["result"]["blogPost"]>
 
@@ -28036,6 +28185,8 @@ export namespace Prisma {
     canonicalUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    targetRole?: boolean
+    category?: boolean
   }
 
   export type BlogPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28065,6 +28216,8 @@ export namespace Prisma {
       canonicalUrl: string | null
       createdAt: Date
       updatedAt: Date
+      targetRole: $Enums.Role | null
+      category: string | null
     }, ExtArgs["result"]["blogPost"]>
     composites: {}
   }
@@ -28473,6 +28626,8 @@ export namespace Prisma {
     readonly canonicalUrl: FieldRef<"BlogPost", 'String'>
     readonly createdAt: FieldRef<"BlogPost", 'DateTime'>
     readonly updatedAt: FieldRef<"BlogPost", 'DateTime'>
+    readonly targetRole: FieldRef<"BlogPost", 'Role'>
+    readonly category: FieldRef<"BlogPost", 'String'>
   }
     
 
@@ -28817,6 +28972,999 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BlogPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffTask
+   */
+
+  export type AggregateStaffTask = {
+    _count: StaffTaskCountAggregateOutputType | null
+    _min: StaffTaskMinAggregateOutputType | null
+    _max: StaffTaskMaxAggregateOutputType | null
+  }
+
+  export type StaffTaskMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    status: string | null
+    priority: string | null
+    dueDate: Date | null
+    assigneeId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffTaskMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    status: string | null
+    priority: string | null
+    dueDate: Date | null
+    assigneeId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffTaskCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    status: number
+    priority: number
+    dueDate: number
+    assigneeId: number
+    tenantId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StaffTaskMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    dueDate?: true
+    assigneeId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffTaskMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    dueDate?: true
+    assigneeId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffTaskCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    dueDate?: true
+    assigneeId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StaffTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffTask to aggregate.
+     */
+    where?: StaffTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffTasks to fetch.
+     */
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffTasks
+    **/
+    _count?: true | StaffTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffTaskMaxAggregateInputType
+  }
+
+  export type GetStaffTaskAggregateType<T extends StaffTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffTask[P]>
+      : GetScalarType<T[P], AggregateStaffTask[P]>
+  }
+
+
+
+
+  export type StaffTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffTaskWhereInput
+    orderBy?: StaffTaskOrderByWithAggregationInput | StaffTaskOrderByWithAggregationInput[]
+    by: StaffTaskScalarFieldEnum[] | StaffTaskScalarFieldEnum
+    having?: StaffTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffTaskCountAggregateInputType | true
+    _min?: StaffTaskMinAggregateInputType
+    _max?: StaffTaskMaxAggregateInputType
+  }
+
+  export type StaffTaskGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    status: string
+    priority: string
+    dueDate: Date | null
+    assigneeId: string | null
+    tenantId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: StaffTaskCountAggregateOutputType | null
+    _min: StaffTaskMinAggregateOutputType | null
+    _max: StaffTaskMaxAggregateOutputType | null
+  }
+
+  type GetStaffTaskGroupByPayload<T extends StaffTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    dueDate?: boolean
+    assigneeId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffTask"]>
+
+  export type StaffTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    dueDate?: boolean
+    assigneeId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffTask"]>
+
+  export type StaffTaskSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    dueDate?: boolean
+    assigneeId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StaffTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type StaffTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffTask"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      status: string
+      priority: string
+      dueDate: Date | null
+      assigneeId: string | null
+      tenantId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["staffTask"]>
+    composites: {}
+  }
+
+  type StaffTaskGetPayload<S extends boolean | null | undefined | StaffTaskDefaultArgs> = $Result.GetResult<Prisma.$StaffTaskPayload, S>
+
+  type StaffTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StaffTaskFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StaffTaskCountAggregateInputType | true
+    }
+
+  export interface StaffTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffTask'], meta: { name: 'StaffTask' } }
+    /**
+     * Find zero or one StaffTask that matches the filter.
+     * @param {StaffTaskFindUniqueArgs} args - Arguments to find a StaffTask
+     * @example
+     * // Get one StaffTask
+     * const staffTask = await prisma.staffTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffTaskFindUniqueArgs>(args: SelectSubset<T, StaffTaskFindUniqueArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StaffTask that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StaffTaskFindUniqueOrThrowArgs} args - Arguments to find a StaffTask
+     * @example
+     * // Get one StaffTask
+     * const staffTask = await prisma.staffTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StaffTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskFindFirstArgs} args - Arguments to find a StaffTask
+     * @example
+     * // Get one StaffTask
+     * const staffTask = await prisma.staffTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffTaskFindFirstArgs>(args?: SelectSubset<T, StaffTaskFindFirstArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StaffTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskFindFirstOrThrowArgs} args - Arguments to find a StaffTask
+     * @example
+     * // Get one StaffTask
+     * const staffTask = await prisma.staffTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StaffTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffTasks
+     * const staffTasks = await prisma.staffTask.findMany()
+     * 
+     * // Get first 10 StaffTasks
+     * const staffTasks = await prisma.staffTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const staffTaskWithIdOnly = await prisma.staffTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StaffTaskFindManyArgs>(args?: SelectSubset<T, StaffTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StaffTask.
+     * @param {StaffTaskCreateArgs} args - Arguments to create a StaffTask.
+     * @example
+     * // Create one StaffTask
+     * const StaffTask = await prisma.staffTask.create({
+     *   data: {
+     *     // ... data to create a StaffTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffTaskCreateArgs>(args: SelectSubset<T, StaffTaskCreateArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StaffTasks.
+     * @param {StaffTaskCreateManyArgs} args - Arguments to create many StaffTasks.
+     * @example
+     * // Create many StaffTasks
+     * const staffTask = await prisma.staffTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffTaskCreateManyArgs>(args?: SelectSubset<T, StaffTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffTasks and returns the data saved in the database.
+     * @param {StaffTaskCreateManyAndReturnArgs} args - Arguments to create many StaffTasks.
+     * @example
+     * // Create many StaffTasks
+     * const staffTask = await prisma.staffTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffTasks and only return the `id`
+     * const staffTaskWithIdOnly = await prisma.staffTask.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StaffTask.
+     * @param {StaffTaskDeleteArgs} args - Arguments to delete one StaffTask.
+     * @example
+     * // Delete one StaffTask
+     * const StaffTask = await prisma.staffTask.delete({
+     *   where: {
+     *     // ... filter to delete one StaffTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffTaskDeleteArgs>(args: SelectSubset<T, StaffTaskDeleteArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StaffTask.
+     * @param {StaffTaskUpdateArgs} args - Arguments to update one StaffTask.
+     * @example
+     * // Update one StaffTask
+     * const staffTask = await prisma.staffTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffTaskUpdateArgs>(args: SelectSubset<T, StaffTaskUpdateArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StaffTasks.
+     * @param {StaffTaskDeleteManyArgs} args - Arguments to filter StaffTasks to delete.
+     * @example
+     * // Delete a few StaffTasks
+     * const { count } = await prisma.staffTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffTaskDeleteManyArgs>(args?: SelectSubset<T, StaffTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffTasks
+     * const staffTask = await prisma.staffTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffTaskUpdateManyArgs>(args: SelectSubset<T, StaffTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StaffTask.
+     * @param {StaffTaskUpsertArgs} args - Arguments to update or create a StaffTask.
+     * @example
+     * // Update or create a StaffTask
+     * const staffTask = await prisma.staffTask.upsert({
+     *   create: {
+     *     // ... data to create a StaffTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffTaskUpsertArgs>(args: SelectSubset<T, StaffTaskUpsertArgs<ExtArgs>>): Prisma__StaffTaskClient<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StaffTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskCountArgs} args - Arguments to filter StaffTasks to count.
+     * @example
+     * // Count the number of StaffTasks
+     * const count = await prisma.staffTask.count({
+     *   where: {
+     *     // ... the filter for the StaffTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffTaskCountArgs>(
+      args?: Subset<T, StaffTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffTaskAggregateArgs>(args: Subset<T, StaffTaskAggregateArgs>): Prisma.PrismaPromise<GetStaffTaskAggregateType<T>>
+
+    /**
+     * Group by StaffTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffTaskGroupByArgs['orderBy'] }
+        : { orderBy?: StaffTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffTask model
+   */
+  readonly fields: StaffTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffTask model
+   */ 
+  interface StaffTaskFieldRefs {
+    readonly id: FieldRef<"StaffTask", 'String'>
+    readonly title: FieldRef<"StaffTask", 'String'>
+    readonly description: FieldRef<"StaffTask", 'String'>
+    readonly status: FieldRef<"StaffTask", 'String'>
+    readonly priority: FieldRef<"StaffTask", 'String'>
+    readonly dueDate: FieldRef<"StaffTask", 'DateTime'>
+    readonly assigneeId: FieldRef<"StaffTask", 'String'>
+    readonly tenantId: FieldRef<"StaffTask", 'String'>
+    readonly createdAt: FieldRef<"StaffTask", 'DateTime'>
+    readonly updatedAt: FieldRef<"StaffTask", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffTask findUnique
+   */
+  export type StaffTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffTask to fetch.
+     */
+    where: StaffTaskWhereUniqueInput
+  }
+
+  /**
+   * StaffTask findUniqueOrThrow
+   */
+  export type StaffTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffTask to fetch.
+     */
+    where: StaffTaskWhereUniqueInput
+  }
+
+  /**
+   * StaffTask findFirst
+   */
+  export type StaffTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffTask to fetch.
+     */
+    where?: StaffTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffTasks to fetch.
+     */
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffTasks.
+     */
+    cursor?: StaffTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffTasks.
+     */
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
+  }
+
+  /**
+   * StaffTask findFirstOrThrow
+   */
+  export type StaffTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffTask to fetch.
+     */
+    where?: StaffTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffTasks to fetch.
+     */
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffTasks.
+     */
+    cursor?: StaffTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffTasks.
+     */
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
+  }
+
+  /**
+   * StaffTask findMany
+   */
+  export type StaffTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffTasks to fetch.
+     */
+    where?: StaffTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffTasks to fetch.
+     */
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffTasks.
+     */
+    cursor?: StaffTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffTasks.
+     */
+    skip?: number
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
+  }
+
+  /**
+   * StaffTask create
+   */
+  export type StaffTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffTask.
+     */
+    data: XOR<StaffTaskCreateInput, StaffTaskUncheckedCreateInput>
+  }
+
+  /**
+   * StaffTask createMany
+   */
+  export type StaffTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffTasks.
+     */
+    data: StaffTaskCreateManyInput | StaffTaskCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffTask createManyAndReturn
+   */
+  export type StaffTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StaffTasks.
+     */
+    data: StaffTaskCreateManyInput | StaffTaskCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffTask update
+   */
+  export type StaffTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffTask.
+     */
+    data: XOR<StaffTaskUpdateInput, StaffTaskUncheckedUpdateInput>
+    /**
+     * Choose, which StaffTask to update.
+     */
+    where: StaffTaskWhereUniqueInput
+  }
+
+  /**
+   * StaffTask updateMany
+   */
+  export type StaffTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffTasks.
+     */
+    data: XOR<StaffTaskUpdateManyMutationInput, StaffTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffTasks to update
+     */
+    where?: StaffTaskWhereInput
+  }
+
+  /**
+   * StaffTask upsert
+   */
+  export type StaffTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffTask to update in case it exists.
+     */
+    where: StaffTaskWhereUniqueInput
+    /**
+     * In case the StaffTask found by the `where` argument doesn't exist, create a new StaffTask with this data.
+     */
+    create: XOR<StaffTaskCreateInput, StaffTaskUncheckedCreateInput>
+    /**
+     * In case the StaffTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffTaskUpdateInput, StaffTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffTask delete
+   */
+  export type StaffTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    /**
+     * Filter which StaffTask to delete.
+     */
+    where: StaffTaskWhereUniqueInput
+  }
+
+  /**
+   * StaffTask deleteMany
+   */
+  export type StaffTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffTasks to delete
+     */
+    where?: StaffTaskWhereInput
+  }
+
+  /**
+   * StaffTask without action
+   */
+  export type StaffTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
   }
 
 
@@ -33000,7 +34148,8 @@ export namespace Prisma {
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    tenantId: 'tenantId'
+    tenantId: 'tenantId',
+    isFeatured: 'isFeatured'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -33236,10 +34385,28 @@ export namespace Prisma {
     seoDescription: 'seoDescription',
     canonicalUrl: 'canonicalUrl',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    targetRole: 'targetRole',
+    category: 'category'
   };
 
   export type BlogPostScalarFieldEnum = (typeof BlogPostScalarFieldEnum)[keyof typeof BlogPostScalarFieldEnum]
+
+
+  export const StaffTaskScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    priority: 'priority',
+    dueDate: 'dueDate',
+    assigneeId: 'assigneeId',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StaffTaskScalarFieldEnum = (typeof StaffTaskScalarFieldEnum)[keyof typeof StaffTaskScalarFieldEnum]
 
 
   export const PswDocumentScalarFieldEnum: {
@@ -33749,6 +34916,7 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     shiftAssignments?: ShiftAssignmentListRelationFilter
     timesheets?: TimesheetListRelationFilter
+    staffTasks?: StaffTaskListRelationFilter
     users?: UserListRelationFilter
     checkEvents?: VisitCheckEventListRelationFilter
     visits?: VisitListRelationFilter
@@ -33785,6 +34953,7 @@ export namespace Prisma {
     services?: ServiceOrderByRelationAggregateInput
     shiftAssignments?: ShiftAssignmentOrderByRelationAggregateInput
     timesheets?: TimesheetOrderByRelationAggregateInput
+    staffTasks?: StaffTaskOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
     checkEvents?: VisitCheckEventOrderByRelationAggregateInput
     visits?: VisitOrderByRelationAggregateInput
@@ -33824,6 +34993,7 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     shiftAssignments?: ShiftAssignmentListRelationFilter
     timesheets?: TimesheetListRelationFilter
+    staffTasks?: StaffTaskListRelationFilter
     users?: UserListRelationFilter
     checkEvents?: VisitCheckEventListRelationFilter
     visits?: VisitListRelationFilter
@@ -34414,6 +35584,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
     tenantId?: StringFilter<"Service"> | string
+    isFeatured?: BoolFilter<"Service"> | boolean
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visits?: VisitListRelationFilter
   }
@@ -34429,6 +35600,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    isFeatured?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     visits?: VisitOrderByRelationAggregateInput
   }
@@ -34447,6 +35619,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
     tenantId?: StringFilter<"Service"> | string
+    isFeatured?: BoolFilter<"Service"> | boolean
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     visits?: VisitListRelationFilter
   }, "id" | "slug">
@@ -34462,6 +35635,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    isFeatured?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
     _avg?: ServiceAvgOrderByAggregateInput
     _max?: ServiceMaxOrderByAggregateInput
@@ -34483,6 +35657,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     tenantId?: StringWithAggregatesFilter<"Service"> | string
+    isFeatured?: BoolWithAggregatesFilter<"Service"> | boolean
   }
 
   export type VisitCheckEventWhereInput = {
@@ -35663,6 +36838,8 @@ export namespace Prisma {
     canonicalUrl?: StringNullableFilter<"BlogPost"> | string | null
     createdAt?: DateTimeFilter<"BlogPost"> | Date | string
     updatedAt?: DateTimeFilter<"BlogPost"> | Date | string
+    targetRole?: EnumRoleNullableFilter<"BlogPost"> | $Enums.Role | null
+    category?: StringNullableFilter<"BlogPost"> | string | null
     author?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
@@ -35681,6 +36858,8 @@ export namespace Prisma {
     canonicalUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    targetRole?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
     author?: UserOrderByWithRelationInput
   }
 
@@ -35702,6 +36881,8 @@ export namespace Prisma {
     canonicalUrl?: StringNullableFilter<"BlogPost"> | string | null
     createdAt?: DateTimeFilter<"BlogPost"> | Date | string
     updatedAt?: DateTimeFilter<"BlogPost"> | Date | string
+    targetRole?: EnumRoleNullableFilter<"BlogPost"> | $Enums.Role | null
+    category?: StringNullableFilter<"BlogPost"> | string | null
     author?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id" | "slug">
 
@@ -35720,6 +36901,8 @@ export namespace Prisma {
     canonicalUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    targetRole?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
     _count?: BlogPostCountOrderByAggregateInput
     _max?: BlogPostMaxOrderByAggregateInput
     _min?: BlogPostMinOrderByAggregateInput
@@ -35743,6 +36926,88 @@ export namespace Prisma {
     canonicalUrl?: StringNullableWithAggregatesFilter<"BlogPost"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BlogPost"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BlogPost"> | Date | string
+    targetRole?: EnumRoleNullableWithAggregatesFilter<"BlogPost"> | $Enums.Role | null
+    category?: StringNullableWithAggregatesFilter<"BlogPost"> | string | null
+  }
+
+  export type StaffTaskWhereInput = {
+    AND?: StaffTaskWhereInput | StaffTaskWhereInput[]
+    OR?: StaffTaskWhereInput[]
+    NOT?: StaffTaskWhereInput | StaffTaskWhereInput[]
+    id?: StringFilter<"StaffTask"> | string
+    title?: StringFilter<"StaffTask"> | string
+    description?: StringNullableFilter<"StaffTask"> | string | null
+    status?: StringFilter<"StaffTask"> | string
+    priority?: StringFilter<"StaffTask"> | string
+    dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
+    assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    tenantId?: StringFilter<"StaffTask"> | string
+    createdAt?: DateTimeFilter<"StaffTask"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type StaffTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type StaffTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StaffTaskWhereInput | StaffTaskWhereInput[]
+    OR?: StaffTaskWhereInput[]
+    NOT?: StaffTaskWhereInput | StaffTaskWhereInput[]
+    title?: StringFilter<"StaffTask"> | string
+    description?: StringNullableFilter<"StaffTask"> | string | null
+    status?: StringFilter<"StaffTask"> | string
+    priority?: StringFilter<"StaffTask"> | string
+    dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
+    assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    tenantId?: StringFilter<"StaffTask"> | string
+    createdAt?: DateTimeFilter<"StaffTask"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type StaffTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StaffTaskCountOrderByAggregateInput
+    _max?: StaffTaskMaxOrderByAggregateInput
+    _min?: StaffTaskMinOrderByAggregateInput
+  }
+
+  export type StaffTaskScalarWhereWithAggregatesInput = {
+    AND?: StaffTaskScalarWhereWithAggregatesInput | StaffTaskScalarWhereWithAggregatesInput[]
+    OR?: StaffTaskScalarWhereWithAggregatesInput[]
+    NOT?: StaffTaskScalarWhereWithAggregatesInput | StaffTaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StaffTask"> | string
+    title?: StringWithAggregatesFilter<"StaffTask"> | string
+    description?: StringNullableWithAggregatesFilter<"StaffTask"> | string | null
+    status?: StringWithAggregatesFilter<"StaffTask"> | string
+    priority?: StringWithAggregatesFilter<"StaffTask"> | string
+    dueDate?: DateTimeNullableWithAggregatesFilter<"StaffTask"> | Date | string | null
+    assigneeId?: StringNullableWithAggregatesFilter<"StaffTask"> | string | null
+    tenantId?: StringWithAggregatesFilter<"StaffTask"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StaffTask"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StaffTask"> | Date | string
   }
 
   export type PswDocumentWhereInput = {
@@ -36243,6 +37508,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -36279,6 +37545,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -36313,6 +37580,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -36349,6 +37617,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -37023,6 +38292,7 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isFeatured?: boolean
     tenant: TenantCreateNestedOneWithoutServicesInput
     visits?: VisitCreateNestedManyWithoutServiceInput
   }
@@ -37038,6 +38308,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    isFeatured?: boolean
     visits?: VisitUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -37051,6 +38322,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     tenant?: TenantUpdateOneRequiredWithoutServicesNestedInput
     visits?: VisitUpdateManyWithoutServiceNestedInput
   }
@@ -37066,6 +38338,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     visits?: VisitUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -37080,6 +38353,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    isFeatured?: boolean
   }
 
   export type ServiceUpdateManyMutationInput = {
@@ -37092,6 +38366,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServiceUncheckedUpdateManyInput = {
@@ -37105,6 +38380,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VisitCheckEventCreateInput = {
@@ -38301,6 +39577,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
     author?: UserCreateNestedOneWithoutBlogPostsInput
   }
 
@@ -38319,6 +39597,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
   }
 
   export type BlogPostUpdateInput = {
@@ -38335,6 +39615,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
     author?: UserUpdateOneWithoutBlogPostsNestedInput
   }
 
@@ -38353,6 +39635,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogPostCreateManyInput = {
@@ -38370,6 +39654,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
   }
 
   export type BlogPostUpdateManyMutationInput = {
@@ -38386,6 +39672,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogPostUncheckedUpdateManyInput = {
@@ -38401,6 +39689,98 @@ export namespace Prisma {
     seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
     seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StaffTaskCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffTasksInput
+  }
+
+  export type StaffTaskUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffTasksNestedInput
+  }
+
+  export type StaffTaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39103,6 +40483,12 @@ export namespace Prisma {
     none?: ShiftAssignmentWhereInput
   }
 
+  export type StaffTaskListRelationFilter = {
+    every?: StaffTaskWhereInput
+    some?: StaffTaskWhereInput
+    none?: StaffTaskWhereInput
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -39167,6 +40553,10 @@ export namespace Prisma {
   }
 
   export type ShiftAssignmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -39676,6 +41066,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    isFeatured?: SortOrder
   }
 
   export type ServiceAvgOrderByAggregateInput = {
@@ -39694,6 +41085,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    isFeatured?: SortOrder
   }
 
   export type ServiceMinOrderByAggregateInput = {
@@ -39707,6 +41099,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenantId?: SortOrder
+    isFeatured?: SortOrder
   }
 
   export type ServiceSumOrderByAggregateInput = {
@@ -40539,6 +41932,13 @@ export namespace Prisma {
     _max?: NestedEnumAssignmentStatusFilter<$PrismaModel>
   }
 
+  export type EnumRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
+  }
+
   export type BlogPostCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -40554,6 +41954,8 @@ export namespace Prisma {
     canonicalUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    targetRole?: SortOrder
+    category?: SortOrder
   }
 
   export type BlogPostMaxOrderByAggregateInput = {
@@ -40571,6 +41973,8 @@ export namespace Prisma {
     canonicalUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    targetRole?: SortOrder
+    category?: SortOrder
   }
 
   export type BlogPostMinOrderByAggregateInput = {
@@ -40586,6 +41990,57 @@ export namespace Prisma {
     seoTitle?: SortOrder
     seoDescription?: SortOrder
     canonicalUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    targetRole?: SortOrder
+    category?: SortOrder
+  }
+
+  export type EnumRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.Role | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumRoleNullableFilter<$PrismaModel>
+  }
+
+  export type StaffTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    dueDate?: SortOrder
+    assigneeId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    dueDate?: SortOrder
+    assigneeId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    dueDate?: SortOrder
+    assigneeId?: SortOrder
+    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -41337,6 +42792,13 @@ export namespace Prisma {
     connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
   }
 
+  export type StaffTaskCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput> | StaffTaskCreateWithoutTenantInput[] | StaffTaskUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutTenantInput | StaffTaskCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffTaskCreateManyTenantInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+  }
+
   export type UserCreateNestedManyWithoutTenantInput = {
     create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
@@ -41467,6 +42929,13 @@ export namespace Prisma {
     connectOrCreate?: TimesheetCreateOrConnectWithoutTenantInput | TimesheetCreateOrConnectWithoutTenantInput[]
     createMany?: TimesheetCreateManyTenantInputEnvelope
     connect?: TimesheetWhereUniqueInput | TimesheetWhereUniqueInput[]
+  }
+
+  export type StaffTaskUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput> | StaffTaskCreateWithoutTenantInput[] | StaffTaskUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutTenantInput | StaffTaskCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffTaskCreateManyTenantInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
   }
 
   export type UserUncheckedCreateNestedManyWithoutTenantInput = {
@@ -41685,6 +43154,20 @@ export namespace Prisma {
     update?: TimesheetUpdateWithWhereUniqueWithoutTenantInput | TimesheetUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: TimesheetUpdateManyWithWhereWithoutTenantInput | TimesheetUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: TimesheetScalarWhereInput | TimesheetScalarWhereInput[]
+  }
+
+  export type StaffTaskUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput> | StaffTaskCreateWithoutTenantInput[] | StaffTaskUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutTenantInput | StaffTaskCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutTenantInput | StaffTaskUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffTaskCreateManyTenantInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutTenantInput | StaffTaskUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutTenantInput | StaffTaskUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
   }
 
   export type UserUpdateManyWithoutTenantNestedInput = {
@@ -41947,6 +43430,20 @@ export namespace Prisma {
     update?: TimesheetUpdateWithWhereUniqueWithoutTenantInput | TimesheetUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: TimesheetUpdateManyWithWhereWithoutTenantInput | TimesheetUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: TimesheetScalarWhereInput | TimesheetScalarWhereInput[]
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput> | StaffTaskCreateWithoutTenantInput[] | StaffTaskUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutTenantInput | StaffTaskCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutTenantInput | StaffTaskUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffTaskCreateManyTenantInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutTenantInput | StaffTaskUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutTenantInput | StaffTaskUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
   }
 
   export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -43872,6 +45369,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableEnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role | null
+  }
+
   export type UserUpdateOneWithoutBlogPostsNestedInput = {
     create?: XOR<UserCreateWithoutBlogPostsInput, UserUncheckedCreateWithoutBlogPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlogPostsInput
@@ -43880,6 +45381,20 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlogPostsInput, UserUpdateWithoutBlogPostsInput>, UserUncheckedUpdateWithoutBlogPostsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutStaffTasksInput = {
+    create?: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffTasksInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutStaffTasksNestedInput = {
+    create?: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffTasksInput
+    upsert?: TenantUpsertWithoutStaffTasksInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutStaffTasksInput, TenantUpdateWithoutStaffTasksInput>, TenantUncheckedUpdateWithoutStaffTasksInput>
   }
 
   export type PswProfileCreateNestedOneWithoutDocumentsInput = {
@@ -44439,6 +45954,23 @@ export namespace Prisma {
     _max?: NestedEnumAssignmentStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
+  }
+
+  export type NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.Role | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumRoleNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumDocStatusNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.DocStatus | EnumDocStatusFieldRefInput<$PrismaModel> | null
     in?: $Enums.DocStatus[] | ListEnumDocStatusFieldRefInput<$PrismaModel> | null
@@ -44546,6 +46078,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
   }
 
   export type BlogPostUncheckedCreateWithoutAuthorInput = {
@@ -44562,6 +46096,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
   }
 
   export type BlogPostCreateOrConnectWithoutAuthorInput = {
@@ -44880,6 +46416,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -44915,6 +46452,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -45040,6 +46578,8 @@ export namespace Prisma {
     canonicalUrl?: StringNullableFilter<"BlogPost"> | string | null
     createdAt?: DateTimeFilter<"BlogPost"> | Date | string
     updatedAt?: DateTimeFilter<"BlogPost"> | Date | string
+    targetRole?: EnumRoleNullableFilter<"BlogPost"> | $Enums.Role | null
+    category?: StringNullableFilter<"BlogPost"> | string | null
   }
 
   export type ClientProfileUpsertWithoutUserInput = {
@@ -45359,6 +46899,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -45394,6 +46935,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -45806,6 +47348,7 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isFeatured?: boolean
     visits?: VisitCreateNestedManyWithoutServiceInput
   }
 
@@ -45819,6 +47362,7 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isFeatured?: boolean
     visits?: VisitUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -45895,6 +47439,40 @@ export namespace Prisma {
 
   export type TimesheetCreateManyTenantInputEnvelope = {
     data: TimesheetCreateManyTenantInput | TimesheetCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffTaskCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskUncheckedCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskCreateOrConnectWithoutTenantInput = {
+    where: StaffTaskWhereUniqueInput
+    create: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffTaskCreateManyTenantInputEnvelope = {
+    data: StaffTaskCreateManyTenantInput | StaffTaskCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -46138,6 +47716,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -46173,6 +47752,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -46211,6 +47791,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -46245,6 +47826,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -46570,6 +48152,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
     tenantId?: StringFilter<"Service"> | string
+    isFeatured?: BoolFilter<"Service"> | boolean
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutTenantInput = {
@@ -46615,6 +48198,38 @@ export namespace Prisma {
   export type TimesheetUpdateManyWithWhereWithoutTenantInput = {
     where: TimesheetScalarWhereInput
     data: XOR<TimesheetUpdateManyMutationInput, TimesheetUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type StaffTaskUpsertWithWhereUniqueWithoutTenantInput = {
+    where: StaffTaskWhereUniqueInput
+    update: XOR<StaffTaskUpdateWithoutTenantInput, StaffTaskUncheckedUpdateWithoutTenantInput>
+    create: XOR<StaffTaskCreateWithoutTenantInput, StaffTaskUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffTaskUpdateWithWhereUniqueWithoutTenantInput = {
+    where: StaffTaskWhereUniqueInput
+    data: XOR<StaffTaskUpdateWithoutTenantInput, StaffTaskUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type StaffTaskUpdateManyWithWhereWithoutTenantInput = {
+    where: StaffTaskScalarWhereInput
+    data: XOR<StaffTaskUpdateManyMutationInput, StaffTaskUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type StaffTaskScalarWhereInput = {
+    AND?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+    OR?: StaffTaskScalarWhereInput[]
+    NOT?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+    id?: StringFilter<"StaffTask"> | string
+    title?: StringFilter<"StaffTask"> | string
+    description?: StringNullableFilter<"StaffTask"> | string | null
+    status?: StringFilter<"StaffTask"> | string
+    priority?: StringFilter<"StaffTask"> | string
+    dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
+    assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    tenantId?: StringFilter<"StaffTask"> | string
+    createdAt?: DateTimeFilter<"StaffTask"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
   }
 
   export type UserUpsertWithWhereUniqueWithoutTenantInput = {
@@ -46781,6 +48396,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -46816,6 +48432,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -46916,6 +48533,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -46951,6 +48569,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -47000,6 +48619,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -47035,6 +48655,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -47105,6 +48726,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -47140,6 +48762,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -47446,6 +49069,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -47481,6 +49105,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -47725,6 +49350,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -47760,6 +49386,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -48152,6 +49779,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -48187,6 +49815,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -48747,6 +50376,7 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isFeatured?: boolean
     tenant: TenantCreateNestedOneWithoutServicesInput
   }
 
@@ -48761,6 +50391,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+    isFeatured?: boolean
   }
 
   export type ServiceCreateOrConnectWithoutVisitsInput = {
@@ -48794,6 +50425,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -48829,6 +50461,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -49144,6 +50777,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     tenant?: TenantUpdateOneRequiredWithoutServicesNestedInput
   }
 
@@ -49158,6 +50792,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantUpsertWithoutVisitsInput = {
@@ -49197,6 +50832,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -49232,6 +50868,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -49264,6 +50901,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -49299,6 +50937,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -49428,6 +51067,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -49463,6 +51103,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -49621,6 +51262,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
@@ -49656,6 +51298,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
@@ -49900,6 +51543,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
@@ -49935,6 +51579,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
@@ -50645,6 +52290,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -50680,6 +52326,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -50863,6 +52510,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -50898,6 +52546,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -51144,6 +52793,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -51179,6 +52829,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -51364,6 +53015,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -51399,6 +53051,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -51713,6 +53366,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -51748,6 +53402,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -51884,6 +53539,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -51919,6 +53575,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -52185,6 +53842,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -52220,6 +53878,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -52405,6 +54064,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -52440,6 +54100,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -52690,6 +54351,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -52725,6 +54387,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -52833,6 +54496,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -52868,6 +54532,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -52954,6 +54619,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -52989,6 +54655,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -53177,6 +54844,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -53212,6 +54880,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -53316,6 +54985,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -53351,6 +55021,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -53461,6 +55132,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -53496,6 +55168,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -53584,6 +55257,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
     services?: ServiceCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -53619,6 +55293,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -53804,6 +55479,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
     services?: ServiceUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -53839,6 +55515,7 @@ export namespace Prisma {
     pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -54038,6 +55715,162 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+  }
+
+  export type TenantCreateWithoutStaffTasksInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutStaffTasksInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutStaffTasksInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
+  }
+
+  export type TenantUpsertWithoutStaffTasksInput = {
+    update: XOR<TenantUpdateWithoutStaffTasksInput, TenantUncheckedUpdateWithoutStaffTasksInput>
+    create: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutStaffTasksInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutStaffTasksInput, TenantUncheckedUpdateWithoutStaffTasksInput>
+  }
+
+  export type TenantUpdateWithoutStaffTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutStaffTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -54399,6 +56232,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -54434,6 +56268,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -54676,6 +56511,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -54711,6 +56547,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -54826,6 +56663,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
     visits?: VisitCreateNestedManyWithoutTenantInput
@@ -54861,6 +56699,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
     shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
     timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
@@ -54910,6 +56749,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -54945,6 +56785,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -54977,6 +56818,8 @@ export namespace Prisma {
     canonicalUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    targetRole?: $Enums.Role | null
+    category?: string | null
   }
 
   export type DailyEntryCreateManyStaffInput = {
@@ -55105,6 +56948,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogPostUncheckedUpdateWithoutAuthorInput = {
@@ -55121,6 +56966,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogPostUncheckedUpdateManyWithoutAuthorInput = {
@@ -55137,6 +56984,8 @@ export namespace Prisma {
     canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DailyEntryUpdateWithoutStaffInput = {
@@ -55504,6 +57353,7 @@ export namespace Prisma {
     isActive?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isFeatured?: boolean
   }
 
   export type ShiftAssignmentCreateManyTenantInput = {
@@ -55524,6 +57374,18 @@ export namespace Prisma {
     submittedAt?: Date | string | null
     reviewedBy?: string | null
     reviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskCreateManyTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -56017,6 +57879,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     visits?: VisitUpdateManyWithoutServiceNestedInput
   }
 
@@ -56030,6 +57893,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     visits?: VisitUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -56043,6 +57907,7 @@ export namespace Prisma {
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ShiftAssignmentUpdateWithoutTenantInput = {
@@ -56109,6 +57974,42 @@ export namespace Prisma {
     submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -56383,6 +58284,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
     visits?: VisitUpdateManyWithoutTenantNestedInput
@@ -56417,6 +58319,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
     shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
     timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
@@ -58057,6 +59960,10 @@ export namespace Prisma {
      * @deprecated Use BlogPostDefaultArgs instead
      */
     export type BlogPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BlogPostDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffTaskDefaultArgs instead
+     */
+    export type StaffTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffTaskDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PswDocumentDefaultArgs instead
      */
