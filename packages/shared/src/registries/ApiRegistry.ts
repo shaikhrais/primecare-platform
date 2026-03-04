@@ -117,6 +117,12 @@ const PLATFORM = {
         AUDIT_DETAIL: (id: string) => `/v1/security/audits/${id}`,
         CRYPTO_HEALTH: '/v1/security/crypto-health',
     },
+    INTEROP: {
+        FHIR_EXPORT: (id: string) => `/v1/interop/fhir/export/${id}`,
+        FHIR_IMPORT: '/v1/interop/fhir/import',
+        DID_VERIFY: '/v1/interop/did/verify',
+        HEALTH_ID_GENERATE: '/v1/interop/did/generate',
+    },
 } as const;
 
 export const ApiRegistry = {

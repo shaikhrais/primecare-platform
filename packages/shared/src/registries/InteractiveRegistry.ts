@@ -65,7 +65,9 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-adm-region-new', label: 'Define New Region', role: 'admin', module: 'OPERATIONS', type: 'secondary', action: 'OPEN_MODAL', description: 'Creates a new operational geographic region.' },
     // SM Command Center Mastery
     { id: 'btn-sm-build-deploy', label: 'Deploy Staging', role: 'scrum_master', module: 'BUILDS', type: 'primary', action: 'CI_TRIGGER', description: 'Triggers a manual CI/CD deployment.' },
-    { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' }
+    { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' },
+    { id: 'btn-adm-fhir-export', label: 'Export FHIR Record', role: 'admin', module: 'INTEROP', type: 'primary', action: 'API_TRIGGER', description: 'Generates an HL7 FHIR R4 clinical JSON.' },
+    { id: 'btn-wallet-did-verify', label: 'Authorize Secure Access', role: 'client', module: 'SOVEREIGN', type: 'primary', action: 'API_TRIGGER', description: 'Authenticates via Decentralized Identity (DID).' }
 ];
 
 /**

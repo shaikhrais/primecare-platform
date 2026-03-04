@@ -72,6 +72,8 @@ model Tenant {
   trainingModules  TrainingModule[]
   surveys          Survey[]
   regions          Region[]
+  clinicalRecords  ClinicalRecord[]
+  fhirSyncLogs     FhirSyncLog[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -805,4 +807,46 @@ model BranchCapacity {
   region          Region   @relation(fields: [regionId], references: [id])
 
   @@map("branch_capacity")
+}
+
+model ClinicalRecord {
+  id          String   @id @default(uuid())
+  clientId    String   @map("client_id")
+  type        String // e.g., 'Observation', 'Condition', 'Medication'
+  data        Json     @map("data_json") // FHIR-compliant structure
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  tenantId    String   @map("tenant_id")
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([clientId])
+  @@index([tenantId])
+  @@map("clinical_records")
+}
+
+model HealthID {
+  id          String   @id @default(uuid())
+  userId      String   @unique @map("user_id")
+  did         String   @unique // W3C Decentralized Identifier
+  publicKey   String   @map("public_key")
+  status      String   @default("active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("health_ids")
+}
+
+model FhirSyncLog {
+  id          String   @id @default(uuid())
+  direction   String // INBOUND, OUTBOUND
+  resourceType String  @map("resource_type")
+  externalId  String?  @map("external_id")
+  status      String // SUCCESS, FAILURE
+  error       String?
+  timestamp   DateTime @default(now())
+  tenantId    String   @map("tenant_id")
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("fhir_sync_logs")
 }
