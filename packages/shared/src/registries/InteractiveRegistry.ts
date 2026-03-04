@@ -51,7 +51,16 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-client-pay-invoice', label: 'Pay Invoice', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.CLIENT.INVOICES, description: 'Direct payment for outstanding invoices.' },
     { id: 'btn-allied-sign-visit', label: 'Sign Clinical Note', role: 'rmt', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', description: 'Clinical sign-off for Allied Health professionals.' },
     { id: 'btn-superuser-tenant-new', label: 'Provision New Tenant', role: 'super_admin', module: 'PLATFORM', type: 'primary', action: 'OPEN_MODAL', description: 'Initializes a new multi-tenant environment.' },
-    { id: 'btn-superuser-risk-scan', label: 'Run Risk Surveillance', role: 'super_admin', module: 'PLATFORM', type: 'danger', action: 'API_TRIGGER', description: 'Triggers platform-wide anomaly detection.' }
+    { id: 'btn-superuser-risk-scan', label: 'Run Risk Surveillance', role: 'super_admin', module: 'PLATFORM', type: 'danger', action: 'API_TRIGGER', description: 'Triggers platform-wide anomaly detection.' },
+    // Admin Module Mastery
+    { id: 'btn-adm-admission-new', label: 'New Admission', role: 'admin', module: 'ADMISSION', type: 'primary', action: 'OPEN_MODAL', description: 'Starts the clinical admission intake.' },
+    { id: 'btn-adm-automation-trigger', label: 'Launch Autopilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Triggers clinical autopilot routines.' },
+    { id: 'btn-adm-leads-convert', label: 'Convert Lead', role: 'admin', module: 'LEADS', type: 'primary', action: 'OPEN_MODAL', description: 'Converts a business lead to a customer.' },
+    { id: 'btn-adm-schedule-optimize', label: 'AI Shift Match', role: 'admin', module: 'SCHEDULE', type: 'primary', action: 'API_TRIGGER', description: 'Runs AI matching for unassigned shifts.' },
+    { id: 'btn-adm-billing-finalize', label: 'Lock Master Ledger', role: 'admin', module: 'INVOICES', type: 'danger', action: 'API_TRIGGER', description: 'Finalizes global billing state.' },
+    // SM Command Center Mastery
+    { id: 'btn-sm-build-deploy', label: 'Deploy Staging', role: 'scrum_master', module: 'BUILDS', type: 'primary', action: 'CI_TRIGGER', description: 'Triggers a manual CI/CD deployment.' },
+    { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' }
 ];
 
 /**
@@ -70,7 +79,15 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-client-team', label: 'My Care Team', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.TEAM, description: 'View and contact assigned healthcare professionals.' },
     { id: 'lnk-allied-history', label: 'Treatment History', role: 'rmt', module: 'CLINICAL', path: RouteRegistry.RN.DASHBOARD, description: 'Historical view of clinical treatments.' },
     { id: 'lnk-superuser-tenants', label: 'Global Tenant Map', role: 'super_admin', module: 'PLATFORM', path: RouteRegistry.SUPERUSER.TENANTS, description: 'High-level oversight of all system instances.' },
-    { id: 'lnk-superuser-sla', label: 'SLA Performance', role: 'super_admin', module: 'PLATFORM', path: RouteRegistry.SUPERUSER.SLA, description: 'Uptime and performance monitoring across the platform.' }
+    { id: 'lnk-superuser-sla', label: 'SLA Performance', role: 'super_admin', module: 'PLATFORM', path: RouteRegistry.SUPERUSER.SLA, description: 'Uptime and performance monitoring across the platform.' },
+    // Admin Module Navigation
+    { id: 'lnk-adm-customers', label: 'Customer CRM', role: 'admin', module: 'CUSTOMERS', path: RouteRegistry.ADMIN.CUSTOMERS, description: 'Global customer management portal.' },
+    { id: 'lnk-adm-earnings', label: 'Earnings Ledger', role: 'admin', module: 'EARNINGS', path: RouteRegistry.ADMIN.EARNINGS, description: 'View across all platform revenue stream.' },
+    { id: 'lnk-adm-interop', label: 'Electronic Health Link', role: 'admin', module: 'INTEROP', path: RouteRegistry.ADMIN.INTEROP, description: 'HL7/FHIR gateway status.' },
+    { id: 'lnk-adm-locations', label: 'Branch Mapping', role: 'admin', module: 'LOCATIONS', path: RouteRegistry.ADMIN.LOCATIONS, description: 'Manage geographic branch boundaries.' },
+    // SM Technical Dashboards
+    { id: 'lnk-sm-perf-metrics', label: 'Node Performance', role: 'scrum_master', module: 'PERFORMANCE', path: RouteRegistry.SCRUM_MASTER.PERFORMANCE, description: 'Real-time V8 monitoring.' },
+    { id: 'lnk-sm-theme-lab', label: 'Theme Studio', role: 'scrum_master', module: 'THEME', path: RouteRegistry.SCRUM_MASTER.THEME_CENTER, description: 'Live registry-driven CSS variable lab.' }
 ];
 
 /**
@@ -78,7 +95,9 @@ export const LinkRegistry: LinkDef[] = [
  */
 export const InteractionARegistry: InteractionADef[] = [
     { id: 'ia-sm-registry-repair', label: 'Auto-Repair Registry', role: 'scrum_master', module: 'SCRUM_MASTER', trigger: 'click', consequence: 'apiTrigger', target: ApiRegistry.SCRUM_MASTER.AUTO_FIX, description: 'Autonomous attempt to resolve broken registry mappings.' },
-    { id: 'ia-hr-bulk-notify', label: 'Compliance Notifications', role: 'hr_manager', module: 'HR', trigger: 'click', consequence: 'openModal', description: 'Open bulk notification composer for certification renewals.' }
+    { id: 'ia-hr-bulk-notify', label: 'Compliance Notifications', role: 'hr_manager', module: 'HR', trigger: 'click', consequence: 'openModal', description: 'Open bulk notification composer for certification renewals.' },
+    { id: 'ia-adm-provision-flow', label: 'Enterprise Provisioning', role: 'admin', module: 'SETUP', trigger: 'click', consequence: 'openModal', description: 'Multi-step wizard for new enterprise on-boarding.' },
+    { id: 'ia-sm-recovery-full', label: 'Disaster Recovery', role: 'scrum_master', module: 'GOVERNANCE', trigger: 'click', consequence: 'apiTrigger', target: ApiRegistry.SCRUM_MASTER.AUTO_FIX, description: 'Emergency restoration of platform registry state.' }
 ];
 
 export const UnifiedInteractiveRegistry = {

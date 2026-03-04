@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                         alignItems: 'center',
                         gap: '0.5rem'
                     }}>
-                        🛠️ Developer Audit
+                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-universal-sweep')?.label || '🛠️ Developer Audit'}
                     </button>
                 </Link>
             </div>

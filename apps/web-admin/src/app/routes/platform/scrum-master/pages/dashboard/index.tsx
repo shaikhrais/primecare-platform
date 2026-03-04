@@ -116,7 +116,7 @@ export default function ScrumMasterDashboard() {
                 <Link to={RouteRegistry.SCRUM_MASTER.API_ENDPOINTS} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
                         <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3))' }}>🔌</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}</h3>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{AdminRegistry.LinkRegistry.find((l: any) => l.id === 'lnk-sm-api-hub')?.label || 'API Integrity Hub'}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.SUBTITLE)}
                         </p>
@@ -156,7 +156,7 @@ export default function ScrumMasterDashboard() {
                 <Link to={RouteRegistry.SCRUM_MASTER.PERFORMANCE} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
                         <div style={{ background: 'linear-gradient(135deg, #facc15, #ea580c)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(250, 204, 21, 0.3))' }}>⚡</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.PERFORMANCE.TITLE)}</h3>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{AdminRegistry.LinkRegistry.find((l: any) => l.id === 'lnk-sm-perf-metrics')?.label || 'Node Performance'}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.PERFORMANCE.SUBTITLE)}
                         </p>
@@ -176,7 +176,7 @@ export default function ScrumMasterDashboard() {
                 <Link to={RouteRegistry.SCRUM_MASTER.SECURITY_SCANS} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
                         <div style={{ background: 'linear-gradient(135deg, #f87171, #b91c1c)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(248, 113, 113, 0.3))' }}>🛡️</div>
-                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.TITLE)}</h3>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-scan-security')?.label || 'Security Scans'}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.SUBTITLE)}
                         </p>
