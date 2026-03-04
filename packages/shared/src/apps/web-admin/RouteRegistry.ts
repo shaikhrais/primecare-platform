@@ -91,6 +91,28 @@ const PLATFORM = {
         ROLE_EDITOR: '/platform/admin/role-editor',
         DEV_KB: '/platform/admin/dev-kb',
         PRIVATE_MARKETPLACE: '/platform/admin/private-marketplace',
+
+        // New Intelligence & Security Layer
+        AI: {
+            DASHBOARD: '/platform/admin/ai',
+            PREDICTIVE_ANALYTICS: '/platform/admin/ai/predictive',
+            CHURN_RISK: '/platform/admin/ai/churn-risk',
+            VISIT_OPTIMIZATION: '/platform/admin/ai/visit-optimization',
+            SENTIMENT_ANALYSIS: '/platform/admin/ai/sentiment',
+        },
+        SECURITY: {
+            DASHBOARD: '/platform/admin/security',
+            PERMISSION_GRID: '/platform/admin/security/permissions',
+            AUDIT_DETAIL: (id: string) => `/platform/admin/security/audits/${id}`,
+            SESSION_MONITOR: '/platform/admin/security/sessions',
+            THREAT_DETECTION: '/platform/admin/security/threats',
+        },
+        OPERATIONS: {
+            REALTIME_CAPACITY: '/platform/admin/ops/capacity',
+            REGION_MAPPING: '/platform/admin/ops/regions',
+            SUPPLY_DEMAND: '/platform/admin/ops/supply-demand',
+            LOGISTICS_HUB: '/platform/admin/ops/logistics',
+        }
     },
     SUPERUSER: {
         DASHBOARD: '/platform',
@@ -98,6 +120,8 @@ const PLATFORM = {
         AUDIT_LOGS: '/platform/audit-logs',
         SLA: '/platform/sla',
         RISK_SURVEILLANCE: '/platform/risk-surveillance',
+        GOVERNANCE_HUB: '/platform/governance',
+        SYSTEM_POLICIES: '/platform/policies',
     },
     SCRUM_MASTER: {
         DASHBOARD: '/platform/scrum-master',

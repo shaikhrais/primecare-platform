@@ -110,6 +110,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
             <Sidebar
                 menuItems={menuItems}
                 isCollapsed={isCollapsed}
+                setIsCollapsed={setIsCollapsed}
                 isMobile={isMobile}
                 isOpen={isSidebarOpen}
                 setIsOpen={setIsSidebarOpen}

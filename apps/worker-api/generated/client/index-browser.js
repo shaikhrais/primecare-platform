@@ -530,7 +530,8 @@ exports.Role = exports.$Enums.Role = {
   rmt: 'rmt',
   rpt: 'rpt',
   rch: 'rch',
-  finance: 'finance'
+  finance: 'finance',
+  scrum_master: 'scrum_master'
 };
 
 exports.VisitStatus = exports.$Enums.VisitStatus = {

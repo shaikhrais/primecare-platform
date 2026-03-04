@@ -16,6 +16,7 @@ interface MenuItem {
 interface SidebarProps {
     menuItems: MenuItem[];
     isCollapsed: boolean;
+    setIsCollapsed: (collapsed: boolean) => void;
     isMobile: boolean;
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
@@ -25,6 +26,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({
     menuItems,
     isCollapsed,
+    setIsCollapsed,
     isMobile,
     isOpen,
     setIsOpen,
@@ -122,7 +124,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <DevPerspectiveSwitcher />
             </div>
 
-            <div className="sidebar-footer" style={{ padding: isCollapsed ? '10px' : '20px', borderTop: '1px solid #F3F4F6' }}>
+            <div className="sidebar-footer" style={{ padding: isCollapsed ? '10px' : '20px', borderTop: '1px solid #F3F4F6', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {!isMobile && (
+                    <button
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        data-cy="btn-sidebar-collapse"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: isCollapsed ? 'center' : 'flex-start',
+                            gap: isCollapsed ? '0' : '10px',
+                            width: '100%',
+                            padding: '12px',
+                            backgroundColor: '#F9FAFB',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '8px',
+                            color: '#4B5563',
+                            fontWeight: '700',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s'
+                        }}
+                    >
+                        <span style={{ transition: 'transform 0.3s', transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}>◀</span>
+                        {!isCollapsed && <span>{t('common.collapse', 'Collapse Menu')}</span>}
+                    </button>
+                )}
+
                 <button
                     onClick={handleLogout}
                     data-cy="btn-logout"

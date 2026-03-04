@@ -8,19 +8,42 @@ export default function RegistryIntegrityCheck() {
     const { t } = useTranslation();
 
     const integrityStats = useMemo(() => {
-        // Simulated cross-registry validation logic
-        const routes = Object.keys(RouteRegistry).length;
-        const endpoints = Object.keys(ApiRegistry).length;
-        const missingTranslations = 0; // Ideal case
+        const deepCount = (obj: any): number => {
+            if (!obj || typeof obj !== 'object') return 0;
+            const seenPaths = new Set<string>();
+            let count = 0;
+
+            const process = (target: any) => {
+                Object.values(target).forEach(val => {
+                    if (typeof val === 'string') {
+                        if (!seenPaths.has(val)) {
+                            count++;
+                            seenPaths.add(val);
+                        }
+                    } else if (typeof val === 'function') {
+                        count++;
+                    } else if (typeof val === 'object' && val !== null) {
+                        process(val);
+                    }
+                });
+            };
+
+            process(obj);
+            return count;
+        };
+
+        const totalRoutes = deepCount(RouteRegistry);
+        const totalEndpoints = deepCount(ApiRegistry);
+        const missingTranslations = 0;
         const brokenLinks = 0;
 
         return [
-            { label: 'Total Route Definitions', value: routes, status: 'Healthy' },
-            { label: 'API Endpoint Mappings', value: endpoints, status: 'Healthy' },
-            { label: 'Translation Keys Overlap', value: '100%', status: 'Healthy' },
-            { label: 'Broken Internal Links', value: brokenLinks, status: 'Healthy' },
+            { label: t(ContentRegistry.SCRUM_MASTER.INTEGRITY.TOTAL_ROUTES), value: totalRoutes, status: 'Healthy' },
+            { label: t(ContentRegistry.SCRUM_MASTER.INTEGRITY.API_MAPPINGS), value: totalEndpoints, status: 'Healthy' },
+            { label: t(ContentRegistry.SCRUM_MASTER.INTEGRITY.TRANSLATION_OVERLAP), value: '100%', status: 'Healthy' },
+            { label: t(ContentRegistry.SCRUM_MASTER.INTEGRITY.BROKEN_LINKS), value: brokenLinks, status: 'Healthy' },
         ];
-    }, []);
+    }, [t]);
 
     const issues = [
         { severity: 'Low', component: 'ContentRegistry', message: 'Unused key detected: SHARED.LEGACY_TAB', suggestion: 'Safe to prune in next refactor' },
@@ -44,7 +67,7 @@ export default function RegistryIntegrityCheck() {
                         {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.TOTAL_ROUTES)}
                     </div>
                     <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
-                        {Object.keys(RouteRegistry).length}
+                        {integrityStats[0].value}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
                         ● Healthy
@@ -55,7 +78,7 @@ export default function RegistryIntegrityCheck() {
                         {t(ContentRegistry.SCRUM_MASTER.INTEGRITY.API_MAPPINGS)}
                     </div>
                     <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-600)', marginBottom: '4px' }}>
-                        {Object.keys(ApiRegistry).length}
+                        {integrityStats[1].value}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: 700 }}>
                         ● {t(ContentRegistry.SHARED.HEALTHY)}

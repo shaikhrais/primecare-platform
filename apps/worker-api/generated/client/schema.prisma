@@ -556,6 +556,7 @@ enum Role {
   rpt
   rch
   finance
+  scrum_master
 }
 
 enum DocStatus {

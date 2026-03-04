@@ -172,7 +172,8 @@ export namespace $Enums {
   rmt: 'rmt',
   rpt: 'rpt',
   rch: 'rch',
-  finance: 'finance'
+  finance: 'finance',
+  scrum_master: 'scrum_master'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]

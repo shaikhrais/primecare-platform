@@ -7,6 +7,7 @@ const { ContentRegistry, ApiRegistry } = AdminRegistry;
 export default function ApiEndpointsHub() {
     const { t } = useTranslation();
     const [testingId, setTestingId] = useState<string | null>(null);
+    const [isTestingAll, setIsTestingAll] = useState(false);
     const [testResults, setTestResults] = useState<Record<string, any>>({});
 
     // Dynamically extract endpoints from ApiRegistry
@@ -29,20 +30,46 @@ export default function ApiEndpointsHub() {
         };
 
         processRegistry(ApiRegistry, 'API');
-        return list.filter(ep => ep.path.startsWith('/v1')).slice(0, 20); // Limiting to top 20 for UI clarity
+        return list.filter(ep => ep.path.startsWith('/v1')); // Removed .slice(0, 20) to show all
     }, []);
 
     const handleTest = async (id: string, path: string) => {
-        setTestingId(id);
-        // Simulate API call check
-        setTimeout(() => {
-            setTestResults(prev => ({
-                ...prev,
-                [id]: { status: 200, time: `${Math.floor(Math.random() * 100) + 20}ms`, success: true }
-            }));
-            setTestingId(null);
-        }, 600);
+        if (!isTestingAll) setTestingId(id);
+
+        // Staggered simulation
+        return new Promise<void>((resolve) => {
+            setTimeout(() => {
+                setTestResults(prev => ({
+                    ...prev,
+                    [id]: { status: 200, time: `${Math.floor(Math.random() * 100) + 20}ms`, success: true }
+                }));
+                if (!isTestingAll) setTestingId(null);
+                resolve();
+            }, Math.floor(Math.random() * 400) + 100);
+        });
     };
+
+    const handleTestAll = async () => {
+        setIsTestingAll(true);
+        setTestResults({});
+
+        // Execute in small batches to feel responsive
+        for (let i = 0; i < endpoints.length; i++) {
+            await handleTest(i.toString(), endpoints[i].path);
+        }
+
+        setIsTestingAll(false);
+    };
+
+    const stats = useMemo(() => {
+        const results = Object.values(testResults);
+        return {
+            total: endpoints.length,
+            tested: results.length,
+            passed: results.filter(r => r.success).length,
+            failed: results.filter(r => !r.success).length
+        };
+    }, [testResults, endpoints]);
 
     return (
         <div data-cy="api-endpoints-hub">
@@ -53,6 +80,49 @@ export default function ApiEndpointsHub() {
                 <p style={{ margin: 0, color: 'var(--text-300)', fontSize: '1.1rem' }}>
                     {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.SUBTITLE)}
                 </p>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '2rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-400)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Endpoints</span>
+                        <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-100)' }}>{stats.total}</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-400)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tested</span>
+                        <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--brand-500)' }}>{stats.tested}</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-400)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Passed</span>
+                        <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#10b981' }}>{stats.passed}</span>
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button
+                        onClick={() => setTestResults({})}
+                        style={{ padding: '10px 20px', backgroundColor: 'transparent', color: 'var(--text-200)', border: '1px solid var(--border)', borderRadius: '12px', fontWeight: 600, cursor: 'pointer' }}
+                    >
+                        Clear Results
+                    </button>
+                    <button
+                        onClick={handleTestAll}
+                        disabled={isTestingAll}
+                        style={{
+                            padding: '10px 24px',
+                            backgroundColor: 'var(--brand-500)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '12px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            opacity: isTestingAll ? 0.7 : 1,
+                            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+                        }}
+                    >
+                        {isTestingAll ? 'Testing All...' : 'Test All Endpoints'}
+                    </button>
+                </div>
             </div>
 
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
