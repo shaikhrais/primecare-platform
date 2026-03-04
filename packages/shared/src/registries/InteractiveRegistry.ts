@@ -46,7 +46,10 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-sm-universal-sweep', label: 'Start Universal Sweep', role: 'scrum_master', module: 'GOVERNANCE', type: 'primary', action: 'API_TRIGGER', description: 'Triggers the Response Bot for a platform-wide heartbeat check.' },
     { id: 'btn-sm-auto-fix', label: 'Auto-Fix Registry', role: 'scrum_master', module: 'GOVERNANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Automatically repairs orphan registry entries.' },
     { id: 'btn-coord-sos-dispatch', label: 'Dispatch Hero', role: 'coordinator', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Emergency dispatch for SOS alerts.' },
-    { id: 'btn-coord-optimize', label: 'Optimize Routes', role: 'coordinator', module: 'OPERATIONS', type: 'secondary', action: 'API_TRIGGER', description: 'Runs AI route optimization for the current shift.' }
+    { id: 'btn-coord-optimize', label: 'Optimize Routes', role: 'coordinator', module: 'OPERATIONS', type: 'secondary', action: 'API_TRIGGER', description: 'Runs AI route optimization for the current shift.' },
+    { id: 'btn-client-request-care', label: 'Book New Service', role: 'client', module: 'CLIENT', type: 'primary', action: 'OPEN_MODAL', description: 'Triggers the service booking flow.' },
+    { id: 'btn-client-pay-invoice', label: 'Pay Invoice', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.CLIENT.INVOICES, description: 'Direct payment for outstanding invoices.' },
+    { id: 'btn-allied-sign-visit', label: 'Sign Clinical Note', role: 'rmt', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', description: 'Clinical sign-off for Allied Health professionals.' }
 ];
 
 /**
@@ -61,7 +64,9 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-staff-incidents', label: 'Incident Desk', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.INCIDENTS, description: 'Review and manage reported field incidents.' },
     { id: 'lnk-psw-offers', label: 'Shift Marketplace', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.OFFERS, description: 'Browse and accept open shift opportunities.' },
     { id: 'lnk-rn-supervision', label: 'Supervision Hub', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.SUPERVISION, description: 'RN oversight portal for PSW performance.' },
-    { id: 'lnk-client-support', label: 'Nursing Chat', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.SUPPORT, description: 'Family line to clinical support staff.' }
+    { id: 'lnk-client-support', label: 'Nursing Chat', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.SUPPORT, description: 'Family line to clinical support staff.' },
+    { id: 'lnk-client-team', label: 'My Care Team', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.TEAM, description: 'View and contact assigned healthcare professionals.' },
+    { id: 'lnk-allied-history', label: 'Treatment History', role: 'rmt', module: 'CLINICAL', path: RouteRegistry.RN.DASHBOARD, description: 'Historical view of clinical treatments.' }
 ];
 
 /**

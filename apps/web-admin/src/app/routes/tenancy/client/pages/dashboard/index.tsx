@@ -117,11 +117,11 @@ export default function ClientDashboard() {
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
                     <button
-                        data-cy="btn-request-care"
+                        data-cy="btn-client-request-care"
                         className="btn btn-primary"
                         onClick={() => setIsModalOpen(true)}
                     >
-                        {t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
+                        {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-request-care')?.label || t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
                     </button>
                 </div>
             </div>

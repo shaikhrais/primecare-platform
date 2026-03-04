@@ -20,6 +20,7 @@ const HrRecruitmentPortal = lazy(() => import('./hr/HrRecruitmentPortal'));
 const FinanceRegionalHub = lazy(() => import('./finance/FinanceRegionalHub'));
 const ClinicalQaDashboard = lazy(() => import('./qa/ClinicalQaDashboard'));
 const CoordinatorHub = lazy(() => import('./operations/CoordinatorHub'));
+const AlliedHealthDashboard = lazy(() => import('./allied-health/AlliedHealthDashboard'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -124,6 +125,11 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.CLIENT.SUPPORT} element={<ClientMessaging />} />
             <Route path={RouteRegistry.CLIENT.TEAM} element={<CareTeam />} />
             <Route path={RouteRegistry.CLIENT.FEEDBACK_LOOP} element={<FeedbackLoop />} />
+        </Route>
+
+        {/* ALLIED HEALTH PORTAL */}
+        <Route path={RouteRegistry.PLAN.ALLIED.DASHBOARD} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
+            <Route index element={<AlliedHealthDashboard />} />
         </Route>
     </>
 );

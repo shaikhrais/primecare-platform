@@ -56,6 +56,11 @@ const TENANCY = {
         TEAM: '/tenancy/client/team',
         FEEDBACK_LOOP: '/tenancy/client/feedback-loop',
     },
+    ALLIED: {
+        DASHBOARD: '/tenancy/allied-health',
+        TREATMENTS: '/tenancy/allied-health/treatments',
+        SIGN_OFF: '/tenancy/allied-health/sign-off',
+    },
     CARE_PLANS: '/care-plans',
 } as const;
 
@@ -225,9 +230,9 @@ export const RouteRegistry = {
         compliance: TENANCY.STAFF.DASHBOARD,
         rn: TENANCY.RN.DASHBOARD,
         psw: TENANCY.PSW.DASHBOARD,
-        rmt: TENANCY.PSW.DASHBOARD,
-        rpt: TENANCY.PSW.DASHBOARD,
-        rch: TENANCY.PSW.DASHBOARD,
+        rmt: TENANCY.ALLIED.DASHBOARD,
+        rpt: TENANCY.ALLIED.DASHBOARD,
+        rch: TENANCY.ALLIED.DASHBOARD,
         client: TENANCY.CLIENT.DASHBOARD,
         super_admin: PLATFORM.SUPERUSER.DASHBOARD,
         scrum_master: PLATFORM.SCRUM_MASTER.DASHBOARD
