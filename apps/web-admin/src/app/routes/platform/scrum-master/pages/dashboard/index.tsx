@@ -75,8 +75,8 @@ export default function ScrumMasterDashboard() {
                     <Link to={RouteRegistry.LEARN} className="btn-utility" style={{ background: 'var(--brand-50)', color: 'var(--brand-600)' }}>
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
-                    <Link to={RouteRegistry.ADMIN.DEV_KB} className="btn-utility" style={{ background: '#f8fafc', color: '#475569', border: '1px solid #e2e8f0' }}>
-                        🛠️ {t(ContentRegistry.DEV_KB.TITLE)}
+                    <Link to={RouteRegistry.SCRUM_MASTER.DEV_KB} className="btn-utility" style={{ background: '#f8fafc', color: '#475569', border: '1px solid #e2e8f0' }}>
+                        🛠️ {t(ContentRegistry.SCRUM_MASTER.DEV_KB?.TITLE || 'Dev KB')}
                     </Link>
                 </div>
             </div>
@@ -149,6 +149,56 @@ export default function ScrumMasterDashboard() {
                         <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.MONITORING.TITLE)}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.MONITORING.SUBTITLE)}
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.SCRUM_MASTER.PERFORMANCE} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card">
+                        <div style={{ background: 'linear-gradient(135deg, #facc15, #ea580c)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(250, 204, 21, 0.3))' }}>⚡</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.PERFORMANCE.TITLE)}</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            {t(ContentRegistry.SCRUM_MASTER.PERFORMANCE.SUBTITLE)}
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.SCRUM_MASTER.BUILD_HEALTH} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card">
+                        <div style={{ background: 'linear-gradient(135deg, #34d399, #059669)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(52, 211, 153, 0.3))' }}>🏗️</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.BUILD_HEALTH.TITLE)}</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            {t(ContentRegistry.SCRUM_MASTER.BUILD_HEALTH.SUBTITLE)}
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.SCRUM_MASTER.SECURITY_SCANS} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card">
+                        <div style={{ background: 'linear-gradient(135deg, #f87171, #b91c1c)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(248, 113, 113, 0.3))' }}>🛡️</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.TITLE)}</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            {t(ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.SUBTITLE)}
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.SCRUM_MASTER.LOCALIZATION} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card">
+                        <div style={{ background: 'linear-gradient(135deg, #60a5fa, #2563eb)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(96, 165, 250, 0.3))' }}>🌍</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SCRUM_MASTER.LOCALIZATION.TITLE)}</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            {t(ContentRegistry.SCRUM_MASTER.LOCALIZATION.SUBTITLE)}
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.SCRUM_MASTER.DEVELOPER} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card">
+                        <div style={{ background: 'linear-gradient(135deg, #a78bfa, #7c3aed)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(167, 139, 250, 0.3))' }}>💻</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>Dev Portal</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            Consolidated engineering tools and developer sandbox.
                         </p>
                     </div>
                 </Link>

@@ -1128,6 +1128,14 @@ export const ContentRegistry = {
             TITLE: 'Theme',
             SUBTITLE: 'Style core',
         },
+        DEVELOPER: {
+            TITLE: 'Dev Portal',
+            SUBTITLE: 'Engineering sandbox',
+        },
+        DEV_KB: {
+            TITLE: 'Dev KB',
+            SUBTITLE: 'Technical documentation',
+        },
         PERFORMANCE: {
             TITLE: 'Perf',
             SUBTITLE: 'Lighthouse & Latency',
