@@ -74,6 +74,8 @@ model Tenant {
   regions          Region[]
   clinicalRecords  ClinicalRecord[]
   fhirSyncLogs     FhirSyncLog[]
+  aiRecommendations AIRecommendation[]
+  sentimentAnalyses SentimentAnalysis[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -849,4 +851,33 @@ model FhirSyncLog {
 
   @@index([tenantId])
   @@map("fhir_sync_logs")
+}
+
+model AIRecommendation {
+  id          String   @id @default(uuid())
+  type        String // e.g., 'Staffing', 'Clinical', 'Financial'
+  priority    String // LOW, MEDIUM, HIGH, CRITICAL
+  content     String
+  isApplied   Boolean  @default(false) @map("is_applied")
+  createdAt   DateTime @default(now()) @map("created_at")
+  tenantId    String   @map("tenant_id")
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("ai_recommendations")
+}
+
+model SentimentAnalysis {
+  id          String   @id @default(uuid())
+  source      String // 'VisitNote', 'SupportChat', 'Survey'
+  sourceId    String   @map("source_id")
+  score       Float // -1.0 to 1.0
+  magnitude   Float
+  entities    Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  tenantId    String   @map("tenant_id")
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("sentiment_analysis")
 }

@@ -67,7 +67,9 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-sm-build-deploy', label: 'Deploy Staging', role: 'scrum_master', module: 'BUILDS', type: 'primary', action: 'CI_TRIGGER', description: 'Triggers a manual CI/CD deployment.' },
     { id: 'btn-sm-scan-security', label: 'Full Security Scan', role: 'scrum_master', module: 'SCANS', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a platform-wide vulnerability audit.' },
     { id: 'btn-adm-fhir-export', label: 'Export FHIR Record', role: 'admin', module: 'INTEROP', type: 'primary', action: 'API_TRIGGER', description: 'Generates an HL7 FHIR R4 clinical JSON.' },
-    { id: 'btn-wallet-did-verify', label: 'Authorize Secure Access', role: 'client', module: 'SOVEREIGN', type: 'primary', action: 'API_TRIGGER', description: 'Authenticates via Decentralized Identity (DID).' }
+    { id: 'btn-wallet-did-verify', label: 'Authorize Secure Access', role: 'client', module: 'SOVEREIGN', type: 'primary', action: 'API_TRIGGER', description: 'Authenticates via Decentralized Identity (DID).' },
+    { id: 'btn-ai-insights-refresh', label: 'Recalculate Insights', role: 'admin', module: 'AI', type: 'secondary', action: 'API_TRIGGER', description: 'Triggers a full AI analytics refresh.' },
+    { id: 'btn-ai-autopilot-engage', label: 'Engage Auto-Pilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Initializes autonomous shift matchmaking.' }
 ];
 
 /**

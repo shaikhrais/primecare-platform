@@ -109,6 +109,8 @@ const PLATFORM = {
         CHURN: '/v1/ai/churn',
         OPTIMIZATION: '/v1/ai/optimization',
         VISIT_SENTIMENT: '/v1/ai/visit-sentiment',
+        AI_OPTIMIZE: '/v1/ai/optimize-flow',
+        AI_SENTIMENT_SCAN: '/v1/ai/sentiment-scan',
     },
     SECURITY: {
         THREATS: '/v1/security/threats',
