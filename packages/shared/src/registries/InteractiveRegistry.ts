@@ -69,7 +69,9 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-adm-fhir-export', label: 'Export FHIR Record', role: 'admin', module: 'INTEROP', type: 'primary', action: 'API_TRIGGER', description: 'Generates an HL7 FHIR R4 clinical JSON.' },
     { id: 'btn-wallet-did-verify', label: 'Authorize Secure Access', role: 'client', module: 'SOVEREIGN', type: 'primary', action: 'API_TRIGGER', description: 'Authenticates via Decentralized Identity (DID).' },
     { id: 'btn-ai-insights-refresh', label: 'Recalculate Insights', role: 'admin', module: 'AI', type: 'secondary', action: 'API_TRIGGER', description: 'Triggers a full AI analytics refresh.' },
-    { id: 'btn-ai-autopilot-engage', label: 'Engage Auto-Pilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Initializes autonomous shift matchmaking.' }
+    { id: 'btn-ai-autopilot-engage', label: 'Engage Auto-Pilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Initializes autonomous shift matchmaking.' },
+    { id: 'btn-sec-threat-scan', label: 'Scan for Threats', role: 'admin', module: 'SECURITY', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a real-time platform threat detection sweep.' },
+    { id: 'btn-sec-session-flush', label: 'Flush Suspicious Sessions', role: 'admin', module: 'SECURITY', type: 'secondary', action: 'API_TRIGGER', description: 'Terminates all sessions flagged with anomalous behavior.' }
 ];
 
 /**

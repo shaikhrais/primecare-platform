@@ -118,6 +118,8 @@ const PLATFORM = {
         PERMISSIONS: '/v1/security/permissions',
         AUDIT_DETAIL: (id: string) => `/v1/security/audits/${id}`,
         CRYPTO_HEALTH: '/v1/security/crypto-health',
+        THREAT_DETECTION: '/v1/security/threat-detection',
+        PLATFORM_AUDIT_LOGS: '/v1/security/platform-audit',
     },
     INTEROP: {
         FHIR_EXPORT: (id: string) => `/v1/interop/fhir/export/${id}`,

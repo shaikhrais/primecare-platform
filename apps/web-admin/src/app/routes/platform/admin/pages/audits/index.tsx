@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
+const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
 
 interface AuditRecord {
     id: string;
@@ -19,11 +18,12 @@ export default function GovernanceAuditPage() {
     const [logs, setLogs] = useState<AuditRecord[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const exportBtn = ButtonRegistry.find((b: any) => b.id === 'btn-adm-reports-export');
+
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                // In a real scenario, this would hit ApiRegistry.ADMIN.AUDITS
-                // Simulating log data that matches the AuditLog schema
+                // In a real scenario, this would hit ApiRegistry.SECURITY.PLATFORM_AUDIT_LOGS
                 await new Promise(resolve => setTimeout(resolve, 600));
                 setLogs([
                     { id: '1', action: 'USER_INVITE', actor: { email: 'admin@primecare.com' }, resourceType: 'USER', createdAt: '2026-03-04 10:20', metadataJson: { email: 'new.staff@branch.com' } },
@@ -128,8 +128,11 @@ export default function GovernanceAuditPage() {
                         <p style={{ margin: 0, fontSize: '0.8rem', opacity: 0.6 }}>Logs are cryptographically hashed and cannot be modified or deleted by any role.</p>
                     </div>
                 </div>
-                <button style={{ background: 'white', color: '#0f172a', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: 800, cursor: 'pointer' }}>
-                    Generate Forensic Export
+                <button
+                    style={{ background: 'white', color: '#0f172a', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: 800, cursor: 'pointer' }}
+                    data-cy="btn-adm-reports-export"
+                >
+                    {exportBtn?.label || 'Generate Forensic Export'}
                 </button>
             </div>
         </div>

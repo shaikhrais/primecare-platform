@@ -76,6 +76,8 @@ model Tenant {
   fhirSyncLogs     FhirSyncLog[]
   aiRecommendations AIRecommendation[]
   sentimentAnalyses SentimentAnalysis[]
+  auditLogs         AuditLog[]
+  securityThreats   SecurityThreat[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -880,4 +882,38 @@ model SentimentAnalysis {
 
   @@index([tenantId])
   @@map("sentiment_analysis")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  action       String // e.g., 'USER_LOGIN', 'DATA_EXPORT', 'SETTINGS_CHANGE'
+  actorId      String   @map("actor_id")
+  resourceType String   @map("resource_type") // e.g., 'USER', 'PATIENT', 'FINANCE'
+  resourceId   String?  @map("resource_id")
+  metadata     Json?
+  ipAddress    String?  @map("ip_address")
+  userAgent    String?  @map("user_agent")
+  createdAt    DateTime @default(now()) @map("created_at")
+  tenantId     String   @map("tenant_id")
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([actorId])
+  @@map("audit_logs")
+}
+
+model SecurityThreat {
+  id           String    @id @default(uuid())
+  type         String // e.g., 'BRUTE_FORCE', 'SQL_INJECTION', 'ANOMALOUS_LOGON'
+  severity     String // LOW, MEDIUM, HIGH, CRITICAL
+  status       String    @default("detected") // detected, mitigating, resolved
+  description  String
+  source       String? // IP address or user ID
+  detectedAt   DateTime  @default(now()) @map("detected_at")
+  resolvedAt   DateTime? @map("resolved_at")
+  tenantId     String    @map("tenant_id")
+  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("security_threats")
 }
