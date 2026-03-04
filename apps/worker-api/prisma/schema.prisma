@@ -630,6 +630,8 @@ enum IncidentType {
   refusal
   no_show
   safety
+  medical_emergency
+  sos_alert
   other
 }
 

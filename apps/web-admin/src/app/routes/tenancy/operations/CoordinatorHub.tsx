@@ -12,8 +12,17 @@ const CoordinatorHub: React.FC = () => {
                     <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
                         Live Map
                     </button>
-                    <button className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all">
-                        New Dispatch
+                    <button
+                        data-cy="btn-coord-optimize"
+                        className="px-4 py-2 bg-slate-100 text-slate-600 border border-slate-200 rounded-xl font-bold text-sm hover:bg-slate-200 transition-all"
+                    >
+                        Optimize Routes
+                    </button>
+                    <button
+                        data-cy="btn-coord-sos-dispatch"
+                        className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-100 hover:bg-emerald-700 transition-all"
+                    >
+                        Dispatch Hero
                     </button>
                 </div>
             </header>

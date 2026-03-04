@@ -77,6 +77,7 @@ const PLATFORM = {
         API_ENDPOINTS: '/v1/admin/endpoints',
         ENV_AUDIT: '/v1/admin/scrum/env-audit',
         AUTO_FIX: '/v1/admin/scrum/auto-fix',
+        SWEEP_START: '/v1/admin/scrum/universal-sweep',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

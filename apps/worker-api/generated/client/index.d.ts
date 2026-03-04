@@ -235,6 +235,8 @@ export const IncidentType: {
   refusal: 'refusal',
   no_show: 'no_show',
   safety: 'safety',
+  medical_emergency: 'medical_emergency',
+  sos_alert: 'sos_alert',
   other: 'other'
 };
 

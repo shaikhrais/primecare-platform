@@ -30,23 +30,34 @@ export default function StaffDashboard() {
                         {user?.email ? `${user.email} • ${t(ContentRegistry.ROLES.STAFF)}` : t(ContentRegistry.STAFF_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <Link
-                    to={RouteRegistry.LEARN}
-                    style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '10px 20px',
-                        backgroundColor: '#f1f5f9',
-                        color: '#475569',
-                        borderRadius: '10px',
-                        textDecoration: 'none',
-                        fontWeight: 700,
-                        fontSize: '0.9rem'
-                    }}
-                >
-                    🎓 {t(ContentRegistry.LEARN.TITLE)}
-                </Link>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <Link
+                        to={RouteRegistry.LEARN}
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '10px 20px',
+                            backgroundColor: '#FFFFFF',
+                            color: '#475569',
+                            borderRadius: '10px',
+                            textDecoration: 'none',
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            border: '1px solid #e2e8f0'
+                        }}
+                    >
+                        🎓 {t(ContentRegistry.LEARN.TITLE)}
+                    </Link>
+                    <button
+                        className="btn btn-primary"
+                        data-cy="btn-staff-task-add"
+                        style={{ padding: '10px 24px', borderRadius: '10px', fontWeight: 800 }}
+                        onClick={() => {/* Registry-driven navigation or modal */ }}
+                    >
+                        + Create Task
+                    </button>
+                </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>

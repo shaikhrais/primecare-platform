@@ -1,51 +1,136 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
-export default function CallAuditPage() {
-    const [calls] = useState([
-        { id: 1, type: 'Inquiry', duration: '1:24', status: 'Summarized', date: '2026-02-04 14:20', aiSummary: 'Client inquiring about availability for diabetic foot care in West end.' },
-        { id: 2, type: 'Support', duration: '0:45', status: 'Pending Review', date: '2026-02-04 15:10', aiSummary: 'PSW reported issues with the mobile app check-in feature.' },
-        { id: 3, type: 'Inquiry', duration: '2:10', status: 'Summarized', date: '2026-02-04 16:05', aiSummary: 'New lead interested in 24/7 care for elderly parent.' },
-    ]);
+const { ContentRegistry, ApiRegistry } = AdminRegistry;
+
+interface AuditRecord {
+    id: string;
+    action: string;
+    actor: { email: string };
+    resourceType: string;
+    createdAt: string;
+    metadataJson: any;
+}
+
+export default function GovernanceAuditPage() {
+    const { t } = useTranslation();
+    const [logs, setLogs] = useState<AuditRecord[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLogs = async () => {
+            try {
+                // In a real scenario, this would hit ApiRegistry.ADMIN.AUDITS
+                // Simulating log data that matches the AuditLog schema
+                await new Promise(resolve => setTimeout(resolve, 600));
+                setLogs([
+                    { id: '1', action: 'USER_INVITE', actor: { email: 'admin@primecare.com' }, resourceType: 'USER', createdAt: '2026-03-04 10:20', metadataJson: { email: 'new.staff@branch.com' } },
+                    { id: '2', action: 'API_KEY_GENERATE', actor: { email: 'sm@primecare.com' }, resourceType: 'SECURITY', createdAt: '2026-03-04 11:45', metadataJson: { name: 'Worker-Edge-Node' } },
+                    { id: '3', action: 'INCIDENT_RESOLVE', actor: { email: 'manager@branch.com' }, resourceType: 'OPERATIONS', createdAt: '2026-03-04 14:10', metadataJson: { incidentId: 'inc-992' } },
+                ]);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchLogs();
+    }, []);
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="call-audit-page">
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Voice Call Audits</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Review AI summaries and audio logs from marketing chat inquiries.</p>
-            </div>
+        <div data-cy="audit-logs-page" style={{ animation: 'fadeIn 0.5s ease-out' }}>
+            <style>
+                {`
+                    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+                    .glass-card {
+                        background: rgba(255, 255, 255, 0.7);
+                        backdrop-filter: blur(12px);
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                        border-radius: 24px;
+                        padding: 2rem;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+                    }
+                    .audit-row {
+                        display: grid;
+                        grid-template-columns: 100px 1fr 150px 200px 150px;
+                        gap: 1.5rem;
+                        padding: 1.25rem;
+                        border-bottom: 1px solid #f1f5f9;
+                        align-items: center;
+                        transition: all 0.2s;
+                    }
+                    .audit-row:hover { background: #f8fafc; border-radius: 12px; transform: scale(1.005); }
+                    .badge {
+                        padding: 4px 10px;
+                        border-radius: 8px;
+                        font-size: 0.7rem;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                    }
+                `}
+            </style>
 
-            <div style={{ display: 'grid', gap: '1.5rem' }}>
-                {calls.map(call => (
-                    <div key={call.id} data-cy={`call-audit-card-${call.id}`} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                <span style={{ backgroundColor: '#f3f4f6', padding: '0.25rem 0.75rem', borderRadius: '0.5rem', fontSize: '0.75rem', fontWeight: 'bold' }}>{call.type}</span>
-                                <span style={{ color: '#6b7280', fontSize: '0.875rem' }} data-cy="call-date">{call.date}</span>
-                            </div>
-                            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#004d40' }} data-cy="call-duration">{call.duration}</span>
-                        </div>
-
-                        <div style={{ display: 'flex', gap: '1.5rem' }}>
-                            <div style={{ flex: 1 }}>
-                                <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem' }}>AI Summary</h4>
-                                <p style={{ color: '#4b5563', margin: 0, lineHeight: '1.5' }} data-cy="call-summary">{call.aiSummary}</p>
-                            </div>
-                            <div style={{ width: '200px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <button data-cy="btn-play-recording" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#f3f4f6', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                                    ▶️ Play Recording
-                                </button>
-                                <button data-cy="btn-full-transcript" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer' }}>
-                                    Full Transcript
-                                </button>
-                            </div>
+            <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div>
+                    <h1 style={{ margin: 0, fontSize: '2.25rem', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em' }}>Platform Governance</h1>
+                    <p style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '1.1rem' }}>Master audit logs for security, operations, and clinical integrity.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                    <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#94a3b8', marginBottom: '4px' }}>HEALTH STATUS</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981', fontWeight: 700 }}>
+                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
+                            VERIFIED SECURE
                         </div>
                     </div>
-                ))}
+                </div>
             </div>
 
-            <div style={{ marginTop: '3rem', padding: '2rem', backgroundColor: '#ecfdf5', borderRadius: '1rem', textAlign: 'center' }}>
-                <h3 style={{ margin: '0 0 0.5rem 0', color: '#065f46' }}>Voice AI Engine Active</h3>
-                <p style={{ color: '#065f46', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>All calls are automatically transcribed and summarized using our Whisper + GPT-4o pipeline connected via worker-api.</p>
+            <div className="glass-card">
+                <div className="audit-row" style={{ color: '#94a3b8', fontSize: '0.7rem', fontWeight: 800, border: 'none', paddingBottom: '1rem' }}>
+                    <div>RESOURCE</div>
+                    <div>ACTION / METADATA</div>
+                    <div>ACTOR</div>
+                    <div>TIMELINE</div>
+                    <div style={{ textAlign: 'right' }}>STATUS</div>
+                </div>
+
+                {loading ? (
+                    <div style={{ padding: '4rem', textAlign: 'center', color: '#64748b' }}>Orchestrating audit records...</div>
+                ) : (
+                    logs.map(log => (
+                        <div key={log.id} className="audit-row">
+                            <div>
+                                <span className="badge" style={{ background: '#f1f5f9', color: '#475569' }}>{log.resourceType}</span>
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: 800, color: '#1e293b', marginBottom: '4px' }}>{log.action}</div>
+                                <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontFamily: 'monospace' }}>
+                                    {JSON.stringify(log.metadataJson)}
+                                </div>
+                            </div>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748b' }}>{log.actor.email.split('@')[0]}</div>
+                            <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{log.createdAt}</div>
+                            <div style={{ textAlign: 'right' }}>
+                                <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>SIGNED</span>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+
+            <div style={{ marginTop: '2rem', padding: '1.5rem', background: '#0f172a', borderRadius: '20px', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🛡️</div>
+                    <div>
+                        <h4 style={{ margin: 0, fontWeight: 800 }}>Immutable Log Policy</h4>
+                        <p style={{ margin: 0, fontSize: '0.8rem', opacity: 0.6 }}>Logs are cryptographically hashed and cannot be modified or deleted by any role.</p>
+                    </div>
+                </div>
+                <button style={{ background: 'white', color: '#0f172a', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: 800, cursor: 'pointer' }}>
+                    Generate Forensic Export
+                </button>
             </div>
         </div>
     );

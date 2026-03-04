@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 
-const { InteractionRegistry, RouteRegistry, ApiRegistry, InteractiveElementRegistry } = AdminRegistry;
+const { InteractionRegistry, RouteRegistry, ApiRegistry, InteractiveElementRegistry, ButtonRegistry, LinkRegistry, InteractionARegistry } = AdminRegistry;
 
 interface AuditResult {
     id: string;
     label: string;
     module: string;
-    routeStatus: 'valid' | 'invalid' | 'none';
-    apiStatus: 'valid' | 'invalid' | 'none';
+    routeStatus: 'valid' | 'broken' | 'none';
+    apiStatus: 'valid' | 'broken' | 'none';
     timestamp: string;
 }
 
@@ -22,7 +22,10 @@ const InteractionAudit: React.FC = () => {
         ...Object.values(InteractionRegistry).flatMap(module =>
             Object.values(module as object).flatMap(category => Object.values(category as object))
         ),
-        ...InteractiveElementRegistry
+        ...InteractiveElementRegistry,
+        ...ButtonRegistry,
+        ...LinkRegistry,
+        ...InteractionARegistry
     ];
 
     const runAudit = async () => {
