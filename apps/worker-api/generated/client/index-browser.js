@@ -526,6 +526,45 @@ exports.Prisma.CarePlanScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TrainingModuleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  videoUrl: 'videoUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.TrainingAssignmentScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  staffId: 'staffId',
+  moduleId: 'moduleId',
+  status: 'status',
+  completedAt: 'completedAt',
+  assignedAt: 'assignedAt'
+};
+
+exports.Prisma.SurveyScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  targetRole: 'targetRole',
+  questions: 'questions',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.SurveyResponseScalarFieldEnum = {
+  id: 'id',
+  surveyId: 'surveyId',
+  userId: 'userId',
+  answers: 'answers',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -683,7 +722,11 @@ exports.Prisma.ModelName = {
   DailyEntry: 'DailyEntry',
   MarketplaceListing: 'MarketplaceListing',
   Feedback: 'Feedback',
-  CarePlan: 'CarePlan'
+  CarePlan: 'CarePlan',
+  TrainingModule: 'TrainingModule',
+  TrainingAssignment: 'TrainingAssignment',
+  Survey: 'Survey',
+  SurveyResponse: 'SurveyResponse'
 };
 
 /**

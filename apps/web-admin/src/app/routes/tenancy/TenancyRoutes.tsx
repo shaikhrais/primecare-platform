@@ -12,6 +12,8 @@ const DailyEntry = lazy(() => import('./manager/pages/daily-entry'));
 const Evaluations = lazy(() => import('./manager/pages/evaluations'));
 const ServiceReview = lazy(() => import('./manager/pages/service-review'));
 const ManagerDashboard = lazy(() => import('./manager/pages/dashboard'));
+const TrainingHub = lazy(() => import('./manager/pages/training'));
+const SurveyManager = lazy(() => import('./manager/pages/surveys'));
 const StaffRanker = lazy(() => import('./manager/pages/performance/StaffRanker'));
 const BranchPL = lazy(() => import('./manager/pages/finance/BranchP_L'));
 const PayrollVerification = lazy(() => import('./manager/pages/finance/PayrollVerification'));
@@ -63,6 +65,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
             <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
             <Route path={RouteRegistry.MANAGER.PAYROLL} element={<PayrollVerification />} />
+            <Route path={RouteRegistry.MANAGER.TRAINING} element={<TrainingHub />} />
+            <Route path={RouteRegistry.MANAGER.SURVEYS} element={<SurveyManager />} />
             <Route path=":category" element={<ManagerDashboard />} />
         </Route>
 

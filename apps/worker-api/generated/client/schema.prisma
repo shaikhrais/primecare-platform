@@ -69,6 +69,8 @@ model Tenant {
   apiKeys          ApiKey[]
   feedbacks        Feedback[]
   carePlans        CarePlan[]
+  trainingModules  TrainingModule[]
+  surveys          Survey[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -717,4 +719,59 @@ model CarePlan {
 
   @@index([tenantId])
   @@map("care_plans")
+}
+
+model TrainingModule {
+  id          String               @id @default(uuid())
+  title       String
+  description String?
+  category    String?
+  videoUrl    String?              @map("video_url")
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
+  tenantId    String               @map("tenant_id")
+  tenant      Tenant               @relation(fields: [tenantId], references: [id])
+  assignments TrainingAssignment[]
+
+  @@index([tenantId])
+  @@map("training_modules")
+}
+
+model TrainingAssignment {
+  id          String         @id @default(uuid())
+  pswId       String?        @map("psw_id")
+  staffId     String?        @map("staff_id")
+  moduleId    String         @map("module_id")
+  status      String         @default("assigned") // assigned, completed
+  completedAt DateTime?      @map("completed_at")
+  assignedAt  DateTime       @default(now()) @map("assigned_at")
+  module      TrainingModule @relation(fields: [moduleId], references: [id])
+
+  @@map("training_assignments")
+}
+
+model Survey {
+  id         String           @id @default(uuid())
+  title      String
+  targetRole Role?            @map("target_role")
+  questions  Json             @map("questions_json")
+  isActive   Boolean          @default(true) @map("is_active")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  tenantId   String           @map("tenant_id")
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+  responses  SurveyResponse[]
+
+  @@index([tenantId])
+  @@map("surveys")
+}
+
+model SurveyResponse {
+  id        String   @id @default(uuid())
+  surveyId  String   @map("survey_id")
+  userId    String   @map("user_id")
+  answers   Json     @map("answers_json")
+  createdAt DateTime @default(now()) @map("created_at")
+  survey    Survey   @relation(fields: [surveyId], references: [id])
+
+  @@map("survey_responses")
 }

@@ -7,6 +7,9 @@ const TENANCY = {
         FINANCE: '/v1/manager/finance/pl',
         PAYROLL_AUDIT: '/v1/manager/finance/payroll-audit',
         BILLING_FINALIZE: '/v1/manager/finance/billing/finalize',
+        TRAINING: '/v1/manager/training',
+        SURVEYS: '/v1/manager/surveys',
+        EVALUATIONS: '/v1/manager/evaluations',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',

@@ -163,6 +163,26 @@ export type Feedback = $Result.DefaultSelection<Prisma.$FeedbackPayload>
  * 
  */
 export type CarePlan = $Result.DefaultSelection<Prisma.$CarePlanPayload>
+/**
+ * Model TrainingModule
+ * 
+ */
+export type TrainingModule = $Result.DefaultSelection<Prisma.$TrainingModulePayload>
+/**
+ * Model TrainingAssignment
+ * 
+ */
+export type TrainingAssignment = $Result.DefaultSelection<Prisma.$TrainingAssignmentPayload>
+/**
+ * Model Survey
+ * 
+ */
+export type Survey = $Result.DefaultSelection<Prisma.$SurveyPayload>
+/**
+ * Model SurveyResponse
+ * 
+ */
+export type SurveyResponse = $Result.DefaultSelection<Prisma.$SurveyResponsePayload>
 
 /**
  * Enums
@@ -766,6 +786,46 @@ export class PrismaClient<
     * ```
     */
   get carePlan(): Prisma.CarePlanDelegate<ExtArgs>;
+
+  /**
+   * `prisma.trainingModule`: Exposes CRUD operations for the **TrainingModule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TrainingModules
+    * const trainingModules = await prisma.trainingModule.findMany()
+    * ```
+    */
+  get trainingModule(): Prisma.TrainingModuleDelegate<ExtArgs>;
+
+  /**
+   * `prisma.trainingAssignment`: Exposes CRUD operations for the **TrainingAssignment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TrainingAssignments
+    * const trainingAssignments = await prisma.trainingAssignment.findMany()
+    * ```
+    */
+  get trainingAssignment(): Prisma.TrainingAssignmentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.survey`: Exposes CRUD operations for the **Survey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Surveys
+    * const surveys = await prisma.survey.findMany()
+    * ```
+    */
+  get survey(): Prisma.SurveyDelegate<ExtArgs>;
+
+  /**
+   * `prisma.surveyResponse`: Exposes CRUD operations for the **SurveyResponse** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SurveyResponses
+    * const surveyResponses = await prisma.surveyResponse.findMany()
+    * ```
+    */
+  get surveyResponse(): Prisma.SurveyResponseDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1236,7 +1296,11 @@ export namespace Prisma {
     DailyEntry: 'DailyEntry',
     MarketplaceListing: 'MarketplaceListing',
     Feedback: 'Feedback',
-    CarePlan: 'CarePlan'
+    CarePlan: 'CarePlan',
+    TrainingModule: 'TrainingModule',
+    TrainingAssignment: 'TrainingAssignment',
+    Survey: 'Survey',
+    SurveyResponse: 'SurveyResponse'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1252,7 +1316,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3356,6 +3420,286 @@ export namespace Prisma {
           }
         }
       }
+      TrainingModule: {
+        payload: Prisma.$TrainingModulePayload<ExtArgs>
+        fields: Prisma.TrainingModuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TrainingModuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TrainingModuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          findFirst: {
+            args: Prisma.TrainingModuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TrainingModuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          findMany: {
+            args: Prisma.TrainingModuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>[]
+          }
+          create: {
+            args: Prisma.TrainingModuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          createMany: {
+            args: Prisma.TrainingModuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TrainingModuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>[]
+          }
+          delete: {
+            args: Prisma.TrainingModuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          update: {
+            args: Prisma.TrainingModuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          deleteMany: {
+            args: Prisma.TrainingModuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TrainingModuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TrainingModuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingModulePayload>
+          }
+          aggregate: {
+            args: Prisma.TrainingModuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTrainingModule>
+          }
+          groupBy: {
+            args: Prisma.TrainingModuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TrainingModuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TrainingModuleCountArgs<ExtArgs>
+            result: $Utils.Optional<TrainingModuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      TrainingAssignment: {
+        payload: Prisma.$TrainingAssignmentPayload<ExtArgs>
+        fields: Prisma.TrainingAssignmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TrainingAssignmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TrainingAssignmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          findFirst: {
+            args: Prisma.TrainingAssignmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TrainingAssignmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          findMany: {
+            args: Prisma.TrainingAssignmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>[]
+          }
+          create: {
+            args: Prisma.TrainingAssignmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          createMany: {
+            args: Prisma.TrainingAssignmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TrainingAssignmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>[]
+          }
+          delete: {
+            args: Prisma.TrainingAssignmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          update: {
+            args: Prisma.TrainingAssignmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.TrainingAssignmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TrainingAssignmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TrainingAssignmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrainingAssignmentPayload>
+          }
+          aggregate: {
+            args: Prisma.TrainingAssignmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTrainingAssignment>
+          }
+          groupBy: {
+            args: Prisma.TrainingAssignmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TrainingAssignmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TrainingAssignmentCountArgs<ExtArgs>
+            result: $Utils.Optional<TrainingAssignmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Survey: {
+        payload: Prisma.$SurveyPayload<ExtArgs>
+        fields: Prisma.SurveyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SurveyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SurveyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          findFirst: {
+            args: Prisma.SurveyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SurveyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          findMany: {
+            args: Prisma.SurveyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>[]
+          }
+          create: {
+            args: Prisma.SurveyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          createMany: {
+            args: Prisma.SurveyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SurveyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>[]
+          }
+          delete: {
+            args: Prisma.SurveyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          update: {
+            args: Prisma.SurveyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          deleteMany: {
+            args: Prisma.SurveyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SurveyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SurveyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          aggregate: {
+            args: Prisma.SurveyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSurvey>
+          }
+          groupBy: {
+            args: Prisma.SurveyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SurveyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SurveyCountArgs<ExtArgs>
+            result: $Utils.Optional<SurveyCountAggregateOutputType> | number
+          }
+        }
+      }
+      SurveyResponse: {
+        payload: Prisma.$SurveyResponsePayload<ExtArgs>
+        fields: Prisma.SurveyResponseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SurveyResponseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SurveyResponseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          findFirst: {
+            args: Prisma.SurveyResponseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SurveyResponseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          findMany: {
+            args: Prisma.SurveyResponseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>[]
+          }
+          create: {
+            args: Prisma.SurveyResponseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          createMany: {
+            args: Prisma.SurveyResponseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SurveyResponseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>[]
+          }
+          delete: {
+            args: Prisma.SurveyResponseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          update: {
+            args: Prisma.SurveyResponseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          deleteMany: {
+            args: Prisma.SurveyResponseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SurveyResponseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SurveyResponseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
+          }
+          aggregate: {
+            args: Prisma.SurveyResponseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSurveyResponse>
+          }
+          groupBy: {
+            args: Prisma.SurveyResponseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SurveyResponseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SurveyResponseCountArgs<ExtArgs>
+            result: $Utils.Optional<SurveyResponseCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3635,6 +3979,8 @@ export namespace Prisma {
     apiKeys: number
     feedbacks: number
     carePlans: number
+    trainingModules: number
+    surveys: number
     childTenants: number
     marketplaceListings: number
   }
@@ -3660,6 +4006,8 @@ export namespace Prisma {
     apiKeys?: boolean | TenantCountOutputTypeCountApiKeysArgs
     feedbacks?: boolean | TenantCountOutputTypeCountFeedbacksArgs
     carePlans?: boolean | TenantCountOutputTypeCountCarePlansArgs
+    trainingModules?: boolean | TenantCountOutputTypeCountTrainingModulesArgs
+    surveys?: boolean | TenantCountOutputTypeCountSurveysArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
   }
@@ -3813,6 +4161,20 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountCarePlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CarePlanWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountTrainingModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrainingModuleWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountSurveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyWhereInput
   }
 
   /**
@@ -4264,6 +4626,68 @@ export namespace Prisma {
    */
   export type BookingCountOutputTypeCountVisitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VisitWhereInput
+  }
+
+
+  /**
+   * Count Type TrainingModuleCountOutputType
+   */
+
+  export type TrainingModuleCountOutputType = {
+    assignments: number
+  }
+
+  export type TrainingModuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assignments?: boolean | TrainingModuleCountOutputTypeCountAssignmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TrainingModuleCountOutputType without action
+   */
+  export type TrainingModuleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModuleCountOutputType
+     */
+    select?: TrainingModuleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TrainingModuleCountOutputType without action
+   */
+  export type TrainingModuleCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrainingAssignmentWhereInput
+  }
+
+
+  /**
+   * Count Type SurveyCountOutputType
+   */
+
+  export type SurveyCountOutputType = {
+    responses: number
+  }
+
+  export type SurveyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responses?: boolean | SurveyCountOutputTypeCountResponsesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SurveyCountOutputType without action
+   */
+  export type SurveyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyCountOutputType
+     */
+    select?: SurveyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SurveyCountOutputType without action
+   */
+  export type SurveyCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyResponseWhereInput
   }
 
 
@@ -5798,6 +6222,8 @@ export namespace Prisma {
     apiKeys?: boolean | Tenant$apiKeysArgs<ExtArgs>
     feedbacks?: boolean | Tenant$feedbacksArgs<ExtArgs>
     carePlans?: boolean | Tenant$carePlansArgs<ExtArgs>
+    trainingModules?: boolean | Tenant$trainingModulesArgs<ExtArgs>
+    surveys?: boolean | Tenant$surveysArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     marketplaceListings?: boolean | Tenant$marketplaceListingsArgs<ExtArgs>
@@ -5860,6 +6286,8 @@ export namespace Prisma {
     apiKeys?: boolean | Tenant$apiKeysArgs<ExtArgs>
     feedbacks?: boolean | Tenant$feedbacksArgs<ExtArgs>
     carePlans?: boolean | Tenant$carePlansArgs<ExtArgs>
+    trainingModules?: boolean | Tenant$trainingModulesArgs<ExtArgs>
+    surveys?: boolean | Tenant$surveysArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     marketplaceListings?: boolean | Tenant$marketplaceListingsArgs<ExtArgs>
@@ -5892,6 +6320,8 @@ export namespace Prisma {
       apiKeys: Prisma.$ApiKeyPayload<ExtArgs>[]
       feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
       carePlans: Prisma.$CarePlanPayload<ExtArgs>[]
+      trainingModules: Prisma.$TrainingModulePayload<ExtArgs>[]
+      surveys: Prisma.$SurveyPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       marketplaceListings: Prisma.$MarketplaceListingPayload<ExtArgs>[]
@@ -6295,6 +6725,8 @@ export namespace Prisma {
     apiKeys<T extends Tenant$apiKeysArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$apiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany"> | Null>
     feedbacks<T extends Tenant$feedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany"> | Null>
     carePlans<T extends Tenant$carePlansArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$carePlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany"> | Null>
+    trainingModules<T extends Tenant$trainingModulesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$trainingModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findMany"> | Null>
+    surveys<T extends Tenant$surveysArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$surveysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     marketplaceListings<T extends Tenant$marketplaceListingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$marketplaceListingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketplaceListingPayload<ExtArgs>, T, "findMany"> | Null>
@@ -7056,6 +7488,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.trainingModules
+   */
+  export type Tenant$trainingModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    where?: TrainingModuleWhereInput
+    orderBy?: TrainingModuleOrderByWithRelationInput | TrainingModuleOrderByWithRelationInput[]
+    cursor?: TrainingModuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TrainingModuleScalarFieldEnum | TrainingModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.surveys
+   */
+  export type Tenant$surveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    where?: SurveyWhereInput
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    cursor?: SurveyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
   }
 
   /**
@@ -36506,6 +36978,3866 @@ export namespace Prisma {
 
 
   /**
+   * Model TrainingModule
+   */
+
+  export type AggregateTrainingModule = {
+    _count: TrainingModuleCountAggregateOutputType | null
+    _min: TrainingModuleMinAggregateOutputType | null
+    _max: TrainingModuleMaxAggregateOutputType | null
+  }
+
+  export type TrainingModuleMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    category: string | null
+    videoUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type TrainingModuleMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    category: string | null
+    videoUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type TrainingModuleCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    category: number
+    videoUrl: number
+    createdAt: number
+    updatedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type TrainingModuleMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    videoUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    tenantId?: true
+  }
+
+  export type TrainingModuleMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    videoUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    tenantId?: true
+  }
+
+  export type TrainingModuleCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    videoUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type TrainingModuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrainingModule to aggregate.
+     */
+    where?: TrainingModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingModules to fetch.
+     */
+    orderBy?: TrainingModuleOrderByWithRelationInput | TrainingModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TrainingModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TrainingModules
+    **/
+    _count?: true | TrainingModuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TrainingModuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TrainingModuleMaxAggregateInputType
+  }
+
+  export type GetTrainingModuleAggregateType<T extends TrainingModuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateTrainingModule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTrainingModule[P]>
+      : GetScalarType<T[P], AggregateTrainingModule[P]>
+  }
+
+
+
+
+  export type TrainingModuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrainingModuleWhereInput
+    orderBy?: TrainingModuleOrderByWithAggregationInput | TrainingModuleOrderByWithAggregationInput[]
+    by: TrainingModuleScalarFieldEnum[] | TrainingModuleScalarFieldEnum
+    having?: TrainingModuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TrainingModuleCountAggregateInputType | true
+    _min?: TrainingModuleMinAggregateInputType
+    _max?: TrainingModuleMaxAggregateInputType
+  }
+
+  export type TrainingModuleGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    category: string | null
+    videoUrl: string | null
+    createdAt: Date
+    updatedAt: Date
+    tenantId: string
+    _count: TrainingModuleCountAggregateOutputType | null
+    _min: TrainingModuleMinAggregateOutputType | null
+    _max: TrainingModuleMaxAggregateOutputType | null
+  }
+
+  type GetTrainingModuleGroupByPayload<T extends TrainingModuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TrainingModuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TrainingModuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TrainingModuleGroupByOutputType[P]>
+            : GetScalarType<T[P], TrainingModuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TrainingModuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    videoUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    assignments?: boolean | TrainingModule$assignmentsArgs<ExtArgs>
+    _count?: boolean | TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trainingModule"]>
+
+  export type TrainingModuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    videoUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trainingModule"]>
+
+  export type TrainingModuleSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    videoUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type TrainingModuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    assignments?: boolean | TrainingModule$assignmentsArgs<ExtArgs>
+    _count?: boolean | TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TrainingModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $TrainingModulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TrainingModule"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      assignments: Prisma.$TrainingAssignmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      category: string | null
+      videoUrl: string | null
+      createdAt: Date
+      updatedAt: Date
+      tenantId: string
+    }, ExtArgs["result"]["trainingModule"]>
+    composites: {}
+  }
+
+  type TrainingModuleGetPayload<S extends boolean | null | undefined | TrainingModuleDefaultArgs> = $Result.GetResult<Prisma.$TrainingModulePayload, S>
+
+  type TrainingModuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TrainingModuleFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TrainingModuleCountAggregateInputType | true
+    }
+
+  export interface TrainingModuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TrainingModule'], meta: { name: 'TrainingModule' } }
+    /**
+     * Find zero or one TrainingModule that matches the filter.
+     * @param {TrainingModuleFindUniqueArgs} args - Arguments to find a TrainingModule
+     * @example
+     * // Get one TrainingModule
+     * const trainingModule = await prisma.trainingModule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TrainingModuleFindUniqueArgs>(args: SelectSubset<T, TrainingModuleFindUniqueArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TrainingModule that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TrainingModuleFindUniqueOrThrowArgs} args - Arguments to find a TrainingModule
+     * @example
+     * // Get one TrainingModule
+     * const trainingModule = await prisma.trainingModule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TrainingModuleFindUniqueOrThrowArgs>(args: SelectSubset<T, TrainingModuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TrainingModule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleFindFirstArgs} args - Arguments to find a TrainingModule
+     * @example
+     * // Get one TrainingModule
+     * const trainingModule = await prisma.trainingModule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TrainingModuleFindFirstArgs>(args?: SelectSubset<T, TrainingModuleFindFirstArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TrainingModule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleFindFirstOrThrowArgs} args - Arguments to find a TrainingModule
+     * @example
+     * // Get one TrainingModule
+     * const trainingModule = await prisma.trainingModule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TrainingModuleFindFirstOrThrowArgs>(args?: SelectSubset<T, TrainingModuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TrainingModules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TrainingModules
+     * const trainingModules = await prisma.trainingModule.findMany()
+     * 
+     * // Get first 10 TrainingModules
+     * const trainingModules = await prisma.trainingModule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const trainingModuleWithIdOnly = await prisma.trainingModule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TrainingModuleFindManyArgs>(args?: SelectSubset<T, TrainingModuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TrainingModule.
+     * @param {TrainingModuleCreateArgs} args - Arguments to create a TrainingModule.
+     * @example
+     * // Create one TrainingModule
+     * const TrainingModule = await prisma.trainingModule.create({
+     *   data: {
+     *     // ... data to create a TrainingModule
+     *   }
+     * })
+     * 
+     */
+    create<T extends TrainingModuleCreateArgs>(args: SelectSubset<T, TrainingModuleCreateArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TrainingModules.
+     * @param {TrainingModuleCreateManyArgs} args - Arguments to create many TrainingModules.
+     * @example
+     * // Create many TrainingModules
+     * const trainingModule = await prisma.trainingModule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TrainingModuleCreateManyArgs>(args?: SelectSubset<T, TrainingModuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TrainingModules and returns the data saved in the database.
+     * @param {TrainingModuleCreateManyAndReturnArgs} args - Arguments to create many TrainingModules.
+     * @example
+     * // Create many TrainingModules
+     * const trainingModule = await prisma.trainingModule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TrainingModules and only return the `id`
+     * const trainingModuleWithIdOnly = await prisma.trainingModule.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TrainingModuleCreateManyAndReturnArgs>(args?: SelectSubset<T, TrainingModuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TrainingModule.
+     * @param {TrainingModuleDeleteArgs} args - Arguments to delete one TrainingModule.
+     * @example
+     * // Delete one TrainingModule
+     * const TrainingModule = await prisma.trainingModule.delete({
+     *   where: {
+     *     // ... filter to delete one TrainingModule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TrainingModuleDeleteArgs>(args: SelectSubset<T, TrainingModuleDeleteArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TrainingModule.
+     * @param {TrainingModuleUpdateArgs} args - Arguments to update one TrainingModule.
+     * @example
+     * // Update one TrainingModule
+     * const trainingModule = await prisma.trainingModule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TrainingModuleUpdateArgs>(args: SelectSubset<T, TrainingModuleUpdateArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TrainingModules.
+     * @param {TrainingModuleDeleteManyArgs} args - Arguments to filter TrainingModules to delete.
+     * @example
+     * // Delete a few TrainingModules
+     * const { count } = await prisma.trainingModule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TrainingModuleDeleteManyArgs>(args?: SelectSubset<T, TrainingModuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrainingModules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TrainingModules
+     * const trainingModule = await prisma.trainingModule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TrainingModuleUpdateManyArgs>(args: SelectSubset<T, TrainingModuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TrainingModule.
+     * @param {TrainingModuleUpsertArgs} args - Arguments to update or create a TrainingModule.
+     * @example
+     * // Update or create a TrainingModule
+     * const trainingModule = await prisma.trainingModule.upsert({
+     *   create: {
+     *     // ... data to create a TrainingModule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TrainingModule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TrainingModuleUpsertArgs>(args: SelectSubset<T, TrainingModuleUpsertArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TrainingModules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleCountArgs} args - Arguments to filter TrainingModules to count.
+     * @example
+     * // Count the number of TrainingModules
+     * const count = await prisma.trainingModule.count({
+     *   where: {
+     *     // ... the filter for the TrainingModules we want to count
+     *   }
+     * })
+    **/
+    count<T extends TrainingModuleCountArgs>(
+      args?: Subset<T, TrainingModuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TrainingModuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TrainingModule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TrainingModuleAggregateArgs>(args: Subset<T, TrainingModuleAggregateArgs>): Prisma.PrismaPromise<GetTrainingModuleAggregateType<T>>
+
+    /**
+     * Group by TrainingModule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingModuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TrainingModuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TrainingModuleGroupByArgs['orderBy'] }
+        : { orderBy?: TrainingModuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TrainingModuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTrainingModuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TrainingModule model
+   */
+  readonly fields: TrainingModuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TrainingModule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TrainingModuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    assignments<T extends TrainingModule$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, TrainingModule$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TrainingModule model
+   */ 
+  interface TrainingModuleFieldRefs {
+    readonly id: FieldRef<"TrainingModule", 'String'>
+    readonly title: FieldRef<"TrainingModule", 'String'>
+    readonly description: FieldRef<"TrainingModule", 'String'>
+    readonly category: FieldRef<"TrainingModule", 'String'>
+    readonly videoUrl: FieldRef<"TrainingModule", 'String'>
+    readonly createdAt: FieldRef<"TrainingModule", 'DateTime'>
+    readonly updatedAt: FieldRef<"TrainingModule", 'DateTime'>
+    readonly tenantId: FieldRef<"TrainingModule", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TrainingModule findUnique
+   */
+  export type TrainingModuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingModule to fetch.
+     */
+    where: TrainingModuleWhereUniqueInput
+  }
+
+  /**
+   * TrainingModule findUniqueOrThrow
+   */
+  export type TrainingModuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingModule to fetch.
+     */
+    where: TrainingModuleWhereUniqueInput
+  }
+
+  /**
+   * TrainingModule findFirst
+   */
+  export type TrainingModuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingModule to fetch.
+     */
+    where?: TrainingModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingModules to fetch.
+     */
+    orderBy?: TrainingModuleOrderByWithRelationInput | TrainingModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrainingModules.
+     */
+    cursor?: TrainingModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrainingModules.
+     */
+    distinct?: TrainingModuleScalarFieldEnum | TrainingModuleScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingModule findFirstOrThrow
+   */
+  export type TrainingModuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingModule to fetch.
+     */
+    where?: TrainingModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingModules to fetch.
+     */
+    orderBy?: TrainingModuleOrderByWithRelationInput | TrainingModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrainingModules.
+     */
+    cursor?: TrainingModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrainingModules.
+     */
+    distinct?: TrainingModuleScalarFieldEnum | TrainingModuleScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingModule findMany
+   */
+  export type TrainingModuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingModules to fetch.
+     */
+    where?: TrainingModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingModules to fetch.
+     */
+    orderBy?: TrainingModuleOrderByWithRelationInput | TrainingModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TrainingModules.
+     */
+    cursor?: TrainingModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingModules.
+     */
+    skip?: number
+    distinct?: TrainingModuleScalarFieldEnum | TrainingModuleScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingModule create
+   */
+  export type TrainingModuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TrainingModule.
+     */
+    data: XOR<TrainingModuleCreateInput, TrainingModuleUncheckedCreateInput>
+  }
+
+  /**
+   * TrainingModule createMany
+   */
+  export type TrainingModuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TrainingModules.
+     */
+    data: TrainingModuleCreateManyInput | TrainingModuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TrainingModule createManyAndReturn
+   */
+  export type TrainingModuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TrainingModules.
+     */
+    data: TrainingModuleCreateManyInput | TrainingModuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrainingModule update
+   */
+  export type TrainingModuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TrainingModule.
+     */
+    data: XOR<TrainingModuleUpdateInput, TrainingModuleUncheckedUpdateInput>
+    /**
+     * Choose, which TrainingModule to update.
+     */
+    where: TrainingModuleWhereUniqueInput
+  }
+
+  /**
+   * TrainingModule updateMany
+   */
+  export type TrainingModuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TrainingModules.
+     */
+    data: XOR<TrainingModuleUpdateManyMutationInput, TrainingModuleUncheckedUpdateManyInput>
+    /**
+     * Filter which TrainingModules to update
+     */
+    where?: TrainingModuleWhereInput
+  }
+
+  /**
+   * TrainingModule upsert
+   */
+  export type TrainingModuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TrainingModule to update in case it exists.
+     */
+    where: TrainingModuleWhereUniqueInput
+    /**
+     * In case the TrainingModule found by the `where` argument doesn't exist, create a new TrainingModule with this data.
+     */
+    create: XOR<TrainingModuleCreateInput, TrainingModuleUncheckedCreateInput>
+    /**
+     * In case the TrainingModule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TrainingModuleUpdateInput, TrainingModuleUncheckedUpdateInput>
+  }
+
+  /**
+   * TrainingModule delete
+   */
+  export type TrainingModuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+    /**
+     * Filter which TrainingModule to delete.
+     */
+    where: TrainingModuleWhereUniqueInput
+  }
+
+  /**
+   * TrainingModule deleteMany
+   */
+  export type TrainingModuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrainingModules to delete
+     */
+    where?: TrainingModuleWhereInput
+  }
+
+  /**
+   * TrainingModule.assignments
+   */
+  export type TrainingModule$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    where?: TrainingAssignmentWhereInput
+    orderBy?: TrainingAssignmentOrderByWithRelationInput | TrainingAssignmentOrderByWithRelationInput[]
+    cursor?: TrainingAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TrainingAssignmentScalarFieldEnum | TrainingAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingModule without action
+   */
+  export type TrainingModuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingModule
+     */
+    select?: TrainingModuleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingModuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TrainingAssignment
+   */
+
+  export type AggregateTrainingAssignment = {
+    _count: TrainingAssignmentCountAggregateOutputType | null
+    _min: TrainingAssignmentMinAggregateOutputType | null
+    _max: TrainingAssignmentMaxAggregateOutputType | null
+  }
+
+  export type TrainingAssignmentMinAggregateOutputType = {
+    id: string | null
+    pswId: string | null
+    staffId: string | null
+    moduleId: string | null
+    status: string | null
+    completedAt: Date | null
+    assignedAt: Date | null
+  }
+
+  export type TrainingAssignmentMaxAggregateOutputType = {
+    id: string | null
+    pswId: string | null
+    staffId: string | null
+    moduleId: string | null
+    status: string | null
+    completedAt: Date | null
+    assignedAt: Date | null
+  }
+
+  export type TrainingAssignmentCountAggregateOutputType = {
+    id: number
+    pswId: number
+    staffId: number
+    moduleId: number
+    status: number
+    completedAt: number
+    assignedAt: number
+    _all: number
+  }
+
+
+  export type TrainingAssignmentMinAggregateInputType = {
+    id?: true
+    pswId?: true
+    staffId?: true
+    moduleId?: true
+    status?: true
+    completedAt?: true
+    assignedAt?: true
+  }
+
+  export type TrainingAssignmentMaxAggregateInputType = {
+    id?: true
+    pswId?: true
+    staffId?: true
+    moduleId?: true
+    status?: true
+    completedAt?: true
+    assignedAt?: true
+  }
+
+  export type TrainingAssignmentCountAggregateInputType = {
+    id?: true
+    pswId?: true
+    staffId?: true
+    moduleId?: true
+    status?: true
+    completedAt?: true
+    assignedAt?: true
+    _all?: true
+  }
+
+  export type TrainingAssignmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrainingAssignment to aggregate.
+     */
+    where?: TrainingAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingAssignments to fetch.
+     */
+    orderBy?: TrainingAssignmentOrderByWithRelationInput | TrainingAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TrainingAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TrainingAssignments
+    **/
+    _count?: true | TrainingAssignmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TrainingAssignmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TrainingAssignmentMaxAggregateInputType
+  }
+
+  export type GetTrainingAssignmentAggregateType<T extends TrainingAssignmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateTrainingAssignment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTrainingAssignment[P]>
+      : GetScalarType<T[P], AggregateTrainingAssignment[P]>
+  }
+
+
+
+
+  export type TrainingAssignmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrainingAssignmentWhereInput
+    orderBy?: TrainingAssignmentOrderByWithAggregationInput | TrainingAssignmentOrderByWithAggregationInput[]
+    by: TrainingAssignmentScalarFieldEnum[] | TrainingAssignmentScalarFieldEnum
+    having?: TrainingAssignmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TrainingAssignmentCountAggregateInputType | true
+    _min?: TrainingAssignmentMinAggregateInputType
+    _max?: TrainingAssignmentMaxAggregateInputType
+  }
+
+  export type TrainingAssignmentGroupByOutputType = {
+    id: string
+    pswId: string | null
+    staffId: string | null
+    moduleId: string
+    status: string
+    completedAt: Date | null
+    assignedAt: Date
+    _count: TrainingAssignmentCountAggregateOutputType | null
+    _min: TrainingAssignmentMinAggregateOutputType | null
+    _max: TrainingAssignmentMaxAggregateOutputType | null
+  }
+
+  type GetTrainingAssignmentGroupByPayload<T extends TrainingAssignmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TrainingAssignmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TrainingAssignmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TrainingAssignmentGroupByOutputType[P]>
+            : GetScalarType<T[P], TrainingAssignmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TrainingAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pswId?: boolean
+    staffId?: boolean
+    moduleId?: boolean
+    status?: boolean
+    completedAt?: boolean
+    assignedAt?: boolean
+    module?: boolean | TrainingModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trainingAssignment"]>
+
+  export type TrainingAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pswId?: boolean
+    staffId?: boolean
+    moduleId?: boolean
+    status?: boolean
+    completedAt?: boolean
+    assignedAt?: boolean
+    module?: boolean | TrainingModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trainingAssignment"]>
+
+  export type TrainingAssignmentSelectScalar = {
+    id?: boolean
+    pswId?: boolean
+    staffId?: boolean
+    moduleId?: boolean
+    status?: boolean
+    completedAt?: boolean
+    assignedAt?: boolean
+  }
+
+  export type TrainingAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | TrainingModuleDefaultArgs<ExtArgs>
+  }
+  export type TrainingAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | TrainingModuleDefaultArgs<ExtArgs>
+  }
+
+  export type $TrainingAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TrainingAssignment"
+    objects: {
+      module: Prisma.$TrainingModulePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      pswId: string | null
+      staffId: string | null
+      moduleId: string
+      status: string
+      completedAt: Date | null
+      assignedAt: Date
+    }, ExtArgs["result"]["trainingAssignment"]>
+    composites: {}
+  }
+
+  type TrainingAssignmentGetPayload<S extends boolean | null | undefined | TrainingAssignmentDefaultArgs> = $Result.GetResult<Prisma.$TrainingAssignmentPayload, S>
+
+  type TrainingAssignmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TrainingAssignmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TrainingAssignmentCountAggregateInputType | true
+    }
+
+  export interface TrainingAssignmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TrainingAssignment'], meta: { name: 'TrainingAssignment' } }
+    /**
+     * Find zero or one TrainingAssignment that matches the filter.
+     * @param {TrainingAssignmentFindUniqueArgs} args - Arguments to find a TrainingAssignment
+     * @example
+     * // Get one TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TrainingAssignmentFindUniqueArgs>(args: SelectSubset<T, TrainingAssignmentFindUniqueArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TrainingAssignment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TrainingAssignmentFindUniqueOrThrowArgs} args - Arguments to find a TrainingAssignment
+     * @example
+     * // Get one TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TrainingAssignmentFindUniqueOrThrowArgs>(args: SelectSubset<T, TrainingAssignmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TrainingAssignment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentFindFirstArgs} args - Arguments to find a TrainingAssignment
+     * @example
+     * // Get one TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TrainingAssignmentFindFirstArgs>(args?: SelectSubset<T, TrainingAssignmentFindFirstArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TrainingAssignment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentFindFirstOrThrowArgs} args - Arguments to find a TrainingAssignment
+     * @example
+     * // Get one TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TrainingAssignmentFindFirstOrThrowArgs>(args?: SelectSubset<T, TrainingAssignmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TrainingAssignments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TrainingAssignments
+     * const trainingAssignments = await prisma.trainingAssignment.findMany()
+     * 
+     * // Get first 10 TrainingAssignments
+     * const trainingAssignments = await prisma.trainingAssignment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const trainingAssignmentWithIdOnly = await prisma.trainingAssignment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TrainingAssignmentFindManyArgs>(args?: SelectSubset<T, TrainingAssignmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TrainingAssignment.
+     * @param {TrainingAssignmentCreateArgs} args - Arguments to create a TrainingAssignment.
+     * @example
+     * // Create one TrainingAssignment
+     * const TrainingAssignment = await prisma.trainingAssignment.create({
+     *   data: {
+     *     // ... data to create a TrainingAssignment
+     *   }
+     * })
+     * 
+     */
+    create<T extends TrainingAssignmentCreateArgs>(args: SelectSubset<T, TrainingAssignmentCreateArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TrainingAssignments.
+     * @param {TrainingAssignmentCreateManyArgs} args - Arguments to create many TrainingAssignments.
+     * @example
+     * // Create many TrainingAssignments
+     * const trainingAssignment = await prisma.trainingAssignment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TrainingAssignmentCreateManyArgs>(args?: SelectSubset<T, TrainingAssignmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TrainingAssignments and returns the data saved in the database.
+     * @param {TrainingAssignmentCreateManyAndReturnArgs} args - Arguments to create many TrainingAssignments.
+     * @example
+     * // Create many TrainingAssignments
+     * const trainingAssignment = await prisma.trainingAssignment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TrainingAssignments and only return the `id`
+     * const trainingAssignmentWithIdOnly = await prisma.trainingAssignment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TrainingAssignmentCreateManyAndReturnArgs>(args?: SelectSubset<T, TrainingAssignmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TrainingAssignment.
+     * @param {TrainingAssignmentDeleteArgs} args - Arguments to delete one TrainingAssignment.
+     * @example
+     * // Delete one TrainingAssignment
+     * const TrainingAssignment = await prisma.trainingAssignment.delete({
+     *   where: {
+     *     // ... filter to delete one TrainingAssignment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TrainingAssignmentDeleteArgs>(args: SelectSubset<T, TrainingAssignmentDeleteArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TrainingAssignment.
+     * @param {TrainingAssignmentUpdateArgs} args - Arguments to update one TrainingAssignment.
+     * @example
+     * // Update one TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TrainingAssignmentUpdateArgs>(args: SelectSubset<T, TrainingAssignmentUpdateArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TrainingAssignments.
+     * @param {TrainingAssignmentDeleteManyArgs} args - Arguments to filter TrainingAssignments to delete.
+     * @example
+     * // Delete a few TrainingAssignments
+     * const { count } = await prisma.trainingAssignment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TrainingAssignmentDeleteManyArgs>(args?: SelectSubset<T, TrainingAssignmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrainingAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TrainingAssignments
+     * const trainingAssignment = await prisma.trainingAssignment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TrainingAssignmentUpdateManyArgs>(args: SelectSubset<T, TrainingAssignmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TrainingAssignment.
+     * @param {TrainingAssignmentUpsertArgs} args - Arguments to update or create a TrainingAssignment.
+     * @example
+     * // Update or create a TrainingAssignment
+     * const trainingAssignment = await prisma.trainingAssignment.upsert({
+     *   create: {
+     *     // ... data to create a TrainingAssignment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TrainingAssignment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TrainingAssignmentUpsertArgs>(args: SelectSubset<T, TrainingAssignmentUpsertArgs<ExtArgs>>): Prisma__TrainingAssignmentClient<$Result.GetResult<Prisma.$TrainingAssignmentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TrainingAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentCountArgs} args - Arguments to filter TrainingAssignments to count.
+     * @example
+     * // Count the number of TrainingAssignments
+     * const count = await prisma.trainingAssignment.count({
+     *   where: {
+     *     // ... the filter for the TrainingAssignments we want to count
+     *   }
+     * })
+    **/
+    count<T extends TrainingAssignmentCountArgs>(
+      args?: Subset<T, TrainingAssignmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TrainingAssignmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TrainingAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TrainingAssignmentAggregateArgs>(args: Subset<T, TrainingAssignmentAggregateArgs>): Prisma.PrismaPromise<GetTrainingAssignmentAggregateType<T>>
+
+    /**
+     * Group by TrainingAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrainingAssignmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TrainingAssignmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TrainingAssignmentGroupByArgs['orderBy'] }
+        : { orderBy?: TrainingAssignmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TrainingAssignmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTrainingAssignmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TrainingAssignment model
+   */
+  readonly fields: TrainingAssignmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TrainingAssignment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TrainingAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    module<T extends TrainingModuleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TrainingModuleDefaultArgs<ExtArgs>>): Prisma__TrainingModuleClient<$Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TrainingAssignment model
+   */ 
+  interface TrainingAssignmentFieldRefs {
+    readonly id: FieldRef<"TrainingAssignment", 'String'>
+    readonly pswId: FieldRef<"TrainingAssignment", 'String'>
+    readonly staffId: FieldRef<"TrainingAssignment", 'String'>
+    readonly moduleId: FieldRef<"TrainingAssignment", 'String'>
+    readonly status: FieldRef<"TrainingAssignment", 'String'>
+    readonly completedAt: FieldRef<"TrainingAssignment", 'DateTime'>
+    readonly assignedAt: FieldRef<"TrainingAssignment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TrainingAssignment findUnique
+   */
+  export type TrainingAssignmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingAssignment to fetch.
+     */
+    where: TrainingAssignmentWhereUniqueInput
+  }
+
+  /**
+   * TrainingAssignment findUniqueOrThrow
+   */
+  export type TrainingAssignmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingAssignment to fetch.
+     */
+    where: TrainingAssignmentWhereUniqueInput
+  }
+
+  /**
+   * TrainingAssignment findFirst
+   */
+  export type TrainingAssignmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingAssignment to fetch.
+     */
+    where?: TrainingAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingAssignments to fetch.
+     */
+    orderBy?: TrainingAssignmentOrderByWithRelationInput | TrainingAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrainingAssignments.
+     */
+    cursor?: TrainingAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrainingAssignments.
+     */
+    distinct?: TrainingAssignmentScalarFieldEnum | TrainingAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingAssignment findFirstOrThrow
+   */
+  export type TrainingAssignmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingAssignment to fetch.
+     */
+    where?: TrainingAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingAssignments to fetch.
+     */
+    orderBy?: TrainingAssignmentOrderByWithRelationInput | TrainingAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrainingAssignments.
+     */
+    cursor?: TrainingAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrainingAssignments.
+     */
+    distinct?: TrainingAssignmentScalarFieldEnum | TrainingAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingAssignment findMany
+   */
+  export type TrainingAssignmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TrainingAssignments to fetch.
+     */
+    where?: TrainingAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrainingAssignments to fetch.
+     */
+    orderBy?: TrainingAssignmentOrderByWithRelationInput | TrainingAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TrainingAssignments.
+     */
+    cursor?: TrainingAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrainingAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrainingAssignments.
+     */
+    skip?: number
+    distinct?: TrainingAssignmentScalarFieldEnum | TrainingAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * TrainingAssignment create
+   */
+  export type TrainingAssignmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TrainingAssignment.
+     */
+    data: XOR<TrainingAssignmentCreateInput, TrainingAssignmentUncheckedCreateInput>
+  }
+
+  /**
+   * TrainingAssignment createMany
+   */
+  export type TrainingAssignmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TrainingAssignments.
+     */
+    data: TrainingAssignmentCreateManyInput | TrainingAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TrainingAssignment createManyAndReturn
+   */
+  export type TrainingAssignmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TrainingAssignments.
+     */
+    data: TrainingAssignmentCreateManyInput | TrainingAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrainingAssignment update
+   */
+  export type TrainingAssignmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TrainingAssignment.
+     */
+    data: XOR<TrainingAssignmentUpdateInput, TrainingAssignmentUncheckedUpdateInput>
+    /**
+     * Choose, which TrainingAssignment to update.
+     */
+    where: TrainingAssignmentWhereUniqueInput
+  }
+
+  /**
+   * TrainingAssignment updateMany
+   */
+  export type TrainingAssignmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TrainingAssignments.
+     */
+    data: XOR<TrainingAssignmentUpdateManyMutationInput, TrainingAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which TrainingAssignments to update
+     */
+    where?: TrainingAssignmentWhereInput
+  }
+
+  /**
+   * TrainingAssignment upsert
+   */
+  export type TrainingAssignmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TrainingAssignment to update in case it exists.
+     */
+    where: TrainingAssignmentWhereUniqueInput
+    /**
+     * In case the TrainingAssignment found by the `where` argument doesn't exist, create a new TrainingAssignment with this data.
+     */
+    create: XOR<TrainingAssignmentCreateInput, TrainingAssignmentUncheckedCreateInput>
+    /**
+     * In case the TrainingAssignment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TrainingAssignmentUpdateInput, TrainingAssignmentUncheckedUpdateInput>
+  }
+
+  /**
+   * TrainingAssignment delete
+   */
+  export type TrainingAssignmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter which TrainingAssignment to delete.
+     */
+    where: TrainingAssignmentWhereUniqueInput
+  }
+
+  /**
+   * TrainingAssignment deleteMany
+   */
+  export type TrainingAssignmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrainingAssignments to delete
+     */
+    where?: TrainingAssignmentWhereInput
+  }
+
+  /**
+   * TrainingAssignment without action
+   */
+  export type TrainingAssignmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrainingAssignment
+     */
+    select?: TrainingAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrainingAssignmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Survey
+   */
+
+  export type AggregateSurvey = {
+    _count: SurveyCountAggregateOutputType | null
+    _min: SurveyMinAggregateOutputType | null
+    _max: SurveyMaxAggregateOutputType | null
+  }
+
+  export type SurveyMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    targetRole: $Enums.Role | null
+    isActive: boolean | null
+    createdAt: Date | null
+    tenantId: string | null
+  }
+
+  export type SurveyMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    targetRole: $Enums.Role | null
+    isActive: boolean | null
+    createdAt: Date | null
+    tenantId: string | null
+  }
+
+  export type SurveyCountAggregateOutputType = {
+    id: number
+    title: number
+    targetRole: number
+    questions: number
+    isActive: number
+    createdAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type SurveyMinAggregateInputType = {
+    id?: true
+    title?: true
+    targetRole?: true
+    isActive?: true
+    createdAt?: true
+    tenantId?: true
+  }
+
+  export type SurveyMaxAggregateInputType = {
+    id?: true
+    title?: true
+    targetRole?: true
+    isActive?: true
+    createdAt?: true
+    tenantId?: true
+  }
+
+  export type SurveyCountAggregateInputType = {
+    id?: true
+    title?: true
+    targetRole?: true
+    questions?: true
+    isActive?: true
+    createdAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type SurveyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Survey to aggregate.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Surveys
+    **/
+    _count?: true | SurveyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SurveyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SurveyMaxAggregateInputType
+  }
+
+  export type GetSurveyAggregateType<T extends SurveyAggregateArgs> = {
+        [P in keyof T & keyof AggregateSurvey]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSurvey[P]>
+      : GetScalarType<T[P], AggregateSurvey[P]>
+  }
+
+
+
+
+  export type SurveyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyWhereInput
+    orderBy?: SurveyOrderByWithAggregationInput | SurveyOrderByWithAggregationInput[]
+    by: SurveyScalarFieldEnum[] | SurveyScalarFieldEnum
+    having?: SurveyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SurveyCountAggregateInputType | true
+    _min?: SurveyMinAggregateInputType
+    _max?: SurveyMaxAggregateInputType
+  }
+
+  export type SurveyGroupByOutputType = {
+    id: string
+    title: string
+    targetRole: $Enums.Role | null
+    questions: JsonValue
+    isActive: boolean
+    createdAt: Date
+    tenantId: string
+    _count: SurveyCountAggregateOutputType | null
+    _min: SurveyMinAggregateOutputType | null
+    _max: SurveyMaxAggregateOutputType | null
+  }
+
+  type GetSurveyGroupByPayload<T extends SurveyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SurveyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SurveyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SurveyGroupByOutputType[P]>
+            : GetScalarType<T[P], SurveyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SurveySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    targetRole?: boolean
+    questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    responses?: boolean | Survey$responsesArgs<ExtArgs>
+    _count?: boolean | SurveyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["survey"]>
+
+  export type SurveySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    targetRole?: boolean
+    questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["survey"]>
+
+  export type SurveySelectScalar = {
+    id?: boolean
+    title?: boolean
+    targetRole?: boolean
+    questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type SurveyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    responses?: boolean | Survey$responsesArgs<ExtArgs>
+    _count?: boolean | SurveyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SurveyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $SurveyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Survey"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      responses: Prisma.$SurveyResponsePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      targetRole: $Enums.Role | null
+      questions: Prisma.JsonValue
+      isActive: boolean
+      createdAt: Date
+      tenantId: string
+    }, ExtArgs["result"]["survey"]>
+    composites: {}
+  }
+
+  type SurveyGetPayload<S extends boolean | null | undefined | SurveyDefaultArgs> = $Result.GetResult<Prisma.$SurveyPayload, S>
+
+  type SurveyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SurveyFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SurveyCountAggregateInputType | true
+    }
+
+  export interface SurveyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Survey'], meta: { name: 'Survey' } }
+    /**
+     * Find zero or one Survey that matches the filter.
+     * @param {SurveyFindUniqueArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SurveyFindUniqueArgs>(args: SelectSubset<T, SurveyFindUniqueArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Survey that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SurveyFindUniqueOrThrowArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SurveyFindUniqueOrThrowArgs>(args: SelectSubset<T, SurveyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Survey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindFirstArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SurveyFindFirstArgs>(args?: SelectSubset<T, SurveyFindFirstArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Survey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindFirstOrThrowArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SurveyFindFirstOrThrowArgs>(args?: SelectSubset<T, SurveyFindFirstOrThrowArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Surveys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Surveys
+     * const surveys = await prisma.survey.findMany()
+     * 
+     * // Get first 10 Surveys
+     * const surveys = await prisma.survey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const surveyWithIdOnly = await prisma.survey.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SurveyFindManyArgs>(args?: SelectSubset<T, SurveyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Survey.
+     * @param {SurveyCreateArgs} args - Arguments to create a Survey.
+     * @example
+     * // Create one Survey
+     * const Survey = await prisma.survey.create({
+     *   data: {
+     *     // ... data to create a Survey
+     *   }
+     * })
+     * 
+     */
+    create<T extends SurveyCreateArgs>(args: SelectSubset<T, SurveyCreateArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Surveys.
+     * @param {SurveyCreateManyArgs} args - Arguments to create many Surveys.
+     * @example
+     * // Create many Surveys
+     * const survey = await prisma.survey.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SurveyCreateManyArgs>(args?: SelectSubset<T, SurveyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Surveys and returns the data saved in the database.
+     * @param {SurveyCreateManyAndReturnArgs} args - Arguments to create many Surveys.
+     * @example
+     * // Create many Surveys
+     * const survey = await prisma.survey.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Surveys and only return the `id`
+     * const surveyWithIdOnly = await prisma.survey.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SurveyCreateManyAndReturnArgs>(args?: SelectSubset<T, SurveyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Survey.
+     * @param {SurveyDeleteArgs} args - Arguments to delete one Survey.
+     * @example
+     * // Delete one Survey
+     * const Survey = await prisma.survey.delete({
+     *   where: {
+     *     // ... filter to delete one Survey
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SurveyDeleteArgs>(args: SelectSubset<T, SurveyDeleteArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Survey.
+     * @param {SurveyUpdateArgs} args - Arguments to update one Survey.
+     * @example
+     * // Update one Survey
+     * const survey = await prisma.survey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SurveyUpdateArgs>(args: SelectSubset<T, SurveyUpdateArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Surveys.
+     * @param {SurveyDeleteManyArgs} args - Arguments to filter Surveys to delete.
+     * @example
+     * // Delete a few Surveys
+     * const { count } = await prisma.survey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SurveyDeleteManyArgs>(args?: SelectSubset<T, SurveyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Surveys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Surveys
+     * const survey = await prisma.survey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SurveyUpdateManyArgs>(args: SelectSubset<T, SurveyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Survey.
+     * @param {SurveyUpsertArgs} args - Arguments to update or create a Survey.
+     * @example
+     * // Update or create a Survey
+     * const survey = await prisma.survey.upsert({
+     *   create: {
+     *     // ... data to create a Survey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Survey we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SurveyUpsertArgs>(args: SelectSubset<T, SurveyUpsertArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Surveys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyCountArgs} args - Arguments to filter Surveys to count.
+     * @example
+     * // Count the number of Surveys
+     * const count = await prisma.survey.count({
+     *   where: {
+     *     // ... the filter for the Surveys we want to count
+     *   }
+     * })
+    **/
+    count<T extends SurveyCountArgs>(
+      args?: Subset<T, SurveyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SurveyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Survey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SurveyAggregateArgs>(args: Subset<T, SurveyAggregateArgs>): Prisma.PrismaPromise<GetSurveyAggregateType<T>>
+
+    /**
+     * Group by Survey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SurveyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SurveyGroupByArgs['orderBy'] }
+        : { orderBy?: SurveyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SurveyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSurveyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Survey model
+   */
+  readonly fields: SurveyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Survey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SurveyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    responses<T extends Survey$responsesArgs<ExtArgs> = {}>(args?: Subset<T, Survey$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Survey model
+   */ 
+  interface SurveyFieldRefs {
+    readonly id: FieldRef<"Survey", 'String'>
+    readonly title: FieldRef<"Survey", 'String'>
+    readonly targetRole: FieldRef<"Survey", 'Role'>
+    readonly questions: FieldRef<"Survey", 'Json'>
+    readonly isActive: FieldRef<"Survey", 'Boolean'>
+    readonly createdAt: FieldRef<"Survey", 'DateTime'>
+    readonly tenantId: FieldRef<"Survey", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Survey findUnique
+   */
+  export type SurveyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+  /**
+   * Survey findUniqueOrThrow
+   */
+  export type SurveyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+  /**
+   * Survey findFirst
+   */
+  export type SurveyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Surveys.
+     */
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+  /**
+   * Survey findFirstOrThrow
+   */
+  export type SurveyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Surveys.
+     */
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+  /**
+   * Survey findMany
+   */
+  export type SurveyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Surveys to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+  /**
+   * Survey create
+   */
+  export type SurveyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Survey.
+     */
+    data: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
+  }
+
+  /**
+   * Survey createMany
+   */
+  export type SurveyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Surveys.
+     */
+    data: SurveyCreateManyInput | SurveyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Survey createManyAndReturn
+   */
+  export type SurveyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Surveys.
+     */
+    data: SurveyCreateManyInput | SurveyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Survey update
+   */
+  export type SurveyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Survey.
+     */
+    data: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
+    /**
+     * Choose, which Survey to update.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+  /**
+   * Survey updateMany
+   */
+  export type SurveyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Surveys.
+     */
+    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyInput>
+    /**
+     * Filter which Surveys to update
+     */
+    where?: SurveyWhereInput
+  }
+
+  /**
+   * Survey upsert
+   */
+  export type SurveyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Survey to update in case it exists.
+     */
+    where: SurveyWhereUniqueInput
+    /**
+     * In case the Survey found by the `where` argument doesn't exist, create a new Survey with this data.
+     */
+    create: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
+    /**
+     * In case the Survey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
+  }
+
+  /**
+   * Survey delete
+   */
+  export type SurveyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter which Survey to delete.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+  /**
+   * Survey deleteMany
+   */
+  export type SurveyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Surveys to delete
+     */
+    where?: SurveyWhereInput
+  }
+
+  /**
+   * Survey.responses
+   */
+  export type Survey$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    where?: SurveyResponseWhereInput
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    cursor?: SurveyResponseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
+  }
+
+  /**
+   * Survey without action
+   */
+  export type SurveyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SurveyResponse
+   */
+
+  export type AggregateSurveyResponse = {
+    _count: SurveyResponseCountAggregateOutputType | null
+    _min: SurveyResponseMinAggregateOutputType | null
+    _max: SurveyResponseMaxAggregateOutputType | null
+  }
+
+  export type SurveyResponseMinAggregateOutputType = {
+    id: string | null
+    surveyId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type SurveyResponseMaxAggregateOutputType = {
+    id: string | null
+    surveyId: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type SurveyResponseCountAggregateOutputType = {
+    id: number
+    surveyId: number
+    userId: number
+    answers: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SurveyResponseMinAggregateInputType = {
+    id?: true
+    surveyId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type SurveyResponseMaxAggregateInputType = {
+    id?: true
+    surveyId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type SurveyResponseCountAggregateInputType = {
+    id?: true
+    surveyId?: true
+    userId?: true
+    answers?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SurveyResponseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SurveyResponse to aggregate.
+     */
+    where?: SurveyResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SurveyResponses to fetch.
+     */
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SurveyResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SurveyResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SurveyResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SurveyResponses
+    **/
+    _count?: true | SurveyResponseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SurveyResponseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SurveyResponseMaxAggregateInputType
+  }
+
+  export type GetSurveyResponseAggregateType<T extends SurveyResponseAggregateArgs> = {
+        [P in keyof T & keyof AggregateSurveyResponse]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSurveyResponse[P]>
+      : GetScalarType<T[P], AggregateSurveyResponse[P]>
+  }
+
+
+
+
+  export type SurveyResponseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyResponseWhereInput
+    orderBy?: SurveyResponseOrderByWithAggregationInput | SurveyResponseOrderByWithAggregationInput[]
+    by: SurveyResponseScalarFieldEnum[] | SurveyResponseScalarFieldEnum
+    having?: SurveyResponseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SurveyResponseCountAggregateInputType | true
+    _min?: SurveyResponseMinAggregateInputType
+    _max?: SurveyResponseMaxAggregateInputType
+  }
+
+  export type SurveyResponseGroupByOutputType = {
+    id: string
+    surveyId: string
+    userId: string
+    answers: JsonValue
+    createdAt: Date
+    _count: SurveyResponseCountAggregateOutputType | null
+    _min: SurveyResponseMinAggregateOutputType | null
+    _max: SurveyResponseMaxAggregateOutputType | null
+  }
+
+  type GetSurveyResponseGroupByPayload<T extends SurveyResponseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SurveyResponseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SurveyResponseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SurveyResponseGroupByOutputType[P]>
+            : GetScalarType<T[P], SurveyResponseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SurveyResponseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    surveyId?: boolean
+    userId?: boolean
+    answers?: boolean
+    createdAt?: boolean
+    survey?: boolean | SurveyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["surveyResponse"]>
+
+  export type SurveyResponseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    surveyId?: boolean
+    userId?: boolean
+    answers?: boolean
+    createdAt?: boolean
+    survey?: boolean | SurveyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["surveyResponse"]>
+
+  export type SurveyResponseSelectScalar = {
+    id?: boolean
+    surveyId?: boolean
+    userId?: boolean
+    answers?: boolean
+    createdAt?: boolean
+  }
+
+  export type SurveyResponseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    survey?: boolean | SurveyDefaultArgs<ExtArgs>
+  }
+  export type SurveyResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    survey?: boolean | SurveyDefaultArgs<ExtArgs>
+  }
+
+  export type $SurveyResponsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SurveyResponse"
+    objects: {
+      survey: Prisma.$SurveyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      surveyId: string
+      userId: string
+      answers: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["surveyResponse"]>
+    composites: {}
+  }
+
+  type SurveyResponseGetPayload<S extends boolean | null | undefined | SurveyResponseDefaultArgs> = $Result.GetResult<Prisma.$SurveyResponsePayload, S>
+
+  type SurveyResponseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SurveyResponseFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SurveyResponseCountAggregateInputType | true
+    }
+
+  export interface SurveyResponseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SurveyResponse'], meta: { name: 'SurveyResponse' } }
+    /**
+     * Find zero or one SurveyResponse that matches the filter.
+     * @param {SurveyResponseFindUniqueArgs} args - Arguments to find a SurveyResponse
+     * @example
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SurveyResponseFindUniqueArgs>(args: SelectSubset<T, SurveyResponseFindUniqueArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SurveyResponse that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SurveyResponseFindUniqueOrThrowArgs} args - Arguments to find a SurveyResponse
+     * @example
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SurveyResponseFindUniqueOrThrowArgs>(args: SelectSubset<T, SurveyResponseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SurveyResponse that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseFindFirstArgs} args - Arguments to find a SurveyResponse
+     * @example
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SurveyResponseFindFirstArgs>(args?: SelectSubset<T, SurveyResponseFindFirstArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SurveyResponse that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseFindFirstOrThrowArgs} args - Arguments to find a SurveyResponse
+     * @example
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SurveyResponseFindFirstOrThrowArgs>(args?: SelectSubset<T, SurveyResponseFindFirstOrThrowArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SurveyResponses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SurveyResponses
+     * const surveyResponses = await prisma.surveyResponse.findMany()
+     * 
+     * // Get first 10 SurveyResponses
+     * const surveyResponses = await prisma.surveyResponse.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const surveyResponseWithIdOnly = await prisma.surveyResponse.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SurveyResponseFindManyArgs>(args?: SelectSubset<T, SurveyResponseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SurveyResponse.
+     * @param {SurveyResponseCreateArgs} args - Arguments to create a SurveyResponse.
+     * @example
+     * // Create one SurveyResponse
+     * const SurveyResponse = await prisma.surveyResponse.create({
+     *   data: {
+     *     // ... data to create a SurveyResponse
+     *   }
+     * })
+     * 
+     */
+    create<T extends SurveyResponseCreateArgs>(args: SelectSubset<T, SurveyResponseCreateArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SurveyResponses.
+     * @param {SurveyResponseCreateManyArgs} args - Arguments to create many SurveyResponses.
+     * @example
+     * // Create many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SurveyResponseCreateManyArgs>(args?: SelectSubset<T, SurveyResponseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SurveyResponses and returns the data saved in the database.
+     * @param {SurveyResponseCreateManyAndReturnArgs} args - Arguments to create many SurveyResponses.
+     * @example
+     * // Create many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SurveyResponses and only return the `id`
+     * const surveyResponseWithIdOnly = await prisma.surveyResponse.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SurveyResponseCreateManyAndReturnArgs>(args?: SelectSubset<T, SurveyResponseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SurveyResponse.
+     * @param {SurveyResponseDeleteArgs} args - Arguments to delete one SurveyResponse.
+     * @example
+     * // Delete one SurveyResponse
+     * const SurveyResponse = await prisma.surveyResponse.delete({
+     *   where: {
+     *     // ... filter to delete one SurveyResponse
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SurveyResponseDeleteArgs>(args: SelectSubset<T, SurveyResponseDeleteArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SurveyResponse.
+     * @param {SurveyResponseUpdateArgs} args - Arguments to update one SurveyResponse.
+     * @example
+     * // Update one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SurveyResponseUpdateArgs>(args: SelectSubset<T, SurveyResponseUpdateArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SurveyResponses.
+     * @param {SurveyResponseDeleteManyArgs} args - Arguments to filter SurveyResponses to delete.
+     * @example
+     * // Delete a few SurveyResponses
+     * const { count } = await prisma.surveyResponse.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SurveyResponseDeleteManyArgs>(args?: SelectSubset<T, SurveyResponseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SurveyResponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SurveyResponseUpdateManyArgs>(args: SelectSubset<T, SurveyResponseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SurveyResponse.
+     * @param {SurveyResponseUpsertArgs} args - Arguments to update or create a SurveyResponse.
+     * @example
+     * // Update or create a SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.upsert({
+     *   create: {
+     *     // ... data to create a SurveyResponse
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SurveyResponse we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SurveyResponseUpsertArgs>(args: SelectSubset<T, SurveyResponseUpsertArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SurveyResponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseCountArgs} args - Arguments to filter SurveyResponses to count.
+     * @example
+     * // Count the number of SurveyResponses
+     * const count = await prisma.surveyResponse.count({
+     *   where: {
+     *     // ... the filter for the SurveyResponses we want to count
+     *   }
+     * })
+    **/
+    count<T extends SurveyResponseCountArgs>(
+      args?: Subset<T, SurveyResponseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SurveyResponseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SurveyResponse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SurveyResponseAggregateArgs>(args: Subset<T, SurveyResponseAggregateArgs>): Prisma.PrismaPromise<GetSurveyResponseAggregateType<T>>
+
+    /**
+     * Group by SurveyResponse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyResponseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SurveyResponseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SurveyResponseGroupByArgs['orderBy'] }
+        : { orderBy?: SurveyResponseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SurveyResponseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSurveyResponseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SurveyResponse model
+   */
+  readonly fields: SurveyResponseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SurveyResponse.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SurveyResponseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    survey<T extends SurveyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SurveyDefaultArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SurveyResponse model
+   */ 
+  interface SurveyResponseFieldRefs {
+    readonly id: FieldRef<"SurveyResponse", 'String'>
+    readonly surveyId: FieldRef<"SurveyResponse", 'String'>
+    readonly userId: FieldRef<"SurveyResponse", 'String'>
+    readonly answers: FieldRef<"SurveyResponse", 'Json'>
+    readonly createdAt: FieldRef<"SurveyResponse", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SurveyResponse findUnique
+   */
+  export type SurveyResponseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which SurveyResponse to fetch.
+     */
+    where: SurveyResponseWhereUniqueInput
+  }
+
+  /**
+   * SurveyResponse findUniqueOrThrow
+   */
+  export type SurveyResponseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which SurveyResponse to fetch.
+     */
+    where: SurveyResponseWhereUniqueInput
+  }
+
+  /**
+   * SurveyResponse findFirst
+   */
+  export type SurveyResponseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which SurveyResponse to fetch.
+     */
+    where?: SurveyResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SurveyResponses to fetch.
+     */
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SurveyResponses.
+     */
+    cursor?: SurveyResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SurveyResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SurveyResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SurveyResponses.
+     */
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
+  }
+
+  /**
+   * SurveyResponse findFirstOrThrow
+   */
+  export type SurveyResponseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which SurveyResponse to fetch.
+     */
+    where?: SurveyResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SurveyResponses to fetch.
+     */
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SurveyResponses.
+     */
+    cursor?: SurveyResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SurveyResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SurveyResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SurveyResponses.
+     */
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
+  }
+
+  /**
+   * SurveyResponse findMany
+   */
+  export type SurveyResponseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which SurveyResponses to fetch.
+     */
+    where?: SurveyResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SurveyResponses to fetch.
+     */
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SurveyResponses.
+     */
+    cursor?: SurveyResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SurveyResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SurveyResponses.
+     */
+    skip?: number
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
+  }
+
+  /**
+   * SurveyResponse create
+   */
+  export type SurveyResponseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SurveyResponse.
+     */
+    data: XOR<SurveyResponseCreateInput, SurveyResponseUncheckedCreateInput>
+  }
+
+  /**
+   * SurveyResponse createMany
+   */
+  export type SurveyResponseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SurveyResponses.
+     */
+    data: SurveyResponseCreateManyInput | SurveyResponseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SurveyResponse createManyAndReturn
+   */
+  export type SurveyResponseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SurveyResponses.
+     */
+    data: SurveyResponseCreateManyInput | SurveyResponseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SurveyResponse update
+   */
+  export type SurveyResponseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SurveyResponse.
+     */
+    data: XOR<SurveyResponseUpdateInput, SurveyResponseUncheckedUpdateInput>
+    /**
+     * Choose, which SurveyResponse to update.
+     */
+    where: SurveyResponseWhereUniqueInput
+  }
+
+  /**
+   * SurveyResponse updateMany
+   */
+  export type SurveyResponseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SurveyResponses.
+     */
+    data: XOR<SurveyResponseUpdateManyMutationInput, SurveyResponseUncheckedUpdateManyInput>
+    /**
+     * Filter which SurveyResponses to update
+     */
+    where?: SurveyResponseWhereInput
+  }
+
+  /**
+   * SurveyResponse upsert
+   */
+  export type SurveyResponseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SurveyResponse to update in case it exists.
+     */
+    where: SurveyResponseWhereUniqueInput
+    /**
+     * In case the SurveyResponse found by the `where` argument doesn't exist, create a new SurveyResponse with this data.
+     */
+    create: XOR<SurveyResponseCreateInput, SurveyResponseUncheckedCreateInput>
+    /**
+     * In case the SurveyResponse was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SurveyResponseUpdateInput, SurveyResponseUncheckedUpdateInput>
+  }
+
+  /**
+   * SurveyResponse delete
+   */
+  export type SurveyResponseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+    /**
+     * Filter which SurveyResponse to delete.
+     */
+    where: SurveyResponseWhereUniqueInput
+  }
+
+  /**
+   * SurveyResponse deleteMany
+   */
+  export type SurveyResponseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SurveyResponses to delete
+     */
+    where?: SurveyResponseWhereInput
+  }
+
+  /**
+   * SurveyResponse without action
+   */
+  export type SurveyResponseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SurveyResponse
+     */
+    select?: SurveyResponseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyResponseInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37013,6 +41345,57 @@ export namespace Prisma {
   export type CarePlanScalarFieldEnum = (typeof CarePlanScalarFieldEnum)[keyof typeof CarePlanScalarFieldEnum]
 
 
+  export const TrainingModuleScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    category: 'category',
+    videoUrl: 'videoUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type TrainingModuleScalarFieldEnum = (typeof TrainingModuleScalarFieldEnum)[keyof typeof TrainingModuleScalarFieldEnum]
+
+
+  export const TrainingAssignmentScalarFieldEnum: {
+    id: 'id',
+    pswId: 'pswId',
+    staffId: 'staffId',
+    moduleId: 'moduleId',
+    status: 'status',
+    completedAt: 'completedAt',
+    assignedAt: 'assignedAt'
+  };
+
+  export type TrainingAssignmentScalarFieldEnum = (typeof TrainingAssignmentScalarFieldEnum)[keyof typeof TrainingAssignmentScalarFieldEnum]
+
+
+  export const SurveyScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    targetRole: 'targetRole',
+    questions: 'questions',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    tenantId: 'tenantId'
+  };
+
+  export type SurveyScalarFieldEnum = (typeof SurveyScalarFieldEnum)[keyof typeof SurveyScalarFieldEnum]
+
+
+  export const SurveyResponseScalarFieldEnum: {
+    id: 'id',
+    surveyId: 'surveyId',
+    userId: 'userId',
+    answers: 'answers',
+    createdAt: 'createdAt'
+  };
+
+  export type SurveyResponseScalarFieldEnum = (typeof SurveyResponseScalarFieldEnum)[keyof typeof SurveyResponseScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -37465,6 +41848,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     carePlans?: CarePlanListRelationFilter
+    trainingModules?: TrainingModuleListRelationFilter
+    surveys?: SurveyListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     marketplaceListings?: MarketplaceListingListRelationFilter
@@ -37505,6 +41890,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyOrderByRelationAggregateInput
     feedbacks?: FeedbackOrderByRelationAggregateInput
     carePlans?: CarePlanOrderByRelationAggregateInput
+    trainingModules?: TrainingModuleOrderByRelationAggregateInput
+    surveys?: SurveyOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     marketplaceListings?: MarketplaceListingOrderByRelationAggregateInput
@@ -37548,6 +41935,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     carePlans?: CarePlanListRelationFilter
+    trainingModules?: TrainingModuleListRelationFilter
+    surveys?: SurveyListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     marketplaceListings?: MarketplaceListingListRelationFilter
@@ -40081,6 +44470,267 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"CarePlan"> | Date | string
   }
 
+  export type TrainingModuleWhereInput = {
+    AND?: TrainingModuleWhereInput | TrainingModuleWhereInput[]
+    OR?: TrainingModuleWhereInput[]
+    NOT?: TrainingModuleWhereInput | TrainingModuleWhereInput[]
+    id?: StringFilter<"TrainingModule"> | string
+    title?: StringFilter<"TrainingModule"> | string
+    description?: StringNullableFilter<"TrainingModule"> | string | null
+    category?: StringNullableFilter<"TrainingModule"> | string | null
+    videoUrl?: StringNullableFilter<"TrainingModule"> | string | null
+    createdAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    updatedAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    tenantId?: StringFilter<"TrainingModule"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    assignments?: TrainingAssignmentListRelationFilter
+  }
+
+  export type TrainingModuleOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenantId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    assignments?: TrainingAssignmentOrderByRelationAggregateInput
+  }
+
+  export type TrainingModuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TrainingModuleWhereInput | TrainingModuleWhereInput[]
+    OR?: TrainingModuleWhereInput[]
+    NOT?: TrainingModuleWhereInput | TrainingModuleWhereInput[]
+    title?: StringFilter<"TrainingModule"> | string
+    description?: StringNullableFilter<"TrainingModule"> | string | null
+    category?: StringNullableFilter<"TrainingModule"> | string | null
+    videoUrl?: StringNullableFilter<"TrainingModule"> | string | null
+    createdAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    updatedAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    tenantId?: StringFilter<"TrainingModule"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    assignments?: TrainingAssignmentListRelationFilter
+  }, "id">
+
+  export type TrainingModuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenantId?: SortOrder
+    _count?: TrainingModuleCountOrderByAggregateInput
+    _max?: TrainingModuleMaxOrderByAggregateInput
+    _min?: TrainingModuleMinOrderByAggregateInput
+  }
+
+  export type TrainingModuleScalarWhereWithAggregatesInput = {
+    AND?: TrainingModuleScalarWhereWithAggregatesInput | TrainingModuleScalarWhereWithAggregatesInput[]
+    OR?: TrainingModuleScalarWhereWithAggregatesInput[]
+    NOT?: TrainingModuleScalarWhereWithAggregatesInput | TrainingModuleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TrainingModule"> | string
+    title?: StringWithAggregatesFilter<"TrainingModule"> | string
+    description?: StringNullableWithAggregatesFilter<"TrainingModule"> | string | null
+    category?: StringNullableWithAggregatesFilter<"TrainingModule"> | string | null
+    videoUrl?: StringNullableWithAggregatesFilter<"TrainingModule"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TrainingModule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TrainingModule"> | Date | string
+    tenantId?: StringWithAggregatesFilter<"TrainingModule"> | string
+  }
+
+  export type TrainingAssignmentWhereInput = {
+    AND?: TrainingAssignmentWhereInput | TrainingAssignmentWhereInput[]
+    OR?: TrainingAssignmentWhereInput[]
+    NOT?: TrainingAssignmentWhereInput | TrainingAssignmentWhereInput[]
+    id?: StringFilter<"TrainingAssignment"> | string
+    pswId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    staffId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    moduleId?: StringFilter<"TrainingAssignment"> | string
+    status?: StringFilter<"TrainingAssignment"> | string
+    completedAt?: DateTimeNullableFilter<"TrainingAssignment"> | Date | string | null
+    assignedAt?: DateTimeFilter<"TrainingAssignment"> | Date | string
+    module?: XOR<TrainingModuleRelationFilter, TrainingModuleWhereInput>
+  }
+
+  export type TrainingAssignmentOrderByWithRelationInput = {
+    id?: SortOrder
+    pswId?: SortOrderInput | SortOrder
+    staffId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    status?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    assignedAt?: SortOrder
+    module?: TrainingModuleOrderByWithRelationInput
+  }
+
+  export type TrainingAssignmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TrainingAssignmentWhereInput | TrainingAssignmentWhereInput[]
+    OR?: TrainingAssignmentWhereInput[]
+    NOT?: TrainingAssignmentWhereInput | TrainingAssignmentWhereInput[]
+    pswId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    staffId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    moduleId?: StringFilter<"TrainingAssignment"> | string
+    status?: StringFilter<"TrainingAssignment"> | string
+    completedAt?: DateTimeNullableFilter<"TrainingAssignment"> | Date | string | null
+    assignedAt?: DateTimeFilter<"TrainingAssignment"> | Date | string
+    module?: XOR<TrainingModuleRelationFilter, TrainingModuleWhereInput>
+  }, "id">
+
+  export type TrainingAssignmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    pswId?: SortOrderInput | SortOrder
+    staffId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    status?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    assignedAt?: SortOrder
+    _count?: TrainingAssignmentCountOrderByAggregateInput
+    _max?: TrainingAssignmentMaxOrderByAggregateInput
+    _min?: TrainingAssignmentMinOrderByAggregateInput
+  }
+
+  export type TrainingAssignmentScalarWhereWithAggregatesInput = {
+    AND?: TrainingAssignmentScalarWhereWithAggregatesInput | TrainingAssignmentScalarWhereWithAggregatesInput[]
+    OR?: TrainingAssignmentScalarWhereWithAggregatesInput[]
+    NOT?: TrainingAssignmentScalarWhereWithAggregatesInput | TrainingAssignmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TrainingAssignment"> | string
+    pswId?: StringNullableWithAggregatesFilter<"TrainingAssignment"> | string | null
+    staffId?: StringNullableWithAggregatesFilter<"TrainingAssignment"> | string | null
+    moduleId?: StringWithAggregatesFilter<"TrainingAssignment"> | string
+    status?: StringWithAggregatesFilter<"TrainingAssignment"> | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"TrainingAssignment"> | Date | string | null
+    assignedAt?: DateTimeWithAggregatesFilter<"TrainingAssignment"> | Date | string
+  }
+
+  export type SurveyWhereInput = {
+    AND?: SurveyWhereInput | SurveyWhereInput[]
+    OR?: SurveyWhereInput[]
+    NOT?: SurveyWhereInput | SurveyWhereInput[]
+    id?: StringFilter<"Survey"> | string
+    title?: StringFilter<"Survey"> | string
+    targetRole?: EnumRoleNullableFilter<"Survey"> | $Enums.Role | null
+    questions?: JsonFilter<"Survey">
+    isActive?: BoolFilter<"Survey"> | boolean
+    createdAt?: DateTimeFilter<"Survey"> | Date | string
+    tenantId?: StringFilter<"Survey"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    responses?: SurveyResponseListRelationFilter
+  }
+
+  export type SurveyOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    targetRole?: SortOrderInput | SortOrder
+    questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenantId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    responses?: SurveyResponseOrderByRelationAggregateInput
+  }
+
+  export type SurveyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SurveyWhereInput | SurveyWhereInput[]
+    OR?: SurveyWhereInput[]
+    NOT?: SurveyWhereInput | SurveyWhereInput[]
+    title?: StringFilter<"Survey"> | string
+    targetRole?: EnumRoleNullableFilter<"Survey"> | $Enums.Role | null
+    questions?: JsonFilter<"Survey">
+    isActive?: BoolFilter<"Survey"> | boolean
+    createdAt?: DateTimeFilter<"Survey"> | Date | string
+    tenantId?: StringFilter<"Survey"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    responses?: SurveyResponseListRelationFilter
+  }, "id">
+
+  export type SurveyOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    targetRole?: SortOrderInput | SortOrder
+    questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenantId?: SortOrder
+    _count?: SurveyCountOrderByAggregateInput
+    _max?: SurveyMaxOrderByAggregateInput
+    _min?: SurveyMinOrderByAggregateInput
+  }
+
+  export type SurveyScalarWhereWithAggregatesInput = {
+    AND?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
+    OR?: SurveyScalarWhereWithAggregatesInput[]
+    NOT?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Survey"> | string
+    title?: StringWithAggregatesFilter<"Survey"> | string
+    targetRole?: EnumRoleNullableWithAggregatesFilter<"Survey"> | $Enums.Role | null
+    questions?: JsonWithAggregatesFilter<"Survey">
+    isActive?: BoolWithAggregatesFilter<"Survey"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Survey"> | Date | string
+    tenantId?: StringWithAggregatesFilter<"Survey"> | string
+  }
+
+  export type SurveyResponseWhereInput = {
+    AND?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    OR?: SurveyResponseWhereInput[]
+    NOT?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    id?: StringFilter<"SurveyResponse"> | string
+    surveyId?: StringFilter<"SurveyResponse"> | string
+    userId?: StringFilter<"SurveyResponse"> | string
+    answers?: JsonFilter<"SurveyResponse">
+    createdAt?: DateTimeFilter<"SurveyResponse"> | Date | string
+    survey?: XOR<SurveyRelationFilter, SurveyWhereInput>
+  }
+
+  export type SurveyResponseOrderByWithRelationInput = {
+    id?: SortOrder
+    surveyId?: SortOrder
+    userId?: SortOrder
+    answers?: SortOrder
+    createdAt?: SortOrder
+    survey?: SurveyOrderByWithRelationInput
+  }
+
+  export type SurveyResponseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    OR?: SurveyResponseWhereInput[]
+    NOT?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    surveyId?: StringFilter<"SurveyResponse"> | string
+    userId?: StringFilter<"SurveyResponse"> | string
+    answers?: JsonFilter<"SurveyResponse">
+    createdAt?: DateTimeFilter<"SurveyResponse"> | Date | string
+    survey?: XOR<SurveyRelationFilter, SurveyWhereInput>
+  }, "id">
+
+  export type SurveyResponseOrderByWithAggregationInput = {
+    id?: SortOrder
+    surveyId?: SortOrder
+    userId?: SortOrder
+    answers?: SortOrder
+    createdAt?: SortOrder
+    _count?: SurveyResponseCountOrderByAggregateInput
+    _max?: SurveyResponseMaxOrderByAggregateInput
+    _min?: SurveyResponseMinOrderByAggregateInput
+  }
+
+  export type SurveyResponseScalarWhereWithAggregatesInput = {
+    AND?: SurveyResponseScalarWhereWithAggregatesInput | SurveyResponseScalarWhereWithAggregatesInput[]
+    OR?: SurveyResponseScalarWhereWithAggregatesInput[]
+    NOT?: SurveyResponseScalarWhereWithAggregatesInput | SurveyResponseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SurveyResponse"> | string
+    surveyId?: StringWithAggregatesFilter<"SurveyResponse"> | string
+    userId?: StringWithAggregatesFilter<"SurveyResponse"> | string
+    answers?: JsonWithAggregatesFilter<"SurveyResponse">
+    createdAt?: DateTimeWithAggregatesFilter<"SurveyResponse"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -40259,6 +44909,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -40299,6 +44951,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -40337,6 +44991,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -40377,6 +45033,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -43092,6 +47750,283 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TrainingModuleCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTrainingModulesInput
+    assignments?: TrainingAssignmentCreateNestedManyWithoutModuleInput
+  }
+
+  export type TrainingModuleUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    assignments?: TrainingAssignmentUncheckedCreateNestedManyWithoutModuleInput
+  }
+
+  export type TrainingModuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTrainingModulesNestedInput
+    assignments?: TrainingAssignmentUpdateManyWithoutModuleNestedInput
+  }
+
+  export type TrainingModuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assignments?: TrainingAssignmentUncheckedUpdateManyWithoutModuleNestedInput
+  }
+
+  export type TrainingModuleCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+  }
+
+  export type TrainingModuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrainingModuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TrainingAssignmentCreateInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+    module: TrainingModuleCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type TrainingAssignmentUncheckedCreateInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    moduleId: string
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+  }
+
+  export type TrainingAssignmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    module?: TrainingModuleUpdateOneRequiredWithoutAssignmentsNestedInput
+  }
+
+  export type TrainingAssignmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrainingAssignmentCreateManyInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    moduleId: string
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+  }
+
+  export type TrainingAssignmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrainingAssignmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyCreateInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSurveysInput
+    responses?: SurveyResponseCreateNestedManyWithoutSurveyInput
+  }
+
+  export type SurveyUncheckedCreateInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    tenantId: string
+    responses?: SurveyResponseUncheckedCreateNestedManyWithoutSurveyInput
+  }
+
+  export type SurveyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSurveysNestedInput
+    responses?: SurveyResponseUpdateManyWithoutSurveyNestedInput
+  }
+
+  export type SurveyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    responses?: SurveyResponseUncheckedUpdateManyWithoutSurveyNestedInput
+  }
+
+  export type SurveyCreateManyInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    tenantId: string
+  }
+
+  export type SurveyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SurveyResponseCreateInput = {
+    id?: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    survey: SurveyCreateNestedOneWithoutResponsesInput
+  }
+
+  export type SurveyResponseUncheckedCreateInput = {
+    id?: string
+    surveyId: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SurveyResponseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    survey?: SurveyUpdateOneRequiredWithoutResponsesNestedInput
+  }
+
+  export type SurveyResponseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    surveyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyResponseCreateManyInput = {
+    id?: string
+    surveyId: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SurveyResponseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyResponseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    surveyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -43482,6 +48417,18 @@ export namespace Prisma {
     none?: CarePlanWhereInput
   }
 
+  export type TrainingModuleListRelationFilter = {
+    every?: TrainingModuleWhereInput
+    some?: TrainingModuleWhereInput
+    none?: TrainingModuleWhereInput
+  }
+
+  export type SurveyListRelationFilter = {
+    every?: SurveyWhereInput
+    some?: SurveyWhereInput
+    none?: SurveyWhereInput
+  }
+
   export type TenantNullableRelationFilter = {
     is?: TenantWhereInput | null
     isNot?: TenantWhereInput | null
@@ -43556,6 +48503,14 @@ export namespace Prisma {
   }
 
   export type CarePlanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TrainingModuleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SurveyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45342,6 +50297,149 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type TrainingAssignmentListRelationFilter = {
+    every?: TrainingAssignmentWhereInput
+    some?: TrainingAssignmentWhereInput
+    none?: TrainingAssignmentWhereInput
+  }
+
+  export type TrainingAssignmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TrainingModuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    videoUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TrainingModuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    videoUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TrainingModuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    videoUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TrainingModuleRelationFilter = {
+    is?: TrainingModuleWhereInput
+    isNot?: TrainingModuleWhereInput
+  }
+
+  export type TrainingAssignmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    staffId?: SortOrder
+    moduleId?: SortOrder
+    status?: SortOrder
+    completedAt?: SortOrder
+    assignedAt?: SortOrder
+  }
+
+  export type TrainingAssignmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    staffId?: SortOrder
+    moduleId?: SortOrder
+    status?: SortOrder
+    completedAt?: SortOrder
+    assignedAt?: SortOrder
+  }
+
+  export type TrainingAssignmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    pswId?: SortOrder
+    staffId?: SortOrder
+    moduleId?: SortOrder
+    status?: SortOrder
+    completedAt?: SortOrder
+    assignedAt?: SortOrder
+  }
+
+  export type SurveyResponseListRelationFilter = {
+    every?: SurveyResponseWhereInput
+    some?: SurveyResponseWhereInput
+    none?: SurveyResponseWhereInput
+  }
+
+  export type SurveyResponseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SurveyCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    targetRole?: SortOrder
+    questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type SurveyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    targetRole?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type SurveyMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    targetRole?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type SurveyRelationFilter = {
+    is?: SurveyWhereInput
+    isNot?: SurveyWhereInput
+  }
+
+  export type SurveyResponseCountOrderByAggregateInput = {
+    id?: SortOrder
+    surveyId?: SortOrder
+    userId?: SortOrder
+    answers?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SurveyResponseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    surveyId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SurveyResponseMinOrderByAggregateInput = {
+    id?: SortOrder
+    surveyId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreaterolesInput = {
     set: $Enums.Role[]
   }
@@ -45921,6 +51019,20 @@ export namespace Prisma {
     connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
   }
 
+  export type TrainingModuleCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput> | TrainingModuleCreateWithoutTenantInput[] | TrainingModuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutTenantInput | TrainingModuleCreateOrConnectWithoutTenantInput[]
+    createMany?: TrainingModuleCreateManyTenantInputEnvelope
+    connect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+  }
+
+  export type SurveyCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput> | SurveyCreateWithoutTenantInput[] | SurveyUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutTenantInput | SurveyCreateOrConnectWithoutTenantInput[]
+    createMany?: SurveyCreateManyTenantInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+  }
+
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
     create?: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutChildTenantsInput
@@ -46079,6 +51191,20 @@ export namespace Prisma {
     connectOrCreate?: CarePlanCreateOrConnectWithoutTenantInput | CarePlanCreateOrConnectWithoutTenantInput[]
     createMany?: CarePlanCreateManyTenantInputEnvelope
     connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+  }
+
+  export type TrainingModuleUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput> | TrainingModuleCreateWithoutTenantInput[] | TrainingModuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutTenantInput | TrainingModuleCreateOrConnectWithoutTenantInput[]
+    createMany?: TrainingModuleCreateManyTenantInputEnvelope
+    connect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+  }
+
+  export type SurveyUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput> | SurveyCreateWithoutTenantInput[] | SurveyUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutTenantInput | SurveyCreateOrConnectWithoutTenantInput[]
+    createMany?: SurveyCreateManyTenantInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -46381,6 +51507,34 @@ export namespace Prisma {
     update?: CarePlanUpdateWithWhereUniqueWithoutTenantInput | CarePlanUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CarePlanUpdateManyWithWhereWithoutTenantInput | CarePlanUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
+  export type TrainingModuleUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput> | TrainingModuleCreateWithoutTenantInput[] | TrainingModuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutTenantInput | TrainingModuleCreateOrConnectWithoutTenantInput[]
+    upsert?: TrainingModuleUpsertWithWhereUniqueWithoutTenantInput | TrainingModuleUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TrainingModuleCreateManyTenantInputEnvelope
+    set?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    disconnect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    delete?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    connect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    update?: TrainingModuleUpdateWithWhereUniqueWithoutTenantInput | TrainingModuleUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TrainingModuleUpdateManyWithWhereWithoutTenantInput | TrainingModuleUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TrainingModuleScalarWhereInput | TrainingModuleScalarWhereInput[]
+  }
+
+  export type SurveyUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput> | SurveyCreateWithoutTenantInput[] | SurveyUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutTenantInput | SurveyCreateOrConnectWithoutTenantInput[]
+    upsert?: SurveyUpsertWithWhereUniqueWithoutTenantInput | SurveyUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SurveyCreateManyTenantInputEnvelope
+    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    update?: SurveyUpdateWithWhereUniqueWithoutTenantInput | SurveyUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SurveyUpdateManyWithWhereWithoutTenantInput | SurveyUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -46699,6 +51853,34 @@ export namespace Prisma {
     update?: CarePlanUpdateWithWhereUniqueWithoutTenantInput | CarePlanUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CarePlanUpdateManyWithWhereWithoutTenantInput | CarePlanUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
+  export type TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput> | TrainingModuleCreateWithoutTenantInput[] | TrainingModuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutTenantInput | TrainingModuleCreateOrConnectWithoutTenantInput[]
+    upsert?: TrainingModuleUpsertWithWhereUniqueWithoutTenantInput | TrainingModuleUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TrainingModuleCreateManyTenantInputEnvelope
+    set?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    disconnect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    delete?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    connect?: TrainingModuleWhereUniqueInput | TrainingModuleWhereUniqueInput[]
+    update?: TrainingModuleUpdateWithWhereUniqueWithoutTenantInput | TrainingModuleUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TrainingModuleUpdateManyWithWhereWithoutTenantInput | TrainingModuleUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TrainingModuleScalarWhereInput | TrainingModuleScalarWhereInput[]
+  }
+
+  export type SurveyUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput> | SurveyCreateWithoutTenantInput[] | SurveyUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutTenantInput | SurveyCreateOrConnectWithoutTenantInput[]
+    upsert?: SurveyUpsertWithWhereUniqueWithoutTenantInput | SurveyUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SurveyCreateManyTenantInputEnvelope
+    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    update?: SurveyUpdateWithWhereUniqueWithoutTenantInput | SurveyUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SurveyUpdateManyWithWhereWithoutTenantInput | SurveyUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
@@ -48939,6 +54121,146 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCarePlansInput, TenantUpdateWithoutCarePlansInput>, TenantUncheckedUpdateWithoutCarePlansInput>
   }
 
+  export type TenantCreateNestedOneWithoutTrainingModulesInput = {
+    create?: XOR<TenantCreateWithoutTrainingModulesInput, TenantUncheckedCreateWithoutTrainingModulesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTrainingModulesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TrainingAssignmentCreateNestedManyWithoutModuleInput = {
+    create?: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput> | TrainingAssignmentCreateWithoutModuleInput[] | TrainingAssignmentUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: TrainingAssignmentCreateOrConnectWithoutModuleInput | TrainingAssignmentCreateOrConnectWithoutModuleInput[]
+    createMany?: TrainingAssignmentCreateManyModuleInputEnvelope
+    connect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+  }
+
+  export type TrainingAssignmentUncheckedCreateNestedManyWithoutModuleInput = {
+    create?: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput> | TrainingAssignmentCreateWithoutModuleInput[] | TrainingAssignmentUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: TrainingAssignmentCreateOrConnectWithoutModuleInput | TrainingAssignmentCreateOrConnectWithoutModuleInput[]
+    createMany?: TrainingAssignmentCreateManyModuleInputEnvelope
+    connect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutTrainingModulesNestedInput = {
+    create?: XOR<TenantCreateWithoutTrainingModulesInput, TenantUncheckedCreateWithoutTrainingModulesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTrainingModulesInput
+    upsert?: TenantUpsertWithoutTrainingModulesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTrainingModulesInput, TenantUpdateWithoutTrainingModulesInput>, TenantUncheckedUpdateWithoutTrainingModulesInput>
+  }
+
+  export type TrainingAssignmentUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput> | TrainingAssignmentCreateWithoutModuleInput[] | TrainingAssignmentUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: TrainingAssignmentCreateOrConnectWithoutModuleInput | TrainingAssignmentCreateOrConnectWithoutModuleInput[]
+    upsert?: TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput | TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: TrainingAssignmentCreateManyModuleInputEnvelope
+    set?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    disconnect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    delete?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    connect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    update?: TrainingAssignmentUpdateWithWhereUniqueWithoutModuleInput | TrainingAssignmentUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: TrainingAssignmentUpdateManyWithWhereWithoutModuleInput | TrainingAssignmentUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: TrainingAssignmentScalarWhereInput | TrainingAssignmentScalarWhereInput[]
+  }
+
+  export type TrainingAssignmentUncheckedUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput> | TrainingAssignmentCreateWithoutModuleInput[] | TrainingAssignmentUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: TrainingAssignmentCreateOrConnectWithoutModuleInput | TrainingAssignmentCreateOrConnectWithoutModuleInput[]
+    upsert?: TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput | TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: TrainingAssignmentCreateManyModuleInputEnvelope
+    set?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    disconnect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    delete?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    connect?: TrainingAssignmentWhereUniqueInput | TrainingAssignmentWhereUniqueInput[]
+    update?: TrainingAssignmentUpdateWithWhereUniqueWithoutModuleInput | TrainingAssignmentUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: TrainingAssignmentUpdateManyWithWhereWithoutModuleInput | TrainingAssignmentUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: TrainingAssignmentScalarWhereInput | TrainingAssignmentScalarWhereInput[]
+  }
+
+  export type TrainingModuleCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<TrainingModuleCreateWithoutAssignmentsInput, TrainingModuleUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutAssignmentsInput
+    connect?: TrainingModuleWhereUniqueInput
+  }
+
+  export type TrainingModuleUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<TrainingModuleCreateWithoutAssignmentsInput, TrainingModuleUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: TrainingModuleCreateOrConnectWithoutAssignmentsInput
+    upsert?: TrainingModuleUpsertWithoutAssignmentsInput
+    connect?: TrainingModuleWhereUniqueInput
+    update?: XOR<XOR<TrainingModuleUpdateToOneWithWhereWithoutAssignmentsInput, TrainingModuleUpdateWithoutAssignmentsInput>, TrainingModuleUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutSurveysInput = {
+    create?: XOR<TenantCreateWithoutSurveysInput, TenantUncheckedCreateWithoutSurveysInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSurveysInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type SurveyResponseCreateNestedManyWithoutSurveyInput = {
+    create?: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput> | SurveyResponseCreateWithoutSurveyInput[] | SurveyResponseUncheckedCreateWithoutSurveyInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutSurveyInput | SurveyResponseCreateOrConnectWithoutSurveyInput[]
+    createMany?: SurveyResponseCreateManySurveyInputEnvelope
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+  }
+
+  export type SurveyResponseUncheckedCreateNestedManyWithoutSurveyInput = {
+    create?: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput> | SurveyResponseCreateWithoutSurveyInput[] | SurveyResponseUncheckedCreateWithoutSurveyInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutSurveyInput | SurveyResponseCreateOrConnectWithoutSurveyInput[]
+    createMany?: SurveyResponseCreateManySurveyInputEnvelope
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutSurveysNestedInput = {
+    create?: XOR<TenantCreateWithoutSurveysInput, TenantUncheckedCreateWithoutSurveysInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSurveysInput
+    upsert?: TenantUpsertWithoutSurveysInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSurveysInput, TenantUpdateWithoutSurveysInput>, TenantUncheckedUpdateWithoutSurveysInput>
+  }
+
+  export type SurveyResponseUpdateManyWithoutSurveyNestedInput = {
+    create?: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput> | SurveyResponseCreateWithoutSurveyInput[] | SurveyResponseUncheckedCreateWithoutSurveyInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutSurveyInput | SurveyResponseCreateOrConnectWithoutSurveyInput[]
+    upsert?: SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput | SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput[]
+    createMany?: SurveyResponseCreateManySurveyInputEnvelope
+    set?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    disconnect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    delete?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    update?: SurveyResponseUpdateWithWhereUniqueWithoutSurveyInput | SurveyResponseUpdateWithWhereUniqueWithoutSurveyInput[]
+    updateMany?: SurveyResponseUpdateManyWithWhereWithoutSurveyInput | SurveyResponseUpdateManyWithWhereWithoutSurveyInput[]
+    deleteMany?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+  }
+
+  export type SurveyResponseUncheckedUpdateManyWithoutSurveyNestedInput = {
+    create?: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput> | SurveyResponseCreateWithoutSurveyInput[] | SurveyResponseUncheckedCreateWithoutSurveyInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutSurveyInput | SurveyResponseCreateOrConnectWithoutSurveyInput[]
+    upsert?: SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput | SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput[]
+    createMany?: SurveyResponseCreateManySurveyInputEnvelope
+    set?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    disconnect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    delete?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    update?: SurveyResponseUpdateWithWhereUniqueWithoutSurveyInput | SurveyResponseUpdateWithWhereUniqueWithoutSurveyInput[]
+    updateMany?: SurveyResponseUpdateManyWithWhereWithoutSurveyInput | SurveyResponseUpdateManyWithWhereWithoutSurveyInput[]
+    deleteMany?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+  }
+
+  export type SurveyCreateNestedOneWithoutResponsesInput = {
+    create?: XOR<SurveyCreateWithoutResponsesInput, SurveyUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: SurveyCreateOrConnectWithoutResponsesInput
+    connect?: SurveyWhereUniqueInput
+  }
+
+  export type SurveyUpdateOneRequiredWithoutResponsesNestedInput = {
+    create?: XOR<SurveyCreateWithoutResponsesInput, SurveyUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: SurveyCreateOrConnectWithoutResponsesInput
+    upsert?: SurveyUpsertWithoutResponsesInput
+    connect?: SurveyWhereUniqueInput
+    update?: XOR<XOR<SurveyUpdateToOneWithWhereWithoutResponsesInput, SurveyUpdateWithoutResponsesInput>, SurveyUncheckedUpdateWithoutResponsesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -49849,6 +55171,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -49888,6 +55212,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -50342,6 +55668,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -50381,6 +55709,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -51246,6 +56576,68 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TrainingModuleCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: TrainingAssignmentCreateNestedManyWithoutModuleInput
+  }
+
+  export type TrainingModuleUncheckedCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: TrainingAssignmentUncheckedCreateNestedManyWithoutModuleInput
+  }
+
+  export type TrainingModuleCreateOrConnectWithoutTenantInput = {
+    where: TrainingModuleWhereUniqueInput
+    create: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TrainingModuleCreateManyTenantInputEnvelope = {
+    data: TrainingModuleCreateManyTenantInput | TrainingModuleCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SurveyCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    responses?: SurveyResponseCreateNestedManyWithoutSurveyInput
+  }
+
+  export type SurveyUncheckedCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    responses?: SurveyResponseUncheckedCreateNestedManyWithoutSurveyInput
+  }
+
+  export type SurveyCreateOrConnectWithoutTenantInput = {
+    where: SurveyWhereUniqueInput
+    create: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SurveyCreateManyTenantInputEnvelope = {
+    data: SurveyCreateManyTenantInput | SurveyCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -51280,6 +56672,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
   }
@@ -51319,6 +56713,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -51361,6 +56757,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
   }
@@ -51399,6 +56797,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -52026,6 +57426,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CarePlan"> | Date | string
   }
 
+  export type TrainingModuleUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TrainingModuleWhereUniqueInput
+    update: XOR<TrainingModuleUpdateWithoutTenantInput, TrainingModuleUncheckedUpdateWithoutTenantInput>
+    create: XOR<TrainingModuleCreateWithoutTenantInput, TrainingModuleUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TrainingModuleUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TrainingModuleWhereUniqueInput
+    data: XOR<TrainingModuleUpdateWithoutTenantInput, TrainingModuleUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TrainingModuleUpdateManyWithWhereWithoutTenantInput = {
+    where: TrainingModuleScalarWhereInput
+    data: XOR<TrainingModuleUpdateManyMutationInput, TrainingModuleUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TrainingModuleScalarWhereInput = {
+    AND?: TrainingModuleScalarWhereInput | TrainingModuleScalarWhereInput[]
+    OR?: TrainingModuleScalarWhereInput[]
+    NOT?: TrainingModuleScalarWhereInput | TrainingModuleScalarWhereInput[]
+    id?: StringFilter<"TrainingModule"> | string
+    title?: StringFilter<"TrainingModule"> | string
+    description?: StringNullableFilter<"TrainingModule"> | string | null
+    category?: StringNullableFilter<"TrainingModule"> | string | null
+    videoUrl?: StringNullableFilter<"TrainingModule"> | string | null
+    createdAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    updatedAt?: DateTimeFilter<"TrainingModule"> | Date | string
+    tenantId?: StringFilter<"TrainingModule"> | string
+  }
+
+  export type SurveyUpsertWithWhereUniqueWithoutTenantInput = {
+    where: SurveyWhereUniqueInput
+    update: XOR<SurveyUpdateWithoutTenantInput, SurveyUncheckedUpdateWithoutTenantInput>
+    create: XOR<SurveyCreateWithoutTenantInput, SurveyUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SurveyUpdateWithWhereUniqueWithoutTenantInput = {
+    where: SurveyWhereUniqueInput
+    data: XOR<SurveyUpdateWithoutTenantInput, SurveyUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SurveyUpdateManyWithWhereWithoutTenantInput = {
+    where: SurveyScalarWhereInput
+    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SurveyScalarWhereInput = {
+    AND?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    OR?: SurveyScalarWhereInput[]
+    NOT?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    id?: StringFilter<"Survey"> | string
+    title?: StringFilter<"Survey"> | string
+    targetRole?: EnumRoleNullableFilter<"Survey"> | $Enums.Role | null
+    questions?: JsonFilter<"Survey">
+    isActive?: BoolFilter<"Survey"> | boolean
+    createdAt?: DateTimeFilter<"Survey"> | Date | string
+    tenantId?: StringFilter<"Survey"> | string
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -52071,6 +57530,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
   }
@@ -52110,6 +57571,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -52213,6 +57676,8 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -52252,6 +57717,8 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -52305,6 +57772,8 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -52344,6 +57813,8 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -52419,6 +57890,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -52458,6 +57931,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -52836,6 +58311,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -52875,6 +58352,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -53155,6 +58634,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -53194,6 +58675,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -53592,6 +59075,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -53631,6 +59116,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -54279,6 +59766,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -54318,6 +59807,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -54712,6 +60203,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -54751,6 +60244,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -54788,6 +60283,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -54827,6 +60324,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -54962,6 +60461,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -55001,6 +60502,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -55162,6 +60665,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -55201,6 +60706,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -55451,6 +60958,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -55490,6 +60999,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -56215,6 +61726,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -56254,6 +61767,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -56443,6 +61958,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -56482,6 +61999,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -56734,6 +62253,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -56773,6 +62294,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -56962,6 +62485,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -57001,6 +62526,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -57327,6 +62854,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -57366,6 +62895,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -57510,6 +63041,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -57549,6 +63082,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -57823,6 +63358,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -57862,6 +63399,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -58055,6 +63594,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -58094,6 +63635,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -58348,6 +63891,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -58387,6 +63932,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -58499,6 +64046,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -58538,6 +64087,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -58575,6 +64126,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -58614,6 +64167,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -58667,6 +64222,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -58706,6 +64263,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -58800,6 +64359,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -58839,6 +64400,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -59037,6 +64600,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -59076,6 +64641,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -59184,6 +64751,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -59223,6 +64792,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -59337,6 +64908,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -59376,6 +64949,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -59468,6 +65043,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -59507,6 +65084,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -59698,6 +65277,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -59737,6 +65318,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -59969,6 +65552,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -60008,6 +65593,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -60061,6 +65648,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -60100,6 +65689,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -60475,6 +66066,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -60514,6 +66107,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -60766,6 +66361,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -60805,6 +66402,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -60926,6 +66525,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
   }
@@ -60965,6 +66566,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
   }
 
@@ -61018,6 +66621,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
   }
@@ -61057,6 +66662,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
   }
 
@@ -61150,6 +66757,8 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -61189,6 +66798,8 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -61382,6 +66993,8 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -61421,6 +67034,8 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -61598,6 +67213,8 @@ export namespace Prisma {
     visits?: VisitCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -61637,6 +67254,8 @@ export namespace Prisma {
     visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
     apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
   }
@@ -61753,6 +67372,8 @@ export namespace Prisma {
     visits?: VisitUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -61792,8 +67413,586 @@ export namespace Prisma {
     visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutTrainingModulesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutTrainingModulesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutTrainingModulesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutTrainingModulesInput, TenantUncheckedCreateWithoutTrainingModulesInput>
+  }
+
+  export type TrainingAssignmentCreateWithoutModuleInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+  }
+
+  export type TrainingAssignmentUncheckedCreateWithoutModuleInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+  }
+
+  export type TrainingAssignmentCreateOrConnectWithoutModuleInput = {
+    where: TrainingAssignmentWhereUniqueInput
+    create: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput>
+  }
+
+  export type TrainingAssignmentCreateManyModuleInputEnvelope = {
+    data: TrainingAssignmentCreateManyModuleInput | TrainingAssignmentCreateManyModuleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutTrainingModulesInput = {
+    update: XOR<TenantUpdateWithoutTrainingModulesInput, TenantUncheckedUpdateWithoutTrainingModulesInput>
+    create: XOR<TenantCreateWithoutTrainingModulesInput, TenantUncheckedCreateWithoutTrainingModulesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutTrainingModulesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutTrainingModulesInput, TenantUncheckedUpdateWithoutTrainingModulesInput>
+  }
+
+  export type TenantUpdateWithoutTrainingModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
+    where: TrainingAssignmentWhereUniqueInput
+    update: XOR<TrainingAssignmentUpdateWithoutModuleInput, TrainingAssignmentUncheckedUpdateWithoutModuleInput>
+    create: XOR<TrainingAssignmentCreateWithoutModuleInput, TrainingAssignmentUncheckedCreateWithoutModuleInput>
+  }
+
+  export type TrainingAssignmentUpdateWithWhereUniqueWithoutModuleInput = {
+    where: TrainingAssignmentWhereUniqueInput
+    data: XOR<TrainingAssignmentUpdateWithoutModuleInput, TrainingAssignmentUncheckedUpdateWithoutModuleInput>
+  }
+
+  export type TrainingAssignmentUpdateManyWithWhereWithoutModuleInput = {
+    where: TrainingAssignmentScalarWhereInput
+    data: XOR<TrainingAssignmentUpdateManyMutationInput, TrainingAssignmentUncheckedUpdateManyWithoutModuleInput>
+  }
+
+  export type TrainingAssignmentScalarWhereInput = {
+    AND?: TrainingAssignmentScalarWhereInput | TrainingAssignmentScalarWhereInput[]
+    OR?: TrainingAssignmentScalarWhereInput[]
+    NOT?: TrainingAssignmentScalarWhereInput | TrainingAssignmentScalarWhereInput[]
+    id?: StringFilter<"TrainingAssignment"> | string
+    pswId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    staffId?: StringNullableFilter<"TrainingAssignment"> | string | null
+    moduleId?: StringFilter<"TrainingAssignment"> | string
+    status?: StringFilter<"TrainingAssignment"> | string
+    completedAt?: DateTimeNullableFilter<"TrainingAssignment"> | Date | string | null
+    assignedAt?: DateTimeFilter<"TrainingAssignment"> | Date | string
+  }
+
+  export type TrainingModuleCreateWithoutAssignmentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTrainingModulesInput
+  }
+
+  export type TrainingModuleUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+  }
+
+  export type TrainingModuleCreateOrConnectWithoutAssignmentsInput = {
+    where: TrainingModuleWhereUniqueInput
+    create: XOR<TrainingModuleCreateWithoutAssignmentsInput, TrainingModuleUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type TrainingModuleUpsertWithoutAssignmentsInput = {
+    update: XOR<TrainingModuleUpdateWithoutAssignmentsInput, TrainingModuleUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<TrainingModuleCreateWithoutAssignmentsInput, TrainingModuleUncheckedCreateWithoutAssignmentsInput>
+    where?: TrainingModuleWhereInput
+  }
+
+  export type TrainingModuleUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: TrainingModuleWhereInput
+    data: XOR<TrainingModuleUpdateWithoutAssignmentsInput, TrainingModuleUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type TrainingModuleUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTrainingModulesNestedInput
+  }
+
+  export type TrainingModuleUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCreateWithoutSurveysInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutSurveysInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSurveysInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSurveysInput, TenantUncheckedCreateWithoutSurveysInput>
+  }
+
+  export type SurveyResponseCreateWithoutSurveyInput = {
+    id?: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SurveyResponseUncheckedCreateWithoutSurveyInput = {
+    id?: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SurveyResponseCreateOrConnectWithoutSurveyInput = {
+    where: SurveyResponseWhereUniqueInput
+    create: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput>
+  }
+
+  export type SurveyResponseCreateManySurveyInputEnvelope = {
+    data: SurveyResponseCreateManySurveyInput | SurveyResponseCreateManySurveyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutSurveysInput = {
+    update: XOR<TenantUpdateWithoutSurveysInput, TenantUncheckedUpdateWithoutSurveysInput>
+    create: XOR<TenantCreateWithoutSurveysInput, TenantUncheckedCreateWithoutSurveysInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutSurveysInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutSurveysInput, TenantUncheckedUpdateWithoutSurveysInput>
+  }
+
+  export type TenantUpdateWithoutSurveysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSurveysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
+    where: SurveyResponseWhereUniqueInput
+    update: XOR<SurveyResponseUpdateWithoutSurveyInput, SurveyResponseUncheckedUpdateWithoutSurveyInput>
+    create: XOR<SurveyResponseCreateWithoutSurveyInput, SurveyResponseUncheckedCreateWithoutSurveyInput>
+  }
+
+  export type SurveyResponseUpdateWithWhereUniqueWithoutSurveyInput = {
+    where: SurveyResponseWhereUniqueInput
+    data: XOR<SurveyResponseUpdateWithoutSurveyInput, SurveyResponseUncheckedUpdateWithoutSurveyInput>
+  }
+
+  export type SurveyResponseUpdateManyWithWhereWithoutSurveyInput = {
+    where: SurveyResponseScalarWhereInput
+    data: XOR<SurveyResponseUpdateManyMutationInput, SurveyResponseUncheckedUpdateManyWithoutSurveyInput>
+  }
+
+  export type SurveyResponseScalarWhereInput = {
+    AND?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+    OR?: SurveyResponseScalarWhereInput[]
+    NOT?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+    id?: StringFilter<"SurveyResponse"> | string
+    surveyId?: StringFilter<"SurveyResponse"> | string
+    userId?: StringFilter<"SurveyResponse"> | string
+    answers?: JsonFilter<"SurveyResponse">
+    createdAt?: DateTimeFilter<"SurveyResponse"> | Date | string
+  }
+
+  export type SurveyCreateWithoutResponsesInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSurveysInput
+  }
+
+  export type SurveyUncheckedCreateWithoutResponsesInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    tenantId: string
+  }
+
+  export type SurveyCreateOrConnectWithoutResponsesInput = {
+    where: SurveyWhereUniqueInput
+    create: XOR<SurveyCreateWithoutResponsesInput, SurveyUncheckedCreateWithoutResponsesInput>
+  }
+
+  export type SurveyUpsertWithoutResponsesInput = {
+    update: XOR<SurveyUpdateWithoutResponsesInput, SurveyUncheckedUpdateWithoutResponsesInput>
+    create: XOR<SurveyCreateWithoutResponsesInput, SurveyUncheckedCreateWithoutResponsesInput>
+    where?: SurveyWhereInput
+  }
+
+  export type SurveyUpdateToOneWithWhereWithoutResponsesInput = {
+    where?: SurveyWhereInput
+    data: XOR<SurveyUpdateWithoutResponsesInput, SurveyUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type SurveyUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSurveysNestedInput
+  }
+
+  export type SurveyUncheckedUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -62500,6 +68699,25 @@ export namespace Prisma {
     reviewDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type TrainingModuleCreateManyTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    videoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SurveyCreateManyTenantInput = {
+    id?: string
+    title: string
+    targetRole?: $Enums.Role | null
+    questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
   }
 
   export type TenantCreateManyParentTenantInput = {
@@ -63423,6 +69641,67 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TrainingModuleUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: TrainingAssignmentUpdateManyWithoutModuleNestedInput
+  }
+
+  export type TrainingModuleUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: TrainingAssignmentUncheckedUpdateManyWithoutModuleNestedInput
+  }
+
+  export type TrainingModuleUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responses?: SurveyResponseUpdateManyWithoutSurveyNestedInput
+  }
+
+  export type SurveyUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    responses?: SurveyResponseUncheckedUpdateManyWithoutSurveyNestedInput
+  }
+
+  export type SurveyUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    targetRole?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -63457,6 +69736,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
   }
@@ -63495,6 +69776,8 @@ export namespace Prisma {
     apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
     carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
   }
@@ -65138,6 +71421,70 @@ export namespace Prisma {
     surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
+  export type TrainingAssignmentCreateManyModuleInput = {
+    id?: string
+    pswId?: string | null
+    staffId?: string | null
+    status?: string
+    completedAt?: Date | string | null
+    assignedAt?: Date | string
+  }
+
+  export type TrainingAssignmentUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrainingAssignmentUncheckedUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrainingAssignmentUncheckedUpdateManyWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pswId?: NullableStringFieldUpdateOperationsInput | string | null
+    staffId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyResponseCreateManySurveyInput = {
+    id?: string
+    userId: string
+    answers: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type SurveyResponseUpdateWithoutSurveyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyResponseUncheckedUpdateWithoutSurveyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SurveyResponseUncheckedUpdateManyWithoutSurveyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -65183,6 +71530,14 @@ export namespace Prisma {
      * @deprecated Use BookingCountOutputTypeDefaultArgs instead
      */
     export type BookingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TrainingModuleCountOutputTypeDefaultArgs instead
+     */
+    export type TrainingModuleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SurveyCountOutputTypeDefaultArgs instead
+     */
+    export type SurveyCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SurveyCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -65303,6 +71658,22 @@ export namespace Prisma {
      * @deprecated Use CarePlanDefaultArgs instead
      */
     export type CarePlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CarePlanDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TrainingModuleDefaultArgs instead
+     */
+    export type TrainingModuleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TrainingModuleDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TrainingAssignmentDefaultArgs instead
+     */
+    export type TrainingAssignmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TrainingAssignmentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SurveyDefaultArgs instead
+     */
+    export type SurveyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SurveyDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SurveyResponseDefaultArgs instead
+     */
+    export type SurveyResponseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SurveyResponseDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

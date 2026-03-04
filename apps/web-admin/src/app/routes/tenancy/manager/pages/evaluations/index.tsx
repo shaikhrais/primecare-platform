@@ -37,7 +37,7 @@ export default function EvaluationForm() {
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/manager/evaluations`, {
+            const response = await fetch(`${API_URL}${AdminRegistry.ApiRegistry.TENANCY.MANAGER.EVALUATIONS}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -152,10 +152,10 @@ export default function EvaluationForm() {
                     <button
                         type="submit"
                         disabled={submitting}
-                        data-cy="form.evaluation.save"
+                        data-cy="btn-mgr-evaluation-new"
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
                     >
-                        {submitting ? 'Submitting...' : 'Submit Evaluation'}
+                        {submitting ? 'Submitting...' : (AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-mgr-evaluation-new')?.label || 'Submit Evaluation')}
                     </button>
                 </div>
             </form>
