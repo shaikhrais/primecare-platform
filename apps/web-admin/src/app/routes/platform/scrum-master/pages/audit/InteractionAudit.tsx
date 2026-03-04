@@ -44,8 +44,8 @@ const InteractionAudit: React.FC = () => {
                 id: item.id || `el-${i}`,
                 label: item.label,
                 module: item.module || (item as any).role || 'SYSTEM',
-                routeStatus: (item.route || (item.checkType === 'ROUTE' && item.path)) ? 'valid' : 'none',
-                apiStatus: (item.apiEndpoint || item.checkType === 'API') ? 'valid' : 'none',
+                routeStatus: (item.route || item.path || (item.checkType === 'ROUTE' && item.path)) ? 'valid' : 'none',
+                apiStatus: (item.apiEndpoint || item.apiPath || item.checkType === 'API') ? 'valid' : 'none',
                 timestamp: new Date().toLocaleTimeString()
             };
 

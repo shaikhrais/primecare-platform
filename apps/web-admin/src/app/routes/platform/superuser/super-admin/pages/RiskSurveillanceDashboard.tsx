@@ -56,6 +56,14 @@ export default function RiskSurveillanceDashboard() {
                     <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0' }}>Platform Risk Surveillance</h1>
                     <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>Global oversight of tenant compliance and operational health.</p>
                 </div>
+                <div style={{ marginLeft: 'auto' }}>
+                    <button
+                        data-cy="btn-superuser-risk-scan"
+                        style={{ padding: '12px 24px', backgroundColor: '#DC2626', color: 'white', borderRadius: '12px', fontWeight: '800', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(220, 38, 38, 0.2)' }}
+                    >
+                        🚀 START NETWORK SWEEP
+                    </button>
+                </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '32px' }}>
