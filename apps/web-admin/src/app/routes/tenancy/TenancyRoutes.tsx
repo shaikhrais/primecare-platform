@@ -14,6 +14,7 @@ const ServiceReview = lazy(() => import('./manager/pages/service-review'));
 const ManagerDashboard = lazy(() => import('./manager/pages/dashboard'));
 const StaffRanker = lazy(() => import('./manager/pages/performance/StaffRanker'));
 const BranchPL = lazy(() => import('./manager/pages/finance/BranchP_L'));
+const PayrollVerification = lazy(() => import('./manager/pages/finance/PayrollVerification'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -26,6 +27,7 @@ const PswExpenses = lazy(() => import('./psw/pages/expenses'));
 const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation'));
 const CredentialVault = lazy(() => import('./psw/pages/credentials/CredentialVault'));
 const ProviderSocial = lazy(() => import('./psw/pages/feed/ProviderSocial'));
+const LiveVisit = lazy(() => import('./psw/pages/schedule/LiveVisit'));
 
 // RN Pages
 const RnDashboard = lazy(() => import('./rn/pages/dashboard'));
@@ -38,6 +40,8 @@ const ClientFeedback = lazy(() => import('./client/pages/feedback'));
 const RequestBooking = lazy(() => import('./client/pages/request-booking'));
 const CatalogBrowser = lazy(() => import('./client/pages/services/CatalogBrowser'));
 const ClientMessaging = lazy(() => import('./client/pages/support/ClientMessaging'));
+const CareTeam = lazy(() => import('./client/pages/team/CareTeam'));
+const FeedbackLoop = lazy(() => import('./client/pages/support/FeedbackLoop'));
 
 export const TenancyRoutes = () => (
     <>
@@ -49,6 +53,7 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
             <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
             <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
+            <Route path={RouteRegistry.MANAGER.PAYROLL} element={<PayrollVerification />} />
             <Route path=":category" element={<ManagerDashboard />} />
         </Route>
 
@@ -64,6 +69,7 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.PSW.SHIFT_CONFIRMATION} element={<PswShiftConfirmation />} />
             <Route path={RouteRegistry.PSW.CREDENTIALS} element={<CredentialVault />} />
             <Route path={RouteRegistry.PSW.FEED} element={<ProviderSocial />} />
+            <Route path={RouteRegistry.PSW.LIVE_VISIT} element={<LiveVisit />} />
         </Route>
 
         {/* RN PORTAL */}
@@ -80,6 +86,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.CLIENT.REQUEST_BOOKING} element={<RequestBooking />} />
             <Route path={RouteRegistry.CLIENT.SERVICES} element={<CatalogBrowser />} />
             <Route path={RouteRegistry.CLIENT.SUPPORT} element={<ClientMessaging />} />
+            <Route path={RouteRegistry.CLIENT.TEAM} element={<CareTeam />} />
+            <Route path={RouteRegistry.CLIENT.FEEDBACK_LOOP} element={<FeedbackLoop />} />
         </Route>
     </>
 );

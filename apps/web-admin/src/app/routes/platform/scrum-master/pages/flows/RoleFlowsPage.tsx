@@ -107,6 +107,7 @@ export default function RoleFlowsPage() {
                     { name: 'Service Review', route: 'MANAGER.SERVICE_REVIEW', component: 'ServiceReview', status: 'implemented', requirement: 'Audit service quality based on client feedback and visit logs.' },
                     { name: 'Staff Performance', route: 'MANAGER.PERFORMANCE', component: 'StaffRanker', status: 'implemented', requirement: 'Identify top performers and at-risk staff based on attendance metrics.' },
                     { name: 'Branch Financials', route: 'MANAGER.FINANCE', component: 'BranchP_L', status: 'implemented', requirement: 'Local profit and loss visibility for branch operational efficiency.' },
+                    { name: 'Payroll Audit', route: 'MANAGER.PAYROLL', component: 'PayrollVerification', status: 'implemented', requirement: 'Match visit durations with scheduled hours to finalize regional payroll.' },
                 ]
             },
             staff: {
@@ -116,6 +117,8 @@ export default function RoleFlowsPage() {
                     { name: 'Customers', route: 'STAFF.CUSTOMERS', component: 'CustomerList', status: 'implemented', requirement: 'Manage active customer roster and scheduling preferences.' },
                     { name: 'Task Board', route: 'STAFF.TASKS', component: 'TaskGrid', status: 'implemented', requirement: 'Visual board for coordinating complex multi-step intake tasks.' },
                     { name: 'Messaging', route: 'STAFF.MESSAGES', component: 'MessageCenter', status: 'implemented', requirement: 'Centralized hub for family and caregiver secure communications.' },
+                    { name: 'Incident Logging', route: 'STAFF.INCIDENTS', component: 'IncidentPortal', status: 'implemented', requirement: 'Intake portal for clinical or operational branch-level incidents.' },
+                    { name: 'Branch Compliance', route: 'STAFF.COMPLIANCE', component: 'ComplianceMonitor', status: 'implemented', requirement: 'Regional scorecard for staff credential and registry health.' },
                 ]
             },
             psw: {
@@ -126,6 +129,7 @@ export default function RoleFlowsPage() {
                     { name: 'My Earnings', route: 'PSW.EARNINGS', component: 'PswEarnings', status: 'implemented', requirement: 'Transparent log of completed visits and upcoming payments.' },
                     { name: 'Credentials', route: 'PSW.CREDENTIALS', component: 'CredentialVault', status: 'implemented', requirement: 'Submit and renew clinical certifications (CPR, VSS, etc.).' },
                     { name: 'Community', route: 'PSW.FEED', component: 'ProviderSocial', status: 'implemented', requirement: 'Peer support and regional announcements for caregivers.' },
+                    { name: 'Live Visit', route: 'PSW.LIVE_VISIT', component: 'LiveVisit', status: 'implemented', requirement: 'Real-time check-in/out and interactive clinical task documentation.' },
                 ]
             },
             client: {
@@ -136,6 +140,8 @@ export default function RoleFlowsPage() {
                     { name: 'Billing', route: 'CLIENT.BILLING', component: 'ClientBilling', status: 'implemented', requirement: 'Secure payment gateway and digital invoice archive.' },
                     { name: 'Service Catalog', route: 'CLIENT.SERVICES', component: 'CatalogBrowser', status: 'implemented', requirement: 'Self-service selection of additional specialized care modules.' },
                     { name: 'Care Chat', route: 'CLIENT.SUPPORT', component: 'ClientMessaging', status: 'implemented', requirement: 'Direct secure line to nursing staff for care concerns.' },
+                    { name: 'Care Team', route: 'CLIENT.TEAM', component: 'CareTeam', status: 'implemented', requirement: 'View assigned caregiver profiles, specialties, and ratings.' },
+                    { name: 'Feedback Loop', route: 'CLIENT.FEEDBACK_LOOP', component: 'FeedbackLoop', status: 'implemented', requirement: 'Submit satisfaction reviews and clinical comments for recent visits.' },
                 ]
             }
         };

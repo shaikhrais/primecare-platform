@@ -5,6 +5,7 @@ const TENANCY = {
         DASHBOARD_STATS: '/v1/manager/dashboard/stats',
         PERFORMANCE: '/v1/manager/performance/rankings',
         FINANCE: '/v1/manager/finance/pl',
+        PAYROLL_AUDIT: '/v1/manager/finance/payroll-audit',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -13,6 +14,8 @@ const TENANCY = {
         DASHBOARD_STATS: '/v1/client/dashboard/stats',
         CATALOG: '/v1/client/services/catalog',
         SUPPORT: '/v1/client/support/nursing-chat',
+        TEAM: '/v1/client/team/roster',
+        FEEDBACK_SUBMIT: '/v1/client/support/feedback',
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
@@ -32,6 +35,8 @@ const TENANCY = {
         DASHBOARD_STATS: '/v1/staff/dashboard/stats',
         TASKS: '/v1/staff/tasks/grid',
         MESSAGES: '/v1/staff/messages/hub',
+        INCIDENT_SUBMIT: '/v1/staff/ops/incidents/submit',
+        COMPLIANCE_SCAN: '/v1/staff/ops/compliance/scan',
     },
 } as const;
 

@@ -16,12 +16,15 @@ const TENANCY = {
         SURVEYS: '/tenancy/manager/surveys',
         PERFORMANCE: '/tenancy/manager/performance',
         FINANCE: '/tenancy/manager/finance',
+        PAYROLL: '/tenancy/manager/payroll',
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',
         CUSTOMERS: '/tenancy/staff/customers',
         TASKS: '/tenancy/staff/tasks',
         MESSAGES: '/tenancy/staff/messages',
+        INCIDENTS: '/tenancy/staff/incidents',
+        COMPLIANCE: '/tenancy/staff/compliance',
     },
     PSW: {
         DASHBOARD: '/tenancy/psw',
@@ -34,6 +37,7 @@ const TENANCY = {
         SHIFT_CONFIRMATION: '/tenancy/psw/shift-confirmation',
         CREDENTIALS: '/tenancy/psw/credentials',
         FEED: '/tenancy/psw/feed',
+        LIVE_VISIT: '/tenancy/psw/live-visit',
     },
     RN: {
         DASHBOARD: '/tenancy/rn',
@@ -46,6 +50,8 @@ const TENANCY = {
         REQUEST_BOOKING: '/tenancy/client/request-booking',
         SERVICES: '/tenancy/client/services',
         SUPPORT: '/tenancy/client/support',
+        TEAM: '/tenancy/client/team',
+        FEEDBACK_LOOP: '/tenancy/client/feedback-loop',
     },
     CARE_PLANS: '/care-plans',
 } as const;
