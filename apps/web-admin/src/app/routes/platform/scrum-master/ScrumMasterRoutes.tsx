@@ -16,6 +16,12 @@ const EnvironmentAudit = lazy(() => import('./pages/audit/EnvironmentAudit'));
 const RegistryIntegrityCheck = lazy(() => import('./pages/audit/RegistryIntegrityCheck'));
 const DatabaseSchemaAudit = lazy(() => import('./pages/audit/DatabaseSchemaAudit'));
 const ThemeCoreCenter = lazy(() => import('./pages/theme/ThemeCoreCenter'));
+const DeveloperPortal = lazy(() => import('./pages/developer'));
+const DeveloperKBPage = lazy(() => import('./pages/developer-kb'));
+const PerformancePage = lazy(() => import('./pages/performance/PerformancePage'));
+const BuildHealthPage = lazy(() => import('./pages/builds/BuildHealthPage'));
+const SecurityScansPage = lazy(() => import('./pages/scans/SecurityScansPage'));
+const LocalizationPage = lazy(() => import('./pages/locales/LocalizationPage'));
 
 export const ScrumMasterRoutes = () => (
     <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
@@ -29,5 +35,11 @@ export const ScrumMasterRoutes = () => (
         <Route path={RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK} element={<RegistryIntegrityCheck />} />
         <Route path={RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA} element={<DatabaseSchemaAudit />} />
         <Route path={RouteRegistry.SCRUM_MASTER.THEME_CENTER} element={<ThemeCoreCenter />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.DEVELOPER} element={<DeveloperPortal />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.DEV_KB} element={<DeveloperKBPage />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.PERFORMANCE} element={<PerformancePage />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.BUILD_HEALTH} element={<BuildHealthPage />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.SECURITY_SCANS} element={<SecurityScansPage />} />
+        <Route path={RouteRegistry.SCRUM_MASTER.LOCALIZATION} element={<LocalizationPage />} />
     </Route>
 );

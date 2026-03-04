@@ -77,7 +77,6 @@ const PLATFORM = {
         REVENUE_WIZARD: '/platform/admin/wizards/revenue',
         BUSINESS_MODEL_WIZARD: '/platform/admin/wizards/business-strategy',
         BUSINESS_STATUS: '/platform/admin/business-status',
-        DEVELOPER: '/platform/admin/developer',
         RESELLER: '/platform/admin/reseller',
         GROWTH_STRATEGY: '/platform/admin/strategy',
         KNOWLEDGE_BASE: '/platform/admin/knowledge-base',
@@ -89,7 +88,6 @@ const PLATFORM = {
         SOVEREIGN: '/platform/admin/sovereign',
         TEMPLATE_EDITOR: '/platform/admin/template-editor',
         ROLE_EDITOR: '/platform/admin/role-editor',
-        DEV_KB: '/platform/admin/dev-kb',
         PRIVATE_MARKETPLACE: '/platform/admin/private-marketplace',
 
         // New Intelligence & Security Layer
@@ -134,6 +132,14 @@ const PLATFORM = {
         REGISTRY_CHECK: '/platform/scrum-master/registry-check',
         DATABASE_SCHEMA: '/platform/scrum-master/database-schema',
         THEME_CENTER: '/platform/scrum-master/theme-center',
+        // Consolidated from Admin
+        DEVELOPER: '/platform/scrum-master/developer',
+        DEV_KB: '/platform/scrum-master/dev-kb',
+        // New Technical Orchestration
+        PERFORMANCE: '/platform/scrum-master/performance',
+        BUILD_HEALTH: '/platform/scrum-master/builds',
+        SECURITY_SCANS: '/platform/scrum-master/security-scans',
+        LOCALIZATION: '/platform/scrum-master/locales',
     }
 } as const;
 

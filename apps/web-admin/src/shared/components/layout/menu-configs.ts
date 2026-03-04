@@ -21,7 +21,7 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.AUDITS, path: RouteRegistry.ADMIN.AUDITS, icon: '🎙️' },
     { label: ContentRegistry.MENU.CONTENT, path: RouteRegistry.ADMIN.CONTENT, icon: '📝' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
-    { label: ContentRegistry.MENU.DEVELOPER, path: RouteRegistry.ADMIN.DEVELOPER, icon: '💻' },
+    { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
     { label: ContentRegistry.MENU.INSIGHTS, path: RouteRegistry.ADMIN.AI_INSIGHTS, icon: '🧠' },
     { label: ContentRegistry.MENU.CLINICAL_AI, path: RouteRegistry.ADMIN.CLINICAL_ASSISTANT, icon: '🩺' },
     { label: ContentRegistry.MENU.INTEROPERABILITY, path: RouteRegistry.ADMIN.INTEROP, icon: '🔗' },
@@ -33,7 +33,6 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.IDENTITY, path: RouteRegistry.ADMIN.SOVEREIGN, icon: '🆔' },
     { label: ContentRegistry.MENU.MARKETPLACE, path: RouteRegistry.ADMIN.MARKETPLACE, icon: '🌐' },
     { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },
-    { label: ContentRegistry.MENU.DEV_AUDIT, path: RouteRegistry.ADMIN.DEV_KB, icon: '🛠️' },
 
     // Explicit Role-Based Knowledge Base Routes
     ...knowledgeBaseMenus,
@@ -48,21 +47,25 @@ export const platformMenu: MenuItem[] = [
     { label: 'SLA Monitoring', path: RouteRegistry.SUPERUSER.SLA, icon: '🌐' },
     { label: ContentRegistry.MENU.KNOWLEDGE_BASE, path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
     { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },
-    { label: ContentRegistry.MENU.DEV_AUDIT, path: RouteRegistry.ADMIN.DEV_KB, icon: '🛠️' },
 ];
 
 export const scrumMasterMenu: MenuItem[] = [
-    { label: 'SM Dashboard', path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
+    { label: 'Dash', path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
     { label: ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE, path: RouteRegistry.SCRUM_MASTER.API_ENDPOINTS, icon: '🔌' },
     { label: ContentRegistry.SCRUM_MASTER.PAGES.TITLE, path: RouteRegistry.SCRUM_MASTER.PAGES, icon: '📄' },
-    { label: 'Components', path: RouteRegistry.SCRUM_MASTER.COMPONENTS, icon: '🧩' },
+    { label: ContentRegistry.SCRUM_MASTER.COMPONENTS.TITLE, path: RouteRegistry.SCRUM_MASTER.COMPONENTS, icon: '🧩' },
     { label: ContentRegistry.SCRUM_MASTER.ROLE_FLOWS.TITLE, path: RouteRegistry.SCRUM_MASTER.ROLE_FLOWS, icon: '🔄' },
     { label: ContentRegistry.SCRUM_MASTER.MONITORING.TITLE, path: RouteRegistry.SCRUM_MASTER.MONITORING, icon: '💓' },
+    { label: ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.TITLE, path: RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA, icon: '🗄️' },
+    { label: ContentRegistry.SCRUM_MASTER.THEME_CENTER.TITLE, path: RouteRegistry.SCRUM_MASTER.THEME_CENTER, icon: '🎨' },
+    { label: ContentRegistry.SCRUM_MASTER.PERFORMANCE.TITLE, path: RouteRegistry.SCRUM_MASTER.PERFORMANCE, icon: '⚡' },
+    { label: ContentRegistry.SCRUM_MASTER.BUILD_HEALTH.TITLE, path: RouteRegistry.SCRUM_MASTER.BUILD_HEALTH, icon: '🏗️' },
+    { label: ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.TITLE, path: RouteRegistry.SCRUM_MASTER.SECURITY_SCANS, icon: '🛡️' },
+    { label: ContentRegistry.SCRUM_MASTER.LOCALIZATION.TITLE, path: RouteRegistry.SCRUM_MASTER.LOCALIZATION, icon: '🌍' },
+    { label: 'Dev', path: RouteRegistry.SCRUM_MASTER.DEVELOPER, icon: '💻' },
+    { label: 'Dev KB', path: RouteRegistry.SCRUM_MASTER.DEV_KB, icon: '🛠️' },
     { label: ContentRegistry.SCRUM_MASTER.ENV_AUDIT.TITLE, path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, icon: '🌐' },
     { label: ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.TITLE, path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, icon: '📋' },
-    { label: ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.TITLE, path: RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA, icon: '🗄️' },
-    { label: ContentRegistry.MENU.THEME, path: RouteRegistry.SCRUM_MASTER.THEME_CENTER, icon: '🎨' },
-    { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },
 ];
 
 export const clientMenu: MenuItem[] = [
