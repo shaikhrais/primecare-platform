@@ -141,6 +141,43 @@
     color: #faf5ff;
 }
 
+.badge-interaction {
+    background: #0891b2;
+    color: #ecfeff;
+}
+
+.audit-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(30, 41, 59, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.filter-group select {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
 .role-module {
     display: flex;
     flex-direction: column;

@@ -108,5 +108,9 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-client-booking-request', label: 'Submit Service Request', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.CLIENT.BOOKING_REQUESTS, description: 'Submits a new service request for coordinator approval.' },
     { id: 'btn-rn-audit-sign-off', label: 'Clinical Sign-off', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', apiPath: ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF, description: 'RN professional sign-off for clinical visit accuracy.' },
     { id: 'btn-rn-daily-review', label: 'Verify Entry', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', apiPath: ApiRegistry.TENANCY.RN.DAILY_REVIEW(':id'), description: 'RN verification of a daily clinical entry.' },
-    { id: 'btn-psw-wellness-pulse', label: 'Report Status', role: 'psw', module: 'CARE_DELIVERY', type: 'ghost', action: 'OPEN_MODAL', apiPath: ApiRegistry.TENANCY.PSW.WELLNESS_PULSE, description: 'Allows PSWs to report their daily sentiment and wellbeing.' }
+    { id: 'btn-psw-wellness-pulse', label: 'Report Status', role: 'psw', module: 'CARE_DELIVERY', type: 'ghost', action: 'OPEN_MODAL', apiPath: ApiRegistry.TENANCY.PSW.WELLNESS_PULSE, description: 'Allows PSWs to report their daily sentiment and wellbeing.' },
+    // Batch 26: Regional Director Mastery
+    { id: 'btn-rd-ops-stats', label: 'Refresh Regional Stats', role: 'regional_manager', module: 'OPERATIONS', type: 'secondary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.MANAGER.OPS_STATS, description: 'Triggers a recalculation of regional operational metrics.' },
+    { id: 'btn-rd-pl-export', label: 'Regional P&L Export', role: 'regional_manager', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Exports regional financial performance data.' },
+    { id: 'btn-rd-audit-req', label: 'Strategic Audit Request', role: 'regional_manager', module: 'GOVERNANCE', type: 'primary', action: 'API_TRIGGER', description: 'Triggers a comprehensive strategic audit of the region.' },
 ];

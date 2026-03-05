@@ -25,6 +25,7 @@ export const ResponseBotAudit: React.FC = () => {
     const [sweeping, setSweeping] = useState(false);
     const [publicUrlBase, setPublicUrlBase] = useState('https://primecare-admin.pages.dev');
     const [editingTp, setEditingTp] = useState<Touchpoint | null>(null);
+    const [filterType, setFilterType] = useState<string>('ALL');
 
     useEffect(() => {
         fetchTouchpoints();
@@ -61,7 +62,11 @@ export const ResponseBotAudit: React.FC = () => {
 
     const handleUpdate = async (id: string, label: string, path: string) => {
         try {
-            await apiClient.patch(`/v1/scrum-master/registry/touchpoints/${id}`, { label, path });
+            await apiClient.patch(`/v1/scrum-master/registry/touchpoints/${id}`, {
+                label,
+                path,
+                isOverridden: true
+            });
             setEditingTp(null);
             await fetchTouchpoints();
         } catch (error) {
@@ -73,6 +78,10 @@ export const ResponseBotAudit: React.FC = () => {
     if (loading && touchpoints.length === 0) {
         return <div className="audit-loading">Initializing Response Bot Heartbeat...</div>;
     }
+
+    const filteredTouchpoints = filterType === 'ALL'
+        ? touchpoints
+        : touchpoints.filter(t => t.type === filterType);
 
     const errorCount = touchpoints.filter(t => t.status !== 'OK').length;
 
@@ -116,6 +125,18 @@ export const ResponseBotAudit: React.FC = () => {
                 </div>
             </div>
 
+            <div className="audit-filters">
+                <div className="filter-group">
+                    <label>Filter by Type:</label>
+                    <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+                        <option value="ALL">All Types</option>
+                        <option value="BUTTON">Buttons</option>
+                        <option value="LINK">Links</option>
+                        <option value="INTERACTION">Interactions</option>
+                    </select>
+                </div>
+            </div>
+
             <div className="audit-grid-container">
                 <table className="audit-table">
                     <thead>
@@ -129,11 +150,11 @@ export const ResponseBotAudit: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {touchpoints.map((tp) => {
+                        {filteredTouchpoints.map((tp) => {
                             const statusClass = tp.status === '404' ? 'notfound' : tp.status.toLowerCase();
                             return (
                                 <tr key={tp.id} className={`status-${statusClass} ${tp.isOverridden ? 'is-overridden' : ''}`}>
-                                    <td className="font-mono text-xs">{tp.touchpointId}</td>
+                                    <td className="font-mono text-xs">{tp.touchpointId} {tp.isOverridden && <span title="Manual Override Active">⭐</span>}</td>
                                     <td><span className={`badge badge-${tp.type.toLowerCase()}`}>{tp.type}</span></td>
                                     <td>
                                         <div className="role-module">
@@ -155,7 +176,7 @@ export const ResponseBotAudit: React.FC = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <button className="btn-edit-tp" onClick={() => setEditingTp(tp)}>✎ Edit</button>
+                                        <button className="btn-edit-tp" onClick={() => setEditingTp(tp)}>✎ Audit</button>
                                     </td>
                                 </tr>
                             );

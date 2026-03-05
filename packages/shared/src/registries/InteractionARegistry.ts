@@ -30,5 +30,9 @@ export const InteractionARegistry: InteractionADef[] = [
     // Phase 1 Foundational Interactions
     { id: 'ia-psw-live-visit-pulse', label: 'Pulse Live Visit', role: 'psw', module: 'CARE_DELIVERY', trigger: 'click', consequence: 'apiTrigger', target: ApiRegistry.TENANCY.PSW.CHECK_IN(':id'), description: 'Triggers a heartbeat check for an active visit.' },
     { id: 'ia-coord-sos-dispatch-pulse', label: 'SOS Heartbeat', role: 'coordinator', module: 'OPERATIONS', trigger: 'click', consequence: 'apiTrigger', target: ApiRegistry.TENANCY.COORDINATOR.SOS_ACK, description: 'Triggers a real-time status check for an active SOS alert.' },
-    { id: 'ia-client-family-hub-load', label: 'Init Family Hub', role: 'client', module: 'CLIENT', trigger: 'hover', consequence: 'routeChange', description: 'Pre-fetches family care timeline data.' }
+    { id: 'ia-client-family-hub-load', label: 'Init Family Hub', role: 'client', module: 'CLIENT', trigger: 'hover', consequence: 'routeChange', description: 'Pre-fetches family care timeline data.' },
+    // Regional Director Mastery
+    { id: 'ia-rd-ops-stats-refresh', label: 'Regional KPIs Refresh', role: 'regional_manager', module: 'OPERATIONS', trigger: 'click', consequence: 'apiTrigger', target: ApiRegistry.TENANCY.MANAGER.OPS_STATS, description: 'Triggers a recalculation of regional metrics.' },
+    { id: 'ia-rd-pl-export', label: 'Export Regional P&L', role: 'regional_manager', module: 'FINANCE', trigger: 'click', consequence: 'apiTrigger', description: 'Generates a consolidated regional profit and loss statement.' },
+    { id: 'ia-rd-audit-request', label: 'Strategic Triage', role: 'regional_manager', module: 'GOVERNANCE', trigger: 'click', consequence: 'openModal', description: 'Initiates a formal strategic audit across all sub-branches.' },
 ];
