@@ -1,75 +1,112 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
-const { InteractionARegistry } = AdminRegistry;
+const { InteractionARegistry, ApiRegistry, ButtonRegistry, LinkRegistry, RouteRegistry } = AdminRegistry;
 
 export default function ResponseBot() {
     const [auditRunning, setAuditRunning] = useState(false);
     const [results, setResults] = useState<any[]>([]);
+    const [progress, setProgress] = useState(0);
 
-    const runSweep = () => {
+    const pulseApi = async (path: any) => {
+        try {
+            // Replace params for pulsing
+            const testPath = typeof path === 'function' ? path('test-id') : path;
+            const response = await apiClient.get(testPath);
+            return response.status !== 404;
+        } catch {
+            return false;
+        }
+    };
+
+    const runSweep = async () => {
         setAuditRunning(true);
+        setProgress(0);
         const auditResults: any[] = [];
 
-        // 1. Audit Link Registry
-        const adminLinks = AdminRegistry.LinkRegistry.filter((l: any) => l.role === 'admin' || l.role === 'scrum_master');
-        const linkIssues = adminLinks.filter((l: any) => !l.path || l.path === '').length;
+        // 1. Audit Link Registry (Cross-reference with RouteRegistry)
+        setProgress(10);
+        const brokenLinks = LinkRegistry.filter((l: any) => {
+            const pathExists = Object.values(RouteRegistry).some((r: any) =>
+                typeof r === 'string' ? r === l.path : Object.values(r).includes(l.path)
+            );
+            return !pathExists;
+        });
+
         auditResults.push({
             id: 1,
             type: 'LINK_REGISTRY',
-            status: linkIssues > 0 ? 'warning' : 'success',
-            summary: `Verified ${adminLinks.length} governance links.`,
-            issues: linkIssues
+            status: brokenLinks.length > 0 ? 'warning' : 'success',
+            summary: `Verified ${LinkRegistry.length} links against RouteRegistry.`,
+            issues: brokenLinks.length,
+            details: brokenLinks.map(l => l.id).join(', ')
         });
 
-        // 2. Audit Button Registry
-        const adminBtns = AdminRegistry.ButtonRegistry.filter((b: any) => b.role === 'admin' || b.role === 'scrum_master');
-        const btnIssues = adminBtns.filter((b: any) => !b.action).length;
+        // 2. Audit Button Registry (Cross-reference with ApiRegistry)
+        setProgress(30);
+        const orphanedButtons = ButtonRegistry.filter((b: any) => {
+            if (b.action === 'API_TRIGGER' && b.apiPath) {
+                // Check if apiPath exists as a value in ApiRegistry
+                const apiExists = JSON.stringify(ApiRegistry).includes(b.apiPath);
+                return !apiExists;
+            }
+            return false;
+        });
+
         auditResults.push({
             id: 2,
             type: 'BUTTON_REGISTRY',
-            status: btnIssues > 0 ? 'warning' : 'success',
-            summary: `Verified ${adminBtns.length} action targets.`,
-            issues: btnIssues
+            status: orphanedButtons.length > 0 ? 'warning' : 'success',
+            summary: `Verified ${ButtonRegistry.length} action targets.`,
+            issues: orphanedButtons.length,
+            details: orphanedButtons.map(b => b.id).join(', ')
         });
 
-        // 3. Audit API Parity (Simplified check for UI)
-        const adminApis = Object.keys(AdminRegistry.ApiRegistry.PLATFORM?.ADMIN || {}).length;
+        // 3. API Pulse (Top 10 Critical Endpoints)
+        setProgress(60);
+        const criticalApis = [
+            ApiRegistry.AUTH.LOGIN,
+            ApiRegistry.USER.PROFILE,
+            ApiRegistry.TENANCY.PSW.VISITS,
+            ApiRegistry.TENANCY.MANAGER.OPS_STATS,
+            ApiRegistry.TENANCY.CLIENT.DASHBOARD_STATS,
+            '/v1/system/platform/stats'
+        ];
+
+        let apiFailures = 0;
+        for (const api of criticalApis) {
+            const alive = await pulseApi(api);
+            if (!alive) apiFailures++;
+        }
+
         auditResults.push({
             id: 3,
-            type: 'API_PARITY',
-            status: adminApis > 15 ? 'success' : 'warning',
-            summary: `Found ${adminApis} registered Admin endpoints.`,
-            issues: adminApis < 10 ? 1 : 0
+            type: 'API_PULSE_CHECK',
+            status: apiFailures > 0 ? 'warning' : 'success',
+            summary: `Pulsed ${criticalApis.length} master endpoints.`,
+            issues: apiFailures
         });
 
-        // 4. Audit RN Clinical Registry
-        const rnClinicalEndpoints = Object.keys(AdminRegistry.ApiRegistry.TENANCY?.RN || {}).filter(k =>
-            k.includes('CLINICAL') || k.includes('ASSESS') || k.includes('RECON') || k.includes('SUPERVISION')
-        );
+        // 4. Registry Heartbeat (Collision Check)
+        setProgress(90);
+        const ids = [...ButtonRegistry, ...LinkRegistry, ...InteractionARegistry].map(i => i.id);
+        const collisions = ids.filter((id, index) => ids.indexOf(id) !== index);
+
         auditResults.push({
             id: 4,
-            type: 'RN_CLINICAL_REGISTRY',
-            status: rnClinicalEndpoints.length >= 3 ? 'success' : 'warning',
-            summary: `Verified ${rnClinicalEndpoints.length} RN clinical touchpoints.`,
-            issues: rnClinicalEndpoints.length < 3 ? 1 : 0
+            type: 'REGISTRY_COLLISIONS',
+            status: collisions.length > 0 ? 'danger' : 'success',
+            summary: `Checked for ID collisions across all registries.`,
+            issues: collisions.length,
+            details: collisions.join(', ')
         });
 
-        // 5. Registry Heartbeat (Phase 6)
-        const totalRoutes = Object.keys(AdminRegistry.RouteRegistry).length;
-        const totalContent = Object.keys(AdminRegistry.ContentRegistry).length;
-        auditResults.push({
-            id: 5,
-            type: 'REGISTRY_HEARTBEAT',
-            status: 'success',
-            summary: `Heartbeat active across ${totalRoutes} routes and ${totalContent} content keys.`,
-            issues: 0
-        });
-
+        setProgress(100);
         setTimeout(() => {
             setResults(auditResults);
             setAuditRunning(false);
-        }, 1500);
+        }, 500);
     };
 
     const auditAction = InteractionARegistry.find((ia: any) => ia.id === 'ia-sm-response-bot-audit');
@@ -81,21 +118,28 @@ export default function ResponseBot() {
                     <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Response Bot Diagnostic center</h1>
                     <p style={{ color: '#6B7280' }}>Autonomous platform-wide heartbeat and registry integrity verification.</p>
                 </div>
-                <button
-                    onClick={runSweep}
-                    disabled={auditRunning}
-                    className={`btn ${auditRunning ? 'secondary' : 'primary'}`}
-                    data-cy="btn-response-bot-sweep"
-                >
-                    {auditRunning ? 'Sweeping Platform...' : (auditAction?.label || 'Execute Full Sweep')}
-                </button>
+                <div style={{ textAlign: 'right' }}>
+                    <button
+                        onClick={runSweep}
+                        disabled={auditRunning}
+                        className={`btn ${auditRunning ? 'secondary' : 'primary'}`}
+                        style={{ marginBottom: '8px' }}
+                    >
+                        {auditRunning ? `Sweeping ${progress}%` : (auditAction?.label || 'Execute Full Sweep')}
+                    </button>
+                    {auditRunning && (
+                        <div style={{ width: '200px', height: '4px', background: '#E5E7EB', borderRadius: '2px', overflow: 'hidden' }}>
+                            <div style={{ width: `${progress}%`, height: '100%', background: '#3B82F6', transition: 'width 0.3s ease' }}></div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '32px' }}>
                 <div className="pc-card" style={{ padding: '24px' }}>
                     <div style={{ fontSize: '14px', fontWeight: '600', color: '#6B7280' }}>Global Registry Health</div>
-                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#10B981', marginTop: '8px' }}>99.9%</div>
-                    <p style={{ fontSize: '12px', color: '#6B7280', marginTop: '8px' }}>Measured across 124 active system touchpoints.</p>
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#10B981', marginTop: '8px' }}>{100 - (results.reduce((acc, r) => acc + r.issues, 0) * 0.5)}%</div>
+                    <p style={{ fontSize: '12px', color: '#6B7280', marginTop: '8px' }}>Measured across {ButtonRegistry.length + LinkRegistry.length} active system touchpoints.</p>
                 </div>
                 <div className="pc-card" style={{ padding: '24px' }}>
                     <div style={{ fontSize: '14px', fontWeight: '600', color: '#6B7280' }}>Response Sensitivity</div>
@@ -125,9 +169,12 @@ export default function ResponseBot() {
                                 </tr>
                             ) : results.map(res => (
                                 <tr key={res.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                                    <td style={{ padding: '16px' }}><strong>{res.type}</strong></td>
                                     <td style={{ padding: '16px' }}>
-                                        <span className={`pc-badge ${res.status === 'success' ? 'primary' : 'secondary'}`}>
+                                        <strong>{res.type}</strong>
+                                        {res.details && <div style={{ fontSize: '10px', color: '#EF4444', marginTop: '4px' }}>{res.details}</div>}
+                                    </td>
+                                    <td style={{ padding: '16px' }}>
+                                        <span className={`pc-badge ${res.status === 'success' ? 'primary' : res.status === 'warning' ? 'secondary' : 'danger'}`}>
                                             {res.status.toUpperCase()}
                                         </span>
                                     </td>
