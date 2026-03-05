@@ -73,6 +73,9 @@ const StaffMessageCenter = lazy(() => import('./staff/pages/messages/MessageCent
 const StaffIncidentPortal = lazy(() => import('./staff/pages/operations/IncidentPortal'));
 const StaffComplianceMonitor = lazy(() => import('./staff/pages/operations/ComplianceMonitor'));
 
+// Scrum Master Pages
+const ResponseBotAudit = lazy(() => import('./scrum-master/pages/ResponseBotAudit'));
+
 export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
@@ -174,6 +177,12 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.STAFF.MESSAGES} element={<StaffMessageCenter />} />
             <Route path={RouteRegistry.STAFF.INCIDENTS} element={<StaffIncidentPortal />} />
             <Route path={RouteRegistry.STAFF.COMPLIANCE} element={<StaffComplianceMonitor />} />
+        </Route>
+
+        {/* SCRUM MASTER / GOVERNANCE PORTAL */}
+        <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master', 'admin']}><AppLayout /></RequireRole>}>
+            <Route index element={<ResponseBotAudit />} />
+            <Route path="response-bot" element={<ResponseBotAudit />} />
         </Route>
     </>
 );

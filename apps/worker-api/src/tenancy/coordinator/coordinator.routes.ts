@@ -157,6 +157,60 @@ const dashboardStatsRoute = createRoute({
 });
 
 /**
+ * Coordinator Dispatch Map
+ */
+const dispatchMapRoute = createRoute({
+    ...ROUTE_METADATA.COORDINATOR.DISPATCH_MAP,
+    method: 'get',
+    path: '/dispatch-map',
+    middleware: [requirePermission('COORDINATOR_DISPATCH')],
+    responses: {
+        200: {
+            description: 'Live dispatch map data retrieved',
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        caregivers: z.array(z.any()),
+                        clients: z.array(z.any()),
+                    }),
+                },
+            },
+        },
+    },
+});
+
+/**
+ * Coordinator AI Matching Engine
+ */
+const matchingEngineRoute = createRoute({
+    ...ROUTE_METADATA.COORDINATOR.MATCHING_ENGINE,
+    method: 'post',
+    path: '/matching/run',
+    middleware: [requirePermission('COORDINATOR_DISPATCH')],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        visitId: z.string().optional(), // Null runs global sweep
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            description: 'AI Matching sweep completed',
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+        },
+    },
+});
+
+/**
  * Coordinator List SOS Incidents
  */
 const listSosRoute = createRoute({
@@ -175,6 +229,78 @@ const listSosRoute = createRoute({
             },
         },
     },
+});
+
+/**
+ * Coordinator Dispatch Emergency Replacement
+ */
+const sosDispatchRoute = createRoute({
+    ...ROUTE_METADATA.COORDINATOR.SOS_DISPATCH,
+    method: 'post',
+    path: '/sos-dispatch',
+    middleware: [requirePermission('COORDINATOR_DISPATCH')],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        incidentId: z.string(),
+                        pswId: z.string(),
+                        notes: z.string().optional(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            description: 'Emergency replacement dispatched',
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+        },
+    },
+});
+
+coordinator.openapi(sosDispatchRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const body = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const incident = await prisma.incident.findUnique({
+        where: { id: body.incidentId },
+        include: { visit: true }
+    });
+
+    if (!incident || !incident.visitId) {
+        return c.json({ error: 'Incident or visit not found' }, 404);
+    }
+
+    // 1. Assign new PSW
+    await prisma.visit.update({
+        where: { id: incident.visitId },
+        data: {
+            assignedPswId: body.pswId,
+            status: 'assigned',
+        },
+    });
+
+    // 2. Resolve incident
+    const updatedIncident = await prisma.incident.update({
+        where: { id: body.incidentId },
+        data: {
+            status: 'resolved',
+            resolutionNotes: body.notes || 'Emergency replacement dispatched.',
+            resolvedAt: new Date(),
+        },
+    });
+
+    await logAudit(prisma, userId, 'SOS_DISPATCH', 'INCIDENT', body.incidentId, body);
+
+    return c.json(updatedIncident as any, 200);
 });
 
 coordinator.openapi(matchOverrideRoute as any, async (c: any) => {
@@ -302,6 +428,48 @@ coordinator.openapi(dashboardStatsRoute as any, async (c: any) => {
         pendingMatches,
         waitlistCount,
     } as any, 200);
+});
+
+coordinator.openapi(dispatchMapRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const [psws, clients] = await Promise.all([
+        prisma.pswProfile.findMany({
+            where: { tenantId, isApproved: true },
+            select: { id: true, fullName: true, lastLat: true, lastLng: true, status: true }
+        }),
+        prisma.clientProfile.findMany({
+            where: { tenantId },
+            select: { id: true, fullName: true, lat: true, lng: true }
+        })
+    ]);
+
+    return c.json({ caregivers: psws, clients }, 200);
+});
+
+coordinator.openapi(matchingEngineRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const body = c.req.valid('json');
+
+    // Simplified AI matching logic
+    const visits = body.visitId
+        ? [await prisma.visit.findFirst({ where: { id: body.visitId, tenantId } })]
+        : await prisma.visit.findMany({ where: { tenantId, status: 'posted' }, take: 5 });
+
+    const psws = await prisma.pswProfile.findMany({ where: { tenantId, isApproved: true }, take: 10 });
+
+    const proposals = (visits as any[]).filter(v => v).map(v => ({
+        visitId: v.id,
+        proposals: (psws as any[]).map(p => ({
+            pswId: p.id,
+            fullName: p.fullName,
+            score: Math.floor(Math.random() * 40) + 60 // Simulated AI score
+        })).sort((a: any, b: any) => b.score - a.score).slice(0, 3)
+    }));
+
+    return c.json(proposals, 200);
 });
 
 export default coordinator;

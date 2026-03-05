@@ -39,6 +39,11 @@ export const STAFF_METADATA = {
         description: 'Initiate a compliance scan of caregiver documents and registry statuses.',
         tags: ['Staff Operations'],
     },
+    MESSAGES: {
+        summary: 'Staff Message Hub',
+        description: 'Unified view of all operational communication threads for the staff team.',
+        tags: ['Staff Support'],
+    },
 };
 
 export const RN_METADATA = {

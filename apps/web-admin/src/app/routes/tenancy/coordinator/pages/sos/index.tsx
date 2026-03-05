@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ContentRegistry, ApiRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 import './SosCenter.css';
 
 const { COORDINATOR_SOS } = ContentRegistry;
 
 export default function SosCenter() {
+    const { showToast } = useNotification();
     const [incidents, setIncidents] = useState<any[]>([]);
     const [activeIncident, setActiveIncident] = useState<any>(null);
     const [log, setLog] = useState('');
@@ -28,6 +30,46 @@ export default function SosCenter() {
         };
         fetchIncidents();
     }, []);
+
+    const [psws, setPsws] = useState<any[]>([]);
+    const [selectedPsw, setSelectedPsw] = useState('');
+    const [isDispatching, setIsDispatching] = useState(false);
+
+    useEffect(() => {
+        const fetchPsws = async () => {
+            try {
+                // Fetching via stats or a dedicated roster endpoint if available
+                const data = await apiClient.get('/v1/admin/users?role=psw');
+                if (data && Array.isArray(data)) setPsws(data);
+            } catch (error) {
+                console.error('Failed to fetch PSWs:', error);
+            }
+        };
+        fetchPsws();
+    }, []);
+
+    const handleDispatch = async () => {
+        if (!activeIncident || !selectedPsw) return;
+        setIsDispatching(true);
+        try {
+            await apiClient.post(ApiRegistry.TENANCY.COORDINATOR.SOS_DISPATCH, {
+                incidentId: activeIncident.id,
+                pswId: selectedPsw,
+                notes: `Emergency dispatch initiated by coordinator.`
+            });
+            showToast('Emergency replacement dispatched.', 'success');
+            // Refresh
+            const data = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.SOS_INCIDENTS);
+            if (data && Array.isArray(data)) {
+                setIncidents(data);
+                setActiveIncident(data.find((i: any) => i.id === activeIncident.id) || null);
+            }
+        } catch (error) {
+            console.error('Dispatch failed', error);
+        } finally {
+            setIsDispatching(false);
+        }
+    };
 
     const handleResolve = async () => {
         if (!activeIncident) return;
@@ -114,6 +156,31 @@ export default function SosCenter() {
                                     </p>
                                 )}
                             </div>
+
+                            {/* EMERGENCY DISPATCH SECTION */}
+                            {currentInc.status === 'open' && (
+                                <div className="emergency-dispatch" style={{ marginTop: '20px', padding: '15px', border: '1px solid #fee2e2', borderRadius: '8px', backgroundColor: '#fef2f2' }}>
+                                    <h4 style={{ color: '#991b1b', marginBottom: '10px' }}>Dispatch Emergency Replacement</h4>
+                                    <select
+                                        value={selectedPsw}
+                                        onChange={(e) => setSelectedPsw(e.target.value)}
+                                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ef4444', marginBottom: '10px' }}
+                                    >
+                                        <option value="">-- Select Replacement Caregiver --</option>
+                                        {psws.map(p => (
+                                            <option key={p.id} value={p.id}>{p.fullName} ({p.email})</option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        onClick={handleDispatch}
+                                        disabled={isDispatching || !selectedPsw}
+                                        className="pc-button danger"
+                                        style={{ width: '100%', backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}
+                                    >
+                                        {isDispatching ? 'DISPATCHING...' : 'INITIALIZE EMERGENCY DISPATCH'}
+                                    </button>
+                                </div>
+                            )}
                         </>
                     )}
                 </section>

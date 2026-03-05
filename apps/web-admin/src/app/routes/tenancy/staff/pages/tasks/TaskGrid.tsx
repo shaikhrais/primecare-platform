@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 import './TaskGrid.css';
 
 const { ContentRegistry } = AdminRegistry;
@@ -22,12 +23,8 @@ export default function TaskGrid() {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.TENANCY.STAFF.TASKS}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
+                const data: any = await apiClient.get(ApiRegistry.TENANCY.STAFF.TASKS);
+                if (Array.isArray(data)) {
                     setTasks(data);
                 }
             } catch (error) {

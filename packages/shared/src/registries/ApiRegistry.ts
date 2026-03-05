@@ -34,6 +34,7 @@ const TENANCY = {
         PAYOUT_REQUEST: '/v1/psw/schedule/payouts/request',
         HANDOVER_SUBMIT: '/v1/psw/handover',
         AVAILABILITY_SYNC: '/v1/psw/availability/sync',
+        WELLNESS_PULSE: '/v1/psw/wellness/pulse',
         PAYOUT_HISTORY: '/v1/psw/payouts/history',
         DASHBOARD_STATS: '/v1/psw/dashboard/stats',
         CREDENTIALS: '/v1/psw/credentials/vault',
@@ -62,7 +63,6 @@ const TENANCY = {
         COMPLIANCE_SCAN: '/v1/staff/ops/compliance/scan',
         COORDINATOR: {
             COVERAGE_ALERTS: '/v1/manager/coordinator/coverage-alerts',
-            SOS_DISPATCH: '/v1/manager/coordinator/sos-dispatch',
         },
     },
     COORDINATOR: {
@@ -70,7 +70,10 @@ const TENANCY = {
         WAITLIST_SYNC: '/v1/coordinator/waitlist/sync',
         SOS_ACK: '/v1/coordinator/incident/ack',
         SOS_INCIDENTS: '/v1/coordinator/incidents',
+        SOS_DISPATCH: '/v1/coordinator/sos-dispatch',
         DASHBOARD_STATS: '/v1/coordinator/dashboard/stats',
+        DISPATCH_MAP: '/v1/coordinator/dispatch-map',
+        MATCHING_RUN: '/v1/coordinator/matching/run',
     },
 } as const;
 
@@ -136,15 +139,15 @@ const PLATFORM = {
         }
     },
     SCRUM_MASTER: {
-        DASHBOARD: '/v1/admin/stats',
-        API_ENDPOINTS: '/v1/admin/endpoints',
-        ENV_AUDIT: '/v1/admin/scrum/env-audit',
-        AUTO_FIX: '/v1/admin/scrum/auto-fix',
-        SWEEP_START: '/v1/admin/scrum/universal-sweep',
-        RESPONSE_BOT_SCAN: '/v1/admin/scrum/response-bot/audit',
-        AUDITS_HISTORY: '/v1/admin/scrum/audits',
-        REGISTRY_HEALTH: '/v1/admin/scrum/registry/health',
-        REGISTRY_SYNC: '/v1/admin/scrum/registry/sync',
+        DASHBOARD: '/v1/scrum-master/stats',
+        API_ENDPOINTS: '/v1/scrum-master/endpoints',
+        ENV_AUDIT: '/v1/scrum-master/env-audit',
+        AUTO_FIX: '/v1/scrum-master/auto-fix',
+        SWEEP_START: '/v1/scrum-master/registry/sweep',
+        RESPONSE_BOT_SCAN: '/v1/scrum-master/registry/sweep',
+        AUDITS_HISTORY: '/v1/scrum-master/audits',
+        REGISTRY_HEALTH: '/v1/scrum-master/registry/health',
+        REGISTRY_SYNC: '/v1/scrum-master/registry/sync',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

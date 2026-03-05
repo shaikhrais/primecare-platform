@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import './CoordinatorHub.css';
@@ -6,6 +7,7 @@ import './CoordinatorHub.css';
 const { COORDINATOR_HUB } = ContentRegistry;
 
 export default function CoordinatorHub() {
+    const navigate = useNavigate();
     const [stats, setStats] = useState({
         livePsw: 0,
         sosActive: 0,
@@ -19,18 +21,25 @@ export default function CoordinatorHub() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch live stats from ApiRegistry
+                // Fetch live stats
                 const statsData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DASHBOARD_STATS);
                 if (statsData) setStats(statsData as any);
 
-                // Fetch waitlist sync from ApiRegistry
+                // Fetch waitlist entries (if any)
                 const waitlistData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.WAITLIST_SYNC);
                 if (waitlistData && Array.isArray(waitlistData)) setWaitlist(waitlistData);
 
-                // Mocking incidents for now as per shared logic
-                setIncidents([
-                    { id: '1', type: 'sos_alert', description: 'Emergency SOS: PSW Jane Doe at 123 Main St', status: 'open', createdAt: new Date().toISOString() }
-                ]);
+                // Fetch real incidents
+                const incidentsData: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.SOS_INCIDENTS);
+                if (incidentsData && Array.isArray(incidentsData)) {
+                    setIncidents(incidentsData.map((inc: any) => ({
+                        id: inc.id,
+                        type: inc.type,
+                        description: `SOS: ${inc.visit?.psw?.fullName} @ ${inc.visit?.client?.fullName}`,
+                        status: inc.status,
+                        createdAt: inc.createdAt
+                    })));
+                }
 
                 setLoading(false);
             } catch (error) {
@@ -40,14 +49,27 @@ export default function CoordinatorHub() {
         };
 
         fetchData();
+        const interval = setInterval(fetchData, 15000); // Refresh incidents every 15s
+        return () => clearInterval(interval);
     }, []);
 
     const acknowledgeSos = async (incidentId: string) => {
         try {
-            await apiClient.post(ApiRegistry.COORDINATOR.SOS_ACK, { incidentId });
+            await apiClient.post(ApiRegistry.TENANCY.COORDINATOR.SOS_ACK, { incidentId });
             setIncidents(incidents.map(inc => inc.id === incidentId ? { ...inc, status: 'investigating' } : inc));
         } catch (error) {
             console.error('Failed to acknowledge SOS:', error);
+        }
+    };
+
+    const triggerMatching = async (visitId?: string) => {
+        try {
+            await apiClient.post(ApiRegistry.TENANCY.COORDINATOR.MATCHING_RUN, { visitId });
+            // Refresh stats to see new pending matches
+            const statsData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DASHBOARD_STATS);
+            if (statsData) setStats(statsData as any);
+        } catch (error) {
+            console.error('Failed to trigger matching:', error);
         }
     };
 
@@ -119,8 +141,12 @@ export default function CoordinatorHub() {
                     <article className="bento-card">
                         <div className="card-header">
                             <h2>{COORDINATOR_HUB.MAP_TITLE}</h2>
-                            <button className="btn-premium secondary" style={{ fontSize: '0.75rem' }}>
-                                {ButtonRegistry.find(b => b.id === 'btn-coord-optimize')?.label || 'Open Advanced Radar'}
+                            <button
+                                className="btn-premium secondary"
+                                style={{ fontSize: '0.75rem' }}
+                                onClick={() => navigate('/tenancy/coordinator/map')}
+                            >
+                                {ButtonRegistry.find(b => b.id === 'btn-coord-dispatch-center')?.label || 'Open Advanced Radar'}
                             </button>
                         </div>
                         <div className="card-body">
@@ -155,7 +181,11 @@ export default function CoordinatorHub() {
                                 )}
                             </div>
                             <div style={{ padding: '1.5rem', borderTop: '1px solid #f1f5f9' }}>
-                                <button className="btn-premium" style={{ width: '100%' }}>
+                                <button
+                                    className="btn-premium"
+                                    style={{ width: '100%' }}
+                                    onClick={() => triggerMatching()}
+                                >
                                     {ButtonRegistry.find(b => b.id === 'btn-coord-waitlist-sync')?.label || COORDINATOR_HUB.ACTIONS.SYNC_WAITLIST}
                                 </button>
                             </div>
@@ -170,7 +200,11 @@ export default function CoordinatorHub() {
                             <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '0.75rem', border: '1px dashed #ef4444' }}>
                                 <div style={{ fontWeight: 800, fontSize: '0.875rem', color: '#991b1b' }}>Unassigned Morning Shift</div>
                                 <div style={{ fontSize: '0.75rem', color: '#b91c1c', marginTop: '0.25rem' }}>08:00 - 12:00 • Essential Care</div>
-                                <button className="btn-premium" style={{ marginTop: '1rem', width: '100%', padding: '0.5rem' }}>
+                                <button
+                                    className="btn-premium"
+                                    style={{ marginTop: '1rem', width: '100%', padding: '0.5rem' }}
+                                    onClick={() => triggerMatching()}
+                                >
                                     {ButtonRegistry.find(b => b.id === 'btn-coord-match-override')?.label || COORDINATOR_HUB.ACTIONS.OVERRIDE_MATCH}
                                 </button>
                             </div>

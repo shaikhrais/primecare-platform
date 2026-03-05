@@ -1,15 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { ContentRegistry } from 'prime-care-shared';
+import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 import './DispatchMap.css';
 
 const { COORDINATOR_MAP } = ContentRegistry;
 
 export default function DispatchMap() {
-    const [nodes, setNodes] = useState([
-        { id: 1, name: 'PSW Sarah', lat: 43.6532, lng: -79.3832, status: 'active', icon: '🚙' },
-        { id: 2, name: 'PSW Mike', lat: 43.6426, lng: -79.3731, status: 'idle', icon: '🏠' },
-        { id: 3, name: 'PSW Elena', lat: 43.6700, lng: -79.3900, status: 'sos', icon: '🚨' },
-    ]);
+    const [nodes, setNodes] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchMapData = async () => {
+            try {
+                const data: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DISPATCH_MAP);
+                if (data) {
+                    const caregivers = data.caregivers.map((p: any) => ({
+                        id: p.id,
+                        name: p.fullName,
+                        lat: p.lastLat || 43.6532,
+                        lng: p.lastLng || -79.3832,
+                        status: p.status === 'urgent' ? 'sos' : p.status === 'active' ? 'active' : 'idle',
+                        icon: p.status === 'urgent' ? '🚨' : '🚙'
+                    }));
+                    const clients = data.clients.map((c: any) => ({
+                        id: c.id,
+                        name: c.fullName,
+                        lat: c.lat || 43.6600,
+                        lng: c.lng || -79.3900,
+                        status: 'client',
+                        icon: '🏠'
+                    }));
+                    setNodes([...caregivers, ...clients]);
+                }
+            } catch (error) {
+                console.error('Failed to fetch dispatch map:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchMapData();
+        const interval = setInterval(fetchMapData, 30000); // Pulse every 30s
+        return () => clearInterval(interval);
+    }, []);
+
+    if (loading) return <div className="dispatch-map-container"><p>Syncing Field Intel...</p></div>;
 
     return (
         <div className="dispatch-map-container">
@@ -24,10 +58,10 @@ export default function DispatchMap() {
                 {nodes.map(node => (
                     <div
                         key={node.id}
-                        className="node-marker"
+                        className={`node-marker ${node.status}`}
                         style={{
-                            left: `${50 + (node.lng + 79.38) * 1000}%`,
-                            top: `${50 - (node.lat - 43.65) * 1000}%`
+                            left: `${50 + (node.lng + 79.38) * 500}%`,
+                            top: `${50 - (node.lat - 43.65) * 500}%`
                         }}
                     >
                         <span className="marker-icon">{node.icon}</span>

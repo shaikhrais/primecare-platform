@@ -20,10 +20,10 @@ export default function RegionalStats() {
                 const data = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
                 if (data) {
                     setStats({
-                        revenue: (data as any).regionalRevenue || '$2.4M',
-                        utilization: `${(data as any).staffUtilization || 91}%`,
-                        churn: `${(data as any).clientChurn || 1.2}%`,
-                        compliance: `${(data as any).complianceScore || 98.8}%`
+                        revenue: `${((data as any).revenue / 1000000).toFixed(1)}M`, // Assuming revenue in dollars
+                        utilization: `${(data as any).utilization}%`,
+                        churn: `${(data as any).churnRate}%`,
+                        compliance: '98.8%' // Mock for now until compliance sync is fully integrated
                     });
                 }
             } catch (error) {

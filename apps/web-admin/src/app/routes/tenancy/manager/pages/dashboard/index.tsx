@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
+import { apiClient } from '@/shared/utils/apiClient';
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
@@ -38,18 +39,15 @@ export default function ManagerDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const headers = { 'Authorization': `Bearer ${token}` };
-
-                const [kpiRes, todayRes, statsRes] = await Promise.all([
-                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_KPI}`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_TODAY}`, { headers }),
-                    fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_STATS}`, { headers })
+                const [kpiData, todayData, statsData] = await Promise.all([
+                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_KPI),
+                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_TODAY),
+                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_STATS)
                 ]);
 
-                if (kpiRes.ok) setKpi(await kpiRes.json());
-                if (todayRes.ok) setShifts(await todayRes.json());
-                if (statsRes.ok) setChartData(await statsRes.json());
+                if (kpiData) setKpi(kpiData as any);
+                if (todayData && Array.isArray(todayData)) setShifts(todayData);
+                if (statsData) setChartData(statsData as any);
             } catch (error) {
                 console.error('Failed to load dashboard data', error);
             } finally {

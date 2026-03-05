@@ -8,7 +8,7 @@ const { FAMILY_HUB, FEEDBACK_LOOP } = ContentRegistry.CLIENT_DASHBOARD;
 
 const FamilyCareHub: React.FC = () => {
     const [loading, setLoading] = useState(true);
-    const [feed, setFeed] = useState<{ notifications: any[], visits: any[] }>({ notifications: [], visits: [] });
+    const [feed, setFeed] = useState<{ feed: any[], notifications: any[], visits: any[] }>({ feed: [], notifications: [], visits: [] });
     const [stats, setStats] = useState<any>(null);
     const [feedbackModal, setFeedbackModal] = useState<{ visible: boolean, visitId?: string }>({ visible: false, visitId: undefined });
     const [rating, setRating] = useState(0);
@@ -25,7 +25,10 @@ const FamilyCareHub: React.FC = () => {
                     fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.CLIENT.DASHBOARD_STATS}`, { headers })
                 ]);
 
-                if (feedRes.ok) setFeed(await feedRes.ok ? await feedRes.json() : { notifications: [], visits: [] });
+                if (feedRes.ok) {
+                    const feedData = await feedRes.json();
+                    setFeed(feedData);
+                }
                 if (statsRes.ok) setStats(await statsRes.json());
             } catch (error) {
                 console.error('Failed to load family hub data', error);
@@ -95,7 +98,7 @@ const FamilyCareHub: React.FC = () => {
                         <h3>{FAMILY_HUB.FEED_TITLE}</h3>
                     </div>
                     <div className="timeline-body">
-                        {feed.notifications.length > 0 ? feed.notifications.map(n => (
+                        {feed.feed && feed.feed.length > 0 ? feed.feed.map((n: any) => (
                             <div key={n.id} className={`timeline-entry ${n.type.toLowerCase()}`}>
                                 <span className="entry-time">{new Date(n.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                                 <p className="entry-message">{n.message}</p>

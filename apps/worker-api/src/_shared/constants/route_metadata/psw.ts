@@ -77,5 +77,10 @@ export const PSW_METADATA = {
             description: 'Retrieve history of processed and pending payouts.',
             tags: ['PSW Payouts'],
         },
+        WELLNESS_PULSE: {
+            summary: 'Submit Wellness Pulse',
+            description: 'Allows a PSW to report their current wellbeing and sentiment.',
+            tags: ['PSW Wellness'],
+        },
     },
 };

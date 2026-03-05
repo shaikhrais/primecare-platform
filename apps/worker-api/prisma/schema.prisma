@@ -47,6 +47,7 @@ model User {
   acknowledgedIncidents Incident[]           @relation("Acknowledger")
   performedAudits      TechnicalAudit[]    @relation("PerformedAudits")
   dailyAuditSignOffs   DailyAuditSignOff[]
+  wellnessPulses       WellnessPulse[]
 
   @@index([tenantId])
   @@map("users")
@@ -102,6 +103,8 @@ model Tenant {
   technicalAudits     TechnicalAudit[]
   bookingRequests     BookingRequest[]
   dailyAuditSignOffs  DailyAuditSignOff[]
+  wellnessPulses      WellnessPulse[]
+  systemTouchpoints   SystemTouchpoint[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -1506,4 +1509,34 @@ model DailyAuditSignOff {
   visit  Visit  @relation(fields: [visitId], references: [id])
 
   @@map("daily_audit_signoffs")
+}
+
+model WellnessPulse {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tenantId  String   @map("tenant_id")
+  status    String   // great, okay, struggling, burnout
+  note      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("wellness_pulses")
+}
+
+model SystemTouchpoint {
+  id          String   @id @default(uuid())
+  touchpointId String  @unique @map("touchpoint_id")
+  type        String   // BUTTON, LINK, INTERACTION
+  role        String
+  module      String
+  path        String
+  status      String   @default("OK") // OK, 404, ERROR
+  errorDetail String?  @map("error_detail")
+  lastChecked DateTime @default(now()) @map("last_checked")
+  tenantId    String   @map("tenant_id")
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@map("system_touchpoints")
 }

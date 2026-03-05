@@ -5,3 +5,6 @@ export * from './ThemeRegistry';
 export * from './InteractionRegistry';
 export * from './InteractiveElementRegistry';
 export * from './InteractiveRegistry';
+export * from './ButtonRegistry';
+export * from './LinkRegistry';
+export * from './InteractionARegistry';

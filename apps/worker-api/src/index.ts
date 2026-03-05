@@ -17,6 +17,7 @@ import clientModule from './tenancy/client/client.module';
 import coordinatorModule from './tenancy/coordinator/coordinator.module';
 import userModule from './user/user.routes';
 import systemModule from './platform/system/system.module';
+import scrumMasterModule from './platform/scrum_master/scrum_master.module';
 
 import { ChatServer } from './durable_objects/ChatServer';
 export { ChatServer };
@@ -88,6 +89,7 @@ app.route('/v1/client', clientModule);
 app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
+app.route('/v1/scrum-master', scrumMasterModule);
 
 // 5. Public Marketing Lead Support (Moved to a public endpoint if needed, or tucked into a module)
 app.post('/v1/marketing/leads', async (c) => {

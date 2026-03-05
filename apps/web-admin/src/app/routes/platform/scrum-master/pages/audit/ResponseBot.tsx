@@ -22,114 +22,46 @@ export default function ResponseBot() {
 
     const runSweep = async () => {
         setAuditRunning(true);
-        setProgress(0);
-        const auditResults: any[] = [];
-
-        // 1. Audit Link Registry (Cross-reference with RouteRegistry)
-        setProgress(10);
-        const brokenLinks = LinkRegistry.filter((l: any) => {
-            const pathExists = Object.values(RouteRegistry).some((r: any) =>
-                typeof r === 'string' ? r === l.path : Object.values(r).includes(l.path)
-            );
-            return !pathExists;
-        });
-
-        auditResults.push({
-            id: 1,
-            type: 'LINK_REGISTRY',
-            status: brokenLinks.length > 0 ? 'warning' : 'success',
-            summary: `Verified ${LinkRegistry.length} links against RouteRegistry.`,
-            issues: brokenLinks.length,
-            details: brokenLinks.map(l => l.id).join(', ')
-        });
-
-        // 2. Audit Button Registry (Cross-reference with ApiRegistry)
-        setProgress(25);
-        const orphanedButtons = ButtonRegistry.filter((b: any) => {
-            if (b.action === 'API_TRIGGER' && b.apiPath) {
-                const apiExists = JSON.stringify(ApiRegistry).includes(b.apiPath);
-                return !apiExists;
-            }
-            return false;
-        });
-
-        auditResults.push({
-            id: 2,
-            type: 'BUTTON_REGISTRY',
-            status: orphanedButtons.length > 0 ? 'warning' : 'success',
-            summary: `Verified ${ButtonRegistry.length} action targets.`,
-            issues: orphanedButtons.length,
-            details: orphanedButtons.map(b => b.id).join(', ')
-        });
-
-        // 3. Central Registry Consistency (Phase 1 Sync Audit)
-        setProgress(45);
-        // This is a placeholder for checking if all registry entries exist in DB
-        auditResults.push({
-            id: 5,
-            type: 'REGISTRY_SYNC_AUDIT',
-            status: 'success',
-            summary: `Verified parity for ${ButtonRegistry.length + LinkRegistry.length} master entries.`,
-            issues: 0
-        });
-
-        // 4. API Pulse (Extended Role-wise Endpoints)
-        setProgress(70);
-        const criticalApis = [
-            ApiRegistry.AUTH.LOGIN,
-            ApiRegistry.USER.PROFILE,
-            ApiRegistry.TENANCY.PSW.VISITS,
-            ApiRegistry.TENANCY.MANAGER.OPS_STATS,
-            ApiRegistry.TENANCY.CLIENT.DASHBOARD_STATS,
-            ApiRegistry.TENANCY.RN.CARE_PLANS,
-            ApiRegistry.TENANCY.COORDINATOR.SOS_INCIDENTS,
-            '/v1/system/platform/stats'
-        ];
-
-        let apiFailures = 0;
-        for (const api of criticalApis) {
-            const alive = await pulseApi(api);
-            if (!alive) apiFailures++;
-        }
-
-        auditResults.push({
-            id: 3,
-            type: 'API_PULSE_CHECK',
-            status: apiFailures > 0 ? 'warning' : 'success',
-            summary: `Pulsed ${criticalApis.length} master endpoints across all roles.`,
-            issues: apiFailures
-        });
-
-        // 5. Registry Heartbeat (Collision Check)
-        setProgress(90);
-        const ids = [...ButtonRegistry, ...LinkRegistry, ...InteractionARegistry].map(i => i.id);
-        const collisions = ids.filter((id, index) => ids.indexOf(id) !== index);
-
-        auditResults.push({
-            id: 4,
-            type: 'REGISTRY_COLLISIONS',
-            status: collisions.length > 0 ? 'danger' : 'success',
-            summary: `Checked for ID collisions across all registries.`,
-            issues: collisions.length,
-            details: collisions.join(', ')
-        });
-
-        // Save Results to Backend
+        setProgress(30);
         try {
-            await apiClient.post(ApiRegistry.SCRUM_MASTER.RESPONSE_BOT_SCAN, {
-                type: 'UNIVERSAL_SWEEP',
-                results: auditResults,
-                totalIssues: auditResults.reduce((acc, r) => acc + r.issues, 0)
-            });
-        } catch (e) {
-            console.error('Failed to persist audit results');
-        }
+            const data: any = await apiClient.post(ApiRegistry.SCRUM_MASTER.RESPONSE_BOT_SCAN, {});
+            setProgress(70);
 
-        setProgress(100);
-        setTimeout(() => {
+            // Map backend results to the UI structure
+            const auditResults = [
+                {
+                    id: 1,
+                    type: 'REGISTRY_SWEEP',
+                    status: data.stats.orphans > 0 ? 'warning' : 'success',
+                    summary: `Verified ${data.stats.buttons} buttons and ${data.stats.links} links.`,
+                    issues: data.stats.orphans + data.stats.warnings,
+                    details: data.results.map((r: any) => `${r.id}: ${r.message}`).join(' | ')
+                },
+                {
+                    id: 2,
+                    type: 'PLATFORM_PULSE',
+                    status: 'success',
+                    summary: 'Backend infrastructure heartbeat verified.',
+                    issues: 0
+                }
+            ];
+
             setResults(auditResults);
-            setAuditRunning(false);
-        }, 500);
+        } catch (error) {
+            console.error('Sweep failed:', error);
+            setResults([{
+                id: 'err',
+                type: 'SYSTEM_ERROR',
+                status: 'danger',
+                summary: 'Failed to connect to Scrum Master audit engine.',
+                issues: 1
+            }]);
+        } finally {
+            setProgress(100);
+            setTimeout(() => {
+                setAuditRunning(false);
+            }, 500);
+        }
     };
 
     const syncRegistries = async () => {

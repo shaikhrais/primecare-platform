@@ -65,7 +65,25 @@ engagement.openapi(
             })
         ]);
 
-        return c.json({ notifications, visits }, 200) as any;
+        const events = [
+            ...notifications.map((n: any) => ({
+                id: n.id,
+                type: n.type,
+                message: n.message,
+                createdAt: n.createdAt,
+                category: 'notification'
+            })),
+            ...visits.map((v: any) => ({
+                id: v.id,
+                type: v.status === 'completed' ? 'VISIT_COMPLETE' : 'VISIT_ACTIVE',
+                message: `${v.service.name} visit ${v.status === 'completed' ? 'completed' : 'underway'} by ${v.psw?.fullName || 'Caregiver'}`,
+                createdAt: v.status === 'completed' ? v.actualEndAt || v.createdAt : v.actualStartAt || v.createdAt,
+                category: 'visit',
+                psw: v.psw
+            }))
+        ].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        return c.json({ feed: events.slice(0, 30), notifications, visits }, 200) as any;
     }
 );
 

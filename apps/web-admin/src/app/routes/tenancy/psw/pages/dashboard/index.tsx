@@ -10,6 +10,7 @@ import { MOCK_PSW_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 import { PswStats } from './components/PswStats';
 import { ShiftList } from './components/ShiftList';
 import { ComplianceSection } from './components/ComplianceSection';
+import { WellnessPulse } from './components/WellnessPulse';
 import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
@@ -208,7 +209,10 @@ export default function PswDashboard() {
                     onCheckOut={handleCheckOut}
                 />
 
-                <ComplianceSection />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    <ComplianceSection />
+                    <WellnessPulse />
+                </div>
             </div>
         </div >
     );

@@ -1,9 +1,8 @@
-import { AdminRegistry } from 'prime-care-shared';
+import { ApiRegistry, AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function BookingRequestForm() {
     const { showToast } = useNotification();
@@ -13,11 +12,10 @@ export default function BookingRequestForm() {
     const [submitting, setSubmitting] = useState(false);
 
     const [formData, setFormData] = useState({
-        serviceId: '',
+        serviceType: '',
         preferredDate: '',
         preferredTime: 'morning',
-        urgency: 'routine',
-        description: ''
+        notes: ''
     });
 
     useEffect(() => {
@@ -35,23 +33,16 @@ export default function BookingRequestForm() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/client/bookings`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            const payload = {
+                ...formData,
+                preferredDate: new Date(formData.preferredDate).toISOString(),
+            };
 
-            if (response.ok) {
-                showToast('Booking request sent!', 'success');
-                setIsDirty(false);
-                navigate(AdminRegistry.RouteRegistry.CLIENT.BOOKINGS);
-            } else {
-                showToast('Failed to send request', 'error');
-            }
+            await apiClient.post(ApiRegistry.CLIENT.BOOKING_REQUESTS, payload);
+
+            showToast('Booking request sent!', 'success');
+            setIsDirty(false);
+            navigate(AdminRegistry.RouteRegistry.CLIENT.BOOKINGS);
         } catch (error) {
             showToast('Error during submission', 'error');
         } finally {
@@ -86,14 +77,14 @@ export default function BookingRequestForm() {
                         <select
                             data-cy="form.booking.service"
                             required
-                            value={formData.serviceId}
-                            onChange={(e) => { setFormData({ ...formData, serviceId: e.target.value }); setIsDirty(true); }}
+                            value={formData.serviceType}
+                            onChange={(e) => { setFormData({ ...formData, serviceType: e.target.value }); setIsDirty(true); }}
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                         >
                             <option value="">Choose a service...</option>
-                            <option value="psw-1">Personal Care (PSW)</option>
-                            <option value="rn-1">Nursing Assessment (RN)</option>
-                            <option value="ft-1">Foot Care Specialist</option>
+                            <option value="Personal Care (PSW)">Personal Care (PSW)</option>
+                            <option value="Nursing Assessment (RN)">Nursing Assessment (RN)</option>
+                            <option value="Foot Care Specialist">Foot Care Specialist</option>
                         </select>
                     </div>
 
@@ -128,8 +119,8 @@ export default function BookingRequestForm() {
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Details / Requests</label>
                         <textarea
                             data-cy="form.booking.description"
-                            value={formData.description}
-                            onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setIsDirty(true); }}
+                            value={formData.notes}
+                            onChange={(e) => { setFormData({ ...formData, notes: e.target.value }); setIsDirty(true); }}
                             placeholder="Tell us about specific needs for this visit..."
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '100px' }}
                         />
