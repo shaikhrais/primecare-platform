@@ -944,3 +944,29 @@ model SystemPolicy {
 
   @@map("system_policies")
 }
+
+model FleetStatus {
+  id              String   @id @default(uuid())
+  pswId           String   @unique @map("psw_id")
+  lat             Float?
+  lng             Float?
+  status          String   @default("available") // available, en_route, on_site, offline
+  batteryLevel    Int?     @map("battery_level")
+  lastHeartbeat At DateTime @default(now()) @map("last_heartbeat_at")
+  currentVisitId  String?  @map("current_visit_id")
+  psw             PswProfile @relation(fields: [pswId], references: [id])
+
+  @@map("fleet_status")
+}
+
+model ResponseBotAudit {
+  id              String   @id @default(uuid())
+  type            String   // REGISTRY_CHECK, 404_HEARTBEAT, SCHEMA_PARITY
+  status          String   @default("success") // success, warning, failure
+  summary         String
+  details         Json
+  durationMs      Int      @map("duration_ms")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("response_bot_audits")
+}

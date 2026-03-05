@@ -81,6 +81,7 @@ const PLATFORM = {
             REGION_MAPPING: '/v1/admin/ops/regions',
             SUPPLY_DEMAND: '/v1/admin/ops/supply-demand',
             LOGISTICS_HUB: '/v1/admin/ops/logistics',
+            PREDICTIVE_ROUTOR: '/v1/admin/ops/predictive/dispatch',
         }
     },
     SCRUM_MASTER: {
@@ -89,6 +90,7 @@ const PLATFORM = {
         ENV_AUDIT: '/v1/admin/scrum/env-audit',
         AUTO_FIX: '/v1/admin/scrum/auto-fix',
         SWEEP_START: '/v1/admin/scrum/universal-sweep',
+        RESPONSE_BOT_SCAN: '/v1/admin/scrum/response-bot/audit',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

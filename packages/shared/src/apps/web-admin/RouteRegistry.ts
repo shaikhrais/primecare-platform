@@ -168,6 +168,7 @@ const PLATFORM = {
         INTERACTION_AUDIT: '/platform/scrum-master/interaction-audit',
         AUTO_FIX: '/platform/scrum-master/auto-fix',
         IMPERSONATE: '/platform/scrum-master/impersonate',
+        RESPONSE_BOT: '/platform/scrum-master/response-bot',
     }
 } as const;
 
