@@ -99,6 +99,30 @@ export default function LiveVisit() {
         });
     };
 
+    const [loading, setLoading] = useState(false);
+
+    const handleDailyEntrySubmit = async () => {
+        setLoading(true);
+        try {
+            const response = await apiClient.post(AdminRegistry.ApiRegistry.TENANCY.PSW.DAILY_ENTRY_SUBMIT, {
+                clientId: 'visit-context-client', // In a real application, this would come from the visit object
+                visitId: id,
+                adlData: tasks.filter(t => t.done).map(t => t.label),
+                status: 'SUBMITTED'
+            });
+
+            if (response.ok) {
+                showToast('Clinical Data Saved Successfully', 'success');
+            } else {
+                showToast('Failed to save clinical data', 'error');
+            }
+        } catch (error) {
+            showToast('Network error during data sync', 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const checkInBtn = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-check-in');
     const checkOutBtn = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-check-out');
 
@@ -151,7 +175,16 @@ export default function LiveVisit() {
                         </div>
 
                         <div className="tasks-container">
-                            <h3 className="tasks-title">{CONTENT.CLINICAL.TITLE}</h3>
+                            <div className="tasks-header-row">
+                                <h3 className="tasks-title">{CONTENT.CLINICAL.TITLE}</h3>
+                                <button
+                                    className="adl-sync-btn"
+                                    onClick={handleDailyEntrySubmit}
+                                    disabled={loading}
+                                >
+                                    {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-daily-entry')?.label || 'Sync ADLs'}
+                                </button>
+                            </div>
                             {tasks.map(task => (
                                 <div
                                     key={task.id}

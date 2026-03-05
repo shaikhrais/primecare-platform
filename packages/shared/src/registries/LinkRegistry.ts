@@ -38,7 +38,7 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-sm-perf-metrics', label: 'Node Performance', role: 'scrum_master', module: 'PERFORMANCE', path: RouteRegistry.SCRUM_MASTER.PERFORMANCE, description: 'Real-time V8 monitoring.' },
     { id: 'lnk-sm-theme-lab', label: 'Theme Studio', role: 'scrum_master', module: 'THEME', path: RouteRegistry.SCRUM_MASTER.THEME_CENTER, description: 'Live registry-driven CSS variable lab.' },
     { id: 'lnk-mgr-pl', label: 'Branch Profit & Loss', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.FINANCE, description: 'Financial visibility into branch-level performance.' },
-    { id: 'lnk-coord-hub', label: 'Dispatch Center', role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.MANAGER.DASHBOARD, description: 'Coordinator real-time dispatch and shift monitoring.' },
+    { id: 'lnk-coord-hub', label: 'Dispatch Center', role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.COORDINATOR.HUB, description: 'Coordinator real-time dispatch and shift monitoring.' },
     { id: 'lnk-staff-incidents', label: 'Incident Desk', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.INCIDENTS, description: 'Review and manage reported field incidents.' },
     { id: 'lnk-psw-offers', label: 'Shift Marketplace', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.OFFERS, description: 'Browse and accept open shift opportunities.' },
     { id: 'lnk-rn-supervision', label: 'Supervision Hub', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.SUPERVISION, description: 'RN oversight portal for PSW performance.' },

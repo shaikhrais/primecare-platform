@@ -1,0 +1,341 @@
+.team-roster-container {
+    padding: 3rem;
+    background: radial-gradient(circle at top right, #ffffff, #f0f9ff);
+    min-height: 100vh;
+    font-family: 'Outfit', Inter, sans-serif;
+}
+
+.roster-header {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecfdf5;
+    color: #059669;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.roster-header h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.roster-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+}
+
+.roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.member-card-premium {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.member-card-premium:hover {
+    transform: translateY(-8px);
+    background: white;
+    box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+}
+
+.card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.avatar-wrapper {
+    position: relative;
+}
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 900;
+    box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.4);
+}
+
+.avatar-wrapper img {
+    width: 100px;
+    height: 100px;
+    border-radius: 32px;
+    object-fit: cover;
+    box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.4);
+}
+
+.rating-pill {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f1f5f9;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.member-meta {
+    text-align: center;
+}
+
+.member-meta h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.role-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #3b82f6;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    display: block;
+}
+
+.stats-row {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 2rem;
+    border: 1px solid #f1f5f9;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-weight: 800;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 24px;
+    background: #e2e8f0;
+}
+
+.member-bio {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+}
+
+.btn-contact {
+    width: 100%;
+    padding: 16px;
+    background: #0f172a;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.3);
+}
+
+.btn-contact:hover {
+    transform: scale(1.02);
+    background: #3b82f6;
+    box-shadow: 0 15px 20px -5px rgba(59, 130, 246, 0.4);
+}
+
+.add-request-card {
+    border: 3px dashed #e2e8f0;
+    border-radius: 32px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #f8fafc;
+    transition: all 0.3s;
+}
+
+.add-request-card:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.icon-circle {
+    width: 64px;
+    height: 64px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f43f5e;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.add-request-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.add-request-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 1rem 0 2rem;
+    line-height: 1.5;
+}
+
+.btn-request-specialist {
+    padding: 12px 24px;
+    background: white;
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-request-specialist:hover {
+    background: #3b82f6;
+    color: white;
+}
+
+.roster-footer {
+    margin-top: 5rem;
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 28px;
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-icon {
+    color: #f59e0b;
+    background: white;
+    padding: 12px;
+    border-radius: 16px;
+    width: 44px;
+    height: 44px;
+}
+
+.footer-content h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #92400e;
+    letter-spacing: 1px;
+}
+
+.footer-content p {
+    margin: 0.5rem 0 0;
+    color: #b45309;
+    font-size: 0.95rem;
+    font-weight: 500;
+    max-width: 800px;
+}
+
+.roster-loading {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #f1f5f9;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .team-roster-container {
+        padding: 1.5rem;
+    }
+
+    .roster-header h1 {
+        font-size: 2.25rem;
+    }
+
+    .roster-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}

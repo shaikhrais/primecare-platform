@@ -57,12 +57,12 @@ const AssessmentsHub = lazy(() => import('./rn/pages/assessments'));
 // Client Pages
 const ClientDashboard = lazy(() => import('./client/pages/dashboard'));
 const ClientBookings = lazy(() => import('./client/pages/bookings'));
-const ClientBilling = lazy(() => import('./client/pages/billing'));
+const ClientBilling = lazy(() => import('./client/pages/billing/BillingHub'));
 const ClientFeedback = lazy(() => import('./client/pages/feedback'));
 const RequestBooking = lazy(() => import('./client/pages/request-booking'));
 const CatalogBrowser = lazy(() => import('./client/pages/services/CatalogBrowser'));
 const ClientMessaging = lazy(() => import('./client/pages/support/ClientMessaging'));
-const CareTeam = lazy(() => import('./client/pages/team/CareTeam'));
+const CareTeam = lazy(() => import('./client/pages/team/TeamRoster'));
 const FeedbackLoop = lazy(() => import('./client/pages/support/FeedbackLoop'));
 const FamilyCareHub = lazy(() => import('./client/pages/engagement/FamilyCareHub'));
 

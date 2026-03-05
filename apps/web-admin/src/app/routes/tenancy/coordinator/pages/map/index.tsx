@@ -1,9 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import './DispatchMap.css';
 
+// Fix for default marker icon in Leaflet + Vite
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
 const { COORDINATOR_MAP } = ContentRegistry;
+
+// Custom pulse component for SOS
+const PulseCircle = ({ lat, lng }: { lat: number, lng: number }) => {
+    return (
+        <Marker position={[lat, lng]} icon={L.divIcon({
+            className: 'sos-pulse-marker',
+            html: '<div class="radar-pulse"></div>',
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
+        })}>
+            <Popup>⚠️ ACTIVE SOS ALERT</Popup>
+        </Marker>
+    );
+};
 
 export default function DispatchMap() {
     const [nodes, setNodes] = useState<any[]>([]);
@@ -52,22 +82,30 @@ export default function DispatchMap() {
                 <p>{COORDINATOR_MAP.SUBTITLE}</p>
             </header>
 
-            <div className="map-viewport">
-                <div className="radar-pulse"></div>
+            <div className="map-viewport-wrapper">
+                <MapContainer center={[43.6532, -79.3832]} zoom={13} style={{ height: '100%', width: '100%' }}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
 
-                {nodes.map(node => (
-                    <div
-                        key={node.id}
-                        className={`node-marker ${node.status}`}
-                        style={{
-                            left: `${50 + (node.lng + 79.38) * 500}%`,
-                            top: `${50 - (node.lat - 43.65) * 500}%`
-                        }}
-                    >
-                        <span className="marker-icon">{node.icon}</span>
-                        <div className="marker-label">{node.name}</div>
-                    </div>
-                ))}
+                    {nodes.map(node => (
+                        <React.Fragment key={node.id}>
+                            {node.status === 'sos' && <PulseCircle lat={node.lat} lng={node.lng} />}
+                            <Marker position={[node.lat, node.lng]} icon={L.divIcon({
+                                className: `custom-marker ${node.status}`,
+                                html: `<div class="marker-shell">${node.icon}</div><div class="marker-tip">${node.name}</div>`,
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 20]
+                            })}>
+                                <Popup>
+                                    <strong>{node.name}</strong><br />
+                                    Status: {node.status.toUpperCase()}
+                                </Popup>
+                            </Marker>
+                        </React.Fragment>
+                    ))}
+                </MapContainer>
 
                 <aside className="map-sidebar">
                     <div className="legend">
@@ -86,9 +124,11 @@ export default function DispatchMap() {
                     </div>
 
                     <div className="live-feed">
-                        <div className="feed-item">[14:02] GPS_SYNC_SUCCESS (US-EAST-1)</div>
-                        <div className="feed-item">[14:01] NODE_MOVE: PSW_SARAH -&gt; /v1/location/77</div>
-                        <div className="feed-item">[14:00] SOS_TRIGGER: PSW_ELENA (URGENT)</div>
+                        <div className="feed-item">[GPS] OSM INTEGRATION ACTIVE</div>
+                        <div className="feed-item">[SYNC] CLOUD DISPATCH PULSE</div>
+                        {nodes.filter(n => n.status === 'sos').map(n => (
+                            <div key={n.id} className="feed-item danger">🚨 SOS: {n.name}</div>
+                        ))}
                     </div>
                 </aside>
             </div>
