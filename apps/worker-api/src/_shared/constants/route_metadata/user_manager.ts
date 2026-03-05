@@ -22,4 +22,19 @@ export const MANAGER_METADATA = {
         description: 'Retrieve payroll variance data and audit visit hours for branch-level financial oversight.',
         tags: ['Manager Finance'],
     },
+    OPS_STATS: {
+        summary: 'Get Regional Ops Stats',
+        description: 'Retrieve detailed performance metrics and branch KPIs for regional oversight.',
+        tags: ['Manager Operations'],
+    },
+    COMPLIANCE_SYNC: {
+        summary: 'Sync Branch Compliance',
+        description: 'Synchronize and audit compliance records for the regional branch.',
+        tags: ['Manager Operations'],
+    },
+    FEEDBACK_TRIAGE: {
+        summary: 'Triage Feedback',
+        description: 'Review and triage caregiver or client feedback for operational resolution.',
+        tags: ['Manager Operations'],
+    },
 };

@@ -68,5 +68,9 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-rcm-revenue', label: 'Revenue Analytics', role: 'admin', module: 'FINANCE', path: '/platform/admin/rcm/revenue', description: 'Detailed financial modeling and revenue cycle health monitoring.' },
     // Batch 19: Pharmacy Links
     { id: 'lnk-pharmacy-hub', label: 'Pharmacy Hub', role: 'rn', module: 'PHARMACY', path: '/platform/admin/pharmacy/hub', description: 'E-prescribing and medication management center.' },
-    { id: 'lnk-pharmacy-mar', label: 'Digital MAR', role: 'psw', module: 'PHARMACY', path: '/platform/admin/pharmacy/mar', description: 'Medication Administration Record for active care delivery.' }
+    { id: 'lnk-pharmacy-mar', label: 'Digital MAR', role: 'psw', module: 'PHARMACY', path: '/platform/admin/pharmacy/mar', description: 'Medication Administration Record for active care delivery.' },
+    // Batch 20: PSW Foundational Mastery
+    { id: 'lnk-psw-handover', label: 'Shift Handover', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.HANDOVER, description: 'Interface for submitting shift handover reports.' },
+    { id: 'lnk-psw-availability', label: 'Availability Overrides', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.AVAILABILITY, description: 'Manage date-specific work availability and overrides.' },
+    { id: 'lnk-psw-earnings', label: 'Earnings & Payouts', role: 'psw', module: 'FINANCE', path: RouteRegistry.PSW.EARNINGS, description: 'Track verified earnings and processed payout history.' }
 ];

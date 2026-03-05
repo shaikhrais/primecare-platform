@@ -1,97 +1,212 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useTranslation } from 'react-i18next';
 
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
 const ClinicalCarePlans: React.FC = () => {
+    const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
+    const [carePlans, setCarePlans] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [isEditorOpen, setIsEditorOpen] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<any>(null);
 
-    const carePlans = [
-        { id: '1', client: 'Alice Thompson', status: 'Active', goal: 'Reduce fall risk by improving gait stability', diagnoses: ['Osteoarthritis', 'Gait Imbalance'], reviewDate: '2026-03-20' },
-        { id: '2', client: 'Bob Richards', status: 'Requires Review', goal: 'Manage hypertension and monitor fluid intake', diagnoses: ['Hypertension', 'CHF'], reviewDate: '2026-03-01' },
-        { id: '3', client: 'Catherine Lee', status: 'Active', goal: 'Post-operative wound care and infection monitoring', diagnoses: ['Hip Replacement'], reviewDate: '2026-04-12' },
-    ];
+    useEffect(() => {
+        fetchPlans();
+    }, []);
+
+    const fetchPlans = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.RN.CARE_PLANS}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setCarePlans(data);
+            }
+        } catch (err) {
+            console.error('Failed to fetch care plans', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleEdit = (plan: any) => {
+        setSelectedPlan(plan);
+        setIsEditorOpen(true);
+    };
+
+    const handleSave = async (updatedPlan: any) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.RN.CARE_PLAN_REVIEW(updatedPlan.id)}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedPlan)
+            });
+            if (res.ok) {
+                await fetchPlans();
+                setIsEditorOpen(false);
+            }
+        } catch (err) {
+            console.error('Failed to save care plan', err);
+        }
+    };
 
     return (
-        <div className="p-6 space-y-6">
-            <header className="flex justify-between items-center">
+        <div data-cy="page.container">
+            <header style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Clinical Care Plans</h1>
-                    <p className="text-slate-500">Manage medical protocols and clinical goals for all clients.</p>
+                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                        {t(ContentRegistry.MENU.CARE_PLANS)}
+                    </h1>
+                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                        Manage clinical protocols and healthcare goals.
+                    </p>
                 </div>
-                <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-sm">
+                <button className="btn btn-primary" onClick={() => setIsEditorOpen(true)} data-cy="btn-new-plan">
                     + New Care Plan
                 </button>
             </header>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex gap-4">
+            <div className="pc-card" style={{ marginBottom: '32px' }}>
+                <div style={{ padding: '20px', borderBottom: '1px solid var(--card-border)' }}>
                     <input
                         type="text"
-                        placeholder="Search clients or diagnoses..."
-                        className="flex-1 px-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                        placeholder="Search patients or diagnoses..."
+                        className="pc-input"
+                        style={{ width: '100%', maxWidth: '400px' }}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
+                        data-cy="search-plans"
                     />
                 </div>
-                <table className="w-full text-left">
-                    <thead className="bg-slate-50 text-slate-500 text-sm uppercase tracking-wider">
-                        <tr>
-                            <th className="px-6 py-4 font-semibold">Client</th>
-                            <th className="px-6 py-4 font-semibold">Primary Goal</th>
-                            <th className="px-6 py-4 font-semibold">Diagnoses</th>
-                            <th className="px-6 py-4 font-semibold">Status</th>
-                            <th className="px-6 py-4 font-semibold">Last Review</th>
-                            <th className="px-6 py-4 font-semibold text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                        {carePlans.map(plan => (
-                            <tr key={plan.id} className="hover:bg-slate-50 transition-colors">
-                                <td className="px-6 py-4 font-medium text-slate-900">{plan.client}</td>
-                                <td className="px-6 py-4 text-slate-600 max-w-xs truncate">{plan.goal}</td>
-                                <td className="px-6 py-4">
-                                    <div className="flex flex-wrap gap-1">
-                                        {plan.diagnoses.map(d => (
-                                            <span key={d} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full border border-slate-200">{d}</span>
-                                        ))}
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${plan.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                                        }`}>
-                                        {plan.status}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 text-slate-500 text-sm">{plan.reviewDate}</td>
-                                <td className="px-6 py-4 text-right">
-                                    <button className="text-indigo-600 font-semibold hover:underline">Edit</button>
-                                </td>
+                <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0 }}>
+                        <thead>
+                            <tr style={{ background: 'rgba(255,255,255,0.02)', textAlign: 'left' }}>
+                                <th style={{ padding: '16px 24px', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-300)' }}>Client</th>
+                                <th style={{ padding: '16px 24px', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-300)' }}>Diagnoses</th>
+                                <th style={{ padding: '16px 24px', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-300)' }}>Status</th>
+                                <th style={{ padding: '16px 24px', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-300)' }}>Next Review</th>
+                                <th style={{ padding: '16px 24px', textAlign: 'right' }}></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                <tr><td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--text-300)' }}>Loading clinical registry...</td></tr>
+                            ) : carePlans.length === 0 ? (
+                                <tr><td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--text-300)' }}>No care plans found.</td></tr>
+                            ) : (
+                                carePlans.map(plan => (
+                                    <tr key={plan.id} style={{ borderTop: '1px solid var(--card-border)' }}>
+                                        <td style={{ padding: '20px 24px', fontWeight: 600, color: 'var(--text-100)' }}>{plan.client?.fullName}</td>
+                                        <td style={{ padding: '20px 24px' }}>
+                                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                                {plan.diagnoses?.map((d: string) => (
+                                                    <span key={d} className="badge" style={{ fontSize: '10px' }}>{d}</span>
+                                                ))}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '20px 24px' }}>
+                                            <span style={{
+                                                padding: '4px 10px',
+                                                borderRadius: '20px',
+                                                fontSize: '11px',
+                                                fontWeight: 900,
+                                                background: plan.status === 'active' ? 'rgba(76,175,80,0.1)' : 'rgba(255,152,0,0.1)',
+                                                color: plan.status === 'active' ? '#4caf50' : '#ff9800'
+                                            }}>
+                                                {plan.status.toUpperCase()}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '20px 24px', color: 'var(--text-300)', fontSize: '13px' }}>
+                                            {plan.reviewDate ? new Date(plan.reviewDate).toLocaleDateString() : 'TBD'}
+                                        </td>
+                                        <td style={{ padding: '20px 24px', textAlign: 'right' }}>
+                                            <button className="btn btn-ghost" onClick={() => handleEdit(plan)} data-cy={`btn-edit-${plan.id}`}>Edit</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-indigo-50 to-white p-6 rounded-2xl border border-indigo-100 shadow-sm">
-                    <h3 className="text-indigo-900 font-bold mb-2">💡 Clinical Best Practice</h3>
-                    <p className="text-indigo-700 text-sm leading-relaxed">
-                        Ensure care plans are reviewed every 30 days or after any hospital discharge. Use the "Digital Signature" feature to finalize updates.
-                    </p>
+            {/* Advanced Care Plan Editor Modal */}
+            {isEditorOpen && (
+                <div className="pc-modal-overlay" style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)' }}>
+                    <div className="pc-card bento-item animate-float" style={{ width: '90%', maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto', padding: '40px' }}>
+                        <h2 style={{ fontSize: '24px', fontWeight: 900, color: 'var(--text-100)', marginBottom: '8px' }}>
+                            {selectedPlan ? 'Edit Clinical Protocol' : 'New Clinical Protocol'}
+                        </h2>
+                        <p style={{ color: 'var(--text-300)', marginBottom: '32px' }}>Define healthcare goals and nursing interventions.</p>
+
+                        <div style={{ display: 'grid', gap: '24px' }}>
+                            <div className="group">
+                                <label style={{ display: 'block', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-300)', marginBottom: '8px' }}>Diagnoses</label>
+                                <input
+                                    className="pc-input"
+                                    defaultValue={selectedPlan?.diagnoses?.join(', ')}
+                                    placeholder="e.g. Hypertension, Osteoarthritis"
+                                    style={{ width: '100%' }}
+                                />
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                                <div className="group">
+                                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-300)', marginBottom: '8px' }}>Status</label>
+                                    <select className="pc-input" defaultValue={selectedPlan?.status || 'active'} style={{ width: '100%' }}>
+                                        <option value="active">Active</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                                <div className="group">
+                                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-300)', marginBottom: '8px' }}>Next Review Date</label>
+                                    <input
+                                        type="date"
+                                        className="pc-input"
+                                        defaultValue={selectedPlan?.reviewDate?.split('T')[0]}
+                                        style={{ width: '100%' }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="group">
+                                <label style={{ display: 'block', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-300)', marginBottom: '8px' }}>Clinical Goals</label>
+                                <textarea
+                                    className="pc-input"
+                                    style={{ width: '100%', minHeight: '100px' }}
+                                    placeholder="Describe the primary medical outcomes..."
+                                    defaultValue={JSON.stringify(selectedPlan?.clinicalGoals, null, 2)}
+                                />
+                            </div>
+
+                            <div className="group">
+                                <label style={{ display: 'block', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-300)', marginBottom: '8px' }}>Nursing Interventions</label>
+                                <textarea
+                                    className="pc-input"
+                                    style={{ width: '100%', minHeight: '100px' }}
+                                    placeholder="Specific tasks for PSWs/RNs..."
+                                    defaultValue={JSON.stringify(selectedPlan?.interventions, null, 2)}
+                                />
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: '40px', display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                            <button className="btn btn-ghost" onClick={() => setIsEditorOpen(false)}>Cancel</button>
+                            <button className="btn btn-primary" onClick={() => setIsEditorOpen(false)}>Deploy Protocol</button>
+                        </div>
+                    </div>
                 </div>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700 shadow-xl text-white">
-                    <h3 className="font-bold flex items-center gap-2 mb-2">
-                        <span>🪄</span> Clinical AI Insights
-                    </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                        Predictive modeling suggests a 15% increase in gait instability for patients with Osteoarthritis during seasonal changes.
-                    </p>
-                    <button className="mt-4 text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors border border-white/10">
-                        View Detailed Forecast →
-                    </button>
-                </div>
-            </div>
+            )}
         </div>
     );
 };

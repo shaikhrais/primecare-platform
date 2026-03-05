@@ -59,4 +59,14 @@ export const CLIENT_METADATA = {
         description: 'Rate a recent visit and provide clinical or personal feedback for quality assurance.',
         tags: ['Client Relationship'],
     },
+    FAMILY_FEED: {
+        summary: 'Retrieve Family Engagement Feed',
+        description: 'Get a timeline of recent care notifications and visit updates for family members.',
+        tags: ['Client Engagement'],
+    },
+    INVOICE_PAY: {
+        summary: 'Initiate Invoice Payment',
+        description: 'Start the payment process for a specific client invoice.',
+        tags: ['Client Services'],
+    },
 };

@@ -72,5 +72,24 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-rcm-revenue-sync', label: 'Sync Revenue Ledger', role: 'admin', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Reconciles bank deposits with adjudicated insurance claims.' },
     // Batch 19: Pharmacy Mastery
     { id: 'btn-pharmacy-order', label: 'Order Medication', role: 'rn', module: 'PHARMACY', type: 'primary', action: 'OPEN_MODAL', description: 'Transmits e-prescription request to integrated pharmacy partner.' },
-    { id: 'btn-pharmacy-mar-sync', label: 'Sync MAR Records', role: 'coordinator', module: 'PHARMACY', type: 'secondary', action: 'API_TRIGGER', description: 'Synchronizes Medication Administration Records with the clinical ledger.' }
+    { id: 'btn-pharmacy-mar-sync', label: 'Sync MAR Records', role: 'coordinator', module: 'PHARMACY', type: 'secondary', action: 'API_TRIGGER', description: 'Synchronizes Medication Administration Records with the clinical ledger.' },
+    // Batch 20: PSW Foundational Mastery
+    { id: 'btn-psw-handover-submit', label: 'Complete Handover', role: 'psw', module: 'CARE_DELIVERY', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.PSW.HANDOVER_SUBMIT, description: 'Submit shift handover notes for the next provider.' },
+    { id: 'btn-psw-availability-sync', label: 'Sync Availability', role: 'psw', module: 'CARE_DELIVERY', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.PSW.AVAILABILITY_SYNC, description: 'Synchronize date-specific availability overrides to the ledger.' },
+    { id: 'btn-psw-payout-sync', label: 'Sync to Bank', role: 'psw', module: 'FINANCE', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.PSW.PAYOUT_HISTORY, description: 'Request earnings payout to verified bank account.' },
+    // Batch 21: RN Foundational Mastery
+    { id: 'btn-rn-assess-submit', label: 'Sign & Lock Assessment', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.CLINICAL_ASSESS, description: 'Finalizes a structured clinical assessment.' },
+    { id: 'btn-rn-recon-sync', label: 'Sync Medication Ledger', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.RECON_SYNC, description: 'Triggers a real-time medication reconciliation sync.' },
+    { id: 'btn-rn-supervision-log', label: 'Log Supervision Session', role: 'rn', module: 'SUPERVISION', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.RN_SUPERVISION, description: 'Records a PSW supervision and competency check.' },
+    // Batch 22: Coordinator Foundational Mastery
+    { id: 'btn-coord-match-override', label: 'Override PSW Match', role: 'coordinator', module: 'LOGISTICS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.COORDINATOR.MATCH_OVERRIDE, description: 'Manually override a PSW assignment for a specific visit.' },
+    { id: 'btn-coord-waitlist-sync', label: 'Sync Waitlist', role: 'coordinator', module: 'LOGISTICS', type: 'secondary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.COORDINATOR.WAITLIST_SYNC, description: 'Synchronize waitlist priorities for client inflow.' },
+    { id: 'btn-coord-sos-ack-v2', label: 'Acknowledge SOS', role: 'coordinator', module: 'OPERATIONS', type: 'danger', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.COORDINATOR.SOS_ACK, description: 'Formal coordinator acknowledgement of an SOS alert.' },
+    // Batch 23: Manager Foundational Mastery
+    { id: 'btn-mgr-ops-stats', label: 'Refresh Ops Stats', role: 'manager', module: 'OPERATIONS', type: 'secondary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.MANAGER.OPS_STATS, description: 'Triggers a recalculation of regional operational metrics.' },
+    { id: 'btn-mgr-compliance-sync', label: 'Sync Branch Compliance', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.MANAGER.COMPLIANCE_SYNC, description: 'Executes a branch-wide compliance synchronization audit.' },
+    { id: 'btn-mgr-feedback-triage', label: 'Triage Feedback', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Launches the feedback triage interface for operational resolution.' },
+    // Batch 24: Client & Family Mastery
+    { id: 'btn-client-family-pay', label: 'Pay Invoice', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.CLIENT.INVOICE_PAY, description: 'Initiate payment for care services.' },
+    { id: 'btn-client-star-rating', label: 'Submit Rating', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT, description: 'Submit star rating and comments for a care visit.' }
 ];

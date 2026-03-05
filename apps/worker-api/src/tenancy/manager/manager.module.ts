@@ -4,6 +4,7 @@ import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
 import dashboardRoutes from './dashboard/dashboard.routes';
 import financeRoutes from './finance/finance.routes';
+import managerOpsRoutes from './manager_ops.routes';
 
 const manager = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -17,5 +18,6 @@ manager.use('*', requireRole(['manager', 'admin']));
 // Routes
 manager.route('/dashboard', dashboardRoutes);
 manager.route('/finance', financeRoutes);
+manager.route('/ops', managerOpsRoutes);
 
 export default manager;

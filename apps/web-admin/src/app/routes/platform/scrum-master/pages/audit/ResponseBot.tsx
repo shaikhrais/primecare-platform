@@ -43,6 +43,18 @@ export default function ResponseBot() {
             issues: adminApis < 10 ? 1 : 0
         });
 
+        // 4. Audit RN Clinical Registry
+        const rnClinicalEndpoints = Object.keys(AdminRegistry.ApiRegistry.TENANCY?.RN || {}).filter(k =>
+            k.includes('CLINICAL') || k.includes('ASSESS') || k.includes('RECON') || k.includes('SUPERVISION')
+        );
+        auditResults.push({
+            id: 4,
+            type: 'RN_CLINICAL_REGISTRY',
+            status: rnClinicalEndpoints.length >= 3 ? 'success' : 'warning',
+            summary: `Verified ${rnClinicalEndpoints.length} RN clinical touchpoints.`,
+            issues: rnClinicalEndpoints.length < 3 ? 1 : 0
+        });
+
         setTimeout(() => {
             setResults(auditResults);
             setAuditRunning(false);

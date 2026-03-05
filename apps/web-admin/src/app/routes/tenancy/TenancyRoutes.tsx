@@ -21,8 +21,9 @@ const MarketingDashboard = lazy(() => import('./marketing/MarketingDashboard'));
 const HrRecruitmentPortal = lazy(() => import('./hr/HrRecruitmentPortal'));
 const FinanceRegionalHub = lazy(() => import('./finance/FinanceRegionalHub'));
 const ClinicalQaDashboard = lazy(() => import('./qa/ClinicalQaDashboard'));
-const CoordinatorHub = lazy(() => import('./operations/CoordinatorHub'));
+const CoordinatorHub = lazy(() => import('./coordinator/pages/hub/CoordinatorHub'));
 const AlliedHealthDashboard = lazy(() => import('./allied-health/AlliedHealthDashboard'));
+const RegionalStats = lazy(() => import('./manager/pages/RegionalStats'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -36,6 +37,8 @@ const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation')
 const CredentialVault = lazy(() => import('./psw/pages/credentials/CredentialVault'));
 const ProviderSocial = lazy(() => import('./psw/pages/feed/ProviderSocial'));
 const LiveVisit = lazy(() => import('./psw/pages/schedule/LiveVisit'));
+const PswHandover = lazy(() => import('./psw/pages/handover'));
+const PswPayoutHistory = lazy(() => import('./psw/pages/payouts'));
 
 // RN Pages
 const RnDashboard = lazy(() => import('./rn/pages/dashboard'));
@@ -53,6 +56,7 @@ const CatalogBrowser = lazy(() => import('./client/pages/services/CatalogBrowser
 const ClientMessaging = lazy(() => import('./client/pages/support/ClientMessaging'));
 const CareTeam = lazy(() => import('./client/pages/team/CareTeam'));
 const FeedbackLoop = lazy(() => import('./client/pages/support/FeedbackLoop'));
+const FamilyCareHub = lazy(() => import('./client/pages/engagement/FamilyCareHub'));
 
 export const TenancyRoutes = () => (
     <>
@@ -65,6 +69,7 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
             <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
             <Route path={RouteRegistry.MANAGER.PAYROLL} element={<PayrollVerification />} />
+            <Route path={RouteRegistry.MANAGER.REGIONAL_STATS} element={<RegionalStats />} />
             <Route path={RouteRegistry.MANAGER.TRAINING} element={<TrainingHub />} />
             <Route path={RouteRegistry.MANAGER.SURVEYS} element={<SurveyManager />} />
             <Route path=":category" element={<ManagerDashboard />} />
@@ -108,6 +113,8 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.PSW.CREDENTIALS} element={<CredentialVault />} />
             <Route path={RouteRegistry.PSW.FEED} element={<ProviderSocial />} />
             <Route path={RouteRegistry.PSW.LIVE_VISIT} element={<LiveVisit />} />
+            <Route path={RouteRegistry.PSW.HANDOVER} element={<PswHandover />} />
+            <Route path={RouteRegistry.PSW.PAYOUTS} element={<PswPayoutHistory />} />
         </Route>
 
         {/* RN PORTAL */}
@@ -129,6 +136,7 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.CLIENT.SUPPORT} element={<ClientMessaging />} />
             <Route path={RouteRegistry.CLIENT.TEAM} element={<CareTeam />} />
             <Route path={RouteRegistry.CLIENT.FEEDBACK_LOOP} element={<FeedbackLoop />} />
+            <Route path={RouteRegistry.CLIENT.FAMILY_HUB} element={<FamilyCareHub />} />
         </Route>
 
         {/* ALLIED HEALTH PORTAL */}

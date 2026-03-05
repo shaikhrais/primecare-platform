@@ -1,50 +1,42 @@
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const CONTENT = ContentRegistry.PSW_AVAILABILITY;
 
-export default function AvailabilityForm() {
+export default function AvailabilityPage() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
-    const [isDirty, setIsDirty] = useState(false);
-    const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
 
-    const [formData, setFormData] = useState({
-        effectiveDate: new Date().toISOString().split('T')[0],
-        weeklyHours: 40,
-        excludeWeekends: false,
-        shifts: {
-            morning: true,
-            afternoon: true,
-            evening: false,
-            night: false
-        },
-        notes: ''
+    // Legacy mapping or existing data
+    const [weeklyConfig, setWeeklyConfig] = useState({
+        hours: 40,
+        morning: true,
+        afternoon: true,
+        evening: false,
+        night: false
     });
 
-    useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty]);
+    const [overrides, setOverrides] = useState<any[]>([
+        { date: new Date().toISOString().split('T')[0], startTime: '09:00', endTime: '17:00', isAvailable: true }
+    ]);
 
-    const handleShiftToggle = (shift: string) => {
-        setIsDirty(true);
-        setFormData({
-            ...formData,
-            shifts: {
-                ...formData.shifts,
-                [shift]: !(formData.shifts as any)[shift]
-            }
-        });
+    const addOverride = () => {
+        const nextDate = new Date();
+        nextDate.setDate(nextDate.getDate() + overrides.length + 1);
+        setOverrides([...overrides, {
+            date: nextDate.toISOString().split('T')[0],
+            startTime: '09:00',
+            endTime: '17:00',
+            isAvailable: true
+        }]);
+    };
+
+    const removeOverride = (index: number) => {
+        setOverrides(overrides.filter((_, i) => i !== index));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -52,130 +44,187 @@ export default function AvailabilityForm() {
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/psw/availability`, {
+            // Sync overrides to the new endpoint
+            const response = await fetch(`${API_URL}/v1/psw/availability/sync`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ overrides })
             });
 
             if (response.ok) {
-                showToast('Availability updated successfully!', 'success');
-                setIsDirty(false);
+                showToast(CONTENT.SUCCESS_SYNC, 'success');
                 navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
             } else {
-                showToast('Failed to update availability', 'error');
+                showToast(CONTENT.ERROR_SYNC, 'error');
             }
         } catch (error) {
-            showToast('Error during update', 'error');
+            showToast('Error during sync', 'error');
         } finally {
             setSubmitting(false);
         }
     };
 
     return (
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '2rem' }} data-cy="form.availability.page">
-            {showGuard && (
-                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>Discard Changes?</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved availability changes. Discard them?</p>
-                        <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
-                        </div>
-                    </div>
+        <div style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 1rem' }}>
+            <div style={{
+                background: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(15px)',
+                borderRadius: '30px',
+                padding: '3rem',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                boxShadow: '0 25px 60px rgba(0, 0, 0, 0.1)'
+            }}>
+                <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+                    <h1 style={{
+                        fontSize: '3rem',
+                        fontWeight: 900,
+                        color: '#263238',
+                        marginBottom: '0.5rem',
+                        letterSpacing: '-1.5px'
+                    }}>
+                        {CONTENT.TITLE}
+                    </h1>
+                    <p style={{ color: '#607d8b', fontSize: '1.2rem' }}>
+                        {CONTENT.SUBTITLE}
+                    </p>
                 </div>
-            )}
 
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Schedule Availability</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage your working hours and preferred shift times.</p>
-            </div>
+                <form onSubmit={handleSubmit}>
+                    <div style={{
+                        background: 'rgba(0, 77, 64, 0.03)',
+                        padding: '2rem',
+                        borderRadius: '20px',
+                        marginBottom: '2.5rem',
+                        border: '1px dashed #b2dfdb'
+                    }}>
+                        <h3 style={{ marginTop: 0, color: '#004d40', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ fontSize: '1.5rem' }}>📅</span> {CONTENT.SECTION_OVERRIDES}
+                        </h3>
+                        <p style={{ color: '#546e7a', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+                            Add specific dates where your availability differs from your standard routine.
+                        </p>
 
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Effective Date</label>
-                        <input
-                            data-cy="form.availability.date"
-                            type="date"
-                            required
-                            value={formData.effectiveDate}
-                            onChange={(e) => { setFormData({ ...formData, effectiveDate: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        />
-                    </div>
-
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Max Weekly Hours</label>
-                        <input
-                            data-cy="form.availability.hours"
-                            type="number"
-                            required
-                            value={formData.weeklyHours}
-                            onChange={(e) => { setFormData({ ...formData, weeklyHours: parseInt(e.target.value) }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        />
-                    </div>
-
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 500 }}>Preferred Shift Blocks</label>
-                        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} data-cy="form.availability.shifts">
-                            {['morning', 'afternoon', 'evening', 'night'].map((s) => (
-                                <button
-                                    key={s}
-                                    type="button"
-                                    data-cy={`form.availability.shift.${s}`}
-                                    onClick={() => handleShiftToggle(s)}
-                                    style={{
-                                        padding: '0.75rem 1.5rem',
-                                        borderRadius: '50px',
-                                        border: (formData.shifts as any)[s] ? '2px solid #004d40' : '1px solid #d1d5db',
-                                        background: (formData.shifts as any)[s] ? '#e0f2f1' : 'transparent',
-                                        color: (formData.shifts as any)[s] ? '#004d40' : '#6b7280',
-                                        fontWeight: 600,
-                                        cursor: 'pointer',
-                                        textTransform: 'capitalize'
-                                    }}
-                                >
-                                    {s}
-                                </button>
+                        <div style={{ display: 'grid', gap: '1rem' }}>
+                            {overrides.map((ov, idx) => (
+                                <div key={idx} style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr 1fr 1fr 100px 50px',
+                                    gap: '1rem',
+                                    alignItems: 'center',
+                                    background: 'white',
+                                    padding: '1rem',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+                                }}>
+                                    <input
+                                        type="date"
+                                        value={ov.date}
+                                        onChange={(e) => {
+                                            const next = [...overrides];
+                                            next[idx].date = e.target.value;
+                                            setOverrides(next);
+                                        }}
+                                        style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #cfd8dc' }}
+                                    />
+                                    <input
+                                        type="time"
+                                        value={ov.startTime}
+                                        onChange={(e) => {
+                                            const next = [...overrides];
+                                            next[idx].startTime = e.target.value;
+                                            setOverrides(next);
+                                        }}
+                                        style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #cfd8dc' }}
+                                    />
+                                    <input
+                                        type="time"
+                                        value={ov.endTime}
+                                        onChange={(e) => {
+                                            const next = [...overrides];
+                                            next[idx].endTime = e.target.value;
+                                            setOverrides(next);
+                                        }}
+                                        style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #cfd8dc' }}
+                                    />
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <input
+                                            type="checkbox"
+                                            checked={ov.isAvailable}
+                                            onChange={(e) => {
+                                                const next = [...overrides];
+                                                next[idx].isAvailable = e.target.checked;
+                                                setOverrides(next);
+                                            }}
+                                        />
+                                        <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>Active</span>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeOverride(idx)}
+                                        style={{ background: 'none', border: 'none', color: '#ef5350', cursor: 'pointer', fontSize: '1.2rem' }}
+                                    >
+                                        ×
+                                    </button>
+                                </div>
                             ))}
                         </div>
+
+                        <button
+                            type="button"
+                            onClick={addOverride}
+                            style={{
+                                marginTop: '1.5rem',
+                                padding: '0.75rem 1.5rem',
+                                borderRadius: '12px',
+                                border: '2px solid #004d40',
+                                background: 'transparent',
+                                color: '#004d40',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                            }}
+                        >
+                            {CONTENT.ADD_OVERRIDE}
+                        </button>
                     </div>
 
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Special Requests / Constraints</label>
-                        <textarea
-                            data-cy="form.availability.notes"
-                            value={formData.notes}
-                            onChange={(e) => { setFormData({ ...formData, notes: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '80px' }}
-                        />
+                    <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'flex-end' }}>
+                        <button
+                            type="button"
+                            onClick={() => navigate(-1)}
+                            style={{
+                                padding: '1rem 2.5rem',
+                                borderRadius: '14px',
+                                border: '1px solid #cfd8dc',
+                                background: 'white',
+                                fontWeight: 600,
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={submitting}
+                            style={{
+                                padding: '1rem 3rem',
+                                borderRadius: '14px',
+                                border: 'none',
+                                background: 'linear-gradient(135deg, #263238 0%, #37474f 100%)',
+                                color: 'white',
+                                fontWeight: 700,
+                                fontSize: '1.1rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
+                            }}
+                        >
+                            {submitting ? 'Syncing...' : 'Save Availability'}
+                        </button>
                     </div>
-                </div>
-
-                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
-                        type="button"
-                        onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        data-cy="form.availability.save"
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                        {submitting ? 'Updating...' : 'Update Availability'}
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 }

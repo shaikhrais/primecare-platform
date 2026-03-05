@@ -1,4 +1,5 @@
 import { RouteRegistry } from '../apps/web-admin/RouteRegistry';
+import { ApiRegistry } from './ApiRegistry';
 
 export type InteractionType = 'button' | 'link' | 'submit' | 'tab' | 'nav_item';
 
@@ -10,7 +11,7 @@ export interface InteractionDef {
     route?: string;
     apiEndpoint?: string | ((...args: any[]) => string);
     permission?: string;
-    module: 'ADMIN' | 'MANAGER' | 'STAFF' | 'PSW' | 'CLIENT' | 'RN' | 'SCRUM_MASTER' | 'MARKETING' | 'HR';
+    module: 'ADMIN' | 'MANAGER' | 'STAFF' | 'PSW' | 'CLIENT' | 'RN' | 'SCRUM_MASTER' | 'MARKETING' | 'HR' | 'COORDINATOR';
     purpose: string;
 }
 
@@ -169,23 +170,90 @@ export const InteractionRegistry = {
     },
     COORDINATOR: {
         HUB: {
-            SOS_RESPOND: {
-                id: 'coord-sos-respond',
-                label: 'Respond to SOS',
+            SOS_ACK: {
+                id: 'coord-sos-ack',
+                label: 'Acknowledge SOS',
                 type: 'button',
-                module: 'SCRUM_MASTER' as any, // Placeholder for system-level ops
-                purpose: 'Acknowledge and dispatch help for an active SOS alert.',
-                permission: 'AUDIT_VIEW',
-                route: RouteRegistry.MANAGER.COORDINATOR
+                module: 'COORDINATOR',
+                purpose: 'Formally acknowledge an SOS alert and begin investigation.',
+                permission: 'COORDINATOR_DISPATCH',
+                apiEndpoint: '/v1/coordinator/incident/ack'
             },
-            ASSIGN_EMERGENCY: {
-                id: 'coord-assign-emergency',
-                label: 'Assign Emergency',
+            MATCH_OVERRIDE: {
+                id: 'coord-match-override',
+                label: 'Override Match',
                 type: 'button',
-                module: 'SCRUM_MASTER' as any,
-                purpose: 'Force-assign a high-priority visit to the nearest available PSW.',
+                module: 'COORDINATOR',
+                purpose: 'Manually override a PSW assignment for a specific visit.',
+                permission: 'COORDINATOR_DISPATCH',
+                apiEndpoint: '/v1/coordinator/match/override'
+            },
+            WAITLIST_SYNC: {
+                id: 'coord-waitlist-sync',
+                label: 'Sync Waitlist',
+                type: 'button',
+                module: 'COORDINATOR',
+                purpose: 'Update and synchronize waitlist entry priorities.',
+                permission: 'COORDINATOR_DISPATCH',
+                apiEndpoint: '/v1/coordinator/waitlist/sync'
+            }
+        }
+    },
+    MANAGER: {
+        OPS: {
+            STATS_REFRESH: {
+                id: 'mgr-ops-stats-refresh',
+                label: 'Refresh Ops Stats',
+                type: 'button',
+                module: 'MANAGER',
+                purpose: 'Recalculate and update regional operational metrics.',
                 permission: 'AUDIT_VIEW',
-                route: RouteRegistry.MANAGER.COORDINATOR
+                apiEndpoint: '/v1/manager/ops/stats'
+            },
+            COMPLIANCE_SYNC: {
+                id: 'mgr-compliance-sync',
+                label: 'Sync Branch Compliance',
+                type: 'button',
+                module: 'MANAGER',
+                purpose: 'Audit and synchronize regional branch compliance records.',
+                permission: 'AUDIT_VIEW',
+                apiEndpoint: '/v1/manager/ops/compliance/sync'
+            },
+            FEEDBACK_TRIAGE: {
+                id: 'mgr-feedback-triage',
+                label: 'Triage Feedback',
+                type: 'button',
+                module: 'MANAGER',
+                purpose: 'Review and triage caregiver or client feedback.',
+                permission: 'AUDIT_VIEW'
+            }
+        }
+    },
+    CLIENT: {
+        ENGAGEMENT: {
+            FEED: {
+                id: 'client-family-feed',
+                label: 'Family Hub',
+                type: 'nav_item',
+                module: 'CLIENT',
+                purpose: 'Access the family care timeline and notifications.',
+                route: RouteRegistry.PLAN.CLIENT.FAMILY_HUB
+            },
+            PAY_INVOICE: {
+                id: 'client-pay-invoice',
+                label: 'Pay Now',
+                type: 'button',
+                module: 'CLIENT',
+                purpose: 'Complete payment for an outstanding care invoice.',
+                apiEndpoint: ApiRegistry.TENANCY.CLIENT.INVOICE_PAY
+            },
+            SUBMIT_FEEDBACK: {
+                id: 'client-feedback-submit',
+                label: 'Rate Experience',
+                type: 'button',
+                module: 'CLIENT',
+                purpose: 'Submit a star rating and comment for a visit.',
+                apiEndpoint: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT
             }
         }
     }

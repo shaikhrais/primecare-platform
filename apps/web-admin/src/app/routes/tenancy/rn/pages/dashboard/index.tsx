@@ -58,11 +58,23 @@ export const Dashboard: React.FC = () => {
                     }
                 }
 
-                setTasks([
-                    { id: '1', type: 'care_plan', priority: 'high', description: 'Review Care Plan update', targetName: 'John Doe' },
-                    { id: '2', type: 'review', priority: 'medium', description: 'Verify daily entry notes', targetName: 'Jane Smith' },
-                    { id: '3', type: 'incident', priority: 'high', description: 'Address fall incident report', targetName: 'Robert Brown' }
-                ]);
+                // Inject dynamic clinical tasks
+                const carePlansRes = await fetch(`${import.meta.env.VITE_API_URL}${AdminRegistry.ApiRegistry.RN.CARE_PLANS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (carePlansRes.ok) {
+                    const plans = await carePlansRes.json();
+                    const pendingTasks: ClinicalTask[] = plans.filter((p: any) => p.status === 'requires_review').map((p: any) => ({
+                        id: p.id,
+                        type: 'care_plan',
+                        priority: 'high',
+                        description: `Review Care Plan update: ${p.diagnoses?.join(', ')}`,
+                        targetName: p.client?.fullName || 'Unknown Patient'
+                    }));
+                    setTasks(prev => [...pendingTasks, ...prev]);
+                }
+
             } catch (error) {
                 console.error('Failed to load RN dashboard data', error);
             } finally {

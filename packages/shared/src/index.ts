@@ -5,6 +5,10 @@ export * from './registries/DataRegistry';
 export * from './registries/ThemeRegistry';
 export * from './registries/InteractionRegistry';
 export * from './registries/InteractiveElementRegistry';
+export * from './registries/ButtonRegistry';
+export * from './registries/LinkRegistry';
+export * from './registries/InteractionARegistry';
+export * from './registries/InteractiveRegistry';
 
 // Existing
 export * from './theme';

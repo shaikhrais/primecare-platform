@@ -22,4 +22,5 @@ export type Permission =
     | "BACKUP_CREATE"
     | "BACKUP_RESTORE"
     | "AUDIT_VIEW"
-    | "SETTINGS_UPDATE";
+    | "SETTINGS_UPDATE"
+    | "COORDINATOR_DISPATCH";

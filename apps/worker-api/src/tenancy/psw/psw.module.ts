@@ -5,6 +5,9 @@ import dashboardRoutes from './dashboard/dashboard.routes';
 import scheduleRoutes from './schedule/schedule.routes';
 import dailyEntryRoutes from './dailyEntry/dailyEntry.routes';
 import incidentsRoutes from './incidents/incidents.routes';
+import handoverRoutes from './handover/handover.routes';
+import availabilityRoutes from './availability/availability.routes';
+import payoutsRoutes from './payouts/payouts.routes';
 
 const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -19,5 +22,8 @@ psw.route('/dashboard', dashboardRoutes);
 psw.route('/schedule', scheduleRoutes);
 psw.route('/daily-entry', dailyEntryRoutes);
 psw.route('/incidents', incidentsRoutes);
+psw.route('/handover', handoverRoutes);
+psw.route('/availability', availabilityRoutes);
+psw.route('/payouts', payoutsRoutes);
 
 export default psw;

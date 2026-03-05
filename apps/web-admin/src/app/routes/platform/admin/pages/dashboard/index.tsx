@@ -53,7 +53,7 @@ export default function AdminDashboard() {
                         {user?.email} • Franchise Command Center
                     </p>
                 </div>
-                <Link to={RouteRegistry.ADMIN.DEV_KB}>
+                <Link to={RouteRegistry.SCRUM_MASTER.DEV_KB}>
                     <button style={{
                         padding: '0.5rem 1rem',
                         background: '#f3f4f6',

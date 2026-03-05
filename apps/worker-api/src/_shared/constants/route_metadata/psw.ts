@@ -62,5 +62,20 @@ export const PSW_METADATA = {
             description: 'Retrieve history of daily entries for a specific client.',
             tags: ['PSW Daily Entries'],
         },
+        HANDOVER_SUBMIT: {
+            summary: 'Submit Shift Handover',
+            description: 'Submit notes and concerns for the next shift provider.',
+            tags: ['PSW Handover'],
+        },
+        AVAILABILITY_OVERRIDE_SYNC: {
+            summary: 'Sync Availability Overrides',
+            description: 'Update specific date availability overrides for the PSW.',
+            tags: ['PSW Availability'],
+        },
+        PAYOUT_HISTORY: {
+            summary: 'Get Payout History',
+            description: 'Retrieve history of processed and pending payouts.',
+            tags: ['PSW Payouts'],
+        },
     },
 };

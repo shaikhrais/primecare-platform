@@ -10,6 +10,9 @@ const TENANCY = {
         TRAINING: '/v1/manager/training',
         SURVEYS: '/v1/manager/surveys',
         EVALUATIONS: '/v1/manager/evaluations',
+        OPS_STATS: '/v1/manager/ops/stats',
+        COMPLIANCE_SYNC: '/v1/manager/ops/compliance/sync',
+        FEEDBACK_TRIAGE: (id: string) => `/v1/manager/ops/feedback/${id}/triage`,
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -20,12 +23,17 @@ const TENANCY = {
         SUPPORT: '/v1/client/support/nursing-chat',
         TEAM: '/v1/client/team/roster',
         FEEDBACK_SUBMIT: '/v1/client/support/feedback',
+        FAMILY_FEED: '/v1/client/engagement/feed',
+        INVOICE_PAY: '/v1/client/engagement/pay-invoice',
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
         CHECK_IN: (id: string) => `/v1/psw/schedule/visits/${id}/check-in`,
         CHECK_OUT: (id: string) => `/v1/psw/schedule/visits/${id}/check-out`,
         PAYOUT_REQUEST: '/v1/psw/schedule/payouts/request',
+        HANDOVER_SUBMIT: '/v1/psw/handover',
+        AVAILABILITY_SYNC: '/v1/psw/availability/sync',
+        PAYOUT_HISTORY: '/v1/psw/payouts/history',
         DASHBOARD_STATS: '/v1/psw/dashboard/stats',
         CREDENTIALS: '/v1/psw/credentials/vault',
         FEED: '/v1/psw/feed/social',
@@ -37,6 +45,9 @@ const TENANCY = {
         DAILY_AUDIT_LIST: '/v1/rn/clinical/audit/entries',
         DAILY_AUDIT_VERIFY: (id: string) => `/v1/rn/clinical/audit/entries/${id}/verify`,
         SUPERVISION_ROSTER: '/v1/rn/clinical/supervision/roster',
+        CLINICAL_ASSESS: '/v1/rn/clinical/assessments',
+        RECON_SYNC: '/v1/rn/clinical/recon',
+        RN_SUPERVISION: '/v1/rn/clinical/supervision',
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',
@@ -50,6 +61,12 @@ const TENANCY = {
             COVERAGE_ALERTS: '/v1/manager/coordinator/coverage-alerts',
             SOS_DISPATCH: '/v1/manager/coordinator/sos-dispatch',
         },
+    },
+    COORDINATOR: {
+        MATCH_OVERRIDE: '/v1/coordinator/match/override',
+        WAITLIST_SYNC: '/v1/coordinator/waitlist/sync',
+        SOS_ACK: '/v1/coordinator/incident/ack',
+        DASHBOARD_STATS: '/v1/coordinator/dashboard/stats',
     },
 } as const;
 
@@ -178,6 +195,7 @@ export const ApiRegistry = {
     USER: {
         PROFILE: '/v1/user/profile',
     },
+    PLATFORM,
     ...PLATFORM,
     TENANCY,
 

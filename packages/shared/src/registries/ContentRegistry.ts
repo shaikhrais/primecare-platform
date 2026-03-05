@@ -72,6 +72,19 @@ export const ContentRegistry = {
         MODAL_SUBTITLE: 'Please select your care type and preferred time.',
         MESSAGES: {
             LOADING: 'Loading Client Dashboard...',
+        },
+        FAMILY_HUB: {
+            TITLE: 'Family Care Hub',
+            SUBTITLE: 'Oversight, notifications, and care team engagement.',
+            FEED_TITLE: 'Care Timeline',
+            TEAM_TITLE: 'Your Care Team',
+            BILLING_TITLE: 'Recent Invoices',
+            PULSE_TITLE: 'Care Pulse (Direct Feedback)',
+        },
+        FEEDBACK_LOOP: {
+            TITLE: 'Care Feedback Loop',
+            SUBTITLE: 'Help us improve by rating your recent care visits.',
+            SUCCESS_MSG: 'Thank you for your feedback! It helps us maintain premium care standards.',
         }
     },
     PSW_DASHBOARD: {
@@ -83,6 +96,37 @@ export const ContentRegistry = {
         MESSAGES: {
             LOADING: 'Loading Provider Dashboard...',
         }
+    },
+    PSW_HANDOVER: {
+        TITLE: 'Shift Handover',
+        SUBTITLE: 'Provide essential notes and safety alerts for the next care provider.',
+        LABEL_VISIT: 'Select Care Visit',
+        LABEL_NOTES: 'Handover Notes',
+        LABEL_SAFETY: 'Safety Concerns',
+        LABEL_SUPPLIES: 'Supplies Needed',
+        PLACEHOLDER_NOTES: "Describe today's patient status, changes, or mood...",
+        SUCCESS_MSG: 'Handover report submitted successfully!',
+        ERROR_MSG: 'Failed to submit handover report',
+    },
+    PSW_AVAILABILITY: {
+        TITLE: 'Work Availability',
+        SUBTITLE: 'Manage your routine shifts and specific date overrides.',
+        SECTION_OVERRIDES: 'Date-Specific Overrides',
+        ADD_OVERRIDE: '+ Add Specific Date',
+        SUCCESS_SYNC: 'Availability overrides synchronized!',
+        ERROR_SYNC: 'Failed to sync availability',
+    },
+    PSW_PAYOUTS: {
+        TITLE: 'Earnings & Payouts',
+        SUBTITLE: 'Manage your revenue and request bank transfers.',
+        HISTORY_TITLE: 'Payout History',
+        STATUS: {
+            PENDING: 'Pending',
+            PROCESSED: 'Processed',
+            FAILED: 'Failed',
+        },
+        SUCCESS_REQUEST: 'Payout requested successfully!',
+        ERROR_REQUEST: 'Failed to request payout.',
     },
     RN_DASHBOARD: {
         TITLE: 'Clinical Care Management',
@@ -101,6 +145,29 @@ export const ContentRegistry = {
         },
         MESSAGES: {
             LOADING: 'Loading Clinical Dashboard...',
+        }
+    },
+    RN_CLINICAL: {
+        ASSESSMENT_TITLE: 'Clinical Assessment',
+        ASSESSMENT_SUBTITLE: 'Record patient acuity, mobility, and clinical baseline.',
+        RECON_TITLE: 'Medication Reconciliation',
+        RECON_SUBTITLE: 'Verify prescriptions against MAR and clinical ledger.',
+        SUPERVISION_TITLE: 'PSW Supervision Hub',
+        SUPERVISION_SUBTITLE: 'Audit competencies and provide field coaching logs.',
+        LABELS: {
+            PATIENT: 'Select Patient',
+            TYPE: 'Assessment Type',
+            SCORE: 'Acuity Score',
+            NOTES: 'Clinical Recommendations',
+            DISCREPANCIES: 'Identified Discrepancies',
+            COMPETENCIES: 'Assessed Competencies',
+            SATISFACTORY: 'Meets Standards',
+            FEEDBACK: 'Development Feedback'
+        },
+        SUCCESS: {
+            ASSESS_SAVED: 'Assessment signed and locked.',
+            RECON_SYNCED: 'Medication ledger synchronized.',
+            SUPERVISION_LOGGED: 'Supervision log transmitted.',
         }
     },
     PLATFORM_DASHBOARD: {
@@ -149,6 +216,54 @@ export const ContentRegistry = {
             FEEDBACK_TITLE: 'Client Feedback Follow-ups',
             FEEDBACK_DESC: 'families requested scheduling adjustments.',
             FEEDBACK_BTN: 'Support',
+        }
+    },
+    COORDINATOR_HUB: {
+        TITLE: 'Logistics Control Center',
+        SUBTITLE: 'Live Dispatch, SOS Monitoring, and Waitlist Synchronization.',
+        MAP_TITLE: 'Live Dispatch Map',
+        GRID_TITLE: 'Scheduling Grid',
+        SOS_TITLE: 'SOS Emergency Response',
+        WAITLIST_TITLE: 'Waitlist Manager',
+        STATS: {
+            LIVE_PSW: 'PSWs on Duty',
+            SOS_ACTIVE: 'Active SOS Alerts',
+            PENDING_MATCHES: 'Open Shifts',
+            WAITLIST_COUNT: 'Waitlisted Clients',
+        },
+        ACTIONS: {
+            ACKNOWLEDGE_SOS: 'Acknowledge SOS',
+            OVERRIDE_MATCH: 'Override Match',
+            SYNC_WAITLIST: 'Sync Priorities',
+        },
+        SUCCESS: {
+            SOS_ACK: 'SOS alert acknowledged.',
+            MATCH_OVERRIDDEN: 'PSW manual assignment confirmed.',
+            WAITLIST_SYNCED: 'Waitlist priorities updated.',
+        }
+    },
+    REGIONAL_STATS: {
+        TITLE: 'Regional Operations Mastery',
+        SUBTITLE: 'Strategic oversight across the branch network.',
+        BENTO: {
+            PERFORMANCE: 'Performance Radar',
+            COMPLIANCE: 'Compliance Monitor',
+            FINANCE: 'Financial Triage',
+        },
+        STATS: {
+            REVENUE: 'Regional Revenue',
+            UTILIZATION: 'Staff Utilization',
+            CHURN: 'Client Churn Rate',
+            COMPLIANCE_SCORE: 'Compliance Score',
+        },
+        ACTIONS: {
+            SYNC_COMPLIANCE: 'Sync Records',
+            TRIAGE_FEEDBACK: 'Triage Feedback',
+            EXPORT_PL: 'Export P&L',
+        },
+        SUCCESS: {
+            COMPLIANCE_SYNCED: 'Branch compliance audit complete.',
+            FEEDBACK_TRIAGED: 'Operational feedback resolved.',
         }
     },
     USERS: {

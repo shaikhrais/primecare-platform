@@ -14,6 +14,7 @@ import staffModule from './tenancy/staff/staff.module';
 import rnModule from './tenancy/rn/rn.module';
 import pswModule from './tenancy/psw/psw.module';
 import clientModule from './tenancy/client/client.module';
+import coordinatorModule from './tenancy/coordinator/coordinator.module';
 import userModule from './user/user.routes';
 import systemModule from './platform/system/system.module';
 
@@ -84,6 +85,7 @@ app.route('/v1/staff', staffModule);
 app.route('/v1/rn', rnModule);
 app.route('/v1/psw', pswModule);
 app.route('/v1/client', clientModule);
+app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 

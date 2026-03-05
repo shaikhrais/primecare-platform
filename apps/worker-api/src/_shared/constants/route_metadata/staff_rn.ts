@@ -62,4 +62,19 @@ export const RN_METADATA = {
         description: 'Update the clinical goals and interventions for a care plan.',
         tags: ['RN Clinical'],
     },
+    CLINICAL_ASSESS: {
+        summary: 'Submit Clinical Assessment',
+        description: 'Allows an RN to record a structured clinical assessment for a client.',
+        tags: ['RN Clinical'],
+    },
+    MEDICATION_RECON: {
+        summary: 'Sync Medication Reconciliation',
+        description: 'Records a medication reconciliation log to ensure MAR accuracy.',
+        tags: ['RN Clinical'],
+    },
+    SUPERVISION_LOG: {
+        summary: 'Record Supervision Log',
+        description: 'Logs RN supervision of PSW competencies and feedback.',
+        tags: ['RN Supervision'],
+    },
 };

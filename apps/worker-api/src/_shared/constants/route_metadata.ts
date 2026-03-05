@@ -5,6 +5,7 @@ import { PSW_METADATA } from './route_metadata/psw';
 import { SYSTEM_METADATA } from './route_metadata/system';
 import { STAFF_METADATA, RN_METADATA } from './route_metadata/staff_rn';
 import { CLIENT_METADATA } from './route_metadata/client';
+import { COORDINATOR_METADATA } from './route_metadata/coordinator';
 
 export const ROUTE_METADATA = {
     ADMIN_VISITS: ADMIN_METADATA.VISITS,
@@ -18,4 +19,5 @@ export const ROUTE_METADATA = {
     STAFF: STAFF_METADATA,
     RN: RN_METADATA,
     CLIENT: CLIENT_METADATA,
+    COORDINATOR: COORDINATOR_METADATA,
 };
