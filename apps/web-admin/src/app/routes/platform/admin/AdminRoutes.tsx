@@ -51,6 +51,7 @@ const AdminCustomerList = lazy(() => import('./pages/customers'));
 const TemplateEditor = lazy(() => import('./pages/template-editor'));
 const SearchPage = lazy(() => import('./pages/search/SearchPage'));
 const ExportPage = lazy(() => import('./pages/reports/ExportPage'));
+const SupplyChainHub = lazy(() => import('./pages/erp/SupplyChainHub'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
@@ -92,5 +93,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.TEMPLATE_EDITOR} element={<TemplateEditor />} />
         <Route path={RouteRegistry.ADMIN.SEARCH} element={<SearchPage />} />
         <Route path={RouteRegistry.ADMIN.REPORT_EXPORT} element={<ExportPage />} />
+        <Route path={RouteRegistry.ADMIN.ERP.INVENTORY} element={<SupplyChainHub />} />
+        <Route path={RouteRegistry.ADMIN.ERP.PROCUREMENT} element={<SupplyChainHub />} />
     </Route>
 );

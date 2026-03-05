@@ -82,6 +82,18 @@ const PLATFORM = {
             SUPPLY_DEMAND: '/v1/admin/ops/supply-demand',
             LOGISTICS_HUB: '/v1/admin/ops/logistics',
             PREDICTIVE_ROUTOR: '/v1/admin/ops/predictive/dispatch',
+        },
+        RESELLER: {
+            DASHBOARD: '/v1/admin/reseller/stats',
+            FRANCHISES: '/v1/admin/reseller/franchises',
+            PROVISION: '/v1/admin/reseller/provision',
+            AGREEMENTS: '/v1/admin/reseller/agreements',
+        },
+        ERP: {
+            INVENTORY: '/v1/admin/erp/inventory',
+            SUPPLIERS: '/v1/admin/erp/suppliers',
+            PURCHASE_ORDERS: '/v1/admin/erp/purchase-orders',
+            STOCK_SYNC: '/v1/admin/erp/stock/sync',
         }
     },
     SCRUM_MASTER: {

@@ -53,7 +53,10 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-sec-session-flush', label: 'Flush Suspicious Sessions', role: 'admin', module: 'SECURITY', type: 'secondary', action: 'API_TRIGGER', description: 'Terminates all sessions flagged with anomalous behavior.' },
     { id: 'btn-sup-health-refresh', label: 'Refresh Global Health', role: 'superuser', module: 'GOVERNANCE', type: 'primary', action: 'API_TRIGGER', description: 'Triggers a platform-wide infrastructure health check.' },
     { id: 'btn-sup-policy-push', label: 'Deploy System Policy', role: 'superuser', module: 'GOVERNANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Enforces new core policies across all active tenants.' },
-    // Batch 14: Logistics Mastery
-    { id: 'btn-ops-capacity-rebalance', label: 'Rebalance Capacity', role: 'admin', module: 'OPERATIONS', type: 'primary', action: 'API_TRIGGER', description: 'Triggers real-time capacity rebalancing across regions.' },
-    { id: 'btn-ops-fleet-track', label: 'Track Field Fleet', role: 'coordinator', module: 'OPERATIONS', type: 'secondary', action: 'UI_NAVIGATION', description: 'Opens the live field personnel tracking map.' }
+    // Batch 15: Reseller Mastery
+    { id: 'btn-reseller-provision', label: 'Spawn Child Agency', role: 'reseller', module: 'FRANCHISE', type: 'primary', action: 'OPEN_MODAL', description: 'Initializes a new white-label agency under the reseller.' },
+    { id: 'btn-reseller-suspend', label: 'Suspend Franchise', role: 'reseller', module: 'FRANCHISE', type: 'danger', action: 'API_TRIGGER', description: 'Temporarily revokes access for a child agency.' },
+    // Batch 16: ERP Mastery
+    { id: 'btn-erp-inventory-add', label: 'Register Stock Item', role: 'admin', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Adds new inventory unit to the systemic registry.' },
+    { id: 'btn-erp-po-create', label: 'Generate Purchase Order', role: 'operations_manager', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Initiates procurement request for external suppliers.' }
 ];

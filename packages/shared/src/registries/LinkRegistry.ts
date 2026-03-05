@@ -32,5 +32,11 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-sm-theme-lab', label: 'Theme Studio', role: 'scrum_master', module: 'THEME', path: RouteRegistry.SCRUM_MASTER.THEME_CENTER, description: 'Live registry-driven CSS variable lab.' },
     // Batch 14 Links
     { id: 'lnk-ops-logistics', label: 'Logistics Hub', role: 'admin', module: 'OPERATIONS', path: RouteRegistry.ADMIN.OPERATIONS.LOGISTICS_HUB, description: 'Advanced fleet and region monitoring.' },
-    { id: 'lnk-ops-regions', label: 'Region Mapping', role: 'admin', module: 'OPERATIONS', path: RouteRegistry.ADMIN.OPERATIONS.REGION_MAPPING, description: 'Geographic operational boundary management.' }
+    { id: 'lnk-ops-regions', label: 'Region Mapping', role: 'admin', module: 'OPERATIONS', path: RouteRegistry.ADMIN.OPERATIONS.REGION_MAPPING, description: 'Geographic operational boundary management.' },
+    // Batch 15: Reseller Links
+    { id: 'lnk-reseller-hub', label: 'Agency Portfolio', role: 'reseller', module: 'FRANCHISE', path: RouteRegistry.ADMIN.RESELLER, description: 'Management hub for white-label agencies.' },
+    { id: 'lnk-reseller-agreements', label: 'Partner Agreements', role: 'reseller', module: 'FRANCHISE', path: '/platform/reseller/agreements', description: 'Review and sign franchise partner contracts.' },
+    // Batch 16: ERP Links
+    { id: 'lnk-erp-inventory', label: 'Stock & Inventory', role: 'admin', module: 'ERP', path: '/platform/admin/erp/inventory', description: 'Real-time consumable and asset tracking.' },
+    { id: 'lnk-erp-procurement', label: 'Procurement Hub', role: 'operations_manager', module: 'ERP', path: '/platform/admin/erp/procurement', description: 'Supplier management and purchase order tracking.' }
 ];

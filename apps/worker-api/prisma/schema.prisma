@@ -93,6 +93,7 @@ model Tenant {
   parentTenantId   String?           @map("parent_tenant_id")
   parentTenant     Tenant?           @relation("TenantHierarchy", fields: [parentTenantId], references: [id])
   childTenants     Tenant[]          @relation("TenantHierarchy")
+  franchises       Franchise[]       @relation("ResellerTenants")
   marketplaceListings MarketplaceListing[]
 
   @@map("tenants")
@@ -138,6 +139,10 @@ model ClientProfile {
   messageThreads MessageThread[]
   visits         Visit[]
   feedbacks      Feedback[]
+  franchise      Franchise?        @relation(fields: [franchiseId], references: [id])
+  franchiseId    String?           @map("franchise_id")
+  inventoryItems InventoryItem[]
+  purchaseOrders PurchaseOrder[]
   carePlans      CarePlan[]
 
   @@index([tenantId])
@@ -969,4 +974,78 @@ model ResponseBotAudit {
   createdAt       DateTime @default(now()) @map("created_at")
 
   @@map("response_bot_audits")
+}
+
+model Franchise {
+  id              String   @id @default(uuid())
+  name            String
+  resellerId      String   @map("reseller_id") // The tenant that acts as reseller
+  ownerUserId     String   @map("owner_user_id")
+  status          String   @default("active") // active, suspended, terminated
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  reseller        Tenant   @relation("ResellerTenants", fields: [resellerId], references: [id])
+  agreements      ResellerAgreement[]
+  clients         ClientProfile[]
+
+  @@map("franchises")
+}
+
+model ResellerAgreement {
+  id              String   @id @default(uuid())
+  franchiseId     String   @map("franchise_id")
+  terms           String
+  feePercentage   Float    @map("fee_percentage")
+  startDate       DateTime @map("start_date")
+  endDate         DateTime? @map("end_date")
+  status          String   @default("active")
+  
+  franchise       Franchise @relation(fields: [franchiseId], references: [id])
+
+  @@map("reseller_agreements")
+}
+
+model Supplier {
+  id              String   @id @default(uuid())
+  name            String
+  contactName     String?  @map("contact_name")
+  email           String?
+  phone           String?
+  category        String   // MEDICAL_DEVICES, CONSUMABLES, PHARMACEUTICALS
+  status          String   @default("active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  purchaseOrders  PurchaseOrder[]
+
+  @@map("suppliers")
+}
+
+model InventoryItem {
+  id              String   @id @default(uuid())
+  name            String
+  sku             String   @unique
+  category        String
+  quantity        Int      @default(0)
+  reorderPoint    Int      @default(10) @map("reorder_point")
+  unitPrice       Float    @map("unit_price")
+  tenantId        String   @map("tenant_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@map("inventory_items")
+}
+
+model PurchaseOrder {
+  id              String   @id @default(uuid())
+  poNumber        String   @unique @map("po_number")
+  supplierId      String   @map("supplier_id")
+  tenantId        String   @map("tenant_id")
+  totalAmount     Float    @map("total_amount")
+  status          String   @default("draft") // draft, sent, received, cancelled
+  createdAt       DateTime @default(now()) @map("created_at")
+  supplier        Supplier @relation(fields: [supplierId], references: [id])
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@map("purchase_orders")
 }

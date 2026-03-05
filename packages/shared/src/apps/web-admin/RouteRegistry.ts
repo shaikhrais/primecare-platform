@@ -135,6 +135,10 @@ const PLATFORM = {
             REGION_MAPPING: '/platform/admin/ops/regions',
             SUPPLY_DEMAND: '/platform/admin/ops/supply-demand',
             LOGISTICS_HUB: '/platform/admin/ops/logistics',
+        },
+        ERP: {
+            INVENTORY: '/platform/admin/erp/inventory',
+            PROCUREMENT: '/platform/admin/erp/procurement',
         }
     },
     SUPERUSER: {

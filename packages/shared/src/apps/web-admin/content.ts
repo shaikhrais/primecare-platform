@@ -39,9 +39,30 @@ export const ContentRegistry = {
         SERVICES: 'Services',
         AUDITS: 'Audits',
         CONTENT: 'Content',
-        SETTINGS: 'Settings',
-        DEVELOPER: 'Developer',
         THEME: 'Theme Center',
+        RESELLER: 'Reseller Hub',
+        ERP: 'Supply Chain Hub',
+    },
+    ERP: {
+        TITLE: 'ERP & Supply Chain Hub',
+        SUBTITLE: 'Manage medical inventory, suppliers, and procurement lifecycles.',
+        LEDGER_TITLE: 'Systemic Inventory Ledger',
+        STATS: {
+            SKU_COUNT: 'Total SKU Count',
+            LOW_STOCK: 'Low Stock Alerts',
+            OPEN_POS: 'Open POs',
+            LATENCY: 'Procurement Latency',
+        }
+    },
+    RESELLER: {
+        TITLE: 'White-Label Reseller Hub',
+        SUBTITLE: 'Spawn and manage your child agencies in the Fractal SaaS network.',
+        PROVISION_TITLE: 'Provision New Agency',
+        STATS: {
+            REVENUE: 'Total Portfolio MRR',
+            SUCCESS: 'Franchise Success Rate',
+            CAPACITY: 'Provisioning Capacity',
+        }
     },
     USERS: {
         ...MasterContentRegistry.USERS,
