@@ -108,7 +108,7 @@ export default function EarningsPage() {
                             disabled={requesting || totalEarnings === 0}
                             onClick={handlePayout}
                         >
-                            {requesting ? 'Processing...' : 'Sync to Bank'}
+                            {requesting ? 'Processing...' : (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-payout-sync')?.label || 'Sync to Bank')}
                         </button>
                     </div>
 

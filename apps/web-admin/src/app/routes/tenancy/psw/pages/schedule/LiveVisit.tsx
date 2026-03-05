@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 import './LiveVisit.css';
 
 const CONTENT = ContentRegistry.PSW_LIVE_VISIT;
@@ -44,16 +45,62 @@ export default function LiveVisit() {
         setTasks(prev => prev.map(t => t.id === taskId ? { ...t, done: !t.done } : t));
     };
 
-    const handleCheckIn = () => {
-        setStatus('checked_in');
-        showToast('GPS Verified. Visit Started.', 'success');
+    const handleCheckIn = async () => {
+        if (!navigator.geolocation) {
+            showToast('Geolocation not supported', 'error');
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            try {
+                const response = await apiClient.post(AdminRegistry.ApiRegistry.TENANCY.PSW.CHECK_IN(id!), {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy
+                });
+
+                if (response.ok) {
+                    setStatus('checked_in');
+                    showToast('GPS Verified. Visit Started.', 'success');
+                } else {
+                    const err = await response.json();
+                    showToast(err.error || 'Check-in failed', 'error');
+                }
+            } catch (error) {
+                showToast('Network error during check-in', 'error');
+            }
+        });
     };
 
-    const handleCheckOut = () => {
-        setStatus('completed');
-        showToast(CONTENT.MESSAGES.SUCCESS, 'success');
-        navigate(AdminRegistry.RouteRegistry.PSW.HANDOVER);
+    const handleCheckOut = async () => {
+        if (!navigator.geolocation) {
+            showToast('Geolocation not supported', 'error');
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            try {
+                const response = await apiClient.post(AdminRegistry.ApiRegistry.TENANCY.PSW.CHECK_OUT(id!), {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy
+                });
+
+                if (response.ok) {
+                    setStatus('completed');
+                    showToast(CONTENT.MESSAGES.SUCCESS, 'success');
+                    navigate(AdminRegistry.RouteRegistry.PSW.HANDOVER);
+                } else {
+                    showToast('Check-out failed', 'error');
+                }
+            } catch (error) {
+                showToast('Network error during check-out', 'error');
+            }
+        });
     };
+
+    const checkInBtn = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-check-in');
+    const checkOutBtn = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-check-out');
 
     return (
         <div className="live-visit-container">
@@ -84,7 +131,7 @@ export default function LiveVisit() {
                             <p>{CONTENT.CHECKIN.DESC}</p>
                         </div>
                         <button className="check-in-btn" onClick={handleCheckIn}>
-                            {CONTENT.CHECKIN.BUTTON}
+                            {checkInBtn?.label || CONTENT.CHECKIN.BUTTON}
                         </button>
                     </>
                 ) : (
@@ -120,7 +167,7 @@ export default function LiveVisit() {
                         </div>
 
                         <button className="check-out-btn" onClick={handleCheckOut}>
-                            {CONTENT.CHECKOUT.BUTTON}
+                            {checkOutBtn?.label || CONTENT.CHECKOUT.BUTTON}
                         </button>
                     </div>
                 )}

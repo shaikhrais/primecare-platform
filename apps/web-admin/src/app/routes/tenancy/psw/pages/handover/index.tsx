@@ -133,7 +133,7 @@ export default function HandoverPage() {
                             className="btn btn-primary"
                             disabled={submitting || loading}
                         >
-                            {submitting ? 'Submitting...' : 'Complete Handover'}
+                            {submitting ? 'Submitting...' : (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-handover-submit')?.label || 'Complete Handover')}
                         </button>
                     </div>
                 </form>
