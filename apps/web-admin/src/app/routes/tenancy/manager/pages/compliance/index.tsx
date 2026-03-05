@@ -18,9 +18,11 @@ export default function ComplianceSync() {
         const fetchComplianceData = async () => {
             try {
                 // Fetch compliance data
-                const data = await apiClient.get(ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN);
-                if (data && (data as any).results) {
-                    setAuditData((data as any).results);
+                const res: any = await apiClient.get(ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN);
+                const data = await res.json();
+
+                if (data && data.results) {
+                    setAuditData(data.results);
                 } else {
                     // Mock fallback
                     setAuditData([

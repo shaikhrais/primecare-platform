@@ -18,9 +18,10 @@ export default function BranchPL() {
     useEffect(() => {
         const fetchFinancials = async () => {
             try {
-                const data = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
-                if (data) {
-                    const d = data as any;
+                const res: any = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
+                const d = await res.json();
+
+                if (d) {
                     setFinancials({
                         revenue: d.revenueMtd || '$928,000',
                         expenses: d.expensesMtd || '$607,000',

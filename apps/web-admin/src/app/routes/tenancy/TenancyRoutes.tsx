@@ -85,7 +85,7 @@ export const TenancyRoutes = () => (
             <Route path="operations" element={<OperationsHub />} />
             <Route path="regional-stats" element={<RegionalStats />} />
             <Route path="compliance" element={<ComplianceSync />} />
-            <Route path="finance" element={<FinanceHub />} />
+            <Route path="finance/branch" element={<FinanceHub />} /> {/* Branch specific P&L */}
             <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
             <Route path="portfolio" element={<Portfolio />} />
             <Route path={RouteRegistry.MANAGER.TRAINING} element={<TrainingHub />} />
@@ -105,7 +105,7 @@ export const TenancyRoutes = () => (
             <Route index element={<HrRecruitmentPortal />} />
         </Route>
 
-        {/* FINANCE & REGIONAL HUB */}
+        {/* FINANCE & REGIONAL HUB - FOR REGIONAL MANAGERS */}
         <Route path={RouteRegistry.MANAGER.FINANCE} element={<RequireRole allowedRoles={['finance_manager', 'regional_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<FinanceRegionalHub />} />
         </Route>

@@ -90,5 +90,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-staff-messages', label: 'Communications Hub', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.MESSAGES, description: 'Unified messaging for branch-wide coordination.' },
     // Phase 1 Foundation Expansion
     { id: 'lnk-psw-live-visit', label: 'Live Visit Center', role: 'psw', module: 'CARE_DELIVERY', path: '/psw/schedule/live', description: 'Active visit management and real-time ADL tracking.' },
-    { id: 'lnk-coordinator-sos-hub', label: 'SOS Dispatch Hub', role: 'coordinator', module: 'OPERATIONS', path: '/coordinator/sos', description: 'Real-time emergency shift fulfillment and field alert management.' }
+    { id: 'lnk-coordinator-sos-hub', label: 'SOS Dispatch Hub', role: 'coordinator', module: 'OPERATIONS', path: '/coordinator/sos', description: 'Real-time emergency shift fulfillment and field alert management.' },
+    // Batch 26: Regional Director Mastery
+    { id: 'lnk-rd-regional', label: 'Regional Intelligence', role: 'regional_manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.REGIONAL_STATS, description: 'High-level regional operational KPIs and radar.' },
+    { id: 'lnk-rd-finance', label: 'Regional Finance Hub', role: 'regional_manager', module: 'FINANCE', path: RouteRegistry.MANAGER.FINANCE, description: 'Consolidated regional financial governance and P&L.' },
 ];

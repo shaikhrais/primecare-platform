@@ -20,9 +20,10 @@ export default function OperationsHub() {
         const fetchOpsData = async () => {
             try {
                 // Fetch stats from ApiRegistry
-                const opsData = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
-                if (opsData) {
-                    const data = opsData as any;
+                const res: any = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
+                const data = await res.json();
+
+                if (data) {
                     setStats({
                         revenue: data.revenueMtd || '$124,500',
                         utilization: `${data.staffUtilization || 88}%`,

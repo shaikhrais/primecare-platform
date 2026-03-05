@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
 import { apiClient } from '@/shared/utils/apiClient';
+
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
+import './ManagerDashboard.css';
 import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
 // Components
@@ -39,15 +41,21 @@ export default function ManagerDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [kpiData, todayData, statsData] = await Promise.all([
-                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_KPI),
-                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_TODAY),
-                    apiClient.get(ApiRegistry.MANAGER.DASHBOARD_STATS)
+                const [kpiRes, todayRes, statsRes]: any = await Promise.all([
+                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_KPI),
+                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_TODAY),
+                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS)
                 ]);
 
-                if (kpiData) setKpi(kpiData as any);
+                const [kpiData, todayData, statsData] = await Promise.all([
+                    kpiRes.json(),
+                    todayRes.json(),
+                    statsRes.json()
+                ]);
+
+                if (kpiData) setKpi(kpiData);
                 if (todayData && Array.isArray(todayData)) setShifts(todayData);
-                if (statsData) setChartData(statsData as any);
+                if (statsData) setChartData(statsData);
             } catch (error) {
                 console.error('Failed to load dashboard data', error);
             } finally {
@@ -92,76 +100,44 @@ export default function ManagerDashboard() {
     const { user } = useAuth();
 
     return (
-        <div data-cy="page.container">
-            <div data-cy="mgr-dashboard">
-
-                <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
-                            {t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}
-                        </h1>
-                        <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
-                            {user?.email ? `${user.email} • ${t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}` : t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}
-                        </p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <Link
-                            to={RouteRegistry.LEARN}
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                padding: '10px 20px',
-                                backgroundColor: '#f8fafc',
-                                color: '#475569',
-                                borderRadius: '10px',
-                                textDecoration: 'none',
-                                fontWeight: 700,
-                                fontSize: '0.9rem',
-                                border: '1px solid #e2e8f0'
-                            }}
-                        >
-                            🎓 {t(ContentRegistry.LEARN.TITLE)}
-                        </Link>
-                        <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '12px' }}>
-                            {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map(p => (
-                                <button
-                                    key={p}
-                                    onClick={() => setPerspective(p)}
-                                    style={{
-                                        padding: '8px 16px',
-                                        borderRadius: '8px',
-                                        border: 'none',
-                                        backgroundColor: p === perspective ? '#FFFFFF' : 'transparent',
-                                        color: p === perspective ? '#111827' : '#6B7280',
-                                        fontWeight: 700,
-                                        fontSize: '0.85rem',
-                                        cursor: 'pointer',
-                                        boxShadow: p === perspective ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
-                                        transition: 'all 0.2s'
-                                    }}
-                                >
-                                    {p}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <DashboardStats
-                        activeClients={kpi.activeClients}
-                        staffOnDuty={kpi.staffOnDuty}
-                        openIncidents={kpi.openIncidents}
-                        todayShifts={kpi.todayShifts}
-                    />
-
+        <div className="mgr-dashboard-container">
+            <header className="mgr-header">
+                <div className="mgr-title-group">
+                    <h1>{t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}</h1>
+                    <p className="mgr-subtitle">
+                        {user?.email ? `${user.email} • ${t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}` : t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}
+                    </p>
                 </div>
+                <div className="mgr-controls">
+                    <Link to={RouteRegistry.LEARN} className="btn-modern btn-outline" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        🎓 {t(ContentRegistry.MENU.KNOWLEDGE_BASE)}
+                    </Link>
+                    <div className="btn-perspective-group">
+                        {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map((p: string) => (
+                            <button
+                                key={p}
+                                onClick={() => setPerspective(p)}
+                                className={`btn-perspective ${p === perspective ? 'active' : ''}`}
+                            >
+                                {p}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </header>
 
-                <QuickActions />
+            <DashboardStats
+                activeClients={kpi.activeClients}
+                staffOnDuty={kpi.staffOnDuty}
+                openIncidents={kpi.openIncidents}
+                todayShifts={kpi.todayShifts}
+            />
 
+            <QuickActions />
+
+            <div className="dashboard-main-content">
                 <AnalyticsSection displayData={displayData} isDemo={!chartData} />
-
                 <ShiftTimeline shifts={shifts} />
-
             </div>
         </div>
     );

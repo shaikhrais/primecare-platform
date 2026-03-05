@@ -31,70 +31,42 @@
 }
 
 .finance-card {
-    background: white;
-    border-radius: 1.25rem;
-    border: 1px solid #e2e8f0;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.finance-card-large {
-    grid-column: span 2;
-}
-
-.finance-card-metric {
-    display: flex;
-    flex-direction: column;
-}
-
-.metric-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-}
-
-.metric-value {
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: #1e293b;
-}
-
-.metric-trend {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    margin-top: 0.5rem;
+.finance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
 .chart-container-premium {
-    height: 300px;
+    height: 350px;
     margin-top: 1.5rem;
-    background: #fbfcfd;
-    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed #e2e8f0;
-}
-
-.expense-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
 }
 
 .expense-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem;
-    background: #f8fafc;
-    border-radius: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .expense-info {
