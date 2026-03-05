@@ -99,5 +99,7 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-mgr-finance', label: 'Branch Financials', role: 'manager', module: 'FINANCE', path: RouteRegistry.MANAGER.FINANCE, description: 'Branch-level billing, invoices, and financial performance.' },
     { id: 'lnk-mgr-team', label: 'Branch Team', role: 'manager', module: 'OPERATIONS', path: '/tenancy/manager/team', description: 'Management of branch staff profiles and performance.' },
     { id: 'lnk-coord-master-schedule', label: 'Master Schedule', role: 'coordinator', module: 'OPERATIONS', path: '/tenancy/coordinator/schedule', description: 'Unified master schedule for branch-wide shift oversight.' },
+    { id: 'lnk-psw-offers', label: 'Available Offers', role: 'psw', module: 'CARE_DELIVERY', path: '/tenancy/psw/offers', description: 'View and claim open shifts in the marketplace.' },
+    { id: 'lnk-psw-availability', label: 'My Availability', role: 'psw', module: 'CARE_DELIVERY', path: '/tenancy/psw/availability', description: 'Manage your weekly availability and service areas.' },
     { id: 'lnk-adm-strategy', label: 'Growth Strategy', role: 'admin', module: 'GROWTH', path: RouteRegistry.ADMIN.GROWTH_STRATEGY, description: 'Strategic growth and network expansion planning.' },
 ];

@@ -40,6 +40,9 @@ const TENANCY = {
         DAILY_ENTRY_SUBMIT: '/v1/psw/daily-entry',
         DASHBOARD_STATS: '/v1/psw/dashboard/stats',
         CREDENTIALS: '/v1/psw/credentials/vault',
+        OFFERS: '/v1/psw/schedule/offers',
+        OFFER_ACCEPT: (id: string) => `/v1/psw/schedule/offers/${id}/accept`,
+        OFFER_DECLINE: (id: string) => `/v1/psw/schedule/offers/${id}/decline`,
         FEED: '/v1/psw/feed/social',
     },
     RN: {
