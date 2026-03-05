@@ -1,0 +1,107 @@
+.supervision-container {
+    padding: 2.5rem;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.roster-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+}
+
+.roster-header {
+    padding: 20px 32px;
+    background: rgba(var(--brand-primary-rgb), 0.02);
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.roster-table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.roster-table th {
+    text-align: left;
+    padding: 16px 32px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-400);
+    border-bottom: 1px solid var(--card-border);
+}
+
+.roster-table td {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-200);
+    font-size: 0.95rem;
+}
+
+.provider-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.provider-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--brand-primary), #6366f1);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.score-badge {
+    font-weight: 800;
+    color: var(--text-100);
+    font-size: 1.1rem;
+}
+
+.risk-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.risk-label.low {
+    color: #4caf50;
+}
+
+.risk-label.medium {
+    color: #ff9800;
+}
+
+.risk-label.high {
+    color: #f44336;
+}
+
+.audit-stack {
+    display: grid;
+    gap: 12px;
+    margin-top: 3rem;
+}
+
+.audit-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.audit-item:hover {
+    border-color: var(--brand-primary);
+    background: rgba(var(--brand-primary-rgb), 0.01);
+}

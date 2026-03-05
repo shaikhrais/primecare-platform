@@ -179,46 +179,73 @@ export const ContentRegistry = {
         ERROR_REQUEST: 'Failed to request payout.',
     },
     RN_DASHBOARD: {
-        TITLE: 'Clinical Care Management',
-        SUBTITLE: 'Supervise care plans, review daily entries, and manage clinical outcomes.',
-        QUICK_ACTIONS: 'Clinical Oversight',
+        TITLE: 'Clinical Dashboard',
+        SUBTITLE: 'Branch-wide clinical overview and task triage.',
+        MESSAGES: {
+            LOADING: 'Synchronizing Clinical Center...',
+        },
         STATS: {
-            PENDING_CARE_PLANS: 'Care Plans to Review',
-            DAILY_REVIEWS: 'Daily Entries to Verify',
-            SUPERVISED_PSWS: 'PSWs Under Supervision',
+            PENDING_CARE_PLANS: 'Pending Care Plans',
+            DAILY_REVIEWS: 'Daily Audits Needed',
+            SUPERVISED_PSWS: 'Supervised PSWs',
         },
         TASKS: {
-            TITLE: 'Pending Clinical Tasks',
-            EMPTY: 'No pending clinical tasks.',
-            RESOLVE_BTN: 'Resolve Task',
+            TITLE: 'Clinical Task Triage',
+            EMPTY: 'No urgent clinical tasks identified.',
             PATIENT_LABEL: 'Patient: ',
-        },
-        MESSAGES: {
-            LOADING: 'Loading Clinical Dashboard...',
+            RESOLVE_BTN: 'Resolve',
         }
     },
-    RN_CLINICAL: {
-        ASSESSMENT_TITLE: 'Clinical Assessment',
-        ASSESSMENT_SUBTITLE: 'Record patient acuity, mobility, and clinical baseline.',
-        RECON_TITLE: 'Medication Reconciliation',
-        RECON_SUBTITLE: 'Verify prescriptions against MAR and clinical ledger.',
-        SUPERVISION_TITLE: 'PSW Supervision Hub',
-        SUPERVISION_SUBTITLE: 'Audit competencies and provide field coaching logs.',
-        LABELS: {
-            PATIENT: 'Select Patient',
-            TYPE: 'Assessment Type',
-            SCORE: 'Acuity Score',
-            NOTES: 'Clinical Recommendations',
-            DISCREPANCIES: 'Identified Discrepancies',
-            COMPETENCIES: 'Assessed Competencies',
-            SATISFACTORY: 'Meets Standards',
-            FEEDBACK: 'Development Feedback'
+    RN_ASSESSMENTS: {
+        TITLE: 'Clinical Assessment Hub',
+        SUBTITLE: 'Digital clinical intake and periodic patient re-assessment.',
+        NEW_BUTTON: '+ New Assessment',
+        TYPE_LABELS: {
+            ADL: 'Activities of Daily Living (ADL)',
+            MOBILITY: 'Mobility & Fall Risk',
+            COGNITIVE: 'Cognitive Status',
+            VITAL: 'Vital Signs Baseline',
         },
-        SUCCESS: {
-            ASSESS_SAVED: 'Assessment signed and locked.',
-            RECON_SYNCED: 'Medication ledger synchronized.',
-            SUPERVISION_LOGGED: 'Supervision log transmitted.',
-        }
+        FIELDS: {
+            PATIENT: 'Select Patient',
+            SCORE: 'Acuity Score (1-10)',
+            RECOMMENDATIONS: 'Care Recommendations',
+        },
+        SUCCESS_SAVE: 'Clinical assessment signed and locked.',
+    },
+    RN_CARE_PLAN: {
+        TITLE: 'Care Plan Manager',
+        SUBTITLE: 'Translating clinical findings into active caregiver task lists.',
+        BUILDER_TITLE: 'Plan Builder',
+        FIELDS: {
+            DIAGNOSES: 'Medical Diagnoses',
+            GOALS: 'Clinical Goals',
+            INTERVENTIONS: 'Interventions & ADLs',
+        },
+        SUCCESS_SAVE: 'Care plan synchronized to patient profile.',
+    },
+    RN_SUPERVISION: {
+        TITLE: 'PSW Supervision Hub',
+        SUBTITLE: 'Field-based competency audits and clinical coaching logs.',
+        LOG_TITLE: 'Supervision Session Log',
+        FIELDS: {
+            PSW: 'Select Caregiver',
+            IS_SATISFACTORY: 'Meets Clinical Standards',
+            FEEDBACK: 'Developmental Feedback',
+        },
+        SUCCESS_LOG: 'Supervision log transmitted to compliance ledger.',
+    },
+    RN_DAILY_AUDIT: {
+        TITLE: 'Professional Log Verification',
+        SUBTITLE: 'Review and verify daily care delivery logs for clinical accuracy.',
+        VERIFY_BUTTON: 'Sign & Verify Entry',
+        TABLE: {
+            DATE: 'Visit Date',
+            PSW: 'Caregiver',
+            CLIENT: 'Patient',
+            STATUS: 'Verification Status',
+        },
+        SUCCESS_VERIFY: 'Visit log professional verification complete.',
     },
     PLATFORM_DASHBOARD: {
         TITLE: 'Platform Command Center',

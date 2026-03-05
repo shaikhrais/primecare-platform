@@ -80,6 +80,7 @@ export const ButtonRegistry: ButtonDef[] = [
     // Batch 21: RN Foundational Mastery
     { id: 'btn-rn-assess-submit', label: 'Sign & Lock Assessment', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.CLINICAL_ASSESS, description: 'Finalizes a structured clinical assessment.' },
     { id: 'btn-rn-recon-sync', label: 'Sync Medication Ledger', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.RECON_SYNC, description: 'Triggers a real-time medication reconciliation sync.' },
+    { id: 'btn-rn-careplan-save', label: 'Finalize Care Plan', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.CARE_PLANS, description: 'Commits the structured care plan to the clinical ledger.' },
     { id: 'btn-rn-supervision-log', label: 'Log Supervision Session', role: 'rn', module: 'SUPERVISION', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.RN.RN_SUPERVISION, description: 'Records a PSW supervision and competency check.' },
     // Batch 22: Coordinator Foundational Mastery
     { id: 'btn-coord-match-override', label: 'Override PSW Match', role: 'coordinator', module: 'LOGISTICS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.COORDINATOR.MATCH_OVERRIDE, description: 'Manually override a PSW assignment for a specific visit.' },

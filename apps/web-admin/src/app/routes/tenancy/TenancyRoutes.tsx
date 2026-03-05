@@ -42,9 +42,10 @@ const PswPayoutHistory = lazy(() => import('./psw/pages/payouts'));
 
 // RN Pages
 const RnDashboard = lazy(() => import('./rn/pages/dashboard'));
-const ClinicalCarePlans = lazy(() => import('./rn/pages/care-plans/ClinicalCarePlans'));
-const DailyAudit = lazy(() => import('./rn/pages/audit/DailyAudit'));
-const SupervisionHub = lazy(() => import('./rn/pages/supervision/SupervisionHub'));
+const CarePlanManager = lazy(() => import('./rn/pages/care-plans'));
+const EntryVerify = lazy(() => import('./rn/pages/audit'));
+const SupervisionHub = lazy(() => import('./rn/pages/supervision'));
+const AssessmentsHub = lazy(() => import('./rn/pages/assessments'));
 
 // Client Pages
 const ClientDashboard = lazy(() => import('./client/pages/dashboard'));
@@ -120,9 +121,10 @@ export const TenancyRoutes = () => (
         {/* RN PORTAL */}
         <Route path={RouteRegistry.RN.DASHBOARD} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<RnDashboard />} />
-            <Route path={RouteRegistry.RN.CARE_PLANS} element={<ClinicalCarePlans />} />
-            <Route path={RouteRegistry.RN.DAILY_AUDIT} element={<DailyAudit />} />
+            <Route path={RouteRegistry.RN.CARE_PLANS} element={<CarePlanManager />} />
+            <Route path={RouteRegistry.RN.DAILY_AUDIT} element={<EntryVerify />} />
             <Route path={RouteRegistry.RN.SUPERVISION} element={<SupervisionHub />} />
+            <Route path={RouteRegistry.RN.ASSESSMENTS} element={<AssessmentsHub />} />
         </Route>
 
         {/* CLIENT PORTAL */}
