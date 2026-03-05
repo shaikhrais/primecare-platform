@@ -54,6 +54,7 @@ const ExportPage = lazy(() => import('./pages/reports/ExportPage'));
 const SupplyChainHub = lazy(() => import('./pages/erp/SupplyChainHub'));
 const TelehealthCenter = lazy(() => import('./pages/telehealth/TelehealthCenter'));
 const RevenueCycleHub = lazy(() => import('./pages/rcm/RevenueCycleHub'));
+const PharmacyHub = lazy(() => import('./pages/pharmacy/PharmacyHub'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
@@ -101,5 +102,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.TELEHEALTH.ALERTS} element={<TelehealthCenter />} />
         <Route path={RouteRegistry.ADMIN.RCM.CLAIMS} element={<RevenueCycleHub />} />
         <Route path={RouteRegistry.ADMIN.RCM.REVENUE} element={<RevenueCycleHub />} />
+        <Route path={RouteRegistry.ADMIN.PHARMACY.HUB} element={<PharmacyHub />} />
+        <Route path={RouteRegistry.ADMIN.PHARMACY.MAR} element={<PharmacyHub />} />
     </Route>
 );

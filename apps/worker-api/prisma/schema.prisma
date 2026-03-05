@@ -84,6 +84,7 @@ model Tenant {
   patientAlerts      PatientAlert[]
   insuranceProviders InsuranceProvider[]
   claims             Claim[]
+  prescriptions      Prescription[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -152,6 +153,8 @@ model ClientProfile {
   vitalSigns         VitalSign[]
   patientAlerts      PatientAlert[]
   claims             Claim[]
+  prescriptions      Prescription[]
+  marEntries         MAR_Entry[]
   carePlans      CarePlan[]
 
   @@index([tenantId])
@@ -1148,4 +1151,55 @@ model BillingCode {
   defaultRate     Float    @map("default_rate")
   
   @@map("billing_codes")
+}
+
+model Medication {
+  id              String   @id @default(uuid())
+  name            String
+  genericName     String?  @map("generic_name")
+  dosageForm      String?  @map("dosage_form") // Tablet, Injection, etc.
+  strength        String?
+  instructions    String?
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  prescriptions   Prescription[]
+
+  @@map("medications")
+}
+
+model Prescription {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  patientId       String   @map("patient_id")
+  medicationId    String   @map("medication_id")
+  prescriberId    String?  @map("prescriber_id")
+  dosage          String
+  frequency       String
+  route           String
+  startDate       DateTime @map("start_date")
+  endDate         DateTime? @map("end_date")
+  status          String   @default("active") // active, completed, discontinued
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  patient         ClientProfile @relation(fields: [patientId], references: [id])
+  medication      Medication @relation(fields: [medicationId], references: [id])
+  marEntries      MAR_Entry[]
+
+  @@map("prescriptions")
+}
+
+model MAR_Entry {
+  id              String   @id @default(uuid())
+  patientId       String   @map("patient_id")
+  prescriptionId  String   @map("prescription_id")
+  administerId    String?  @map("administer_id") // User ID (PSW, RN)
+  adminTime       DateTime @default(now()) @map("admin_time")
+  status          String   @default("administered") // administered, missed, refused
+  notes           String?
+  
+  patient         ClientProfile @relation(fields: [patientId], references: [id])
+  prescription    Prescription  @relation(fields: [prescriptionId], references: [id])
+
+  @@map("mar_entries")
 }

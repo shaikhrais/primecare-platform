@@ -64,5 +64,8 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-rpm-vitals-verify', label: 'Verify Remote Vitals', role: 'coordinator', module: 'TELEHEALTH', type: 'secondary', action: 'API_TRIGGER', description: 'Acknowledges and logs incoming remote patient monitoring data.' },
     // Batch 18: Insurance & RCM Mastery
     { id: 'btn-rcm-claim-submit', label: 'Submit Insurance Claim', role: 'billing_manager', module: 'FINANCE', type: 'primary', action: 'API_TRIGGER', description: 'Transmits clinical documentation to insurance clearinghouses for reimbursement.' },
-    { id: 'btn-rcm-revenue-sync', label: 'Sync Revenue Ledger', role: 'admin', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Reconciles bank deposits with adjudicated insurance claims.' }
+    { id: 'btn-rcm-revenue-sync', label: 'Sync Revenue Ledger', role: 'admin', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Reconciles bank deposits with adjudicated insurance claims.' },
+    // Batch 19: Pharmacy Mastery
+    { id: 'btn-pharmacy-order', label: 'Order Medication', role: 'rn', module: 'PHARMACY', type: 'primary', action: 'OPEN_MODAL', description: 'Transmits e-prescription request to integrated pharmacy partner.' },
+    { id: 'btn-pharmacy-mar-sync', label: 'Sync MAR Records', role: 'coordinator', module: 'PHARMACY', type: 'secondary', action: 'API_TRIGGER', description: 'Synchronizes Medication Administration Records with the clinical ledger.' }
 ];

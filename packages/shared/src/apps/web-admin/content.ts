@@ -44,6 +44,18 @@ export const ContentRegistry = {
         ERP: 'Supply Chain Hub',
         TELEHEALTH: 'Telehealth Center',
         RCM: 'Claims Hub',
+        PHARMACY: 'Pharmacy Hub',
+    },
+    PHARMACY: {
+        TITLE: 'Pharmacy & Medication Hub',
+        SUBTITLE: 'E-prescribing, MAR tracking, and pharmacy integration.',
+        LIST_TITLE: 'Active Medication Records',
+        STATS: {
+            ACTIVE: 'Active Prescriptions',
+            PENDING: 'Pending Renewals',
+            COMPLIANCE: 'MAR Compliance',
+            ALERTS: 'Critical Alerts',
+        }
     },
     RCM: {
         TITLE: 'Revenue Cycle Management (RCM)',

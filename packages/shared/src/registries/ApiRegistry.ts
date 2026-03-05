@@ -106,6 +106,12 @@ const PLATFORM = {
             CLAIMS: '/v1/admin/rcm/claims',
             SUBMIT_CLAIM: '/v1/admin/rcm/claims/submit',
             REVENUE_SYNC: '/v1/admin/rcm/revenue/sync',
+        },
+        PHARMACY: {
+            DASHBOARD: '/v1/admin/pharmacy/stats',
+            PRESCRIPTIONS: '/v1/admin/pharmacy/prescriptions',
+            ORDER_DRUGS: '/v1/admin/pharmacy/orders',
+            MAR_SYNC: '/v1/admin/pharmacy/mar/sync',
         }
     },
     SCRUM_MASTER: {

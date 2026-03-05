@@ -147,6 +147,10 @@ const PLATFORM = {
         RCM: {
             CLAIMS: '/platform/admin/rcm/claims',
             REVENUE: '/platform/admin/rcm/revenue',
+        },
+        PHARMACY: {
+            HUB: '/platform/admin/pharmacy/hub',
+            MAR: '/platform/admin/pharmacy/mar',
         }
     },
     SUPERUSER: {

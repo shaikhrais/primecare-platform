@@ -44,5 +44,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-rpm-alerts', label: 'Remote Alerts', role: 'coordinator', module: 'TELEHEALTH', path: '/platform/admin/telehealth/alerts', description: 'Critical health alerts from remote monitoring devices.' },
     // Batch 18: Insurance & RCM Links
     { id: 'lnk-rcm-claims', label: 'Claims Command Center', role: 'billing_manager', module: 'FINANCE', path: '/platform/admin/rcm/claims', description: 'Centralized management of insurance claim lifecycles.' },
-    { id: 'lnk-rcm-revenue', label: 'Revenue Analytics', role: 'admin', module: 'FINANCE', path: '/platform/admin/rcm/revenue', description: 'Detailed financial modeling and revenue cycle health monitoring.' }
+    { id: 'lnk-rcm-revenue', label: 'Revenue Analytics', role: 'admin', module: 'FINANCE', path: '/platform/admin/rcm/revenue', description: 'Detailed financial modeling and revenue cycle health monitoring.' },
+    // Batch 19: Pharmacy Links
+    { id: 'lnk-pharmacy-hub', label: 'Pharmacy Hub', role: 'rn', module: 'PHARMACY', path: '/platform/admin/pharmacy/hub', description: 'E-prescribing and medication management center.' },
+    { id: 'lnk-pharmacy-mar', label: 'Digital MAR', role: 'psw', module: 'PHARMACY', path: '/platform/admin/pharmacy/mar', description: 'Medication Administration Record for active care delivery.' }
 ];
