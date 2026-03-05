@@ -11,9 +11,11 @@ interface Touchpoint {
     type: 'BUTTON' | 'LINK' | 'INTERACTION';
     role: string;
     module: string;
+    label?: string;
     path: string;
     status: 'OK' | '404' | 'WARNING' | 'ERROR';
     errorDetail?: string;
+    isOverridden?: boolean;
     lastChecked: string;
 }
 
@@ -21,6 +23,8 @@ export const ResponseBotAudit: React.FC = () => {
     const [touchpoints, setTouchpoints] = useState<Touchpoint[]>([]);
     const [loading, setLoading] = useState(true);
     const [sweeping, setSweeping] = useState(false);
+    const [publicUrlBase, setPublicUrlBase] = useState('https://primecare-admin.pages.dev');
+    const [editingTp, setEditingTp] = useState<Touchpoint | null>(null);
 
     useEffect(() => {
         fetchTouchpoints();
@@ -40,16 +44,29 @@ export const ResponseBotAudit: React.FC = () => {
         }
     };
 
-    const handleSweep = async () => {
+    const handleSweep = async (isPublic: boolean = false) => {
         try {
             setSweeping(true);
-            await apiClient.post('/v1/scrum-master/registry/sweep', {});
+            await apiClient.post('/v1/scrum-master/registry/sweep', {
+                publicUrlBase: isPublic ? publicUrlBase : undefined
+            });
             await fetchTouchpoints();
         } catch (error) {
             console.error('Sweep failed', error);
             alert('Registry sweep failed. Check technical logs.');
         } finally {
             setSweeping(false);
+        }
+    };
+
+    const handleUpdate = async (id: string, label: string, path: string) => {
+        try {
+            await apiClient.patch(`/v1/scrum-master/registry/touchpoints/${id}`, { label, path });
+            setEditingTp(null);
+            await fetchTouchpoints();
+        } catch (error) {
+            console.error('Update failed', error);
+            alert('Failed to update registry entry.');
         }
     };
 
@@ -65,13 +82,22 @@ export const ResponseBotAudit: React.FC = () => {
                 <div>
                     <h1>Response Bot AI Audit</h1>
                     <p className="subtitle">Autonomous Registry Persistence & 404 Surveillance</p>
+                    <div className="public-url-config">
+                        <input
+                            type="text"
+                            value={publicUrlBase}
+                            onChange={(e) => setPublicUrlBase(e.target.value)}
+                            placeholder="Public App URL (e.g. https://...)"
+                        />
+                        <button className="btn-secondary" onClick={() => handleSweep(true)}>Pings Public URL</button>
+                    </div>
                 </div>
                 <button
                     className={`btn-sweep ${sweeping ? 'loading' : ''}`}
-                    onClick={handleSweep}
+                    onClick={() => handleSweep(false)}
                     disabled={sweeping}
                 >
-                    {sweeping ? 'Sweeping Platform...' : '🚀 Trigger Universal Sweep'}
+                    {sweeping ? 'Sweeping Registries...' : '🚀 Registry Internal Sweep'}
                 </button>
             </header>
 
@@ -99,14 +125,14 @@ export const ResponseBotAudit: React.FC = () => {
                             <th>Role/Module</th>
                             <th>Path/Action</th>
                             <th>Status</th>
-                            <th>Last Checked</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {touchpoints.map((tp) => {
                             const statusClass = tp.status === '404' ? 'notfound' : tp.status.toLowerCase();
                             return (
-                                <tr key={tp.id} className={`status-${statusClass}`}>
+                                <tr key={tp.id} className={`status-${statusClass} ${tp.isOverridden ? 'is-overridden' : ''}`}>
                                     <td className="font-mono text-xs">{tp.touchpointId}</td>
                                     <td><span className={`badge badge-${tp.type.toLowerCase()}`}>{tp.type}</span></td>
                                     <td>
@@ -115,7 +141,12 @@ export const ResponseBotAudit: React.FC = () => {
                                             <span className="module">{tp.module}</span>
                                         </div>
                                     </td>
-                                    <td className="path-cell" title={tp.path}>{tp.path}</td>
+                                    <td className="path-cell" title={tp.path}>
+                                        <div className="label-path">
+                                            <span className="tp-label">{tp.label}</span>
+                                            <span className="tp-path">{tp.path}</span>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div className="status-cell">
                                             <span className={`status-dot ${statusClass}`}></span>
@@ -123,13 +154,47 @@ export const ResponseBotAudit: React.FC = () => {
                                             {tp.errorDetail && <span className="error-hint" title={tp.errorDetail}>⚠️</span>}
                                         </div>
                                     </td>
-                                    <td className="text-xs opacity-60">{new Date(tp.lastChecked).toLocaleString()}</td>
+                                    <td>
+                                        <button className="btn-edit-tp" onClick={() => setEditingTp(tp)}>✎ Edit</button>
+                                    </td>
                                 </tr>
                             );
                         })}
                     </tbody>
                 </table>
             </div>
+
+            {editingTp && (
+                <div className="tp-modal-overlay">
+                    <div className="tp-modal">
+                        <h3>Update Touchpoint</h3>
+                        <div className="form-group">
+                            <label>Display Label</label>
+                            <input
+                                type="text"
+                                defaultValue={editingTp.label}
+                                id="edit-label"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Target Path (API/Route)</label>
+                            <input
+                                type="text"
+                                defaultValue={editingTp.path}
+                                id="edit-path"
+                            />
+                        </div>
+                        <div className="modal-actions">
+                            <button className="btn-primary" onClick={() => {
+                                const l = (document.getElementById('edit-label') as HTMLInputElement).value;
+                                const p = (document.getElementById('edit-path') as HTMLInputElement).value;
+                                handleUpdate(editingTp.id, l, p);
+                            }}>Save Override</button>
+                            <button className="btn-ghost" onClick={() => setEditingTp(null)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

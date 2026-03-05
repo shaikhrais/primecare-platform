@@ -1526,17 +1526,20 @@ model WellnessPulse {
 }
 
 model SystemTouchpoint {
-  id          String   @id @default(uuid())
-  touchpointId String  @unique @map("touchpoint_id")
-  type        String   // BUTTON, LINK, INTERACTION
-  role        String
-  module      String
-  path        String
-  status      String   @default("OK") // OK, 404, ERROR
-  errorDetail String?  @map("error_detail")
-  lastChecked DateTime @default(now()) @map("last_checked")
-  tenantId    String   @map("tenant_id")
-  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  id           String   @id @default(uuid())
+  touchpointId String   @unique @map("touchpoint_id")
+  type         String   // BUTTON, LINK, INTERACTION
+  role         String
+  module       String
+  label        String?  // The text displayed on UI
+  path         String
+  status       String   @default("OK") // OK, 404, ERROR
+  errorDetail  String?  @map("error_detail")
+  isOverridden Boolean  @default(false) @map("is_overridden")
+  overrideValue String? @map("override_value")
+  lastChecked  DateTime @default(now()) @map("last_checked")
+  tenantId     String   @map("tenant_id")
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
   @@map("system_touchpoints")
 }

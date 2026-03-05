@@ -6,10 +6,21 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const sweepRegistryRoute = createRoute({
     summary: 'Platform Registry Sweep',
-    description: 'Iterates through all platform registries (Buttons, Links, Interactions) to detect 404s or connectivity errors.',
+    description: 'Iterates through all platform registries to detect 404s or connectivity errors. Optionally pings public URLs.',
     tags: ['Scrum Master'],
     method: 'post',
     path: '/sweep',
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        publicUrlBase: z.string().optional(), // e.g., 'https://primecare-admin.pages.dev'
+                    }),
+                },
+            },
+        },
+    },
     responses: {
         200: {
             content: {
@@ -22,6 +33,40 @@ const sweepRegistryRoute = createRoute({
                 },
             },
             description: 'Registry sweep completed',
+        },
+    },
+});
+
+const updateTouchpointRoute = createRoute({
+    summary: 'Update System Touchpoint',
+    description: 'Manual override of a registry touchpoint (label or path) from the UI.',
+    tags: ['Scrum Master'],
+    method: 'patch',
+    path: '/touchpoints/{id}',
+    request: {
+        params: z.object({
+            id: z.string(),
+        }),
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        label: z.string().optional(),
+                        path: z.string().optional(),
+                        isOverridden: z.boolean().optional(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Touchpoint updated',
         },
     },
 });
@@ -47,34 +92,53 @@ const listTouchpointsRoute = createRoute({
 r.openapi(sweepRegistryRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
+    const { publicUrlBase } = (await c.req.json()) as { publicUrlBase?: string };
 
     let totalAudited = 0;
     let errorsFound = 0;
 
+    // Helper to check public URL
+    const checkPublic = async (path: string) => {
+        if (!publicUrlBase) return { status: 'OK' as const };
+        try {
+            const url = `${publicUrlBase.replace(/\/$/, '')}${path}`;
+            const res = await fetch(url, { method: 'HEAD' });
+            if (res.status === 404) return { status: '404' as const, detail: 'Public 404' };
+            if (!res.ok) return { status: 'ERROR' as const, detail: `Public HTTP ${res.status}` };
+            return { status: 'OK' as const };
+        } catch (e) {
+            return { status: 'ERROR' as const, detail: `Public Fetch Failed: ${e}` };
+        }
+    };
+
     // 1. Audit Buttons
     for (const btn of ButtonRegistry) {
         totalAudited++;
-        let status = 'OK';
+        let status: 'OK' | '404' | 'WARNING' | 'ERROR' = 'OK';
         let errorDetail = null;
 
         if (btn.apiPath) {
-            // Simple check: Does it start with /v1? Is it in ApiRegistry?
-            // In a real sweep, we might do a HEAD request or check against the registered routes in Hono.
-            // For Face One, we'll flag any path that looks like a placeholder or is missing.
             if (btn.apiPath.includes(':') || btn.apiPath.includes('undefined')) {
                 status = 'WARNING';
-                errorDetail = 'Path contains placeholders or unresolved variables.';
+                errorDetail = 'Path contains placeholders.';
+            } else if (publicUrlBase) {
+                const publicCheck = await checkPublic(btn.apiPath);
+                if (publicCheck.status !== 'OK') {
+                    status = publicCheck.status;
+                    errorDetail = publicCheck.detail;
+                }
             }
         }
 
         await prisma.systemTouchpoint.upsert({
             where: { touchpointId: btn.id },
-            update: { status, errorDetail, lastChecked: new Date() },
+            update: { status, errorDetail, lastChecked: new Date(), label: btn.label },
             create: {
                 touchpointId: btn.id,
                 type: 'BUTTON',
                 role: btn.role,
                 module: btn.module,
+                label: btn.label,
                 path: btn.apiPath || 'UI_ACTION',
                 status,
                 errorDetail,
@@ -88,22 +152,29 @@ r.openapi(sweepRegistryRoute, async (c) => {
     // 2. Audit Links
     for (const link of LinkRegistry) {
         totalAudited++;
-        let status = 'OK';
+        let status: 'OK' | '404' | 'WARNING' | 'ERROR' = 'OK';
         let errorDetail = null;
 
         if (!link.path || link.path === '/shared/404') {
             status = '404';
-            errorDetail = 'Link points to 404 or is undefined.';
+            errorDetail = 'Static link is broken.';
+        } else if (publicUrlBase) {
+            const publicCheck = await checkPublic(link.path);
+            if (publicCheck.status !== 'OK') {
+                status = publicCheck.status;
+                errorDetail = publicCheck.detail;
+            }
         }
 
         await prisma.systemTouchpoint.upsert({
             where: { touchpointId: link.id },
-            update: { status, errorDetail, lastChecked: new Date() },
+            update: { status, errorDetail, lastChecked: new Date(), label: link.label },
             create: {
                 touchpointId: link.id,
                 type: 'LINK',
                 role: link.role,
                 module: link.module,
+                label: link.label,
                 path: link.path,
                 status,
                 errorDetail,
@@ -115,6 +186,24 @@ r.openapi(sweepRegistryRoute, async (c) => {
     }
 
     return c.json({ status: 'success', totalAudited, errorsFound }, 200);
+});
+
+r.openapi(updateTouchpointRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.param();
+    const data = await c.req.json();
+
+    const updated = await prisma.systemTouchpoint.update({
+        where: { id },
+        data: {
+            label: data.label,
+            path: data.path,
+            isOverridden: data.isOverridden ?? true,
+            overrideValue: data.label || data.path, // Store the primary override
+        },
+    });
+
+    return c.json(updated, 200);
 });
 
 r.openapi(listTouchpointsRoute, async (c) => {
