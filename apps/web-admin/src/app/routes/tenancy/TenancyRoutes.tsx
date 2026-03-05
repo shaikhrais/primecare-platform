@@ -9,6 +9,7 @@ const { RouteRegistry } = AdminRegistry;
 // Manager Pages
 const Portfolio = lazy(() => import('./manager/pages/portfolio'));
 const DailyEntry = lazy(() => import('./manager/pages/daily-entry'));
+const UserList = lazy(() => import('../platform/admin/pages/users').then(m => ({ default: m.UserList })));
 const Evaluations = lazy(() => import('./manager/pages/evaluations'));
 const ServiceReview = lazy(() => import('./manager/pages/service-review'));
 const ManagerDashboard = lazy(() => import('./manager/pages/dashboard'));
@@ -22,8 +23,14 @@ const HrRecruitmentPortal = lazy(() => import('./hr/HrRecruitmentPortal'));
 const FinanceRegionalHub = lazy(() => import('./finance/FinanceRegionalHub'));
 const ClinicalQaDashboard = lazy(() => import('./qa/ClinicalQaDashboard'));
 const CoordinatorHub = lazy(() => import('./coordinator/pages/hub/CoordinatorHub'));
+const DispatchMap = lazy(() => import('./coordinator/pages/map'));
+const SosCenter = lazy(() => import('./coordinator/pages/sos'));
+const WaitlistManager = lazy(() => import('./coordinator/pages/waitlist'));
 const AlliedHealthDashboard = lazy(() => import('./allied-health/AlliedHealthDashboard'));
+const OperationsHub = lazy(() => import('./manager/pages/operations'));
 const RegionalStats = lazy(() => import('./manager/pages/RegionalStats'));
+const ComplianceSync = lazy(() => import('./manager/pages/compliance'));
+const FinanceHub = lazy(() => import('./manager/pages/finance/BranchP_L'));
 
 // PSW Pages
 const PswDashboard = lazy(() => import('./psw/pages/dashboard'));
@@ -59,21 +66,30 @@ const CareTeam = lazy(() => import('./client/pages/team/CareTeam'));
 const FeedbackLoop = lazy(() => import('./client/pages/support/FeedbackLoop'));
 const FamilyCareHub = lazy(() => import('./client/pages/engagement/FamilyCareHub'));
 
+// Staff Pages
+const StaffDashboard = lazy(() => import('./staff/pages/dashboard'));
+const StaffTaskGrid = lazy(() => import('./staff/pages/tasks/TaskGrid'));
+const StaffMessageCenter = lazy(() => import('./staff/pages/messages/MessageCenter'));
+const StaffIncidentPortal = lazy(() => import('./staff/pages/operations/IncidentPortal'));
+const StaffComplianceMonitor = lazy(() => import('./staff/pages/operations/ComplianceMonitor'));
+
 export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
+        {/* MANAGER PORTAL */}
         <Route path={RouteRegistry.MANAGER.DASHBOARD} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
-            <Route index element={<Portfolio />} />
-            <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
-            <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
-            <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
+            <Route index element={<ManagerDashboard />} />
+            <Route path="operations" element={<OperationsHub />} />
+            <Route path="regional-stats" element={<RegionalStats />} />
+            <Route path="compliance" element={<ComplianceSync />} />
+            <Route path="finance" element={<FinanceHub />} />
             <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
-            <Route path={RouteRegistry.MANAGER.FINANCE} element={<BranchPL />} />
-            <Route path={RouteRegistry.MANAGER.PAYROLL} element={<PayrollVerification />} />
-            <Route path={RouteRegistry.MANAGER.REGIONAL_STATS} element={<RegionalStats />} />
+            <Route path="portfolio" element={<Portfolio />} />
             <Route path={RouteRegistry.MANAGER.TRAINING} element={<TrainingHub />} />
             <Route path={RouteRegistry.MANAGER.SURVEYS} element={<SurveyManager />} />
-            <Route path=":category" element={<ManagerDashboard />} />
+            <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
+            <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
+            <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
         </Route>
 
         {/* MARKETING PORTAL */}
@@ -96,9 +112,13 @@ export const TenancyRoutes = () => (
             <Route index element={<ClinicalQaDashboard />} />
         </Route>
 
-        {/* COORDINATOR HUB */}
-        <Route path={RouteRegistry.MANAGER.COORDINATOR} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
+        {/* COORDINATOR PORTAL */}
+        <Route path={RouteRegistry.COORDINATOR.DASHBOARD} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<CoordinatorHub />} />
+            <Route path="hub" element={<CoordinatorHub />} />
+            <Route path="dispatch-map" element={<DispatchMap />} />
+            <Route path="waitlist" element={<WaitlistManager />} />
+            <Route path="sos-center" element={<SosCenter />} />
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}
@@ -144,6 +164,16 @@ export const TenancyRoutes = () => (
         {/* ALLIED HEALTH PORTAL */}
         <Route path={RouteRegistry.PLAN.ALLIED.DASHBOARD} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
             <Route index element={<AlliedHealthDashboard />} />
+        </Route>
+
+        {/* STAFF PORTAL */}
+        <Route path={RouteRegistry.STAFF.DASHBOARD} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
+            <Route index element={<StaffDashboard />} />
+            <Route path={RouteRegistry.STAFF.CUSTOMERS} element={<UserList />} />
+            <Route path={RouteRegistry.STAFF.TASKS} element={<StaffTaskGrid />} />
+            <Route path={RouteRegistry.STAFF.MESSAGES} element={<StaffMessageCenter />} />
+            <Route path={RouteRegistry.STAFF.INCIDENTS} element={<StaffIncidentPortal />} />
+            <Route path={RouteRegistry.STAFF.COMPLIANCE} element={<StaffComplianceMonitor />} />
         </Route>
     </>
 );

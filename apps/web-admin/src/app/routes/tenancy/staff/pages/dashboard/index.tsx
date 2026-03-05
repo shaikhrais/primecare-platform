@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@/shared/context/AuthContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import './StaffDashboard.css';
+
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function StaffDashboard() {
@@ -12,101 +14,138 @@ export default function StaffDashboard() {
 
     useEffect(() => {
         // Simulate loading staff specific data
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => setLoading(false), 800);
     }, []);
 
     if (loading) {
-        return <div style={{ padding: '2rem', textAlign: 'center' }}>{t(ContentRegistry.STAFF_DASHBOARD.MESSAGES.LOADING)}</div>;
+        return (
+            <div className="staff-dashboard" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                <div className="animate-pulse flex flex-col items-center">
+                    <div className="w-12 h-12 bg-primary/20 rounded-full mb-4"></div>
+                    <p className="text-sm font-black uppercase tracking-widest text-muted-foreground">
+                        {t(ContentRegistry.STAFF_DASHBOARD.MESSAGES.LOADING)}
+                    </p>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div data-cy="page.container">
-            <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className="staff-dashboard" data-cy="page.container">
+            <header className="staff-dashboard-header">
                 <div>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
+                    <h1 data-cy="page.title">
                         {user?.tenantId ? t(ContentRegistry.STAFF_DASHBOARD.TITLE_BRANCH) : t(ContentRegistry.STAFF_DASHBOARD.TITLE_NETWORK)}
                     </h1>
-                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
+                    <div className="staff-dashboard-subtitle" data-cy="page.subtitle">
                         {user?.email ? `${user.email} • ${t(ContentRegistry.ROLES.STAFF)}` : t(ContentRegistry.STAFF_DASHBOARD.SUBTITLE)}
-                    </p>
+                    </div>
                 </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <Link
-                        to={RouteRegistry.LEARN}
-                        style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            padding: '10px 20px',
-                            backgroundColor: '#FFFFFF',
-                            color: '#475569',
-                            borderRadius: '10px',
-                            textDecoration: 'none',
-                            fontWeight: 700,
-                            fontSize: '0.9rem',
-                            border: '1px solid #e2e8f0'
-                        }}
-                    >
+                <div className="staff-quick-actions">
+                    <Link to={RouteRegistry.LEARN} className="btn-modern btn-modern-secondary text-decoration-none">
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
                     <button
-                        className="btn btn-primary"
+                        className="btn-modern btn-modern-primary"
                         data-cy="btn-staff-task-add"
-                        style={{ padding: '10px 24px', borderRadius: '10px', fontWeight: 800 }}
                         onClick={() => {/* Registry-driven navigation or modal */ }}
                     >
                         + Create Task
                     </button>
                 </div>
+            </header>
+
+            <div className="staff-bento-grid">
+                {/* Large Stats Card */}
+                <div className="staff-bento-card large">
+                    <div>
+                        <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.URGENT_NEEDS)}</span>
+                        <div className="staff-card-value">14</div>
+                    </div>
+                    <div className="staff-card-icon">⚡</div>
+                    <p className="text-sm font-medium text-muted-foreground mt-4">
+                        {t(ContentRegistry.STAFF_DASHBOARD.STATS.URGENT_DESC)}
+                    </p>
+                    <div className="mt-8">
+                        <Link to={RouteRegistry.STAFF.TASKS} className="text-xs font-black uppercase tracking-wider text-primary text-decoration-none hover:underline">
+                            Triage Queue →
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Active Caregivers */}
+                <div className="staff-bento-card">
+                    <div>
+                        <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.ACTIVE_CAREGIVERS)}</span>
+                        <div className="staff-card-value text-green-600">128</div>
+                    </div>
+                    <div className="staff-card-icon">👥</div>
+                </div>
+
+                {/* Missing Timesheets */}
+                <div className="staff-bento-card">
+                    <div>
+                        <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.MISSING_TIMESHEETS)}</span>
+                        <div className="staff-card-value text-amber-500">7</div>
+                    </div>
+                    <div className="staff-card-icon">📄</div>
+                </div>
+
+                {/* Wide Integration Card */}
+                <div className="staff-bento-card wide" style={{ background: 'var(--brand-900)', color: 'white' }}>
+                    <div className="relative z-10">
+                        <span className="staff-card-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Operations Sync</span>
+                        <div className="text-xl font-black mt-2">All Branch Nodes Online</div>
+                        <p className="text-xs font-medium opacity-60 mt-1">Registry-driven audit complete at 21:15</p>
+                    </div>
+                    <div className="staff-card-icon" style={{ opacity: 0.2 }}>🌐</div>
+                    <div className="mt-4 relative z-10">
+                        <div className="flex gap-2">
+                            <div className="px-3 py-1 bg-white/10 rounded-full text-[10px] font-black uppercase">GPS Live</div>
+                            <div className="px-3 py-1 bg-white/10 rounded-full text-[10px] font-black uppercase">Interoperability Active</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-                <div className="pc-card" style={{ padding: '1.5rem', borderLeft: '4px solid #3b82f6' }}>
-                    <div style={{ color: 'var(--text-300)', fontSize: '0.85rem', fontWeight: 600 }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.URGENT_NEEDS)}</div>
-                    <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-500)', marginTop: '0.5rem' }}>14</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)', marginTop: '0.5rem' }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.URGENT_DESC)}</div>
+            <section className="staff-priority-section">
+                <div className="staff-priority-header">
+                    <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">🔔</div>
+                    <h2>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TITLE)}</h2>
                 </div>
 
-                <div className="pc-card" style={{ padding: '1.5rem', borderLeft: '4px solid #10b981' }}>
-                    <div style={{ color: 'var(--text-300)', fontSize: '0.85rem', fontWeight: 600 }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.ACTIVE_CAREGIVERS)}</div>
-                    <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-500)', marginTop: '0.5rem' }}>128</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)', marginTop: '0.5rem' }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.ACTIVE_DESC)}</div>
-                </div>
-
-                <div className="pc-card" style={{ padding: '1.5rem', borderLeft: '4px solid #f59e0b' }}>
-                    <div style={{ color: 'var(--text-300)', fontSize: '0.85rem', fontWeight: 600 }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.MISSING_TIMESHEETS)}</div>
-                    <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-500)', marginTop: '0.5rem' }}>7</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-300)', marginTop: '0.5rem' }}>{t(ContentRegistry.STAFF_DASHBOARD.STATS.MISSING_DESC)}</div>
-                </div>
-            </div>
-
-            <h2 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-100)', marginBottom: '1rem' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TITLE)}</h2>
-
-            <div className="pc-card" style={{ padding: '0 1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0', borderBottom: '1px solid var(--card-border)' }}>
-                    <div>
-                        <div style={{ fontWeight: 600, color: 'var(--text-100)' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_TITLE)}</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--text-300)' }}>4 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_DESC)}</div>
+                <div className="staff-priority-list">
+                    <div className="staff-priority-item">
+                        <div className="staff-priority-info">
+                            <h3>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_TITLE)}</h3>
+                            <p>4 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_DESC)}</p>
+                        </div>
+                        <Link to={RouteRegistry.STAFF.COMPLIANCE} className="btn-modern btn-modern-primary">
+                            {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_BTN)}
+                        </Link>
                     </div>
-                    <button className="btn btn-primary" style={{ height: 'fit-content' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.COMPLIANCE_BTN)}</button>
-                </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0', borderBottom: '1px solid var(--card-border)' }}>
-                    <div>
-                        <div style={{ fontWeight: 600, color: 'var(--text-100)' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_TITLE)}</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--text-300)' }}>22 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_DESC)}</div>
+                    <div className="staff-priority-item">
+                        <div className="staff-priority-info">
+                            <h3>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_TITLE)}</h3>
+                            <p>22 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_DESC)}</p>
+                        </div>
+                        <button className="btn-modern btn-modern-secondary">
+                            {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_BTN)}
+                        </button>
                     </div>
-                    <button className="btn" style={{ height: 'fit-content', background: '#e5e7eb' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_BTN)}</button>
-                </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0' }}>
-                    <div>
-                        <div style={{ fontWeight: 600, color: 'var(--text-100)' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_TITLE)}</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--text-300)' }}>3 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_DESC)}</div>
+                    <div className="staff-priority-item">
+                        <div className="staff-priority-info">
+                            <h3>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_TITLE)}</h3>
+                            <p>3 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_DESC)}</p>
+                        </div>
+                        <Link to={RouteRegistry.STAFF.MESSAGES} className="btn-modern btn-modern-secondary text-decoration-none">
+                            {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_BTN)}
+                        </Link>
                     </div>
-                    <button className="btn" style={{ height: 'fit-content', background: '#e5e7eb' }}>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.FEEDBACK_BTN)}</button>
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

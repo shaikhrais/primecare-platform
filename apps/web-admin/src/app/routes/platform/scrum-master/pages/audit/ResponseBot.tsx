@@ -55,6 +55,17 @@ export default function ResponseBot() {
             issues: rnClinicalEndpoints.length < 3 ? 1 : 0
         });
 
+        // 5. Registry Heartbeat (Phase 6)
+        const totalRoutes = Object.keys(AdminRegistry.RouteRegistry).length;
+        const totalContent = Object.keys(AdminRegistry.ContentRegistry).length;
+        auditResults.push({
+            id: 5,
+            type: 'REGISTRY_HEARTBEAT',
+            status: 'success',
+            summary: `Heartbeat active across ${totalRoutes} routes and ${totalContent} content keys.`,
+            issues: 0
+        });
+
         setTimeout(() => {
             setResults(auditResults);
             setAuditRunning(false);

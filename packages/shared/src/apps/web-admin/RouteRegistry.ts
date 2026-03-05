@@ -4,7 +4,7 @@ const TENANCY = {
         MARKETING: '/tenancy/manager/marketing',
         OPERATIONS: '/tenancy/manager/operations',
         CLINICAL: '/tenancy/manager/clinical',
-        REGIONAL: '/tenancy/manager/regional',
+        REGIONAL: '/tenancy/manager/regional-stats',
         RECRUITING: '/tenancy/manager/recruiting',
         COORDINATOR: '/tenancy/manager/coordinator',
         CRM: '/tenancy/manager/crm',
@@ -18,7 +18,7 @@ const TENANCY = {
         PERFORMANCE: '/tenancy/manager/performance',
         FINANCE: '/tenancy/manager/finance',
         PAYROLL: '/tenancy/manager/payroll',
-        REGIONAL_STATS: '/tenancy/manager/regional/stats',
+        REGIONAL_STATS: '/tenancy/manager/regional-stats',
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',

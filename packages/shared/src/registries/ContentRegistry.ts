@@ -295,6 +295,14 @@ export const ContentRegistry = {
             FEEDBACK_BTN: 'Support',
         }
     },
+    STAFF_PORTAL: {
+        MESSAGES: {
+            TITLE: 'Branch Communication',
+            SEARCH_PLACEHOLDER: 'Search communications...',
+            INPUT_PLACEHOLDER: 'Message encrypted core...',
+            SEND_BTN: 'Send',
+        }
+    },
     COORDINATOR_HUB: {
         TITLE: 'Logistics Control Center',
         SUBTITLE: 'Live Dispatch, SOS Monitoring, and Waitlist Synchronization.',
@@ -317,6 +325,85 @@ export const ContentRegistry = {
             SOS_ACK: 'SOS alert acknowledged.',
             MATCH_OVERRIDDEN: 'PSW manual assignment confirmed.',
             WAITLIST_SYNCED: 'Waitlist priorities updated.',
+        }
+    },
+    COORDINATOR_MAP: {
+        TITLE: 'Live Dispatch Intelligence',
+        SUBTITLE: 'GPS-enabled visual tracking and fleet oversight.',
+        LEGEND: {
+            ACTIVE: 'Active Visit',
+            IDLE: 'On Duty (Idle)',
+            SOS: 'Emergency Triggered',
+        },
+        MESSAGES: {
+            FETCHING: 'Synchronizing GPS Nodes...',
+            OFFLINE: 'GPS Pulse Offline',
+        }
+    },
+    COORDINATOR_WAITLIST: {
+        TITLE: 'Waitlist & Demand Manager',
+        SUBTITLE: 'Strategic prioritization of unassigned care requests.',
+        COLUMNS: {
+            CLIENT: 'Prospective Patient',
+            PRIORITY: 'Priority Level',
+            ACUITY: 'Clinical Acuity',
+            ENTRY_DATE: 'Entry Date',
+        },
+        ACTIONS: {
+            BOOST_PRIORITY: 'Boost Priority',
+            ASSIGN_STAFF: 'Assign Staff',
+        }
+    },
+    COORDINATOR_SOS: {
+        TITLE: 'SOS Response Center',
+        SUBTITLE: 'Critical incident triage and field support escalation.',
+        ALERTS_TITLE: 'High-Risk Alerts',
+        FORM: {
+            ACK_BY: 'Acknowledged By',
+            INCIDENT_LOG: 'Incident Investigation Log',
+            RESOLVE_BTN: 'Resolve & Close SOS',
+        },
+        MESSAGES: {
+            NO_ALERTS: 'System Secure: No active SOS triggers.',
+            LOCK_WARNING: 'SOS record is clinically locked during investigation.',
+        }
+    },
+    MANAGER_OPERATIONS: {
+        TITLE: 'Agency Operations Hub',
+        SUBTITLE: 'Real-time performance metrics and holistic agency oversight.',
+        KPI: {
+            REVENUE: 'Revenue (MTD)',
+            UTILIZATION: 'Staff Utilization',
+            TURNOVER: 'Caregiver Turnover',
+            COMPLIANCE: 'Compliance Score',
+        },
+        ALERTS: {
+            HIGH_RISK: 'Critical Operational Alerts',
+            EXPIRING_CERTS: 'Expiring Certifications',
+            MISSING_PUNCHES: 'Unresolved Shift Discrepancies',
+        },
+        ACTIONS: {
+            GLOBAL_SYNC: 'Force Branch Sync',
+            DOWNLOAD_REPORT: 'Export Summary',
+        }
+    },
+    MANAGER_COMPLIANCE: {
+        TITLE: 'Compliance & Regulatory Sync',
+        SUBTITLE: 'Ensuring 100% adherence to regional healthcare standards.',
+        STATUS: {
+            SYNCED: 'All Records Synchronized',
+            PENDING: 'Audit in Progress',
+            WARNING: 'Compliance Gaps Detected',
+        },
+        TABLE: {
+            PROVIDER: 'Healthcare Professional',
+            DOCUMENT: 'Requirement',
+            EXPIRY: 'Expiry Date',
+            STATUS: 'Status',
+        },
+        MESSAGES: {
+            SYNC_SUCCESS: 'Branch compliance ledger updated.',
+            AUDIT_DONE: 'Regulatory audit log generated.',
         }
     },
     REGIONAL_STATS: {

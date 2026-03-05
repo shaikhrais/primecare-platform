@@ -1,0 +1,157 @@
+.finance-hub-container {
+    padding: 2rem;
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+.finance-header {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.finance-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+}
+
+.finance-header p {
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.finance-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.finance-card {
+    background: white;
+    border-radius: 1.25rem;
+    border: 1px solid #e2e8f0;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.finance-card-large {
+    grid-column: span 2;
+}
+
+.finance-card-metric {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.metric-trend {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.chart-container-premium {
+    height: 300px;
+    margin-top: 1.5rem;
+    background: #fbfcfd;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #e2e8f0;
+}
+
+.expense-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 0.75rem;
+}
+
+.expense-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.expense-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.expense-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.expense-percent {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.finance-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.badge-profit {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-loss {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.export-btn-premium {
+    background: #0f172a;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.export-btn-premium:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
