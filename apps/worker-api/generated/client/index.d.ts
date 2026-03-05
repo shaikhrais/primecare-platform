@@ -383,6 +383,26 @@ export type TechnicalAudit = $Result.DefaultSelection<Prisma.$TechnicalAuditPayl
  * 
  */
 export type RegistryEntry = $Result.DefaultSelection<Prisma.$RegistryEntryPayload>
+/**
+ * Model BookingRequest
+ * 
+ */
+export type BookingRequest = $Result.DefaultSelection<Prisma.$BookingRequestPayload>
+/**
+ * Model DailyAuditSignOff
+ * 
+ */
+export type DailyAuditSignOff = $Result.DefaultSelection<Prisma.$DailyAuditSignOffPayload>
+/**
+ * Model WellnessPulse
+ * 
+ */
+export type WellnessPulse = $Result.DefaultSelection<Prisma.$WellnessPulsePayload>
+/**
+ * Model SystemTouchpoint
+ * 
+ */
+export type SystemTouchpoint = $Result.DefaultSelection<Prisma.$SystemTouchpointPayload>
 
 /**
  * Enums
@@ -1426,6 +1446,46 @@ export class PrismaClient<
     * ```
     */
   get registryEntry(): Prisma.RegistryEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.bookingRequest`: Exposes CRUD operations for the **BookingRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BookingRequests
+    * const bookingRequests = await prisma.bookingRequest.findMany()
+    * ```
+    */
+  get bookingRequest(): Prisma.BookingRequestDelegate<ExtArgs>;
+
+  /**
+   * `prisma.dailyAuditSignOff`: Exposes CRUD operations for the **DailyAuditSignOff** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyAuditSignOffs
+    * const dailyAuditSignOffs = await prisma.dailyAuditSignOff.findMany()
+    * ```
+    */
+  get dailyAuditSignOff(): Prisma.DailyAuditSignOffDelegate<ExtArgs>;
+
+  /**
+   * `prisma.wellnessPulse`: Exposes CRUD operations for the **WellnessPulse** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WellnessPulses
+    * const wellnessPulses = await prisma.wellnessPulse.findMany()
+    * ```
+    */
+  get wellnessPulse(): Prisma.WellnessPulseDelegate<ExtArgs>;
+
+  /**
+   * `prisma.systemTouchpoint`: Exposes CRUD operations for the **SystemTouchpoint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemTouchpoints
+    * const systemTouchpoints = await prisma.systemTouchpoint.findMany()
+    * ```
+    */
+  get systemTouchpoint(): Prisma.SystemTouchpointDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1940,7 +2000,11 @@ export namespace Prisma {
     FamilyNotification: 'FamilyNotification',
     CareFeedback: 'CareFeedback',
     TechnicalAudit: 'TechnicalAudit',
-    RegistryEntry: 'RegistryEntry'
+    RegistryEntry: 'RegistryEntry',
+    BookingRequest: 'BookingRequest',
+    DailyAuditSignOff: 'DailyAuditSignOff',
+    WellnessPulse: 'WellnessPulse',
+    SystemTouchpoint: 'SystemTouchpoint'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1956,7 +2020,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7140,6 +7204,286 @@ export namespace Prisma {
           }
         }
       }
+      BookingRequest: {
+        payload: Prisma.$BookingRequestPayload<ExtArgs>
+        fields: Prisma.BookingRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookingRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookingRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.BookingRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookingRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          findMany: {
+            args: Prisma.BookingRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>[]
+          }
+          create: {
+            args: Prisma.BookingRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          createMany: {
+            args: Prisma.BookingRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookingRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.BookingRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          update: {
+            args: Prisma.BookingRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookingRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookingRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BookingRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.BookingRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBookingRequest>
+          }
+          groupBy: {
+            args: Prisma.BookingRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookingRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BookingRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<BookingRequestCountAggregateOutputType> | number
+          }
+        }
+      }
+      DailyAuditSignOff: {
+        payload: Prisma.$DailyAuditSignOffPayload<ExtArgs>
+        fields: Prisma.DailyAuditSignOffFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyAuditSignOffFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyAuditSignOffFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyAuditSignOffFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyAuditSignOffFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          findMany: {
+            args: Prisma.DailyAuditSignOffFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>[]
+          }
+          create: {
+            args: Prisma.DailyAuditSignOffCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          createMany: {
+            args: Prisma.DailyAuditSignOffCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyAuditSignOffCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyAuditSignOffDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          update: {
+            args: Prisma.DailyAuditSignOffUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyAuditSignOffDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyAuditSignOffUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DailyAuditSignOffUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyAuditSignOffPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyAuditSignOffAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyAuditSignOff>
+          }
+          groupBy: {
+            args: Prisma.DailyAuditSignOffGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyAuditSignOffGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyAuditSignOffCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyAuditSignOffCountAggregateOutputType> | number
+          }
+        }
+      }
+      WellnessPulse: {
+        payload: Prisma.$WellnessPulsePayload<ExtArgs>
+        fields: Prisma.WellnessPulseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WellnessPulseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WellnessPulseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          findFirst: {
+            args: Prisma.WellnessPulseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WellnessPulseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          findMany: {
+            args: Prisma.WellnessPulseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>[]
+          }
+          create: {
+            args: Prisma.WellnessPulseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          createMany: {
+            args: Prisma.WellnessPulseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WellnessPulseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>[]
+          }
+          delete: {
+            args: Prisma.WellnessPulseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          update: {
+            args: Prisma.WellnessPulseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          deleteMany: {
+            args: Prisma.WellnessPulseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WellnessPulseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WellnessPulseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WellnessPulsePayload>
+          }
+          aggregate: {
+            args: Prisma.WellnessPulseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWellnessPulse>
+          }
+          groupBy: {
+            args: Prisma.WellnessPulseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WellnessPulseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WellnessPulseCountArgs<ExtArgs>
+            result: $Utils.Optional<WellnessPulseCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemTouchpoint: {
+        payload: Prisma.$SystemTouchpointPayload<ExtArgs>
+        fields: Prisma.SystemTouchpointFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemTouchpointFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemTouchpointFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemTouchpointFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemTouchpointFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          findMany: {
+            args: Prisma.SystemTouchpointFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>[]
+          }
+          create: {
+            args: Prisma.SystemTouchpointCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          createMany: {
+            args: Prisma.SystemTouchpointCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemTouchpointCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemTouchpointDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          update: {
+            args: Prisma.SystemTouchpointUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemTouchpointDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemTouchpointUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SystemTouchpointUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemTouchpointPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemTouchpointAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemTouchpoint>
+          }
+          groupBy: {
+            args: Prisma.SystemTouchpointGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemTouchpointGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemTouchpointCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemTouchpointCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7320,6 +7664,8 @@ export namespace Prisma {
     supervisionLogs: number
     acknowledgedIncidents: number
     performedAudits: number
+    dailyAuditSignOffs: number
+    wellnessPulses: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7338,6 +7684,8 @@ export namespace Prisma {
     supervisionLogs?: boolean | UserCountOutputTypeCountSupervisionLogsArgs
     acknowledgedIncidents?: boolean | UserCountOutputTypeCountAcknowledgedIncidentsArgs
     performedAudits?: boolean | UserCountOutputTypeCountPerformedAuditsArgs
+    dailyAuditSignOffs?: boolean | UserCountOutputTypeCountDailyAuditSignOffsArgs
+    wellnessPulses?: boolean | UserCountOutputTypeCountWellnessPulsesArgs
   }
 
   // Custom InputTypes
@@ -7456,6 +7804,20 @@ export namespace Prisma {
     where?: TechnicalAuditWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyAuditSignOffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyAuditSignOffWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWellnessPulsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WellnessPulseWhereInput
+  }
+
 
   /**
    * Count Type TenantCountOutputType
@@ -7503,6 +7865,10 @@ export namespace Prisma {
     familyNotifications: number
     careFeedbacks: number
     technicalAudits: number
+    bookingRequests: number
+    dailyAuditSignOffs: number
+    wellnessPulses: number
+    systemTouchpoints: number
     childTenants: number
     franchises: number
     marketplaceListings: number
@@ -7558,6 +7924,10 @@ export namespace Prisma {
     familyNotifications?: boolean | TenantCountOutputTypeCountFamilyNotificationsArgs
     careFeedbacks?: boolean | TenantCountOutputTypeCountCareFeedbacksArgs
     technicalAudits?: boolean | TenantCountOutputTypeCountTechnicalAuditsArgs
+    bookingRequests?: boolean | TenantCountOutputTypeCountBookingRequestsArgs
+    dailyAuditSignOffs?: boolean | TenantCountOutputTypeCountDailyAuditSignOffsArgs
+    wellnessPulses?: boolean | TenantCountOutputTypeCountWellnessPulsesArgs
+    systemTouchpoints?: boolean | TenantCountOutputTypeCountSystemTouchpointsArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     franchises?: boolean | TenantCountOutputTypeCountFranchisesArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
@@ -7872,6 +8242,34 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountBookingRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingRequestWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDailyAuditSignOffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyAuditSignOffWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountWellnessPulsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WellnessPulseWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountSystemTouchpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemTouchpointWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountChildTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantWhereInput
   }
@@ -7972,6 +8370,7 @@ export namespace Prisma {
     waitlistEntries: number
     familyNotifications: number
     careFeedbacks: number
+    bookingRequests: number
   }
 
   export type ClientProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7995,6 +8394,7 @@ export namespace Prisma {
     waitlistEntries?: boolean | ClientProfileCountOutputTypeCountWaitlistEntriesArgs
     familyNotifications?: boolean | ClientProfileCountOutputTypeCountFamilyNotificationsArgs
     careFeedbacks?: boolean | ClientProfileCountOutputTypeCountCareFeedbacksArgs
+    bookingRequests?: boolean | ClientProfileCountOutputTypeCountBookingRequestsArgs
   }
 
   // Custom InputTypes
@@ -8146,6 +8546,13 @@ export namespace Prisma {
    */
   export type ClientProfileCountOutputTypeCountCareFeedbacksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CareFeedbackWhereInput
+  }
+
+  /**
+   * ClientProfileCountOutputType without action
+   */
+  export type ClientProfileCountOutputTypeCountBookingRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingRequestWhereInput
   }
 
 
@@ -9077,6 +9484,8 @@ export namespace Prisma {
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
     acknowledgedIncidents?: boolean | User$acknowledgedIncidentsArgs<ExtArgs>
     performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
+    dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
+    wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -9130,6 +9539,8 @@ export namespace Prisma {
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
     acknowledgedIncidents?: boolean | User$acknowledgedIncidentsArgs<ExtArgs>
     performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
+    dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
+    wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9157,6 +9568,8 @@ export namespace Prisma {
       supervisionLogs: Prisma.$SupervisionLogPayload<ExtArgs>[]
       acknowledgedIncidents: Prisma.$IncidentPayload<ExtArgs>[]
       performedAudits: Prisma.$TechnicalAuditPayload<ExtArgs>[]
+      dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
+      wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9553,6 +9966,8 @@ export namespace Prisma {
     supervisionLogs<T extends User$supervisionLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupervisionLogPayload<ExtArgs>, T, "findMany"> | Null>
     acknowledgedIncidents<T extends User$acknowledgedIncidentsArgs<ExtArgs> = {}>(args?: Subset<T, User$acknowledgedIncidentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany"> | Null>
     performedAudits<T extends User$performedAuditsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyAuditSignOffs<T extends User$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
+    wellnessPulses<T extends User$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, User$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10242,6 +10657,46 @@ export namespace Prisma {
   }
 
   /**
+   * User.dailyAuditSignOffs
+   */
+  export type User$dailyAuditSignOffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    where?: DailyAuditSignOffWhereInput
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyAuditSignOffScalarFieldEnum | DailyAuditSignOffScalarFieldEnum[]
+  }
+
+  /**
+   * User.wellnessPulses
+   */
+  export type User$wellnessPulsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    where?: WellnessPulseWhereInput
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    cursor?: WellnessPulseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WellnessPulseScalarFieldEnum | WellnessPulseScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10559,6 +11014,10 @@ export namespace Prisma {
     familyNotifications?: boolean | Tenant$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | Tenant$careFeedbacksArgs<ExtArgs>
     technicalAudits?: boolean | Tenant$technicalAuditsArgs<ExtArgs>
+    bookingRequests?: boolean | Tenant$bookingRequestsArgs<ExtArgs>
+    dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
+    wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
+    systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -10651,6 +11110,10 @@ export namespace Prisma {
     familyNotifications?: boolean | Tenant$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | Tenant$careFeedbacksArgs<ExtArgs>
     technicalAudits?: boolean | Tenant$technicalAuditsArgs<ExtArgs>
+    bookingRequests?: boolean | Tenant$bookingRequestsArgs<ExtArgs>
+    dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
+    wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
+    systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -10713,6 +11176,10 @@ export namespace Prisma {
       familyNotifications: Prisma.$FamilyNotificationPayload<ExtArgs>[]
       careFeedbacks: Prisma.$CareFeedbackPayload<ExtArgs>[]
       technicalAudits: Prisma.$TechnicalAuditPayload<ExtArgs>[]
+      bookingRequests: Prisma.$BookingRequestPayload<ExtArgs>[]
+      dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
+      wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
+      systemTouchpoints: Prisma.$SystemTouchpointPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       franchises: Prisma.$FranchisePayload<ExtArgs>[]
@@ -11146,6 +11613,10 @@ export namespace Prisma {
     familyNotifications<T extends Tenant$familyNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$familyNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamilyNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     careFeedbacks<T extends Tenant$careFeedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$careFeedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CareFeedbackPayload<ExtArgs>, T, "findMany"> | Null>
     technicalAudits<T extends Tenant$technicalAuditsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$technicalAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany"> | Null>
+    bookingRequests<T extends Tenant$bookingRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$bookingRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyAuditSignOffs<T extends Tenant$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
+    wellnessPulses<T extends Tenant$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
+    systemTouchpoints<T extends Tenant$systemTouchpointsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$systemTouchpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     franchises<T extends Tenant$franchisesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$franchisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchisePayload<ExtArgs>, T, "findMany"> | Null>
@@ -12336,6 +12807,86 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.bookingRequests
+   */
+  export type Tenant$bookingRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    where?: BookingRequestWhereInput
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    cursor?: BookingRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingRequestScalarFieldEnum | BookingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.dailyAuditSignOffs
+   */
+  export type Tenant$dailyAuditSignOffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    where?: DailyAuditSignOffWhereInput
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyAuditSignOffScalarFieldEnum | DailyAuditSignOffScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.wellnessPulses
+   */
+  export type Tenant$wellnessPulsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    where?: WellnessPulseWhereInput
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    cursor?: WellnessPulseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WellnessPulseScalarFieldEnum | WellnessPulseScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.systemTouchpoints
+   */
+  export type Tenant$systemTouchpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    where?: SystemTouchpointWhereInput
+    orderBy?: SystemTouchpointOrderByWithRelationInput | SystemTouchpointOrderByWithRelationInput[]
+    cursor?: SystemTouchpointWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
   }
 
   /**
@@ -13870,6 +14421,7 @@ export namespace Prisma {
     waitlistEntries?: boolean | ClientProfile$waitlistEntriesArgs<ExtArgs>
     familyNotifications?: boolean | ClientProfile$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | ClientProfile$careFeedbacksArgs<ExtArgs>
+    bookingRequests?: boolean | ClientProfile$bookingRequestsArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientProfile"]>
 
@@ -13942,6 +14494,7 @@ export namespace Prisma {
     waitlistEntries?: boolean | ClientProfile$waitlistEntriesArgs<ExtArgs>
     familyNotifications?: boolean | ClientProfile$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | ClientProfile$careFeedbacksArgs<ExtArgs>
+    bookingRequests?: boolean | ClientProfile$bookingRequestsArgs<ExtArgs>
     _count?: boolean | ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClientProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13976,6 +14529,7 @@ export namespace Prisma {
       waitlistEntries: Prisma.$WaitlistEntryPayload<ExtArgs>[]
       familyNotifications: Prisma.$FamilyNotificationPayload<ExtArgs>[]
       careFeedbacks: Prisma.$CareFeedbackPayload<ExtArgs>[]
+      bookingRequests: Prisma.$BookingRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14383,6 +14937,7 @@ export namespace Prisma {
     waitlistEntries<T extends ClientProfile$waitlistEntriesArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$waitlistEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WaitlistEntryPayload<ExtArgs>, T, "findMany"> | Null>
     familyNotifications<T extends ClientProfile$familyNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$familyNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamilyNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     careFeedbacks<T extends ClientProfile$careFeedbacksArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$careFeedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CareFeedbackPayload<ExtArgs>, T, "findMany"> | Null>
+    bookingRequests<T extends ClientProfile$bookingRequestsArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfile$bookingRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15160,6 +15715,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CareFeedbackScalarFieldEnum | CareFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * ClientProfile.bookingRequests
+   */
+  export type ClientProfile$bookingRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    where?: BookingRequestWhereInput
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    cursor?: BookingRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingRequestScalarFieldEnum | BookingRequestScalarFieldEnum[]
   }
 
   /**
@@ -16955,6 +17530,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     handovers?: boolean | Visit$handoversArgs<ExtArgs>
     careFeedbacks?: boolean | Visit$careFeedbacksArgs<ExtArgs>
+    dailyAuditSignOff?: boolean | Visit$dailyAuditSignOffArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["visit"]>
 
@@ -17038,6 +17614,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     handovers?: boolean | Visit$handoversArgs<ExtArgs>
     careFeedbacks?: boolean | Visit$careFeedbacksArgs<ExtArgs>
+    dailyAuditSignOff?: boolean | Visit$dailyAuditSignOffArgs<ExtArgs>
     _count?: boolean | VisitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17067,6 +17644,7 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs>
       handovers: Prisma.$ShiftHandoverPayload<ExtArgs>[]
       careFeedbacks: Prisma.$CareFeedbackPayload<ExtArgs>[]
+      dailyAuditSignOff: Prisma.$DailyAuditSignOffPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17475,6 +18053,7 @@ export namespace Prisma {
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     handovers<T extends Visit$handoversArgs<ExtArgs> = {}>(args?: Subset<T, Visit$handoversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftHandoverPayload<ExtArgs>, T, "findMany"> | Null>
     careFeedbacks<T extends Visit$careFeedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Visit$careFeedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CareFeedbackPayload<ExtArgs>, T, "findMany"> | Null>
+    dailyAuditSignOff<T extends Visit$dailyAuditSignOffArgs<ExtArgs> = {}>(args?: Subset<T, Visit$dailyAuditSignOffArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18095,6 +18674,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CareFeedbackScalarFieldEnum | CareFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Visit.dailyAuditSignOff
+   */
+  export type Visit$dailyAuditSignOffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    where?: DailyAuditSignOffWhereInput
   }
 
   /**
@@ -86209,6 +86803,3954 @@ export namespace Prisma {
 
 
   /**
+   * Model BookingRequest
+   */
+
+  export type AggregateBookingRequest = {
+    _count: BookingRequestCountAggregateOutputType | null
+    _min: BookingRequestMinAggregateOutputType | null
+    _max: BookingRequestMaxAggregateOutputType | null
+  }
+
+  export type BookingRequestMinAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    tenantId: string | null
+    serviceType: string | null
+    preferredDate: Date | null
+    preferredTime: string | null
+    notes: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingRequestMaxAggregateOutputType = {
+    id: string | null
+    clientId: string | null
+    tenantId: string | null
+    serviceType: string | null
+    preferredDate: Date | null
+    preferredTime: string | null
+    notes: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingRequestCountAggregateOutputType = {
+    id: number
+    clientId: number
+    tenantId: number
+    serviceType: number
+    preferredDate: number
+    preferredTime: number
+    notes: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BookingRequestMinAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    serviceType?: true
+    preferredDate?: true
+    preferredTime?: true
+    notes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingRequestMaxAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    serviceType?: true
+    preferredDate?: true
+    preferredTime?: true
+    notes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingRequestCountAggregateInputType = {
+    id?: true
+    clientId?: true
+    tenantId?: true
+    serviceType?: true
+    preferredDate?: true
+    preferredTime?: true
+    notes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BookingRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BookingRequest to aggregate.
+     */
+    where?: BookingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingRequests to fetch.
+     */
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BookingRequests
+    **/
+    _count?: true | BookingRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookingRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookingRequestMaxAggregateInputType
+  }
+
+  export type GetBookingRequestAggregateType<T extends BookingRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateBookingRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBookingRequest[P]>
+      : GetScalarType<T[P], AggregateBookingRequest[P]>
+  }
+
+
+
+
+  export type BookingRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingRequestWhereInput
+    orderBy?: BookingRequestOrderByWithAggregationInput | BookingRequestOrderByWithAggregationInput[]
+    by: BookingRequestScalarFieldEnum[] | BookingRequestScalarFieldEnum
+    having?: BookingRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookingRequestCountAggregateInputType | true
+    _min?: BookingRequestMinAggregateInputType
+    _max?: BookingRequestMaxAggregateInputType
+  }
+
+  export type BookingRequestGroupByOutputType = {
+    id: string
+    clientId: string
+    tenantId: string
+    serviceType: string
+    preferredDate: Date
+    preferredTime: string | null
+    notes: string | null
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: BookingRequestCountAggregateOutputType | null
+    _min: BookingRequestMinAggregateOutputType | null
+    _max: BookingRequestMaxAggregateOutputType | null
+  }
+
+  type GetBookingRequestGroupByPayload<T extends BookingRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookingRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    serviceType?: boolean
+    preferredDate?: boolean
+    preferredTime?: boolean
+    notes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookingRequest"]>
+
+  export type BookingRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    serviceType?: boolean
+    preferredDate?: boolean
+    preferredTime?: boolean
+    notes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookingRequest"]>
+
+  export type BookingRequestSelectScalar = {
+    id?: boolean
+    clientId?: boolean
+    tenantId?: boolean
+    serviceType?: boolean
+    preferredDate?: boolean
+    preferredTime?: boolean
+    notes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BookingRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type BookingRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | ClientProfileDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $BookingRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BookingRequest"
+    objects: {
+      client: Prisma.$ClientProfilePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      clientId: string
+      tenantId: string
+      serviceType: string
+      preferredDate: Date
+      preferredTime: string | null
+      notes: string | null
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["bookingRequest"]>
+    composites: {}
+  }
+
+  type BookingRequestGetPayload<S extends boolean | null | undefined | BookingRequestDefaultArgs> = $Result.GetResult<Prisma.$BookingRequestPayload, S>
+
+  type BookingRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BookingRequestFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BookingRequestCountAggregateInputType | true
+    }
+
+  export interface BookingRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BookingRequest'], meta: { name: 'BookingRequest' } }
+    /**
+     * Find zero or one BookingRequest that matches the filter.
+     * @param {BookingRequestFindUniqueArgs} args - Arguments to find a BookingRequest
+     * @example
+     * // Get one BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookingRequestFindUniqueArgs>(args: SelectSubset<T, BookingRequestFindUniqueArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BookingRequest that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BookingRequestFindUniqueOrThrowArgs} args - Arguments to find a BookingRequest
+     * @example
+     * // Get one BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookingRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, BookingRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BookingRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestFindFirstArgs} args - Arguments to find a BookingRequest
+     * @example
+     * // Get one BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookingRequestFindFirstArgs>(args?: SelectSubset<T, BookingRequestFindFirstArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BookingRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestFindFirstOrThrowArgs} args - Arguments to find a BookingRequest
+     * @example
+     * // Get one BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookingRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, BookingRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BookingRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BookingRequests
+     * const bookingRequests = await prisma.bookingRequest.findMany()
+     * 
+     * // Get first 10 BookingRequests
+     * const bookingRequests = await prisma.bookingRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingRequestWithIdOnly = await prisma.bookingRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookingRequestFindManyArgs>(args?: SelectSubset<T, BookingRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BookingRequest.
+     * @param {BookingRequestCreateArgs} args - Arguments to create a BookingRequest.
+     * @example
+     * // Create one BookingRequest
+     * const BookingRequest = await prisma.bookingRequest.create({
+     *   data: {
+     *     // ... data to create a BookingRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookingRequestCreateArgs>(args: SelectSubset<T, BookingRequestCreateArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BookingRequests.
+     * @param {BookingRequestCreateManyArgs} args - Arguments to create many BookingRequests.
+     * @example
+     * // Create many BookingRequests
+     * const bookingRequest = await prisma.bookingRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookingRequestCreateManyArgs>(args?: SelectSubset<T, BookingRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BookingRequests and returns the data saved in the database.
+     * @param {BookingRequestCreateManyAndReturnArgs} args - Arguments to create many BookingRequests.
+     * @example
+     * // Create many BookingRequests
+     * const bookingRequest = await prisma.bookingRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BookingRequests and only return the `id`
+     * const bookingRequestWithIdOnly = await prisma.bookingRequest.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookingRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, BookingRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BookingRequest.
+     * @param {BookingRequestDeleteArgs} args - Arguments to delete one BookingRequest.
+     * @example
+     * // Delete one BookingRequest
+     * const BookingRequest = await prisma.bookingRequest.delete({
+     *   where: {
+     *     // ... filter to delete one BookingRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookingRequestDeleteArgs>(args: SelectSubset<T, BookingRequestDeleteArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BookingRequest.
+     * @param {BookingRequestUpdateArgs} args - Arguments to update one BookingRequest.
+     * @example
+     * // Update one BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookingRequestUpdateArgs>(args: SelectSubset<T, BookingRequestUpdateArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BookingRequests.
+     * @param {BookingRequestDeleteManyArgs} args - Arguments to filter BookingRequests to delete.
+     * @example
+     * // Delete a few BookingRequests
+     * const { count } = await prisma.bookingRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookingRequestDeleteManyArgs>(args?: SelectSubset<T, BookingRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BookingRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BookingRequests
+     * const bookingRequest = await prisma.bookingRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookingRequestUpdateManyArgs>(args: SelectSubset<T, BookingRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BookingRequest.
+     * @param {BookingRequestUpsertArgs} args - Arguments to update or create a BookingRequest.
+     * @example
+     * // Update or create a BookingRequest
+     * const bookingRequest = await prisma.bookingRequest.upsert({
+     *   create: {
+     *     // ... data to create a BookingRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BookingRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookingRequestUpsertArgs>(args: SelectSubset<T, BookingRequestUpsertArgs<ExtArgs>>): Prisma__BookingRequestClient<$Result.GetResult<Prisma.$BookingRequestPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BookingRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestCountArgs} args - Arguments to filter BookingRequests to count.
+     * @example
+     * // Count the number of BookingRequests
+     * const count = await prisma.bookingRequest.count({
+     *   where: {
+     *     // ... the filter for the BookingRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookingRequestCountArgs>(
+      args?: Subset<T, BookingRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BookingRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingRequestAggregateArgs>(args: Subset<T, BookingRequestAggregateArgs>): Prisma.PrismaPromise<GetBookingRequestAggregateType<T>>
+
+    /**
+     * Group by BookingRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookingRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookingRequestGroupByArgs['orderBy'] }
+        : { orderBy?: BookingRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookingRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BookingRequest model
+   */
+  readonly fields: BookingRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BookingRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookingRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends ClientProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientProfileDefaultArgs<ExtArgs>>): Prisma__ClientProfileClient<$Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BookingRequest model
+   */ 
+  interface BookingRequestFieldRefs {
+    readonly id: FieldRef<"BookingRequest", 'String'>
+    readonly clientId: FieldRef<"BookingRequest", 'String'>
+    readonly tenantId: FieldRef<"BookingRequest", 'String'>
+    readonly serviceType: FieldRef<"BookingRequest", 'String'>
+    readonly preferredDate: FieldRef<"BookingRequest", 'DateTime'>
+    readonly preferredTime: FieldRef<"BookingRequest", 'String'>
+    readonly notes: FieldRef<"BookingRequest", 'String'>
+    readonly status: FieldRef<"BookingRequest", 'String'>
+    readonly createdAt: FieldRef<"BookingRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"BookingRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BookingRequest findUnique
+   */
+  export type BookingRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingRequest to fetch.
+     */
+    where: BookingRequestWhereUniqueInput
+  }
+
+  /**
+   * BookingRequest findUniqueOrThrow
+   */
+  export type BookingRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingRequest to fetch.
+     */
+    where: BookingRequestWhereUniqueInput
+  }
+
+  /**
+   * BookingRequest findFirst
+   */
+  export type BookingRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingRequest to fetch.
+     */
+    where?: BookingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingRequests to fetch.
+     */
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BookingRequests.
+     */
+    cursor?: BookingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BookingRequests.
+     */
+    distinct?: BookingRequestScalarFieldEnum | BookingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * BookingRequest findFirstOrThrow
+   */
+  export type BookingRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingRequest to fetch.
+     */
+    where?: BookingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingRequests to fetch.
+     */
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BookingRequests.
+     */
+    cursor?: BookingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BookingRequests.
+     */
+    distinct?: BookingRequestScalarFieldEnum | BookingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * BookingRequest findMany
+   */
+  export type BookingRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which BookingRequests to fetch.
+     */
+    where?: BookingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BookingRequests to fetch.
+     */
+    orderBy?: BookingRequestOrderByWithRelationInput | BookingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BookingRequests.
+     */
+    cursor?: BookingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BookingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BookingRequests.
+     */
+    skip?: number
+    distinct?: BookingRequestScalarFieldEnum | BookingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * BookingRequest create
+   */
+  export type BookingRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BookingRequest.
+     */
+    data: XOR<BookingRequestCreateInput, BookingRequestUncheckedCreateInput>
+  }
+
+  /**
+   * BookingRequest createMany
+   */
+  export type BookingRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BookingRequests.
+     */
+    data: BookingRequestCreateManyInput | BookingRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BookingRequest createManyAndReturn
+   */
+  export type BookingRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BookingRequests.
+     */
+    data: BookingRequestCreateManyInput | BookingRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BookingRequest update
+   */
+  export type BookingRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BookingRequest.
+     */
+    data: XOR<BookingRequestUpdateInput, BookingRequestUncheckedUpdateInput>
+    /**
+     * Choose, which BookingRequest to update.
+     */
+    where: BookingRequestWhereUniqueInput
+  }
+
+  /**
+   * BookingRequest updateMany
+   */
+  export type BookingRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BookingRequests.
+     */
+    data: XOR<BookingRequestUpdateManyMutationInput, BookingRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which BookingRequests to update
+     */
+    where?: BookingRequestWhereInput
+  }
+
+  /**
+   * BookingRequest upsert
+   */
+  export type BookingRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BookingRequest to update in case it exists.
+     */
+    where: BookingRequestWhereUniqueInput
+    /**
+     * In case the BookingRequest found by the `where` argument doesn't exist, create a new BookingRequest with this data.
+     */
+    create: XOR<BookingRequestCreateInput, BookingRequestUncheckedCreateInput>
+    /**
+     * In case the BookingRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookingRequestUpdateInput, BookingRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * BookingRequest delete
+   */
+  export type BookingRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+    /**
+     * Filter which BookingRequest to delete.
+     */
+    where: BookingRequestWhereUniqueInput
+  }
+
+  /**
+   * BookingRequest deleteMany
+   */
+  export type BookingRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BookingRequests to delete
+     */
+    where?: BookingRequestWhereInput
+  }
+
+  /**
+   * BookingRequest without action
+   */
+  export type BookingRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookingRequest
+     */
+    select?: BookingRequestSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DailyAuditSignOff
+   */
+
+  export type AggregateDailyAuditSignOff = {
+    _count: DailyAuditSignOffCountAggregateOutputType | null
+    _min: DailyAuditSignOffMinAggregateOutputType | null
+    _max: DailyAuditSignOffMaxAggregateOutputType | null
+  }
+
+  export type DailyAuditSignOffMinAggregateOutputType = {
+    id: string | null
+    rnId: string | null
+    tenantId: string | null
+    visitId: string | null
+    clinicalComment: string | null
+    status: string | null
+    signedAt: Date | null
+  }
+
+  export type DailyAuditSignOffMaxAggregateOutputType = {
+    id: string | null
+    rnId: string | null
+    tenantId: string | null
+    visitId: string | null
+    clinicalComment: string | null
+    status: string | null
+    signedAt: Date | null
+  }
+
+  export type DailyAuditSignOffCountAggregateOutputType = {
+    id: number
+    rnId: number
+    tenantId: number
+    visitId: number
+    clinicalComment: number
+    status: number
+    signedAt: number
+    _all: number
+  }
+
+
+  export type DailyAuditSignOffMinAggregateInputType = {
+    id?: true
+    rnId?: true
+    tenantId?: true
+    visitId?: true
+    clinicalComment?: true
+    status?: true
+    signedAt?: true
+  }
+
+  export type DailyAuditSignOffMaxAggregateInputType = {
+    id?: true
+    rnId?: true
+    tenantId?: true
+    visitId?: true
+    clinicalComment?: true
+    status?: true
+    signedAt?: true
+  }
+
+  export type DailyAuditSignOffCountAggregateInputType = {
+    id?: true
+    rnId?: true
+    tenantId?: true
+    visitId?: true
+    clinicalComment?: true
+    status?: true
+    signedAt?: true
+    _all?: true
+  }
+
+  export type DailyAuditSignOffAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyAuditSignOff to aggregate.
+     */
+    where?: DailyAuditSignOffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyAuditSignOffs to fetch.
+     */
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyAuditSignOffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyAuditSignOffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyAuditSignOffs
+    **/
+    _count?: true | DailyAuditSignOffCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyAuditSignOffMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyAuditSignOffMaxAggregateInputType
+  }
+
+  export type GetDailyAuditSignOffAggregateType<T extends DailyAuditSignOffAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyAuditSignOff]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyAuditSignOff[P]>
+      : GetScalarType<T[P], AggregateDailyAuditSignOff[P]>
+  }
+
+
+
+
+  export type DailyAuditSignOffGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyAuditSignOffWhereInput
+    orderBy?: DailyAuditSignOffOrderByWithAggregationInput | DailyAuditSignOffOrderByWithAggregationInput[]
+    by: DailyAuditSignOffScalarFieldEnum[] | DailyAuditSignOffScalarFieldEnum
+    having?: DailyAuditSignOffScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyAuditSignOffCountAggregateInputType | true
+    _min?: DailyAuditSignOffMinAggregateInputType
+    _max?: DailyAuditSignOffMaxAggregateInputType
+  }
+
+  export type DailyAuditSignOffGroupByOutputType = {
+    id: string
+    rnId: string
+    tenantId: string
+    visitId: string
+    clinicalComment: string | null
+    status: string
+    signedAt: Date
+    _count: DailyAuditSignOffCountAggregateOutputType | null
+    _min: DailyAuditSignOffMinAggregateOutputType | null
+    _max: DailyAuditSignOffMaxAggregateOutputType | null
+  }
+
+  type GetDailyAuditSignOffGroupByPayload<T extends DailyAuditSignOffGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyAuditSignOffGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyAuditSignOffGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyAuditSignOffGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyAuditSignOffGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyAuditSignOffSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rnId?: boolean
+    tenantId?: boolean
+    visitId?: boolean
+    clinicalComment?: boolean
+    status?: boolean
+    signedAt?: boolean
+    rn?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyAuditSignOff"]>
+
+  export type DailyAuditSignOffSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rnId?: boolean
+    tenantId?: boolean
+    visitId?: boolean
+    clinicalComment?: boolean
+    status?: boolean
+    signedAt?: boolean
+    rn?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyAuditSignOff"]>
+
+  export type DailyAuditSignOffSelectScalar = {
+    id?: boolean
+    rnId?: boolean
+    tenantId?: boolean
+    visitId?: boolean
+    clinicalComment?: boolean
+    status?: boolean
+    signedAt?: boolean
+  }
+
+  export type DailyAuditSignOffInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rn?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+  }
+  export type DailyAuditSignOffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rn?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    visit?: boolean | VisitDefaultArgs<ExtArgs>
+  }
+
+  export type $DailyAuditSignOffPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyAuditSignOff"
+    objects: {
+      rn: Prisma.$UserPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      visit: Prisma.$VisitPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      rnId: string
+      tenantId: string
+      visitId: string
+      clinicalComment: string | null
+      status: string
+      signedAt: Date
+    }, ExtArgs["result"]["dailyAuditSignOff"]>
+    composites: {}
+  }
+
+  type DailyAuditSignOffGetPayload<S extends boolean | null | undefined | DailyAuditSignOffDefaultArgs> = $Result.GetResult<Prisma.$DailyAuditSignOffPayload, S>
+
+  type DailyAuditSignOffCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DailyAuditSignOffFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DailyAuditSignOffCountAggregateInputType | true
+    }
+
+  export interface DailyAuditSignOffDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyAuditSignOff'], meta: { name: 'DailyAuditSignOff' } }
+    /**
+     * Find zero or one DailyAuditSignOff that matches the filter.
+     * @param {DailyAuditSignOffFindUniqueArgs} args - Arguments to find a DailyAuditSignOff
+     * @example
+     * // Get one DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyAuditSignOffFindUniqueArgs>(args: SelectSubset<T, DailyAuditSignOffFindUniqueArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DailyAuditSignOff that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DailyAuditSignOffFindUniqueOrThrowArgs} args - Arguments to find a DailyAuditSignOff
+     * @example
+     * // Get one DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyAuditSignOffFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyAuditSignOffFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DailyAuditSignOff that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffFindFirstArgs} args - Arguments to find a DailyAuditSignOff
+     * @example
+     * // Get one DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyAuditSignOffFindFirstArgs>(args?: SelectSubset<T, DailyAuditSignOffFindFirstArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DailyAuditSignOff that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffFindFirstOrThrowArgs} args - Arguments to find a DailyAuditSignOff
+     * @example
+     * // Get one DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyAuditSignOffFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyAuditSignOffFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DailyAuditSignOffs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyAuditSignOffs
+     * const dailyAuditSignOffs = await prisma.dailyAuditSignOff.findMany()
+     * 
+     * // Get first 10 DailyAuditSignOffs
+     * const dailyAuditSignOffs = await prisma.dailyAuditSignOff.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyAuditSignOffWithIdOnly = await prisma.dailyAuditSignOff.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyAuditSignOffFindManyArgs>(args?: SelectSubset<T, DailyAuditSignOffFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DailyAuditSignOff.
+     * @param {DailyAuditSignOffCreateArgs} args - Arguments to create a DailyAuditSignOff.
+     * @example
+     * // Create one DailyAuditSignOff
+     * const DailyAuditSignOff = await prisma.dailyAuditSignOff.create({
+     *   data: {
+     *     // ... data to create a DailyAuditSignOff
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyAuditSignOffCreateArgs>(args: SelectSubset<T, DailyAuditSignOffCreateArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DailyAuditSignOffs.
+     * @param {DailyAuditSignOffCreateManyArgs} args - Arguments to create many DailyAuditSignOffs.
+     * @example
+     * // Create many DailyAuditSignOffs
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyAuditSignOffCreateManyArgs>(args?: SelectSubset<T, DailyAuditSignOffCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyAuditSignOffs and returns the data saved in the database.
+     * @param {DailyAuditSignOffCreateManyAndReturnArgs} args - Arguments to create many DailyAuditSignOffs.
+     * @example
+     * // Create many DailyAuditSignOffs
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyAuditSignOffs and only return the `id`
+     * const dailyAuditSignOffWithIdOnly = await prisma.dailyAuditSignOff.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyAuditSignOffCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyAuditSignOffCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DailyAuditSignOff.
+     * @param {DailyAuditSignOffDeleteArgs} args - Arguments to delete one DailyAuditSignOff.
+     * @example
+     * // Delete one DailyAuditSignOff
+     * const DailyAuditSignOff = await prisma.dailyAuditSignOff.delete({
+     *   where: {
+     *     // ... filter to delete one DailyAuditSignOff
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyAuditSignOffDeleteArgs>(args: SelectSubset<T, DailyAuditSignOffDeleteArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DailyAuditSignOff.
+     * @param {DailyAuditSignOffUpdateArgs} args - Arguments to update one DailyAuditSignOff.
+     * @example
+     * // Update one DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyAuditSignOffUpdateArgs>(args: SelectSubset<T, DailyAuditSignOffUpdateArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DailyAuditSignOffs.
+     * @param {DailyAuditSignOffDeleteManyArgs} args - Arguments to filter DailyAuditSignOffs to delete.
+     * @example
+     * // Delete a few DailyAuditSignOffs
+     * const { count } = await prisma.dailyAuditSignOff.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyAuditSignOffDeleteManyArgs>(args?: SelectSubset<T, DailyAuditSignOffDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyAuditSignOffs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyAuditSignOffs
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyAuditSignOffUpdateManyArgs>(args: SelectSubset<T, DailyAuditSignOffUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DailyAuditSignOff.
+     * @param {DailyAuditSignOffUpsertArgs} args - Arguments to update or create a DailyAuditSignOff.
+     * @example
+     * // Update or create a DailyAuditSignOff
+     * const dailyAuditSignOff = await prisma.dailyAuditSignOff.upsert({
+     *   create: {
+     *     // ... data to create a DailyAuditSignOff
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyAuditSignOff we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyAuditSignOffUpsertArgs>(args: SelectSubset<T, DailyAuditSignOffUpsertArgs<ExtArgs>>): Prisma__DailyAuditSignOffClient<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DailyAuditSignOffs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffCountArgs} args - Arguments to filter DailyAuditSignOffs to count.
+     * @example
+     * // Count the number of DailyAuditSignOffs
+     * const count = await prisma.dailyAuditSignOff.count({
+     *   where: {
+     *     // ... the filter for the DailyAuditSignOffs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyAuditSignOffCountArgs>(
+      args?: Subset<T, DailyAuditSignOffCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyAuditSignOffCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyAuditSignOff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyAuditSignOffAggregateArgs>(args: Subset<T, DailyAuditSignOffAggregateArgs>): Prisma.PrismaPromise<GetDailyAuditSignOffAggregateType<T>>
+
+    /**
+     * Group by DailyAuditSignOff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyAuditSignOffGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyAuditSignOffGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyAuditSignOffGroupByArgs['orderBy'] }
+        : { orderBy?: DailyAuditSignOffGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyAuditSignOffGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyAuditSignOffGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyAuditSignOff model
+   */
+  readonly fields: DailyAuditSignOffFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyAuditSignOff.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyAuditSignOffClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    rn<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    visit<T extends VisitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VisitDefaultArgs<ExtArgs>>): Prisma__VisitClient<$Result.GetResult<Prisma.$VisitPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyAuditSignOff model
+   */ 
+  interface DailyAuditSignOffFieldRefs {
+    readonly id: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly rnId: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly tenantId: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly visitId: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly clinicalComment: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly status: FieldRef<"DailyAuditSignOff", 'String'>
+    readonly signedAt: FieldRef<"DailyAuditSignOff", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyAuditSignOff findUnique
+   */
+  export type DailyAuditSignOffFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyAuditSignOff to fetch.
+     */
+    where: DailyAuditSignOffWhereUniqueInput
+  }
+
+  /**
+   * DailyAuditSignOff findUniqueOrThrow
+   */
+  export type DailyAuditSignOffFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyAuditSignOff to fetch.
+     */
+    where: DailyAuditSignOffWhereUniqueInput
+  }
+
+  /**
+   * DailyAuditSignOff findFirst
+   */
+  export type DailyAuditSignOffFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyAuditSignOff to fetch.
+     */
+    where?: DailyAuditSignOffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyAuditSignOffs to fetch.
+     */
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyAuditSignOffs.
+     */
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyAuditSignOffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyAuditSignOffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyAuditSignOffs.
+     */
+    distinct?: DailyAuditSignOffScalarFieldEnum | DailyAuditSignOffScalarFieldEnum[]
+  }
+
+  /**
+   * DailyAuditSignOff findFirstOrThrow
+   */
+  export type DailyAuditSignOffFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyAuditSignOff to fetch.
+     */
+    where?: DailyAuditSignOffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyAuditSignOffs to fetch.
+     */
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyAuditSignOffs.
+     */
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyAuditSignOffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyAuditSignOffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyAuditSignOffs.
+     */
+    distinct?: DailyAuditSignOffScalarFieldEnum | DailyAuditSignOffScalarFieldEnum[]
+  }
+
+  /**
+   * DailyAuditSignOff findMany
+   */
+  export type DailyAuditSignOffFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyAuditSignOffs to fetch.
+     */
+    where?: DailyAuditSignOffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyAuditSignOffs to fetch.
+     */
+    orderBy?: DailyAuditSignOffOrderByWithRelationInput | DailyAuditSignOffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyAuditSignOffs.
+     */
+    cursor?: DailyAuditSignOffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyAuditSignOffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyAuditSignOffs.
+     */
+    skip?: number
+    distinct?: DailyAuditSignOffScalarFieldEnum | DailyAuditSignOffScalarFieldEnum[]
+  }
+
+  /**
+   * DailyAuditSignOff create
+   */
+  export type DailyAuditSignOffCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyAuditSignOff.
+     */
+    data: XOR<DailyAuditSignOffCreateInput, DailyAuditSignOffUncheckedCreateInput>
+  }
+
+  /**
+   * DailyAuditSignOff createMany
+   */
+  export type DailyAuditSignOffCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyAuditSignOffs.
+     */
+    data: DailyAuditSignOffCreateManyInput | DailyAuditSignOffCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyAuditSignOff createManyAndReturn
+   */
+  export type DailyAuditSignOffCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DailyAuditSignOffs.
+     */
+    data: DailyAuditSignOffCreateManyInput | DailyAuditSignOffCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyAuditSignOff update
+   */
+  export type DailyAuditSignOffUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyAuditSignOff.
+     */
+    data: XOR<DailyAuditSignOffUpdateInput, DailyAuditSignOffUncheckedUpdateInput>
+    /**
+     * Choose, which DailyAuditSignOff to update.
+     */
+    where: DailyAuditSignOffWhereUniqueInput
+  }
+
+  /**
+   * DailyAuditSignOff updateMany
+   */
+  export type DailyAuditSignOffUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyAuditSignOffs.
+     */
+    data: XOR<DailyAuditSignOffUpdateManyMutationInput, DailyAuditSignOffUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyAuditSignOffs to update
+     */
+    where?: DailyAuditSignOffWhereInput
+  }
+
+  /**
+   * DailyAuditSignOff upsert
+   */
+  export type DailyAuditSignOffUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyAuditSignOff to update in case it exists.
+     */
+    where: DailyAuditSignOffWhereUniqueInput
+    /**
+     * In case the DailyAuditSignOff found by the `where` argument doesn't exist, create a new DailyAuditSignOff with this data.
+     */
+    create: XOR<DailyAuditSignOffCreateInput, DailyAuditSignOffUncheckedCreateInput>
+    /**
+     * In case the DailyAuditSignOff was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyAuditSignOffUpdateInput, DailyAuditSignOffUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyAuditSignOff delete
+   */
+  export type DailyAuditSignOffDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+    /**
+     * Filter which DailyAuditSignOff to delete.
+     */
+    where: DailyAuditSignOffWhereUniqueInput
+  }
+
+  /**
+   * DailyAuditSignOff deleteMany
+   */
+  export type DailyAuditSignOffDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyAuditSignOffs to delete
+     */
+    where?: DailyAuditSignOffWhereInput
+  }
+
+  /**
+   * DailyAuditSignOff without action
+   */
+  export type DailyAuditSignOffDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyAuditSignOff
+     */
+    select?: DailyAuditSignOffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyAuditSignOffInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WellnessPulse
+   */
+
+  export type AggregateWellnessPulse = {
+    _count: WellnessPulseCountAggregateOutputType | null
+    _min: WellnessPulseMinAggregateOutputType | null
+    _max: WellnessPulseMaxAggregateOutputType | null
+  }
+
+  export type WellnessPulseMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tenantId: string | null
+    status: string | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type WellnessPulseMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tenantId: string | null
+    status: string | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type WellnessPulseCountAggregateOutputType = {
+    id: number
+    userId: number
+    tenantId: number
+    status: number
+    note: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WellnessPulseMinAggregateInputType = {
+    id?: true
+    userId?: true
+    tenantId?: true
+    status?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type WellnessPulseMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    tenantId?: true
+    status?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type WellnessPulseCountAggregateInputType = {
+    id?: true
+    userId?: true
+    tenantId?: true
+    status?: true
+    note?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WellnessPulseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WellnessPulse to aggregate.
+     */
+    where?: WellnessPulseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WellnessPulses to fetch.
+     */
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WellnessPulseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WellnessPulses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WellnessPulses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WellnessPulses
+    **/
+    _count?: true | WellnessPulseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WellnessPulseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WellnessPulseMaxAggregateInputType
+  }
+
+  export type GetWellnessPulseAggregateType<T extends WellnessPulseAggregateArgs> = {
+        [P in keyof T & keyof AggregateWellnessPulse]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWellnessPulse[P]>
+      : GetScalarType<T[P], AggregateWellnessPulse[P]>
+  }
+
+
+
+
+  export type WellnessPulseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WellnessPulseWhereInput
+    orderBy?: WellnessPulseOrderByWithAggregationInput | WellnessPulseOrderByWithAggregationInput[]
+    by: WellnessPulseScalarFieldEnum[] | WellnessPulseScalarFieldEnum
+    having?: WellnessPulseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WellnessPulseCountAggregateInputType | true
+    _min?: WellnessPulseMinAggregateInputType
+    _max?: WellnessPulseMaxAggregateInputType
+  }
+
+  export type WellnessPulseGroupByOutputType = {
+    id: string
+    userId: string
+    tenantId: string
+    status: string
+    note: string | null
+    createdAt: Date
+    _count: WellnessPulseCountAggregateOutputType | null
+    _min: WellnessPulseMinAggregateOutputType | null
+    _max: WellnessPulseMaxAggregateOutputType | null
+  }
+
+  type GetWellnessPulseGroupByPayload<T extends WellnessPulseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WellnessPulseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WellnessPulseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WellnessPulseGroupByOutputType[P]>
+            : GetScalarType<T[P], WellnessPulseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WellnessPulseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    status?: boolean
+    note?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["wellnessPulse"]>
+
+  export type WellnessPulseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    status?: boolean
+    note?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["wellnessPulse"]>
+
+  export type WellnessPulseSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    status?: boolean
+    note?: boolean
+    createdAt?: boolean
+  }
+
+  export type WellnessPulseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type WellnessPulseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $WellnessPulsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WellnessPulse"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      tenantId: string
+      status: string
+      note: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["wellnessPulse"]>
+    composites: {}
+  }
+
+  type WellnessPulseGetPayload<S extends boolean | null | undefined | WellnessPulseDefaultArgs> = $Result.GetResult<Prisma.$WellnessPulsePayload, S>
+
+  type WellnessPulseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<WellnessPulseFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: WellnessPulseCountAggregateInputType | true
+    }
+
+  export interface WellnessPulseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WellnessPulse'], meta: { name: 'WellnessPulse' } }
+    /**
+     * Find zero or one WellnessPulse that matches the filter.
+     * @param {WellnessPulseFindUniqueArgs} args - Arguments to find a WellnessPulse
+     * @example
+     * // Get one WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WellnessPulseFindUniqueArgs>(args: SelectSubset<T, WellnessPulseFindUniqueArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one WellnessPulse that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {WellnessPulseFindUniqueOrThrowArgs} args - Arguments to find a WellnessPulse
+     * @example
+     * // Get one WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WellnessPulseFindUniqueOrThrowArgs>(args: SelectSubset<T, WellnessPulseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first WellnessPulse that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseFindFirstArgs} args - Arguments to find a WellnessPulse
+     * @example
+     * // Get one WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WellnessPulseFindFirstArgs>(args?: SelectSubset<T, WellnessPulseFindFirstArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first WellnessPulse that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseFindFirstOrThrowArgs} args - Arguments to find a WellnessPulse
+     * @example
+     * // Get one WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WellnessPulseFindFirstOrThrowArgs>(args?: SelectSubset<T, WellnessPulseFindFirstOrThrowArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more WellnessPulses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WellnessPulses
+     * const wellnessPulses = await prisma.wellnessPulse.findMany()
+     * 
+     * // Get first 10 WellnessPulses
+     * const wellnessPulses = await prisma.wellnessPulse.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const wellnessPulseWithIdOnly = await prisma.wellnessPulse.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WellnessPulseFindManyArgs>(args?: SelectSubset<T, WellnessPulseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a WellnessPulse.
+     * @param {WellnessPulseCreateArgs} args - Arguments to create a WellnessPulse.
+     * @example
+     * // Create one WellnessPulse
+     * const WellnessPulse = await prisma.wellnessPulse.create({
+     *   data: {
+     *     // ... data to create a WellnessPulse
+     *   }
+     * })
+     * 
+     */
+    create<T extends WellnessPulseCreateArgs>(args: SelectSubset<T, WellnessPulseCreateArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many WellnessPulses.
+     * @param {WellnessPulseCreateManyArgs} args - Arguments to create many WellnessPulses.
+     * @example
+     * // Create many WellnessPulses
+     * const wellnessPulse = await prisma.wellnessPulse.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WellnessPulseCreateManyArgs>(args?: SelectSubset<T, WellnessPulseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WellnessPulses and returns the data saved in the database.
+     * @param {WellnessPulseCreateManyAndReturnArgs} args - Arguments to create many WellnessPulses.
+     * @example
+     * // Create many WellnessPulses
+     * const wellnessPulse = await prisma.wellnessPulse.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WellnessPulses and only return the `id`
+     * const wellnessPulseWithIdOnly = await prisma.wellnessPulse.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WellnessPulseCreateManyAndReturnArgs>(args?: SelectSubset<T, WellnessPulseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a WellnessPulse.
+     * @param {WellnessPulseDeleteArgs} args - Arguments to delete one WellnessPulse.
+     * @example
+     * // Delete one WellnessPulse
+     * const WellnessPulse = await prisma.wellnessPulse.delete({
+     *   where: {
+     *     // ... filter to delete one WellnessPulse
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WellnessPulseDeleteArgs>(args: SelectSubset<T, WellnessPulseDeleteArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one WellnessPulse.
+     * @param {WellnessPulseUpdateArgs} args - Arguments to update one WellnessPulse.
+     * @example
+     * // Update one WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WellnessPulseUpdateArgs>(args: SelectSubset<T, WellnessPulseUpdateArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more WellnessPulses.
+     * @param {WellnessPulseDeleteManyArgs} args - Arguments to filter WellnessPulses to delete.
+     * @example
+     * // Delete a few WellnessPulses
+     * const { count } = await prisma.wellnessPulse.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WellnessPulseDeleteManyArgs>(args?: SelectSubset<T, WellnessPulseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WellnessPulses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WellnessPulses
+     * const wellnessPulse = await prisma.wellnessPulse.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WellnessPulseUpdateManyArgs>(args: SelectSubset<T, WellnessPulseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WellnessPulse.
+     * @param {WellnessPulseUpsertArgs} args - Arguments to update or create a WellnessPulse.
+     * @example
+     * // Update or create a WellnessPulse
+     * const wellnessPulse = await prisma.wellnessPulse.upsert({
+     *   create: {
+     *     // ... data to create a WellnessPulse
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WellnessPulse we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WellnessPulseUpsertArgs>(args: SelectSubset<T, WellnessPulseUpsertArgs<ExtArgs>>): Prisma__WellnessPulseClient<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of WellnessPulses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseCountArgs} args - Arguments to filter WellnessPulses to count.
+     * @example
+     * // Count the number of WellnessPulses
+     * const count = await prisma.wellnessPulse.count({
+     *   where: {
+     *     // ... the filter for the WellnessPulses we want to count
+     *   }
+     * })
+    **/
+    count<T extends WellnessPulseCountArgs>(
+      args?: Subset<T, WellnessPulseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WellnessPulseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WellnessPulse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WellnessPulseAggregateArgs>(args: Subset<T, WellnessPulseAggregateArgs>): Prisma.PrismaPromise<GetWellnessPulseAggregateType<T>>
+
+    /**
+     * Group by WellnessPulse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WellnessPulseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WellnessPulseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WellnessPulseGroupByArgs['orderBy'] }
+        : { orderBy?: WellnessPulseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WellnessPulseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWellnessPulseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WellnessPulse model
+   */
+  readonly fields: WellnessPulseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WellnessPulse.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WellnessPulseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WellnessPulse model
+   */ 
+  interface WellnessPulseFieldRefs {
+    readonly id: FieldRef<"WellnessPulse", 'String'>
+    readonly userId: FieldRef<"WellnessPulse", 'String'>
+    readonly tenantId: FieldRef<"WellnessPulse", 'String'>
+    readonly status: FieldRef<"WellnessPulse", 'String'>
+    readonly note: FieldRef<"WellnessPulse", 'String'>
+    readonly createdAt: FieldRef<"WellnessPulse", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WellnessPulse findUnique
+   */
+  export type WellnessPulseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter, which WellnessPulse to fetch.
+     */
+    where: WellnessPulseWhereUniqueInput
+  }
+
+  /**
+   * WellnessPulse findUniqueOrThrow
+   */
+  export type WellnessPulseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter, which WellnessPulse to fetch.
+     */
+    where: WellnessPulseWhereUniqueInput
+  }
+
+  /**
+   * WellnessPulse findFirst
+   */
+  export type WellnessPulseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter, which WellnessPulse to fetch.
+     */
+    where?: WellnessPulseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WellnessPulses to fetch.
+     */
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WellnessPulses.
+     */
+    cursor?: WellnessPulseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WellnessPulses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WellnessPulses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WellnessPulses.
+     */
+    distinct?: WellnessPulseScalarFieldEnum | WellnessPulseScalarFieldEnum[]
+  }
+
+  /**
+   * WellnessPulse findFirstOrThrow
+   */
+  export type WellnessPulseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter, which WellnessPulse to fetch.
+     */
+    where?: WellnessPulseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WellnessPulses to fetch.
+     */
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WellnessPulses.
+     */
+    cursor?: WellnessPulseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WellnessPulses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WellnessPulses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WellnessPulses.
+     */
+    distinct?: WellnessPulseScalarFieldEnum | WellnessPulseScalarFieldEnum[]
+  }
+
+  /**
+   * WellnessPulse findMany
+   */
+  export type WellnessPulseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter, which WellnessPulses to fetch.
+     */
+    where?: WellnessPulseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WellnessPulses to fetch.
+     */
+    orderBy?: WellnessPulseOrderByWithRelationInput | WellnessPulseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WellnessPulses.
+     */
+    cursor?: WellnessPulseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WellnessPulses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WellnessPulses.
+     */
+    skip?: number
+    distinct?: WellnessPulseScalarFieldEnum | WellnessPulseScalarFieldEnum[]
+  }
+
+  /**
+   * WellnessPulse create
+   */
+  export type WellnessPulseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WellnessPulse.
+     */
+    data: XOR<WellnessPulseCreateInput, WellnessPulseUncheckedCreateInput>
+  }
+
+  /**
+   * WellnessPulse createMany
+   */
+  export type WellnessPulseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WellnessPulses.
+     */
+    data: WellnessPulseCreateManyInput | WellnessPulseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WellnessPulse createManyAndReturn
+   */
+  export type WellnessPulseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many WellnessPulses.
+     */
+    data: WellnessPulseCreateManyInput | WellnessPulseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WellnessPulse update
+   */
+  export type WellnessPulseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WellnessPulse.
+     */
+    data: XOR<WellnessPulseUpdateInput, WellnessPulseUncheckedUpdateInput>
+    /**
+     * Choose, which WellnessPulse to update.
+     */
+    where: WellnessPulseWhereUniqueInput
+  }
+
+  /**
+   * WellnessPulse updateMany
+   */
+  export type WellnessPulseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WellnessPulses.
+     */
+    data: XOR<WellnessPulseUpdateManyMutationInput, WellnessPulseUncheckedUpdateManyInput>
+    /**
+     * Filter which WellnessPulses to update
+     */
+    where?: WellnessPulseWhereInput
+  }
+
+  /**
+   * WellnessPulse upsert
+   */
+  export type WellnessPulseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WellnessPulse to update in case it exists.
+     */
+    where: WellnessPulseWhereUniqueInput
+    /**
+     * In case the WellnessPulse found by the `where` argument doesn't exist, create a new WellnessPulse with this data.
+     */
+    create: XOR<WellnessPulseCreateInput, WellnessPulseUncheckedCreateInput>
+    /**
+     * In case the WellnessPulse was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WellnessPulseUpdateInput, WellnessPulseUncheckedUpdateInput>
+  }
+
+  /**
+   * WellnessPulse delete
+   */
+  export type WellnessPulseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+    /**
+     * Filter which WellnessPulse to delete.
+     */
+    where: WellnessPulseWhereUniqueInput
+  }
+
+  /**
+   * WellnessPulse deleteMany
+   */
+  export type WellnessPulseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WellnessPulses to delete
+     */
+    where?: WellnessPulseWhereInput
+  }
+
+  /**
+   * WellnessPulse without action
+   */
+  export type WellnessPulseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WellnessPulse
+     */
+    select?: WellnessPulseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WellnessPulseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SystemTouchpoint
+   */
+
+  export type AggregateSystemTouchpoint = {
+    _count: SystemTouchpointCountAggregateOutputType | null
+    _min: SystemTouchpointMinAggregateOutputType | null
+    _max: SystemTouchpointMaxAggregateOutputType | null
+  }
+
+  export type SystemTouchpointMinAggregateOutputType = {
+    id: string | null
+    touchpointId: string | null
+    type: string | null
+    role: string | null
+    module: string | null
+    label: string | null
+    path: string | null
+    status: string | null
+    errorDetail: string | null
+    isOverridden: boolean | null
+    overrideValue: string | null
+    lastChecked: Date | null
+    tenantId: string | null
+  }
+
+  export type SystemTouchpointMaxAggregateOutputType = {
+    id: string | null
+    touchpointId: string | null
+    type: string | null
+    role: string | null
+    module: string | null
+    label: string | null
+    path: string | null
+    status: string | null
+    errorDetail: string | null
+    isOverridden: boolean | null
+    overrideValue: string | null
+    lastChecked: Date | null
+    tenantId: string | null
+  }
+
+  export type SystemTouchpointCountAggregateOutputType = {
+    id: number
+    touchpointId: number
+    type: number
+    role: number
+    module: number
+    label: number
+    path: number
+    status: number
+    errorDetail: number
+    isOverridden: number
+    overrideValue: number
+    lastChecked: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type SystemTouchpointMinAggregateInputType = {
+    id?: true
+    touchpointId?: true
+    type?: true
+    role?: true
+    module?: true
+    label?: true
+    path?: true
+    status?: true
+    errorDetail?: true
+    isOverridden?: true
+    overrideValue?: true
+    lastChecked?: true
+    tenantId?: true
+  }
+
+  export type SystemTouchpointMaxAggregateInputType = {
+    id?: true
+    touchpointId?: true
+    type?: true
+    role?: true
+    module?: true
+    label?: true
+    path?: true
+    status?: true
+    errorDetail?: true
+    isOverridden?: true
+    overrideValue?: true
+    lastChecked?: true
+    tenantId?: true
+  }
+
+  export type SystemTouchpointCountAggregateInputType = {
+    id?: true
+    touchpointId?: true
+    type?: true
+    role?: true
+    module?: true
+    label?: true
+    path?: true
+    status?: true
+    errorDetail?: true
+    isOverridden?: true
+    overrideValue?: true
+    lastChecked?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type SystemTouchpointAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemTouchpoint to aggregate.
+     */
+    where?: SystemTouchpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemTouchpoints to fetch.
+     */
+    orderBy?: SystemTouchpointOrderByWithRelationInput | SystemTouchpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemTouchpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemTouchpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemTouchpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemTouchpoints
+    **/
+    _count?: true | SystemTouchpointCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemTouchpointMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemTouchpointMaxAggregateInputType
+  }
+
+  export type GetSystemTouchpointAggregateType<T extends SystemTouchpointAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemTouchpoint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemTouchpoint[P]>
+      : GetScalarType<T[P], AggregateSystemTouchpoint[P]>
+  }
+
+
+
+
+  export type SystemTouchpointGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemTouchpointWhereInput
+    orderBy?: SystemTouchpointOrderByWithAggregationInput | SystemTouchpointOrderByWithAggregationInput[]
+    by: SystemTouchpointScalarFieldEnum[] | SystemTouchpointScalarFieldEnum
+    having?: SystemTouchpointScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemTouchpointCountAggregateInputType | true
+    _min?: SystemTouchpointMinAggregateInputType
+    _max?: SystemTouchpointMaxAggregateInputType
+  }
+
+  export type SystemTouchpointGroupByOutputType = {
+    id: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label: string | null
+    path: string
+    status: string
+    errorDetail: string | null
+    isOverridden: boolean
+    overrideValue: string | null
+    lastChecked: Date
+    tenantId: string
+    _count: SystemTouchpointCountAggregateOutputType | null
+    _min: SystemTouchpointMinAggregateOutputType | null
+    _max: SystemTouchpointMaxAggregateOutputType | null
+  }
+
+  type GetSystemTouchpointGroupByPayload<T extends SystemTouchpointGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemTouchpointGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemTouchpointGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemTouchpointGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemTouchpointGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemTouchpointSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    touchpointId?: boolean
+    type?: boolean
+    role?: boolean
+    module?: boolean
+    label?: boolean
+    path?: boolean
+    status?: boolean
+    errorDetail?: boolean
+    isOverridden?: boolean
+    overrideValue?: boolean
+    lastChecked?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["systemTouchpoint"]>
+
+  export type SystemTouchpointSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    touchpointId?: boolean
+    type?: boolean
+    role?: boolean
+    module?: boolean
+    label?: boolean
+    path?: boolean
+    status?: boolean
+    errorDetail?: boolean
+    isOverridden?: boolean
+    overrideValue?: boolean
+    lastChecked?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["systemTouchpoint"]>
+
+  export type SystemTouchpointSelectScalar = {
+    id?: boolean
+    touchpointId?: boolean
+    type?: boolean
+    role?: boolean
+    module?: boolean
+    label?: boolean
+    path?: boolean
+    status?: boolean
+    errorDetail?: boolean
+    isOverridden?: boolean
+    overrideValue?: boolean
+    lastChecked?: boolean
+    tenantId?: boolean
+  }
+
+  export type SystemTouchpointInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type SystemTouchpointIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $SystemTouchpointPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemTouchpoint"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      touchpointId: string
+      type: string
+      role: string
+      module: string
+      label: string | null
+      path: string
+      status: string
+      errorDetail: string | null
+      isOverridden: boolean
+      overrideValue: string | null
+      lastChecked: Date
+      tenantId: string
+    }, ExtArgs["result"]["systemTouchpoint"]>
+    composites: {}
+  }
+
+  type SystemTouchpointGetPayload<S extends boolean | null | undefined | SystemTouchpointDefaultArgs> = $Result.GetResult<Prisma.$SystemTouchpointPayload, S>
+
+  type SystemTouchpointCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SystemTouchpointFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SystemTouchpointCountAggregateInputType | true
+    }
+
+  export interface SystemTouchpointDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemTouchpoint'], meta: { name: 'SystemTouchpoint' } }
+    /**
+     * Find zero or one SystemTouchpoint that matches the filter.
+     * @param {SystemTouchpointFindUniqueArgs} args - Arguments to find a SystemTouchpoint
+     * @example
+     * // Get one SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemTouchpointFindUniqueArgs>(args: SelectSubset<T, SystemTouchpointFindUniqueArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SystemTouchpoint that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SystemTouchpointFindUniqueOrThrowArgs} args - Arguments to find a SystemTouchpoint
+     * @example
+     * // Get one SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemTouchpointFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemTouchpointFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SystemTouchpoint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointFindFirstArgs} args - Arguments to find a SystemTouchpoint
+     * @example
+     * // Get one SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemTouchpointFindFirstArgs>(args?: SelectSubset<T, SystemTouchpointFindFirstArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SystemTouchpoint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointFindFirstOrThrowArgs} args - Arguments to find a SystemTouchpoint
+     * @example
+     * // Get one SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemTouchpointFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemTouchpointFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SystemTouchpoints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemTouchpoints
+     * const systemTouchpoints = await prisma.systemTouchpoint.findMany()
+     * 
+     * // Get first 10 SystemTouchpoints
+     * const systemTouchpoints = await prisma.systemTouchpoint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemTouchpointWithIdOnly = await prisma.systemTouchpoint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemTouchpointFindManyArgs>(args?: SelectSubset<T, SystemTouchpointFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SystemTouchpoint.
+     * @param {SystemTouchpointCreateArgs} args - Arguments to create a SystemTouchpoint.
+     * @example
+     * // Create one SystemTouchpoint
+     * const SystemTouchpoint = await prisma.systemTouchpoint.create({
+     *   data: {
+     *     // ... data to create a SystemTouchpoint
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemTouchpointCreateArgs>(args: SelectSubset<T, SystemTouchpointCreateArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SystemTouchpoints.
+     * @param {SystemTouchpointCreateManyArgs} args - Arguments to create many SystemTouchpoints.
+     * @example
+     * // Create many SystemTouchpoints
+     * const systemTouchpoint = await prisma.systemTouchpoint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemTouchpointCreateManyArgs>(args?: SelectSubset<T, SystemTouchpointCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemTouchpoints and returns the data saved in the database.
+     * @param {SystemTouchpointCreateManyAndReturnArgs} args - Arguments to create many SystemTouchpoints.
+     * @example
+     * // Create many SystemTouchpoints
+     * const systemTouchpoint = await prisma.systemTouchpoint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemTouchpoints and only return the `id`
+     * const systemTouchpointWithIdOnly = await prisma.systemTouchpoint.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemTouchpointCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemTouchpointCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SystemTouchpoint.
+     * @param {SystemTouchpointDeleteArgs} args - Arguments to delete one SystemTouchpoint.
+     * @example
+     * // Delete one SystemTouchpoint
+     * const SystemTouchpoint = await prisma.systemTouchpoint.delete({
+     *   where: {
+     *     // ... filter to delete one SystemTouchpoint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemTouchpointDeleteArgs>(args: SelectSubset<T, SystemTouchpointDeleteArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SystemTouchpoint.
+     * @param {SystemTouchpointUpdateArgs} args - Arguments to update one SystemTouchpoint.
+     * @example
+     * // Update one SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemTouchpointUpdateArgs>(args: SelectSubset<T, SystemTouchpointUpdateArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SystemTouchpoints.
+     * @param {SystemTouchpointDeleteManyArgs} args - Arguments to filter SystemTouchpoints to delete.
+     * @example
+     * // Delete a few SystemTouchpoints
+     * const { count } = await prisma.systemTouchpoint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemTouchpointDeleteManyArgs>(args?: SelectSubset<T, SystemTouchpointDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemTouchpoints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemTouchpoints
+     * const systemTouchpoint = await prisma.systemTouchpoint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemTouchpointUpdateManyArgs>(args: SelectSubset<T, SystemTouchpointUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SystemTouchpoint.
+     * @param {SystemTouchpointUpsertArgs} args - Arguments to update or create a SystemTouchpoint.
+     * @example
+     * // Update or create a SystemTouchpoint
+     * const systemTouchpoint = await prisma.systemTouchpoint.upsert({
+     *   create: {
+     *     // ... data to create a SystemTouchpoint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemTouchpoint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemTouchpointUpsertArgs>(args: SelectSubset<T, SystemTouchpointUpsertArgs<ExtArgs>>): Prisma__SystemTouchpointClient<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SystemTouchpoints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointCountArgs} args - Arguments to filter SystemTouchpoints to count.
+     * @example
+     * // Count the number of SystemTouchpoints
+     * const count = await prisma.systemTouchpoint.count({
+     *   where: {
+     *     // ... the filter for the SystemTouchpoints we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemTouchpointCountArgs>(
+      args?: Subset<T, SystemTouchpointCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemTouchpointCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemTouchpoint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemTouchpointAggregateArgs>(args: Subset<T, SystemTouchpointAggregateArgs>): Prisma.PrismaPromise<GetSystemTouchpointAggregateType<T>>
+
+    /**
+     * Group by SystemTouchpoint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemTouchpointGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemTouchpointGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemTouchpointGroupByArgs['orderBy'] }
+        : { orderBy?: SystemTouchpointGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemTouchpointGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemTouchpointGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemTouchpoint model
+   */
+  readonly fields: SystemTouchpointFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemTouchpoint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemTouchpointClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemTouchpoint model
+   */ 
+  interface SystemTouchpointFieldRefs {
+    readonly id: FieldRef<"SystemTouchpoint", 'String'>
+    readonly touchpointId: FieldRef<"SystemTouchpoint", 'String'>
+    readonly type: FieldRef<"SystemTouchpoint", 'String'>
+    readonly role: FieldRef<"SystemTouchpoint", 'String'>
+    readonly module: FieldRef<"SystemTouchpoint", 'String'>
+    readonly label: FieldRef<"SystemTouchpoint", 'String'>
+    readonly path: FieldRef<"SystemTouchpoint", 'String'>
+    readonly status: FieldRef<"SystemTouchpoint", 'String'>
+    readonly errorDetail: FieldRef<"SystemTouchpoint", 'String'>
+    readonly isOverridden: FieldRef<"SystemTouchpoint", 'Boolean'>
+    readonly overrideValue: FieldRef<"SystemTouchpoint", 'String'>
+    readonly lastChecked: FieldRef<"SystemTouchpoint", 'DateTime'>
+    readonly tenantId: FieldRef<"SystemTouchpoint", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemTouchpoint findUnique
+   */
+  export type SystemTouchpointFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemTouchpoint to fetch.
+     */
+    where: SystemTouchpointWhereUniqueInput
+  }
+
+  /**
+   * SystemTouchpoint findUniqueOrThrow
+   */
+  export type SystemTouchpointFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemTouchpoint to fetch.
+     */
+    where: SystemTouchpointWhereUniqueInput
+  }
+
+  /**
+   * SystemTouchpoint findFirst
+   */
+  export type SystemTouchpointFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemTouchpoint to fetch.
+     */
+    where?: SystemTouchpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemTouchpoints to fetch.
+     */
+    orderBy?: SystemTouchpointOrderByWithRelationInput | SystemTouchpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemTouchpoints.
+     */
+    cursor?: SystemTouchpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemTouchpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemTouchpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemTouchpoints.
+     */
+    distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
+  }
+
+  /**
+   * SystemTouchpoint findFirstOrThrow
+   */
+  export type SystemTouchpointFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemTouchpoint to fetch.
+     */
+    where?: SystemTouchpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemTouchpoints to fetch.
+     */
+    orderBy?: SystemTouchpointOrderByWithRelationInput | SystemTouchpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemTouchpoints.
+     */
+    cursor?: SystemTouchpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemTouchpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemTouchpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemTouchpoints.
+     */
+    distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
+  }
+
+  /**
+   * SystemTouchpoint findMany
+   */
+  export type SystemTouchpointFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemTouchpoints to fetch.
+     */
+    where?: SystemTouchpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemTouchpoints to fetch.
+     */
+    orderBy?: SystemTouchpointOrderByWithRelationInput | SystemTouchpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemTouchpoints.
+     */
+    cursor?: SystemTouchpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemTouchpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemTouchpoints.
+     */
+    skip?: number
+    distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
+  }
+
+  /**
+   * SystemTouchpoint create
+   */
+  export type SystemTouchpointCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SystemTouchpoint.
+     */
+    data: XOR<SystemTouchpointCreateInput, SystemTouchpointUncheckedCreateInput>
+  }
+
+  /**
+   * SystemTouchpoint createMany
+   */
+  export type SystemTouchpointCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemTouchpoints.
+     */
+    data: SystemTouchpointCreateManyInput | SystemTouchpointCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemTouchpoint createManyAndReturn
+   */
+  export type SystemTouchpointCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SystemTouchpoints.
+     */
+    data: SystemTouchpointCreateManyInput | SystemTouchpointCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SystemTouchpoint update
+   */
+  export type SystemTouchpointUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SystemTouchpoint.
+     */
+    data: XOR<SystemTouchpointUpdateInput, SystemTouchpointUncheckedUpdateInput>
+    /**
+     * Choose, which SystemTouchpoint to update.
+     */
+    where: SystemTouchpointWhereUniqueInput
+  }
+
+  /**
+   * SystemTouchpoint updateMany
+   */
+  export type SystemTouchpointUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemTouchpoints.
+     */
+    data: XOR<SystemTouchpointUpdateManyMutationInput, SystemTouchpointUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemTouchpoints to update
+     */
+    where?: SystemTouchpointWhereInput
+  }
+
+  /**
+   * SystemTouchpoint upsert
+   */
+  export type SystemTouchpointUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SystemTouchpoint to update in case it exists.
+     */
+    where: SystemTouchpointWhereUniqueInput
+    /**
+     * In case the SystemTouchpoint found by the `where` argument doesn't exist, create a new SystemTouchpoint with this data.
+     */
+    create: XOR<SystemTouchpointCreateInput, SystemTouchpointUncheckedCreateInput>
+    /**
+     * In case the SystemTouchpoint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemTouchpointUpdateInput, SystemTouchpointUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemTouchpoint delete
+   */
+  export type SystemTouchpointDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+    /**
+     * Filter which SystemTouchpoint to delete.
+     */
+    where: SystemTouchpointWhereUniqueInput
+  }
+
+  /**
+   * SystemTouchpoint deleteMany
+   */
+  export type SystemTouchpointDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemTouchpoints to delete
+     */
+    where?: SystemTouchpointWhereInput
+  }
+
+  /**
+   * SystemTouchpoint without action
+   */
+  export type SystemTouchpointDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemTouchpoint
+     */
+    select?: SystemTouchpointSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemTouchpointInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -87338,6 +91880,66 @@ export namespace Prisma {
   export type RegistryEntryScalarFieldEnum = (typeof RegistryEntryScalarFieldEnum)[keyof typeof RegistryEntryScalarFieldEnum]
 
 
+  export const BookingRequestScalarFieldEnum: {
+    id: 'id',
+    clientId: 'clientId',
+    tenantId: 'tenantId',
+    serviceType: 'serviceType',
+    preferredDate: 'preferredDate',
+    preferredTime: 'preferredTime',
+    notes: 'notes',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BookingRequestScalarFieldEnum = (typeof BookingRequestScalarFieldEnum)[keyof typeof BookingRequestScalarFieldEnum]
+
+
+  export const DailyAuditSignOffScalarFieldEnum: {
+    id: 'id',
+    rnId: 'rnId',
+    tenantId: 'tenantId',
+    visitId: 'visitId',
+    clinicalComment: 'clinicalComment',
+    status: 'status',
+    signedAt: 'signedAt'
+  };
+
+  export type DailyAuditSignOffScalarFieldEnum = (typeof DailyAuditSignOffScalarFieldEnum)[keyof typeof DailyAuditSignOffScalarFieldEnum]
+
+
+  export const WellnessPulseScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    tenantId: 'tenantId',
+    status: 'status',
+    note: 'note',
+    createdAt: 'createdAt'
+  };
+
+  export type WellnessPulseScalarFieldEnum = (typeof WellnessPulseScalarFieldEnum)[keyof typeof WellnessPulseScalarFieldEnum]
+
+
+  export const SystemTouchpointScalarFieldEnum: {
+    id: 'id',
+    touchpointId: 'touchpointId',
+    type: 'type',
+    role: 'role',
+    module: 'module',
+    label: 'label',
+    path: 'path',
+    status: 'status',
+    errorDetail: 'errorDetail',
+    isOverridden: 'isOverridden',
+    overrideValue: 'overrideValue',
+    lastChecked: 'lastChecked',
+    tenantId: 'tenantId'
+  };
+
+  export type SystemTouchpointScalarFieldEnum = (typeof SystemTouchpointScalarFieldEnum)[keyof typeof SystemTouchpointScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -87666,6 +92268,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogListRelationFilter
     acknowledgedIncidents?: IncidentListRelationFilter
     performedAudits?: TechnicalAuditListRelationFilter
+    dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
+    wellnessPulses?: WellnessPulseListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -87699,6 +92303,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogOrderByRelationAggregateInput
     acknowledgedIncidents?: IncidentOrderByRelationAggregateInput
     performedAudits?: TechnicalAuditOrderByRelationAggregateInput
+    dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
+    wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -87735,6 +92341,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogListRelationFilter
     acknowledgedIncidents?: IncidentListRelationFilter
     performedAudits?: TechnicalAuditListRelationFilter
+    dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
+    wellnessPulses?: WellnessPulseListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -87832,6 +92440,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
     technicalAudits?: TechnicalAuditListRelationFilter
+    bookingRequests?: BookingRequestListRelationFilter
+    dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
+    wellnessPulses?: WellnessPulseListRelationFilter
+    systemTouchpoints?: SystemTouchpointListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -87902,6 +92514,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationOrderByRelationAggregateInput
     careFeedbacks?: CareFeedbackOrderByRelationAggregateInput
     technicalAudits?: TechnicalAuditOrderByRelationAggregateInput
+    bookingRequests?: BookingRequestOrderByRelationAggregateInput
+    dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
+    wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
+    systemTouchpoints?: SystemTouchpointOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     franchises?: FranchiseOrderByRelationAggregateInput
@@ -87975,6 +92591,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
     technicalAudits?: TechnicalAuditListRelationFilter
+    bookingRequests?: BookingRequestListRelationFilter
+    dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
+    wellnessPulses?: WellnessPulseListRelationFilter
+    systemTouchpoints?: SystemTouchpointListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -88141,6 +92761,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryListRelationFilter
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    bookingRequests?: BookingRequestListRelationFilter
   }
 
   export type ClientProfileOrderByWithRelationInput = {
@@ -88185,6 +92806,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryOrderByRelationAggregateInput
     familyNotifications?: FamilyNotificationOrderByRelationAggregateInput
     careFeedbacks?: CareFeedbackOrderByRelationAggregateInput
+    bookingRequests?: BookingRequestOrderByRelationAggregateInput
   }
 
   export type ClientProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -88232,6 +92854,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryListRelationFilter
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    bookingRequests?: BookingRequestListRelationFilter
   }, "id" | "userId">
 
   export type ClientProfileOrderByWithAggregationInput = {
@@ -88478,6 +93101,7 @@ export namespace Prisma {
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     handovers?: ShiftHandoverListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    dailyAuditSignOff?: XOR<DailyAuditSignOffNullableRelationFilter, DailyAuditSignOffWhereInput> | null
   }
 
   export type VisitOrderByWithRelationInput = {
@@ -88523,6 +93147,7 @@ export namespace Prisma {
     tenant?: TenantOrderByWithRelationInput
     handovers?: ShiftHandoverOrderByRelationAggregateInput
     careFeedbacks?: CareFeedbackOrderByRelationAggregateInput
+    dailyAuditSignOff?: DailyAuditSignOffOrderByWithRelationInput
   }
 
   export type VisitWhereUniqueInput = Prisma.AtLeast<{
@@ -88571,6 +93196,7 @@ export namespace Prisma {
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     handovers?: ShiftHandoverListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    dailyAuditSignOff?: XOR<DailyAuditSignOffNullableRelationFilter, DailyAuditSignOffWhereInput> | null
   }, "id">
 
   export type VisitOrderByWithAggregationInput = {
@@ -93842,6 +98468,318 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"RegistryEntry"> | Date | string
   }
 
+  export type BookingRequestWhereInput = {
+    AND?: BookingRequestWhereInput | BookingRequestWhereInput[]
+    OR?: BookingRequestWhereInput[]
+    NOT?: BookingRequestWhereInput | BookingRequestWhereInput[]
+    id?: StringFilter<"BookingRequest"> | string
+    clientId?: StringFilter<"BookingRequest"> | string
+    tenantId?: StringFilter<"BookingRequest"> | string
+    serviceType?: StringFilter<"BookingRequest"> | string
+    preferredDate?: DateTimeFilter<"BookingRequest"> | Date | string
+    preferredTime?: StringNullableFilter<"BookingRequest"> | string | null
+    notes?: StringNullableFilter<"BookingRequest"> | string | null
+    status?: StringFilter<"BookingRequest"> | string
+    createdAt?: DateTimeFilter<"BookingRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"BookingRequest"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type BookingRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    serviceType?: SortOrder
+    preferredDate?: SortOrder
+    preferredTime?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    client?: ClientProfileOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type BookingRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BookingRequestWhereInput | BookingRequestWhereInput[]
+    OR?: BookingRequestWhereInput[]
+    NOT?: BookingRequestWhereInput | BookingRequestWhereInput[]
+    clientId?: StringFilter<"BookingRequest"> | string
+    tenantId?: StringFilter<"BookingRequest"> | string
+    serviceType?: StringFilter<"BookingRequest"> | string
+    preferredDate?: DateTimeFilter<"BookingRequest"> | Date | string
+    preferredTime?: StringNullableFilter<"BookingRequest"> | string | null
+    notes?: StringNullableFilter<"BookingRequest"> | string | null
+    status?: StringFilter<"BookingRequest"> | string
+    createdAt?: DateTimeFilter<"BookingRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"BookingRequest"> | Date | string
+    client?: XOR<ClientProfileRelationFilter, ClientProfileWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type BookingRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    serviceType?: SortOrder
+    preferredDate?: SortOrder
+    preferredTime?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BookingRequestCountOrderByAggregateInput
+    _max?: BookingRequestMaxOrderByAggregateInput
+    _min?: BookingRequestMinOrderByAggregateInput
+  }
+
+  export type BookingRequestScalarWhereWithAggregatesInput = {
+    AND?: BookingRequestScalarWhereWithAggregatesInput | BookingRequestScalarWhereWithAggregatesInput[]
+    OR?: BookingRequestScalarWhereWithAggregatesInput[]
+    NOT?: BookingRequestScalarWhereWithAggregatesInput | BookingRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BookingRequest"> | string
+    clientId?: StringWithAggregatesFilter<"BookingRequest"> | string
+    tenantId?: StringWithAggregatesFilter<"BookingRequest"> | string
+    serviceType?: StringWithAggregatesFilter<"BookingRequest"> | string
+    preferredDate?: DateTimeWithAggregatesFilter<"BookingRequest"> | Date | string
+    preferredTime?: StringNullableWithAggregatesFilter<"BookingRequest"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"BookingRequest"> | string | null
+    status?: StringWithAggregatesFilter<"BookingRequest"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BookingRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BookingRequest"> | Date | string
+  }
+
+  export type DailyAuditSignOffWhereInput = {
+    AND?: DailyAuditSignOffWhereInput | DailyAuditSignOffWhereInput[]
+    OR?: DailyAuditSignOffWhereInput[]
+    NOT?: DailyAuditSignOffWhereInput | DailyAuditSignOffWhereInput[]
+    id?: StringFilter<"DailyAuditSignOff"> | string
+    rnId?: StringFilter<"DailyAuditSignOff"> | string
+    tenantId?: StringFilter<"DailyAuditSignOff"> | string
+    visitId?: StringFilter<"DailyAuditSignOff"> | string
+    clinicalComment?: StringNullableFilter<"DailyAuditSignOff"> | string | null
+    status?: StringFilter<"DailyAuditSignOff"> | string
+    signedAt?: DateTimeFilter<"DailyAuditSignOff"> | Date | string
+    rn?: XOR<UserRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    visit?: XOR<VisitRelationFilter, VisitWhereInput>
+  }
+
+  export type DailyAuditSignOffOrderByWithRelationInput = {
+    id?: SortOrder
+    rnId?: SortOrder
+    tenantId?: SortOrder
+    visitId?: SortOrder
+    clinicalComment?: SortOrderInput | SortOrder
+    status?: SortOrder
+    signedAt?: SortOrder
+    rn?: UserOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+    visit?: VisitOrderByWithRelationInput
+  }
+
+  export type DailyAuditSignOffWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    visitId?: string
+    AND?: DailyAuditSignOffWhereInput | DailyAuditSignOffWhereInput[]
+    OR?: DailyAuditSignOffWhereInput[]
+    NOT?: DailyAuditSignOffWhereInput | DailyAuditSignOffWhereInput[]
+    rnId?: StringFilter<"DailyAuditSignOff"> | string
+    tenantId?: StringFilter<"DailyAuditSignOff"> | string
+    clinicalComment?: StringNullableFilter<"DailyAuditSignOff"> | string | null
+    status?: StringFilter<"DailyAuditSignOff"> | string
+    signedAt?: DateTimeFilter<"DailyAuditSignOff"> | Date | string
+    rn?: XOR<UserRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    visit?: XOR<VisitRelationFilter, VisitWhereInput>
+  }, "id" | "visitId">
+
+  export type DailyAuditSignOffOrderByWithAggregationInput = {
+    id?: SortOrder
+    rnId?: SortOrder
+    tenantId?: SortOrder
+    visitId?: SortOrder
+    clinicalComment?: SortOrderInput | SortOrder
+    status?: SortOrder
+    signedAt?: SortOrder
+    _count?: DailyAuditSignOffCountOrderByAggregateInput
+    _max?: DailyAuditSignOffMaxOrderByAggregateInput
+    _min?: DailyAuditSignOffMinOrderByAggregateInput
+  }
+
+  export type DailyAuditSignOffScalarWhereWithAggregatesInput = {
+    AND?: DailyAuditSignOffScalarWhereWithAggregatesInput | DailyAuditSignOffScalarWhereWithAggregatesInput[]
+    OR?: DailyAuditSignOffScalarWhereWithAggregatesInput[]
+    NOT?: DailyAuditSignOffScalarWhereWithAggregatesInput | DailyAuditSignOffScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyAuditSignOff"> | string
+    rnId?: StringWithAggregatesFilter<"DailyAuditSignOff"> | string
+    tenantId?: StringWithAggregatesFilter<"DailyAuditSignOff"> | string
+    visitId?: StringWithAggregatesFilter<"DailyAuditSignOff"> | string
+    clinicalComment?: StringNullableWithAggregatesFilter<"DailyAuditSignOff"> | string | null
+    status?: StringWithAggregatesFilter<"DailyAuditSignOff"> | string
+    signedAt?: DateTimeWithAggregatesFilter<"DailyAuditSignOff"> | Date | string
+  }
+
+  export type WellnessPulseWhereInput = {
+    AND?: WellnessPulseWhereInput | WellnessPulseWhereInput[]
+    OR?: WellnessPulseWhereInput[]
+    NOT?: WellnessPulseWhereInput | WellnessPulseWhereInput[]
+    id?: StringFilter<"WellnessPulse"> | string
+    userId?: StringFilter<"WellnessPulse"> | string
+    tenantId?: StringFilter<"WellnessPulse"> | string
+    status?: StringFilter<"WellnessPulse"> | string
+    note?: StringNullableFilter<"WellnessPulse"> | string | null
+    createdAt?: DateTimeFilter<"WellnessPulse"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type WellnessPulseOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type WellnessPulseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WellnessPulseWhereInput | WellnessPulseWhereInput[]
+    OR?: WellnessPulseWhereInput[]
+    NOT?: WellnessPulseWhereInput | WellnessPulseWhereInput[]
+    userId?: StringFilter<"WellnessPulse"> | string
+    tenantId?: StringFilter<"WellnessPulse"> | string
+    status?: StringFilter<"WellnessPulse"> | string
+    note?: StringNullableFilter<"WellnessPulse"> | string | null
+    createdAt?: DateTimeFilter<"WellnessPulse"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type WellnessPulseOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: WellnessPulseCountOrderByAggregateInput
+    _max?: WellnessPulseMaxOrderByAggregateInput
+    _min?: WellnessPulseMinOrderByAggregateInput
+  }
+
+  export type WellnessPulseScalarWhereWithAggregatesInput = {
+    AND?: WellnessPulseScalarWhereWithAggregatesInput | WellnessPulseScalarWhereWithAggregatesInput[]
+    OR?: WellnessPulseScalarWhereWithAggregatesInput[]
+    NOT?: WellnessPulseScalarWhereWithAggregatesInput | WellnessPulseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WellnessPulse"> | string
+    userId?: StringWithAggregatesFilter<"WellnessPulse"> | string
+    tenantId?: StringWithAggregatesFilter<"WellnessPulse"> | string
+    status?: StringWithAggregatesFilter<"WellnessPulse"> | string
+    note?: StringNullableWithAggregatesFilter<"WellnessPulse"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"WellnessPulse"> | Date | string
+  }
+
+  export type SystemTouchpointWhereInput = {
+    AND?: SystemTouchpointWhereInput | SystemTouchpointWhereInput[]
+    OR?: SystemTouchpointWhereInput[]
+    NOT?: SystemTouchpointWhereInput | SystemTouchpointWhereInput[]
+    id?: StringFilter<"SystemTouchpoint"> | string
+    touchpointId?: StringFilter<"SystemTouchpoint"> | string
+    type?: StringFilter<"SystemTouchpoint"> | string
+    role?: StringFilter<"SystemTouchpoint"> | string
+    module?: StringFilter<"SystemTouchpoint"> | string
+    label?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    path?: StringFilter<"SystemTouchpoint"> | string
+    status?: StringFilter<"SystemTouchpoint"> | string
+    errorDetail?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    isOverridden?: BoolFilter<"SystemTouchpoint"> | boolean
+    overrideValue?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    lastChecked?: DateTimeFilter<"SystemTouchpoint"> | Date | string
+    tenantId?: StringFilter<"SystemTouchpoint"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type SystemTouchpointOrderByWithRelationInput = {
+    id?: SortOrder
+    touchpointId?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    label?: SortOrderInput | SortOrder
+    path?: SortOrder
+    status?: SortOrder
+    errorDetail?: SortOrderInput | SortOrder
+    isOverridden?: SortOrder
+    overrideValue?: SortOrderInput | SortOrder
+    lastChecked?: SortOrder
+    tenantId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type SystemTouchpointWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    touchpointId?: string
+    AND?: SystemTouchpointWhereInput | SystemTouchpointWhereInput[]
+    OR?: SystemTouchpointWhereInput[]
+    NOT?: SystemTouchpointWhereInput | SystemTouchpointWhereInput[]
+    type?: StringFilter<"SystemTouchpoint"> | string
+    role?: StringFilter<"SystemTouchpoint"> | string
+    module?: StringFilter<"SystemTouchpoint"> | string
+    label?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    path?: StringFilter<"SystemTouchpoint"> | string
+    status?: StringFilter<"SystemTouchpoint"> | string
+    errorDetail?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    isOverridden?: BoolFilter<"SystemTouchpoint"> | boolean
+    overrideValue?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    lastChecked?: DateTimeFilter<"SystemTouchpoint"> | Date | string
+    tenantId?: StringFilter<"SystemTouchpoint"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id" | "touchpointId">
+
+  export type SystemTouchpointOrderByWithAggregationInput = {
+    id?: SortOrder
+    touchpointId?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    label?: SortOrderInput | SortOrder
+    path?: SortOrder
+    status?: SortOrder
+    errorDetail?: SortOrderInput | SortOrder
+    isOverridden?: SortOrder
+    overrideValue?: SortOrderInput | SortOrder
+    lastChecked?: SortOrder
+    tenantId?: SortOrder
+    _count?: SystemTouchpointCountOrderByAggregateInput
+    _max?: SystemTouchpointMaxOrderByAggregateInput
+    _min?: SystemTouchpointMinOrderByAggregateInput
+  }
+
+  export type SystemTouchpointScalarWhereWithAggregatesInput = {
+    AND?: SystemTouchpointScalarWhereWithAggregatesInput | SystemTouchpointScalarWhereWithAggregatesInput[]
+    OR?: SystemTouchpointScalarWhereWithAggregatesInput[]
+    NOT?: SystemTouchpointScalarWhereWithAggregatesInput | SystemTouchpointScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    touchpointId?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    type?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    role?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    module?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    label?: StringNullableWithAggregatesFilter<"SystemTouchpoint"> | string | null
+    path?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    status?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+    errorDetail?: StringNullableWithAggregatesFilter<"SystemTouchpoint"> | string | null
+    isOverridden?: BoolWithAggregatesFilter<"SystemTouchpoint"> | boolean
+    overrideValue?: StringNullableWithAggregatesFilter<"SystemTouchpoint"> | string | null
+    lastChecked?: DateTimeWithAggregatesFilter<"SystemTouchpoint"> | Date | string
+    tenantId?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -93872,6 +98810,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -93904,6 +98844,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -93936,6 +98878,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -93968,6 +98912,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -94069,6 +99015,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -94139,6 +99089,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -94207,6 +99161,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -94277,6 +99235,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -94448,6 +99410,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateInput = {
@@ -94489,6 +99452,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUpdateInput = {
@@ -94530,6 +99494,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateInput = {
@@ -94571,6 +99536,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileCreateManyInput = {
@@ -94848,6 +99814,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateInput = {
@@ -94888,6 +99855,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUpdateInput = {
@@ -94928,6 +99896,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateInput = {
@@ -94968,6 +99937,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitCreateManyInput = {
@@ -100490,6 +105460,334 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookingRequestCreateInput = {
+    id?: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutBookingRequestsInput
+    tenant: TenantCreateNestedOneWithoutBookingRequestsInput
+  }
+
+  export type BookingRequestUncheckedCreateInput = {
+    id?: string
+    clientId: string
+    tenantId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutBookingRequestsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutBookingRequestsNestedInput
+  }
+
+  export type BookingRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingRequestCreateManyInput = {
+    id?: string
+    clientId: string
+    tenantId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffCreateInput = {
+    id?: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+    rn: UserCreateNestedOneWithoutDailyAuditSignOffsInput
+    tenant: TenantCreateNestedOneWithoutDailyAuditSignOffsInput
+    visit: VisitCreateNestedOneWithoutDailyAuditSignOffInput
+  }
+
+  export type DailyAuditSignOffUncheckedCreateInput = {
+    id?: string
+    rnId: string
+    tenantId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rn?: UserUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+    visit?: VisitUpdateOneRequiredWithoutDailyAuditSignOffNestedInput
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rnId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffCreateManyInput = {
+    id?: string
+    rnId: string
+    tenantId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rnId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseCreateInput = {
+    id?: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWellnessPulsesInput
+    tenant: TenantCreateNestedOneWithoutWellnessPulsesInput
+  }
+
+  export type WellnessPulseUncheckedCreateInput = {
+    id?: string
+    userId: string
+    tenantId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type WellnessPulseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWellnessPulsesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutWellnessPulsesNestedInput
+  }
+
+  export type WellnessPulseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseCreateManyInput = {
+    id?: string
+    userId: string
+    tenantId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type WellnessPulseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemTouchpointCreateInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+    tenant: TenantCreateNestedOneWithoutSystemTouchpointsInput
+  }
+
+  export type SystemTouchpointUncheckedCreateInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+    tenantId: string
+  }
+
+  export type SystemTouchpointUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSystemTouchpointsNestedInput
+  }
+
+  export type SystemTouchpointUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemTouchpointCreateManyInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+    tenantId: string
+  }
+
+  export type SystemTouchpointUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemTouchpointUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -100649,6 +105947,18 @@ export namespace Prisma {
     none?: TechnicalAuditWhereInput
   }
 
+  export type DailyAuditSignOffListRelationFilter = {
+    every?: DailyAuditSignOffWhereInput
+    some?: DailyAuditSignOffWhereInput
+    none?: DailyAuditSignOffWhereInput
+  }
+
+  export type WellnessPulseListRelationFilter = {
+    every?: WellnessPulseWhereInput
+    some?: WellnessPulseWhereInput
+    none?: WellnessPulseWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -100707,6 +106017,14 @@ export namespace Prisma {
   }
 
   export type TechnicalAuditOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyAuditSignOffOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WellnessPulseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -101048,6 +106366,18 @@ export namespace Prisma {
     none?: CareFeedbackWhereInput
   }
 
+  export type BookingRequestListRelationFilter = {
+    every?: BookingRequestWhereInput
+    some?: BookingRequestWhereInput
+    none?: BookingRequestWhereInput
+  }
+
+  export type SystemTouchpointListRelationFilter = {
+    every?: SystemTouchpointWhereInput
+    some?: SystemTouchpointWhereInput
+    none?: SystemTouchpointWhereInput
+  }
+
   export type TenantNullableRelationFilter = {
     is?: TenantWhereInput | null
     isNot?: TenantWhereInput | null
@@ -101230,6 +106560,14 @@ export namespace Prisma {
   }
 
   export type CareFeedbackOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BookingRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SystemTouchpointOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -101639,6 +106977,11 @@ export namespace Prisma {
   export type ServiceRelationFilter = {
     is?: ServiceWhereInput
     isNot?: ServiceWhereInput
+  }
+
+  export type DailyAuditSignOffNullableRelationFilter = {
+    is?: DailyAuditSignOffWhereInput | null
+    isNot?: DailyAuditSignOffWhereInput | null
   }
 
   export type TimesheetItemOrderByRelationAggregateInput = {
@@ -104827,6 +110170,150 @@ export namespace Prisma {
     errorCount?: SortOrder
   }
 
+  export type BookingRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    serviceType?: SortOrder
+    preferredDate?: SortOrder
+    preferredTime?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    serviceType?: SortOrder
+    preferredDate?: SortOrder
+    preferredTime?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    tenantId?: SortOrder
+    serviceType?: SortOrder
+    preferredDate?: SortOrder
+    preferredTime?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyAuditSignOffCountOrderByAggregateInput = {
+    id?: SortOrder
+    rnId?: SortOrder
+    tenantId?: SortOrder
+    visitId?: SortOrder
+    clinicalComment?: SortOrder
+    status?: SortOrder
+    signedAt?: SortOrder
+  }
+
+  export type DailyAuditSignOffMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rnId?: SortOrder
+    tenantId?: SortOrder
+    visitId?: SortOrder
+    clinicalComment?: SortOrder
+    status?: SortOrder
+    signedAt?: SortOrder
+  }
+
+  export type DailyAuditSignOffMinOrderByAggregateInput = {
+    id?: SortOrder
+    rnId?: SortOrder
+    tenantId?: SortOrder
+    visitId?: SortOrder
+    clinicalComment?: SortOrder
+    status?: SortOrder
+    signedAt?: SortOrder
+  }
+
+  export type WellnessPulseCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WellnessPulseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WellnessPulseMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    status?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemTouchpointCountOrderByAggregateInput = {
+    id?: SortOrder
+    touchpointId?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    label?: SortOrder
+    path?: SortOrder
+    status?: SortOrder
+    errorDetail?: SortOrder
+    isOverridden?: SortOrder
+    overrideValue?: SortOrder
+    lastChecked?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type SystemTouchpointMaxOrderByAggregateInput = {
+    id?: SortOrder
+    touchpointId?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    label?: SortOrder
+    path?: SortOrder
+    status?: SortOrder
+    errorDetail?: SortOrder
+    isOverridden?: SortOrder
+    overrideValue?: SortOrder
+    lastChecked?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type SystemTouchpointMinOrderByAggregateInput = {
+    id?: SortOrder
+    touchpointId?: SortOrder
+    type?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    label?: SortOrder
+    path?: SortOrder
+    status?: SortOrder
+    errorDetail?: SortOrder
+    isOverridden?: SortOrder
+    overrideValue?: SortOrder
+    lastChecked?: SortOrder
+    tenantId?: SortOrder
+  }
+
   export type UserCreaterolesInput = {
     set: $Enums.Role[]
   }
@@ -104954,6 +110441,20 @@ export namespace Prisma {
     connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
   }
 
+  export type DailyAuditSignOffCreateNestedManyWithoutRnInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput> | DailyAuditSignOffCreateWithoutRnInput[] | DailyAuditSignOffUncheckedCreateWithoutRnInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutRnInput | DailyAuditSignOffCreateOrConnectWithoutRnInput[]
+    createMany?: DailyAuditSignOffCreateManyRnInputEnvelope
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+  }
+
+  export type WellnessPulseCreateNestedManyWithoutUserInput = {
+    create?: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput> | WellnessPulseCreateWithoutUserInput[] | WellnessPulseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutUserInput | WellnessPulseCreateOrConnectWithoutUserInput[]
+    createMany?: WellnessPulseCreateManyUserInputEnvelope
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -105069,6 +110570,20 @@ export namespace Prisma {
     connectOrCreate?: TechnicalAuditCreateOrConnectWithoutPerformedByInput | TechnicalAuditCreateOrConnectWithoutPerformedByInput[]
     createMany?: TechnicalAuditCreateManyPerformedByInputEnvelope
     connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput> | DailyAuditSignOffCreateWithoutRnInput[] | DailyAuditSignOffUncheckedCreateWithoutRnInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutRnInput | DailyAuditSignOffCreateOrConnectWithoutRnInput[]
+    createMany?: DailyAuditSignOffCreateManyRnInputEnvelope
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+  }
+
+  export type WellnessPulseUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput> | WellnessPulseCreateWithoutUserInput[] | WellnessPulseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutUserInput | WellnessPulseCreateOrConnectWithoutUserInput[]
+    createMany?: WellnessPulseCreateManyUserInputEnvelope
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -105330,6 +110845,34 @@ export namespace Prisma {
     deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
   }
 
+  export type DailyAuditSignOffUpdateManyWithoutRnNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput> | DailyAuditSignOffCreateWithoutRnInput[] | DailyAuditSignOffUncheckedCreateWithoutRnInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutRnInput | DailyAuditSignOffCreateOrConnectWithoutRnInput[]
+    upsert?: DailyAuditSignOffUpsertWithWhereUniqueWithoutRnInput | DailyAuditSignOffUpsertWithWhereUniqueWithoutRnInput[]
+    createMany?: DailyAuditSignOffCreateManyRnInputEnvelope
+    set?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    disconnect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    delete?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    update?: DailyAuditSignOffUpdateWithWhereUniqueWithoutRnInput | DailyAuditSignOffUpdateWithWhereUniqueWithoutRnInput[]
+    updateMany?: DailyAuditSignOffUpdateManyWithWhereWithoutRnInput | DailyAuditSignOffUpdateManyWithWhereWithoutRnInput[]
+    deleteMany?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+  }
+
+  export type WellnessPulseUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput> | WellnessPulseCreateWithoutUserInput[] | WellnessPulseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutUserInput | WellnessPulseCreateOrConnectWithoutUserInput[]
+    upsert?: WellnessPulseUpsertWithWhereUniqueWithoutUserInput | WellnessPulseUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WellnessPulseCreateManyUserInputEnvelope
+    set?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    disconnect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    delete?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    update?: WellnessPulseUpdateWithWhereUniqueWithoutUserInput | WellnessPulseUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WellnessPulseUpdateManyWithWhereWithoutUserInput | WellnessPulseUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -105558,6 +111101,34 @@ export namespace Prisma {
     update?: TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput | TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput[]
     updateMany?: TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput | TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput[]
     deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput> | DailyAuditSignOffCreateWithoutRnInput[] | DailyAuditSignOffUncheckedCreateWithoutRnInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutRnInput | DailyAuditSignOffCreateOrConnectWithoutRnInput[]
+    upsert?: DailyAuditSignOffUpsertWithWhereUniqueWithoutRnInput | DailyAuditSignOffUpsertWithWhereUniqueWithoutRnInput[]
+    createMany?: DailyAuditSignOffCreateManyRnInputEnvelope
+    set?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    disconnect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    delete?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    update?: DailyAuditSignOffUpdateWithWhereUniqueWithoutRnInput | DailyAuditSignOffUpdateWithWhereUniqueWithoutRnInput[]
+    updateMany?: DailyAuditSignOffUpdateManyWithWhereWithoutRnInput | DailyAuditSignOffUpdateManyWithWhereWithoutRnInput[]
+    deleteMany?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+  }
+
+  export type WellnessPulseUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput> | WellnessPulseCreateWithoutUserInput[] | WellnessPulseUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutUserInput | WellnessPulseCreateOrConnectWithoutUserInput[]
+    upsert?: WellnessPulseUpsertWithWhereUniqueWithoutUserInput | WellnessPulseUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WellnessPulseCreateManyUserInputEnvelope
+    set?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    disconnect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    delete?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    update?: WellnessPulseUpdateWithWhereUniqueWithoutUserInput | WellnessPulseUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WellnessPulseUpdateManyWithWhereWithoutUserInput | WellnessPulseUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutTenantInput = {
@@ -105845,6 +111416,34 @@ export namespace Prisma {
     connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
     createMany?: TechnicalAuditCreateManyTenantInputEnvelope
     connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+  }
+
+  export type BookingRequestCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput> | BookingRequestCreateWithoutTenantInput[] | BookingRequestUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutTenantInput | BookingRequestCreateOrConnectWithoutTenantInput[]
+    createMany?: BookingRequestCreateManyTenantInputEnvelope
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+  }
+
+  export type DailyAuditSignOffCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput> | DailyAuditSignOffCreateWithoutTenantInput[] | DailyAuditSignOffUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutTenantInput | DailyAuditSignOffCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyAuditSignOffCreateManyTenantInputEnvelope
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+  }
+
+  export type WellnessPulseCreateNestedManyWithoutTenantInput = {
+    create?: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput> | WellnessPulseCreateWithoutTenantInput[] | WellnessPulseUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutTenantInput | WellnessPulseCreateOrConnectWithoutTenantInput[]
+    createMany?: WellnessPulseCreateManyTenantInputEnvelope
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+  }
+
+  export type SystemTouchpointCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput> | SystemTouchpointCreateWithoutTenantInput[] | SystemTouchpointUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
+    createMany?: SystemTouchpointCreateManyTenantInputEnvelope
+    connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
   }
 
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
@@ -106215,6 +111814,34 @@ export namespace Prisma {
     connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
     createMany?: TechnicalAuditCreateManyTenantInputEnvelope
     connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+  }
+
+  export type BookingRequestUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput> | BookingRequestCreateWithoutTenantInput[] | BookingRequestUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutTenantInput | BookingRequestCreateOrConnectWithoutTenantInput[]
+    createMany?: BookingRequestCreateManyTenantInputEnvelope
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput> | DailyAuditSignOffCreateWithoutTenantInput[] | DailyAuditSignOffUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutTenantInput | DailyAuditSignOffCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyAuditSignOffCreateManyTenantInputEnvelope
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+  }
+
+  export type WellnessPulseUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput> | WellnessPulseCreateWithoutTenantInput[] | WellnessPulseUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutTenantInput | WellnessPulseCreateOrConnectWithoutTenantInput[]
+    createMany?: WellnessPulseCreateManyTenantInputEnvelope
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+  }
+
+  export type SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput> | SystemTouchpointCreateWithoutTenantInput[] | SystemTouchpointUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
+    createMany?: SystemTouchpointCreateManyTenantInputEnvelope
+    connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -106874,6 +112501,62 @@ export namespace Prisma {
     update?: TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput | TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: TechnicalAuditUpdateManyWithWhereWithoutTenantInput | TechnicalAuditUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
+  }
+
+  export type BookingRequestUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput> | BookingRequestCreateWithoutTenantInput[] | BookingRequestUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutTenantInput | BookingRequestCreateOrConnectWithoutTenantInput[]
+    upsert?: BookingRequestUpsertWithWhereUniqueWithoutTenantInput | BookingRequestUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BookingRequestCreateManyTenantInputEnvelope
+    set?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    disconnect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    delete?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    update?: BookingRequestUpdateWithWhereUniqueWithoutTenantInput | BookingRequestUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BookingRequestUpdateManyWithWhereWithoutTenantInput | BookingRequestUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
+  }
+
+  export type DailyAuditSignOffUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput> | DailyAuditSignOffCreateWithoutTenantInput[] | DailyAuditSignOffUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutTenantInput | DailyAuditSignOffCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyAuditSignOffUpsertWithWhereUniqueWithoutTenantInput | DailyAuditSignOffUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyAuditSignOffCreateManyTenantInputEnvelope
+    set?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    disconnect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    delete?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    update?: DailyAuditSignOffUpdateWithWhereUniqueWithoutTenantInput | DailyAuditSignOffUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyAuditSignOffUpdateManyWithWhereWithoutTenantInput | DailyAuditSignOffUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+  }
+
+  export type WellnessPulseUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput> | WellnessPulseCreateWithoutTenantInput[] | WellnessPulseUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutTenantInput | WellnessPulseCreateOrConnectWithoutTenantInput[]
+    upsert?: WellnessPulseUpsertWithWhereUniqueWithoutTenantInput | WellnessPulseUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: WellnessPulseCreateManyTenantInputEnvelope
+    set?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    disconnect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    delete?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    update?: WellnessPulseUpdateWithWhereUniqueWithoutTenantInput | WellnessPulseUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: WellnessPulseUpdateManyWithWhereWithoutTenantInput | WellnessPulseUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+  }
+
+  export type SystemTouchpointUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput> | SystemTouchpointCreateWithoutTenantInput[] | SystemTouchpointUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
+    upsert?: SystemTouchpointUpsertWithWhereUniqueWithoutTenantInput | SystemTouchpointUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SystemTouchpointCreateManyTenantInputEnvelope
+    set?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    disconnect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    delete?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -107614,6 +113297,62 @@ export namespace Prisma {
     deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
   }
 
+  export type BookingRequestUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput> | BookingRequestCreateWithoutTenantInput[] | BookingRequestUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutTenantInput | BookingRequestCreateOrConnectWithoutTenantInput[]
+    upsert?: BookingRequestUpsertWithWhereUniqueWithoutTenantInput | BookingRequestUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BookingRequestCreateManyTenantInputEnvelope
+    set?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    disconnect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    delete?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    update?: BookingRequestUpdateWithWhereUniqueWithoutTenantInput | BookingRequestUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BookingRequestUpdateManyWithWhereWithoutTenantInput | BookingRequestUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput> | DailyAuditSignOffCreateWithoutTenantInput[] | DailyAuditSignOffUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutTenantInput | DailyAuditSignOffCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyAuditSignOffUpsertWithWhereUniqueWithoutTenantInput | DailyAuditSignOffUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyAuditSignOffCreateManyTenantInputEnvelope
+    set?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    disconnect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    delete?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    connect?: DailyAuditSignOffWhereUniqueInput | DailyAuditSignOffWhereUniqueInput[]
+    update?: DailyAuditSignOffUpdateWithWhereUniqueWithoutTenantInput | DailyAuditSignOffUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyAuditSignOffUpdateManyWithWhereWithoutTenantInput | DailyAuditSignOffUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+  }
+
+  export type WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput> | WellnessPulseCreateWithoutTenantInput[] | WellnessPulseUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: WellnessPulseCreateOrConnectWithoutTenantInput | WellnessPulseCreateOrConnectWithoutTenantInput[]
+    upsert?: WellnessPulseUpsertWithWhereUniqueWithoutTenantInput | WellnessPulseUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: WellnessPulseCreateManyTenantInputEnvelope
+    set?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    disconnect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    delete?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+    update?: WellnessPulseUpdateWithWhereUniqueWithoutTenantInput | WellnessPulseUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: WellnessPulseUpdateManyWithWhereWithoutTenantInput | WellnessPulseUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+  }
+
+  export type SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput> | SystemTouchpointCreateWithoutTenantInput[] | SystemTouchpointUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
+    upsert?: SystemTouchpointUpsertWithWhereUniqueWithoutTenantInput | SystemTouchpointUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SystemTouchpointCreateManyTenantInputEnvelope
+    set?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    disconnect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    delete?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+    update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+  }
+
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
     create?: XOR<TenantCreateWithoutParentTenantInput, TenantUncheckedCreateWithoutParentTenantInput> | TenantCreateWithoutParentTenantInput[] | TenantUncheckedCreateWithoutParentTenantInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutParentTenantInput | TenantCreateOrConnectWithoutParentTenantInput[]
@@ -107940,6 +113679,13 @@ export namespace Prisma {
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
   }
 
+  export type BookingRequestCreateNestedManyWithoutClientInput = {
+    create?: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput> | BookingRequestCreateWithoutClientInput[] | BookingRequestUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutClientInput | BookingRequestCreateOrConnectWithoutClientInput[]
+    createMany?: BookingRequestCreateManyClientInputEnvelope
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+  }
+
   export type BookingUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
@@ -108078,6 +113824,13 @@ export namespace Prisma {
     connectOrCreate?: CareFeedbackCreateOrConnectWithoutClientInput | CareFeedbackCreateOrConnectWithoutClientInput[]
     createMany?: CareFeedbackCreateManyClientInputEnvelope
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
+  }
+
+  export type BookingRequestUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput> | BookingRequestCreateWithoutClientInput[] | BookingRequestUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutClientInput | BookingRequestCreateOrConnectWithoutClientInput[]
+    createMany?: BookingRequestCreateManyClientInputEnvelope
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -108394,6 +114147,20 @@ export namespace Prisma {
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
   }
 
+  export type BookingRequestUpdateManyWithoutClientNestedInput = {
+    create?: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput> | BookingRequestCreateWithoutClientInput[] | BookingRequestUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutClientInput | BookingRequestCreateOrConnectWithoutClientInput[]
+    upsert?: BookingRequestUpsertWithWhereUniqueWithoutClientInput | BookingRequestUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: BookingRequestCreateManyClientInputEnvelope
+    set?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    disconnect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    delete?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    update?: BookingRequestUpdateWithWhereUniqueWithoutClientInput | BookingRequestUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: BookingRequestUpdateManyWithWhereWithoutClientInput | BookingRequestUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
+  }
+
   export type BookingUncheckedUpdateManyWithoutClientNestedInput = {
     create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
@@ -108672,6 +114439,20 @@ export namespace Prisma {
     update?: CareFeedbackUpdateWithWhereUniqueWithoutClientInput | CareFeedbackUpdateWithWhereUniqueWithoutClientInput[]
     updateMany?: CareFeedbackUpdateManyWithWhereWithoutClientInput | CareFeedbackUpdateManyWithWhereWithoutClientInput[]
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
+  }
+
+  export type BookingRequestUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput> | BookingRequestCreateWithoutClientInput[] | BookingRequestUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: BookingRequestCreateOrConnectWithoutClientInput | BookingRequestCreateOrConnectWithoutClientInput[]
+    upsert?: BookingRequestUpsertWithWhereUniqueWithoutClientInput | BookingRequestUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: BookingRequestCreateManyClientInputEnvelope
+    set?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    disconnect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    delete?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    connect?: BookingRequestWhereUniqueInput | BookingRequestWhereUniqueInput[]
+    update?: BookingRequestUpdateWithWhereUniqueWithoutClientInput | BookingRequestUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: BookingRequestUpdateManyWithWhereWithoutClientInput | BookingRequestUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
   }
 
   export type PswProfileCreatelanguagesInput = {
@@ -109464,6 +115245,12 @@ export namespace Prisma {
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
   }
 
+  export type DailyAuditSignOffCreateNestedOneWithoutVisitInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutVisitInput
+    connect?: DailyAuditSignOffWhereUniqueInput
+  }
+
   export type DailyEntryUncheckedCreateNestedManyWithoutVisitInput = {
     create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
@@ -109539,6 +115326,12 @@ export namespace Prisma {
     connectOrCreate?: CareFeedbackCreateOrConnectWithoutVisitInput | CareFeedbackCreateOrConnectWithoutVisitInput[]
     createMany?: CareFeedbackCreateManyVisitInputEnvelope
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutVisitInput
+    connect?: DailyAuditSignOffWhereUniqueInput
   }
 
   export type NullableEnumVisitStatusFieldUpdateOperationsInput = {
@@ -109752,6 +115545,16 @@ export namespace Prisma {
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
   }
 
+  export type DailyAuditSignOffUpdateOneWithoutVisitNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutVisitInput
+    upsert?: DailyAuditSignOffUpsertWithoutVisitInput
+    disconnect?: DailyAuditSignOffWhereInput | boolean
+    delete?: DailyAuditSignOffWhereInput | boolean
+    connect?: DailyAuditSignOffWhereUniqueInput
+    update?: XOR<XOR<DailyAuditSignOffUpdateToOneWithWhereWithoutVisitInput, DailyAuditSignOffUpdateWithoutVisitInput>, DailyAuditSignOffUncheckedUpdateWithoutVisitInput>
+  }
+
   export type DailyEntryUncheckedUpdateManyWithoutVisitNestedInput = {
     create?: XOR<DailyEntryCreateWithoutVisitInput, DailyEntryUncheckedCreateWithoutVisitInput> | DailyEntryCreateWithoutVisitInput[] | DailyEntryUncheckedCreateWithoutVisitInput[]
     connectOrCreate?: DailyEntryCreateOrConnectWithoutVisitInput | DailyEntryCreateOrConnectWithoutVisitInput[]
@@ -109904,6 +115707,16 @@ export namespace Prisma {
     update?: CareFeedbackUpdateWithWhereUniqueWithoutVisitInput | CareFeedbackUpdateWithWhereUniqueWithoutVisitInput[]
     updateMany?: CareFeedbackUpdateManyWithWhereWithoutVisitInput | CareFeedbackUpdateManyWithWhereWithoutVisitInput[]
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput = {
+    create?: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
+    connectOrCreate?: DailyAuditSignOffCreateOrConnectWithoutVisitInput
+    upsert?: DailyAuditSignOffUpsertWithoutVisitInput
+    disconnect?: DailyAuditSignOffWhereInput | boolean
+    delete?: DailyAuditSignOffWhereInput | boolean
+    connect?: DailyAuditSignOffWhereUniqueInput
+    update?: XOR<XOR<DailyAuditSignOffUpdateToOneWithWhereWithoutVisitInput, DailyAuditSignOffUpdateWithoutVisitInput>, DailyAuditSignOffUncheckedUpdateWithoutVisitInput>
   }
 
   export type TenantCreateNestedOneWithoutServicesInput = {
@@ -112300,6 +118113,118 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTechnicalAuditsInput, TenantUpdateWithoutTechnicalAuditsInput>, TenantUncheckedUpdateWithoutTechnicalAuditsInput>
   }
 
+  export type ClientProfileCreateNestedOneWithoutBookingRequestsInput = {
+    create?: XOR<ClientProfileCreateWithoutBookingRequestsInput, ClientProfileUncheckedCreateWithoutBookingRequestsInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutBookingRequestsInput
+    connect?: ClientProfileWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutBookingRequestsInput = {
+    create?: XOR<TenantCreateWithoutBookingRequestsInput, TenantUncheckedCreateWithoutBookingRequestsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBookingRequestsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type ClientProfileUpdateOneRequiredWithoutBookingRequestsNestedInput = {
+    create?: XOR<ClientProfileCreateWithoutBookingRequestsInput, ClientProfileUncheckedCreateWithoutBookingRequestsInput>
+    connectOrCreate?: ClientProfileCreateOrConnectWithoutBookingRequestsInput
+    upsert?: ClientProfileUpsertWithoutBookingRequestsInput
+    connect?: ClientProfileWhereUniqueInput
+    update?: XOR<XOR<ClientProfileUpdateToOneWithWhereWithoutBookingRequestsInput, ClientProfileUpdateWithoutBookingRequestsInput>, ClientProfileUncheckedUpdateWithoutBookingRequestsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutBookingRequestsNestedInput = {
+    create?: XOR<TenantCreateWithoutBookingRequestsInput, TenantUncheckedCreateWithoutBookingRequestsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBookingRequestsInput
+    upsert?: TenantUpsertWithoutBookingRequestsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBookingRequestsInput, TenantUpdateWithoutBookingRequestsInput>, TenantUncheckedUpdateWithoutBookingRequestsInput>
+  }
+
+  export type UserCreateNestedOneWithoutDailyAuditSignOffsInput = {
+    create?: XOR<UserCreateWithoutDailyAuditSignOffsInput, UserUncheckedCreateWithoutDailyAuditSignOffsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyAuditSignOffsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutDailyAuditSignOffsInput = {
+    create?: XOR<TenantCreateWithoutDailyAuditSignOffsInput, TenantUncheckedCreateWithoutDailyAuditSignOffsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyAuditSignOffsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type VisitCreateNestedOneWithoutDailyAuditSignOffInput = {
+    create?: XOR<VisitCreateWithoutDailyAuditSignOffInput, VisitUncheckedCreateWithoutDailyAuditSignOffInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutDailyAuditSignOffInput
+    connect?: VisitWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput = {
+    create?: XOR<UserCreateWithoutDailyAuditSignOffsInput, UserUncheckedCreateWithoutDailyAuditSignOffsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyAuditSignOffsInput
+    upsert?: UserUpsertWithoutDailyAuditSignOffsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyAuditSignOffsInput, UserUpdateWithoutDailyAuditSignOffsInput>, UserUncheckedUpdateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput = {
+    create?: XOR<TenantCreateWithoutDailyAuditSignOffsInput, TenantUncheckedCreateWithoutDailyAuditSignOffsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyAuditSignOffsInput
+    upsert?: TenantUpsertWithoutDailyAuditSignOffsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDailyAuditSignOffsInput, TenantUpdateWithoutDailyAuditSignOffsInput>, TenantUncheckedUpdateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type VisitUpdateOneRequiredWithoutDailyAuditSignOffNestedInput = {
+    create?: XOR<VisitCreateWithoutDailyAuditSignOffInput, VisitUncheckedCreateWithoutDailyAuditSignOffInput>
+    connectOrCreate?: VisitCreateOrConnectWithoutDailyAuditSignOffInput
+    upsert?: VisitUpsertWithoutDailyAuditSignOffInput
+    connect?: VisitWhereUniqueInput
+    update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutDailyAuditSignOffInput, VisitUpdateWithoutDailyAuditSignOffInput>, VisitUncheckedUpdateWithoutDailyAuditSignOffInput>
+  }
+
+  export type UserCreateNestedOneWithoutWellnessPulsesInput = {
+    create?: XOR<UserCreateWithoutWellnessPulsesInput, UserUncheckedCreateWithoutWellnessPulsesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWellnessPulsesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutWellnessPulsesInput = {
+    create?: XOR<TenantCreateWithoutWellnessPulsesInput, TenantUncheckedCreateWithoutWellnessPulsesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutWellnessPulsesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWellnessPulsesNestedInput = {
+    create?: XOR<UserCreateWithoutWellnessPulsesInput, UserUncheckedCreateWithoutWellnessPulsesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWellnessPulsesInput
+    upsert?: UserUpsertWithoutWellnessPulsesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWellnessPulsesInput, UserUpdateWithoutWellnessPulsesInput>, UserUncheckedUpdateWithoutWellnessPulsesInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutWellnessPulsesNestedInput = {
+    create?: XOR<TenantCreateWithoutWellnessPulsesInput, TenantUncheckedCreateWithoutWellnessPulsesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutWellnessPulsesInput
+    upsert?: TenantUpsertWithoutWellnessPulsesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutWellnessPulsesInput, TenantUpdateWithoutWellnessPulsesInput>, TenantUncheckedUpdateWithoutWellnessPulsesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutSystemTouchpointsInput = {
+    create?: XOR<TenantCreateWithoutSystemTouchpointsInput, TenantUncheckedCreateWithoutSystemTouchpointsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSystemTouchpointsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutSystemTouchpointsNestedInput = {
+    create?: XOR<TenantCreateWithoutSystemTouchpointsInput, TenantUncheckedCreateWithoutSystemTouchpointsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSystemTouchpointsInput
+    upsert?: TenantUpsertWithoutSystemTouchpointsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSystemTouchpointsInput, TenantUpdateWithoutSystemTouchpointsInput>, TenantUncheckedUpdateWithoutSystemTouchpointsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -112947,6 +118872,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutUserInput = {
@@ -112987,6 +118913,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutUserInput = {
@@ -113323,6 +119250,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -113392,6 +119323,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -113664,6 +119599,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DailyAuditSignOffCreateWithoutRnInput = {
+    id?: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyAuditSignOffsInput
+    visit: VisitCreateNestedOneWithoutDailyAuditSignOffInput
+  }
+
+  export type DailyAuditSignOffUncheckedCreateWithoutRnInput = {
+    id?: string
+    tenantId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffCreateOrConnectWithoutRnInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    create: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput>
+  }
+
+  export type DailyAuditSignOffCreateManyRnInputEnvelope = {
+    data: DailyAuditSignOffCreateManyRnInput | DailyAuditSignOffCreateManyRnInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WellnessPulseCreateWithoutUserInput = {
+    id?: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutWellnessPulsesInput
+  }
+
+  export type WellnessPulseUncheckedCreateWithoutUserInput = {
+    id?: string
+    tenantId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type WellnessPulseCreateOrConnectWithoutUserInput = {
+    where: WellnessPulseWhereUniqueInput
+    create: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput>
+  }
+
+  export type WellnessPulseCreateManyUserInputEnvelope = {
+    data: WellnessPulseCreateManyUserInput | WellnessPulseCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
     where: AuditLogWhereUniqueInput
     update: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
@@ -113782,6 +119771,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutUserInput = {
@@ -113822,6 +119812,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutStaffInput = {
@@ -114155,6 +120146,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -114224,6 +120219,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -114451,6 +120450,63 @@ export namespace Prisma {
     tenantId?: StringNullableFilter<"TechnicalAudit"> | string | null
   }
 
+  export type DailyAuditSignOffUpsertWithWhereUniqueWithoutRnInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    update: XOR<DailyAuditSignOffUpdateWithoutRnInput, DailyAuditSignOffUncheckedUpdateWithoutRnInput>
+    create: XOR<DailyAuditSignOffCreateWithoutRnInput, DailyAuditSignOffUncheckedCreateWithoutRnInput>
+  }
+
+  export type DailyAuditSignOffUpdateWithWhereUniqueWithoutRnInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    data: XOR<DailyAuditSignOffUpdateWithoutRnInput, DailyAuditSignOffUncheckedUpdateWithoutRnInput>
+  }
+
+  export type DailyAuditSignOffUpdateManyWithWhereWithoutRnInput = {
+    where: DailyAuditSignOffScalarWhereInput
+    data: XOR<DailyAuditSignOffUpdateManyMutationInput, DailyAuditSignOffUncheckedUpdateManyWithoutRnInput>
+  }
+
+  export type DailyAuditSignOffScalarWhereInput = {
+    AND?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+    OR?: DailyAuditSignOffScalarWhereInput[]
+    NOT?: DailyAuditSignOffScalarWhereInput | DailyAuditSignOffScalarWhereInput[]
+    id?: StringFilter<"DailyAuditSignOff"> | string
+    rnId?: StringFilter<"DailyAuditSignOff"> | string
+    tenantId?: StringFilter<"DailyAuditSignOff"> | string
+    visitId?: StringFilter<"DailyAuditSignOff"> | string
+    clinicalComment?: StringNullableFilter<"DailyAuditSignOff"> | string | null
+    status?: StringFilter<"DailyAuditSignOff"> | string
+    signedAt?: DateTimeFilter<"DailyAuditSignOff"> | Date | string
+  }
+
+  export type WellnessPulseUpsertWithWhereUniqueWithoutUserInput = {
+    where: WellnessPulseWhereUniqueInput
+    update: XOR<WellnessPulseUpdateWithoutUserInput, WellnessPulseUncheckedUpdateWithoutUserInput>
+    create: XOR<WellnessPulseCreateWithoutUserInput, WellnessPulseUncheckedCreateWithoutUserInput>
+  }
+
+  export type WellnessPulseUpdateWithWhereUniqueWithoutUserInput = {
+    where: WellnessPulseWhereUniqueInput
+    data: XOR<WellnessPulseUpdateWithoutUserInput, WellnessPulseUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WellnessPulseUpdateManyWithWhereWithoutUserInput = {
+    where: WellnessPulseScalarWhereInput
+    data: XOR<WellnessPulseUpdateManyMutationInput, WellnessPulseUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WellnessPulseScalarWhereInput = {
+    AND?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+    OR?: WellnessPulseScalarWhereInput[]
+    NOT?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+    id?: StringFilter<"WellnessPulse"> | string
+    userId?: StringFilter<"WellnessPulse"> | string
+    tenantId?: StringFilter<"WellnessPulse"> | string
+    status?: StringFilter<"WellnessPulse"> | string
+    note?: StringNullableFilter<"WellnessPulse"> | string | null
+    createdAt?: DateTimeFilter<"WellnessPulse"> | Date | string
+  }
+
   export type AuditLogCreateWithoutTenantInput = {
     id?: string
     action: string
@@ -114559,6 +120615,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutTenantInput = {
@@ -114599,6 +120656,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutTenantInput = {
@@ -115066,6 +121124,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -115097,6 +121157,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -115194,6 +121256,7 @@ export namespace Prisma {
     service: ServiceCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutTenantInput = {
@@ -115233,6 +121296,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutTenantInput = {
@@ -115991,6 +122055,134 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BookingRequestCreateWithoutTenantInput = {
+    id?: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    client: ClientProfileCreateNestedOneWithoutBookingRequestsInput
+  }
+
+  export type BookingRequestUncheckedCreateWithoutTenantInput = {
+    id?: string
+    clientId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingRequestCreateOrConnectWithoutTenantInput = {
+    where: BookingRequestWhereUniqueInput
+    create: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BookingRequestCreateManyTenantInputEnvelope = {
+    data: BookingRequestCreateManyTenantInput | BookingRequestCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyAuditSignOffCreateWithoutTenantInput = {
+    id?: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+    rn: UserCreateNestedOneWithoutDailyAuditSignOffsInput
+    visit: VisitCreateNestedOneWithoutDailyAuditSignOffInput
+  }
+
+  export type DailyAuditSignOffUncheckedCreateWithoutTenantInput = {
+    id?: string
+    rnId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffCreateOrConnectWithoutTenantInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    create: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyAuditSignOffCreateManyTenantInputEnvelope = {
+    data: DailyAuditSignOffCreateManyTenantInput | DailyAuditSignOffCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WellnessPulseCreateWithoutTenantInput = {
+    id?: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWellnessPulsesInput
+  }
+
+  export type WellnessPulseUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type WellnessPulseCreateOrConnectWithoutTenantInput = {
+    where: WellnessPulseWhereUniqueInput
+    create: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput>
+  }
+
+  export type WellnessPulseCreateManyTenantInputEnvelope = {
+    data: WellnessPulseCreateManyTenantInput | WellnessPulseCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemTouchpointCreateWithoutTenantInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+  }
+
+  export type SystemTouchpointUncheckedCreateWithoutTenantInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+  }
+
+  export type SystemTouchpointCreateOrConnectWithoutTenantInput = {
+    where: SystemTouchpointWhereUniqueInput
+    create: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SystemTouchpointCreateManyTenantInputEnvelope = {
+    data: SystemTouchpointCreateManyTenantInput | SystemTouchpointCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -116046,6 +122238,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -116115,6 +122311,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -116187,6 +122387,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -116255,6 +122459,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -117758,6 +123966,105 @@ export namespace Prisma {
     data: XOR<TechnicalAuditUpdateManyMutationInput, TechnicalAuditUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type BookingRequestUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BookingRequestWhereUniqueInput
+    update: XOR<BookingRequestUpdateWithoutTenantInput, BookingRequestUncheckedUpdateWithoutTenantInput>
+    create: XOR<BookingRequestCreateWithoutTenantInput, BookingRequestUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BookingRequestUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BookingRequestWhereUniqueInput
+    data: XOR<BookingRequestUpdateWithoutTenantInput, BookingRequestUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BookingRequestUpdateManyWithWhereWithoutTenantInput = {
+    where: BookingRequestScalarWhereInput
+    data: XOR<BookingRequestUpdateManyMutationInput, BookingRequestUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BookingRequestScalarWhereInput = {
+    AND?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
+    OR?: BookingRequestScalarWhereInput[]
+    NOT?: BookingRequestScalarWhereInput | BookingRequestScalarWhereInput[]
+    id?: StringFilter<"BookingRequest"> | string
+    clientId?: StringFilter<"BookingRequest"> | string
+    tenantId?: StringFilter<"BookingRequest"> | string
+    serviceType?: StringFilter<"BookingRequest"> | string
+    preferredDate?: DateTimeFilter<"BookingRequest"> | Date | string
+    preferredTime?: StringNullableFilter<"BookingRequest"> | string | null
+    notes?: StringNullableFilter<"BookingRequest"> | string | null
+    status?: StringFilter<"BookingRequest"> | string
+    createdAt?: DateTimeFilter<"BookingRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"BookingRequest"> | Date | string
+  }
+
+  export type DailyAuditSignOffUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    update: XOR<DailyAuditSignOffUpdateWithoutTenantInput, DailyAuditSignOffUncheckedUpdateWithoutTenantInput>
+    create: XOR<DailyAuditSignOffCreateWithoutTenantInput, DailyAuditSignOffUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyAuditSignOffUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    data: XOR<DailyAuditSignOffUpdateWithoutTenantInput, DailyAuditSignOffUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DailyAuditSignOffUpdateManyWithWhereWithoutTenantInput = {
+    where: DailyAuditSignOffScalarWhereInput
+    data: XOR<DailyAuditSignOffUpdateManyMutationInput, DailyAuditSignOffUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type WellnessPulseUpsertWithWhereUniqueWithoutTenantInput = {
+    where: WellnessPulseWhereUniqueInput
+    update: XOR<WellnessPulseUpdateWithoutTenantInput, WellnessPulseUncheckedUpdateWithoutTenantInput>
+    create: XOR<WellnessPulseCreateWithoutTenantInput, WellnessPulseUncheckedCreateWithoutTenantInput>
+  }
+
+  export type WellnessPulseUpdateWithWhereUniqueWithoutTenantInput = {
+    where: WellnessPulseWhereUniqueInput
+    data: XOR<WellnessPulseUpdateWithoutTenantInput, WellnessPulseUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type WellnessPulseUpdateManyWithWhereWithoutTenantInput = {
+    where: WellnessPulseScalarWhereInput
+    data: XOR<WellnessPulseUpdateManyMutationInput, WellnessPulseUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SystemTouchpointUpsertWithWhereUniqueWithoutTenantInput = {
+    where: SystemTouchpointWhereUniqueInput
+    update: XOR<SystemTouchpointUpdateWithoutTenantInput, SystemTouchpointUncheckedUpdateWithoutTenantInput>
+    create: XOR<SystemTouchpointCreateWithoutTenantInput, SystemTouchpointUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput = {
+    where: SystemTouchpointWhereUniqueInput
+    data: XOR<SystemTouchpointUpdateWithoutTenantInput, SystemTouchpointUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SystemTouchpointUpdateManyWithWhereWithoutTenantInput = {
+    where: SystemTouchpointScalarWhereInput
+    data: XOR<SystemTouchpointUpdateManyMutationInput, SystemTouchpointUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SystemTouchpointScalarWhereInput = {
+    AND?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+    OR?: SystemTouchpointScalarWhereInput[]
+    NOT?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+    id?: StringFilter<"SystemTouchpoint"> | string
+    touchpointId?: StringFilter<"SystemTouchpoint"> | string
+    type?: StringFilter<"SystemTouchpoint"> | string
+    role?: StringFilter<"SystemTouchpoint"> | string
+    module?: StringFilter<"SystemTouchpoint"> | string
+    label?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    path?: StringFilter<"SystemTouchpoint"> | string
+    status?: StringFilter<"SystemTouchpoint"> | string
+    errorDetail?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    isOverridden?: BoolFilter<"SystemTouchpoint"> | boolean
+    overrideValue?: StringNullableFilter<"SystemTouchpoint"> | string | null
+    lastChecked?: DateTimeFilter<"SystemTouchpoint"> | Date | string
+    tenantId?: StringFilter<"SystemTouchpoint"> | string
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -117824,6 +124131,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -117893,6 +124204,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -118255,6 +124570,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -118324,6 +124643,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -118407,6 +124730,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -118476,6 +124803,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -118581,6 +124912,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -118650,6 +124985,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -118697,6 +125036,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -118728,6 +125069,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -118880,6 +125223,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutClientInput = {
@@ -118919,6 +125263,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutClientInput = {
@@ -119444,6 +125789,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BookingRequestCreateWithoutClientInput = {
+    id?: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBookingRequestsInput
+  }
+
+  export type BookingRequestUncheckedCreateWithoutClientInput = {
+    id?: string
+    tenantId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingRequestCreateOrConnectWithoutClientInput = {
+    where: BookingRequestWhereUniqueInput
+    create: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput>
+  }
+
+  export type BookingRequestCreateManyClientInputEnvelope = {
+    data: BookingRequestCreateManyClientInput | BookingRequestCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BookingUpsertWithWhereUniqueWithoutClientInput = {
     where: BookingWhereUniqueInput
     update: XOR<BookingUpdateWithoutClientInput, BookingUncheckedUpdateWithoutClientInput>
@@ -119525,6 +125904,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -119594,6 +125977,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -119647,6 +126034,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -119678,6 +126067,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -120043,6 +126434,22 @@ export namespace Prisma {
     data: XOR<CareFeedbackUpdateManyMutationInput, CareFeedbackUncheckedUpdateManyWithoutClientInput>
   }
 
+  export type BookingRequestUpsertWithWhereUniqueWithoutClientInput = {
+    where: BookingRequestWhereUniqueInput
+    update: XOR<BookingRequestUpdateWithoutClientInput, BookingRequestUncheckedUpdateWithoutClientInput>
+    create: XOR<BookingRequestCreateWithoutClientInput, BookingRequestUncheckedCreateWithoutClientInput>
+  }
+
+  export type BookingRequestUpdateWithWhereUniqueWithoutClientInput = {
+    where: BookingRequestWhereUniqueInput
+    data: XOR<BookingRequestUpdateWithoutClientInput, BookingRequestUncheckedUpdateWithoutClientInput>
+  }
+
+  export type BookingRequestUpdateManyWithWhereWithoutClientInput = {
+    where: BookingRequestScalarWhereInput
+    data: XOR<BookingRequestUpdateManyMutationInput, BookingRequestUncheckedUpdateManyWithoutClientInput>
+  }
+
   export type MessageThreadCreateWithoutPswInput = {
     id?: string
     threadType: string
@@ -120185,6 +126592,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -120254,6 +126665,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -120301,6 +126716,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -120332,6 +126749,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -120538,6 +126957,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutPswInput = {
@@ -120577,6 +126997,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutPswInput = {
@@ -120873,6 +127294,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -120942,6 +127367,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -120995,6 +127424,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -121026,6 +127457,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -121683,6 +128116,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutVisitsInput = {
@@ -121723,6 +128157,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutVisitsInput = {
@@ -121819,6 +128254,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -121888,6 +128327,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -121966,6 +128409,29 @@ export namespace Prisma {
   export type CareFeedbackCreateManyVisitInputEnvelope = {
     data: CareFeedbackCreateManyVisitInput | CareFeedbackCreateManyVisitInput[]
     skipDuplicates?: boolean
+  }
+
+  export type DailyAuditSignOffCreateWithoutVisitInput = {
+    id?: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+    rn: UserCreateNestedOneWithoutDailyAuditSignOffsInput
+    tenant: TenantCreateNestedOneWithoutDailyAuditSignOffsInput
+  }
+
+  export type DailyAuditSignOffUncheckedCreateWithoutVisitInput = {
+    id?: string
+    rnId: string
+    tenantId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffCreateOrConnectWithoutVisitInput = {
+    where: DailyAuditSignOffWhereUniqueInput
+    create: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutVisitInput = {
@@ -122284,6 +128750,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutVisitsInput = {
@@ -122324,6 +128791,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceUpsertWithoutVisitsInput = {
@@ -122432,6 +128900,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -122501,6 +128973,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -122544,6 +129020,35 @@ export namespace Prisma {
   export type CareFeedbackUpdateManyWithWhereWithoutVisitInput = {
     where: CareFeedbackScalarWhereInput
     data: XOR<CareFeedbackUpdateManyMutationInput, CareFeedbackUncheckedUpdateManyWithoutVisitInput>
+  }
+
+  export type DailyAuditSignOffUpsertWithoutVisitInput = {
+    update: XOR<DailyAuditSignOffUpdateWithoutVisitInput, DailyAuditSignOffUncheckedUpdateWithoutVisitInput>
+    create: XOR<DailyAuditSignOffCreateWithoutVisitInput, DailyAuditSignOffUncheckedCreateWithoutVisitInput>
+    where?: DailyAuditSignOffWhereInput
+  }
+
+  export type DailyAuditSignOffUpdateToOneWithWhereWithoutVisitInput = {
+    where?: DailyAuditSignOffWhereInput
+    data: XOR<DailyAuditSignOffUpdateWithoutVisitInput, DailyAuditSignOffUncheckedUpdateWithoutVisitInput>
+  }
+
+  export type DailyAuditSignOffUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rn?: UserUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateWithoutVisitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rnId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantCreateWithoutServicesInput = {
@@ -122600,6 +129105,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -122669,6 +129178,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -122724,6 +129237,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutServiceInput = {
@@ -122763,6 +129277,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutServiceInput = {
@@ -122872,6 +129387,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -122941,6 +129460,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -123015,6 +129538,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -123046,6 +129571,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -123174,6 +129701,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -123243,6 +129774,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -123298,6 +129833,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutCheckEventsInput = {
@@ -123337,6 +129873,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutCheckEventsInput = {
@@ -123384,6 +129921,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -123415,6 +129954,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -123555,6 +130096,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -123624,6 +130169,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -123685,6 +130234,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutCheckEventsInput = {
@@ -123724,6 +130274,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type PswProfileCreateWithoutNotesInput = {
@@ -123830,6 +130381,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutNotesInput = {
@@ -123869,6 +130421,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutNotesInput = {
@@ -123997,6 +130550,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutNotesInput = {
@@ -124036,6 +130590,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type PswProfileCreateWithoutChecklistsInput = {
@@ -124142,6 +130697,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutChecklistsInput = {
@@ -124181,6 +130737,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutChecklistsInput = {
@@ -124309,6 +130866,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutChecklistsInput = {
@@ -124348,6 +130906,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type UserCreateWithoutAcknowledgedIncidentsInput = {
@@ -124379,6 +130938,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -124410,6 +130971,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -124446,6 +131009,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -124477,6 +131042,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -124538,6 +131105,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -124607,6 +131178,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -124662,6 +131237,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutIncidentsInput = {
@@ -124701,6 +131277,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutIncidentsInput = {
@@ -124748,6 +131325,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -124779,6 +131358,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -124821,6 +131402,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -124852,6 +131435,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -124919,6 +131504,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -124988,6 +131577,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -125049,6 +131642,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutIncidentsInput = {
@@ -125088,6 +131682,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type TimesheetItemCreateWithoutTimesheetInput = {
@@ -125210,6 +131805,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -125241,6 +131838,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -125302,6 +131901,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -125371,6 +131974,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -125518,6 +132125,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -125549,6 +132158,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -125616,6 +132227,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -125685,6 +132300,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -125768,6 +132387,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutTimesheetItemsInput = {
@@ -125807,6 +132427,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutTimesheetItemsInput = {
@@ -125901,6 +132522,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutTimesheetItemsInput = {
@@ -125940,6 +132562,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type ClientProfileCreateWithoutInvoicesInput = {
@@ -125980,6 +132603,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutInvoicesInput = {
@@ -126020,6 +132644,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutInvoicesInput = {
@@ -126081,6 +132706,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -126150,6 +132779,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -126245,6 +132878,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutInvoicesInput = {
@@ -126285,6 +132919,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutInvoicesInput = {
@@ -126352,6 +132987,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -126421,6 +133060,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -126597,6 +133240,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMessageThreadsInput = {
@@ -126637,6 +133281,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMessageThreadsInput = {
@@ -126765,6 +133410,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -126834,6 +133483,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -126917,6 +133570,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMessageThreadsInput = {
@@ -126957,6 +133611,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PswProfileUpsertWithoutMessageThreadsInput = {
@@ -127097,6 +133752,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -127166,6 +133825,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -127208,6 +133871,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -127239,6 +133904,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -127309,6 +133976,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -127340,6 +134009,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -127400,6 +134071,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -127431,6 +134104,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -127492,6 +134167,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -127561,6 +134240,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -127619,6 +134302,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -127650,6 +134335,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -127717,6 +134404,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -127786,6 +134477,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -127853,6 +134548,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -127922,6 +134621,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -128005,6 +134708,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -128074,6 +134781,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -128125,6 +134836,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutBookingsInput = {
@@ -128165,6 +134877,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutBookingsInput = {
@@ -128226,6 +134939,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -128295,6 +135012,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -128350,6 +135071,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutBookingInput = {
@@ -128389,6 +135111,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutBookingInput = {
@@ -128450,6 +135173,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutBookingsInput = {
@@ -128490,6 +135214,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutBookingsInput = {
@@ -128557,6 +135282,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -128626,6 +135355,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -128776,6 +135509,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -128845,6 +135582,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -129001,6 +135742,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -129070,6 +135815,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129204,6 +135953,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -129273,6 +136026,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -129328,6 +136085,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutAssignmentsInput = {
@@ -129367,6 +136125,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutAssignmentsInput = {
@@ -129512,6 +136271,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -129581,6 +136344,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129642,6 +136409,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutAssignmentsInput = {
@@ -129681,6 +136449,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type UserCreateWithoutBlogPostsInput = {
@@ -129712,6 +136481,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -129743,6 +136514,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -129790,6 +136563,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -129821,6 +136596,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -129877,6 +136654,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -129946,6 +136727,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130029,6 +136814,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -130098,6 +136887,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130207,6 +137000,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -130238,6 +137033,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -130358,6 +137155,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -130389,6 +137188,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -130429,6 +137230,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutDailyEntryInput = {
@@ -130469,6 +137271,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutDailyEntryInput = {
@@ -130505,6 +137308,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -130536,6 +137341,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -130597,6 +137404,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -130666,6 +137477,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130721,6 +137536,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutDailyEntryInput = {
@@ -130760,6 +137576,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutDailyEntryInput = {
@@ -130816,6 +137633,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutDailyEntryInput = {
@@ -130856,6 +137674,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutDailyEntryInput = {
@@ -130898,6 +137717,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -130929,6 +137750,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -130996,6 +137819,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131065,6 +137892,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -131126,6 +137957,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutDailyEntryInput = {
@@ -131165,6 +137997,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type TenantCreateWithoutMarketplaceListingsInput = {
@@ -131222,6 +138055,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131291,6 +138128,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -131374,6 +138215,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131443,6 +138288,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -131493,6 +138342,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutFeedbacksInput = {
@@ -131533,6 +138383,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutFeedbacksInput = {
@@ -131594,6 +138445,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131663,6 +138518,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -131718,6 +138577,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutFeedbacksInput = {
@@ -131757,6 +138617,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutFeedbacksInput = {
@@ -131813,6 +138674,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutFeedbacksInput = {
@@ -131853,6 +138715,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutFeedbacksInput = {
@@ -131920,6 +138783,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131989,6 +138856,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132050,6 +138921,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutFeedbacksInput = {
@@ -132089,6 +138961,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type ClientProfileCreateWithoutCarePlansInput = {
@@ -132129,6 +139002,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutCarePlansInput = {
@@ -132169,6 +139043,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutCarePlansInput = {
@@ -132230,6 +139105,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -132299,6 +139178,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -132346,6 +139229,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -132377,6 +139262,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -132433,6 +139320,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutCarePlansInput = {
@@ -132473,6 +139361,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutCarePlansInput = {
@@ -132540,6 +139429,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -132609,6 +139502,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132662,6 +139559,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -132693,6 +139592,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTrainingModulesInput = {
@@ -132749,6 +139650,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -132818,6 +139723,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -132929,6 +139838,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -132998,6 +139911,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133154,6 +140071,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -133223,6 +140144,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -133330,6 +140255,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -133399,6 +140328,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133549,6 +140482,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -133618,6 +140555,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -133731,6 +140672,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -133800,6 +140745,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133957,6 +140906,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134026,6 +140979,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -134109,6 +141066,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -134178,6 +141139,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -134245,6 +141210,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134314,6 +141283,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -134397,6 +141370,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -134466,6 +141443,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -134533,6 +141514,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134602,6 +141587,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -134685,6 +141674,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -134754,6 +141747,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -134821,6 +141818,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134890,6 +141891,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -134973,6 +141978,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -135042,6 +142051,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135109,6 +142122,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -135178,6 +142195,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -135261,6 +142282,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -135330,6 +142355,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135397,6 +142426,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -135466,6 +142499,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -135549,6 +142586,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -135618,6 +142659,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135808,6 +142853,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutMatchesInput = {
@@ -135847,6 +142893,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutMatchesInput = {
@@ -135975,6 +143022,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -136044,6 +143095,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -136110,6 +143165,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutMatchesInput = {
@@ -136149,6 +143205,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type PswProfileUpsertWithoutMatchesInput = {
@@ -136289,6 +143346,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -136358,6 +143419,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136409,6 +143474,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -136449,6 +143515,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -136545,6 +143612,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -136614,6 +143685,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -136681,6 +143756,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -136721,6 +143797,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceUpsertWithoutWaitlistEntriesInput = {
@@ -136829,6 +143906,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -136898,6 +143979,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136965,6 +144050,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -137034,6 +144123,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -137117,6 +144210,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -137186,6 +144283,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137253,6 +144354,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -137322,6 +144427,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -137405,6 +144514,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -137474,6 +144587,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137542,6 +144659,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -137611,6 +144732,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -137694,6 +144819,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutFranchiseInput = {
@@ -137734,6 +144860,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutFranchiseInput = {
@@ -137812,6 +144939,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -137881,6 +145012,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -138099,6 +145234,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -138168,6 +145307,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -138223,6 +145366,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutInventoryItemsInput = {
@@ -138263,6 +145407,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutInventoryItemsInput = {
@@ -138336,6 +145481,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -138405,6 +145554,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138466,6 +145619,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutInventoryItemsInput = {
@@ -138506,6 +145660,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierCreateWithoutPurchaseOrdersInput = {
@@ -138590,6 +145745,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -138659,6 +145818,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -138714,6 +145877,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -138754,6 +145918,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -138860,6 +146025,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -138929,6 +146098,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138990,6 +146163,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -139030,6 +146204,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantCreateWithoutTelehealthSessionsInput = {
@@ -139086,6 +146261,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -139155,6 +146334,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -139211,6 +146394,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -139251,6 +146435,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -139287,6 +146472,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -139318,6 +146505,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -139390,6 +146579,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -139459,6 +146652,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139521,6 +146718,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -139561,6 +146759,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutTelehealthSessionsInput = {
@@ -139603,6 +146802,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -139634,6 +146835,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -139674,6 +146877,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutVitalSignsInput = {
@@ -139714,6 +146918,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutVitalSignsInput = {
@@ -139770,6 +146975,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutVitalSignsInput = {
@@ -139810,6 +147016,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantCreateWithoutPatientAlertsInput = {
@@ -139866,6 +147073,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -139935,6 +147146,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -139991,6 +147206,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutPatientAlertsInput = {
@@ -140031,6 +147247,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutPatientAlertsInput = {
@@ -140103,6 +147320,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -140172,6 +147393,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140234,6 +147459,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutPatientAlertsInput = {
@@ -140274,6 +147500,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantCreateWithoutInsuranceProvidersInput = {
@@ -140330,6 +147557,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -140399,6 +147630,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -140514,6 +147749,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -140583,6 +147822,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140666,6 +147909,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -140735,6 +147982,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -140791,6 +148042,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutClaimsInput = {
@@ -140831,6 +148083,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutClaimsInput = {
@@ -140928,6 +148181,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -140997,6 +148254,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141059,6 +148320,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutClaimsInput = {
@@ -141099,6 +148361,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type InsuranceProviderUpsertWithoutClaimsInput = {
@@ -141242,6 +148505,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -141311,6 +148578,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -141367,6 +148638,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutPrescriptionsInput = {
@@ -141407,6 +148679,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutPrescriptionsInput = {
@@ -141532,6 +148805,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -141601,6 +148878,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141663,6 +148944,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutPrescriptionsInput = {
@@ -141703,6 +148985,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type MedicationUpsertWithoutPrescriptionsInput = {
@@ -141790,6 +149073,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMarEntriesInput = {
@@ -141830,6 +149114,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMarEntriesInput = {
@@ -141921,6 +149206,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMarEntriesInput = {
@@ -141961,6 +149247,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type PrescriptionUpsertWithoutMarEntriesInput = {
@@ -142108,6 +149395,7 @@ export namespace Prisma {
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutHandoversInput = {
@@ -142147,6 +149435,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutVisitInput
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutHandoversInput = {
@@ -142209,6 +149498,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -142278,6 +149571,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -142416,6 +149713,7 @@ export namespace Prisma {
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutHandoversInput = {
@@ -142455,6 +149753,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedUpdateManyWithoutVisitNestedInput
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type TenantUpsertWithoutHandoversInput = {
@@ -142523,6 +149822,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -142592,6 +149895,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142726,6 +150033,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -142795,6 +150106,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -142951,6 +150266,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -143020,6 +150339,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143154,6 +150477,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -143223,6 +150550,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -143379,6 +150710,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -143448,6 +150783,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143498,6 +150837,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutAssessmentsInput = {
@@ -143538,6 +150878,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutAssessmentsInput = {
@@ -143574,6 +150915,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -143605,6 +150948,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -143667,6 +151012,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -143736,6 +151085,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -143802,6 +151155,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutAssessmentsInput = {
@@ -143842,6 +151196,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutAssessmentsInput = {
@@ -143884,6 +151239,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -143915,6 +151272,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -143983,6 +151342,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -144052,6 +151415,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144102,6 +151469,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutMedicationReconsInput = {
@@ -144142,6 +151510,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutMedicationReconsInput = {
@@ -144178,6 +151547,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -144209,6 +151580,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -144271,6 +151644,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -144340,6 +151717,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -144406,6 +151787,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutMedicationReconsInput = {
@@ -144446,6 +151828,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type UserUpsertWithoutMedicationReconsInput = {
@@ -144488,6 +151871,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -144519,6 +151904,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -144587,6 +151974,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -144656,6 +152047,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144764,6 +152159,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -144795,6 +152192,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -144857,6 +152256,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -144926,6 +152329,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -145056,6 +152463,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -145087,6 +152496,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -145155,6 +152566,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -145224,6 +152639,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145274,6 +152693,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutClientInput
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -145314,6 +152734,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutClientInput
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -145375,6 +152796,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -145444,6 +152869,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -145511,6 +152940,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutClientNestedInput
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -145551,6 +152981,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutClientNestedInput
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type TenantUpsertWithoutFamilyNotificationsInput = {
@@ -145618,6 +153049,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -145687,6 +153122,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145738,6 +153177,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutClientInput
     waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileUncheckedCreateWithoutCareFeedbacksInput = {
@@ -145778,6 +153218,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutClientInput
     waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type ClientProfileCreateOrConnectWithoutCareFeedbacksInput = {
@@ -145822,6 +153263,7 @@ export namespace Prisma {
     service: ServiceCreateNestedOneWithoutVisitsInput
     tenant: TenantCreateNestedOneWithoutVisitsInput
     handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffCreateNestedOneWithoutVisitInput
   }
 
   export type VisitUncheckedCreateWithoutCareFeedbacksInput = {
@@ -145861,6 +153303,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutVisitInput
     matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedCreateNestedOneWithoutVisitInput
   }
 
   export type VisitCreateOrConnectWithoutCareFeedbacksInput = {
@@ -145922,6 +153365,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -145991,6 +153438,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -146058,6 +153509,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutClientNestedInput
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -146098,6 +153550,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutClientNestedInput
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type VisitUpsertWithoutCareFeedbacksInput = {
@@ -146148,6 +153601,7 @@ export namespace Prisma {
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -146187,6 +153641,7 @@ export namespace Prisma {
     feedbacks?: FeedbackUncheckedUpdateManyWithoutVisitNestedInput
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type TenantUpsertWithoutCareFeedbacksInput = {
@@ -146254,6 +153709,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -146323,6 +153782,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146365,6 +153828,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
@@ -146396,6 +153861,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedAuditsInput = {
@@ -146457,6 +153924,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -146526,6 +153997,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -146584,6 +154059,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
@@ -146615,6 +154092,8 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTechnicalAuditsInput = {
@@ -146682,6 +154161,10 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -146751,6 +154234,1878 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ClientProfileCreateWithoutBookingRequestsInput = {
+    id?: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    tenant: TenantCreateNestedOneWithoutClientProfilesInput
+    user: UserCreateNestedOneWithoutClientProfileInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutClientInput
+    invoices?: InvoiceCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutClientInput
+    visits?: VisitCreateNestedManyWithoutClientInput
+    feedbacks?: FeedbackCreateNestedManyWithoutClientInput
+    franchise?: FranchiseCreateNestedOneWithoutClientsInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutClientProfileInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutClientProfileInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutPatientInput
+    vitalSigns?: VitalSignCreateNestedManyWithoutPatientInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutPatientInput
+    claims?: ClaimCreateNestedManyWithoutPatientInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutPatientInput
+    marEntries?: MAR_EntryCreateNestedManyWithoutPatientInput
+    carePlans?: CarePlanCreateNestedManyWithoutClientInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutClientInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutClientInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutClientInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutClientInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileUncheckedCreateWithoutBookingRequestsInput = {
+    id?: string
+    userId: string
+    fullName: string
+    dob?: Date | string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    province?: string | null
+    postalCode?: string | null
+    lat?: number | null
+    lng?: number | null
+    emergencyName?: string | null
+    emergencyPhone?: string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    franchiseId?: string | null
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutClientInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutClientInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutClientInput
+    visits?: VisitUncheckedCreateNestedManyWithoutClientInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutClientInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutClientProfileInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutClientProfileInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutPatientInput
+    vitalSigns?: VitalSignUncheckedCreateNestedManyWithoutPatientInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutPatientInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutPatientInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutPatientInput
+    marEntries?: MAR_EntryUncheckedCreateNestedManyWithoutPatientInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutClientInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutClientInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutClientInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutClientInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutClientInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientProfileCreateOrConnectWithoutBookingRequestsInput = {
+    where: ClientProfileWhereUniqueInput
+    create: XOR<ClientProfileCreateWithoutBookingRequestsInput, ClientProfileUncheckedCreateWithoutBookingRequestsInput>
+  }
+
+  export type TenantCreateWithoutBookingRequestsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBookingRequestsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBookingRequestsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBookingRequestsInput, TenantUncheckedCreateWithoutBookingRequestsInput>
+  }
+
+  export type ClientProfileUpsertWithoutBookingRequestsInput = {
+    update: XOR<ClientProfileUpdateWithoutBookingRequestsInput, ClientProfileUncheckedUpdateWithoutBookingRequestsInput>
+    create: XOR<ClientProfileCreateWithoutBookingRequestsInput, ClientProfileUncheckedCreateWithoutBookingRequestsInput>
+    where?: ClientProfileWhereInput
+  }
+
+  export type ClientProfileUpdateToOneWithWhereWithoutBookingRequestsInput = {
+    where?: ClientProfileWhereInput
+    data: XOR<ClientProfileUpdateWithoutBookingRequestsInput, ClientProfileUncheckedUpdateWithoutBookingRequestsInput>
+  }
+
+  export type ClientProfileUpdateWithoutBookingRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutClientProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutClientProfileNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutClientNestedInput
+    visits?: VisitUpdateManyWithoutClientNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutClientNestedInput
+    franchise?: FranchiseUpdateOneWithoutClientsNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutClientProfileNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutClientProfileNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutPatientNestedInput
+    vitalSigns?: VitalSignUpdateManyWithoutPatientNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutPatientNestedInput
+    claims?: ClaimUpdateManyWithoutPatientNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutPatientNestedInput
+    marEntries?: MAR_EntryUpdateManyWithoutPatientNestedInput
+    carePlans?: CarePlanUpdateManyWithoutClientNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutClientNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutClientNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+  }
+
+  export type ClientProfileUncheckedUpdateWithoutBookingRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    emergencyName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    franchiseId?: NullableStringFieldUpdateOperationsInput | string | null
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutClientNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutClientNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutClientNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutClientNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutClientNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutClientProfileNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutClientProfileNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutPatientNestedInput
+    vitalSigns?: VitalSignUncheckedUpdateManyWithoutPatientNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutPatientNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutPatientNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
+    marEntries?: MAR_EntryUncheckedUpdateManyWithoutPatientNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutClientNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutClientNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutClientNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+  }
+
+  export type TenantUpsertWithoutBookingRequestsInput = {
+    update: XOR<TenantUpdateWithoutBookingRequestsInput, TenantUncheckedUpdateWithoutBookingRequestsInput>
+    create: XOR<TenantCreateWithoutBookingRequestsInput, TenantUncheckedCreateWithoutBookingRequestsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBookingRequestsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBookingRequestsInput, TenantUncheckedUpdateWithoutBookingRequestsInput>
+  }
+
+  export type TenantUpdateWithoutBookingRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserCreateWithoutDailyAuditSignOffsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDailyAuditSignOffsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyAuditSignOffsInput, UserUncheckedCreateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type TenantCreateWithoutDailyAuditSignOffsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDailyAuditSignOffsInput, TenantUncheckedCreateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type VisitCreateWithoutDailyAuditSignOffInput = {
+    id?: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    crisisMode?: boolean | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
+    DailyEntry?: DailyEntryCreateNestedManyWithoutVisitInput
+    incidents?: IncidentCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteCreateNestedManyWithoutVisitInput
+    feedbacks?: FeedbackCreateNestedManyWithoutVisitInput
+    matches?: VisitMatchCreateNestedManyWithoutVisitInput
+    psw?: PswProfileCreateNestedOneWithoutAssignedVisitsInput
+    booking?: BookingCreateNestedOneWithoutVisitsInput
+    client: ClientProfileCreateNestedOneWithoutVisitsInput
+    service: ServiceCreateNestedOneWithoutVisitsInput
+    tenant: TenantCreateNestedOneWithoutVisitsInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutVisitInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitUncheckedCreateWithoutDailyAuditSignOffInput = {
+    id?: string
+    clientId: string
+    serviceId: string
+    requestedStartAt: Date | string
+    durationMinutes: number
+    status?: $Enums.VisitStatus | null
+    assignedPswId?: string | null
+    serviceAddressLine1?: string | null
+    serviceAddressLine2?: string | null
+    serviceCity?: string | null
+    serviceProvince?: string | null
+    servicePostalCode?: string | null
+    serviceLat?: number | null
+    serviceLng?: number | null
+    clientNotes?: string | null
+    coordinatorNotes?: string | null
+    cancellationReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    bookingId?: string | null
+    crisisMode?: boolean | null
+    priority?: string | null
+    requiredSkills?: VisitCreaterequiredSkillsInput | string[]
+    isSurgeActive?: boolean | null
+    surgeMultiplier?: number | null
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutVisitInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutVisitInput
+    assignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutVisitInput
+    timesheetItems?: TimesheetItemUncheckedCreateNestedManyWithoutVisitInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutVisitInput
+    checklists?: VisitChecklistUncheckedCreateNestedManyWithoutVisitInput
+    notes?: VisitNoteUncheckedCreateNestedManyWithoutVisitInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutVisitInput
+    matches?: VisitMatchUncheckedCreateNestedManyWithoutVisitInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutVisitInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutVisitInput
+  }
+
+  export type VisitCreateOrConnectWithoutDailyAuditSignOffInput = {
+    where: VisitWhereUniqueInput
+    create: XOR<VisitCreateWithoutDailyAuditSignOffInput, VisitUncheckedCreateWithoutDailyAuditSignOffInput>
+  }
+
+  export type UserUpsertWithoutDailyAuditSignOffsInput = {
+    update: XOR<UserUpdateWithoutDailyAuditSignOffsInput, UserUncheckedUpdateWithoutDailyAuditSignOffsInput>
+    create: XOR<UserCreateWithoutDailyAuditSignOffsInput, UserUncheckedCreateWithoutDailyAuditSignOffsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDailyAuditSignOffsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDailyAuditSignOffsInput, UserUncheckedUpdateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type UserUpdateWithoutDailyAuditSignOffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TenantUpsertWithoutDailyAuditSignOffsInput = {
+    update: XOR<TenantUpdateWithoutDailyAuditSignOffsInput, TenantUncheckedUpdateWithoutDailyAuditSignOffsInput>
+    create: XOR<TenantCreateWithoutDailyAuditSignOffsInput, TenantUncheckedCreateWithoutDailyAuditSignOffsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDailyAuditSignOffsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDailyAuditSignOffsInput, TenantUncheckedUpdateWithoutDailyAuditSignOffsInput>
+  }
+
+  export type TenantUpdateWithoutDailyAuditSignOffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type VisitUpsertWithoutDailyAuditSignOffInput = {
+    update: XOR<VisitUpdateWithoutDailyAuditSignOffInput, VisitUncheckedUpdateWithoutDailyAuditSignOffInput>
+    create: XOR<VisitCreateWithoutDailyAuditSignOffInput, VisitUncheckedCreateWithoutDailyAuditSignOffInput>
+    where?: VisitWhereInput
+  }
+
+  export type VisitUpdateToOneWithWhereWithoutDailyAuditSignOffInput = {
+    where?: VisitWhereInput
+    data: XOR<VisitUpdateWithoutDailyAuditSignOffInput, VisitUncheckedUpdateWithoutDailyAuditSignOffInput>
+  }
+
+  export type VisitUpdateWithoutDailyAuditSignOffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
+    DailyEntry?: DailyEntryUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUpdateManyWithoutVisitNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutVisitNestedInput
+    matches?: VisitMatchUpdateManyWithoutVisitNestedInput
+    psw?: PswProfileUpdateOneWithoutAssignedVisitsNestedInput
+    booking?: BookingUpdateOneWithoutVisitsNestedInput
+    client?: ClientProfileUpdateOneRequiredWithoutVisitsNestedInput
+    service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+  }
+
+  export type VisitUncheckedUpdateWithoutDailyAuditSignOffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMinutes?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumVisitStatusFieldUpdateOperationsInput | $Enums.VisitStatus | null
+    assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProvince?: NullableStringFieldUpdateOperationsInput | string | null
+    servicePostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLat?: NullableFloatFieldUpdateOperationsInput | number | null
+    serviceLng?: NullableFloatFieldUpdateOperationsInput | number | null
+    clientNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    coordinatorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    bookingId?: NullableStringFieldUpdateOperationsInput | string | null
+    crisisMode?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    priority?: NullableStringFieldUpdateOperationsInput | string | null
+    requiredSkills?: VisitUpdaterequiredSkillsInput | string[]
+    isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutVisitNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutVisitNestedInput
+    assignments?: ShiftAssignmentUncheckedUpdateManyWithoutVisitNestedInput
+    timesheetItems?: TimesheetItemUncheckedUpdateManyWithoutVisitNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutVisitNestedInput
+    checklists?: VisitChecklistUncheckedUpdateManyWithoutVisitNestedInput
+    notes?: VisitNoteUncheckedUpdateManyWithoutVisitNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+  }
+
+  export type UserCreateWithoutWellnessPulsesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+  }
+
+  export type UserUncheckedCreateWithoutWellnessPulsesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+  }
+
+  export type UserCreateOrConnectWithoutWellnessPulsesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWellnessPulsesInput, UserUncheckedCreateWithoutWellnessPulsesInput>
+  }
+
+  export type TenantCreateWithoutWellnessPulsesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutWellnessPulsesInput, TenantUncheckedCreateWithoutWellnessPulsesInput>
+  }
+
+  export type UserUpsertWithoutWellnessPulsesInput = {
+    update: XOR<UserUpdateWithoutWellnessPulsesInput, UserUncheckedUpdateWithoutWellnessPulsesInput>
+    create: XOR<UserCreateWithoutWellnessPulsesInput, UserUncheckedCreateWithoutWellnessPulsesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWellnessPulsesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWellnessPulsesInput, UserUncheckedUpdateWithoutWellnessPulsesInput>
+  }
+
+  export type UserUpdateWithoutWellnessPulsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+  }
+
+  export type TenantUpsertWithoutWellnessPulsesInput = {
+    update: XOR<TenantUpdateWithoutWellnessPulsesInput, TenantUncheckedUpdateWithoutWellnessPulsesInput>
+    create: XOR<TenantCreateWithoutWellnessPulsesInput, TenantUncheckedCreateWithoutWellnessPulsesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutWellnessPulsesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutWellnessPulsesInput, TenantUncheckedUpdateWithoutWellnessPulsesInput>
+  }
+
+  export type TenantUpdateWithoutWellnessPulsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutSystemTouchpointsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSystemTouchpointsInput, TenantUncheckedCreateWithoutSystemTouchpointsInput>
+  }
+
+  export type TenantUpsertWithoutSystemTouchpointsInput = {
+    update: XOR<TenantUpdateWithoutSystemTouchpointsInput, TenantUncheckedUpdateWithoutSystemTouchpointsInput>
+    create: XOR<TenantCreateWithoutSystemTouchpointsInput, TenantUncheckedCreateWithoutSystemTouchpointsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutSystemTouchpointsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutSystemTouchpointsInput, TenantUncheckedUpdateWithoutSystemTouchpointsInput>
+  }
+
+  export type TenantUpdateWithoutSystemTouchpointsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146956,6 +156311,23 @@ export namespace Prisma {
     details?: NullableJsonNullValueInput | InputJsonValue
     performedAt?: Date | string
     tenantId?: string | null
+  }
+
+  export type DailyAuditSignOffCreateManyRnInput = {
+    id?: string
+    tenantId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type WellnessPulseCreateManyUserInput = {
+    id?: string
+    tenantId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutActorInput = {
@@ -147542,6 +156914,57 @@ export namespace Prisma {
     tenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type DailyAuditSignOffUpdateWithoutRnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+    visit?: VisitUpdateOneRequiredWithoutDailyAuditSignOffNestedInput
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateWithoutRnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateManyWithoutRnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutWellnessPulsesNestedInput
+  }
+
+  export type WellnessPulseUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -148033,6 +157456,50 @@ export namespace Prisma {
     performedAt?: Date | string
   }
 
+  export type BookingRequestCreateManyTenantInput = {
+    id?: string
+    clientId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyAuditSignOffCreateManyTenantInput = {
+    id?: string
+    rnId: string
+    visitId: string
+    clinicalComment?: string | null
+    status?: string
+    signedAt?: Date | string
+  }
+
+  export type WellnessPulseCreateManyTenantInput = {
+    id?: string
+    userId: string
+    status: string
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SystemTouchpointCreateManyTenantInput = {
+    id?: string
+    touchpointId: string
+    type: string
+    role: string
+    module: string
+    label?: string | null
+    path: string
+    status?: string
+    errorDetail?: string | null
+    isOverridden?: boolean
+    overrideValue?: string | null
+    lastChecked?: Date | string
+  }
+
   export type TenantCreateManyParentTenantInput = {
     id?: string
     name: string
@@ -148265,6 +157732,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutTenantInput = {
@@ -148305,6 +157773,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateManyWithoutTenantInput = {
@@ -148810,6 +158279,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -148841,6 +158312,8 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -148951,6 +158424,7 @@ export namespace Prisma {
     service?: ServiceUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutTenantInput = {
@@ -148990,6 +158464,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutTenantInput = {
@@ -149774,6 +159249,138 @@ export namespace Prisma {
     performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookingRequestUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientProfileUpdateOneRequiredWithoutBookingRequestsNestedInput
+  }
+
+  export type BookingRequestUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingRequestUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rn?: UserUpdateOneRequiredWithoutDailyAuditSignOffsNestedInput
+    visit?: VisitUpdateOneRequiredWithoutDailyAuditSignOffNestedInput
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rnId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyAuditSignOffUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rnId?: StringFieldUpdateOperationsInput | string
+    visitId?: StringFieldUpdateOperationsInput | string
+    clinicalComment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    signedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWellnessPulsesNestedInput
+  }
+
+  export type WellnessPulseUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WellnessPulseUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemTouchpointUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemTouchpointUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemTouchpointUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    touchpointId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorDetail?: NullableStringFieldUpdateOperationsInput | string | null
+    isOverridden?: BoolFieldUpdateOperationsInput | boolean
+    overrideValue?: NullableStringFieldUpdateOperationsInput | string | null
+    lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -149829,6 +159436,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -149897,6 +159508,10 @@ export namespace Prisma {
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -150487,6 +160102,18 @@ export namespace Prisma {
     tenantId: string
   }
 
+  export type BookingRequestCreateManyClientInput = {
+    id?: string
+    tenantId: string
+    serviceType: string
+    preferredDate: Date | string
+    preferredTime?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type BookingUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
     branchId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -150680,6 +160307,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutClientInput = {
@@ -150719,6 +160347,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutClientInput = {
@@ -151252,6 +160881,42 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type BookingRequestUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBookingRequestsNestedInput
+  }
+
+  export type BookingRequestUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingRequestUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    serviceType?: StringFieldUpdateOperationsInput | string
+    preferredDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    preferredTime?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MessageThreadCreateManyPswInput = {
     id?: string
     threadType: string
@@ -151701,6 +161366,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutPswInput = {
@@ -151740,6 +161406,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutPswInput = {
@@ -152470,6 +162137,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutServiceInput = {
@@ -152509,6 +162177,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutServiceInput = {
@@ -152729,6 +162398,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutVisitsNestedInput
     handovers?: ShiftHandoverUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateWithoutBookingInput = {
@@ -152768,6 +162438,7 @@ export namespace Prisma {
     matches?: VisitMatchUncheckedUpdateManyWithoutVisitNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutVisitNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutVisitNestedInput
+    dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
   export type VisitUncheckedUpdateManyWithoutBookingInput = {
@@ -152996,6 +162667,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateWithoutFranchiseInput = {
@@ -153036,6 +162708,7 @@ export namespace Prisma {
     waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutClientNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutClientNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutClientNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ClientProfileUncheckedUpdateManyWithoutFranchiseInput = {
@@ -153609,6 +163282,22 @@ export namespace Prisma {
      * @deprecated Use RegistryEntryDefaultArgs instead
      */
     export type RegistryEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RegistryEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BookingRequestDefaultArgs instead
+     */
+    export type BookingRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingRequestDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DailyAuditSignOffDefaultArgs instead
+     */
+    export type DailyAuditSignOffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyAuditSignOffDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use WellnessPulseDefaultArgs instead
+     */
+    export type WellnessPulseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WellnessPulseDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SystemTouchpointDefaultArgs instead
+     */
+    export type SystemTouchpointArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemTouchpointDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -17,7 +17,8 @@ model User {
   id                 String              @id @default(uuid())
   email              String              @unique
   phone              String?
-  passwordHash       String              @map("password_hash")
+  passwordHash       String?             @map("password_hash")
+  osmId              String?             @unique @map("osm_id")
   status             String?             @default("active")
   resetToken         String?
   resetTokenExpiry   DateTime?

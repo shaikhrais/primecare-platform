@@ -46,6 +46,8 @@ model User {
   supervisionLogs       SupervisionLog[]
   acknowledgedIncidents Incident[]           @relation("Acknowledger")
   performedAudits       TechnicalAudit[]     @relation("PerformedAudits")
+  dailyAuditSignOffs    DailyAuditSignOff[]
+  wellnessPulses        WellnessPulse[]
 
   @@index([tenantId])
   @@map("users")
@@ -99,6 +101,10 @@ model Tenant {
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
   technicalAudits     TechnicalAudit[]
+  bookingRequests     BookingRequest[]
+  dailyAuditSignOffs  DailyAuditSignOff[]
+  wellnessPulses      WellnessPulse[]
+  systemTouchpoints   SystemTouchpoint[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -183,6 +189,7 @@ model ClientProfile {
   waitlistEntries     WaitlistEntry[]
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
+  bookingRequests     BookingRequest[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -226,32 +233,32 @@ model PswProfile {
 }
 
 model Visit {
-  id                  String            @id @default(uuid())
-  clientId            String            @map("client_id")
-  serviceId           String            @map("service_id")
-  requestedStartAt    DateTime          @map("requested_start_at")
-  durationMinutes     Int               @map("duration_minutes")
-  status              VisitStatus?      @default(requested)
-  assignedPswId       String?           @map("assigned_psw_id")
-  serviceAddressLine1 String?           @map("service_address_line1")
-  serviceAddressLine2 String?           @map("service_address_line2")
-  serviceCity         String?           @map("service_city")
-  serviceProvince     String?           @map("service_province")
-  servicePostalCode   String?           @map("service_postal_code")
-  serviceLat          Float?            @map("service_lat")
-  serviceLng          Float?            @map("service_lng")
-  clientNotes         String?           @map("client_notes")
-  coordinatorNotes    String?           @map("coordinator_notes")
-  cancellationReason  String?           @map("cancellation_reason")
-  createdAt           DateTime          @default(now()) @map("created_at")
-  updatedAt           DateTime          @updatedAt @map("updated_at")
-  tenantId            String            @map("tenant_id")
-  bookingId           String?           @map("booking_id")
-  crisisMode          Boolean?          @default(false) @map("crisis_mode")
-  priority            String?           @default("normal")
-  requiredSkills      String[]          @map("required_skills")
-  isSurgeActive       Boolean?          @default(false) @map("is_surge_active")
-  surgeMultiplier     Float?            @default(1.0) @map("surge_multiplier")
+  id                  String             @id @default(uuid())
+  clientId            String             @map("client_id")
+  serviceId           String             @map("service_id")
+  requestedStartAt    DateTime           @map("requested_start_at")
+  durationMinutes     Int                @map("duration_minutes")
+  status              VisitStatus?       @default(requested)
+  assignedPswId       String?            @map("assigned_psw_id")
+  serviceAddressLine1 String?            @map("service_address_line1")
+  serviceAddressLine2 String?            @map("service_address_line2")
+  serviceCity         String?            @map("service_city")
+  serviceProvince     String?            @map("service_province")
+  servicePostalCode   String?            @map("service_postal_code")
+  serviceLat          Float?             @map("service_lat")
+  serviceLng          Float?             @map("service_lng")
+  clientNotes         String?            @map("client_notes")
+  coordinatorNotes    String?            @map("coordinator_notes")
+  cancellationReason  String?            @map("cancellation_reason")
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  tenantId            String             @map("tenant_id")
+  bookingId           String?            @map("booking_id")
+  crisisMode          Boolean?           @default(false) @map("crisis_mode")
+  priority            String?            @default("normal")
+  requiredSkills      String[]           @map("required_skills")
+  isSurgeActive       Boolean?           @default(false) @map("is_surge_active")
+  surgeMultiplier     Float?             @default(1.0) @map("surge_multiplier")
   DailyEntry          DailyEntry[]
   incidents           Incident[]
   assignments         ShiftAssignment[]
@@ -261,13 +268,14 @@ model Visit {
   notes               VisitNote[]
   feedbacks           Feedback[]
   matches             VisitMatch[]
-  psw                 PswProfile?       @relation("PswToVisits", fields: [assignedPswId], references: [id])
-  booking             Booking?          @relation(fields: [bookingId], references: [id])
-  client              ClientProfile     @relation(fields: [clientId], references: [id])
-  service             Service           @relation(fields: [serviceId], references: [id])
-  tenant              Tenant            @relation(fields: [tenantId], references: [id])
+  psw                 PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  booking             Booking?           @relation(fields: [bookingId], references: [id])
+  client              ClientProfile      @relation(fields: [clientId], references: [id])
+  service             Service            @relation(fields: [serviceId], references: [id])
+  tenant              Tenant             @relation(fields: [tenantId], references: [id])
   handovers           ShiftHandover[]
   careFeedbacks       CareFeedback[]
+  dailyAuditSignOff   DailyAuditSignOff?
 
   @@index([tenantId])
   @@map("visits")
@@ -1469,4 +1477,71 @@ model RegistryEntry {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   @@map("registry_entries")
+}
+
+model BookingRequest {
+  id            String   @id @default(uuid())
+  clientId      String   @map("client_id")
+  tenantId      String   @map("tenant_id")
+  serviceType   String   @map("service_type")
+  preferredDate DateTime @map("preferred_date")
+  preferredTime String?  @map("preferred_time")
+  notes         String?
+  status        String   @default("pending") // pending, approved, rejected, cancelled
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@map("booking_requests")
+}
+
+model DailyAuditSignOff {
+  id              String   @id @default(uuid())
+  rnId            String   @map("rn_id")
+  tenantId        String   @map("tenant_id")
+  visitId         String   @unique @map("visit_id")
+  clinicalComment String?  @map("clinical_comment")
+  status          String   @default("verified") // verified, flagged
+  signedAt        DateTime @default(now()) @map("signed_at")
+
+  rn     User   @relation(fields: [rnId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  visit  Visit  @relation(fields: [visitId], references: [id])
+
+  @@map("daily_audit_signoffs")
+}
+
+model WellnessPulse {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tenantId  String   @map("tenant_id")
+  status    String // great, okay, struggling, burnout
+  note      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("wellness_pulses")
+}
+
+model SystemTouchpoint {
+  id            String   @id @default(uuid())
+  touchpointId  String   @unique @map("touchpoint_id")
+  type          String // BUTTON, LINK, INTERACTION
+  role          String
+  module        String
+  label         String? // The text displayed on UI
+  path          String
+  status        String   @default("OK") // OK, 404, ERROR
+  errorDetail   String?  @map("error_detail")
+  isOverridden  Boolean  @default(false) @map("is_overridden")
+  overrideValue String?  @map("override_value")
+  lastChecked   DateTime @default(now()) @map("last_checked")
+  tenantId      String   @map("tenant_id")
+  tenant        Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@map("system_touchpoints")
 }

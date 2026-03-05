@@ -6,6 +6,9 @@ export type Bindings = {
     SITE_URL?: string;
     CHAT_SERVER: DurableObjectNamespace;
     ENVIRONMENT?: string;
+    OSM_CLIENT_ID?: string;
+    OSM_CLIENT_SECRET?: string;
+    OSM_REDIRECT_URI?: string;
 };
 
 export type Variables = {

@@ -11,6 +11,7 @@ const TENANCY = {
         SURVEYS: '/v1/manager/surveys',
         EVALUATIONS: '/v1/manager/evaluations',
         OPS_STATS: '/v1/manager/ops/stats',
+        BRANCH_HEALTH: '/v1/manager/ops/branch-health',
         COMPLIANCE_SYNC: '/v1/manager/ops/compliance/sync',
         FEEDBACK_TRIAGE: (id: string) => `/v1/manager/ops/feedback/${id}/triage`,
     },

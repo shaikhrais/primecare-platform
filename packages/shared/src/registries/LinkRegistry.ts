@@ -94,4 +94,9 @@ export const LinkRegistry: LinkDef[] = [
     // Batch 26: Regional Director Mastery
     { id: 'lnk-rd-regional', label: 'Regional Intelligence', role: 'regional_manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.REGIONAL_STATS, description: 'High-level regional operational KPIs and radar.' },
     { id: 'lnk-rd-finance', label: 'Regional Finance Hub', role: 'regional_manager', module: 'FINANCE', path: RouteRegistry.MANAGER.FINANCE, description: 'Consolidated regional financial governance and P&L.' },
+    { id: 'lnk-mgr-dashboard', label: 'Branch Dashboard', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.DASHBOARD, description: 'Daily operational overview for branch managers.' },
+    { id: 'lnk-mgr-ops-hub', label: 'Agency Operations Hub', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.OPERATIONS, description: 'Centralized hub for branch-wide coordination and triage.' },
+    { id: 'lnk-mgr-finance', label: 'Branch Financials', role: 'manager', module: 'FINANCE', path: RouteRegistry.MANAGER.FINANCE, description: 'Branch-level billing, invoices, and financial performance.' },
+    { id: 'lnk-mgr-team', label: 'Branch Team', role: 'manager', module: 'OPERATIONS', path: '/tenancy/manager/team', description: 'Management of branch staff profiles and performance.' },
+    { id: 'lnk-adm-strategy', label: 'Growth Strategy', role: 'admin', module: 'GROWTH', path: RouteRegistry.ADMIN.GROWTH_STRATEGY, description: 'Strategic growth and network expansion planning.' },
 ];

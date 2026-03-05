@@ -23,6 +23,30 @@ const FeedbackTriageSchema = z.object({
     resolutionNote: z.string().optional(),
 });
 
+const branchHealthRoute = createRoute({
+    method: 'get',
+    path: '/branch-health',
+    request: {},
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        status: z.string(),
+                        alerts: z.array(z.object({
+                            type: z.string(),
+                            severity: z.string(),
+                            message: z.string(),
+                        })),
+                    }),
+                },
+            },
+            description: 'Branch health retrieved',
+        },
+    },
+    ...ROUTE_METADATA.MANAGER.BRANCH_HEALTH,
+});
+
 const statsRoute = createRoute({
     method: 'get',
     path: '/stats',
@@ -135,6 +159,23 @@ r.openapi(feedbackTriageRoute, async (c) => {
     });
 
     return c.json({ success: true }, 200);
+});
+
+r.openapi(branchHealthRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const alerts = await prisma.patientAlert.findMany({
+        where: { tenantId, status: 'open' },
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        select: { type: true, severity: true, message: true }
+    });
+
+    return c.json({
+        status: alerts.length > 0 ? 'warning' : 'healthy',
+        alerts,
+    }, 200);
 });
 
 export default r;

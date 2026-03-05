@@ -35,27 +35,31 @@ export default function ManagerDashboard() {
     const [kpi, setKpi] = useState<KPIData>({ activeClients: 0, staffOnDuty: 0, openIncidents: 0, todayShifts: 0 });
     const [shifts, setShifts] = useState<ShiftDisplay[]>([]);
     const [loading, setLoading] = useState(true);
+    const [branchHealth, setBranchHealth] = useState<{ status: 'healthy' | 'warning' | 'critical', alerts: any[] }>({ status: 'healthy', alerts: [] });
     const [perspective, setPerspective] = useState('Operations');
     const [chartData, setChartData] = useState<any>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [kpiRes, todayRes, statsRes]: any = await Promise.all([
+                const [kpiRes, todayRes, statsRes, healthRes]: any = await Promise.all([
                     apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_KPI),
                     apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_TODAY),
-                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS)
+                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS),
+                    apiClient.get(ApiRegistry.TENANCY.MANAGER.BRANCH_HEALTH)
                 ]);
 
-                const [kpiData, todayData, statsData] = await Promise.all([
+                const [kpiData, todayData, statsData, healthData] = await Promise.all([
                     kpiRes.json(),
                     todayRes.json(),
-                    statsRes.json()
+                    statsRes.json(),
+                    healthRes.json()
                 ]);
 
                 if (kpiData) setKpi(kpiData);
                 if (todayData && Array.isArray(todayData)) setShifts(todayData);
                 if (statsData) setChartData(statsData);
+                if (healthData) setBranchHealth(healthData);
             } catch (error) {
                 console.error('Failed to load dashboard data', error);
             } finally {
@@ -131,6 +135,8 @@ export default function ManagerDashboard() {
                 staffOnDuty={kpi.staffOnDuty}
                 openIncidents={kpi.openIncidents}
                 todayShifts={kpi.todayShifts}
+                healthStatus={branchHealth.status}
+                alertsCount={branchHealth.alerts.length}
             />
 
             <QuickActions />

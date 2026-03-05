@@ -27,6 +27,11 @@ export const MANAGER_METADATA = {
         description: 'Retrieve detailed performance metrics and branch KPIs for regional oversight.',
         tags: ['Manager Operations'],
     },
+    BRANCH_HEALTH: {
+        summary: 'Get Branch Health Status',
+        description: 'Retrieve real-time health alerts and operational status for the branch.',
+        tags: ['Manager Operations'],
+    },
     COMPLIANCE_SYNC: {
         summary: 'Sync Branch Compliance',
         description: 'Synchronize and audit compliance records for the regional branch.',

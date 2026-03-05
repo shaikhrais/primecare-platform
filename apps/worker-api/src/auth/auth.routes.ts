@@ -5,6 +5,7 @@ import loginRoutes from './routes/login';
 import sessionRoutes from './routes/session';
 import adminRoutes from './routes/admin';
 import onboardRoutes from './routes/onboard';
+import osmRoutes from './routes/osm';
 
 const auth = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -13,5 +14,6 @@ auth.route('/', loginRoutes);
 auth.route('/', sessionRoutes);
 auth.route('/', adminRoutes);
 auth.route('/', onboardRoutes);
+auth.route('/', osmRoutes);
 
 export default auth;

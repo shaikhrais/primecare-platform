@@ -1016,6 +1016,54 @@ exports.Prisma.RegistryEntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BookingRequestScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  serviceType: 'serviceType',
+  preferredDate: 'preferredDate',
+  preferredTime: 'preferredTime',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DailyAuditSignOffScalarFieldEnum = {
+  id: 'id',
+  rnId: 'rnId',
+  tenantId: 'tenantId',
+  visitId: 'visitId',
+  clinicalComment: 'clinicalComment',
+  status: 'status',
+  signedAt: 'signedAt'
+};
+
+exports.Prisma.WellnessPulseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  status: 'status',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SystemTouchpointScalarFieldEnum = {
+  id: 'id',
+  touchpointId: 'touchpointId',
+  type: 'type',
+  role: 'role',
+  module: 'module',
+  label: 'label',
+  path: 'path',
+  status: 'status',
+  errorDetail: 'errorDetail',
+  isOverridden: 'isOverridden',
+  overrideValue: 'overrideValue',
+  lastChecked: 'lastChecked',
+  tenantId: 'tenantId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1217,7 +1265,11 @@ exports.Prisma.ModelName = {
   FamilyNotification: 'FamilyNotification',
   CareFeedback: 'CareFeedback',
   TechnicalAudit: 'TechnicalAudit',
-  RegistryEntry: 'RegistryEntry'
+  RegistryEntry: 'RegistryEntry',
+  BookingRequest: 'BookingRequest',
+  DailyAuditSignOff: 'DailyAuditSignOff',
+  WellnessPulse: 'WellnessPulse',
+  SystemTouchpoint: 'SystemTouchpoint'
 };
 
 /**

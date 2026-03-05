@@ -113,4 +113,6 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-rd-ops-stats', label: 'Refresh Regional Stats', role: 'regional_manager', module: 'OPERATIONS', type: 'secondary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.MANAGER.OPS_STATS, description: 'Triggers a recalculation of regional operational metrics.' },
     { id: 'btn-rd-pl-export', label: 'Regional P&L Export', role: 'regional_manager', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Exports regional financial performance data.' },
     { id: 'btn-rd-audit-req', label: 'Strategic Audit Request', role: 'regional_manager', module: 'GOVERNANCE', type: 'primary', action: 'API_TRIGGER', description: 'Triggers a comprehensive strategic audit of the region.' },
+    { id: 'btn-auth-osm-login', label: 'Sign in with OpenStreetMap', role: 'public', module: 'AUTH', type: 'secondary', action: 'API_TRIGGER', apiPath: '/v1/auth/osm', description: 'Initializes secure identity verification via OpenStreetMap OAuth.' },
+    { id: 'btn-mgr-approve-billing', label: 'Approve Branch Billing', role: 'manager', module: 'FINANCE', type: 'primary', action: 'API_TRIGGER', apiPath: '/v1/manager/billing/batch-approve', description: 'Formal manager approval of all pending branch invoices.' },
 ];
