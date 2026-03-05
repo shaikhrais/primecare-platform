@@ -20,11 +20,11 @@ export default function CoordinatorHub() {
         const fetchData = async () => {
             try {
                 // Fetch live stats from ApiRegistry
-                const statsData = await apiClient.get(ApiRegistry.COORDINATOR.DASHBOARD_STATS);
+                const statsData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DASHBOARD_STATS);
                 if (statsData) setStats(statsData as any);
 
                 // Fetch waitlist sync from ApiRegistry
-                const waitlistData = await apiClient.get(ApiRegistry.COORDINATOR.WAITLIST_SYNC);
+                const waitlistData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.WAITLIST_SYNC);
                 if (waitlistData && Array.isArray(waitlistData)) setWaitlist(waitlistData);
 
                 // Mocking incidents for now as per shared logic
@@ -35,8 +35,6 @@ export default function CoordinatorHub() {
                 setLoading(false);
             } catch (error) {
                 console.error('Failed to fetch coordinator data:', error);
-                // Fallback dummy data for visual verification
-                setStats({ livePsw: 14, sosActive: 1, pendingMatches: 6, waitlistCount: 3 });
                 setLoading(false);
             }
         };
@@ -109,7 +107,7 @@ export default function CoordinatorHub() {
                                         </div>
                                         {inc.status === 'open' && (
                                             <button onClick={() => acknowledgeSos(inc.id)} className="btn-premium danger">
-                                                {COORDINATOR_HUB.ACTIONS.ACKNOWLEDGE_SOS}
+                                                {ButtonRegistry.find(b => b.id === 'btn-coord-sos-ack-v2')?.label || COORDINATOR_HUB.ACTIONS.ACKNOWLEDGE_SOS}
                                             </button>
                                         )}
                                     </div>
@@ -121,7 +119,9 @@ export default function CoordinatorHub() {
                     <article className="bento-card">
                         <div className="card-header">
                             <h2>{COORDINATOR_HUB.MAP_TITLE}</h2>
-                            <button className="btn-premium secondary" style={{ fontSize: '0.75rem' }}>Open Advanced Radar</button>
+                            <button className="btn-premium secondary" style={{ fontSize: '0.75rem' }}>
+                                {ButtonRegistry.find(b => b.id === 'btn-coord-optimize')?.label || 'Open Advanced Radar'}
+                            </button>
                         </div>
                         <div className="card-body">
                             <div className="map-placeholder">
@@ -155,7 +155,9 @@ export default function CoordinatorHub() {
                                 )}
                             </div>
                             <div style={{ padding: '1.5rem', borderTop: '1px solid #f1f5f9' }}>
-                                <button className="btn-premium" style={{ width: '100%' }}>{COORDINATOR_HUB.ACTIONS.SYNC_WAITLIST}</button>
+                                <button className="btn-premium" style={{ width: '100%' }}>
+                                    {ButtonRegistry.find(b => b.id === 'btn-coord-waitlist-sync')?.label || COORDINATOR_HUB.ACTIONS.SYNC_WAITLIST}
+                                </button>
                             </div>
                         </div>
                     </article>
@@ -168,7 +170,9 @@ export default function CoordinatorHub() {
                             <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '0.75rem', border: '1px dashed #ef4444' }}>
                                 <div style={{ fontWeight: 800, fontSize: '0.875rem', color: '#991b1b' }}>Unassigned Morning Shift</div>
                                 <div style={{ fontSize: '0.75rem', color: '#b91c1c', marginTop: '0.25rem' }}>08:00 - 12:00 • Essential Care</div>
-                                <button className="btn-premium" style={{ marginTop: '1rem', width: '100%', padding: '0.5rem' }}>{COORDINATOR_HUB.ACTIONS.OVERRIDE_MATCH}</button>
+                                <button className="btn-premium" style={{ marginTop: '1rem', width: '100%', padding: '0.5rem' }}>
+                                    {ButtonRegistry.find(b => b.id === 'btn-coord-match-override')?.label || COORDINATOR_HUB.ACTIONS.OVERRIDE_MATCH}
+                                </button>
                             </div>
                         </div>
                     </article>

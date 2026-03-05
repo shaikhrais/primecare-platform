@@ -66,6 +66,7 @@ const TENANCY = {
         MATCH_OVERRIDE: '/v1/coordinator/match/override',
         WAITLIST_SYNC: '/v1/coordinator/waitlist/sync',
         SOS_ACK: '/v1/coordinator/incident/ack',
+        SOS_INCIDENTS: '/v1/coordinator/incidents',
         DASHBOARD_STATS: '/v1/coordinator/dashboard/stats',
     },
 } as const;

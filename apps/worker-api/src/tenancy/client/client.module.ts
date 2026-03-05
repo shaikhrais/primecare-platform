@@ -18,12 +18,10 @@ client.use('*', async (c, next) => {
 });
 
 // Routes
-client.route('/', dashboardRoutes);
+client.route('/dashboard', dashboardRoutes); // stats at /dashboard/stats, profile at /dashboard/profile
 client.route('/bookings', bookingRoutes);
 client.route('/care-plan', carePlanRoutes);
 client.route('/', serviceRoutes);
-client.route('/', profileRoutes);
-client.route('/', relationshipRoutes);
 client.route('/engagement', engagementRoutes);
 
 export default client;

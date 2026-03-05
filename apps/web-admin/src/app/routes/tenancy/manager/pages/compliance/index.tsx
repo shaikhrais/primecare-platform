@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
+import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import './ComplianceSync.css';
 
+const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
 const { MANAGER_COMPLIANCE } = ContentRegistry;
 
 export default function ComplianceSync() {
@@ -10,6 +11,8 @@ export default function ComplianceSync() {
     const [history, setHistory] = useState<any[]>([]);
     const [syncing, setSyncing] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const syncButton = ButtonRegistry.find(b => b.id === 'btn-mgr-compliance-sync');
 
     useEffect(() => {
         const fetchComplianceData = async () => {
@@ -29,9 +32,9 @@ export default function ComplianceSync() {
                 }
 
                 setHistory([
-                    { id: 'h1', action: 'Global Sync Executed', date: '2026-03-04 14:00' },
+                    { id: 'h1', action: MANAGER_COMPLIANCE.MESSAGES.AUDIT_DONE, date: '2026-03-04 14:00' },
                     { id: 'h2', action: 'Regulatory Audit Log Generated', date: '2026-03-04 10:30' },
-                    { id: 'h3', action: 'Sync Success: Branch Ledger', date: '2026-03-03 18:45' },
+                    { id: 'h3', action: MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS, date: '2026-03-03 18:45' },
                 ]);
 
             } catch (error) {
@@ -50,7 +53,7 @@ export default function ComplianceSync() {
             await apiClient.post(ApiRegistry.TENANCY.MANAGER.COMPLIANCE_SYNC, {});
             alert(MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS);
             // Refresh history
-            setHistory([{ id: Date.now().toString(), action: 'Manual Sync: Branch Ledger', date: new Date().toLocaleString() }, ...history]);
+            setHistory([{ id: Date.now().toString(), action: MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS, date: new Date().toLocaleString() }, ...history]);
         } catch (error) {
             console.error('Compliance sync failed:', error);
         } finally {
@@ -96,8 +99,9 @@ export default function ComplianceSync() {
                             onClick={handleSync}
                             disabled={syncing}
                             className="btn-primary-pc"
+                            data-cy={syncButton?.id}
                         >
-                            {syncing ? 'Synchronizing...' : 'Execute Branch Sync'}
+                            {syncing ? 'Synchronizing...' : (syncButton?.label || 'Execute Branch Sync')}
                         </button>
                     </div>
                     <div className="table-wrapper">

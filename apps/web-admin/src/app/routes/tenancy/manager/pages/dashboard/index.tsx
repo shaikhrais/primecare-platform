@@ -41,25 +41,17 @@ export default function ManagerDashboard() {
                 const token = localStorage.getItem('token');
                 const headers = { 'Authorization': `Bearer ${token}` };
 
-                const { ApiRegistry } = AdminRegistry;
-                const [kpiRes, shiftsRes, statsRes] = await Promise.all([
+                const [kpiRes, todayRes, statsRes] = await Promise.all([
                     fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_KPI}`, { headers }),
                     fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_TODAY}`, { headers }),
                     fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.MANAGER.DASHBOARD_STATS}`, { headers })
                 ]);
 
                 if (kpiRes.ok) setKpi(await kpiRes.json());
-                if (shiftsRes.ok) setShifts(await shiftsRes.json());
+                if (todayRes.ok) setShifts(await todayRes.json());
                 if (statsRes.ok) setChartData(await statsRes.json());
             } catch (error) {
                 console.error('Failed to load dashboard data', error);
-                // Fallback to MOCK DATA
-                console.log('Using Mock Data Fallback');
-                setKpi({ activeClients: 154, staffOnDuty: 42, openIncidents: 3, todayShifts: 85 });
-                setShifts([
-                    { id: '1', requestedStartAt: new Date().toISOString(), client: { fullName: 'Alice Johnson' }, service: { name: 'Personal Care' }, psw: { fullName: 'Sarah Smith' } },
-                    { id: '2', requestedStartAt: new Date(Date.now() + 3600000).toISOString(), client: { fullName: 'Bob Williams' }, service: { name: 'Nursing' }, psw: { fullName: 'Mike Jones' } }
-                ]);
             } finally {
                 setLoading(false);
             }
@@ -68,23 +60,26 @@ export default function ManagerDashboard() {
         fetchData();
     }, []);
 
-    // Combine API data with Mock data (prefer API, fallback to Mock if empty/null)
-    const checkData = (real: any[], mock: any[]) => (real && real.length > 0) ? real : mock;
+    // Helper for chart data mapping
+    const getChartData = (key: string, realValue: any) => {
+        if (realValue && Array.isArray(realValue) && realValue.length > 0) return realValue;
+        return (MOCK_MANAGER_DATA as any)[key] || [];
+    };
 
     const displayData = {
-        revenue: checkData(chartData?.revenue, MOCK_MANAGER_DATA.revenue),
-        visitVolume: checkData(chartData?.visitVolume, MOCK_MANAGER_DATA.visitVolume),
-        staffUtilization: checkData(chartData?.staffUtilization, MOCK_MANAGER_DATA.staffUtilization),
-        shiftFulfillment: checkData(chartData?.shiftFulfillment, MOCK_MANAGER_DATA.shiftFulfillment),
-        servicePopularity: checkData(chartData?.servicePopularity, MOCK_MANAGER_DATA.servicePopularity),
-        incidents: checkData(chartData?.incidents, MOCK_MANAGER_DATA.incidents),
-        carePlanAdherence: checkData(chartData?.carePlanAdherence, MOCK_MANAGER_DATA.carePlanAdherence),
-        staffAttendance: checkData(chartData?.staffAttendance, MOCK_MANAGER_DATA.staffAttendance),
-        clientSatisfaction: checkData(chartData?.clientSatisfaction, MOCK_MANAGER_DATA.clientSatisfaction),
-        revenueForecast: checkData(chartData?.revenue, MOCK_MANAGER_DATA.revenue), // Reusing revenue data structure
-        travelTime: checkData(chartData?.travelTime, MOCK_MANAGER_DATA.travelTime),
-        overtimeRisk: checkData(chartData?.overtimeRisk, MOCK_MANAGER_DATA.overtimeRisk),
-        resourceAvailability: checkData(chartData?.resourceAvailability, MOCK_MANAGER_DATA.resourceAvailability),
+        revenue: getChartData('revenue', chartData?.revenue),
+        visitVolume: getChartData('visitVolume', chartData?.visitVolume),
+        staffUtilization: getChartData('staffUtilization', chartData?.staffUtilization),
+        shiftFulfillment: getChartData('shiftFulfillment', chartData?.shiftFulfillment),
+        servicePopularity: getChartData('servicePopularity', chartData?.servicePopularity),
+        incidents: getChartData('incidents', chartData?.incidents),
+        carePlanAdherence: getChartData('carePlanAdherence', chartData?.carePlanAdherence),
+        staffAttendance: getChartData('staffAttendance', chartData?.staffAttendance),
+        clientSatisfaction: getChartData('clientSatisfaction', chartData?.clientSatisfaction),
+        revenueForecast: getChartData('revenue', chartData?.revenue),
+        travelTime: getChartData('travelTime', chartData?.travelTime),
+        overtimeRisk: getChartData('overtimeRisk', chartData?.overtimeRisk),
+        resourceAvailability: getChartData('resourceAvailability', chartData?.resourceAvailability),
     };
 
     if (loading) {
@@ -105,7 +100,7 @@ export default function ManagerDashboard() {
                 <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
                         <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
-                            {user?.tenantId ? t(ContentRegistry.MANAGER_DASHBOARD.TITLE) : t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}
+                            {t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}
                         </h1>
                         <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
                             {user?.email ? `${user.email} • ${t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}` : t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}

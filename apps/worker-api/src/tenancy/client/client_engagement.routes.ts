@@ -48,18 +48,22 @@ engagement.openapi(
             return c.json({ error: 'Client profile not found' }, 404);
         }
 
-        const notifications = await prisma.familyNotification.findMany({
-            where: { clientId: clientProfile.id, tenantId },
-            orderBy: { createdAt: 'desc' },
-            take: 20,
-        });
-
-        const visits = await prisma.visit.findMany({
-            where: { clientId: clientProfile.id, tenantId },
-            include: { psw: { select: { fullName: true, avatarUrl: true } } },
-            orderBy: { requestedStartAt: 'desc' },
-            take: 5,
-        });
+        const [notifications, visits] = await Promise.all([
+            prisma.familyNotification.findMany({
+                where: { clientId: clientProfile.id, tenantId },
+                orderBy: { createdAt: 'desc' },
+                take: 20,
+            }),
+            prisma.visit.findMany({
+                where: { clientId: clientProfile.id, tenantId },
+                include: {
+                    psw: { select: { fullName: true, avatarUrl: true } },
+                    service: { select: { name: true } }
+                },
+                orderBy: { requestedStartAt: 'desc' },
+                take: 10,
+            })
+        ]);
 
         return c.json({ notifications, visits }, 200) as any;
     }

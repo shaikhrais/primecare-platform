@@ -149,11 +149,25 @@ r.openapi(getClientStatsRoute, async (c) => {
     const profile = await prisma.clientProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    const invoices = await prisma.invoice.findMany({
-        where: { clientId: profile.id },
-        select: { status: true, total: true }
-    });
+    const [invoices, entries, visits] = await Promise.all([
+        prisma.invoice.findMany({
+            where: { clientId: profile.id, status: 'paid' },
+            select: { total: true }
+        }),
+        prisma.dailyEntry.findMany({
+            where: { clientId: profile.id },
+            orderBy: { createdAt: 'desc' },
+            take: 7,
+            select: { createdAt: true, mood: true }
+        }),
+        prisma.visit.findMany({
+            where: { clientId: profile.id, status: 'completed' },
+            include: { psw: { select: { id: true, fullName: true } } },
+            take: 50
+        })
+    ]);
 
+    // Budget Calculation
     const totalBudget = 5000;
     const usedBudget = invoices.reduce((acc: number, inv: any) => acc + (Number(inv.total) || 0), 0);
     const spendingData = [
@@ -161,23 +175,26 @@ r.openapi(getClientStatsRoute, async (c) => {
         { name: 'Remaining', value: Math.max(0, totalBudget - usedBudget) }
     ];
 
-    const entries = await prisma.dailyEntry.findMany({
-        where: { clientId: profile.id },
-        orderBy: { createdAt: 'desc' },
-        take: 7,
-        select: { createdAt: true, mood: true }
-    });
-
+    // Wellness Trend (7 Days)
     const wellnessData = entries.reverse().map((e: any) => ({
         day: new Date(e.createdAt).toLocaleDateString('en-US', { weekday: 'short' }),
         mood: e.mood || 0,
         energy: Math.floor(Math.random() * 3) + (e.mood ? e.mood - 1 : 5)
     }));
 
+    // Continuity (Primary vs Relief)
+    // Logic: If a PSW has >= 30% of visits, they are "Primary"
+    const pswCounts: Record<string, number> = {};
+    visits.forEach((v: any) => {
+        if (v.psw?.id) pswCounts[v.psw.id] = (pswCounts[v.psw.id] || 0) + 1;
+    });
+
+    const totalVisits = visits.length || 1;
+    const primaryCount = Object.values(pswCounts).reduce((acc, count) => acc + (count / totalVisits >= 0.3 ? count : 0), 0);
+
     const continuityData = [
-        { month: 'Jan', primary: 80, relief: 20 },
-        { month: 'Feb', primary: 85, relief: 15 },
-        { month: 'Mar', primary: 90, relief: 10 },
+        { name: 'Primary Caregivers', value: Math.round((primaryCount / totalVisits) * 100) },
+        { name: 'Relief Staff', value: Math.round(((totalVisits - primaryCount) / totalVisits) * 100) }
     ];
 
     return c.json({

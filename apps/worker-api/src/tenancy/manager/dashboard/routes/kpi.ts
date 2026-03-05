@@ -13,10 +13,10 @@ const getKpiRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        revenue: z.number(),
-                        fulfillment: z.number(),
-                        satisfaction: z.number(),
-                        utilization: z.number()
+                        activeClients: z.number(),
+                        staffOnDuty: z.number(),
+                        openIncidents: z.number(),
+                        todayShifts: z.number()
                     }),
                 },
             },
@@ -25,13 +25,39 @@ const getKpiRoute = createRoute({
     },
 });
 
-r.openapi(getKpiRoute, async (c) => {
+r.openapi(getKpiRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const [activeClients, staffOnDuty, openIncidents, todayShifts] = await Promise.all([
+        prisma.clientProfile.count({
+            where: { tenantId }
+        }),
+        prisma.fleetStatus.count({
+            where: { psw: { tenantId }, status: { not: 'offline' } }
+        }),
+        prisma.incident.count({
+            where: { tenantId, status: 'open' }
+        }),
+        prisma.visit.count({
+            where: {
+                tenantId,
+                requestedStartAt: {
+                    gte: todayStart,
+                    lt: new Date(todayStart.getTime() + 24 * 60 * 60 * 1000)
+                }
+            }
+        })
+    ]);
+
     return c.json({
-        revenue: 125000,
-        fulfillment: 92.5,
-        satisfaction: 4.8,
-        utilization: 88
-    }, 200);
+        activeClients,
+        staffOnDuty,
+        openIncidents,
+        todayShifts
+    } as any, 200);
 });
 
 export default r;
