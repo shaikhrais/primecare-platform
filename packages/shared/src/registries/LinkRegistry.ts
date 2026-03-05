@@ -72,5 +72,19 @@ export const LinkRegistry: LinkDef[] = [
     // Batch 20: PSW Foundational Mastery
     { id: 'lnk-psw-handover', label: 'Shift Handover', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.HANDOVER, description: 'Interface for submitting shift handover reports.' },
     { id: 'lnk-psw-availability', label: 'Availability Overrides', role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.AVAILABILITY, description: 'Manage date-specific work availability and overrides.' },
-    { id: 'lnk-psw-earnings', label: 'Earnings & Payouts', role: 'psw', module: 'FINANCE', path: RouteRegistry.PSW.EARNINGS, description: 'Track verified earnings and processed payout history.' }
+    { id: 'lnk-psw-earnings', label: 'Earnings & Payouts', role: 'psw', module: 'FINANCE', path: RouteRegistry.PSW.EARNINGS, description: 'Track verified earnings and processed payout history.' },
+    // Batch 25: Role Foundation Mastery
+    // RN Foundation
+    { id: 'lnk-rn-care-plans', label: 'Care Plan Management', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.CARE_PLANS, description: 'Direct access to clinical goal tracking and interventions.' },
+    { id: 'lnk-rn-assessments', label: 'Clinical Intake', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.ASSESSMENTS, description: 'Structured clinical assessments and intake forms.' },
+    // Coordinator Foundation
+    { id: 'lnk-coord-sos', label: 'SOS Center', role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.COORDINATOR.SOS, description: 'Emergency shift fulfillment and field incident management.' },
+    { id: 'lnk-coord-map', label: 'Dispatcher Map', role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.COORDINATOR.MAP, description: 'Visual intelligence for regional shift and staff locations.' },
+    { id: 'lnk-coord-waitlist', label: 'Inflow Waitlist', role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.COORDINATOR.WAITLIST, description: 'Managing unassigned client demand and waitlist priorities.' },
+    // Manager Foundation
+    { id: 'lnk-mgr-ops', label: 'Operations Triage', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.OPERATIONS, description: 'Management of late shifts, missed clock-ins, and field alerts.' },
+    { id: 'lnk-mgr-compliance', label: 'Compliance Monitor', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.COMPLIANCE, description: 'Branch-wide credential and regulatory tracking.' },
+    // Staff Foundation
+    { id: 'lnk-staff-tasks', label: 'Recruitment Board', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.TASKS, description: 'Active recruitment and task fulfillment board.' },
+    { id: 'lnk-staff-messages', label: 'Communications Hub', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.MESSAGES, description: 'Unified messaging for branch-wide coordination.' }
 ];

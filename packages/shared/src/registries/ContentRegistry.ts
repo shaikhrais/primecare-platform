@@ -88,18 +88,68 @@ export const ContentRegistry = {
         }
     },
     PSW_DASHBOARD: {
-        TITLE: 'My Work Schedule',
-        SUBTITLE: 'Stay updated on your upcoming assigned care visits.',
+        TITLE: 'Caregiver Command Center',
+        SUBTITLE: 'Manage your active visits, earnings, and professional profile.',
         BUTTON_FULL_SCHEDULE: 'View Full Schedule',
-        SECTION_SHIFTS: 'Shift Schedule',
-        NO_SHIFTS: 'You have no shifts scheduled at this time.',
+        SECTION_SHIFTS: 'Active Care Timeline',
+        NO_SHIFTS: 'Your timeline is currently clear. Expect new assignments soon.',
+        STATS: {
+            NEXT_VISIT: 'Next Visit In',
+            WEEKLY_HOURS: 'Weekly Hours',
+            PENDING_PAYOUT: 'Pending Payout',
+        },
         MESSAGES: {
-            LOADING: 'Loading Provider Dashboard...',
+            LOADING: 'Synchronizing Command Center...',
+        }
+    },
+    PSW_SCHEDULE: {
+        TITLE: 'My Visit Schedule',
+        SUBTITLE: 'Comprehensive list of your previous, current, and upcoming care sessions.',
+        TABLE: {
+            CLIENT: 'Client',
+            LOCATION: 'Location',
+            DATETIME: 'Date & Time',
+            SERVICE: 'Service',
+            STATUS: 'Status',
+        },
+        MESSAGES: {
+            LOADING: 'Fetching your care schedule...',
+            EMPTY: 'No visits mapped to your profile yet.',
+        }
+    },
+    PSW_LIVE_VISIT: {
+        TITLE: 'Live Visit Session',
+        SUBTITLE: 'Real-time care delivery tracking and clinical checklist.',
+        HEADER: {
+            IN_PROGRESS: 'Visit in Progress',
+            IDLE: 'Client Residence',
+            STAMP: 'Local Node Time',
+        },
+        CHECKIN: {
+            TITLE: 'Arrived at Location?',
+            DESC: 'GPS verifies you are within range of the patient\'s residence.',
+            BUTTON: 'Confirm & Check-in',
+        },
+        CHECKOUT: {
+            BUTTON: 'Check-out & Sync',
+            DURATION: 'Elapsed Duration',
+            GPS_LOCKED: 'LOCKED',
+            GPS_PULSE: 'Verified GPS Pulse',
+        },
+        CLINICAL: {
+            TITLE: 'Clinical ADLs Checklist',
+            VITALS_HUB: 'Patient Vitals Hub',
+            REGIONAL_BACKUP: 'Regional Backup',
+            CONNECT_RN: 'Connect to RN',
+        },
+        MESSAGES: {
+            SYNCING: 'Transmitting clinical data...',
+            SUCCESS: 'Visit successfully synced to clinical ledger.',
         }
     },
     PSW_HANDOVER: {
-        TITLE: 'Shift Handover',
-        SUBTITLE: 'Provide essential notes and safety alerts for the next care provider.',
+        TITLE: 'Digital Shift Handover',
+        SUBTITLE: 'Ensure care continuity by providing essential notes for the next provider.',
         LABEL_VISIT: 'Select Care Visit',
         LABEL_NOTES: 'Handover Notes',
         LABEL_SAFETY: 'Safety Concerns',
@@ -109,8 +159,8 @@ export const ContentRegistry = {
         ERROR_MSG: 'Failed to submit handover report',
     },
     PSW_AVAILABILITY: {
-        TITLE: 'Work Availability',
-        SUBTITLE: 'Manage your routine shifts and specific date overrides.',
+        TITLE: 'Availability Management',
+        SUBTITLE: 'Define your routine shifts and synchronize date-specific overrides.',
         SECTION_OVERRIDES: 'Date-Specific Overrides',
         ADD_OVERRIDE: '+ Add Specific Date',
         SUCCESS_SYNC: 'Availability overrides synchronized!',

@@ -256,5 +256,53 @@ export const InteractionRegistry = {
                 apiEndpoint: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT
             }
         }
+    },
+    PSW: {
+        CARE: {
+            CHECK_IN: {
+                id: 'psw-check-in',
+                label: 'Check-in Now',
+                type: 'button',
+                module: 'PSW',
+                purpose: 'Verify caregiver arrival via geofenced timestamp.',
+                apiEndpoint: ApiRegistry.TENANCY.PSW.CHECK_IN(':id')
+            },
+            CHECK_OUT: {
+                id: 'psw-check-out',
+                label: 'Complete Visit',
+                type: 'button',
+                module: 'PSW',
+                purpose: 'Finalize visit and record geofenced departure.',
+                apiEndpoint: ApiRegistry.TENANCY.PSW.CHECK_OUT(':id')
+            }
+        },
+        FINANCE: {
+            PAYOUT: {
+                id: 'psw-payout-sync',
+                label: 'Sync to Bank',
+                type: 'button',
+                module: 'PSW',
+                purpose: 'Initiate earnings transfer to verified bank account.',
+                apiEndpoint: ApiRegistry.TENANCY.PSW.PAYOUT_HISTORY
+            }
+        },
+        OPERATIONS: {
+            HANDOVER: {
+                id: 'psw-handover-submit',
+                label: 'Complete Handover',
+                type: 'button',
+                module: 'PSW',
+                purpose: 'Submit clinical notes and supplies needed after shift completion.',
+                apiEndpoint: ApiRegistry.TENANCY.PSW.HANDOVER_SUBMIT
+            },
+            AVAILABILITY_SYNC: {
+                id: 'psw-avail-sync',
+                label: 'Save Availability',
+                type: 'button',
+                module: 'PSW',
+                purpose: 'Synchronize availability overrides and weekly schedule configurations.',
+                apiEndpoint: ApiRegistry.TENANCY.PSW.AVAILABILITY_SYNC
+            }
+        }
     }
 } as const;

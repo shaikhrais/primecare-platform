@@ -8,6 +8,7 @@ const TENANCY = {
         RECRUITING: '/tenancy/manager/recruiting',
         COORDINATOR: '/tenancy/manager/coordinator',
         CRM: '/tenancy/manager/crm',
+        COMPLIANCE: '/tenancy/manager/compliance',
         TRAINING: '/tenancy/manager/training',
         DAILY_ENTRY: '/tenancy/manager/daily-entry',
         EVALUATIONS: '/tenancy/manager/evaluations',
@@ -241,6 +242,7 @@ export const RouteRegistry = {
     PSW: TENANCY.PSW,
     RN: TENANCY.RN,
     CLIENT: TENANCY.CLIENT,
+    COORDINATOR: TENANCY.COORDINATOR,
     SCRUM_MASTER: PLATFORM.SCRUM_MASTER,
 
     ROLE_DASHBOARDS: {
