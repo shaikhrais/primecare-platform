@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 import { CorePieChart } from '@/shared/components/charts/core';
 import './ComplianceMonitor.css';
 
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, ButtonRegistry } = AdminRegistry;
+const { MANAGER_COMPLIANCE } = ContentRegistry;
 
 interface ComplianceItem {
     id: string;
@@ -16,12 +18,31 @@ interface ComplianceItem {
 
 export default function ComplianceMonitor() {
     const { t } = useTranslation();
-    const [items] = useState<ComplianceItem[]>([
+    const [items, setItems] = useState<ComplianceItem[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchCompliance = async () => {
+        try {
+            const response = await apiClient.get(ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN);
+            const data = await response.json();
+            if (Array.isArray(data)) setItems(data);
+        } catch (error) {
+            console.error('Failed to fetch compliance data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchCompliance();
+    }, []);
+
+    const displayItems = items.length > 0 ? items : [
         { id: '1', staffName: 'Sarah Jenkins', document: 'CPR Level C', expiry: '2026-12-15', status: 'active' },
         { id: '2', staffName: 'Michael Chen', document: 'Vulnerable Sector Screen', expiry: '2026-03-20', status: 'expiring' },
         { id: '3', staffName: 'Elena Rodriguez', document: 'Clinical License', expiry: '2026-02-10', status: 'missing' },
         { id: '4', staffName: 'David Kim', document: 'WHMIS Training', expiry: '2028-05-01', status: 'active' },
-    ]);
+    ] as ComplianceItem[];
 
     const stats = [
         { name: 'Compliant', value: 85, color: '#10b981' },
@@ -85,7 +106,7 @@ export default function ComplianceMonitor() {
                 </header>
 
                 <div className="compliance-list">
-                    {items.map(item => (
+                    {displayItems.map(item => (
                         <div key={item.id} className="compliance-item">
                             <div className="item-info">
                                 <h4>{item.staffName}</h4>

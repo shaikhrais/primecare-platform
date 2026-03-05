@@ -44,6 +44,7 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-rn-supervision', label: 'Supervision Hub', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.SUPERVISION, description: 'RN oversight portal for PSW performance.' },
     { id: 'lnk-client-support', label: 'Nursing Chat', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.SUPPORT, description: 'Family line to clinical support staff.' },
     { id: 'lnk-client-team', label: 'My Care Team', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.TEAM, description: 'View and contact assigned healthcare professionals.' },
+    { id: 'lnk-client-billing', label: 'Billing & Invoices', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.BILLING, description: 'Manage care payments and service history.' },
     { id: 'lnk-allied-history', label: 'Treatment History', role: 'rmt', module: 'CLINICAL', path: RouteRegistry.RN.DASHBOARD, description: 'Historical view of clinical treatments.' },
     { id: 'lnk-superuser-tenants', label: 'Global Tenant Map', role: 'super_admin', module: 'PLATFORM', path: RouteRegistry.SUPERUSER.TENANTS, description: 'High-level oversight of all system instances.' },
     { id: 'lnk-superuser-sla', label: 'SLA Performance', role: 'super_admin', module: 'PLATFORM', path: RouteRegistry.SUPERUSER.SLA, description: 'Uptime and performance monitoring across the platform.' },

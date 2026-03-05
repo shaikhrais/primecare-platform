@@ -301,6 +301,11 @@ export const ContentRegistry = {
             SEARCH_PLACEHOLDER: 'Search communications...',
             INPUT_PLACEHOLDER: 'Message encrypted core...',
             SEND_BTN: 'Send',
+        },
+        TASKS: {
+            TITLE: 'Operational Intake Board',
+            SUBTITLE: 'Live coordination and service intake pipelines.',
+            NEW_BTN: '+ New Task',
         }
     },
     COORDINATOR_HUB: {

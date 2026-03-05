@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 import './MessageCenter.css';
 
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, ButtonRegistry } = AdminRegistry;
+const { MESSAGES } = ContentRegistry.STAFF_PORTAL;
 
 interface Message {
     id: string;
@@ -19,13 +21,31 @@ export default function MessageCenter() {
     const { t } = useTranslation();
     const [selectedId, setSelectedId] = useState('1');
     const [searchTerm, setSearchTerm] = useState('');
+    const [chats, setChats] = useState<Message[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const chatList: Message[] = [
+    const fetchMessages = async () => {
+        try {
+            const response = await apiClient.get(ApiRegistry.TENANCY.STAFF.MESSAGES);
+            const data = await response.json();
+            if (Array.isArray(data)) setChats(data);
+        } catch (error) {
+            console.error('Failed to fetch messages:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchMessages();
+    }, []);
+
+    const chatList = chats.length > 0 ? chats : [
         { id: '1', sender: 'Elena Rodriguez', role: 'PSW', lastMessage: 'I will be 10 mins late for the Smith visit.', time: '14:22', unread: true, status: 'online' },
         { id: '2', sender: 'Alice Freeman', role: 'Family/Client', lastMessage: 'Can we change Thursday to 3 PM?', time: '11:05', unread: false, status: 'away' },
         { id: '3', sender: 'Jordan Vale', role: 'PSW', lastMessage: 'The new clinical notes are uploaded.', time: 'Yesterday', unread: false, status: 'offline' },
         { id: '4', sender: 'Michael Chen', role: 'RN', lastMessage: 'Incident report #842 requires review.', time: 'Yesterday', unread: true, status: 'online' },
-    ];
+    ] as Message[];
 
     const selectedChat = chatList.find(c => c.id === selectedId) || chatList[0];
 
@@ -110,8 +130,8 @@ export default function MessageCenter() {
                             type="text"
                             placeholder={t(ContentRegistry.STAFF_PORTAL.MESSAGES.INPUT_PLACEHOLDER || 'Message encrypted core...')}
                         />
-                        <button className="btn-modern btn-modern-primary" style={{ padding: '0.75rem 1.5rem', borderRadius: '1.5rem' }}>
-                            {t(ContentRegistry.STAFF_PORTAL.MESSAGES.SEND_BTN || 'Send')}
+                        <button className="btn-modern btn-primary" style={{ padding: '0.75rem 1.5rem', borderRadius: '1.5rem' }}>
+                            {t(MESSAGES.SEND_BTN || 'Send')}
                         </button>
                     </div>
                 </footer>

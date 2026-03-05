@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
+import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import './TaskGrid.css';
 
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, ButtonRegistry, ApiRegistry } = AdminRegistry;
+const { STAFF_PORTAL } = ContentRegistry;
 
 interface Task {
     id: string;
@@ -23,7 +24,8 @@ export default function TaskGrid() {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const data: any = await apiClient.get(ApiRegistry.TENANCY.STAFF.TASKS);
+                const response = await apiClient.get(ApiRegistry.TENANCY.STAFF.TASKS);
+                const data = await response.json();
                 if (Array.isArray(data)) {
                     setTasks(data);
                 }
@@ -37,10 +39,10 @@ export default function TaskGrid() {
     }, []);
 
     const columns = [
-        { id: 'todo', label: 'Todo', icon: '📥' },
-        { id: 'in_progress', label: 'In Progress', icon: '⚙️' },
-        { id: 'blocked', label: 'Blocked', icon: '🛡️' },
-        { id: 'completed', label: 'Completed', icon: '✅' },
+        { id: 'todo', label: 'Backlog', icon: '📥' },
+        { id: 'in_progress', label: 'Active Care', icon: '⚙️' },
+        { id: 'blocked', label: 'Flagged', icon: '🛡️' },
+        { id: 'completed', label: 'Resolved', icon: '✅' },
     ];
 
     if (loading) {
@@ -56,12 +58,12 @@ export default function TaskGrid() {
     return (
         <div className="task-board">
             <header className="task-board-header">
-                <div>
-                    <h1>Staff Task Board</h1>
-                    <p className="text-sm font-medium text-muted-foreground">Manage service intake and operational coordination pipelines.</p>
+                <div className="header-content">
+                    <h1>{STAFF_PORTAL.TASKS?.TITLE || 'Service Intake Board'}</h1>
+                    <p className="subtitle">{STAFF_PORTAL.TASKS?.SUBTITLE || 'Real-time operational coordination'}</p>
                 </div>
-                <button className="btn-modern btn-modern-primary shadow-xl shadow-primary/20">
-                    + New Task
+                <button className="btn-modern btn-primary">
+                    {ButtonRegistry.find(b => b.id === 'btn-staff-task-add')?.label || '+ New Task'}
                 </button>
             </header>
 
