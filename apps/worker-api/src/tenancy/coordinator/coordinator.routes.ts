@@ -264,11 +264,62 @@ const sosDispatchRoute = createRoute({
     },
 });
 
+/**
+ * Coordinator Master Schedule
+ */
+const masterScheduleRoute = createRoute({
+    ...ROUTE_METADATA.COORDINATOR.MASTER_SCHEDULE,
+    method: 'get',
+    path: '/schedule/master',
+    middleware: [requirePermission('COORDINATOR_DISPATCH')],
+    responses: {
+        200: {
+            description: 'Master schedule retrieved',
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+        },
+    },
+});
+
+/**
+ * Coordinator Shift Broadcast
+ */
+const shiftBroadcastRoute = createRoute({
+    ...ROUTE_METADATA.COORDINATOR.SHIFT_BROADCAST,
+    method: 'post',
+    path: '/shifts/broadcast',
+    middleware: [requirePermission('COORDINATOR_DISPATCH')],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        visitId: z.string(),
+                        pswIds: z.array(z.string()),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            description: 'Shift broadcasted successfully',
+            content: {
+                'application/json': {
+                    schema: z.object({ success: z.boolean(), count: z.number() }),
+                },
+            },
+        },
+    },
+});
+
 coordinator.openapi(sosDispatchRoute as any, async (c: any) => {
     const prisma = c.get('prisma');
     const body = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
-    const tenantId = c.get('jwtPayload').tenantId;
 
     const incident = await prisma.incident.findUnique({
         where: { id: body.incidentId },
@@ -301,6 +352,43 @@ coordinator.openapi(sosDispatchRoute as any, async (c: any) => {
     await logAudit(prisma, userId, 'SOS_DISPATCH', 'INCIDENT', body.incidentId, body);
 
     return c.json(updatedIncident as any, 200);
+});
+
+coordinator.openapi(masterScheduleRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const visits = await prisma.visit.findMany({
+        where: { tenantId },
+        include: {
+            client: { select: { fullName: true } },
+            psw: { select: { fullName: true } },
+            service: { select: { name: true } }
+        },
+        orderBy: { requestedStartAt: 'asc' },
+        take: 50
+    });
+
+    return c.json(visits as any, 200);
+});
+
+coordinator.openapi(shiftBroadcastRoute as any, async (c: any) => {
+    const prisma = c.get('prisma');
+    const body = c.req.valid('json');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const assignments = await Promise.all(body.pswIds.map((pswId: string) =>
+        prisma.shiftAssignment.create({
+            data: {
+                visitId: body.visitId,
+                pswId,
+                tenantId,
+                status: 'offered'
+            }
+        })
+    ));
+
+    return c.json({ success: true, count: assignments.length }, 200);
 });
 
 coordinator.openapi(matchOverrideRoute as any, async (c: any) => {

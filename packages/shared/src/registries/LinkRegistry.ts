@@ -98,5 +98,6 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-mgr-ops-hub', label: 'Agency Operations Hub', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.OPERATIONS, description: 'Centralized hub for branch-wide coordination and triage.' },
     { id: 'lnk-mgr-finance', label: 'Branch Financials', role: 'manager', module: 'FINANCE', path: RouteRegistry.MANAGER.FINANCE, description: 'Branch-level billing, invoices, and financial performance.' },
     { id: 'lnk-mgr-team', label: 'Branch Team', role: 'manager', module: 'OPERATIONS', path: '/tenancy/manager/team', description: 'Management of branch staff profiles and performance.' },
+    { id: 'lnk-coord-master-schedule', label: 'Master Schedule', role: 'coordinator', module: 'OPERATIONS', path: '/tenancy/coordinator/schedule', description: 'Unified master schedule for branch-wide shift oversight.' },
     { id: 'lnk-adm-strategy', label: 'Growth Strategy', role: 'admin', module: 'GROWTH', path: RouteRegistry.ADMIN.GROWTH_STRATEGY, description: 'Strategic growth and network expansion planning.' },
 ];

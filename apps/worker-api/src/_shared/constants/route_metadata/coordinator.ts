@@ -34,4 +34,14 @@ export const COORDINATOR_METADATA = {
         description: 'Triggers the AI matching engine to propose best-fit caregivers for open visits.',
         tags: ['Coordinator Logistics'],
     },
+    MASTER_SCHEDULE: {
+        summary: 'Get Master Schedule',
+        description: 'Retrieve a unified master schedule of all visits, assignments, and field statuses for logistics oversight.',
+        tags: ['Coordinator Logistics'],
+    },
+    SHIFT_BROADCAST: {
+        summary: 'Broadcast Shift Offer',
+        description: 'Broadcast a shift offer to multiple qualified caregivers simultaneously.',
+        tags: ['Coordinator Dispatch'],
+    },
 };

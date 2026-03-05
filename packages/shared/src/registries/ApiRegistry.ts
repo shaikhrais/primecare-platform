@@ -76,6 +76,8 @@ const TENANCY = {
         DASHBOARD_STATS: '/v1/coordinator/dashboard/stats',
         DISPATCH_MAP: '/v1/coordinator/dispatch-map',
         MATCHING_RUN: '/v1/coordinator/matching/run',
+        MASTER_SCHEDULE: '/v1/coordinator/schedule/master',
+        SHIFT_BROADCAST: '/v1/coordinator/shifts/broadcast',
     },
 } as const;
 
