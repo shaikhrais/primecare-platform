@@ -12,7 +12,8 @@ async function runSweep() {
 
     const upsertTouchpoint = async (data: any) => {
         totalAudited++;
-        if (data.status !== 'OK') {
+        const isError = data.status !== 'OK' && data.status !== 'OK_PARAM';
+        if (isError) {
             errorsFound++;
             console.log(`  [!] Issue: ${data.id} (${data.type}) - ${data.status}: ${data.errorDetail}`);
         }
@@ -53,9 +54,18 @@ async function runSweep() {
     for (const btn of ButtonRegistry) {
         let status = 'OK';
         let errorDetail = null;
-        if (btn.apiPath && (btn.apiPath.includes(':') || btn.apiPath.includes('undefined'))) {
-            status = 'WARNING';
-            errorDetail = 'Path contains placeholders or undefined.';
+
+        if (!btn.apiPath && btn.action === 'API_TRIGGER') {
+            status = 'MISSING';
+            errorDetail = 'API_TRIGGER action requires an apiPath.';
+        } else if (btn.apiPath) {
+            if (btn.apiPath.includes('undefined')) {
+                status = 'ERROR';
+                errorDetail = 'Path contains undefined! Registry synchronization failure.';
+            } else if (btn.apiPath.includes(':')) {
+                status = 'OK_PARAM';
+                errorDetail = 'Path is correctly parameterized.';
+            }
         }
         await upsertTouchpoint({
             id: btn.id,

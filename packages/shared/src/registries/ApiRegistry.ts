@@ -106,6 +106,9 @@ const PLATFORM = {
         SETTINGS_LOGO: '/v1/admin/settings/logo',
         SEARCH: '/v1/admin/search',
         REPORTS: '/v1/admin/reports/export',
+        SETTINGS_COMMIT: '/v1/admin/settings/save',
+        CONTENT_PUBLISH: '/v1/admin/content/publish',
+        SEARCH_REINDEX: '/v1/admin/search/reindex',
         LEADS_CONVERT: (id: string) => `/v1/admin/leads/${id}/convert`,
         OPERATIONS: {
             REALTIME_CAPACITY: '/v1/admin/ops/capacity',
@@ -113,12 +116,14 @@ const PLATFORM = {
             SUPPLY_DEMAND: '/v1/admin/ops/supply-demand',
             LOGISTICS_HUB: '/v1/admin/ops/logistics',
             PREDICTIVE_ROUTOR: '/v1/admin/ops/predictive/dispatch',
+            OPTIMIZE_LOGISTICS: '/v1/admin/ops/optimize',
         },
         RESELLER: {
             DASHBOARD: '/v1/admin/reseller/stats',
             FRANCHISES: '/v1/admin/reseller/franchises',
             PROVISION: '/v1/admin/reseller/provision',
             AGREEMENTS: '/v1/admin/reseller/agreements',
+            SUSPEND: (id: string) => `/v1/admin/reseller/franchise/${id}/suspend`,
         },
         ERP: {
             INVENTORY: '/v1/admin/erp/inventory',
@@ -143,6 +148,10 @@ const PLATFORM = {
             PRESCRIPTIONS: '/v1/admin/pharmacy/prescriptions',
             ORDER_DRUGS: '/v1/admin/pharmacy/orders',
             MAR_SYNC: '/v1/admin/pharmacy/mar/sync',
+        },
+        REGIONAL: {
+            PL_EXPORT: '/v1/admin/regional/fin/pl-export',
+            AUDIT_REQUEST: '/v1/admin/regional/governance/audit-req',
         }
     },
     SCRUM_MASTER: {
@@ -150,8 +159,12 @@ const PLATFORM = {
         API_ENDPOINTS: '/v1/scrum-master/endpoints',
         ENV_AUDIT: '/v1/scrum-master/env-audit',
         AUTO_FIX: '/v1/scrum-master/auto-fix',
+        LOG_FLUSH: '/v1/scrum-master/forensics/flush',
+        DB_RESEED: '/v1/scrum-master/governance/reseed',
+        UNIVERSAL_SWEEP: '/v1/scrum-master/registry/sweep',
         SWEEP_START: '/v1/scrum-master/registry/sweep',
         RESPONSE_BOT_SCAN: '/v1/scrum-master/registry/sweep',
+        SECURITY_SCAN: '/v1/scrum-master/security/scan',
         AUDITS_HISTORY: '/v1/scrum-master/audits',
         REGISTRY_HEALTH: '/v1/scrum-master/registry/health',
         REGISTRY_SYNC: '/v1/scrum-master/registry/sync',
@@ -171,6 +184,7 @@ const PLATFORM = {
         PLATFORM_HEALTH: '/v1/superuser/health/summary',
         SLA_COMPLIANCE: '/v1/superuser/sla/compliance',
         POLICY_ENGINE: '/v1/superuser/policies/engine',
+        RISK_SCAN: '/v1/superuser/risk-surveillance',
     },
     AI: {
         INSIGHTS: '/v1/ai/insights',
@@ -180,6 +194,8 @@ const PLATFORM = {
         VISIT_SENTIMENT: '/v1/ai/visit-sentiment',
         AI_OPTIMIZE: '/v1/ai/optimize-flow',
         AI_SENTIMENT_SCAN: '/v1/ai/sentiment-scan',
+        INSIGHTS_REFRESH: '/v1/ai/insights/refresh',
+        AUTOPILOT_ENGAGE: '/v1/ai/autopilot/engage',
     },
     SECURITY: {
         THREATS: '/v1/security/threats',
