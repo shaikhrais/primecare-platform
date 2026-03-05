@@ -45,6 +45,10 @@ export const AssessmentsHub: React.FC = () => {
         return 'vital';
     };
 
+    const btnAdl = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-adl');
+    const btnMobility = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-mobility');
+    const btnMental = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-mental');
+
     if (loading) {
         return (
             <div className="assessments-loading">
@@ -71,7 +75,7 @@ export const AssessmentsHub: React.FC = () => {
                     </p>
                     <div className="assess-card-footer">
                         <button className="btn-premium" data-cy="btn-new-intake">
-                            {ContentRegistry.RN_ASSESSMENTS.NEW_BUTTON}
+                            {btnAdl?.label || ContentRegistry.RN_ASSESSMENTS.NEW_BUTTON}
                         </button>
                     </div>
                 </div>
@@ -83,7 +87,9 @@ export const AssessmentsHub: React.FC = () => {
                         Standardized Berg Scale and TUG assessment for environmental safety.
                     </p>
                     <div className="assess-card-footer">
-                        <button className="btn-premium" data-cy="btn-mobility-start">Start Audit</button>
+                        <button className="btn-premium" data-cy="btn-mobility-start">
+                            {btnMobility?.label || 'Start Audit'}
+                        </button>
                     </div>
                 </div>
 
@@ -94,7 +100,9 @@ export const AssessmentsHub: React.FC = () => {
                         MMSE and geriatric depression screening for long-term care planning.
                     </p>
                     <div className="assess-card-footer">
-                        <button className="btn-premium" data-cy="btn-cognitive-start">Start Audit</button>
+                        <button className="btn-premium" data-cy="btn-cognitive-start">
+                            {btnMental?.label || 'Start Audit'}
+                        </button>
                     </div>
                 </div>
             </div>

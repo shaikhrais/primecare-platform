@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
+import { apiClient } from '@/shared/utils/apiClient';
 import { PatientAcuityDistribution } from '@/shared/components/charts/PatientAcuityDistribution';
 import { AssessmentComplianceChart } from '@/shared/components/charts/AssessmentComplianceChart';
 import { ClinicalIncidentHeatmap } from '@/shared/components/charts/ClinicalIncidentHeatmap';
@@ -43,11 +44,8 @@ export const Dashboard: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('token');
                 // Fetch Stats for Charts
-                const statsResponse = await fetch(`${import.meta.env.VITE_API_URL}${AdminRegistry.ApiRegistry.RN.DASHBOARD_STATS}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const statsResponse = await apiClient.get(AdminRegistry.ApiRegistry.RN.DASHBOARD_STATS);
 
                 if (statsResponse.ok) {
                     const data = await statsResponse.json();
@@ -59,9 +57,7 @@ export const Dashboard: React.FC = () => {
                 }
 
                 // Inject dynamic clinical tasks
-                const carePlansRes = await fetch(`${import.meta.env.VITE_API_URL}${AdminRegistry.ApiRegistry.RN.CARE_PLANS}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const carePlansRes = await apiClient.get(AdminRegistry.ApiRegistry.RN.CARE_PLANS);
 
                 if (carePlansRes.ok) {
                     const plans = await carePlansRes.json();
@@ -72,7 +68,7 @@ export const Dashboard: React.FC = () => {
                         description: `Review Care Plan update: ${p.diagnoses?.join(', ')}`,
                         targetName: p.client?.fullName || 'Unknown Patient'
                     }));
-                    setTasks(prev => [...pendingTasks, ...prev]);
+                    setTasks(pendingTasks);
                 }
 
             } catch (error) {
