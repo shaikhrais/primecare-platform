@@ -14,7 +14,6 @@ export const prismaMiddleware = () => {
         }
 
         if (!prismaInstance) {
-            // Only use edge client if we have a prisma:// URL
             const useEdge = c.env.DATABASE_URL?.startsWith('prisma://');
 
             if (useEdge) {
@@ -23,13 +22,12 @@ export const prismaMiddleware = () => {
                     datasourceUrl: c.env.DATABASE_URL,
                 }).$extends(withAccelerate());
             } else {
-                const { PrismaClient } = await import('@prisma/client');
+                const { PrismaClient } = await import('../../../generated/client/wasm');
                 const pg = await import('pg');
                 const { PrismaPg } = await import('@prisma/adapter-pg');
-
                 const pool = new pg.default.Pool({ connectionString: c.env.DATABASE_URL });
                 const adapter = new PrismaPg(pool);
-                prismaInstance = new (PrismaClient as any)({ adapter });
+                prismaInstance = new PrismaClient({ adapter });
             }
         }
 

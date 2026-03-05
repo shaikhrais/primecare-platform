@@ -14,6 +14,9 @@ const TENANCY = {
         BRANCH_HEALTH: '/v1/manager/ops/branch-health',
         COMPLIANCE_SYNC: '/v1/manager/ops/compliance/sync',
         FEEDBACK_TRIAGE: (id: string) => `/v1/manager/ops/feedback/${id}/triage`,
+        STAFF_ADD: '/v1/manager/staff/add',
+        STAFF_EDIT: (id: string) => `/v1/manager/staff/${id}`,
+        AUDIT_ATTENDANCE: '/v1/manager/audit/attendance',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -27,6 +30,7 @@ const TENANCY = {
         FEEDBACK_SUBMIT: '/v1/client/support/feedback',
         FAMILY_FEED: '/v1/client/engagement/feed',
         INVOICE_PAY: '/v1/client/engagement/pay-invoice',
+        BOOKING_CANCEL: (id: string) => `/v1/client/bookings/${id}/cancel`,
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
@@ -44,6 +48,7 @@ const TENANCY = {
         OFFER_ACCEPT: (id: string) => `/v1/psw/schedule/offers/${id}/accept`,
         OFFER_DECLINE: (id: string) => `/v1/psw/schedule/offers/${id}/decline`,
         FEED: '/v1/psw/feed/social',
+        INCIDENT_REPORT: '/v1/psw/incident/report',
     },
     RN: {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',
@@ -57,6 +62,7 @@ const TENANCY = {
         RECON_SYNC: '/v1/rn/clinical/recon',
         RN_SUPERVISION: '/v1/rn/clinical/supervision',
         SUPERVISION_ROSTER: '/v1/rn/clinical/supervision/roster',
+        CAREPLAN_VERIFY: (id: string) => `/v1/rn/clinical/care-plans/${id}/verify`,
     },
     STAFF: {
         CUSTOMERS: '/v1/staff/customers',
@@ -81,6 +87,8 @@ const TENANCY = {
         MATCHING_RUN: '/v1/coordinator/matching/run',
         MASTER_SCHEDULE: '/v1/coordinator/schedule/master',
         SHIFT_BROADCAST: '/v1/coordinator/shifts/broadcast',
+        SHIFT_TRIAGE: '/v1/coordinator/shifts/triage',
+        GPS_PING: (id: string) => `/v1/coordinator/tracking/${id}/ping`,
     },
 } as const;
 
@@ -110,6 +118,7 @@ const PLATFORM = {
         CONTENT_PUBLISH: '/v1/admin/content/publish',
         SEARCH_REINDEX: '/v1/admin/search/reindex',
         LEADS_CONVERT: (id: string) => `/v1/admin/leads/${id}/convert`,
+        UI_OVERRIDE_COMMIT: '/v1/admin/registry/ui-override/commit',
         OPERATIONS: {
             REALTIME_CAPACITY: '/v1/admin/ops/capacity',
             REGION_MAPPING: '/v1/admin/ops/regions',

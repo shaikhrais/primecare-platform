@@ -26,13 +26,7 @@ const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // 1. Foundational CORS (Must be at the very top)
 app.use('*', cors({
-    origin: (origin) => {
-        if (!origin) return 'https://primecare-admin.pages.dev';
-        if (origin.includes('pages.dev') || origin.includes('workers.dev') || origin.includes('localhost')) {
-            return origin;
-        }
-        return 'https://primecare-admin.pages.dev';
-    },
+    origin: (origin) => origin,
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status', 'x-tenant-id'],
     exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
@@ -57,14 +51,14 @@ app.onError((err, c) => {
     });
 });
 
-// 3. Middlewares
-app.use('*', secureHeaders());
-app.use('*', prismaMiddleware());
-
 // 3. Health Routes
 app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString(), architecture: 'role-first-modular' });
 });
+
+// 3. Middlewares
+app.use('*', secureHeaders());
+app.use('*', prismaMiddleware());
 
 // 4. OpenAPI Documentation
 app.doc('/openapi.json', {

@@ -180,6 +180,29 @@ export default function Login() {
                     >
                         {loading ? 'Authenticating...' : t(ContentRegistry.AUTH.BUTTON)}
                     </button>
+
+                    <div style={{ marginTop: '1rem', position: 'relative', textAlign: 'center' }}>
+                        <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', backgroundColor: 'var(--line)', zIndex: 1 }}></div>
+                        <span style={{ position: 'relative', backgroundColor: '#FFFFFF', padding: '0 10px', fontSize: '0.75rem', color: '#6B7280', zIndex: 2 }}>OR</span>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() => window.location.href = `${API_URL}/v1/auth/osm`}
+                        data-cy="btn-auth-osm-login"
+                        style={{
+                            marginTop: '1rem', width: '100%', padding: '0.75rem', backgroundColor: '#FFFFFF', color: '#111827', border: '1px solid var(--line)', borderRadius: '4px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M128 0C57.312 0 0 57.312 0 128s57.312 128 128 128 128-57.312 128-128S198.688 0 128 0zm0 21.333c58.91 0 106.667 47.757 106.667 106.667S186.91 234.667 128 234.667 21.333 186.91 21.333 128 69.09 21.333 128 21.333z" fill="#7EBC6F" />
+                            <path d="M128 42.667c47.128 0 85.333 38.205 85.333 85.333S175.128 213.333 128 213.333 42.667 175.128 42.667 128 80.872 42.667 128 42.667z" fill="#7EBC6F" />
+                        </svg>
+                        Sign in with OpenStreetMap
+                    </button>
+
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
                         <a href={RouteRegistry.REGISTER} data-cy="link-register" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             {t(ContentRegistry.AUTH.SIGNUP_LINK)}
