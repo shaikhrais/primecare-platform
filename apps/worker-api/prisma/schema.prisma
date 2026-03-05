@@ -35,6 +35,7 @@ model User {
   verifiedDocs       PswDocument[]     @relation("VerifiedBy")
   pswProfile         PswProfile?
   reviewedTimesheets Timesheet[]       @relation("ReviewedBy")
+  telehealthSessions TelehealthSession[]
   tenant             Tenant            @relation(fields: [tenantId], references: [id])
   VisitCheckEvent    VisitCheckEvent[]
 
@@ -79,6 +80,8 @@ model Tenant {
   auditLogs         AuditLog[]
   securityThreats   SecurityThreat[]
   slas              TenantSLA[]
+  telehealthSessions TelehealthSession[]
+  patientAlerts      PatientAlert[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -143,6 +146,9 @@ model ClientProfile {
   franchiseId    String?           @map("franchise_id")
   inventoryItems InventoryItem[]
   purchaseOrders PurchaseOrder[]
+  telehealthSessions TelehealthSession[]
+  vitalSigns         VitalSign[]
+  patientAlerts      PatientAlert[]
   carePlans      CarePlan[]
 
   @@index([tenantId])
@@ -1048,4 +1054,52 @@ model PurchaseOrder {
   tenant          Tenant   @relation(fields: [tenantId], references: [id])
 
   @@map("purchase_orders")
+}
+
+model TelehealthSession {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  patientId       String   @map("patient_id") // ClientProfile ID
+  providerId      String   @map("provider_id") // User ID (RN, PSW, etc.)
+  startTime       DateTime @map("start_time")
+  endTime         DateTime? @map("end_time")
+  meetingLink     String?  @map("meeting_link")
+  status          String   @default("scheduled") // scheduled, in-progress, completed, cancelled
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  patient         ClientProfile @relation(fields: [patientId], references: [id])
+  provider        User     @relation(fields: [providerId], references: [id])
+
+  @@map("telehealth_sessions")
+}
+
+model VitalSign {
+  id              String   @id @default(uuid())
+  patientId       String   @map("patient_id")
+  type            String   // HEART_RATE, BLOOD_PRESSURE, OXYGEN_SAT, TEMPERATURE
+  value           Float
+  unit            String
+  source          String   @default("MANUAL") // MANUAL, WEARABLE, DEVICE
+  recordedAt      DateTime @default(now()) @map("recorded_at")
+  
+  patient         ClientProfile @relation(fields: [patientId], references: [id])
+
+  @@map("vital_signs")
+}
+
+model PatientAlert {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  patientId       String   @map("patient_id")
+  type            String   // CLINICAL, OPERATIONAL, TECHNICAL
+  severity        String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  message         String
+  status          String   @default("open") // open, acknowledged, resolved
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  patient         ClientProfile @relation(fields: [patientId], references: [id])
+
+  @@map("patient_alerts")
 }

@@ -139,6 +139,10 @@ const PLATFORM = {
         ERP: {
             INVENTORY: '/platform/admin/erp/inventory',
             PROCUREMENT: '/platform/admin/erp/procurement',
+        },
+        TELEHEALTH: {
+            CENTER: '/platform/admin/telehealth/center',
+            ALERTS: '/platform/admin/telehealth/alerts',
         }
     },
     SUPERUSER: {

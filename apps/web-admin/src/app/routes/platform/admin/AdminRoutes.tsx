@@ -52,6 +52,7 @@ const TemplateEditor = lazy(() => import('./pages/template-editor'));
 const SearchPage = lazy(() => import('./pages/search/SearchPage'));
 const ExportPage = lazy(() => import('./pages/reports/ExportPage'));
 const SupplyChainHub = lazy(() => import('./pages/erp/SupplyChainHub'));
+const TelehealthCenter = lazy(() => import('./pages/telehealth/TelehealthCenter'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
@@ -95,5 +96,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.REPORT_EXPORT} element={<ExportPage />} />
         <Route path={RouteRegistry.ADMIN.ERP.INVENTORY} element={<SupplyChainHub />} />
         <Route path={RouteRegistry.ADMIN.ERP.PROCUREMENT} element={<SupplyChainHub />} />
+        <Route path={RouteRegistry.ADMIN.TELEHEALTH.CENTER} element={<TelehealthCenter />} />
+        <Route path={RouteRegistry.ADMIN.TELEHEALTH.ALERTS} element={<TelehealthCenter />} />
     </Route>
 );

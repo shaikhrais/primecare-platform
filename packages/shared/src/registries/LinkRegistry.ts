@@ -38,5 +38,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-reseller-agreements', label: 'Partner Agreements', role: 'reseller', module: 'FRANCHISE', path: '/platform/reseller/agreements', description: 'Review and sign franchise partner contracts.' },
     // Batch 16: ERP Links
     { id: 'lnk-erp-inventory', label: 'Stock & Inventory', role: 'admin', module: 'ERP', path: '/platform/admin/erp/inventory', description: 'Real-time consumable and asset tracking.' },
-    { id: 'lnk-erp-procurement', label: 'Procurement Hub', role: 'operations_manager', module: 'ERP', path: '/platform/admin/erp/procurement', description: 'Supplier management and purchase order tracking.' }
+    { id: 'lnk-erp-procurement', label: 'Procurement Hub', role: 'operations_manager', module: 'ERP', path: '/platform/admin/erp/procurement', description: 'Supplier management and purchase order tracking.' },
+    // Batch 17: Telehealth Links
+    { id: 'lnk-telehealth-center', label: 'Telehealth Center', role: 'rn', module: 'TELEHEALTH', path: '/platform/admin/telehealth/center', description: 'Live video consultations and remote patient monitoring.' },
+    { id: 'lnk-rpm-alerts', label: 'Remote Alerts', role: 'coordinator', module: 'TELEHEALTH', path: '/platform/admin/telehealth/alerts', description: 'Critical health alerts from remote monitoring devices.' }
 ];

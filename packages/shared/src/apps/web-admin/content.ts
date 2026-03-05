@@ -42,6 +42,16 @@ export const ContentRegistry = {
         THEME: 'Theme Center',
         RESELLER: 'Reseller Hub',
         ERP: 'Supply Chain Hub',
+        TELEHEALTH: 'Telehealth Center',
+    },
+    TELEHEALTH: {
+        TITLE: 'Telehealth & RPM Center',
+        SUBTITLE: 'Encrypted video consultations and live remote patient monitoring.',
+        SESSIONS_TITLE: 'Active Consultations',
+        STATS: {
+            GATEWAY: 'Gateway Status',
+            ALERTS: 'Critical Alerts',
+        }
     },
     ERP: {
         TITLE: 'ERP & Supply Chain Hub',

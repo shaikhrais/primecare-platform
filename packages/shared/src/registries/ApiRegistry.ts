@@ -94,6 +94,12 @@ const PLATFORM = {
             SUPPLIERS: '/v1/admin/erp/suppliers',
             PURCHASE_ORDERS: '/v1/admin/erp/purchase-orders',
             STOCK_SYNC: '/v1/admin/erp/stock/sync',
+        },
+        TELEHEALTH: {
+            DASHBOARD: '/v1/admin/telehealth/stats',
+            SESSIONS: '/v1/admin/telehealth/sessions',
+            CREATE_SESSION: '/v1/admin/telehealth/sessions/create',
+            VITAL_SIGN_PUSH: '/v1/admin/telehealth/vitals/push',
         }
     },
     SCRUM_MASTER: {

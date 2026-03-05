@@ -58,5 +58,8 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-reseller-suspend', label: 'Suspend Franchise', role: 'reseller', module: 'FRANCHISE', type: 'danger', action: 'API_TRIGGER', description: 'Temporarily revokes access for a child agency.' },
     // Batch 16: ERP Mastery
     { id: 'btn-erp-inventory-add', label: 'Register Stock Item', role: 'admin', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Adds new inventory unit to the systemic registry.' },
-    { id: 'btn-erp-po-create', label: 'Generate Purchase Order', role: 'operations_manager', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Initiates procurement request for external suppliers.' }
+    { id: 'btn-erp-po-create', label: 'Generate Purchase Order', role: 'operations_manager', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Initiates procurement request for external suppliers.' },
+    // Batch 17: Telehealth & RPM Mastery
+    { id: 'btn-telehealth-session-start', label: 'Start Virtual Visit', role: 'rn', module: 'TELEHEALTH', type: 'primary', action: 'UI_NAVIGATION', description: 'Launches the real-time encrypted video consultation gateway.' },
+    { id: 'btn-rpm-vitals-verify', label: 'Verify Remote Vitals', role: 'coordinator', module: 'TELEHEALTH', type: 'secondary', action: 'API_TRIGGER', description: 'Acknowledges and logs incoming remote patient monitoring data.' }
 ];
