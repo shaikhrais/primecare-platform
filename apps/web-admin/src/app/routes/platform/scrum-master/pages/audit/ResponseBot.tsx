@@ -9,16 +9,44 @@ export default function ResponseBot() {
 
     const runSweep = () => {
         setAuditRunning(true);
-        // Simulate sweep
+        const auditResults: any[] = [];
+
+        // 1. Audit Link Registry
+        const adminLinks = AdminRegistry.LinkRegistry.filter((l: any) => l.role === 'admin' || l.role === 'scrum_master');
+        const linkIssues = adminLinks.filter((l: any) => !l.path || l.path === '').length;
+        auditResults.push({
+            id: 1,
+            type: 'LINK_REGISTRY',
+            status: linkIssues > 0 ? 'warning' : 'success',
+            summary: `Verified ${adminLinks.length} governance links.`,
+            issues: linkIssues
+        });
+
+        // 2. Audit Button Registry
+        const adminBtns = AdminRegistry.ButtonRegistry.filter((b: any) => b.role === 'admin' || b.role === 'scrum_master');
+        const btnIssues = adminBtns.filter((b: any) => !b.action).length;
+        auditResults.push({
+            id: 2,
+            type: 'BUTTON_REGISTRY',
+            status: btnIssues > 0 ? 'warning' : 'success',
+            summary: `Verified ${adminBtns.length} action targets.`,
+            issues: btnIssues
+        });
+
+        // 3. Audit API Parity (Simplified check for UI)
+        const adminApis = Object.keys(AdminRegistry.ApiRegistry.PLATFORM?.ADMIN || {}).length;
+        auditResults.push({
+            id: 3,
+            type: 'API_PARITY',
+            status: adminApis > 15 ? 'success' : 'warning',
+            summary: `Found ${adminApis} registered Admin endpoints.`,
+            issues: adminApis < 10 ? 1 : 0
+        });
+
         setTimeout(() => {
-            setResults([
-                { id: 1, type: 'BUTTON_REGISTRY', status: 'success', summary: 'All 42 primary buttons active.', issues: 0 },
-                { id: 2, type: 'LINK_REGISTRY', status: 'warning', summary: 'Orphan link detected in Marketing.', issues: 1 },
-                { id: 3, type: '404_HEARTBEAT', status: 'success', summary: 'Zero 404s detected on public URL.', issues: 0 },
-                { id: 4, type: 'SCHEMA_PARITY', status: 'success', summary: 'Prisma model alignment verified.', issues: 0 },
-            ]);
+            setResults(auditResults);
             setAuditRunning(false);
-        }, 2000);
+        }, 1500);
     };
 
     const auditAction = InteractionARegistry.find((ia: any) => ia.id === 'ia-sm-response-bot-audit');
