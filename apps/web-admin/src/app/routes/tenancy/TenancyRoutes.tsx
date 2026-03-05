@@ -93,6 +93,7 @@ export const TenancyRoutes = () => (
             <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
             <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
             <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
+            <Route path="team" element={<UserList />} />
         </Route>
 
         {/* MARKETING PORTAL */}
@@ -122,6 +123,7 @@ export const TenancyRoutes = () => (
             <Route path="dispatch-map" element={<DispatchMap />} />
             <Route path="waitlist" element={<WaitlistManager />} />
             <Route path="sos-center" element={<SosCenter />} />
+            <Route path="schedule" element={<CoordinatorHub />} /> {/* Using Hub as the landing for schedule for now */}
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}

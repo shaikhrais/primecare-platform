@@ -19,6 +19,7 @@ const TENANCY = {
         FINANCE: '/tenancy/manager/finance',
         PAYROLL: '/tenancy/manager/payroll',
         REGIONAL_STATS: '/tenancy/manager/regional-stats',
+        TEAM: '/tenancy/manager/team',
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',
@@ -57,6 +58,7 @@ const TENANCY = {
         MAP: '/tenancy/coordinator/dispatch-map',
         WAITLIST: '/tenancy/coordinator/waitlist',
         SOS: '/tenancy/coordinator/sos-center',
+        SCHEDULE: '/tenancy/coordinator/schedule',
     },
     CLIENT: {
         DASHBOARD: '/tenancy/client',
