@@ -19,7 +19,7 @@ export default function TenantList() {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                // Mocking tenant data for now as specific API might be pending
+                // Mocking tenant data mapped to Tenant model
                 const mockTenants: Tenant[] = [
                     { id: '1', name: 'PrimeCare Main', domain: 'main.primecare.ca', status: 'active', createdAt: '2025-01-01' },
                     { id: '2', name: 'West Side Health', domain: 'westside.primecare.ca', status: 'active', createdAt: '2025-02-15' },
@@ -34,46 +34,49 @@ export default function TenantList() {
     }, []);
 
     return (
-        <div style={{ padding: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }}>Tenant Management</h2>
-                <button style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
+        <div style={{ padding: '24px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                <div>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Tenant Management</h1>
+                    <p style={{ color: '#6B7280' }}>Provision and manage active fractal SaaS organizations.</p>
+                </div>
+                <button className="btn primary">
                     + Provision New Tenant
                 </button>
             </div>
 
-            <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+            <div className="pc-card" style={{ overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
-                        <tr>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: '#6b7280' }}>Tenant Name</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: '#6b7280' }}>Domain</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: '#6b7280' }}>Status</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: '#6b7280' }}>Provisioned</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: '#6b7280' }}>Actions</th>
+                    <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
+                        <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
+                            <th style={{ padding: '16px' }}>Organization</th>
+                            <th style={{ padding: '16px' }}>Endpoint Domain</th>
+                            <th style={{ padding: '16px' }}>SLA Tier</th>
+                            <th style={{ padding: '16px' }}>Status</th>
+                            <th style={{ padding: '16px' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr><td colSpan={5} style={{ padding: '2rem', textAlign: 'center' }}>Loading tenants...</td></tr>
+                            <tr><td colSpan={5} style={{ padding: '40px', textAlign: 'center' }}>Orchestrating tenant roster...</td></tr>
                         ) : tenants.map(tenant => (
-                            <tr key={tenant.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                <td style={{ padding: '1rem', fontWeight: '600' }}>{tenant.name}</td>
-                                <td style={{ padding: '1rem', color: '#6b7280' }}>{tenant.domain}</td>
-                                <td style={{ padding: '1rem' }}>
+                            <tr key={tenant.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
+                                <td style={{ padding: '16px' }}><strong>{tenant.name}</strong></td>
+                                <td style={{ padding: '16px', fontFamily: 'monospace', color: '#6B7280' }}>{tenant.domain}</td>
+                                <td style={{ padding: '16px' }}>
+                                    <span className="badge secondary">PLATINUM</span>
+                                </td>
+                                <td style={{ padding: '16px' }}>
                                     <span style={{
-                                        padding: '0.25rem 0.75rem',
-                                        borderRadius: '9999px',
-                                        fontSize: '0.75rem',
-                                        backgroundColor: tenant.status === 'active' ? '#dcfce7' : '#fef3c7',
-                                        color: tenant.status === 'active' ? '#166534' : '#92400e'
+                                        color: tenant.status === 'active' ? '#10B981' : '#F59E0B',
+                                        fontWeight: 'bold',
+                                        fontSize: '12px'
                                     }}>
-                                        {tenant.status.toUpperCase()}
+                                        ● {tenant.status.toUpperCase()}
                                     </span>
                                 </td>
-                                <td style={{ padding: '1rem', color: '#6b7280' }}>{tenant.createdAt}</td>
-                                <td style={{ padding: '1rem' }}>
-                                    <button style={{ color: '#004d40', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '500' }}>Manage</button>
+                                <td style={{ padding: '16px' }}>
+                                    <button className="btn secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>Manage</button>
                                 </td>
                             </tr>
                         ))}

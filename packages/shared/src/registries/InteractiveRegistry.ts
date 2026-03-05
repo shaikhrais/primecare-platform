@@ -71,7 +71,9 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-ai-insights-refresh', label: 'Recalculate Insights', role: 'admin', module: 'AI', type: 'secondary', action: 'API_TRIGGER', description: 'Triggers a full AI analytics refresh.' },
     { id: 'btn-ai-autopilot-engage', label: 'Engage Auto-Pilot', role: 'admin', module: 'AUTOMATION', type: 'primary', action: 'API_TRIGGER', description: 'Initializes autonomous shift matchmaking.' },
     { id: 'btn-sec-threat-scan', label: 'Scan for Threats', role: 'admin', module: 'SECURITY', type: 'danger', action: 'API_TRIGGER', description: 'Triggers a real-time platform threat detection sweep.' },
-    { id: 'btn-sec-session-flush', label: 'Flush Suspicious Sessions', role: 'admin', module: 'SECURITY', type: 'secondary', action: 'API_TRIGGER', description: 'Terminates all sessions flagged with anomalous behavior.' }
+    { id: 'btn-sec-session-flush', label: 'Flush Suspicious Sessions', role: 'admin', module: 'SECURITY', type: 'secondary', action: 'API_TRIGGER', description: 'Terminates all sessions flagged with anomalous behavior.' },
+    { id: 'btn-sup-health-refresh', label: 'Refresh Global Health', role: 'superuser', module: 'GOVERNANCE', type: 'primary', action: 'API_TRIGGER', description: 'Triggers a platform-wide infrastructure health check.' },
+    { id: 'btn-sup-policy-push', label: 'Deploy System Policy', role: 'superuser', module: 'GOVERNANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Enforces new core policies across all active tenants.' }
 ];
 
 /**

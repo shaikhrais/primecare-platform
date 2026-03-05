@@ -78,6 +78,7 @@ model Tenant {
   sentimentAnalyses SentimentAnalysis[]
   auditLogs         AuditLog[]
   securityThreats   SecurityThreat[]
+  slas              TenantSLA[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -916,4 +917,30 @@ model SecurityThreat {
 
   @@index([tenantId])
   @@map("security_threats")
+}
+
+model TenantSLA {
+  id                String   @id @default(uuid())
+  uptimeTarget      Float    @default(99.9) @map("uptime_target")
+  responseTimeTarget Int      @default(500) @map("response_time_target") // ms
+  supportTier       String   @default("STANDARD") @map("support_tier") // BRONZE, SILVER, GOLD, PLATINUM
+  status            String   @default("compliant")
+  lastAuditAt       DateTime @default(now()) @map("last_audit_at")
+  tenantId          String   @unique @map("tenant_id")
+  tenant            Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@map("tenant_slas")
+}
+
+model SystemPolicy {
+  id          String   @id @default(uuid())
+  code        String   @unique // e.g., 'CORE_SEC_01'
+  name        String
+  category    String // SECURITY, CLINICAL, BILLING, OPS
+  value       Json
+  isEnforced  Boolean  @default(true) @map("is_enforced")
+  version     Int      @default(1)
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_policies")
 }

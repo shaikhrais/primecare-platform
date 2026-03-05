@@ -102,6 +102,9 @@ const PLATFORM = {
         TENANTS: '/v1/superuser/tenants',
         AUDIT_LOGS: '/v1/superuser/audit-logs',
         GOVERNANCE: '/v1/superuser/governance',
+        PLATFORM_HEALTH: '/v1/superuser/health/summary',
+        SLA_COMPLIANCE: '/v1/superuser/sla/compliance',
+        POLICY_ENGINE: '/v1/superuser/policies/engine',
     },
     AI: {
         INSIGHTS: '/v1/ai/insights',
