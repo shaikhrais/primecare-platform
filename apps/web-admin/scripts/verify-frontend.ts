@@ -26,6 +26,8 @@ const PAGES = [
     { name: 'RN Assessments', path: 'app/routes/tenancy/rn/pages/assessments/index.tsx' },
     { name: 'Manager Ops', path: 'app/routes/tenancy/manager/pages/operations/index.tsx' },
     { name: 'Client Family Hub', path: 'app/routes/tenancy/client/pages/engagement/FamilyCareHub.tsx' },
+    { name: 'Staff Incident Portal', path: 'app/routes/tenancy/staff/pages/operations/IncidentPortal.tsx' },
+    { name: 'Staff Task Grid', path: 'app/routes/tenancy/staff/pages/tasks/TaskGrid.tsx' },
 ];
 
 const SHARED = [

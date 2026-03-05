@@ -1,13 +1,43 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import './IncidentPortal.css';
 
 const { ContentRegistry } = AdminRegistry;
 
 export default function IncidentPortal() {
     const { t } = useTranslation();
-    const [severity, setSeverity] = useState<'critical' | 'moderate' | 'low'>('moderate');
+    const [type, setType] = useState('other');
+    const [description, setDescription] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const handleSubmit = async () => {
+        if (!description) return;
+        setSubmitting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.TENANCY.STAFF.INCIDENT_SUBMIT}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type,
+                    description,
+                }),
+            });
+            if (res.ok) {
+                setSuccess(true);
+                setDescription('');
+            }
+        } catch (error) {
+            console.error('Failed to report incident:', error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     const protocolSteps = [
         { title: 'Immediate Stabilization', desc: 'Secure the area and provide immediate clinical support.' },
@@ -15,6 +45,17 @@ export default function IncidentPortal() {
         { title: 'Evidence Preservation', desc: 'Secure any involved equipment or medical supplies.' },
         { title: 'Branch Notification', desc: 'Notify the clinical manager or regional operator immediately.' },
     ];
+
+    if (success) {
+        return (
+            <div className="incident-portal flex flex-col items-center justify-center h-[60vh]">
+                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6">✓</div>
+                <h1 className="text-2xl font-black mb-2">Incident Reported</h1>
+                <p className="text-muted-foreground mb-8">The operational team has been notified and triage has begun.</p>
+                <button className="btn-modern btn-modern-primary" onClick={() => setSuccess(false)}>Report Another Event</button>
+            </div>
+        );
+    }
 
     return (
         <div className="incident-portal">
@@ -27,41 +68,18 @@ export default function IncidentPortal() {
                 <main className="incident-form-container">
                     <div className="field-group">
                         <label className="field-label">{t(ContentRegistry.INCIDENTS.FORM.TYPE_LABEL)}</label>
-                        <select className="modern-select">
-                            <option>Clinical Incident</option>
-                            <option>Operational Risk</option>
-                            <option>Security Breach</option>
-                            <option>Documentation Gap</option>
+                        <select
+                            className="modern-select"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                        >
+                            <option value="fall_risk">Clinical: Fall Risk</option>
+                            <option value="medical_emergency">Clinical: Medical Emergency</option>
+                            <option value="safety">Operational: Safety Risk</option>
+                            <option value="refusal">Operational: Service Refusal</option>
+                            <option value="no_show">Staffing: No Show</option>
+                            <option value="other">Other / Miscellaneous</option>
                         </select>
-                    </div>
-
-                    <div className="field-group">
-                        <label className="field-label">{t(ContentRegistry.INCIDENTS.FORM.SEVERITY_LABEL)}</label>
-                        <div className="severity-selector">
-                            <button
-                                className={`severity-btn critical ${severity === 'critical' ? 'active' : ''}`}
-                                onClick={() => setSeverity('critical')}
-                            >
-                                Critical
-                            </button>
-                            <button
-                                className={`severity-btn moderate ${severity === 'moderate' ? 'active' : ''}`}
-                                onClick={() => setSeverity('moderate')}
-                            >
-                                Moderate
-                            </button>
-                            <button
-                                className={`severity-btn low ${severity === 'low' ? 'active' : ''}`}
-                                onClick={() => setSeverity('low')}
-                            >
-                                Low
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="field-group">
-                        <label className="field-label">Affected Patient / User</label>
-                        <input type="text" className="modern-input" placeholder="Search customer registry..." />
                     </div>
 
                     <div className="field-group">
@@ -70,12 +88,20 @@ export default function IncidentPortal() {
                             className="modern-textarea"
                             rows={6}
                             placeholder="Provide a factual, clinical description of the event..."
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
                     <div className="flex justify-between items-center pt-8 border-t border-slate-100">
-                        <button className="btn-modern btn-modern-secondary">Save Draft</button>
-                        <button className="btn-modern btn-modern-primary">{t(ContentRegistry.INCIDENTS.FORM.SUBMIT_BTN)}</button>
+                        <button className="btn-modern btn-modern-secondary" disabled={submitting}>Save Draft</button>
+                        <button
+                            className="btn-modern btn-modern-primary"
+                            disabled={submitting || !description}
+                            onClick={handleSubmit}
+                        >
+                            {submitting ? 'Submitting...' : t(ContentRegistry.INCIDENTS.FORM.SUBMIT_BTN)}
+                        </button>
                     </div>
                 </main>
 
@@ -99,10 +125,6 @@ export default function IncidentPortal() {
                             <div className="text-[10px] font-black uppercase opacity-60">Emergency Hotline</div>
                             <div className="hotline-number">1-800-CARE-911</div>
                         </div>
-                    </div>
-
-                    <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10 italic text-xs leading-relaxed opacity-70">
-                        "Documenting incidents is not about assignment of blame, but about ensuring continuous care improvement and patient safety."
                     </div>
                 </aside>
             </div>

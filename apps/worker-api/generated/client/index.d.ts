@@ -373,6 +373,16 @@ export type FamilyNotification = $Result.DefaultSelection<Prisma.$FamilyNotifica
  * 
  */
 export type CareFeedback = $Result.DefaultSelection<Prisma.$CareFeedbackPayload>
+/**
+ * Model TechnicalAudit
+ * 
+ */
+export type TechnicalAudit = $Result.DefaultSelection<Prisma.$TechnicalAuditPayload>
+/**
+ * Model RegistryEntry
+ * 
+ */
+export type RegistryEntry = $Result.DefaultSelection<Prisma.$RegistryEntryPayload>
 
 /**
  * Enums
@@ -1396,6 +1406,26 @@ export class PrismaClient<
     * ```
     */
   get careFeedback(): Prisma.CareFeedbackDelegate<ExtArgs>;
+
+  /**
+   * `prisma.technicalAudit`: Exposes CRUD operations for the **TechnicalAudit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TechnicalAudits
+    * const technicalAudits = await prisma.technicalAudit.findMany()
+    * ```
+    */
+  get technicalAudit(): Prisma.TechnicalAuditDelegate<ExtArgs>;
+
+  /**
+   * `prisma.registryEntry`: Exposes CRUD operations for the **RegistryEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RegistryEntries
+    * const registryEntries = await prisma.registryEntry.findMany()
+    * ```
+    */
+  get registryEntry(): Prisma.RegistryEntryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1908,7 +1938,9 @@ export namespace Prisma {
     MedicationRecon: 'MedicationRecon',
     SupervisionLog: 'SupervisionLog',
     FamilyNotification: 'FamilyNotification',
-    CareFeedback: 'CareFeedback'
+    CareFeedback: 'CareFeedback',
+    TechnicalAudit: 'TechnicalAudit',
+    RegistryEntry: 'RegistryEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1924,7 +1956,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6968,6 +7000,146 @@ export namespace Prisma {
           }
         }
       }
+      TechnicalAudit: {
+        payload: Prisma.$TechnicalAuditPayload<ExtArgs>
+        fields: Prisma.TechnicalAuditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TechnicalAuditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TechnicalAuditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          findFirst: {
+            args: Prisma.TechnicalAuditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TechnicalAuditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          findMany: {
+            args: Prisma.TechnicalAuditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>[]
+          }
+          create: {
+            args: Prisma.TechnicalAuditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          createMany: {
+            args: Prisma.TechnicalAuditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TechnicalAuditCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>[]
+          }
+          delete: {
+            args: Prisma.TechnicalAuditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          update: {
+            args: Prisma.TechnicalAuditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          deleteMany: {
+            args: Prisma.TechnicalAuditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TechnicalAuditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TechnicalAuditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicalAuditPayload>
+          }
+          aggregate: {
+            args: Prisma.TechnicalAuditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTechnicalAudit>
+          }
+          groupBy: {
+            args: Prisma.TechnicalAuditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TechnicalAuditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TechnicalAuditCountArgs<ExtArgs>
+            result: $Utils.Optional<TechnicalAuditCountAggregateOutputType> | number
+          }
+        }
+      }
+      RegistryEntry: {
+        payload: Prisma.$RegistryEntryPayload<ExtArgs>
+        fields: Prisma.RegistryEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RegistryEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RegistryEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.RegistryEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RegistryEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          findMany: {
+            args: Prisma.RegistryEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>[]
+          }
+          create: {
+            args: Prisma.RegistryEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          createMany: {
+            args: Prisma.RegistryEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RegistryEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.RegistryEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          update: {
+            args: Prisma.RegistryEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.RegistryEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RegistryEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RegistryEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RegistryEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.RegistryEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRegistryEntry>
+          }
+          groupBy: {
+            args: Prisma.RegistryEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RegistryEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RegistryEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<RegistryEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7147,6 +7319,7 @@ export namespace Prisma {
     medicationRecons: number
     supervisionLogs: number
     acknowledgedIncidents: number
+    performedAudits: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7164,6 +7337,7 @@ export namespace Prisma {
     medicationRecons?: boolean | UserCountOutputTypeCountMedicationReconsArgs
     supervisionLogs?: boolean | UserCountOutputTypeCountSupervisionLogsArgs
     acknowledgedIncidents?: boolean | UserCountOutputTypeCountAcknowledgedIncidentsArgs
+    performedAudits?: boolean | UserCountOutputTypeCountPerformedAuditsArgs
   }
 
   // Custom InputTypes
@@ -7275,6 +7449,13 @@ export namespace Prisma {
     where?: IncidentWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPerformedAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicalAuditWhereInput
+  }
+
 
   /**
    * Count Type TenantCountOutputType
@@ -7321,6 +7502,7 @@ export namespace Prisma {
     complianceRecords: number
     familyNotifications: number
     careFeedbacks: number
+    technicalAudits: number
     childTenants: number
     franchises: number
     marketplaceListings: number
@@ -7375,6 +7557,7 @@ export namespace Prisma {
     complianceRecords?: boolean | TenantCountOutputTypeCountComplianceRecordsArgs
     familyNotifications?: boolean | TenantCountOutputTypeCountFamilyNotificationsArgs
     careFeedbacks?: boolean | TenantCountOutputTypeCountCareFeedbacksArgs
+    technicalAudits?: boolean | TenantCountOutputTypeCountTechnicalAuditsArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     franchises?: boolean | TenantCountOutputTypeCountFranchisesArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
@@ -7677,6 +7860,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountCareFeedbacksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CareFeedbackWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountTechnicalAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicalAuditWhereInput
   }
 
   /**
@@ -8886,6 +9076,7 @@ export namespace Prisma {
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
     acknowledgedIncidents?: boolean | User$acknowledgedIncidentsArgs<ExtArgs>
+    performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8938,6 +9129,7 @@ export namespace Prisma {
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
     acknowledgedIncidents?: boolean | User$acknowledgedIncidentsArgs<ExtArgs>
+    performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8964,6 +9156,7 @@ export namespace Prisma {
       medicationRecons: Prisma.$MedicationReconPayload<ExtArgs>[]
       supervisionLogs: Prisma.$SupervisionLogPayload<ExtArgs>[]
       acknowledgedIncidents: Prisma.$IncidentPayload<ExtArgs>[]
+      performedAudits: Prisma.$TechnicalAuditPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9359,6 +9552,7 @@ export namespace Prisma {
     medicationRecons<T extends User$medicationReconsArgs<ExtArgs> = {}>(args?: Subset<T, User$medicationReconsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicationReconPayload<ExtArgs>, T, "findMany"> | Null>
     supervisionLogs<T extends User$supervisionLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupervisionLogPayload<ExtArgs>, T, "findMany"> | Null>
     acknowledgedIncidents<T extends User$acknowledgedIncidentsArgs<ExtArgs> = {}>(args?: Subset<T, User$acknowledgedIncidentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncidentPayload<ExtArgs>, T, "findMany"> | Null>
+    performedAudits<T extends User$performedAuditsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10028,6 +10222,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.performedAudits
+   */
+  export type User$performedAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    where?: TechnicalAuditWhereInput
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    cursor?: TechnicalAuditWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10344,6 +10558,7 @@ export namespace Prisma {
     complianceRecords?: boolean | Tenant$complianceRecordsArgs<ExtArgs>
     familyNotifications?: boolean | Tenant$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | Tenant$careFeedbacksArgs<ExtArgs>
+    technicalAudits?: boolean | Tenant$technicalAuditsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -10435,6 +10650,7 @@ export namespace Prisma {
     complianceRecords?: boolean | Tenant$complianceRecordsArgs<ExtArgs>
     familyNotifications?: boolean | Tenant$familyNotificationsArgs<ExtArgs>
     careFeedbacks?: boolean | Tenant$careFeedbacksArgs<ExtArgs>
+    technicalAudits?: boolean | Tenant$technicalAuditsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -10496,6 +10712,7 @@ export namespace Prisma {
       complianceRecords: Prisma.$ComplianceRecordPayload<ExtArgs>[]
       familyNotifications: Prisma.$FamilyNotificationPayload<ExtArgs>[]
       careFeedbacks: Prisma.$CareFeedbackPayload<ExtArgs>[]
+      technicalAudits: Prisma.$TechnicalAuditPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       franchises: Prisma.$FranchisePayload<ExtArgs>[]
@@ -10928,6 +11145,7 @@ export namespace Prisma {
     complianceRecords<T extends Tenant$complianceRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$complianceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplianceRecordPayload<ExtArgs>, T, "findMany"> | Null>
     familyNotifications<T extends Tenant$familyNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$familyNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamilyNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     careFeedbacks<T extends Tenant$careFeedbacksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$careFeedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CareFeedbackPayload<ExtArgs>, T, "findMany"> | Null>
+    technicalAudits<T extends Tenant$technicalAuditsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$technicalAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     franchises<T extends Tenant$franchisesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$franchisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchisePayload<ExtArgs>, T, "findMany"> | Null>
@@ -12098,6 +12316,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CareFeedbackScalarFieldEnum | CareFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.technicalAudits
+   */
+  export type Tenant$technicalAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    where?: TechnicalAuditWhereInput
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    cursor?: TechnicalAuditWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
   }
 
   /**
@@ -83896,6 +84134,2081 @@ export namespace Prisma {
 
 
   /**
+   * Model TechnicalAudit
+   */
+
+  export type AggregateTechnicalAudit = {
+    _count: TechnicalAuditCountAggregateOutputType | null
+    _avg: TechnicalAuditAvgAggregateOutputType | null
+    _sum: TechnicalAuditSumAggregateOutputType | null
+    _min: TechnicalAuditMinAggregateOutputType | null
+    _max: TechnicalAuditMaxAggregateOutputType | null
+  }
+
+  export type TechnicalAuditAvgAggregateOutputType = {
+    issuesCount: number | null
+  }
+
+  export type TechnicalAuditSumAggregateOutputType = {
+    issuesCount: number | null
+  }
+
+  export type TechnicalAuditMinAggregateOutputType = {
+    id: string | null
+    type: string | null
+    status: string | null
+    summary: string | null
+    issuesCount: number | null
+    performedById: string | null
+    performedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type TechnicalAuditMaxAggregateOutputType = {
+    id: string | null
+    type: string | null
+    status: string | null
+    summary: string | null
+    issuesCount: number | null
+    performedById: string | null
+    performedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type TechnicalAuditCountAggregateOutputType = {
+    id: number
+    type: number
+    status: number
+    summary: number
+    issuesCount: number
+    details: number
+    performedById: number
+    performedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type TechnicalAuditAvgAggregateInputType = {
+    issuesCount?: true
+  }
+
+  export type TechnicalAuditSumAggregateInputType = {
+    issuesCount?: true
+  }
+
+  export type TechnicalAuditMinAggregateInputType = {
+    id?: true
+    type?: true
+    status?: true
+    summary?: true
+    issuesCount?: true
+    performedById?: true
+    performedAt?: true
+    tenantId?: true
+  }
+
+  export type TechnicalAuditMaxAggregateInputType = {
+    id?: true
+    type?: true
+    status?: true
+    summary?: true
+    issuesCount?: true
+    performedById?: true
+    performedAt?: true
+    tenantId?: true
+  }
+
+  export type TechnicalAuditCountAggregateInputType = {
+    id?: true
+    type?: true
+    status?: true
+    summary?: true
+    issuesCount?: true
+    details?: true
+    performedById?: true
+    performedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type TechnicalAuditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TechnicalAudit to aggregate.
+     */
+    where?: TechnicalAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicalAudits to fetch.
+     */
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TechnicalAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicalAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicalAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TechnicalAudits
+    **/
+    _count?: true | TechnicalAuditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TechnicalAuditAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TechnicalAuditSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TechnicalAuditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TechnicalAuditMaxAggregateInputType
+  }
+
+  export type GetTechnicalAuditAggregateType<T extends TechnicalAuditAggregateArgs> = {
+        [P in keyof T & keyof AggregateTechnicalAudit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTechnicalAudit[P]>
+      : GetScalarType<T[P], AggregateTechnicalAudit[P]>
+  }
+
+
+
+
+  export type TechnicalAuditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicalAuditWhereInput
+    orderBy?: TechnicalAuditOrderByWithAggregationInput | TechnicalAuditOrderByWithAggregationInput[]
+    by: TechnicalAuditScalarFieldEnum[] | TechnicalAuditScalarFieldEnum
+    having?: TechnicalAuditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TechnicalAuditCountAggregateInputType | true
+    _avg?: TechnicalAuditAvgAggregateInputType
+    _sum?: TechnicalAuditSumAggregateInputType
+    _min?: TechnicalAuditMinAggregateInputType
+    _max?: TechnicalAuditMaxAggregateInputType
+  }
+
+  export type TechnicalAuditGroupByOutputType = {
+    id: string
+    type: string
+    status: string
+    summary: string
+    issuesCount: number
+    details: JsonValue | null
+    performedById: string | null
+    performedAt: Date
+    tenantId: string | null
+    _count: TechnicalAuditCountAggregateOutputType | null
+    _avg: TechnicalAuditAvgAggregateOutputType | null
+    _sum: TechnicalAuditSumAggregateOutputType | null
+    _min: TechnicalAuditMinAggregateOutputType | null
+    _max: TechnicalAuditMaxAggregateOutputType | null
+  }
+
+  type GetTechnicalAuditGroupByPayload<T extends TechnicalAuditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TechnicalAuditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TechnicalAuditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TechnicalAuditGroupByOutputType[P]>
+            : GetScalarType<T[P], TechnicalAuditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TechnicalAuditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    status?: boolean
+    summary?: boolean
+    issuesCount?: boolean
+    details?: boolean
+    performedById?: boolean
+    performedAt?: boolean
+    tenantId?: boolean
+    performedBy?: boolean | TechnicalAudit$performedByArgs<ExtArgs>
+    tenant?: boolean | TechnicalAudit$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["technicalAudit"]>
+
+  export type TechnicalAuditSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    status?: boolean
+    summary?: boolean
+    issuesCount?: boolean
+    details?: boolean
+    performedById?: boolean
+    performedAt?: boolean
+    tenantId?: boolean
+    performedBy?: boolean | TechnicalAudit$performedByArgs<ExtArgs>
+    tenant?: boolean | TechnicalAudit$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["technicalAudit"]>
+
+  export type TechnicalAuditSelectScalar = {
+    id?: boolean
+    type?: boolean
+    status?: boolean
+    summary?: boolean
+    issuesCount?: boolean
+    details?: boolean
+    performedById?: boolean
+    performedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type TechnicalAuditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    performedBy?: boolean | TechnicalAudit$performedByArgs<ExtArgs>
+    tenant?: boolean | TechnicalAudit$tenantArgs<ExtArgs>
+  }
+  export type TechnicalAuditIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    performedBy?: boolean | TechnicalAudit$performedByArgs<ExtArgs>
+    tenant?: boolean | TechnicalAudit$tenantArgs<ExtArgs>
+  }
+
+  export type $TechnicalAuditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TechnicalAudit"
+    objects: {
+      performedBy: Prisma.$UserPayload<ExtArgs> | null
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: string
+      status: string
+      summary: string
+      issuesCount: number
+      details: Prisma.JsonValue | null
+      performedById: string | null
+      performedAt: Date
+      tenantId: string | null
+    }, ExtArgs["result"]["technicalAudit"]>
+    composites: {}
+  }
+
+  type TechnicalAuditGetPayload<S extends boolean | null | undefined | TechnicalAuditDefaultArgs> = $Result.GetResult<Prisma.$TechnicalAuditPayload, S>
+
+  type TechnicalAuditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TechnicalAuditFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TechnicalAuditCountAggregateInputType | true
+    }
+
+  export interface TechnicalAuditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TechnicalAudit'], meta: { name: 'TechnicalAudit' } }
+    /**
+     * Find zero or one TechnicalAudit that matches the filter.
+     * @param {TechnicalAuditFindUniqueArgs} args - Arguments to find a TechnicalAudit
+     * @example
+     * // Get one TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TechnicalAuditFindUniqueArgs>(args: SelectSubset<T, TechnicalAuditFindUniqueArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TechnicalAudit that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TechnicalAuditFindUniqueOrThrowArgs} args - Arguments to find a TechnicalAudit
+     * @example
+     * // Get one TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TechnicalAuditFindUniqueOrThrowArgs>(args: SelectSubset<T, TechnicalAuditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TechnicalAudit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditFindFirstArgs} args - Arguments to find a TechnicalAudit
+     * @example
+     * // Get one TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TechnicalAuditFindFirstArgs>(args?: SelectSubset<T, TechnicalAuditFindFirstArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TechnicalAudit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditFindFirstOrThrowArgs} args - Arguments to find a TechnicalAudit
+     * @example
+     * // Get one TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TechnicalAuditFindFirstOrThrowArgs>(args?: SelectSubset<T, TechnicalAuditFindFirstOrThrowArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TechnicalAudits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TechnicalAudits
+     * const technicalAudits = await prisma.technicalAudit.findMany()
+     * 
+     * // Get first 10 TechnicalAudits
+     * const technicalAudits = await prisma.technicalAudit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const technicalAuditWithIdOnly = await prisma.technicalAudit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TechnicalAuditFindManyArgs>(args?: SelectSubset<T, TechnicalAuditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TechnicalAudit.
+     * @param {TechnicalAuditCreateArgs} args - Arguments to create a TechnicalAudit.
+     * @example
+     * // Create one TechnicalAudit
+     * const TechnicalAudit = await prisma.technicalAudit.create({
+     *   data: {
+     *     // ... data to create a TechnicalAudit
+     *   }
+     * })
+     * 
+     */
+    create<T extends TechnicalAuditCreateArgs>(args: SelectSubset<T, TechnicalAuditCreateArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TechnicalAudits.
+     * @param {TechnicalAuditCreateManyArgs} args - Arguments to create many TechnicalAudits.
+     * @example
+     * // Create many TechnicalAudits
+     * const technicalAudit = await prisma.technicalAudit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TechnicalAuditCreateManyArgs>(args?: SelectSubset<T, TechnicalAuditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TechnicalAudits and returns the data saved in the database.
+     * @param {TechnicalAuditCreateManyAndReturnArgs} args - Arguments to create many TechnicalAudits.
+     * @example
+     * // Create many TechnicalAudits
+     * const technicalAudit = await prisma.technicalAudit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TechnicalAudits and only return the `id`
+     * const technicalAuditWithIdOnly = await prisma.technicalAudit.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TechnicalAuditCreateManyAndReturnArgs>(args?: SelectSubset<T, TechnicalAuditCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TechnicalAudit.
+     * @param {TechnicalAuditDeleteArgs} args - Arguments to delete one TechnicalAudit.
+     * @example
+     * // Delete one TechnicalAudit
+     * const TechnicalAudit = await prisma.technicalAudit.delete({
+     *   where: {
+     *     // ... filter to delete one TechnicalAudit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TechnicalAuditDeleteArgs>(args: SelectSubset<T, TechnicalAuditDeleteArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TechnicalAudit.
+     * @param {TechnicalAuditUpdateArgs} args - Arguments to update one TechnicalAudit.
+     * @example
+     * // Update one TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TechnicalAuditUpdateArgs>(args: SelectSubset<T, TechnicalAuditUpdateArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TechnicalAudits.
+     * @param {TechnicalAuditDeleteManyArgs} args - Arguments to filter TechnicalAudits to delete.
+     * @example
+     * // Delete a few TechnicalAudits
+     * const { count } = await prisma.technicalAudit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TechnicalAuditDeleteManyArgs>(args?: SelectSubset<T, TechnicalAuditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TechnicalAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TechnicalAudits
+     * const technicalAudit = await prisma.technicalAudit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TechnicalAuditUpdateManyArgs>(args: SelectSubset<T, TechnicalAuditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TechnicalAudit.
+     * @param {TechnicalAuditUpsertArgs} args - Arguments to update or create a TechnicalAudit.
+     * @example
+     * // Update or create a TechnicalAudit
+     * const technicalAudit = await prisma.technicalAudit.upsert({
+     *   create: {
+     *     // ... data to create a TechnicalAudit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TechnicalAudit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TechnicalAuditUpsertArgs>(args: SelectSubset<T, TechnicalAuditUpsertArgs<ExtArgs>>): Prisma__TechnicalAuditClient<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TechnicalAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditCountArgs} args - Arguments to filter TechnicalAudits to count.
+     * @example
+     * // Count the number of TechnicalAudits
+     * const count = await prisma.technicalAudit.count({
+     *   where: {
+     *     // ... the filter for the TechnicalAudits we want to count
+     *   }
+     * })
+    **/
+    count<T extends TechnicalAuditCountArgs>(
+      args?: Subset<T, TechnicalAuditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TechnicalAuditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TechnicalAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TechnicalAuditAggregateArgs>(args: Subset<T, TechnicalAuditAggregateArgs>): Prisma.PrismaPromise<GetTechnicalAuditAggregateType<T>>
+
+    /**
+     * Group by TechnicalAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicalAuditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TechnicalAuditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TechnicalAuditGroupByArgs['orderBy'] }
+        : { orderBy?: TechnicalAuditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TechnicalAuditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTechnicalAuditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TechnicalAudit model
+   */
+  readonly fields: TechnicalAuditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TechnicalAudit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TechnicalAuditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    performedBy<T extends TechnicalAudit$performedByArgs<ExtArgs> = {}>(args?: Subset<T, TechnicalAudit$performedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    tenant<T extends TechnicalAudit$tenantArgs<ExtArgs> = {}>(args?: Subset<T, TechnicalAudit$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TechnicalAudit model
+   */ 
+  interface TechnicalAuditFieldRefs {
+    readonly id: FieldRef<"TechnicalAudit", 'String'>
+    readonly type: FieldRef<"TechnicalAudit", 'String'>
+    readonly status: FieldRef<"TechnicalAudit", 'String'>
+    readonly summary: FieldRef<"TechnicalAudit", 'String'>
+    readonly issuesCount: FieldRef<"TechnicalAudit", 'Int'>
+    readonly details: FieldRef<"TechnicalAudit", 'Json'>
+    readonly performedById: FieldRef<"TechnicalAudit", 'String'>
+    readonly performedAt: FieldRef<"TechnicalAudit", 'DateTime'>
+    readonly tenantId: FieldRef<"TechnicalAudit", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TechnicalAudit findUnique
+   */
+  export type TechnicalAuditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicalAudit to fetch.
+     */
+    where: TechnicalAuditWhereUniqueInput
+  }
+
+  /**
+   * TechnicalAudit findUniqueOrThrow
+   */
+  export type TechnicalAuditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicalAudit to fetch.
+     */
+    where: TechnicalAuditWhereUniqueInput
+  }
+
+  /**
+   * TechnicalAudit findFirst
+   */
+  export type TechnicalAuditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicalAudit to fetch.
+     */
+    where?: TechnicalAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicalAudits to fetch.
+     */
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TechnicalAudits.
+     */
+    cursor?: TechnicalAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicalAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicalAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TechnicalAudits.
+     */
+    distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicalAudit findFirstOrThrow
+   */
+  export type TechnicalAuditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicalAudit to fetch.
+     */
+    where?: TechnicalAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicalAudits to fetch.
+     */
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TechnicalAudits.
+     */
+    cursor?: TechnicalAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicalAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicalAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TechnicalAudits.
+     */
+    distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicalAudit findMany
+   */
+  export type TechnicalAuditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicalAudits to fetch.
+     */
+    where?: TechnicalAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicalAudits to fetch.
+     */
+    orderBy?: TechnicalAuditOrderByWithRelationInput | TechnicalAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TechnicalAudits.
+     */
+    cursor?: TechnicalAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicalAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicalAudits.
+     */
+    skip?: number
+    distinct?: TechnicalAuditScalarFieldEnum | TechnicalAuditScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicalAudit create
+   */
+  export type TechnicalAuditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TechnicalAudit.
+     */
+    data: XOR<TechnicalAuditCreateInput, TechnicalAuditUncheckedCreateInput>
+  }
+
+  /**
+   * TechnicalAudit createMany
+   */
+  export type TechnicalAuditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TechnicalAudits.
+     */
+    data: TechnicalAuditCreateManyInput | TechnicalAuditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TechnicalAudit createManyAndReturn
+   */
+  export type TechnicalAuditCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TechnicalAudits.
+     */
+    data: TechnicalAuditCreateManyInput | TechnicalAuditCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TechnicalAudit update
+   */
+  export type TechnicalAuditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TechnicalAudit.
+     */
+    data: XOR<TechnicalAuditUpdateInput, TechnicalAuditUncheckedUpdateInput>
+    /**
+     * Choose, which TechnicalAudit to update.
+     */
+    where: TechnicalAuditWhereUniqueInput
+  }
+
+  /**
+   * TechnicalAudit updateMany
+   */
+  export type TechnicalAuditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TechnicalAudits.
+     */
+    data: XOR<TechnicalAuditUpdateManyMutationInput, TechnicalAuditUncheckedUpdateManyInput>
+    /**
+     * Filter which TechnicalAudits to update
+     */
+    where?: TechnicalAuditWhereInput
+  }
+
+  /**
+   * TechnicalAudit upsert
+   */
+  export type TechnicalAuditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TechnicalAudit to update in case it exists.
+     */
+    where: TechnicalAuditWhereUniqueInput
+    /**
+     * In case the TechnicalAudit found by the `where` argument doesn't exist, create a new TechnicalAudit with this data.
+     */
+    create: XOR<TechnicalAuditCreateInput, TechnicalAuditUncheckedCreateInput>
+    /**
+     * In case the TechnicalAudit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TechnicalAuditUpdateInput, TechnicalAuditUncheckedUpdateInput>
+  }
+
+  /**
+   * TechnicalAudit delete
+   */
+  export type TechnicalAuditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+    /**
+     * Filter which TechnicalAudit to delete.
+     */
+    where: TechnicalAuditWhereUniqueInput
+  }
+
+  /**
+   * TechnicalAudit deleteMany
+   */
+  export type TechnicalAuditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TechnicalAudits to delete
+     */
+    where?: TechnicalAuditWhereInput
+  }
+
+  /**
+   * TechnicalAudit.performedBy
+   */
+  export type TechnicalAudit$performedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * TechnicalAudit.tenant
+   */
+  export type TechnicalAudit$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * TechnicalAudit without action
+   */
+  export type TechnicalAuditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicalAudit
+     */
+    select?: TechnicalAuditSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicalAuditInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RegistryEntry
+   */
+
+  export type AggregateRegistryEntry = {
+    _count: RegistryEntryCountAggregateOutputType | null
+    _avg: RegistryEntryAvgAggregateOutputType | null
+    _sum: RegistryEntrySumAggregateOutputType | null
+    _min: RegistryEntryMinAggregateOutputType | null
+    _max: RegistryEntryMaxAggregateOutputType | null
+  }
+
+  export type RegistryEntryAvgAggregateOutputType = {
+    errorCount: number | null
+  }
+
+  export type RegistryEntrySumAggregateOutputType = {
+    errorCount: number | null
+  }
+
+  export type RegistryEntryMinAggregateOutputType = {
+    id: string | null
+    externalId: string | null
+    type: string | null
+    label: string | null
+    role: string | null
+    module: string | null
+    action: string | null
+    targetPath: string | null
+    description: string | null
+    status: string | null
+    lastChecked: Date | null
+    errorCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RegistryEntryMaxAggregateOutputType = {
+    id: string | null
+    externalId: string | null
+    type: string | null
+    label: string | null
+    role: string | null
+    module: string | null
+    action: string | null
+    targetPath: string | null
+    description: string | null
+    status: string | null
+    lastChecked: Date | null
+    errorCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RegistryEntryCountAggregateOutputType = {
+    id: number
+    externalId: number
+    type: number
+    label: number
+    role: number
+    module: number
+    action: number
+    targetPath: number
+    description: number
+    status: number
+    lastChecked: number
+    errorCount: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RegistryEntryAvgAggregateInputType = {
+    errorCount?: true
+  }
+
+  export type RegistryEntrySumAggregateInputType = {
+    errorCount?: true
+  }
+
+  export type RegistryEntryMinAggregateInputType = {
+    id?: true
+    externalId?: true
+    type?: true
+    label?: true
+    role?: true
+    module?: true
+    action?: true
+    targetPath?: true
+    description?: true
+    status?: true
+    lastChecked?: true
+    errorCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RegistryEntryMaxAggregateInputType = {
+    id?: true
+    externalId?: true
+    type?: true
+    label?: true
+    role?: true
+    module?: true
+    action?: true
+    targetPath?: true
+    description?: true
+    status?: true
+    lastChecked?: true
+    errorCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RegistryEntryCountAggregateInputType = {
+    id?: true
+    externalId?: true
+    type?: true
+    label?: true
+    role?: true
+    module?: true
+    action?: true
+    targetPath?: true
+    description?: true
+    status?: true
+    lastChecked?: true
+    errorCount?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RegistryEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RegistryEntry to aggregate.
+     */
+    where?: RegistryEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistryEntries to fetch.
+     */
+    orderBy?: RegistryEntryOrderByWithRelationInput | RegistryEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RegistryEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistryEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistryEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RegistryEntries
+    **/
+    _count?: true | RegistryEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RegistryEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RegistryEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RegistryEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RegistryEntryMaxAggregateInputType
+  }
+
+  export type GetRegistryEntryAggregateType<T extends RegistryEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateRegistryEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRegistryEntry[P]>
+      : GetScalarType<T[P], AggregateRegistryEntry[P]>
+  }
+
+
+
+
+  export type RegistryEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistryEntryWhereInput
+    orderBy?: RegistryEntryOrderByWithAggregationInput | RegistryEntryOrderByWithAggregationInput[]
+    by: RegistryEntryScalarFieldEnum[] | RegistryEntryScalarFieldEnum
+    having?: RegistryEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RegistryEntryCountAggregateInputType | true
+    _avg?: RegistryEntryAvgAggregateInputType
+    _sum?: RegistryEntrySumAggregateInputType
+    _min?: RegistryEntryMinAggregateInputType
+    _max?: RegistryEntryMaxAggregateInputType
+  }
+
+  export type RegistryEntryGroupByOutputType = {
+    id: string
+    externalId: string
+    type: string
+    label: string
+    role: string
+    module: string
+    action: string | null
+    targetPath: string | null
+    description: string | null
+    status: string
+    lastChecked: Date | null
+    errorCount: number
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RegistryEntryCountAggregateOutputType | null
+    _avg: RegistryEntryAvgAggregateOutputType | null
+    _sum: RegistryEntrySumAggregateOutputType | null
+    _min: RegistryEntryMinAggregateOutputType | null
+    _max: RegistryEntryMaxAggregateOutputType | null
+  }
+
+  type GetRegistryEntryGroupByPayload<T extends RegistryEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RegistryEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RegistryEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RegistryEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], RegistryEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RegistryEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    externalId?: boolean
+    type?: boolean
+    label?: boolean
+    role?: boolean
+    module?: boolean
+    action?: boolean
+    targetPath?: boolean
+    description?: boolean
+    status?: boolean
+    lastChecked?: boolean
+    errorCount?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["registryEntry"]>
+
+  export type RegistryEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    externalId?: boolean
+    type?: boolean
+    label?: boolean
+    role?: boolean
+    module?: boolean
+    action?: boolean
+    targetPath?: boolean
+    description?: boolean
+    status?: boolean
+    lastChecked?: boolean
+    errorCount?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["registryEntry"]>
+
+  export type RegistryEntrySelectScalar = {
+    id?: boolean
+    externalId?: boolean
+    type?: boolean
+    label?: boolean
+    role?: boolean
+    module?: boolean
+    action?: boolean
+    targetPath?: boolean
+    description?: boolean
+    status?: boolean
+    lastChecked?: boolean
+    errorCount?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $RegistryEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RegistryEntry"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      externalId: string
+      type: string
+      label: string
+      role: string
+      module: string
+      action: string | null
+      targetPath: string | null
+      description: string | null
+      status: string
+      lastChecked: Date | null
+      errorCount: number
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["registryEntry"]>
+    composites: {}
+  }
+
+  type RegistryEntryGetPayload<S extends boolean | null | undefined | RegistryEntryDefaultArgs> = $Result.GetResult<Prisma.$RegistryEntryPayload, S>
+
+  type RegistryEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RegistryEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RegistryEntryCountAggregateInputType | true
+    }
+
+  export interface RegistryEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RegistryEntry'], meta: { name: 'RegistryEntry' } }
+    /**
+     * Find zero or one RegistryEntry that matches the filter.
+     * @param {RegistryEntryFindUniqueArgs} args - Arguments to find a RegistryEntry
+     * @example
+     * // Get one RegistryEntry
+     * const registryEntry = await prisma.registryEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RegistryEntryFindUniqueArgs>(args: SelectSubset<T, RegistryEntryFindUniqueArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RegistryEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RegistryEntryFindUniqueOrThrowArgs} args - Arguments to find a RegistryEntry
+     * @example
+     * // Get one RegistryEntry
+     * const registryEntry = await prisma.registryEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RegistryEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, RegistryEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RegistryEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryFindFirstArgs} args - Arguments to find a RegistryEntry
+     * @example
+     * // Get one RegistryEntry
+     * const registryEntry = await prisma.registryEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RegistryEntryFindFirstArgs>(args?: SelectSubset<T, RegistryEntryFindFirstArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RegistryEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryFindFirstOrThrowArgs} args - Arguments to find a RegistryEntry
+     * @example
+     * // Get one RegistryEntry
+     * const registryEntry = await prisma.registryEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RegistryEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, RegistryEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RegistryEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RegistryEntries
+     * const registryEntries = await prisma.registryEntry.findMany()
+     * 
+     * // Get first 10 RegistryEntries
+     * const registryEntries = await prisma.registryEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const registryEntryWithIdOnly = await prisma.registryEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RegistryEntryFindManyArgs>(args?: SelectSubset<T, RegistryEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RegistryEntry.
+     * @param {RegistryEntryCreateArgs} args - Arguments to create a RegistryEntry.
+     * @example
+     * // Create one RegistryEntry
+     * const RegistryEntry = await prisma.registryEntry.create({
+     *   data: {
+     *     // ... data to create a RegistryEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends RegistryEntryCreateArgs>(args: SelectSubset<T, RegistryEntryCreateArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RegistryEntries.
+     * @param {RegistryEntryCreateManyArgs} args - Arguments to create many RegistryEntries.
+     * @example
+     * // Create many RegistryEntries
+     * const registryEntry = await prisma.registryEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RegistryEntryCreateManyArgs>(args?: SelectSubset<T, RegistryEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RegistryEntries and returns the data saved in the database.
+     * @param {RegistryEntryCreateManyAndReturnArgs} args - Arguments to create many RegistryEntries.
+     * @example
+     * // Create many RegistryEntries
+     * const registryEntry = await prisma.registryEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RegistryEntries and only return the `id`
+     * const registryEntryWithIdOnly = await prisma.registryEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RegistryEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, RegistryEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RegistryEntry.
+     * @param {RegistryEntryDeleteArgs} args - Arguments to delete one RegistryEntry.
+     * @example
+     * // Delete one RegistryEntry
+     * const RegistryEntry = await prisma.registryEntry.delete({
+     *   where: {
+     *     // ... filter to delete one RegistryEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RegistryEntryDeleteArgs>(args: SelectSubset<T, RegistryEntryDeleteArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RegistryEntry.
+     * @param {RegistryEntryUpdateArgs} args - Arguments to update one RegistryEntry.
+     * @example
+     * // Update one RegistryEntry
+     * const registryEntry = await prisma.registryEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RegistryEntryUpdateArgs>(args: SelectSubset<T, RegistryEntryUpdateArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RegistryEntries.
+     * @param {RegistryEntryDeleteManyArgs} args - Arguments to filter RegistryEntries to delete.
+     * @example
+     * // Delete a few RegistryEntries
+     * const { count } = await prisma.registryEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RegistryEntryDeleteManyArgs>(args?: SelectSubset<T, RegistryEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RegistryEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RegistryEntries
+     * const registryEntry = await prisma.registryEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RegistryEntryUpdateManyArgs>(args: SelectSubset<T, RegistryEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RegistryEntry.
+     * @param {RegistryEntryUpsertArgs} args - Arguments to update or create a RegistryEntry.
+     * @example
+     * // Update or create a RegistryEntry
+     * const registryEntry = await prisma.registryEntry.upsert({
+     *   create: {
+     *     // ... data to create a RegistryEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RegistryEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RegistryEntryUpsertArgs>(args: SelectSubset<T, RegistryEntryUpsertArgs<ExtArgs>>): Prisma__RegistryEntryClient<$Result.GetResult<Prisma.$RegistryEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RegistryEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryCountArgs} args - Arguments to filter RegistryEntries to count.
+     * @example
+     * // Count the number of RegistryEntries
+     * const count = await prisma.registryEntry.count({
+     *   where: {
+     *     // ... the filter for the RegistryEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends RegistryEntryCountArgs>(
+      args?: Subset<T, RegistryEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RegistryEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RegistryEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RegistryEntryAggregateArgs>(args: Subset<T, RegistryEntryAggregateArgs>): Prisma.PrismaPromise<GetRegistryEntryAggregateType<T>>
+
+    /**
+     * Group by RegistryEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RegistryEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RegistryEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RegistryEntryGroupByArgs['orderBy'] }
+        : { orderBy?: RegistryEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RegistryEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRegistryEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RegistryEntry model
+   */
+  readonly fields: RegistryEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RegistryEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RegistryEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RegistryEntry model
+   */ 
+  interface RegistryEntryFieldRefs {
+    readonly id: FieldRef<"RegistryEntry", 'String'>
+    readonly externalId: FieldRef<"RegistryEntry", 'String'>
+    readonly type: FieldRef<"RegistryEntry", 'String'>
+    readonly label: FieldRef<"RegistryEntry", 'String'>
+    readonly role: FieldRef<"RegistryEntry", 'String'>
+    readonly module: FieldRef<"RegistryEntry", 'String'>
+    readonly action: FieldRef<"RegistryEntry", 'String'>
+    readonly targetPath: FieldRef<"RegistryEntry", 'String'>
+    readonly description: FieldRef<"RegistryEntry", 'String'>
+    readonly status: FieldRef<"RegistryEntry", 'String'>
+    readonly lastChecked: FieldRef<"RegistryEntry", 'DateTime'>
+    readonly errorCount: FieldRef<"RegistryEntry", 'Int'>
+    readonly metadata: FieldRef<"RegistryEntry", 'Json'>
+    readonly createdAt: FieldRef<"RegistryEntry", 'DateTime'>
+    readonly updatedAt: FieldRef<"RegistryEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RegistryEntry findUnique
+   */
+  export type RegistryEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter, which RegistryEntry to fetch.
+     */
+    where: RegistryEntryWhereUniqueInput
+  }
+
+  /**
+   * RegistryEntry findUniqueOrThrow
+   */
+  export type RegistryEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter, which RegistryEntry to fetch.
+     */
+    where: RegistryEntryWhereUniqueInput
+  }
+
+  /**
+   * RegistryEntry findFirst
+   */
+  export type RegistryEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter, which RegistryEntry to fetch.
+     */
+    where?: RegistryEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistryEntries to fetch.
+     */
+    orderBy?: RegistryEntryOrderByWithRelationInput | RegistryEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RegistryEntries.
+     */
+    cursor?: RegistryEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistryEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistryEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RegistryEntries.
+     */
+    distinct?: RegistryEntryScalarFieldEnum | RegistryEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RegistryEntry findFirstOrThrow
+   */
+  export type RegistryEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter, which RegistryEntry to fetch.
+     */
+    where?: RegistryEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistryEntries to fetch.
+     */
+    orderBy?: RegistryEntryOrderByWithRelationInput | RegistryEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RegistryEntries.
+     */
+    cursor?: RegistryEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistryEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistryEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RegistryEntries.
+     */
+    distinct?: RegistryEntryScalarFieldEnum | RegistryEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RegistryEntry findMany
+   */
+  export type RegistryEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter, which RegistryEntries to fetch.
+     */
+    where?: RegistryEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RegistryEntries to fetch.
+     */
+    orderBy?: RegistryEntryOrderByWithRelationInput | RegistryEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RegistryEntries.
+     */
+    cursor?: RegistryEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RegistryEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RegistryEntries.
+     */
+    skip?: number
+    distinct?: RegistryEntryScalarFieldEnum | RegistryEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RegistryEntry create
+   */
+  export type RegistryEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * The data needed to create a RegistryEntry.
+     */
+    data: XOR<RegistryEntryCreateInput, RegistryEntryUncheckedCreateInput>
+  }
+
+  /**
+   * RegistryEntry createMany
+   */
+  export type RegistryEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RegistryEntries.
+     */
+    data: RegistryEntryCreateManyInput | RegistryEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RegistryEntry createManyAndReturn
+   */
+  export type RegistryEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RegistryEntries.
+     */
+    data: RegistryEntryCreateManyInput | RegistryEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RegistryEntry update
+   */
+  export type RegistryEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * The data needed to update a RegistryEntry.
+     */
+    data: XOR<RegistryEntryUpdateInput, RegistryEntryUncheckedUpdateInput>
+    /**
+     * Choose, which RegistryEntry to update.
+     */
+    where: RegistryEntryWhereUniqueInput
+  }
+
+  /**
+   * RegistryEntry updateMany
+   */
+  export type RegistryEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RegistryEntries.
+     */
+    data: XOR<RegistryEntryUpdateManyMutationInput, RegistryEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which RegistryEntries to update
+     */
+    where?: RegistryEntryWhereInput
+  }
+
+  /**
+   * RegistryEntry upsert
+   */
+  export type RegistryEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * The filter to search for the RegistryEntry to update in case it exists.
+     */
+    where: RegistryEntryWhereUniqueInput
+    /**
+     * In case the RegistryEntry found by the `where` argument doesn't exist, create a new RegistryEntry with this data.
+     */
+    create: XOR<RegistryEntryCreateInput, RegistryEntryUncheckedCreateInput>
+    /**
+     * In case the RegistryEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RegistryEntryUpdateInput, RegistryEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * RegistryEntry delete
+   */
+  export type RegistryEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+    /**
+     * Filter which RegistryEntry to delete.
+     */
+    where: RegistryEntryWhereUniqueInput
+  }
+
+  /**
+   * RegistryEntry deleteMany
+   */
+  export type RegistryEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RegistryEntries to delete
+     */
+    where?: RegistryEntryWhereInput
+  }
+
+  /**
+   * RegistryEntry without action
+   */
+  export type RegistryEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RegistryEntry
+     */
+    select?: RegistryEntrySelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -84989,6 +87302,42 @@ export namespace Prisma {
   export type CareFeedbackScalarFieldEnum = (typeof CareFeedbackScalarFieldEnum)[keyof typeof CareFeedbackScalarFieldEnum]
 
 
+  export const TechnicalAuditScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    status: 'status',
+    summary: 'summary',
+    issuesCount: 'issuesCount',
+    details: 'details',
+    performedById: 'performedById',
+    performedAt: 'performedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type TechnicalAuditScalarFieldEnum = (typeof TechnicalAuditScalarFieldEnum)[keyof typeof TechnicalAuditScalarFieldEnum]
+
+
+  export const RegistryEntryScalarFieldEnum: {
+    id: 'id',
+    externalId: 'externalId',
+    type: 'type',
+    label: 'label',
+    role: 'role',
+    module: 'module',
+    action: 'action',
+    targetPath: 'targetPath',
+    description: 'description',
+    status: 'status',
+    lastChecked: 'lastChecked',
+    errorCount: 'errorCount',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RegistryEntryScalarFieldEnum = (typeof RegistryEntryScalarFieldEnum)[keyof typeof RegistryEntryScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -85316,6 +87665,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconListRelationFilter
     supervisionLogs?: SupervisionLogListRelationFilter
     acknowledgedIncidents?: IncidentListRelationFilter
+    performedAudits?: TechnicalAuditListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -85348,6 +87698,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconOrderByRelationAggregateInput
     supervisionLogs?: SupervisionLogOrderByRelationAggregateInput
     acknowledgedIncidents?: IncidentOrderByRelationAggregateInput
+    performedAudits?: TechnicalAuditOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -85383,6 +87734,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconListRelationFilter
     supervisionLogs?: SupervisionLogListRelationFilter
     acknowledgedIncidents?: IncidentListRelationFilter
+    performedAudits?: TechnicalAuditListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -85479,6 +87831,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordListRelationFilter
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    technicalAudits?: TechnicalAuditListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -85548,6 +87901,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordOrderByRelationAggregateInput
     familyNotifications?: FamilyNotificationOrderByRelationAggregateInput
     careFeedbacks?: CareFeedbackOrderByRelationAggregateInput
+    technicalAudits?: TechnicalAuditOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     franchises?: FranchiseOrderByRelationAggregateInput
@@ -85620,6 +87974,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordListRelationFilter
     familyNotifications?: FamilyNotificationListRelationFilter
     careFeedbacks?: CareFeedbackListRelationFilter
+    technicalAudits?: TechnicalAuditListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -91303,6 +93658,190 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"CareFeedback"> | string
   }
 
+  export type TechnicalAuditWhereInput = {
+    AND?: TechnicalAuditWhereInput | TechnicalAuditWhereInput[]
+    OR?: TechnicalAuditWhereInput[]
+    NOT?: TechnicalAuditWhereInput | TechnicalAuditWhereInput[]
+    id?: StringFilter<"TechnicalAudit"> | string
+    type?: StringFilter<"TechnicalAudit"> | string
+    status?: StringFilter<"TechnicalAudit"> | string
+    summary?: StringFilter<"TechnicalAudit"> | string
+    issuesCount?: IntFilter<"TechnicalAudit"> | number
+    details?: JsonNullableFilter<"TechnicalAudit">
+    performedById?: StringNullableFilter<"TechnicalAudit"> | string | null
+    performedAt?: DateTimeFilter<"TechnicalAudit"> | Date | string
+    tenantId?: StringNullableFilter<"TechnicalAudit"> | string | null
+    performedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }
+
+  export type TechnicalAuditOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    issuesCount?: SortOrder
+    details?: SortOrderInput | SortOrder
+    performedById?: SortOrderInput | SortOrder
+    performedAt?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    performedBy?: UserOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type TechnicalAuditWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TechnicalAuditWhereInput | TechnicalAuditWhereInput[]
+    OR?: TechnicalAuditWhereInput[]
+    NOT?: TechnicalAuditWhereInput | TechnicalAuditWhereInput[]
+    type?: StringFilter<"TechnicalAudit"> | string
+    status?: StringFilter<"TechnicalAudit"> | string
+    summary?: StringFilter<"TechnicalAudit"> | string
+    issuesCount?: IntFilter<"TechnicalAudit"> | number
+    details?: JsonNullableFilter<"TechnicalAudit">
+    performedById?: StringNullableFilter<"TechnicalAudit"> | string | null
+    performedAt?: DateTimeFilter<"TechnicalAudit"> | Date | string
+    tenantId?: StringNullableFilter<"TechnicalAudit"> | string | null
+    performedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }, "id">
+
+  export type TechnicalAuditOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    issuesCount?: SortOrder
+    details?: SortOrderInput | SortOrder
+    performedById?: SortOrderInput | SortOrder
+    performedAt?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    _count?: TechnicalAuditCountOrderByAggregateInput
+    _avg?: TechnicalAuditAvgOrderByAggregateInput
+    _max?: TechnicalAuditMaxOrderByAggregateInput
+    _min?: TechnicalAuditMinOrderByAggregateInput
+    _sum?: TechnicalAuditSumOrderByAggregateInput
+  }
+
+  export type TechnicalAuditScalarWhereWithAggregatesInput = {
+    AND?: TechnicalAuditScalarWhereWithAggregatesInput | TechnicalAuditScalarWhereWithAggregatesInput[]
+    OR?: TechnicalAuditScalarWhereWithAggregatesInput[]
+    NOT?: TechnicalAuditScalarWhereWithAggregatesInput | TechnicalAuditScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TechnicalAudit"> | string
+    type?: StringWithAggregatesFilter<"TechnicalAudit"> | string
+    status?: StringWithAggregatesFilter<"TechnicalAudit"> | string
+    summary?: StringWithAggregatesFilter<"TechnicalAudit"> | string
+    issuesCount?: IntWithAggregatesFilter<"TechnicalAudit"> | number
+    details?: JsonNullableWithAggregatesFilter<"TechnicalAudit">
+    performedById?: StringNullableWithAggregatesFilter<"TechnicalAudit"> | string | null
+    performedAt?: DateTimeWithAggregatesFilter<"TechnicalAudit"> | Date | string
+    tenantId?: StringNullableWithAggregatesFilter<"TechnicalAudit"> | string | null
+  }
+
+  export type RegistryEntryWhereInput = {
+    AND?: RegistryEntryWhereInput | RegistryEntryWhereInput[]
+    OR?: RegistryEntryWhereInput[]
+    NOT?: RegistryEntryWhereInput | RegistryEntryWhereInput[]
+    id?: StringFilter<"RegistryEntry"> | string
+    externalId?: StringFilter<"RegistryEntry"> | string
+    type?: StringFilter<"RegistryEntry"> | string
+    label?: StringFilter<"RegistryEntry"> | string
+    role?: StringFilter<"RegistryEntry"> | string
+    module?: StringFilter<"RegistryEntry"> | string
+    action?: StringNullableFilter<"RegistryEntry"> | string | null
+    targetPath?: StringNullableFilter<"RegistryEntry"> | string | null
+    description?: StringNullableFilter<"RegistryEntry"> | string | null
+    status?: StringFilter<"RegistryEntry"> | string
+    lastChecked?: DateTimeNullableFilter<"RegistryEntry"> | Date | string | null
+    errorCount?: IntFilter<"RegistryEntry"> | number
+    metadata?: JsonNullableFilter<"RegistryEntry">
+    createdAt?: DateTimeFilter<"RegistryEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"RegistryEntry"> | Date | string
+  }
+
+  export type RegistryEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    externalId?: SortOrder
+    type?: SortOrder
+    label?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    action?: SortOrderInput | SortOrder
+    targetPath?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lastChecked?: SortOrderInput | SortOrder
+    errorCount?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RegistryEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    externalId?: string
+    AND?: RegistryEntryWhereInput | RegistryEntryWhereInput[]
+    OR?: RegistryEntryWhereInput[]
+    NOT?: RegistryEntryWhereInput | RegistryEntryWhereInput[]
+    type?: StringFilter<"RegistryEntry"> | string
+    label?: StringFilter<"RegistryEntry"> | string
+    role?: StringFilter<"RegistryEntry"> | string
+    module?: StringFilter<"RegistryEntry"> | string
+    action?: StringNullableFilter<"RegistryEntry"> | string | null
+    targetPath?: StringNullableFilter<"RegistryEntry"> | string | null
+    description?: StringNullableFilter<"RegistryEntry"> | string | null
+    status?: StringFilter<"RegistryEntry"> | string
+    lastChecked?: DateTimeNullableFilter<"RegistryEntry"> | Date | string | null
+    errorCount?: IntFilter<"RegistryEntry"> | number
+    metadata?: JsonNullableFilter<"RegistryEntry">
+    createdAt?: DateTimeFilter<"RegistryEntry"> | Date | string
+    updatedAt?: DateTimeFilter<"RegistryEntry"> | Date | string
+  }, "id" | "externalId">
+
+  export type RegistryEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    externalId?: SortOrder
+    type?: SortOrder
+    label?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    action?: SortOrderInput | SortOrder
+    targetPath?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lastChecked?: SortOrderInput | SortOrder
+    errorCount?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RegistryEntryCountOrderByAggregateInput
+    _avg?: RegistryEntryAvgOrderByAggregateInput
+    _max?: RegistryEntryMaxOrderByAggregateInput
+    _min?: RegistryEntryMinOrderByAggregateInput
+    _sum?: RegistryEntrySumOrderByAggregateInput
+  }
+
+  export type RegistryEntryScalarWhereWithAggregatesInput = {
+    AND?: RegistryEntryScalarWhereWithAggregatesInput | RegistryEntryScalarWhereWithAggregatesInput[]
+    OR?: RegistryEntryScalarWhereWithAggregatesInput[]
+    NOT?: RegistryEntryScalarWhereWithAggregatesInput | RegistryEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    externalId?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    type?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    label?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    role?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    module?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    action?: StringNullableWithAggregatesFilter<"RegistryEntry"> | string | null
+    targetPath?: StringNullableWithAggregatesFilter<"RegistryEntry"> | string | null
+    description?: StringNullableWithAggregatesFilter<"RegistryEntry"> | string | null
+    status?: StringWithAggregatesFilter<"RegistryEntry"> | string
+    lastChecked?: DateTimeNullableWithAggregatesFilter<"RegistryEntry"> | Date | string | null
+    errorCount?: IntWithAggregatesFilter<"RegistryEntry"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"RegistryEntry">
+    createdAt?: DateTimeWithAggregatesFilter<"RegistryEntry"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RegistryEntry"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -91332,6 +93871,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -91363,6 +93903,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUpdateInput = {
@@ -91394,6 +93935,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -91425,6 +93967,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -91525,6 +94068,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -91594,6 +94138,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -91661,6 +94206,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -91730,6 +94276,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -97735,6 +100282,214 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TechnicalAuditCreateInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: Date | string
+    performedBy?: UserCreateNestedOneWithoutPerformedAuditsInput
+    tenant?: TenantCreateNestedOneWithoutTechnicalAuditsInput
+  }
+
+  export type TechnicalAuditUncheckedCreateInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: string | null
+    performedAt?: Date | string
+    tenantId?: string | null
+  }
+
+  export type TechnicalAuditUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performedBy?: UserUpdateOneWithoutPerformedAuditsNestedInput
+    tenant?: TenantUpdateOneWithoutTechnicalAuditsNestedInput
+  }
+
+  export type TechnicalAuditUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TechnicalAuditCreateManyInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: string | null
+    performedAt?: Date | string
+    tenantId?: string | null
+  }
+
+  export type TechnicalAuditUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicalAuditUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RegistryEntryCreateInput = {
+    id?: string
+    externalId: string
+    type: string
+    label: string
+    role: string
+    module: string
+    action?: string | null
+    targetPath?: string | null
+    description?: string | null
+    status?: string
+    lastChecked?: Date | string | null
+    errorCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RegistryEntryUncheckedCreateInput = {
+    id?: string
+    externalId: string
+    type: string
+    label: string
+    role: string
+    module: string
+    action?: string | null
+    targetPath?: string | null
+    description?: string | null
+    status?: string
+    lastChecked?: Date | string | null
+    errorCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RegistryEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    targetPath?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastChecked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistryEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    targetPath?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastChecked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistryEntryCreateManyInput = {
+    id?: string
+    externalId: string
+    type: string
+    label: string
+    role: string
+    module: string
+    action?: string | null
+    targetPath?: string | null
+    description?: string | null
+    status?: string
+    lastChecked?: Date | string | null
+    errorCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RegistryEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    targetPath?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastChecked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RegistryEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    targetPath?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastChecked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -97888,6 +100643,12 @@ export namespace Prisma {
     none?: SupervisionLogWhereInput
   }
 
+  export type TechnicalAuditListRelationFilter = {
+    every?: TechnicalAuditWhereInput
+    some?: TechnicalAuditWhereInput
+    none?: TechnicalAuditWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -97942,6 +100703,10 @@ export namespace Prisma {
   }
 
   export type SupervisionLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TechnicalAuditOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -101960,6 +104725,108 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
+  export type TechnicalAuditCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    issuesCount?: SortOrder
+    details?: SortOrder
+    performedById?: SortOrder
+    performedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TechnicalAuditAvgOrderByAggregateInput = {
+    issuesCount?: SortOrder
+  }
+
+  export type TechnicalAuditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    issuesCount?: SortOrder
+    performedById?: SortOrder
+    performedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TechnicalAuditMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    issuesCount?: SortOrder
+    performedById?: SortOrder
+    performedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type TechnicalAuditSumOrderByAggregateInput = {
+    issuesCount?: SortOrder
+  }
+
+  export type RegistryEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    externalId?: SortOrder
+    type?: SortOrder
+    label?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    targetPath?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    lastChecked?: SortOrder
+    errorCount?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RegistryEntryAvgOrderByAggregateInput = {
+    errorCount?: SortOrder
+  }
+
+  export type RegistryEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    externalId?: SortOrder
+    type?: SortOrder
+    label?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    targetPath?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    lastChecked?: SortOrder
+    errorCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RegistryEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    externalId?: SortOrder
+    type?: SortOrder
+    label?: SortOrder
+    role?: SortOrder
+    module?: SortOrder
+    action?: SortOrder
+    targetPath?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    lastChecked?: SortOrder
+    errorCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RegistryEntrySumOrderByAggregateInput = {
+    errorCount?: SortOrder
+  }
+
   export type UserCreaterolesInput = {
     set: $Enums.Role[]
   }
@@ -102080,6 +104947,13 @@ export namespace Prisma {
     connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
   }
 
+  export type TechnicalAuditCreateNestedManyWithoutPerformedByInput = {
+    create?: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput> | TechnicalAuditCreateWithoutPerformedByInput[] | TechnicalAuditUncheckedCreateWithoutPerformedByInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutPerformedByInput | TechnicalAuditCreateOrConnectWithoutPerformedByInput[]
+    createMany?: TechnicalAuditCreateManyPerformedByInputEnvelope
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -102188,6 +105062,13 @@ export namespace Prisma {
     connectOrCreate?: IncidentCreateOrConnectWithoutAcknowledgerInput | IncidentCreateOrConnectWithoutAcknowledgerInput[]
     createMany?: IncidentCreateManyAcknowledgerInputEnvelope
     connect?: IncidentWhereUniqueInput | IncidentWhereUniqueInput[]
+  }
+
+  export type TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput = {
+    create?: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput> | TechnicalAuditCreateWithoutPerformedByInput[] | TechnicalAuditUncheckedCreateWithoutPerformedByInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutPerformedByInput | TechnicalAuditCreateOrConnectWithoutPerformedByInput[]
+    createMany?: TechnicalAuditCreateManyPerformedByInputEnvelope
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -102435,6 +105316,20 @@ export namespace Prisma {
     deleteMany?: IncidentScalarWhereInput | IncidentScalarWhereInput[]
   }
 
+  export type TechnicalAuditUpdateManyWithoutPerformedByNestedInput = {
+    create?: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput> | TechnicalAuditCreateWithoutPerformedByInput[] | TechnicalAuditUncheckedCreateWithoutPerformedByInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutPerformedByInput | TechnicalAuditCreateOrConnectWithoutPerformedByInput[]
+    upsert?: TechnicalAuditUpsertWithWhereUniqueWithoutPerformedByInput | TechnicalAuditUpsertWithWhereUniqueWithoutPerformedByInput[]
+    createMany?: TechnicalAuditCreateManyPerformedByInputEnvelope
+    set?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    disconnect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    delete?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    update?: TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput | TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput[]
+    updateMany?: TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput | TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput[]
+    deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -102649,6 +105544,20 @@ export namespace Prisma {
     update?: IncidentUpdateWithWhereUniqueWithoutAcknowledgerInput | IncidentUpdateWithWhereUniqueWithoutAcknowledgerInput[]
     updateMany?: IncidentUpdateManyWithWhereWithoutAcknowledgerInput | IncidentUpdateManyWithWhereWithoutAcknowledgerInput[]
     deleteMany?: IncidentScalarWhereInput | IncidentScalarWhereInput[]
+  }
+
+  export type TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput = {
+    create?: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput> | TechnicalAuditCreateWithoutPerformedByInput[] | TechnicalAuditUncheckedCreateWithoutPerformedByInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutPerformedByInput | TechnicalAuditCreateOrConnectWithoutPerformedByInput[]
+    upsert?: TechnicalAuditUpsertWithWhereUniqueWithoutPerformedByInput | TechnicalAuditUpsertWithWhereUniqueWithoutPerformedByInput[]
+    createMany?: TechnicalAuditCreateManyPerformedByInputEnvelope
+    set?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    disconnect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    delete?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    update?: TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput | TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput[]
+    updateMany?: TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput | TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput[]
+    deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutTenantInput = {
@@ -102929,6 +105838,13 @@ export namespace Prisma {
     connectOrCreate?: CareFeedbackCreateOrConnectWithoutTenantInput | CareFeedbackCreateOrConnectWithoutTenantInput[]
     createMany?: CareFeedbackCreateManyTenantInputEnvelope
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
+  }
+
+  export type TechnicalAuditCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput> | TechnicalAuditCreateWithoutTenantInput[] | TechnicalAuditUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
+    createMany?: TechnicalAuditCreateManyTenantInputEnvelope
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
   }
 
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
@@ -103292,6 +106208,13 @@ export namespace Prisma {
     connectOrCreate?: CareFeedbackCreateOrConnectWithoutTenantInput | CareFeedbackCreateOrConnectWithoutTenantInput[]
     createMany?: CareFeedbackCreateManyTenantInputEnvelope
     connect?: CareFeedbackWhereUniqueInput | CareFeedbackWhereUniqueInput[]
+  }
+
+  export type TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput> | TechnicalAuditCreateWithoutTenantInput[] | TechnicalAuditUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
+    createMany?: TechnicalAuditCreateManyTenantInputEnvelope
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -103937,6 +106860,20 @@ export namespace Prisma {
     update?: CareFeedbackUpdateWithWhereUniqueWithoutTenantInput | CareFeedbackUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CareFeedbackUpdateManyWithWhereWithoutTenantInput | CareFeedbackUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
+  }
+
+  export type TechnicalAuditUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput> | TechnicalAuditCreateWithoutTenantInput[] | TechnicalAuditUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
+    upsert?: TechnicalAuditUpsertWithWhereUniqueWithoutTenantInput | TechnicalAuditUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TechnicalAuditCreateManyTenantInputEnvelope
+    set?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    disconnect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    delete?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    update?: TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput | TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TechnicalAuditUpdateManyWithWhereWithoutTenantInput | TechnicalAuditUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -104661,6 +107598,20 @@ export namespace Prisma {
     update?: CareFeedbackUpdateWithWhereUniqueWithoutTenantInput | CareFeedbackUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CareFeedbackUpdateManyWithWhereWithoutTenantInput | CareFeedbackUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CareFeedbackScalarWhereInput | CareFeedbackScalarWhereInput[]
+  }
+
+  export type TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput> | TechnicalAuditCreateWithoutTenantInput[] | TechnicalAuditUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TechnicalAuditCreateOrConnectWithoutTenantInput | TechnicalAuditCreateOrConnectWithoutTenantInput[]
+    upsert?: TechnicalAuditUpsertWithWhereUniqueWithoutTenantInput | TechnicalAuditUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TechnicalAuditCreateManyTenantInputEnvelope
+    set?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    disconnect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    delete?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    connect?: TechnicalAuditWhereUniqueInput | TechnicalAuditWhereUniqueInput[]
+    update?: TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput | TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TechnicalAuditUpdateManyWithWhereWithoutTenantInput | TechnicalAuditUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
@@ -109317,6 +112268,38 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCareFeedbacksInput, TenantUpdateWithoutCareFeedbacksInput>, TenantUncheckedUpdateWithoutCareFeedbacksInput>
   }
 
+  export type UserCreateNestedOneWithoutPerformedAuditsInput = {
+    create?: XOR<UserCreateWithoutPerformedAuditsInput, UserUncheckedCreateWithoutPerformedAuditsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPerformedAuditsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutTechnicalAuditsInput = {
+    create?: XOR<TenantCreateWithoutTechnicalAuditsInput, TenantUncheckedCreateWithoutTechnicalAuditsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTechnicalAuditsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutPerformedAuditsNestedInput = {
+    create?: XOR<UserCreateWithoutPerformedAuditsInput, UserUncheckedCreateWithoutPerformedAuditsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPerformedAuditsInput
+    upsert?: UserUpsertWithoutPerformedAuditsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPerformedAuditsInput, UserUpdateWithoutPerformedAuditsInput>, UserUncheckedUpdateWithoutPerformedAuditsInput>
+  }
+
+  export type TenantUpdateOneWithoutTechnicalAuditsNestedInput = {
+    create?: XOR<TenantCreateWithoutTechnicalAuditsInput, TenantUncheckedCreateWithoutTechnicalAuditsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTechnicalAuditsInput
+    upsert?: TenantUpsertWithoutTechnicalAuditsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTechnicalAuditsInput, TenantUpdateWithoutTechnicalAuditsInput>, TenantUncheckedUpdateWithoutTechnicalAuditsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -110339,6 +113322,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -110407,6 +113391,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -110644,6 +113629,38 @@ export namespace Prisma {
 
   export type IncidentCreateManyAcknowledgerInputEnvelope = {
     data: IncidentCreateManyAcknowledgerInput | IncidentCreateManyAcknowledgerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TechnicalAuditCreateWithoutPerformedByInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutTechnicalAuditsInput
+  }
+
+  export type TechnicalAuditUncheckedCreateWithoutPerformedByInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: Date | string
+    tenantId?: string | null
+  }
+
+  export type TechnicalAuditCreateOrConnectWithoutPerformedByInput = {
+    where: TechnicalAuditWhereUniqueInput
+    create: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput>
+  }
+
+  export type TechnicalAuditCreateManyPerformedByInputEnvelope = {
+    data: TechnicalAuditCreateManyPerformedByInput | TechnicalAuditCreateManyPerformedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -111137,6 +114154,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -111205,6 +114223,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -111399,6 +114418,37 @@ export namespace Prisma {
   export type IncidentUpdateManyWithWhereWithoutAcknowledgerInput = {
     where: IncidentScalarWhereInput
     data: XOR<IncidentUpdateManyMutationInput, IncidentUncheckedUpdateManyWithoutAcknowledgerInput>
+  }
+
+  export type TechnicalAuditUpsertWithWhereUniqueWithoutPerformedByInput = {
+    where: TechnicalAuditWhereUniqueInput
+    update: XOR<TechnicalAuditUpdateWithoutPerformedByInput, TechnicalAuditUncheckedUpdateWithoutPerformedByInput>
+    create: XOR<TechnicalAuditCreateWithoutPerformedByInput, TechnicalAuditUncheckedCreateWithoutPerformedByInput>
+  }
+
+  export type TechnicalAuditUpdateWithWhereUniqueWithoutPerformedByInput = {
+    where: TechnicalAuditWhereUniqueInput
+    data: XOR<TechnicalAuditUpdateWithoutPerformedByInput, TechnicalAuditUncheckedUpdateWithoutPerformedByInput>
+  }
+
+  export type TechnicalAuditUpdateManyWithWhereWithoutPerformedByInput = {
+    where: TechnicalAuditScalarWhereInput
+    data: XOR<TechnicalAuditUpdateManyMutationInput, TechnicalAuditUncheckedUpdateManyWithoutPerformedByInput>
+  }
+
+  export type TechnicalAuditScalarWhereInput = {
+    AND?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
+    OR?: TechnicalAuditScalarWhereInput[]
+    NOT?: TechnicalAuditScalarWhereInput | TechnicalAuditScalarWhereInput[]
+    id?: StringFilter<"TechnicalAudit"> | string
+    type?: StringFilter<"TechnicalAudit"> | string
+    status?: StringFilter<"TechnicalAudit"> | string
+    summary?: StringFilter<"TechnicalAudit"> | string
+    issuesCount?: IntFilter<"TechnicalAudit"> | number
+    details?: JsonNullableFilter<"TechnicalAudit">
+    performedById?: StringNullableFilter<"TechnicalAudit"> | string | null
+    performedAt?: DateTimeFilter<"TechnicalAudit"> | Date | string
+    tenantId?: StringNullableFilter<"TechnicalAudit"> | string | null
   }
 
   export type AuditLogCreateWithoutTenantInput = {
@@ -112015,6 +115065,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -112045,6 +115096,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -112907,6 +115959,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TechnicalAuditCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: Date | string
+    performedBy?: UserCreateNestedOneWithoutPerformedAuditsInput
+  }
+
+  export type TechnicalAuditUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: string | null
+    performedAt?: Date | string
+  }
+
+  export type TechnicalAuditCreateOrConnectWithoutTenantInput = {
+    where: TechnicalAuditWhereUniqueInput
+    create: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TechnicalAuditCreateManyTenantInputEnvelope = {
+    data: TechnicalAuditCreateManyTenantInput | TechnicalAuditCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -112961,6 +116045,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -113029,6 +116114,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -113100,6 +116186,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -113167,6 +116254,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -114654,6 +117742,22 @@ export namespace Prisma {
     tenantId?: StringFilter<"CareFeedback"> | string
   }
 
+  export type TechnicalAuditUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TechnicalAuditWhereUniqueInput
+    update: XOR<TechnicalAuditUpdateWithoutTenantInput, TechnicalAuditUncheckedUpdateWithoutTenantInput>
+    create: XOR<TechnicalAuditCreateWithoutTenantInput, TechnicalAuditUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TechnicalAuditUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TechnicalAuditWhereUniqueInput
+    data: XOR<TechnicalAuditUpdateWithoutTenantInput, TechnicalAuditUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TechnicalAuditUpdateManyWithWhereWithoutTenantInput = {
+    where: TechnicalAuditScalarWhereInput
+    data: XOR<TechnicalAuditUpdateManyMutationInput, TechnicalAuditUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -114719,6 +117823,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -114787,6 +117892,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -115148,6 +118254,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -115216,6 +118323,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -115298,6 +118406,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -115366,6 +118475,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -115470,6 +118580,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -115538,6 +118649,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -115584,6 +118696,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -115614,6 +118727,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -116410,6 +119524,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -116478,6 +119593,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -116530,6 +119646,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -116560,6 +119677,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -117066,6 +120184,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -117134,6 +120253,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -117180,6 +120300,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -117210,6 +120331,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -117750,6 +120872,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -117818,6 +120941,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -117870,6 +120994,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -117900,6 +121025,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -118692,6 +121818,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -118760,6 +121887,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -119303,6 +122431,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -119371,6 +122500,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -119469,6 +122599,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -119537,6 +122668,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -119739,6 +122871,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -119807,6 +122940,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -119880,6 +123014,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -119910,6 +123045,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -120037,6 +123173,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -120105,6 +123242,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -120245,6 +123383,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -120275,6 +123414,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -120414,6 +123554,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -120482,6 +123623,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -121236,6 +124378,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -121266,6 +124409,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -121301,6 +124445,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -121331,6 +124476,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -121391,6 +124537,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -121459,6 +124606,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -121599,6 +124747,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -121629,6 +124778,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -121670,6 +124820,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -121700,6 +124851,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -121766,6 +124918,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -121834,6 +124987,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -122055,6 +125209,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -122085,6 +125240,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -122145,6 +125301,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -122213,6 +125370,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -122359,6 +125517,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -122389,6 +125548,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -122455,6 +125615,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -122523,6 +125684,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -122918,6 +126080,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -122986,6 +126149,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -123187,6 +126351,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -123255,6 +126420,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -123598,6 +126764,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -123666,6 +126833,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -123928,6 +127096,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -123996,6 +127165,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -124037,6 +127207,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -124067,6 +127238,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -124136,6 +127308,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -124166,6 +127339,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -124225,6 +127399,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -124255,6 +127430,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -124315,6 +127491,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -124383,6 +127560,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -124440,6 +127618,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -124470,6 +127649,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -124536,6 +127716,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -124604,6 +127785,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -124670,6 +127852,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -124738,6 +127921,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -124820,6 +128004,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -124888,6 +128073,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -125039,6 +128225,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -125107,6 +128294,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -125368,6 +128556,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -125436,6 +128625,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -125585,6 +128775,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -125653,6 +128844,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -125808,6 +129000,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -125876,6 +129069,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -126009,6 +129203,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -126077,6 +129272,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -126315,6 +129511,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -126383,6 +129580,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -126513,6 +129711,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -126543,6 +129742,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -126589,6 +129789,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -126619,6 +129820,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -126674,6 +129876,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -126742,6 +129945,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -126824,6 +130028,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -126892,6 +130097,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -127000,6 +130206,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -127030,6 +130237,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -127149,6 +130357,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -127179,6 +130388,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -127294,6 +130504,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -127324,6 +130535,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -127384,6 +130596,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -127452,6 +130665,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -127683,6 +130897,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -127713,6 +130928,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -127779,6 +130995,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -127847,6 +131064,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -128003,6 +131221,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -128071,6 +131290,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -128153,6 +131373,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -128221,6 +131442,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -128371,6 +131593,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -128439,6 +131662,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -128695,6 +131919,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -128763,6 +131988,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129003,6 +132229,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -129071,6 +132298,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -129117,6 +132345,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -129147,6 +132376,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -129309,6 +132539,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -129377,6 +132608,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129429,6 +132661,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -129459,6 +132692,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantCreateWithoutTrainingModulesInput = {
@@ -129514,6 +132748,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -129582,6 +132817,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -129692,6 +132928,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -129760,6 +132997,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129915,6 +133153,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -129983,6 +133222,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130089,6 +133329,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -130157,6 +133398,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130306,6 +133548,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -130374,6 +133617,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130486,6 +133730,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -130554,6 +133799,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130710,6 +133956,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -130778,6 +134025,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130860,6 +134108,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -130928,6 +134177,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130994,6 +134244,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131062,6 +134313,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -131144,6 +134396,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131212,6 +134465,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -131278,6 +134532,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131346,6 +134601,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -131428,6 +134684,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131496,6 +134753,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -131562,6 +134820,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131630,6 +134889,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -131712,6 +134972,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -131780,6 +135041,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -131846,6 +135108,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -131914,6 +135177,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -131996,6 +135260,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -132064,6 +135329,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132130,6 +135396,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -132198,6 +135465,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -132280,6 +135548,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -132348,6 +135617,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132704,6 +135974,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -132772,6 +136043,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -133016,6 +136288,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -133084,6 +136357,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133270,6 +136544,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -133338,6 +136613,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -133552,6 +136828,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -133620,6 +136897,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133686,6 +136964,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -133754,6 +137033,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -133836,6 +137116,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -133904,6 +137185,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133970,6 +137252,7 @@ export namespace Prisma {
     branchStats?: BranchStatCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134038,6 +137321,7 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -134120,6 +137404,7 @@ export namespace Prisma {
     branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -134188,6 +137473,7 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -134255,6 +137541,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -134323,6 +137610,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -134523,6 +137811,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -134591,6 +137880,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -134808,6 +138098,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -134876,6 +138167,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -135043,6 +138335,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -135111,6 +138404,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135295,6 +138589,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -135363,6 +138658,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -135563,6 +138859,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -135631,6 +138928,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135787,6 +139085,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -135855,6 +139154,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -135986,6 +139286,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -136016,6 +139317,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -136087,6 +139389,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -136155,6 +139458,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136298,6 +139602,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -136328,6 +139633,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -136559,6 +139865,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -136627,6 +139934,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -136794,6 +140102,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -136862,6 +140171,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137019,6 +140329,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -137087,6 +140398,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -137201,6 +140513,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -137269,6 +140582,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137351,6 +140665,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -137419,6 +140734,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -137611,6 +140927,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -137679,6 +140996,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137923,6 +141241,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -137991,6 +141310,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -138211,6 +141531,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -138279,6 +141600,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138886,6 +142208,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -138954,6 +142277,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -139198,6 +142522,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -139266,6 +142591,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139399,6 +142725,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -139467,6 +142794,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -139622,6 +142950,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -139690,6 +143019,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139823,6 +143153,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -139891,6 +143222,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -140046,6 +143378,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -140114,6 +143447,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140239,6 +143573,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -140269,6 +143604,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -140330,6 +143666,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -140398,6 +143735,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -140545,6 +143883,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -140575,6 +143914,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -140642,6 +143982,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -140710,6 +144051,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140835,6 +144177,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -140865,6 +144208,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -140926,6 +144270,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -140994,6 +144339,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -141141,6 +144487,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -141171,6 +144518,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -141238,6 +144586,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -141306,6 +144655,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141413,6 +144763,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -141443,6 +144794,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -141504,6 +144856,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -141572,6 +144925,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -141701,6 +145055,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -141731,6 +145086,7 @@ export namespace Prisma {
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -141798,6 +145154,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -141866,6 +145223,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142016,6 +145374,7 @@ export namespace Prisma {
     branchStats?: BranchStatCreateNestedManyWithoutTenantInput
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -142084,6 +145443,7 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -142257,6 +145617,7 @@ export namespace Prisma {
     branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -142325,6 +145686,7 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142559,6 +145921,7 @@ export namespace Prisma {
     branchStats?: BranchStatCreateNestedManyWithoutTenantInput
     complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -142627,6 +145990,7 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
     complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
     familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -142889,6 +146253,7 @@ export namespace Prisma {
     branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -142957,6 +146322,435 @@ export namespace Prisma {
     branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserCreateWithoutPerformedAuditsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+  }
+
+  export type UserUncheckedCreateWithoutPerformedAuditsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash: string
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+  }
+
+  export type UserCreateOrConnectWithoutPerformedAuditsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPerformedAuditsInput, UserUncheckedCreateWithoutPerformedAuditsInput>
+  }
+
+  export type TenantCreateWithoutTechnicalAuditsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutTechnicalAuditsInput, TenantUncheckedCreateWithoutTechnicalAuditsInput>
+  }
+
+  export type UserUpsertWithoutPerformedAuditsInput = {
+    update: XOR<UserUpdateWithoutPerformedAuditsInput, UserUncheckedUpdateWithoutPerformedAuditsInput>
+    create: XOR<UserCreateWithoutPerformedAuditsInput, UserUncheckedCreateWithoutPerformedAuditsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPerformedAuditsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPerformedAuditsInput, UserUncheckedUpdateWithoutPerformedAuditsInput>
+  }
+
+  export type UserUpdateWithoutPerformedAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+  }
+
+  export type TenantUpsertWithoutTechnicalAuditsInput = {
+    update: XOR<TenantUpdateWithoutTechnicalAuditsInput, TenantUncheckedUpdateWithoutTechnicalAuditsInput>
+    create: XOR<TenantCreateWithoutTechnicalAuditsInput, TenantUncheckedCreateWithoutTechnicalAuditsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutTechnicalAuditsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutTechnicalAuditsInput, TenantUncheckedUpdateWithoutTechnicalAuditsInput>
+  }
+
+  export type TenantUpdateWithoutTechnicalAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143151,6 +146945,17 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenantId: string
     acknowledgedAt?: Date | string | null
+  }
+
+  export type TechnicalAuditCreateManyPerformedByInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: Date | string
+    tenantId?: string | null
   }
 
   export type AuditLogUpdateWithoutActorInput = {
@@ -143704,6 +147509,39 @@ export namespace Prisma {
     acknowledgedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type TechnicalAuditUpdateWithoutPerformedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutTechnicalAuditsNestedInput
+  }
+
+  export type TechnicalAuditUncheckedUpdateWithoutPerformedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TechnicalAuditUncheckedUpdateManyWithoutPerformedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -144182,6 +148020,17 @@ export namespace Prisma {
     triageStatus?: string
     resolutionNotes?: string | null
     createdAt?: Date | string
+  }
+
+  export type TechnicalAuditCreateManyTenantInput = {
+    id?: string
+    type: string
+    status?: string
+    summary: string
+    issuesCount?: number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: string | null
+    performedAt?: Date | string
   }
 
   export type TenantCreateManyParentTenantInput = {
@@ -144960,6 +148809,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -144990,6 +148840,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -145890,6 +149741,39 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TechnicalAuditUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performedBy?: UserUpdateOneWithoutPerformedAuditsNestedInput
+  }
+
+  export type TechnicalAuditUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicalAuditUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    issuesCount?: IntFieldUpdateOperationsInput | number
+    details?: NullableJsonNullValueInput | InputJsonValue
+    performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -145944,6 +149828,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -146011,6 +149896,7 @@ export namespace Prisma {
     complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
     familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
     careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -149715,6 +153601,14 @@ export namespace Prisma {
      * @deprecated Use CareFeedbackDefaultArgs instead
      */
     export type CareFeedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CareFeedbackDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TechnicalAuditDefaultArgs instead
+     */
+    export type TechnicalAuditArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TechnicalAuditDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RegistryEntryDefaultArgs instead
+     */
+    export type RegistryEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RegistryEntryDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -1,32 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import './TaskGrid.css';
+
+const { ContentRegistry } = AdminRegistry;
 
 interface Task {
     id: string;
     title: string;
-    patient: string;
-    status: 'inbound' | 'processing' | 'verifying' | 'completed';
-    priority: 'high' | 'medium' | 'low';
-    dueDate: string;
+    description?: string;
+    status: 'todo' | 'in_progress' | 'completed' | 'blocked';
+    priority: 'low' | 'medium' | 'high' | 'urgent';
+    dueDate?: string;
 }
 
 export default function TaskGrid() {
     const { t } = useTranslation();
-    const [tasks, setTasks] = useState<Task[]>([
-        { id: '1', title: 'Insurance Verification', patient: 'Alice Freeman', status: 'inbound', priority: 'high', dueDate: 'Today' },
-        { id: '2', title: 'Clinical Intake Call', patient: 'Robert Smith', status: 'processing', priority: 'medium', dueDate: 'Today' },
-        { id: '3', title: 'Background Check (PSW)', patient: 'Jordan Vale', status: 'processing', priority: 'high', dueDate: 'Tomorrow' },
-        { id: '4', title: 'Consent Forms Signature', patient: 'Mary Lou', status: 'verifying', priority: 'low', dueDate: 'Today' },
-        { id: '5', title: 'Referral Audit', patient: 'Sam Jones', status: 'verifying', priority: 'medium', dueDate: 'Friday' },
-    ]);
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.TENANCY.STAFF.TASKS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setTasks(data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch staff tasks:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTasks();
+    }, []);
 
     const columns = [
-        { id: 'inbound', label: 'Inbound Request', icon: '📥' },
-        { id: 'processing', label: 'Processing', icon: '⚙️' },
-        { id: 'verifying', label: 'Verifying', icon: '🛡️' },
+        { id: 'todo', label: 'Todo', icon: '📥' },
+        { id: 'in_progress', label: 'In Progress', icon: '⚙️' },
+        { id: 'blocked', label: 'Blocked', icon: '🛡️' },
         { id: 'completed', label: 'Completed', icon: '✅' },
     ];
+
+    if (loading) {
+        return (
+            <div className="task-board" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+                <div className="animate-pulse text-muted-foreground font-black uppercase tracking-widest">
+                    Synchronizing Tasks...
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="task-board">
@@ -61,8 +89,7 @@ export default function TaskGrid() {
                                     </div>
                                     <h3 className="task-title">{task.title}</h3>
                                     <div className="task-patient">
-                                        <span className="opacity-60 text-lg">👤</span>
-                                        <span>{task.patient}</span>
+                                        <p className="text-xs opacity-70 line-clamp-2">{task.description}</p>
                                     </div>
                                     <div className="task-footer">
                                         <div className="task-avatars">
@@ -70,7 +97,7 @@ export default function TaskGrid() {
                                             <div className="task-avatar" style={{ backgroundColor: '#e2e8f0', color: '#475569' }}>ST</div>
                                         </div>
                                         <div className="task-due-date">
-                                            Due {task.dueDate}
+                                            {task.dueDate ? `Due ${new Date(task.dueDate).toLocaleDateString()}` : 'No Due Date'}
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,6 @@ import dashboardRoutes from './dashboard/dashboard.routes';
 import bookingRoutes from './bookings/bookings.routes';
 import carePlanRoutes from './carePlan/carePlan.routes';
 import serviceRoutes from './services/services.routes';
-import profileRoutes from './profile.routes';
 import relationshipRoutes from './relationship/relationship.routes';
 import engagementRoutes from './client_engagement.routes';
 
@@ -22,6 +21,7 @@ client.route('/dashboard', dashboardRoutes); // stats at /dashboard/stats, profi
 client.route('/bookings', bookingRoutes);
 client.route('/care-plan', carePlanRoutes);
 client.route('/', serviceRoutes);
-client.route('/engagement', engagementRoutes);
+client.route('/', relationshipRoutes); // support/feedback at /support/feedback
+client.route('/engagement', engagementRoutes); // feed at /engagement/feed
 
 export default client;

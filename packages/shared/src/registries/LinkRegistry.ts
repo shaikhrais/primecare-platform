@@ -86,5 +86,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-mgr-compliance', label: 'Compliance Monitor', role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.COMPLIANCE, description: 'Branch-wide credential and regulatory tracking.' },
     // Staff Foundation
     { id: 'lnk-staff-tasks', label: 'Recruitment Board', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.TASKS, description: 'Active recruitment and task fulfillment board.' },
-    { id: 'lnk-staff-messages', label: 'Communications Hub', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.MESSAGES, description: 'Unified messaging for branch-wide coordination.' }
+    { id: 'lnk-staff-messages', label: 'Communications Hub', role: 'staff', module: 'OPERATIONS', path: RouteRegistry.STAFF.MESSAGES, description: 'Unified messaging for branch-wide coordination.' },
+    // Phase 1 Foundation Expansion
+    { id: 'lnk-psw-live-visit', label: 'Live Visit Center', role: 'psw', module: 'CARE_DELIVERY', path: '/psw/schedule/live', description: 'Active visit management and real-time ADL tracking.' },
+    { id: 'lnk-coordinator-sos-hub', label: 'SOS Dispatch Hub', role: 'coordinator', module: 'OPERATIONS', path: '/coordinator/sos', description: 'Real-time emergency shift fulfillment and field alert management.' }
 ];

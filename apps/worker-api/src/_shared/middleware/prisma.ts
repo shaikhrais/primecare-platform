@@ -14,11 +14,10 @@ export const prismaMiddleware = () => {
         }
 
         if (!prismaInstance) {
-            // Assume production/edge if DATABASE_URL doesn't look local or ENVIRONMENT is set
-            const isProd = c.env.ENVIRONMENT === 'production' ||
-                (c.env.DATABASE_URL && !c.env.DATABASE_URL.includes('localhost'));
+            // Only use edge client if we have a prisma:// URL
+            const useEdge = c.env.DATABASE_URL?.startsWith('prisma://');
 
-            if (isProd) {
+            if (useEdge) {
                 const { PrismaClient } = await import('../../../generated/client/edge');
                 prismaInstance = new PrismaClient({
                     datasourceUrl: c.env.DATABASE_URL,

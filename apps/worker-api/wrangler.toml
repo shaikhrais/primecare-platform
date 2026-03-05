@@ -10,6 +10,9 @@ ENVIRONMENT = "production"
 
 [env.staging]
 name = "primecare-api-staging"
+r2_buckets = [
+  { binding = "DOCS_BUCKET", bucket_name = "primecare-docs-staging" }
+]
 [env.staging.vars]
 ENVIRONMENT = "staging"
 

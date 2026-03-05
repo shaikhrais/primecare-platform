@@ -986,6 +986,36 @@ exports.Prisma.CareFeedbackScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.TechnicalAuditScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  status: 'status',
+  summary: 'summary',
+  issuesCount: 'issuesCount',
+  details: 'details',
+  performedById: 'performedById',
+  performedAt: 'performedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.RegistryEntryScalarFieldEnum = {
+  id: 'id',
+  externalId: 'externalId',
+  type: 'type',
+  label: 'label',
+  role: 'role',
+  module: 'module',
+  action: 'action',
+  targetPath: 'targetPath',
+  description: 'description',
+  status: 'status',
+  lastChecked: 'lastChecked',
+  errorCount: 'errorCount',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1185,7 +1215,9 @@ exports.Prisma.ModelName = {
   MedicationRecon: 'MedicationRecon',
   SupervisionLog: 'SupervisionLog',
   FamilyNotification: 'FamilyNotification',
-  CareFeedback: 'CareFeedback'
+  CareFeedback: 'CareFeedback',
+  TechnicalAudit: 'TechnicalAudit',
+  RegistryEntry: 'RegistryEntry'
 };
 
 /**

@@ -139,6 +139,9 @@ const PLATFORM = {
         AUTO_FIX: '/v1/admin/scrum/auto-fix',
         SWEEP_START: '/v1/admin/scrum/universal-sweep',
         RESPONSE_BOT_SCAN: '/v1/admin/scrum/response-bot/audit',
+        AUDITS_HISTORY: '/v1/admin/scrum/audits',
+        REGISTRY_HEALTH: '/v1/admin/scrum/registry/health',
+        REGISTRY_SYNC: '/v1/admin/scrum/registry/sync',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

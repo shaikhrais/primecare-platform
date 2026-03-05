@@ -27,16 +27,27 @@ const getStaffStatsRoute = createRoute({
 
 r.openapi(getStaffStatsRoute, async (c) => {
     const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
 
-    // MOCK OR REAL DATA: Operations Staff KPI Stats
-    const kpiData = {
-        urgentSchedulingNeeds: await prisma.visit.count({ where: { status: 'requested' } }),
-        activeCaregivers: await prisma.pswProfile.count({ where: { isApproved: true } }),
-        missingTimesheets: 5, // Mock value for illustration
-    };
+    // REAL DATA: Operations Staff KPI Stats
+    const [urgentSchedulingNeeds, activeCaregivers, missingTimesheets] = await Promise.all([
+        prisma.visit.count({ where: { status: 'requested', tenantId } }),
+        prisma.pswProfile.count({ where: { isApproved: true, tenantId } }),
+        prisma.visit.count({
+            where: {
+                status: 'completed',
+                tenantId,
+                timesheetItems: { none: {} } // Simplified logic for "missing timesheets"
+            }
+        }),
+    ]);
 
     return c.json({
-        kpi: kpiData,
+        kpi: {
+            urgentSchedulingNeeds,
+            activeCaregivers,
+            missingTimesheets,
+        },
     }, 200);
 });
 

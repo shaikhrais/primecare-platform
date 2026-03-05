@@ -77,14 +77,13 @@ r.openapi(feedbackSubmitRoute, async (c) => {
     const profile = await prisma.clientProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    const feedback = await prisma.feedback.create({
+    const feedback = await prisma.careFeedback.create({
         data: {
             clientId: profile.id,
             tenantId: tenantId,
             rating: data.rating,
             comment: data.comment,
-            visitId: data.visitId,
-            status: 'pending',
+            visitId: data.visitId || '', // Ensuring visitId is handled
         },
     });
 

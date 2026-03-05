@@ -212,7 +212,7 @@ coordinator.openapi(waitlistSyncRoute as any, async (c: any) => {
     const body = c.req.valid('json');
     const userId = c.get('jwtPayload').sub;
 
-    const results = await Promise.all(body.updates.map(upd =>
+    const results = await Promise.all(body.updates.map((upd: any) =>
         prisma.waitlistEntry.update({
             where: { id: upd.id },
             data: { priority: upd.priority }

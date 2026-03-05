@@ -45,7 +45,7 @@ const globalSearchRoute = createRoute({
     },
 });
 
-search.openapi(globalSearchRoute, async (c) => {
+search.openapi(globalSearchRoute as any, async (c: any) => {
     const prisma = c.get('prisma');
     const { q, limit } = c.req.valid('query');
     const limitNum = parseInt(limit);

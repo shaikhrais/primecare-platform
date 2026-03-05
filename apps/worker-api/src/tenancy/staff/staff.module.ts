@@ -7,6 +7,8 @@ import supportRoutes from './support/support.routes';
 import dashboardRoutes from './dashboard/dashboard.routes';
 import customerRoutes from './customers.routes';
 import opsRoutes from './ops/ops.routes';
+import tasksRoutes from './ops/tasks.routes';
+import incidentsRoutes from './ops/incidents.routes';
 
 const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -23,5 +25,7 @@ staff.route('/', schedulingRoutes);
 staff.route('/', supportRoutes);
 staff.route('/', customerRoutes);
 staff.route('/ops', opsRoutes);
+staff.route('/tasks', tasksRoutes);
+staff.route('/ops/incidents', incidentsRoutes);
 
 export default staff;

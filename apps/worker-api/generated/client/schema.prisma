@@ -45,6 +45,7 @@ model User {
   medicationRecons      MedicationRecon[]
   supervisionLogs       SupervisionLog[]
   acknowledgedIncidents Incident[]           @relation("Acknowledger")
+  performedAudits       TechnicalAudit[]     @relation("PerformedAudits")
 
   @@index([tenantId])
   @@map("users")
@@ -97,6 +98,7 @@ model Tenant {
   complianceRecords   ComplianceRecord[]
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
+  technicalAudits     TechnicalAudit[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -1430,4 +1432,41 @@ model CareFeedback {
   tenant          Tenant        @relation(fields: [tenantId], references: [id])
 
   @@map("care_feedbacks")
+}
+
+model TechnicalAudit {
+  id            String   @id @default(uuid())
+  type          String   @map("audit_type") // LINK_REGISTRY, BUTTON_REGISTRY, etc.
+  status        String   @default("success")
+  summary       String
+  issuesCount   Int      @default(0) @map("issues_count")
+  details       Json?
+  performedById String?  @map("performed_by_id")
+  performedAt   DateTime @default(now()) @map("performed_at")
+  tenantId      String?  @map("tenant_id")
+
+  performedBy User?   @relation("PerformedAudits", fields: [performedById], references: [id])
+  tenant      Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@map("technical_audits")
+}
+
+model RegistryEntry {
+  id          String    @id @default(uuid())
+  externalId  String    @unique @map("external_id") // e.g., 'btn-admin-user-invite'
+  type        String // button, link, interaction
+  label       String
+  role        String
+  module      String
+  action      String?
+  targetPath  String?   @map("target_path")
+  description String?
+  status      String    @default("active")
+  lastChecked DateTime? @map("last_checked")
+  errorCount  Int       @default(0) @map("error_count")
+  metadata    Json?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("registry_entries")
 }

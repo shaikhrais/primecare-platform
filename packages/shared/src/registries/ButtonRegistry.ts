@@ -95,5 +95,10 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-mgr-feedback-triage', label: 'Triage Feedback', role: 'manager', module: 'OPERATIONS', type: 'primary', action: 'OPEN_MODAL', description: 'Launches the feedback triage interface for operational resolution.' },
     // Batch 24: Client & Family Mastery
     { id: 'btn-client-family-pay', label: 'Pay Invoice', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.CLIENT.INVOICE_PAY, description: 'Initiate payment for care services.' },
-    { id: 'btn-client-star-rating', label: 'Submit Rating', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT, description: 'Submit star rating and comments for a care visit.' }
+    { id: 'btn-client-star-rating', label: 'Submit Rating', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT, description: 'Submit star rating and comments for a care visit.' },
+    // Phase 1 Foundation Expansion
+    { id: 'btn-psw-view-schedule', label: 'View Today\'s Schedule', role: 'psw', module: 'CARE_DELIVERY', type: 'primary', action: 'UI_NAVIGATION', description: 'Navigates to the current shift schedule.' },
+    { id: 'btn-rn-new-assessment', label: 'Start New Assessment', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'OPEN_MODAL', description: 'Opens the clinical assessment entry wizard.' },
+    { id: 'btn-coord-dispatch-center', label: 'Enter Dispatch Center', role: 'coordinator', module: 'OPERATIONS', type: 'primary', action: 'UI_NAVIGATION', description: 'Opens the real-time coordinator dispatch hub.' },
+    { id: 'btn-client-family-hub', label: 'Enter Family Hub', role: 'client', module: 'CLIENT', type: 'primary', action: 'UI_NAVIGATION', description: 'Opens the family engagement and care coordination center.' }
 ];

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/shared/context/AuthContext';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import './StaffDashboard.css';
 
@@ -11,10 +11,26 @@ export default function StaffDashboard() {
     const { t } = useTranslation();
     const { user } = useAuth();
     const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState<any>(null);
 
     useEffect(() => {
-        // Simulate loading staff specific data
-        setTimeout(() => setLoading(false), 800);
+        const fetchStats = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.TENANCY.STAFF.DASHBOARD_STATS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setStats(data.kpi);
+                }
+            } catch (error) {
+                console.error('Failed to fetch staff stats:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchStats();
     }, []);
 
     if (loading) {
@@ -60,7 +76,7 @@ export default function StaffDashboard() {
                 <div className="staff-bento-card large">
                     <div>
                         <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.URGENT_NEEDS)}</span>
-                        <div className="staff-card-value">14</div>
+                        <div className="staff-card-value">{stats?.urgentSchedulingNeeds ?? '--'}</div>
                     </div>
                     <div className="staff-card-icon">⚡</div>
                     <p className="text-sm font-medium text-muted-foreground mt-4">
@@ -77,7 +93,7 @@ export default function StaffDashboard() {
                 <div className="staff-bento-card">
                     <div>
                         <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.ACTIVE_CAREGIVERS)}</span>
-                        <div className="staff-card-value text-green-600">128</div>
+                        <div className="staff-card-value text-green-600">{stats?.activeCaregivers ?? '--'}</div>
                     </div>
                     <div className="staff-card-icon">👥</div>
                 </div>
@@ -86,7 +102,7 @@ export default function StaffDashboard() {
                 <div className="staff-bento-card">
                     <div>
                         <span className="staff-card-label">{t(ContentRegistry.STAFF_DASHBOARD.STATS.MISSING_TIMESHEETS)}</span>
-                        <div className="staff-card-value text-amber-500">7</div>
+                        <div className="staff-card-value text-amber-500">{stats?.missingTimesheets ?? '--'}</div>
                     </div>
                     <div className="staff-card-icon">📄</div>
                 </div>

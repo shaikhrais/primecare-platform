@@ -24,6 +24,11 @@ export const STAFF_METADATA = {
         description: 'Retrieve various operational statistics for the staff coordinator dashboard.',
         tags: ['Staff Dashboard'],
     },
+    TASKS: {
+        summary: 'List Staff Tasks',
+        description: 'Retrieve a list of all operational tasks for the staff team.',
+        tags: ['Staff Operations'],
+    },
     INCIDENT_SUBMIT: {
         summary: 'Submit Incident Report',
         description: 'Log a new clinical or operational incident for branch tracking and triage.',
