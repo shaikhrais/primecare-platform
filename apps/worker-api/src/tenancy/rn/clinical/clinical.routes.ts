@@ -169,4 +169,112 @@ clinical.openapi(recordSupervisionRoute, async (c) => {
     return c.json(log, 201);
 });
 
+/**
+ * RN Professional Clinical Sign-off (Phase 1)
+ */
+const dailyAuditSignOffRoute = createRoute({
+    ...ROUTE_METADATA.RN.DAILY_AUDIT_SIGN_OFF,
+    method: 'post',
+    path: '/sign-off',
+    middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        visitId: z.string().uuid(),
+                        clinicalComment: z.string().optional(),
+                        status: z.enum(['verified', 'flagged']).default('verified'),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            description: 'Clinical sign-off recorded',
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+        },
+    },
+});
+
+clinical.openapi(dailyAuditSignOffRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const body = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const signOff = await prisma.dailyAuditSignOff.create({
+        data: {
+            visitId: body.visitId,
+            rnId: userId,
+            tenantId,
+            clinicalComment: body.clinicalComment,
+            status: body.status,
+        },
+    });
+
+    await logAudit(prisma, userId, 'CLINICAL_SIGN_OFF', 'VISIT', body.visitId, body);
+
+    return c.json(signOff, 201);
+});
+
+/**
+ * RN List Daily Audits (Phase 1)
+ */
+const listDailyAuditRoute = createRoute({
+    summary: 'List High-Risk Daily Entries',
+    description: 'Retrieve a list of visit entries requiring professional RN sign-off.',
+    tags: ['RN Clinical Audit'],
+    method: 'get',
+    path: '/audit/list',
+    middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
+    responses: {
+        200: {
+            description: 'List of audit entries',
+            content: {
+                'application/json': {
+                    schema: z.array(z.any()),
+                },
+            },
+        },
+    },
+});
+
+clinical.openapi(listDailyAuditRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const visits = await prisma.visit.findMany({
+        where: {
+            tenantId,
+            status: 'completed',
+            dailyAuditSignOff: null, // Only unsigned ones
+        },
+        include: {
+            client: { select: { fullName: true } },
+            psw: { select: { fullName: true } },
+            DailyEntry: { orderBy: { createdAt: 'desc' }, take: 1 },
+        },
+        orderBy: { requestedStartAt: 'desc' },
+        take: 50,
+    });
+
+    const entries = visits.map((v: any) => ({
+        id: v.id,
+        visitId: v.id,
+        visitTime: v.requestedStartAt,
+        client: { fullName: v.client.fullName },
+        psw: { fullName: v.psw?.fullName || 'Unassigned' },
+        highlights: v.DailyEntry[0]?.noteText || 'No clinical notes provided.',
+        verificationStatus: 'pending',
+    }));
+
+    return c.json(entries, 200);
+});
+
 export default clinical;

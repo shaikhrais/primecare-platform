@@ -180,4 +180,64 @@ r.openapi(updateBookingRoute, async (c) => {
     return c.json(booking, 200);
 });
 
+// POST Booking Request (Phase 1)
+const createBookingRequestRoute = createRoute({
+    ...ROUTE_METADATA.CLIENT.BOOKING_REQUESTS,
+    method: 'post',
+    path: '/requests',
+    middleware: [requireRole(['client'])],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        serviceType: z.string(),
+                        preferredDate: z.string().datetime(),
+                        preferredTime: z.string().optional(),
+                        notes: z.string().optional(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        201: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Booking request submitted',
+        },
+        404: {
+            description: 'Profile not found',
+        },
+    },
+});
+
+r.openapi(createBookingRequestRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+    const data = c.req.valid('json');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const profile = await prisma.clientProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const request = await prisma.bookingRequest.create({
+        data: {
+            clientId: profile.id,
+            tenantId,
+            serviceType: data.serviceType,
+            preferredDate: new Date(data.preferredDate),
+            preferredTime: data.preferredTime,
+            notes: data.notes,
+        },
+    });
+
+    await logAudit(prisma, userId, 'REQUEST_SERVICE', 'BOOKING_REQUEST', request.id, { serviceType: data.serviceType });
+
+    return c.json(request, 201);
+});
+
 export default r;

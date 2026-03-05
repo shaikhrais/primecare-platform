@@ -46,6 +46,7 @@ model User {
   supervisionLogs       SupervisionLog[]
   acknowledgedIncidents Incident[]           @relation("Acknowledger")
   performedAudits      TechnicalAudit[]    @relation("PerformedAudits")
+  dailyAuditSignOffs   DailyAuditSignOff[]
 
   @@index([tenantId])
   @@map("users")
@@ -99,6 +100,8 @@ model Tenant {
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
   technicalAudits     TechnicalAudit[]
+  bookingRequests     BookingRequest[]
+  dailyAuditSignOffs  DailyAuditSignOff[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -183,6 +186,7 @@ model ClientProfile {
   waitlistEntries    WaitlistEntry[]
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
+  bookingRequests     BookingRequest[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -268,6 +272,7 @@ model Visit {
   tenant              Tenant            @relation(fields: [tenantId], references: [id])
   handovers           ShiftHandover[]
   careFeedbacks       CareFeedback[]
+  dailyAuditSignOff   DailyAuditSignOff?
 
   @@index([tenantId])
   @@map("visits")
@@ -1467,4 +1472,38 @@ model RegistryEntry {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("registry_entries")
+}
+
+model BookingRequest {
+  id              String   @id @default(uuid())
+  clientId        String   @map("client_id")
+  tenantId        String   @map("tenant_id")
+  serviceType     String   @map("service_type")
+  preferredDate   DateTime @map("preferred_date")
+  preferredTime   String?  @map("preferred_time")
+  notes           String?
+  status          String   @default("pending") // pending, approved, rejected, cancelled
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@map("booking_requests")
+}
+
+model DailyAuditSignOff {
+  id              String   @id @default(uuid())
+  rnId            String   @map("rn_id")
+  tenantId        String   @map("tenant_id")
+  visitId         String   @unique @map("visit_id")
+  clinicalComment String?  @map("clinical_comment")
+  status          String   @default("verified") // verified, flagged
+  signedAt        DateTime @default(now()) @map("signed_at")
+
+  rn     User   @relation(fields: [rnId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  visit  Visit  @relation(fields: [visitId], references: [id])
+
+  @@map("daily_audit_signoffs")
 }

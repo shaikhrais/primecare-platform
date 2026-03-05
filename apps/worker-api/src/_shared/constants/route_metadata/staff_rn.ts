@@ -82,4 +82,9 @@ export const RN_METADATA = {
         description: 'Logs RN supervision of PSW competencies and feedback.',
         tags: ['RN Supervision'],
     },
+    DAILY_AUDIT_SIGN_OFF: {
+        summary: 'Professional Clinical Sign-off',
+        description: 'Allows an RN to formally sign off on a completed visit encounter for clinical accuracy.',
+        tags: ['RN Clinical Audit'],
+    },
 };

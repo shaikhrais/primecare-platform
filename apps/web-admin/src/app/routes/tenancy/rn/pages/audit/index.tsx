@@ -24,21 +24,37 @@ export const EntryVerify: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchEntries = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.RN.DAILY_AUDIT_LIST);
-                if (Array.isArray(response)) {
-                    setEntries(response);
-                }
-            } catch (error) {
-                console.error('Failed to load audit entries', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchEntries();
     }, []);
+
+    const fetchEntries = async () => {
+        try {
+            setLoading(true);
+            const response = await apiClient.get(ApiRegistry.TENANCY.RN.DAILY_AUDIT_LIST);
+            if (Array.isArray(response)) {
+                setEntries(response);
+            }
+        } catch (error) {
+            console.error('Failed to load audit entries', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleVerify = async (entry: AuditEntry) => {
+        try {
+            await apiClient.post(ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF, {
+                visitId: entry.visitId,
+                status: 'verified',
+                clinicalComment: 'Verified via Phase 1 Foundation Sync.'
+            });
+            // Refresh list
+            fetchEntries();
+        } catch (error) {
+            console.error('Failed to verify entry', error);
+            alert('Verification failed. Technical audit logs updated.');
+        }
+    };
 
     if (loading) {
         return (
@@ -74,7 +90,11 @@ export const EntryVerify: React.FC = () => {
                             </div>
 
                             <div className="audit-card-actions">
-                                <button className="btn-premium" data-cy={`btn-verify-${entry.id}`}>
+                                <button
+                                    className="btn-premium"
+                                    data-cy={`btn-verify-${entry.id}`}
+                                    onClick={() => handleVerify(entry)}
+                                >
                                     {ContentRegistry.RN_DAILY_AUDIT.VERIFY_BUTTON}
                                 </button>
                                 <button className="btn btn-ghost" style={{ fontSize: '12px' }}>Flag for Review</button>

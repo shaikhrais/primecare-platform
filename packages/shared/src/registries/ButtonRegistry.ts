@@ -100,5 +100,7 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-psw-view-schedule', label: 'View Today\'s Schedule', role: 'psw', module: 'CARE_DELIVERY', type: 'primary', action: 'UI_NAVIGATION', description: 'Navigates to the current shift schedule.' },
     { id: 'btn-rn-new-assessment', label: 'Start New Assessment', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'OPEN_MODAL', description: 'Opens the clinical assessment entry wizard.' },
     { id: 'btn-coord-dispatch-center', label: 'Enter Dispatch Center', role: 'coordinator', module: 'OPERATIONS', type: 'primary', action: 'UI_NAVIGATION', description: 'Opens the real-time coordinator dispatch hub.' },
-    { id: 'btn-client-family-hub', label: 'Enter Family Hub', role: 'client', module: 'CLIENT', type: 'primary', action: 'UI_NAVIGATION', description: 'Opens the family engagement and care coordination center.' }
+    { id: 'btn-client-family-hub', label: 'Enter Family Hub', role: 'client', module: 'CLIENT', type: 'primary', action: 'UI_NAVIGATION', description: 'Opens the family engagement and care coordination center.' },
+    { id: 'btn-client-booking-request', label: 'Submit Service Request', role: 'client', module: 'CLIENT', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.CLIENT.BOOKING_REQUESTS, description: 'Submits a new service request for coordinator approval.' },
+    { id: 'btn-rn-audit-sign-off', label: 'Clinical Sign-off', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', apiPath: ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF, description: 'RN professional sign-off for clinical visit accuracy.' }
 ];

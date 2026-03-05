@@ -16,6 +16,7 @@ const TENANCY = {
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
+        BOOKING_REQUESTS: '/v1/client/bookings/requests',
         INVOICES: '/v1/client/invoices',
         SERVICES: '/v1/client/services',
         DASHBOARD_STATS: '/v1/client/dashboard/stats',
@@ -42,6 +43,8 @@ const TENANCY = {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',
         CARE_PLANS: '/v1/rn/clinical/care-plans',
         CARE_PLAN_REVIEW: (id: string) => `/v1/rn/clinical/care-plans/${id}/review`,
+        DAILY_AUDIT_LIST: '/v1/rn/clinical/audit/list',
+        DAILY_AUDIT_SIGN_OFF: '/v1/rn/clinical/audit/sign-off',
         DAILY_REVIEW: (id: string) => `/v1/rn/daily-review/${id}/review`,
         SUPERVISION_OVERVIEW: (pswId: string) => `/v1/rn/supervision/psw/${pswId}/overview`,
         CLINICAL_ASSESS: '/v1/rn/clinical/assessments',

@@ -71,28 +71,32 @@ export default function BookingsPage() {
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
-            const requestedStartAt = new Date(`${data.activeDate}T${data.activeTime}`).toISOString();
+            const preferredDate = new Date(`${data.activeDate}T${data.activeTime}`).toISOString();
 
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKINGS}`, {
+            // Find service name from ID
+            const service = services.find(s => s.id === data.selectedService);
+            const serviceType = service ? service.name : 'General Care';
+
+            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKING_REQUESTS}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    serviceId: data.selectedService,
-                    requestedStartAt,
-                    durationMinutes: Number(data.duration),
+                    serviceType,
+                    preferredDate,
+                    preferredTime: data.activeTime,
                     notes: data.notes
                 })
             });
 
             if (response.ok) {
                 setShowModal(false);
-                showToast('Request submitted! We will assign a service provider shortly.', 'success');
-                fetchBookings(); // Refresh list
+                showToast('Care request submitted! A coordinator will review and confirm shortly.', 'success');
+                fetchBookings();
             } else {
-                showToast('Failed to submit request.', 'error');
+                showToast('Failed to submit care request.', 'error');
             }
         } catch (error) {
             console.error('Error submitting booking', error);

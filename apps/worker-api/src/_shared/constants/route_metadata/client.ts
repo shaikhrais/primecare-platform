@@ -69,4 +69,9 @@ export const CLIENT_METADATA = {
         description: 'Start the payment process for a specific client invoice.',
         tags: ['Client Services'],
     },
+    BOOKING_REQUESTS: {
+        summary: 'Submit Service Booking Request',
+        description: 'Create a new service request that requires coordinator approval.',
+        tags: ['Client Bookings'],
+    },
 };

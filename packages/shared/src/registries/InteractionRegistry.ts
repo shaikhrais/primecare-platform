@@ -53,6 +53,15 @@ export const InteractionRegistry = {
                 module: 'RN',
                 purpose: 'Request corrections to clinical documentation.',
                 permission: 'DAILY_ENTRY_REVIEW'
+            },
+            SIGN_OFF: {
+                id: 'rn-daily-audit-sign-off',
+                label: 'Clinical Sign-off',
+                type: 'button',
+                module: 'RN',
+                purpose: 'Official professional sign-off for clinical visit accuracy.',
+                permission: 'DAILY_ENTRY_REVIEW',
+                apiEndpoint: ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF
             }
         },
         SUPERVISION: {
@@ -254,6 +263,14 @@ export const InteractionRegistry = {
                 module: 'CLIENT',
                 purpose: 'Submit a star rating and comment for a visit.',
                 apiEndpoint: ApiRegistry.TENANCY.CLIENT.FEEDBACK_SUBMIT
+            },
+            BOOKING_REQUEST: {
+                id: 'client-booking-request',
+                label: 'Request Service',
+                type: 'button',
+                module: 'CLIENT',
+                purpose: 'Submit a new care service request for approval.',
+                apiEndpoint: ApiRegistry.CLIENT.BOOKING_REQUESTS
             }
         }
     },
