@@ -13,23 +13,23 @@ import fs from 'fs';
 const BASE_PATH = path.join(process.cwd(), 'src');
 
 const DASHBOARDS = [
-    { name: 'Admin Dashboard', path: 'app/routes/admin/pages/dashboard/index.tsx' },
-    { name: 'Manager Dashboard', path: 'app/routes/manager/pages/dashboard/index.tsx' },
-    { name: 'PSW Dashboard', path: 'app/routes/psw/pages/dashboard/index.tsx' },
-    { name: 'Client Dashboard', path: 'app/routes/client/pages/dashboard/index.tsx' },
-    { name: 'Staff Dashboard', path: 'app/routes/staff/index.tsx' },
+    { name: 'Manager Dashboard', path: 'app/routes/tenancy/manager/pages/dashboard/index.tsx' },
+    { name: 'PSW Dashboard', path: 'app/routes/tenancy/psw/pages/dashboard/index.tsx' },
+    { name: 'RN Dashboard', path: 'app/routes/tenancy/rn/pages/dashboard/index.tsx' },
+    { name: 'Coordinator Hub', path: 'app/routes/tenancy/coordinator/pages/hub/CoordinatorHub.tsx' },
+    { name: 'Client Dashboard', path: 'app/routes/tenancy/client/pages/dashboard/index.tsx' },
+    { name: 'Staff Dashboard', path: 'app/routes/tenancy/staff/pages/dashboard/index.tsx' },
 ];
 
 const PAGES = [
-    { name: 'Earnings Center', path: 'app/routes/admin/pages/earnings/index.tsx' },
-    { name: 'Schedule Central', path: 'app/routes/admin/pages/schedule/index.tsx' },
-    { name: 'User Management', path: 'app/routes/admin/pages/users/index.tsx' },
-    { name: 'Admission flow', path: 'app/routes/admin/pages/admission/index.tsx' },
+    { name: 'PSW Schedule', path: 'app/routes/tenancy/psw/pages/schedule/index.tsx' },
+    { name: 'RN Assessments', path: 'app/routes/tenancy/rn/pages/assessments/index.tsx' },
+    { name: 'Manager Ops', path: 'app/routes/tenancy/manager/pages/operations/index.tsx' },
+    { name: 'Client Family Hub', path: 'app/routes/tenancy/client/pages/engagement/FamilyCareHub.tsx' },
 ];
 
 const SHARED = [
-    { name: 'Layouts', path: 'shared/components/layout/AdminLayout.tsx' },
-    { name: 'Modals (Create Visit)', path: 'shared/components/modals/CreateVisitModal.tsx' },
+    { name: 'App Layout', path: 'shared/components/layout/AppLayout.tsx' },
     { name: 'Notification Context', path: 'shared/context/NotificationContext.tsx' },
 ];
 
