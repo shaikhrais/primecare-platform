@@ -100,6 +100,12 @@ const PLATFORM = {
             SESSIONS: '/v1/admin/telehealth/sessions',
             CREATE_SESSION: '/v1/admin/telehealth/sessions/create',
             VITAL_SIGN_PUSH: '/v1/admin/telehealth/vitals/push',
+        },
+        RCM: {
+            DASHBOARD: '/v1/admin/rcm/stats',
+            CLAIMS: '/v1/admin/rcm/claims',
+            SUBMIT_CLAIM: '/v1/admin/rcm/claims/submit',
+            REVENUE_SYNC: '/v1/admin/rcm/revenue/sync',
         }
     },
     SCRUM_MASTER: {

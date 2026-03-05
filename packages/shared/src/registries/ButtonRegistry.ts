@@ -61,5 +61,8 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-erp-po-create', label: 'Generate Purchase Order', role: 'operations_manager', module: 'ERP', type: 'primary', action: 'OPEN_MODAL', description: 'Initiates procurement request for external suppliers.' },
     // Batch 17: Telehealth & RPM Mastery
     { id: 'btn-telehealth-session-start', label: 'Start Virtual Visit', role: 'rn', module: 'TELEHEALTH', type: 'primary', action: 'UI_NAVIGATION', description: 'Launches the real-time encrypted video consultation gateway.' },
-    { id: 'btn-rpm-vitals-verify', label: 'Verify Remote Vitals', role: 'coordinator', module: 'TELEHEALTH', type: 'secondary', action: 'API_TRIGGER', description: 'Acknowledges and logs incoming remote patient monitoring data.' }
+    { id: 'btn-rpm-vitals-verify', label: 'Verify Remote Vitals', role: 'coordinator', module: 'TELEHEALTH', type: 'secondary', action: 'API_TRIGGER', description: 'Acknowledges and logs incoming remote patient monitoring data.' },
+    // Batch 18: Insurance & RCM Mastery
+    { id: 'btn-rcm-claim-submit', label: 'Submit Insurance Claim', role: 'billing_manager', module: 'FINANCE', type: 'primary', action: 'API_TRIGGER', description: 'Transmits clinical documentation to insurance clearinghouses for reimbursement.' },
+    { id: 'btn-rcm-revenue-sync', label: 'Sync Revenue Ledger', role: 'admin', module: 'FINANCE', type: 'secondary', action: 'API_TRIGGER', description: 'Reconciles bank deposits with adjudicated insurance claims.' }
 ];

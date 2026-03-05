@@ -82,6 +82,8 @@ model Tenant {
   slas              TenantSLA[]
   telehealthSessions TelehealthSession[]
   patientAlerts      PatientAlert[]
+  insuranceProviders InsuranceProvider[]
+  claims             Claim[]
   
   // Business Model Extensions
   businessNumber   String?           @map("business_number")
@@ -149,6 +151,7 @@ model ClientProfile {
   telehealthSessions TelehealthSession[]
   vitalSigns         VitalSign[]
   patientAlerts      PatientAlert[]
+  claims             Claim[]
   carePlans      CarePlan[]
 
   @@index([tenantId])
@@ -1102,4 +1105,47 @@ model PatientAlert {
   patient         ClientProfile @relation(fields: [patientId], references: [id])
 
   @@map("patient_alerts")
+}
+
+model InsuranceProvider {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  name            String
+  networkId       String?  @map("network_id")
+  contactPhone    String?  @map("contact_phone")
+  claimsEmail     String?  @map("claims_email")
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  claims          Claim[]
+
+  @@map("insurance_providers")
+}
+
+model Claim {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  patientId       String   @map("patient_id")
+  providerId      String   @map("provider_id") // InsuranceProvider ID
+  serviceDate     DateTime @map("service_date")
+  amount          Float
+  status          String   @default("draft") // draft, submitted, pending, paid, denied
+  denialReason    String?  @map("denial_reason")
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  tenant          Tenant            @relation(fields: [tenantId], references: [id])
+  patient         ClientProfile      @relation(fields: [patientId], references: [id])
+  provider        InsuranceProvider @relation(fields: [providerId], references: [id])
+
+  @@map("claims")
+}
+
+model BillingCode {
+  id              String   @id @default(uuid())
+  code            String   @unique
+  description     String
+  category        String   // HCPCS, CPT, ICD-10
+  defaultRate     Float    @map("default_rate")
+  
+  @@map("billing_codes")
 }

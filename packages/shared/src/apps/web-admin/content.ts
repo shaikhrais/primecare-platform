@@ -43,6 +43,18 @@ export const ContentRegistry = {
         RESELLER: 'Reseller Hub',
         ERP: 'Supply Chain Hub',
         TELEHEALTH: 'Telehealth Center',
+        RCM: 'Claims Hub',
+    },
+    RCM: {
+        TITLE: 'Revenue Cycle Management (RCM)',
+        SUBTITLE: 'Manage insurance claims, adjudications, and financial health.',
+        LEDGER_TITLE: 'Claims Management Ledger',
+        STATS: {
+            REVENUE: 'Total Revenue (MTD)',
+            PENDING: 'Pending Claims',
+            DENIED: 'Denied Claims',
+            CLEAN_RATE: 'Clean Claim Rate',
+        }
     },
     TELEHEALTH: {
         TITLE: 'Telehealth & RPM Center',

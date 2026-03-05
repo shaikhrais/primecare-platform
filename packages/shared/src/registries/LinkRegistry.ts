@@ -41,5 +41,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-erp-procurement', label: 'Procurement Hub', role: 'operations_manager', module: 'ERP', path: '/platform/admin/erp/procurement', description: 'Supplier management and purchase order tracking.' },
     // Batch 17: Telehealth Links
     { id: 'lnk-telehealth-center', label: 'Telehealth Center', role: 'rn', module: 'TELEHEALTH', path: '/platform/admin/telehealth/center', description: 'Live video consultations and remote patient monitoring.' },
-    { id: 'lnk-rpm-alerts', label: 'Remote Alerts', role: 'coordinator', module: 'TELEHEALTH', path: '/platform/admin/telehealth/alerts', description: 'Critical health alerts from remote monitoring devices.' }
+    { id: 'lnk-rpm-alerts', label: 'Remote Alerts', role: 'coordinator', module: 'TELEHEALTH', path: '/platform/admin/telehealth/alerts', description: 'Critical health alerts from remote monitoring devices.' },
+    // Batch 18: Insurance & RCM Links
+    { id: 'lnk-rcm-claims', label: 'Claims Command Center', role: 'billing_manager', module: 'FINANCE', path: '/platform/admin/rcm/claims', description: 'Centralized management of insurance claim lifecycles.' },
+    { id: 'lnk-rcm-revenue', label: 'Revenue Analytics', role: 'admin', module: 'FINANCE', path: '/platform/admin/rcm/revenue', description: 'Detailed financial modeling and revenue cycle health monitoring.' }
 ];

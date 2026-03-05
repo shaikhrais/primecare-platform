@@ -143,6 +143,10 @@ const PLATFORM = {
         TELEHEALTH: {
             CENTER: '/platform/admin/telehealth/center',
             ALERTS: '/platform/admin/telehealth/alerts',
+        },
+        RCM: {
+            CLAIMS: '/platform/admin/rcm/claims',
+            REVENUE: '/platform/admin/rcm/revenue',
         }
     },
     SUPERUSER: {
