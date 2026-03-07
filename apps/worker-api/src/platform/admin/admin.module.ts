@@ -102,29 +102,34 @@ admin.openapi(statsRoute, async (c) => {
     const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
-    // Parallelize queries for performance
-    const [totalUsers, pendingVisits, totalVisits, totalLeads, complianceRisk, coverageGap, pipelineStagnation] = await Promise.all([
-        prisma.user.count(),
-        prisma.visit.count({ where: { status: 'requested' } }),
-        prisma.visit.count(), // Safely handle total visits
-        prisma.lead.count(),
-        // Compliance: Users with no documents or expired ones (simplified for this step)
-        prisma.pswDocument.count({ where: { status: 'pending' } }),
-        // Coverage: Unassigned visits in the next 7 days
-        prisma.visit.count({
-            where: {
-                status: 'requested',
-                requestedStartAt: { lte: sevenDaysFromNow }
-            }
-        }),
-        // Pipeline: Leads with 'new' status older than 3 days
-        prisma.lead.count({
-            where: {
-                status: 'new',
-                createdAt: { lte: threeDaysAgo }
-            }
-        })
-    ]);
+    // Parallelize queries for performance with resilience
+    let totalUsers = 0, pendingVisits = 0, totalVisits = 0, totalLeads = 0;
+    let complianceRisk = 0, coverageGap = 0, pipelineStagnation = 0;
+
+    try {
+        const results = await Promise.all([
+            prisma.user.count(),
+            prisma.visit.count({ where: { status: 'requested' } }),
+            prisma.visit.count(),
+            prisma.lead.count(),
+            prisma.pswDocument.count({ where: { status: 'pending' } }),
+            prisma.visit.count({
+                where: {
+                    status: 'requested',
+                    requestedStartAt: { lte: sevenDaysFromNow }
+                }
+            }),
+            prisma.lead.count({
+                where: {
+                    status: 'new',
+                    createdAt: { lte: threeDaysAgo }
+                }
+            })
+        ]);
+        [totalUsers, pendingVisits, totalVisits, totalLeads, complianceRisk, coverageGap, pipelineStagnation] = results;
+    } catch (e) {
+        console.error('Stats aggregation failed partially:', e);
+    }
 
     // Calculate Business Model Score
     let modelScore = 0;
@@ -153,6 +158,7 @@ admin.openapi(statsRoute, async (c) => {
         totalVisits,
         totalLeads,
         modelScore,
+        MTD_REVENUE: "0.00", // Hardcoded for now until billing sync
         healthAlerts: {
             complianceRisk,
             coverageGap,

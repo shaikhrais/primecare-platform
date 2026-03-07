@@ -152,6 +152,10 @@ exports.Prisma.TenantScalarFieldEnum = {
   brandingConfig: 'brandingConfig',
   stripeAccountId: 'stripeAccountId',
   onboardingStep: 'onboardingStep',
+  allowedVpnRanges: 'allowedVpnRanges',
+  enforceVpn: 'enforceVpn',
+  requireDeviceApproval: 'requireDeviceApproval',
+  maxDevicesPerUser: 'maxDevicesPerUser',
   parentTenantId: 'parentTenantId'
 };
 
@@ -367,6 +371,7 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   resourceType: 'resourceType',
   resourceId: 'resourceId',
   metadataJson: 'metadataJson',
+  deviceId: 'deviceId',
   ipAddress: 'ipAddress',
   createdAt: 'createdAt',
   tenantId: 'tenantId'
@@ -491,6 +496,23 @@ exports.Prisma.DailyEntryScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  deviceId: 'deviceId',
+  deviceName: 'deviceName',
+  deviceType: 'deviceType',
+  lastIp: 'lastIp',
+  status: 'status',
+  isAuthorized: 'isAuthorized',
+  authorizedAt: 'authorizedAt',
+  isTemporary: 'isTemporary',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastActiveAt: 'lastActiveAt'
 };
 
 exports.Prisma.MarketplaceListingScalarFieldEnum = {
@@ -1220,6 +1242,7 @@ exports.Prisma.ModelName = {
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
   DailyEntry: 'DailyEntry',
+  UserDevice: 'UserDevice',
   MarketplaceListing: 'MarketplaceListing',
   Feedback: 'Feedback',
   CarePlan: 'CarePlan',

@@ -5,6 +5,7 @@ import { LoginSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken } from '../auth.service';
 import { hashPassword } from '../../_shared/utils/crypto';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
+import { logAudit } from '../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -29,6 +30,8 @@ const loginRoute = createRoute({
                     schema: z.object({
                         user: z.any(),
                         token: z.string(),
+                        deviceStatus: z.string().optional(),
+                        message: z.string().optional(),
                     }),
                 },
             },
@@ -41,6 +44,17 @@ const loginRoute = createRoute({
                 },
             },
             description: 'Unauthorized',
+        },
+        403: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        error: z.string(),
+                        message: z.string().optional()
+                    }),
+                },
+            },
+            description: 'Forbidden/Blocked',
         },
         500: {
             content: {
@@ -74,6 +88,67 @@ r.openapi(loginRoute, async (c) => {
 
     const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
 
+    // --- Device Governance Registration ---
+    const deviceId = c.req.header('X-Device-ID');
+    const deviceName = c.req.header('X-Device-Name') || 'Unknown Device';
+    const deviceType = c.req.header('X-Device-Type') || 'desktop';
+    const isTempStr = c.req.header('X-Is-Temporary');
+    const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
+
+    if (deviceId) {
+        const tenant = await prisma.tenant.findUnique({ where: { id: user.tenantId } });
+        const existingDevice = await prisma.userDevice.findUnique({
+            where: { userId_deviceId: { userId: user.id, deviceId } }
+        });
+
+        if (!existingDevice) {
+            // Check Device Limit
+            const deviceCount = await prisma.userDevice.count({ where: { userId: user.id } });
+            if (tenant && deviceCount >= tenant.maxDevicesPerUser) {
+                return c.json({
+                    error: 'Device Limit Exceeded',
+                    message: `You have reached the maximum limit of ${tenant.maxDevicesPerUser} devices. Please revoke an existing device to continue.`
+                }, 403);
+            }
+
+            // Create New Device
+            await prisma.userDevice.create({
+                data: {
+                    userId: user.id,
+                    deviceId,
+                    deviceName,
+                    deviceType,
+                    lastIp: clientIp,
+                    isAuthorized: tenant ? !tenant.requireDeviceApproval : true,
+                    authorizedAt: (tenant && !tenant.requireDeviceApproval) ? new Date() : null,
+                    isTemporary: isTempStr === 'true',
+                    expiresAt: isTempStr === 'true' ? new Date(Date.now() + 1000 * 60 * 60 * 24) : null, // 24h for temp
+                }
+            });
+
+            // If approval is required, the governance middleware will block subsequent requests 
+            // but we can allow the login response to return the status.
+            if (tenant?.requireDeviceApproval) {
+                return c.json({
+                    user,
+                    token: accessToken,
+                    deviceStatus: 'pending_approval',
+                    message: 'Login successful, but this device requires administrator approval.'
+                }, 200);
+            }
+        } else {
+            // Update existing device
+            await prisma.userDevice.update({
+                where: { id: existingDevice.id },
+                data: { lastActiveAt: new Date(), lastIp: clientIp }
+            });
+
+            if (existingDevice.status === 'blocked' || existingDevice.status === 'revoked') {
+                return c.json({ error: 'Device Blocked', message: 'Access from this device has been revoked.' }, 403);
+            }
+        }
+    }
+
     setCookie(c, 'accessToken', accessToken, {
         httpOnly: true,
         secure: true,
@@ -89,6 +164,18 @@ r.openapi(loginRoute, async (c) => {
         maxAge: 60 * 60 * 24 * 7,
         path: '/v1/auth/refresh'
     });
+
+    if (deviceId) {
+        await logAudit(
+            prisma,
+            user.id,
+            'LOGIN',
+            'USER',
+            user.id,
+            { tenantId: user.tenantId, ip: clientIp },
+            deviceId
+        );
+    }
 
     return c.json({ user, token: accessToken }, 200);
 });

@@ -8,3 +8,4 @@ export * from './InteractiveRegistry';
 export * from './ButtonRegistry';
 export * from './LinkRegistry';
 export * from './InteractionARegistry';
+export * from './CorsRegistry';

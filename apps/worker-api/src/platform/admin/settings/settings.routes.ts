@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import brandingRoutes from './branding.routes';
+import securityRoutes from './security.routes';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -102,12 +103,12 @@ r.post('/logo', async (c) => {
     });
 
     // Generate public URL (assuming a public R2 bucket or worker proxy)
-    // For now, we'll return a path that the worker can serve or a public dev domain
     const logoUrl = `/v1/system/files/${key}`;
 
     return c.json({ logoUrl }, 201);
 });
 
 r.route('/branding', brandingRoutes);
+r.route('/security', securityRoutes);
 
 export default r;

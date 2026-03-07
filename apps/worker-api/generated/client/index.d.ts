@@ -149,6 +149,11 @@ export type FAQ = $Result.DefaultSelection<Prisma.$FAQPayload>
  */
 export type DailyEntry = $Result.DefaultSelection<Prisma.$DailyEntryPayload>
 /**
+ * Model UserDevice
+ * 
+ */
+export type UserDevice = $Result.DefaultSelection<Prisma.$UserDevicePayload>
+/**
  * Model MarketplaceListing
  * 
  */
@@ -976,6 +981,16 @@ export class PrismaClient<
     * ```
     */
   get dailyEntry(): Prisma.DailyEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.userDevice`: Exposes CRUD operations for the **UserDevice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserDevices
+    * const userDevices = await prisma.userDevice.findMany()
+    * ```
+    */
+  get userDevice(): Prisma.UserDeviceDelegate<ExtArgs>;
 
   /**
    * `prisma.marketplaceListing`: Exposes CRUD operations for the **MarketplaceListing** model.
@@ -1954,6 +1969,7 @@ export namespace Prisma {
     PswDocument: 'PswDocument',
     FAQ: 'FAQ',
     DailyEntry: 'DailyEntry',
+    UserDevice: 'UserDevice',
     MarketplaceListing: 'MarketplaceListing',
     Feedback: 'Feedback',
     CarePlan: 'CarePlan',
@@ -2020,7 +2036,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3911,6 +3927,76 @@ export namespace Prisma {
           count: {
             args: Prisma.DailyEntryCountArgs<ExtArgs>
             result: $Utils.Optional<DailyEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserDevice: {
+        payload: Prisma.$UserDevicePayload<ExtArgs>
+        fields: Prisma.UserDeviceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserDeviceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserDeviceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          findFirst: {
+            args: Prisma.UserDeviceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserDeviceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          findMany: {
+            args: Prisma.UserDeviceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>[]
+          }
+          create: {
+            args: Prisma.UserDeviceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          createMany: {
+            args: Prisma.UserDeviceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserDeviceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>[]
+          }
+          delete: {
+            args: Prisma.UserDeviceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          update: {
+            args: Prisma.UserDeviceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeviceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserDeviceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserDeviceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDevicePayload>
+          }
+          aggregate: {
+            args: Prisma.UserDeviceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserDevice>
+          }
+          groupBy: {
+            args: Prisma.UserDeviceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserDeviceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserDeviceCountArgs<ExtArgs>
+            result: $Utils.Optional<UserDeviceCountAggregateOutputType> | number
           }
         }
       }
@@ -7666,6 +7752,7 @@ export namespace Prisma {
     performedAudits: number
     dailyAuditSignOffs: number
     wellnessPulses: number
+    devices: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7686,6 +7773,7 @@ export namespace Prisma {
     performedAudits?: boolean | UserCountOutputTypeCountPerformedAuditsArgs
     dailyAuditSignOffs?: boolean | UserCountOutputTypeCountDailyAuditSignOffsArgs
     wellnessPulses?: boolean | UserCountOutputTypeCountWellnessPulsesArgs
+    devices?: boolean | UserCountOutputTypeCountDevicesArgs
   }
 
   // Custom InputTypes
@@ -7816,6 +7904,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWellnessPulsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WellnessPulseWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserDeviceWhereInput
   }
 
 
@@ -9494,6 +9589,7 @@ export namespace Prisma {
     performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
     dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
+    devices?: boolean | User$devicesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -9551,6 +9647,7 @@ export namespace Prisma {
     performedAudits?: boolean | User$performedAuditsArgs<ExtArgs>
     dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
+    devices?: boolean | User$devicesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9580,6 +9677,7 @@ export namespace Prisma {
       performedAudits: Prisma.$TechnicalAuditPayload<ExtArgs>[]
       dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
       wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
+      devices: Prisma.$UserDevicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9979,6 +10077,7 @@ export namespace Prisma {
     performedAudits<T extends User$performedAuditsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicalAuditPayload<ExtArgs>, T, "findMany"> | Null>
     dailyAuditSignOffs<T extends User$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
     wellnessPulses<T extends User$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, User$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
+    devices<T extends User$devicesArgs<ExtArgs> = {}>(args?: Subset<T, User$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10709,6 +10808,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.devices
+   */
+  export type User$devicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    where?: UserDeviceWhereInput
+    orderBy?: UserDeviceOrderByWithRelationInput | UserDeviceOrderByWithRelationInput[]
+    cursor?: UserDeviceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserDeviceScalarFieldEnum | UserDeviceScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10737,10 +10856,12 @@ export namespace Prisma {
 
   export type TenantAvgAggregateOutputType = {
     onboardingStep: number | null
+    maxDevicesPerUser: number | null
   }
 
   export type TenantSumAggregateOutputType = {
     onboardingStep: number | null
+    maxDevicesPerUser: number | null
   }
 
   export type TenantMinAggregateOutputType = {
@@ -10755,6 +10876,9 @@ export namespace Prisma {
     logoUrl: string | null
     stripeAccountId: string | null
     onboardingStep: number | null
+    enforceVpn: boolean | null
+    requireDeviceApproval: boolean | null
+    maxDevicesPerUser: number | null
     parentTenantId: string | null
   }
 
@@ -10770,6 +10894,9 @@ export namespace Prisma {
     logoUrl: string | null
     stripeAccountId: string | null
     onboardingStep: number | null
+    enforceVpn: boolean | null
+    requireDeviceApproval: boolean | null
+    maxDevicesPerUser: number | null
     parentTenantId: string | null
   }
 
@@ -10787,6 +10914,10 @@ export namespace Prisma {
     brandingConfig: number
     stripeAccountId: number
     onboardingStep: number
+    allowedVpnRanges: number
+    enforceVpn: number
+    requireDeviceApproval: number
+    maxDevicesPerUser: number
     parentTenantId: number
     _all: number
   }
@@ -10794,10 +10925,12 @@ export namespace Prisma {
 
   export type TenantAvgAggregateInputType = {
     onboardingStep?: true
+    maxDevicesPerUser?: true
   }
 
   export type TenantSumAggregateInputType = {
     onboardingStep?: true
+    maxDevicesPerUser?: true
   }
 
   export type TenantMinAggregateInputType = {
@@ -10812,6 +10945,9 @@ export namespace Prisma {
     logoUrl?: true
     stripeAccountId?: true
     onboardingStep?: true
+    enforceVpn?: true
+    requireDeviceApproval?: true
+    maxDevicesPerUser?: true
     parentTenantId?: true
   }
 
@@ -10827,6 +10963,9 @@ export namespace Prisma {
     logoUrl?: true
     stripeAccountId?: true
     onboardingStep?: true
+    enforceVpn?: true
+    requireDeviceApproval?: true
+    maxDevicesPerUser?: true
     parentTenantId?: true
   }
 
@@ -10844,6 +10983,10 @@ export namespace Prisma {
     brandingConfig?: true
     stripeAccountId?: true
     onboardingStep?: true
+    allowedVpnRanges?: true
+    enforceVpn?: true
+    requireDeviceApproval?: true
+    maxDevicesPerUser?: true
     parentTenantId?: true
     _all?: true
   }
@@ -10948,6 +11091,10 @@ export namespace Prisma {
     brandingConfig: JsonValue | null
     stripeAccountId: string | null
     onboardingStep: number
+    allowedVpnRanges: string[]
+    enforceVpn: boolean
+    requireDeviceApproval: boolean
+    maxDevicesPerUser: number
     parentTenantId: string | null
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
@@ -10984,6 +11131,10 @@ export namespace Prisma {
     brandingConfig?: boolean
     stripeAccountId?: boolean
     onboardingStep?: boolean
+    allowedVpnRanges?: boolean
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: boolean
     parentTenantId?: boolean
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
     bookings?: boolean | Tenant$bookingsArgs<ExtArgs>
@@ -11059,6 +11210,10 @@ export namespace Prisma {
     brandingConfig?: boolean
     stripeAccountId?: boolean
     onboardingStep?: boolean
+    allowedVpnRanges?: boolean
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: boolean
     parentTenantId?: boolean
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
@@ -11077,6 +11232,10 @@ export namespace Prisma {
     brandingConfig?: boolean
     stripeAccountId?: boolean
     onboardingStep?: boolean
+    allowedVpnRanges?: boolean
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: boolean
     parentTenantId?: boolean
   }
 
@@ -11219,6 +11378,10 @@ export namespace Prisma {
       brandingConfig: Prisma.JsonValue | null
       stripeAccountId: string | null
       onboardingStep: number
+      allowedVpnRanges: string[]
+      enforceVpn: boolean
+      requireDeviceApproval: boolean
+      maxDevicesPerUser: number
       parentTenantId: string | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
@@ -11683,6 +11846,10 @@ export namespace Prisma {
     readonly brandingConfig: FieldRef<"Tenant", 'Json'>
     readonly stripeAccountId: FieldRef<"Tenant", 'String'>
     readonly onboardingStep: FieldRef<"Tenant", 'Int'>
+    readonly allowedVpnRanges: FieldRef<"Tenant", 'String[]'>
+    readonly enforceVpn: FieldRef<"Tenant", 'Boolean'>
+    readonly requireDeviceApproval: FieldRef<"Tenant", 'Boolean'>
+    readonly maxDevicesPerUser: FieldRef<"Tenant", 'Int'>
     readonly parentTenantId: FieldRef<"Tenant", 'String'>
   }
     
@@ -30009,6 +30176,7 @@ export namespace Prisma {
     action: string | null
     resourceType: string | null
     resourceId: string | null
+    deviceId: string | null
     ipAddress: string | null
     createdAt: Date | null
     tenantId: string | null
@@ -30020,6 +30188,7 @@ export namespace Prisma {
     action: string | null
     resourceType: string | null
     resourceId: string | null
+    deviceId: string | null
     ipAddress: string | null
     createdAt: Date | null
     tenantId: string | null
@@ -30032,6 +30201,7 @@ export namespace Prisma {
     resourceType: number
     resourceId: number
     metadataJson: number
+    deviceId: number
     ipAddress: number
     createdAt: number
     tenantId: number
@@ -30045,6 +30215,7 @@ export namespace Prisma {
     action?: true
     resourceType?: true
     resourceId?: true
+    deviceId?: true
     ipAddress?: true
     createdAt?: true
     tenantId?: true
@@ -30056,6 +30227,7 @@ export namespace Prisma {
     action?: true
     resourceType?: true
     resourceId?: true
+    deviceId?: true
     ipAddress?: true
     createdAt?: true
     tenantId?: true
@@ -30068,6 +30240,7 @@ export namespace Prisma {
     resourceType?: true
     resourceId?: true
     metadataJson?: true
+    deviceId?: true
     ipAddress?: true
     createdAt?: true
     tenantId?: true
@@ -30153,6 +30326,7 @@ export namespace Prisma {
     resourceType: string
     resourceId: string | null
     metadataJson: JsonValue | null
+    deviceId: string | null
     ipAddress: string | null
     createdAt: Date
     tenantId: string
@@ -30182,6 +30356,7 @@ export namespace Prisma {
     resourceType?: boolean
     resourceId?: boolean
     metadataJson?: boolean
+    deviceId?: boolean
     ipAddress?: boolean
     createdAt?: boolean
     tenantId?: boolean
@@ -30196,6 +30371,7 @@ export namespace Prisma {
     resourceType?: boolean
     resourceId?: boolean
     metadataJson?: boolean
+    deviceId?: boolean
     ipAddress?: boolean
     createdAt?: boolean
     tenantId?: boolean
@@ -30210,6 +30386,7 @@ export namespace Prisma {
     resourceType?: boolean
     resourceId?: boolean
     metadataJson?: boolean
+    deviceId?: boolean
     ipAddress?: boolean
     createdAt?: boolean
     tenantId?: boolean
@@ -30237,6 +30414,7 @@ export namespace Prisma {
       resourceType: string
       resourceId: string | null
       metadataJson: Prisma.JsonValue | null
+      deviceId: string | null
       ipAddress: string | null
       createdAt: Date
       tenantId: string
@@ -30641,6 +30819,7 @@ export namespace Prisma {
     readonly resourceType: FieldRef<"AuditLog", 'String'>
     readonly resourceId: FieldRef<"AuditLog", 'String'>
     readonly metadataJson: FieldRef<"AuditLog", 'Json'>
+    readonly deviceId: FieldRef<"AuditLog", 'String'>
     readonly ipAddress: FieldRef<"AuditLog", 'String'>
     readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
     readonly tenantId: FieldRef<"AuditLog", 'String'>
@@ -40134,6 +40313,1047 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: DailyEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserDevice
+   */
+
+  export type AggregateUserDevice = {
+    _count: UserDeviceCountAggregateOutputType | null
+    _min: UserDeviceMinAggregateOutputType | null
+    _max: UserDeviceMaxAggregateOutputType | null
+  }
+
+  export type UserDeviceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    deviceId: string | null
+    deviceName: string | null
+    deviceType: string | null
+    lastIp: string | null
+    status: string | null
+    isAuthorized: boolean | null
+    authorizedAt: Date | null
+    isTemporary: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    lastActiveAt: Date | null
+  }
+
+  export type UserDeviceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    deviceId: string | null
+    deviceName: string | null
+    deviceType: string | null
+    lastIp: string | null
+    status: string | null
+    isAuthorized: boolean | null
+    authorizedAt: Date | null
+    isTemporary: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    lastActiveAt: Date | null
+  }
+
+  export type UserDeviceCountAggregateOutputType = {
+    id: number
+    userId: number
+    deviceId: number
+    deviceName: number
+    deviceType: number
+    lastIp: number
+    status: number
+    isAuthorized: number
+    authorizedAt: number
+    isTemporary: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    lastActiveAt: number
+    _all: number
+  }
+
+
+  export type UserDeviceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    deviceId?: true
+    deviceName?: true
+    deviceType?: true
+    lastIp?: true
+    status?: true
+    isAuthorized?: true
+    authorizedAt?: true
+    isTemporary?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    lastActiveAt?: true
+  }
+
+  export type UserDeviceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    deviceId?: true
+    deviceName?: true
+    deviceType?: true
+    lastIp?: true
+    status?: true
+    isAuthorized?: true
+    authorizedAt?: true
+    isTemporary?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    lastActiveAt?: true
+  }
+
+  export type UserDeviceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    deviceId?: true
+    deviceName?: true
+    deviceType?: true
+    lastIp?: true
+    status?: true
+    isAuthorized?: true
+    authorizedAt?: true
+    isTemporary?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    lastActiveAt?: true
+    _all?: true
+  }
+
+  export type UserDeviceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserDevice to aggregate.
+     */
+    where?: UserDeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDevices to fetch.
+     */
+    orderBy?: UserDeviceOrderByWithRelationInput | UserDeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserDeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDevices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDevices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserDevices
+    **/
+    _count?: true | UserDeviceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserDeviceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserDeviceMaxAggregateInputType
+  }
+
+  export type GetUserDeviceAggregateType<T extends UserDeviceAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserDevice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserDevice[P]>
+      : GetScalarType<T[P], AggregateUserDevice[P]>
+  }
+
+
+
+
+  export type UserDeviceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserDeviceWhereInput
+    orderBy?: UserDeviceOrderByWithAggregationInput | UserDeviceOrderByWithAggregationInput[]
+    by: UserDeviceScalarFieldEnum[] | UserDeviceScalarFieldEnum
+    having?: UserDeviceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserDeviceCountAggregateInputType | true
+    _min?: UserDeviceMinAggregateInputType
+    _max?: UserDeviceMaxAggregateInputType
+  }
+
+  export type UserDeviceGroupByOutputType = {
+    id: string
+    userId: string
+    deviceId: string
+    deviceName: string | null
+    deviceType: string | null
+    lastIp: string | null
+    status: string
+    isAuthorized: boolean
+    authorizedAt: Date | null
+    isTemporary: boolean
+    expiresAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    lastActiveAt: Date
+    _count: UserDeviceCountAggregateOutputType | null
+    _min: UserDeviceMinAggregateOutputType | null
+    _max: UserDeviceMaxAggregateOutputType | null
+  }
+
+  type GetUserDeviceGroupByPayload<T extends UserDeviceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserDeviceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserDeviceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserDeviceGroupByOutputType[P]>
+            : GetScalarType<T[P], UserDeviceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserDeviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    deviceType?: boolean
+    lastIp?: boolean
+    status?: boolean
+    isAuthorized?: boolean
+    authorizedAt?: boolean
+    isTemporary?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lastActiveAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userDevice"]>
+
+  export type UserDeviceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    deviceType?: boolean
+    lastIp?: boolean
+    status?: boolean
+    isAuthorized?: boolean
+    authorizedAt?: boolean
+    isTemporary?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lastActiveAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userDevice"]>
+
+  export type UserDeviceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    deviceType?: boolean
+    lastIp?: boolean
+    status?: boolean
+    isAuthorized?: boolean
+    authorizedAt?: boolean
+    isTemporary?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lastActiveAt?: boolean
+  }
+
+  export type UserDeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserDeviceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserDevicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserDevice"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      deviceId: string
+      deviceName: string | null
+      deviceType: string | null
+      lastIp: string | null
+      status: string
+      isAuthorized: boolean
+      authorizedAt: Date | null
+      isTemporary: boolean
+      expiresAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+      lastActiveAt: Date
+    }, ExtArgs["result"]["userDevice"]>
+    composites: {}
+  }
+
+  type UserDeviceGetPayload<S extends boolean | null | undefined | UserDeviceDefaultArgs> = $Result.GetResult<Prisma.$UserDevicePayload, S>
+
+  type UserDeviceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserDeviceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserDeviceCountAggregateInputType | true
+    }
+
+  export interface UserDeviceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserDevice'], meta: { name: 'UserDevice' } }
+    /**
+     * Find zero or one UserDevice that matches the filter.
+     * @param {UserDeviceFindUniqueArgs} args - Arguments to find a UserDevice
+     * @example
+     * // Get one UserDevice
+     * const userDevice = await prisma.userDevice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserDeviceFindUniqueArgs>(args: SelectSubset<T, UserDeviceFindUniqueArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one UserDevice that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {UserDeviceFindUniqueOrThrowArgs} args - Arguments to find a UserDevice
+     * @example
+     * // Get one UserDevice
+     * const userDevice = await prisma.userDevice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserDeviceFindUniqueOrThrowArgs>(args: SelectSubset<T, UserDeviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first UserDevice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceFindFirstArgs} args - Arguments to find a UserDevice
+     * @example
+     * // Get one UserDevice
+     * const userDevice = await prisma.userDevice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserDeviceFindFirstArgs>(args?: SelectSubset<T, UserDeviceFindFirstArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first UserDevice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceFindFirstOrThrowArgs} args - Arguments to find a UserDevice
+     * @example
+     * // Get one UserDevice
+     * const userDevice = await prisma.userDevice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserDeviceFindFirstOrThrowArgs>(args?: SelectSubset<T, UserDeviceFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more UserDevices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserDevices
+     * const userDevices = await prisma.userDevice.findMany()
+     * 
+     * // Get first 10 UserDevices
+     * const userDevices = await prisma.userDevice.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userDeviceWithIdOnly = await prisma.userDevice.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserDeviceFindManyArgs>(args?: SelectSubset<T, UserDeviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a UserDevice.
+     * @param {UserDeviceCreateArgs} args - Arguments to create a UserDevice.
+     * @example
+     * // Create one UserDevice
+     * const UserDevice = await prisma.userDevice.create({
+     *   data: {
+     *     // ... data to create a UserDevice
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserDeviceCreateArgs>(args: SelectSubset<T, UserDeviceCreateArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many UserDevices.
+     * @param {UserDeviceCreateManyArgs} args - Arguments to create many UserDevices.
+     * @example
+     * // Create many UserDevices
+     * const userDevice = await prisma.userDevice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserDeviceCreateManyArgs>(args?: SelectSubset<T, UserDeviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserDevices and returns the data saved in the database.
+     * @param {UserDeviceCreateManyAndReturnArgs} args - Arguments to create many UserDevices.
+     * @example
+     * // Create many UserDevices
+     * const userDevice = await prisma.userDevice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserDevices and only return the `id`
+     * const userDeviceWithIdOnly = await prisma.userDevice.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserDeviceCreateManyAndReturnArgs>(args?: SelectSubset<T, UserDeviceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a UserDevice.
+     * @param {UserDeviceDeleteArgs} args - Arguments to delete one UserDevice.
+     * @example
+     * // Delete one UserDevice
+     * const UserDevice = await prisma.userDevice.delete({
+     *   where: {
+     *     // ... filter to delete one UserDevice
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeviceDeleteArgs>(args: SelectSubset<T, UserDeviceDeleteArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one UserDevice.
+     * @param {UserDeviceUpdateArgs} args - Arguments to update one UserDevice.
+     * @example
+     * // Update one UserDevice
+     * const userDevice = await prisma.userDevice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserDeviceUpdateArgs>(args: SelectSubset<T, UserDeviceUpdateArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more UserDevices.
+     * @param {UserDeviceDeleteManyArgs} args - Arguments to filter UserDevices to delete.
+     * @example
+     * // Delete a few UserDevices
+     * const { count } = await prisma.userDevice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeviceDeleteManyArgs>(args?: SelectSubset<T, UserDeviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserDevices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserDevices
+     * const userDevice = await prisma.userDevice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserDeviceUpdateManyArgs>(args: SelectSubset<T, UserDeviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserDevice.
+     * @param {UserDeviceUpsertArgs} args - Arguments to update or create a UserDevice.
+     * @example
+     * // Update or create a UserDevice
+     * const userDevice = await prisma.userDevice.upsert({
+     *   create: {
+     *     // ... data to create a UserDevice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserDevice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserDeviceUpsertArgs>(args: SelectSubset<T, UserDeviceUpsertArgs<ExtArgs>>): Prisma__UserDeviceClient<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of UserDevices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceCountArgs} args - Arguments to filter UserDevices to count.
+     * @example
+     * // Count the number of UserDevices
+     * const count = await prisma.userDevice.count({
+     *   where: {
+     *     // ... the filter for the UserDevices we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserDeviceCountArgs>(
+      args?: Subset<T, UserDeviceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserDeviceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserDevice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserDeviceAggregateArgs>(args: Subset<T, UserDeviceAggregateArgs>): Prisma.PrismaPromise<GetUserDeviceAggregateType<T>>
+
+    /**
+     * Group by UserDevice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDeviceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserDeviceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserDeviceGroupByArgs['orderBy'] }
+        : { orderBy?: UserDeviceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserDeviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserDeviceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserDevice model
+   */
+  readonly fields: UserDeviceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserDevice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserDeviceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserDevice model
+   */ 
+  interface UserDeviceFieldRefs {
+    readonly id: FieldRef<"UserDevice", 'String'>
+    readonly userId: FieldRef<"UserDevice", 'String'>
+    readonly deviceId: FieldRef<"UserDevice", 'String'>
+    readonly deviceName: FieldRef<"UserDevice", 'String'>
+    readonly deviceType: FieldRef<"UserDevice", 'String'>
+    readonly lastIp: FieldRef<"UserDevice", 'String'>
+    readonly status: FieldRef<"UserDevice", 'String'>
+    readonly isAuthorized: FieldRef<"UserDevice", 'Boolean'>
+    readonly authorizedAt: FieldRef<"UserDevice", 'DateTime'>
+    readonly isTemporary: FieldRef<"UserDevice", 'Boolean'>
+    readonly expiresAt: FieldRef<"UserDevice", 'DateTime'>
+    readonly createdAt: FieldRef<"UserDevice", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserDevice", 'DateTime'>
+    readonly lastActiveAt: FieldRef<"UserDevice", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserDevice findUnique
+   */
+  export type UserDeviceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDevice to fetch.
+     */
+    where: UserDeviceWhereUniqueInput
+  }
+
+  /**
+   * UserDevice findUniqueOrThrow
+   */
+  export type UserDeviceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDevice to fetch.
+     */
+    where: UserDeviceWhereUniqueInput
+  }
+
+  /**
+   * UserDevice findFirst
+   */
+  export type UserDeviceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDevice to fetch.
+     */
+    where?: UserDeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDevices to fetch.
+     */
+    orderBy?: UserDeviceOrderByWithRelationInput | UserDeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserDevices.
+     */
+    cursor?: UserDeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDevices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDevices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserDevices.
+     */
+    distinct?: UserDeviceScalarFieldEnum | UserDeviceScalarFieldEnum[]
+  }
+
+  /**
+   * UserDevice findFirstOrThrow
+   */
+  export type UserDeviceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDevice to fetch.
+     */
+    where?: UserDeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDevices to fetch.
+     */
+    orderBy?: UserDeviceOrderByWithRelationInput | UserDeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserDevices.
+     */
+    cursor?: UserDeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDevices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDevices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserDevices.
+     */
+    distinct?: UserDeviceScalarFieldEnum | UserDeviceScalarFieldEnum[]
+  }
+
+  /**
+   * UserDevice findMany
+   */
+  export type UserDeviceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDevices to fetch.
+     */
+    where?: UserDeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDevices to fetch.
+     */
+    orderBy?: UserDeviceOrderByWithRelationInput | UserDeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserDevices.
+     */
+    cursor?: UserDeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDevices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDevices.
+     */
+    skip?: number
+    distinct?: UserDeviceScalarFieldEnum | UserDeviceScalarFieldEnum[]
+  }
+
+  /**
+   * UserDevice create
+   */
+  export type UserDeviceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserDevice.
+     */
+    data: XOR<UserDeviceCreateInput, UserDeviceUncheckedCreateInput>
+  }
+
+  /**
+   * UserDevice createMany
+   */
+  export type UserDeviceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserDevices.
+     */
+    data: UserDeviceCreateManyInput | UserDeviceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserDevice createManyAndReturn
+   */
+  export type UserDeviceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many UserDevices.
+     */
+    data: UserDeviceCreateManyInput | UserDeviceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserDevice update
+   */
+  export type UserDeviceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserDevice.
+     */
+    data: XOR<UserDeviceUpdateInput, UserDeviceUncheckedUpdateInput>
+    /**
+     * Choose, which UserDevice to update.
+     */
+    where: UserDeviceWhereUniqueInput
+  }
+
+  /**
+   * UserDevice updateMany
+   */
+  export type UserDeviceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserDevices.
+     */
+    data: XOR<UserDeviceUpdateManyMutationInput, UserDeviceUncheckedUpdateManyInput>
+    /**
+     * Filter which UserDevices to update
+     */
+    where?: UserDeviceWhereInput
+  }
+
+  /**
+   * UserDevice upsert
+   */
+  export type UserDeviceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserDevice to update in case it exists.
+     */
+    where: UserDeviceWhereUniqueInput
+    /**
+     * In case the UserDevice found by the `where` argument doesn't exist, create a new UserDevice with this data.
+     */
+    create: XOR<UserDeviceCreateInput, UserDeviceUncheckedCreateInput>
+    /**
+     * In case the UserDevice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserDeviceUpdateInput, UserDeviceUncheckedUpdateInput>
+  }
+
+  /**
+   * UserDevice delete
+   */
+  export type UserDeviceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
+    /**
+     * Filter which UserDevice to delete.
+     */
+    where: UserDeviceWhereUniqueInput
+  }
+
+  /**
+   * UserDevice deleteMany
+   */
+  export type UserDeviceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserDevices to delete
+     */
+    where?: UserDeviceWhereInput
+  }
+
+  /**
+   * UserDevice without action
+   */
+  export type UserDeviceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDevice
+     */
+    select?: UserDeviceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDeviceInclude<ExtArgs> | null
   }
 
 
@@ -90809,6 +92029,10 @@ export namespace Prisma {
     brandingConfig: 'brandingConfig',
     stripeAccountId: 'stripeAccountId',
     onboardingStep: 'onboardingStep',
+    allowedVpnRanges: 'allowedVpnRanges',
+    enforceVpn: 'enforceVpn',
+    requireDeviceApproval: 'requireDeviceApproval',
+    maxDevicesPerUser: 'maxDevicesPerUser',
     parentTenantId: 'parentTenantId'
   };
 
@@ -91072,6 +92296,7 @@ export namespace Prisma {
     resourceType: 'resourceType',
     resourceId: 'resourceId',
     metadataJson: 'metadataJson',
+    deviceId: 'deviceId',
     ipAddress: 'ipAddress',
     createdAt: 'createdAt',
     tenantId: 'tenantId'
@@ -91226,6 +92451,26 @@ export namespace Prisma {
   };
 
   export type DailyEntryScalarFieldEnum = (typeof DailyEntryScalarFieldEnum)[keyof typeof DailyEntryScalarFieldEnum]
+
+
+  export const UserDeviceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    deviceId: 'deviceId',
+    deviceName: 'deviceName',
+    deviceType: 'deviceType',
+    lastIp: 'lastIp',
+    status: 'status',
+    isAuthorized: 'isAuthorized',
+    authorizedAt: 'authorizedAt',
+    isTemporary: 'isTemporary',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    lastActiveAt: 'lastActiveAt'
+  };
+
+  export type UserDeviceScalarFieldEnum = (typeof UserDeviceScalarFieldEnum)[keyof typeof UserDeviceScalarFieldEnum]
 
 
   export const MarketplaceListingScalarFieldEnum: {
@@ -92070,6 +93315,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -92080,13 +93332,6 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -92284,6 +93529,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditListRelationFilter
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
+    devices?: UserDeviceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -92320,6 +93566,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditOrderByRelationAggregateInput
     dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
     wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
+    devices?: UserDeviceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -92359,6 +93606,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditListRelationFilter
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
+    devices?: UserDeviceListRelationFilter
   }, "id" | "email" | "osmId">
 
   export type UserOrderByWithAggregationInput = {
@@ -92416,6 +93664,10 @@ export namespace Prisma {
     brandingConfig?: JsonNullableFilter<"Tenant">
     stripeAccountId?: StringNullableFilter<"Tenant"> | string | null
     onboardingStep?: IntFilter<"Tenant"> | number
+    allowedVpnRanges?: StringNullableListFilter<"Tenant">
+    enforceVpn?: BoolFilter<"Tenant"> | boolean
+    requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
+    maxDevicesPerUser?: IntFilter<"Tenant"> | number
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
@@ -92490,6 +93742,10 @@ export namespace Prisma {
     brandingConfig?: SortOrderInput | SortOrder
     stripeAccountId?: SortOrderInput | SortOrder
     onboardingStep?: SortOrder
+    allowedVpnRanges?: SortOrder
+    enforceVpn?: SortOrder
+    requireDeviceApproval?: SortOrder
+    maxDevicesPerUser?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
@@ -92567,6 +93823,10 @@ export namespace Prisma {
     brandingConfig?: JsonNullableFilter<"Tenant">
     stripeAccountId?: StringNullableFilter<"Tenant"> | string | null
     onboardingStep?: IntFilter<"Tenant"> | number
+    allowedVpnRanges?: StringNullableListFilter<"Tenant">
+    enforceVpn?: BoolFilter<"Tenant"> | boolean
+    requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
+    maxDevicesPerUser?: IntFilter<"Tenant"> | number
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
@@ -92641,6 +93901,10 @@ export namespace Prisma {
     brandingConfig?: SortOrderInput | SortOrder
     stripeAccountId?: SortOrderInput | SortOrder
     onboardingStep?: SortOrder
+    allowedVpnRanges?: SortOrder
+    enforceVpn?: SortOrder
+    requireDeviceApproval?: SortOrder
+    maxDevicesPerUser?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
@@ -92666,6 +93930,10 @@ export namespace Prisma {
     brandingConfig?: JsonNullableWithAggregatesFilter<"Tenant">
     stripeAccountId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     onboardingStep?: IntWithAggregatesFilter<"Tenant"> | number
+    allowedVpnRanges?: StringNullableListFilter<"Tenant">
+    enforceVpn?: BoolWithAggregatesFilter<"Tenant"> | boolean
+    requireDeviceApproval?: BoolWithAggregatesFilter<"Tenant"> | boolean
+    maxDevicesPerUser?: IntWithAggregatesFilter<"Tenant"> | number
     parentTenantId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
   }
 
@@ -94170,6 +95438,7 @@ export namespace Prisma {
     resourceType?: StringFilter<"AuditLog"> | string
     resourceId?: StringNullableFilter<"AuditLog"> | string | null
     metadataJson?: JsonNullableFilter<"AuditLog">
+    deviceId?: StringNullableFilter<"AuditLog"> | string | null
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
     tenantId?: StringFilter<"AuditLog"> | string
@@ -94184,6 +95453,7 @@ export namespace Prisma {
     resourceType?: SortOrder
     resourceId?: SortOrderInput | SortOrder
     metadataJson?: SortOrderInput | SortOrder
+    deviceId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
@@ -94201,6 +95471,7 @@ export namespace Prisma {
     resourceType?: StringFilter<"AuditLog"> | string
     resourceId?: StringNullableFilter<"AuditLog"> | string | null
     metadataJson?: JsonNullableFilter<"AuditLog">
+    deviceId?: StringNullableFilter<"AuditLog"> | string | null
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
     tenantId?: StringFilter<"AuditLog"> | string
@@ -94215,6 +95486,7 @@ export namespace Prisma {
     resourceType?: SortOrder
     resourceId?: SortOrderInput | SortOrder
     metadataJson?: SortOrderInput | SortOrder
+    deviceId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
@@ -94233,6 +95505,7 @@ export namespace Prisma {
     resourceType?: StringWithAggregatesFilter<"AuditLog"> | string
     resourceId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     metadataJson?: JsonNullableWithAggregatesFilter<"AuditLog">
+    deviceId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     ipAddress?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
     tenantId?: StringWithAggregatesFilter<"AuditLog"> | string
@@ -95006,6 +96279,107 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusWithAggregatesFilter<"DailyEntry"> | $Enums.DailyEntryStatus
     createdAt?: DateTimeWithAggregatesFilter<"DailyEntry"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DailyEntry"> | Date | string
+  }
+
+  export type UserDeviceWhereInput = {
+    AND?: UserDeviceWhereInput | UserDeviceWhereInput[]
+    OR?: UserDeviceWhereInput[]
+    NOT?: UserDeviceWhereInput | UserDeviceWhereInput[]
+    id?: StringFilter<"UserDevice"> | string
+    userId?: StringFilter<"UserDevice"> | string
+    deviceId?: StringFilter<"UserDevice"> | string
+    deviceName?: StringNullableFilter<"UserDevice"> | string | null
+    deviceType?: StringNullableFilter<"UserDevice"> | string | null
+    lastIp?: StringNullableFilter<"UserDevice"> | string | null
+    status?: StringFilter<"UserDevice"> | string
+    isAuthorized?: BoolFilter<"UserDevice"> | boolean
+    authorizedAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    isTemporary?: BoolFilter<"UserDevice"> | boolean
+    expiresAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserDevice"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDevice"> | Date | string
+    lastActiveAt?: DateTimeFilter<"UserDevice"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type UserDeviceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrderInput | SortOrder
+    deviceType?: SortOrderInput | SortOrder
+    lastIp?: SortOrderInput | SortOrder
+    status?: SortOrder
+    isAuthorized?: SortOrder
+    authorizedAt?: SortOrderInput | SortOrder
+    isTemporary?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastActiveAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserDeviceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_deviceId?: UserDeviceUserIdDeviceIdCompoundUniqueInput
+    AND?: UserDeviceWhereInput | UserDeviceWhereInput[]
+    OR?: UserDeviceWhereInput[]
+    NOT?: UserDeviceWhereInput | UserDeviceWhereInput[]
+    userId?: StringFilter<"UserDevice"> | string
+    deviceId?: StringFilter<"UserDevice"> | string
+    deviceName?: StringNullableFilter<"UserDevice"> | string | null
+    deviceType?: StringNullableFilter<"UserDevice"> | string | null
+    lastIp?: StringNullableFilter<"UserDevice"> | string | null
+    status?: StringFilter<"UserDevice"> | string
+    isAuthorized?: BoolFilter<"UserDevice"> | boolean
+    authorizedAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    isTemporary?: BoolFilter<"UserDevice"> | boolean
+    expiresAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserDevice"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDevice"> | Date | string
+    lastActiveAt?: DateTimeFilter<"UserDevice"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId_deviceId">
+
+  export type UserDeviceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrderInput | SortOrder
+    deviceType?: SortOrderInput | SortOrder
+    lastIp?: SortOrderInput | SortOrder
+    status?: SortOrder
+    isAuthorized?: SortOrder
+    authorizedAt?: SortOrderInput | SortOrder
+    isTemporary?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastActiveAt?: SortOrder
+    _count?: UserDeviceCountOrderByAggregateInput
+    _max?: UserDeviceMaxOrderByAggregateInput
+    _min?: UserDeviceMinOrderByAggregateInput
+  }
+
+  export type UserDeviceScalarWhereWithAggregatesInput = {
+    AND?: UserDeviceScalarWhereWithAggregatesInput | UserDeviceScalarWhereWithAggregatesInput[]
+    OR?: UserDeviceScalarWhereWithAggregatesInput[]
+    NOT?: UserDeviceScalarWhereWithAggregatesInput | UserDeviceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserDevice"> | string
+    userId?: StringWithAggregatesFilter<"UserDevice"> | string
+    deviceId?: StringWithAggregatesFilter<"UserDevice"> | string
+    deviceName?: StringNullableWithAggregatesFilter<"UserDevice"> | string | null
+    deviceType?: StringNullableWithAggregatesFilter<"UserDevice"> | string | null
+    lastIp?: StringNullableWithAggregatesFilter<"UserDevice"> | string | null
+    status?: StringWithAggregatesFilter<"UserDevice"> | string
+    isAuthorized?: BoolWithAggregatesFilter<"UserDevice"> | boolean
+    authorizedAt?: DateTimeNullableWithAggregatesFilter<"UserDevice"> | Date | string | null
+    isTemporary?: BoolWithAggregatesFilter<"UserDevice"> | boolean
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"UserDevice"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserDevice"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserDevice"> | Date | string
+    lastActiveAt?: DateTimeWithAggregatesFilter<"UserDevice"> | Date | string
   }
 
   export type MarketplaceListingWhereInput = {
@@ -98831,6 +100205,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -98866,6 +100241,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -98901,6 +100277,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -98936,6 +100313,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -98999,6 +100377,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -99072,6 +100454,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -99145,6 +100531,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -99218,6 +100608,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -99291,6 +100685,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
   }
 
@@ -99308,6 +100706,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -99324,6 +100726,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -100943,6 +102349,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     actor?: UserCreateNestedOneWithoutAuditLogsInput
@@ -100956,6 +102363,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     tenantId: string
@@ -100967,6 +102375,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     actor?: UserUpdateOneWithoutAuditLogsNestedInput
@@ -100980,6 +102389,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -100992,6 +102402,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     tenantId: string
@@ -101003,6 +102414,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -101014,6 +102426,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -101852,6 +103265,124 @@ export namespace Prisma {
     status?: EnumDailyEntryStatusFieldUpdateOperationsInput | $Enums.DailyEntryStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDeviceCreateInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+    user: UserCreateNestedOneWithoutDevicesInput
+  }
+
+  export type UserDeviceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+  }
+
+  export type UserDeviceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDevicesNestedInput
+  }
+
+  export type UserDeviceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDeviceCreateManyInput = {
+    id?: string
+    userId: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+  }
+
+  export type UserDeviceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDeviceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MarketplaceListingCreateInput = {
@@ -105984,6 +107515,12 @@ export namespace Prisma {
     none?: WellnessPulseWhereInput
   }
 
+  export type UserDeviceListRelationFilter = {
+    every?: UserDeviceWhereInput
+    some?: UserDeviceWhereInput
+    none?: UserDeviceWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -106050,6 +107587,10 @@ export namespace Prisma {
   }
 
   export type WellnessPulseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserDeviceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -106194,6 +107735,19 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type BookingListRelationFilter = {
@@ -106645,11 +108199,16 @@ export namespace Prisma {
     brandingConfig?: SortOrder
     stripeAccountId?: SortOrder
     onboardingStep?: SortOrder
+    allowedVpnRanges?: SortOrder
+    enforceVpn?: SortOrder
+    requireDeviceApproval?: SortOrder
+    maxDevicesPerUser?: SortOrder
     parentTenantId?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
     onboardingStep?: SortOrder
+    maxDevicesPerUser?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
@@ -106664,6 +108223,9 @@ export namespace Prisma {
     logoUrl?: SortOrder
     stripeAccountId?: SortOrder
     onboardingStep?: SortOrder
+    enforceVpn?: SortOrder
+    requireDeviceApproval?: SortOrder
+    maxDevicesPerUser?: SortOrder
     parentTenantId?: SortOrder
   }
 
@@ -106679,11 +108241,15 @@ export namespace Prisma {
     logoUrl?: SortOrder
     stripeAccountId?: SortOrder
     onboardingStep?: SortOrder
+    enforceVpn?: SortOrder
+    requireDeviceApproval?: SortOrder
+    maxDevicesPerUser?: SortOrder
     parentTenantId?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
     onboardingStep?: SortOrder
+    maxDevicesPerUser?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -106725,6 +108291,14 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ApiKeyCountOrderByAggregateInput = {
@@ -106885,19 +108459,6 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type VisitChecklistListRelationFilter = {
     every?: VisitChecklistWhereInput
     some?: VisitChecklistWhereInput
@@ -106964,14 +108525,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     address?: SortOrder
     avatarUrl?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumVisitStatusNullableFilter<$PrismaModel = never> = {
@@ -107830,6 +109383,7 @@ export namespace Prisma {
     resourceType?: SortOrder
     resourceId?: SortOrder
     metadataJson?: SortOrder
+    deviceId?: SortOrder
     ipAddress?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
@@ -107841,6 +109395,7 @@ export namespace Prisma {
     action?: SortOrder
     resourceType?: SortOrder
     resourceId?: SortOrder
+    deviceId?: SortOrder
     ipAddress?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
@@ -107852,6 +109407,7 @@ export namespace Prisma {
     action?: SortOrder
     resourceType?: SortOrder
     resourceId?: SortOrder
+    deviceId?: SortOrder
     ipAddress?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
@@ -108300,6 +109856,62 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
     _max?: NestedEnumDailyEntryStatusFilter<$PrismaModel>
+  }
+
+  export type UserDeviceUserIdDeviceIdCompoundUniqueInput = {
+    userId: string
+    deviceId: string
+  }
+
+  export type UserDeviceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    deviceType?: SortOrder
+    lastIp?: SortOrder
+    status?: SortOrder
+    isAuthorized?: SortOrder
+    authorizedAt?: SortOrder
+    isTemporary?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastActiveAt?: SortOrder
+  }
+
+  export type UserDeviceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    deviceType?: SortOrder
+    lastIp?: SortOrder
+    status?: SortOrder
+    isAuthorized?: SortOrder
+    authorizedAt?: SortOrder
+    isTemporary?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastActiveAt?: SortOrder
+  }
+
+  export type UserDeviceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    deviceType?: SortOrder
+    lastIp?: SortOrder
+    status?: SortOrder
+    isAuthorized?: SortOrder
+    authorizedAt?: SortOrder
+    isTemporary?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lastActiveAt?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -110483,6 +112095,13 @@ export namespace Prisma {
     connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
   }
 
+  export type UserDeviceCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput> | UserDeviceCreateWithoutUserInput[] | UserDeviceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDeviceCreateOrConnectWithoutUserInput | UserDeviceCreateOrConnectWithoutUserInput[]
+    createMany?: UserDeviceCreateManyUserInputEnvelope
+    connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -110612,6 +112231,13 @@ export namespace Prisma {
     connectOrCreate?: WellnessPulseCreateOrConnectWithoutUserInput | WellnessPulseCreateOrConnectWithoutUserInput[]
     createMany?: WellnessPulseCreateManyUserInputEnvelope
     connect?: WellnessPulseWhereUniqueInput | WellnessPulseWhereUniqueInput[]
+  }
+
+  export type UserDeviceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput> | UserDeviceCreateWithoutUserInput[] | UserDeviceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDeviceCreateOrConnectWithoutUserInput | UserDeviceCreateOrConnectWithoutUserInput[]
+    createMany?: UserDeviceCreateManyUserInputEnvelope
+    connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -110901,6 +112527,20 @@ export namespace Prisma {
     deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
   }
 
+  export type UserDeviceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput> | UserDeviceCreateWithoutUserInput[] | UserDeviceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDeviceCreateOrConnectWithoutUserInput | UserDeviceCreateOrConnectWithoutUserInput[]
+    upsert?: UserDeviceUpsertWithWhereUniqueWithoutUserInput | UserDeviceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserDeviceCreateManyUserInputEnvelope
+    set?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    disconnect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    delete?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    update?: UserDeviceUpdateWithWhereUniqueWithoutUserInput | UserDeviceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserDeviceUpdateManyWithWhereWithoutUserInput | UserDeviceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -111157,6 +112797,24 @@ export namespace Prisma {
     update?: WellnessPulseUpdateWithWhereUniqueWithoutUserInput | WellnessPulseUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WellnessPulseUpdateManyWithWhereWithoutUserInput | WellnessPulseUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WellnessPulseScalarWhereInput | WellnessPulseScalarWhereInput[]
+  }
+
+  export type UserDeviceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput> | UserDeviceCreateWithoutUserInput[] | UserDeviceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDeviceCreateOrConnectWithoutUserInput | UserDeviceCreateOrConnectWithoutUserInput[]
+    upsert?: UserDeviceUpsertWithWhereUniqueWithoutUserInput | UserDeviceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserDeviceCreateManyUserInputEnvelope
+    set?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    disconnect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    delete?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+    update?: UserDeviceUpdateWithWhereUniqueWithoutUserInput | UserDeviceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserDeviceUpdateManyWithWhereWithoutUserInput | UserDeviceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
+  }
+
+  export type TenantCreateallowedVpnRangesInput = {
+    set: string[]
   }
 
   export type AuditLogCreateNestedManyWithoutTenantInput = {
@@ -111955,6 +113613,15 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type TenantUpdateallowedVpnRangesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type AuditLogUpdateManyWithoutTenantNestedInput = {
@@ -114725,10 +116392,6 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type PswProfileUpdateskillsInput = {
     set?: string[]
     push?: string | string[]
@@ -116702,6 +118365,20 @@ export namespace Prisma {
     update?: XOR<XOR<VisitUpdateToOneWithWhereWithoutDailyEntryInput, VisitUpdateWithoutDailyEntryInput>, VisitUncheckedUpdateWithoutDailyEntryInput>
   }
 
+  export type UserCreateNestedOneWithoutDevicesInput = {
+    create?: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDevicesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDevicesNestedInput = {
+    create?: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDevicesInput
+    upsert?: UserUpsertWithoutDevicesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDevicesInput, UserUpdateWithoutDevicesInput>, UserUncheckedUpdateWithoutDevicesInput>
+  }
+
   export type TenantCreateNestedOneWithoutMarketplaceListingsInput = {
     create?: XOR<TenantCreateWithoutMarketplaceListingsInput, TenantUncheckedCreateWithoutMarketplaceListingsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutMarketplaceListingsInput
@@ -118386,6 +120063,11 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -118436,6 +120118,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -118461,19 +120151,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumVisitStatusNullableFilter<$PrismaModel = never> = {
@@ -118790,6 +120467,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAuditLogsInput
@@ -118801,6 +120479,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     tenantId: string
@@ -119238,6 +120917,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -119310,6 +120993,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -119681,6 +121368,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserDeviceCreateWithoutUserInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+  }
+
+  export type UserDeviceUncheckedCreateWithoutUserInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+  }
+
+  export type UserDeviceCreateOrConnectWithoutUserInput = {
+    where: UserDeviceWhereUniqueInput
+    create: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserDeviceCreateManyUserInputEnvelope = {
+    data: UserDeviceCreateManyUserInput | UserDeviceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
     where: AuditLogWhereUniqueInput
     update: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
@@ -119707,6 +121436,7 @@ export namespace Prisma {
     resourceType?: StringFilter<"AuditLog"> | string
     resourceId?: StringNullableFilter<"AuditLog"> | string | null
     metadataJson?: JsonNullableFilter<"AuditLog">
+    deviceId?: StringNullableFilter<"AuditLog"> | string | null
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
     tenantId?: StringFilter<"AuditLog"> | string
@@ -120134,6 +121864,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -120206,6 +121940,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -120535,12 +122273,49 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"WellnessPulse"> | Date | string
   }
 
+  export type UserDeviceUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserDeviceWhereUniqueInput
+    update: XOR<UserDeviceUpdateWithoutUserInput, UserDeviceUncheckedUpdateWithoutUserInput>
+    create: XOR<UserDeviceCreateWithoutUserInput, UserDeviceUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserDeviceUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserDeviceWhereUniqueInput
+    data: XOR<UserDeviceUpdateWithoutUserInput, UserDeviceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserDeviceUpdateManyWithWhereWithoutUserInput = {
+    where: UserDeviceScalarWhereInput
+    data: XOR<UserDeviceUpdateManyMutationInput, UserDeviceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserDeviceScalarWhereInput = {
+    AND?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
+    OR?: UserDeviceScalarWhereInput[]
+    NOT?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
+    id?: StringFilter<"UserDevice"> | string
+    userId?: StringFilter<"UserDevice"> | string
+    deviceId?: StringFilter<"UserDevice"> | string
+    deviceName?: StringNullableFilter<"UserDevice"> | string | null
+    deviceType?: StringNullableFilter<"UserDevice"> | string | null
+    lastIp?: StringNullableFilter<"UserDevice"> | string | null
+    status?: StringFilter<"UserDevice"> | string
+    isAuthorized?: BoolFilter<"UserDevice"> | boolean
+    authorizedAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    isTemporary?: BoolFilter<"UserDevice"> | boolean
+    expiresAt?: DateTimeNullableFilter<"UserDevice"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserDevice"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDevice"> | Date | string
+    lastActiveAt?: DateTimeFilter<"UserDevice"> | Date | string
+  }
+
   export type AuditLogCreateWithoutTenantInput = {
     id?: string
     action: string
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     actor?: UserCreateNestedOneWithoutAuditLogsInput
@@ -120553,6 +122328,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
   }
@@ -121155,6 +122931,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -121189,6 +122966,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -122227,6 +124005,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -122299,6 +124081,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -122376,6 +124162,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -122448,6 +124238,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -124121,6 +125915,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -124193,6 +125991,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -124284,6 +126086,10 @@ export namespace Prisma {
     brandingConfig?: JsonNullableFilter<"Tenant">
     stripeAccountId?: StringNullableFilter<"Tenant"> | string | null
     onboardingStep?: IntFilter<"Tenant"> | number
+    allowedVpnRanges?: StringNullableListFilter<"Tenant">
+    enforceVpn?: BoolFilter<"Tenant"> | boolean
+    requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
+    maxDevicesPerUser?: IntFilter<"Tenant"> | number
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
   }
 
@@ -124561,6 +126367,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -124633,6 +126443,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -124721,6 +126535,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -124793,6 +126611,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -124903,6 +126725,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -124975,6 +126801,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -125070,6 +126900,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -125104,6 +126935,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -125897,6 +127729,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -125969,6 +127805,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -126070,6 +127910,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -126104,6 +127945,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -126587,6 +128429,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -126659,6 +128505,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -126754,6 +128604,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -126788,6 +128639,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -127291,6 +129143,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -127363,6 +129219,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -127464,6 +129324,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -127498,6 +129359,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -128253,6 +130115,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -128325,6 +130191,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -128899,6 +130769,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -128971,6 +130845,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129104,6 +130982,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -129176,6 +131058,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -129386,6 +131272,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -129458,6 +131348,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129580,6 +131474,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -129614,6 +131509,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -129702,6 +131598,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -129774,6 +131674,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -129965,6 +131869,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -129999,6 +131904,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -130099,6 +132005,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -130171,6 +132081,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130984,6 +132898,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -131018,6 +132933,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -131057,6 +132973,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -131091,6 +133008,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -131112,6 +133030,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -131184,6 +133106,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -131375,6 +133301,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -131409,6 +133336,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -131454,6 +133382,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -131488,6 +133417,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -131515,6 +133445,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -131587,6 +133521,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -131859,6 +133797,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -131893,6 +133832,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -131914,6 +133854,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -131986,6 +133930,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -132181,6 +134129,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -132215,6 +134164,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -132242,6 +134192,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -132314,6 +134268,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132721,6 +134679,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -132793,6 +134755,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -133002,6 +134968,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -133074,6 +135044,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133425,6 +135399,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -133497,6 +135475,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -133767,6 +135749,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -133839,6 +135825,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133929,6 +135919,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -133963,6 +135954,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -134036,6 +136028,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -134070,6 +136063,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -134133,6 +136127,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -134167,6 +136162,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -134188,6 +136184,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -134260,6 +136260,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -134366,6 +136370,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -134400,6 +136405,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -134427,6 +136433,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -134499,6 +136509,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -134571,6 +136585,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -134643,6 +136661,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -134731,6 +136753,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -134803,6 +136829,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -134962,6 +136992,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -135034,6 +137068,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -135305,6 +137343,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -135377,6 +137419,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -135532,6 +137578,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -135604,6 +137654,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -135765,6 +137819,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -135837,6 +137895,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135976,6 +138038,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -136048,6 +138114,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -136294,6 +138364,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -136366,6 +138440,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136547,6 +138625,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -136581,6 +138660,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -136631,6 +138711,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -136665,6 +138746,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -136681,6 +138763,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -136753,6 +138839,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -136841,6 +138931,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -136913,6 +139007,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137070,6 +139168,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -137104,6 +139203,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -137227,6 +139327,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -137261,6 +139362,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -137382,6 +139484,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -137416,6 +139519,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -137437,6 +139541,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -137509,6 +139617,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -137793,6 +139905,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -137827,6 +139940,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -137854,6 +139968,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -137926,6 +140044,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138075,6 +140197,162 @@ export namespace Prisma {
     dailyAuditSignOff?: DailyAuditSignOffUncheckedUpdateOneWithoutVisitNestedInput
   }
 
+  export type UserCreateWithoutDevicesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDevicesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDevicesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+  }
+
+  export type UserUpsertWithoutDevicesInput = {
+    update: XOR<UserUpdateWithoutDevicesInput, UserUncheckedUpdateWithoutDevicesInput>
+    create: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDevicesInput, UserUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type UserUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type TenantCreateWithoutMarketplaceListingsInput = {
     id?: string
     name: string
@@ -138089,6 +140367,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -138161,6 +140443,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -138249,6 +140535,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -138321,6 +140611,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138480,6 +140774,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -138552,6 +140850,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -138818,6 +141120,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -138890,6 +141196,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139140,6 +141450,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -139212,6 +141526,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -139307,6 +141625,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -139341,6 +141660,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -139466,6 +141786,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -139538,6 +141862,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139639,6 +141967,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -139673,6 +142002,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTrainingModulesInput = {
@@ -139689,6 +142019,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -139761,6 +142095,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -139877,6 +142215,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -139949,6 +142291,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140110,6 +142456,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -140182,6 +142532,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -140294,6 +142648,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -140366,6 +142724,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140521,6 +142883,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -140593,6 +142959,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -140711,6 +143081,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -140783,6 +143157,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140945,6 +143323,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141017,6 +143399,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -141105,6 +143491,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -141177,6 +143567,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141249,6 +143643,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141321,6 +143719,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -141409,6 +143811,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -141481,6 +143887,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141553,6 +143963,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141625,6 +144039,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -141713,6 +144131,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -141785,6 +144207,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141857,6 +144283,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141929,6 +144359,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -142017,6 +144451,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -142089,6 +144527,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142161,6 +144603,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -142233,6 +144679,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -142321,6 +144771,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -142393,6 +144847,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142465,6 +144923,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -142537,6 +144999,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -142625,6 +145091,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -142697,6 +145167,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143061,6 +145535,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -143133,6 +145611,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -143385,6 +145867,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -143457,6 +145943,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143651,6 +146141,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -143723,6 +146217,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -143945,6 +146443,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -144017,6 +146519,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144089,6 +146595,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -144161,6 +146671,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -144249,6 +146763,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -144321,6 +146839,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144393,6 +146915,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -144465,6 +146991,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -144553,6 +147083,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -144625,6 +147159,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144697,6 +147235,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -144769,6 +147311,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -144977,6 +147523,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -145049,6 +147599,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145272,6 +147826,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -145344,6 +147902,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -145519,6 +148081,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -145591,6 +148157,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145783,6 +148353,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -145855,6 +148429,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -146063,6 +148641,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -146135,6 +148717,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146300,6 +148886,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -146372,6 +148962,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -146554,6 +149148,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -146588,6 +149183,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -146620,6 +149216,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -146692,6 +149292,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146886,6 +149490,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -146920,6 +149525,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -147116,6 +149722,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -147188,6 +149798,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -147363,6 +149977,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -147435,6 +150053,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -147600,6 +150222,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -147672,6 +150298,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -147792,6 +150422,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -147864,6 +150498,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -147952,6 +150590,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -148024,6 +150666,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -148224,6 +150870,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -148296,6 +150946,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -148548,6 +151202,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -148620,6 +151278,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -148848,6 +151510,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -148920,6 +151586,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -149540,6 +152210,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -149612,6 +152286,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -149864,6 +152542,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -149936,6 +152618,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -150075,6 +152761,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -150147,6 +152837,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -150308,6 +153002,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -150380,6 +153078,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -150519,6 +153221,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -150591,6 +153297,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -150752,6 +153462,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -150824,6 +153538,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -151001,6 +153719,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -151035,6 +153754,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -151056,6 +153776,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -151128,6 +153852,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -151327,6 +154055,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -151361,6 +154090,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -151388,6 +154118,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -151460,6 +154194,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -151637,6 +154375,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -151671,6 +154410,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -151692,6 +154432,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -151764,6 +154508,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -151963,6 +154711,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -151997,6 +154746,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -152024,6 +154774,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -152096,6 +154850,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152253,6 +155011,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -152287,6 +155046,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -152308,6 +155068,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -152380,6 +155144,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -152559,6 +155327,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -152593,6 +155362,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -152620,6 +155390,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -152692,6 +155466,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152851,6 +155629,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -152923,6 +155705,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -153104,6 +155890,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -153176,6 +155966,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -153420,6 +156214,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -153492,6 +156290,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -153764,6 +156566,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -153836,6 +156642,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -153926,6 +156736,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
@@ -153960,6 +156771,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedAuditsInput = {
@@ -153981,6 +156793,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -154053,6 +156869,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -154159,6 +156979,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
@@ -154193,6 +157014,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTechnicalAuditsInput = {
@@ -154220,6 +157042,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -154292,6 +157118,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -154451,6 +157281,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -154523,6 +157357,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -154704,6 +157542,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -154776,6 +157618,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -154866,6 +157712,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -154900,6 +157747,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -154921,6 +157769,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -154993,6 +157845,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -155184,6 +158040,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -155218,6 +158075,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyAuditSignOffsInput = {
@@ -155245,6 +158103,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -155317,6 +158179,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155498,6 +158364,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWellnessPulsesInput = {
@@ -155532,6 +158399,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWellnessPulsesInput = {
@@ -155553,6 +158421,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -155625,6 +158497,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -155731,6 +158607,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -155765,6 +158642,7 @@ export namespace Prisma {
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutWellnessPulsesInput = {
@@ -155792,6 +158670,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -155864,6 +158746,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155936,6 +158822,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -156008,6 +158898,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -156096,6 +158990,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -156168,6 +159066,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -156232,6 +159134,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
     tenantId: string
@@ -156437,12 +159340,29 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type UserDeviceCreateManyUserInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    deviceType?: string | null
+    lastIp?: string | null
+    status?: string
+    isAuthorized?: boolean
+    authorizedAt?: Date | string | null
+    isTemporary?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastActiveAt?: Date | string
+  }
+
   export type AuditLogUpdateWithoutActorInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAuditLogsNestedInput
@@ -156454,6 +159374,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -156465,6 +159386,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
@@ -157072,6 +159994,54 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserDeviceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDeviceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDeviceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    lastIp?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isAuthorized?: BoolFieldUpdateOperationsInput | boolean
+    authorizedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isTemporary?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -157079,6 +160049,7 @@ export namespace Prisma {
     resourceType: string
     resourceId?: string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
     ipAddress?: string | null
     createdAt?: Date | string
   }
@@ -157622,6 +160593,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: string | null
     onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
   }
 
   export type FranchiseCreateManyResellerInput = {
@@ -157734,6 +160709,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     actor?: UserUpdateOneWithoutAuditLogsNestedInput
@@ -157746,6 +160722,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157757,6 +160734,7 @@ export namespace Prisma {
     resourceType?: StringFieldUpdateOperationsInput | string
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     metadataJson?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -158390,6 +161368,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -158424,6 +161403,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -159506,6 +162486,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -159578,6 +162562,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -159650,6 +162638,10 @@ export namespace Prisma {
     brandingConfig?: NullableJsonNullValueInput | InputJsonValue
     stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
   }
 
   export type FranchiseUpdateWithoutResellerInput = {
@@ -163205,6 +166197,10 @@ export namespace Prisma {
      * @deprecated Use DailyEntryDefaultArgs instead
      */
     export type DailyEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserDeviceDefaultArgs instead
+     */
+    export type UserDeviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDeviceDefaultArgs<ExtArgs>
     /**
      * @deprecated Use MarketplaceListingDefaultArgs instead
      */

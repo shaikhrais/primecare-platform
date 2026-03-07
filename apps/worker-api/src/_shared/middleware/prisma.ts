@@ -63,9 +63,15 @@ export const prismaMiddleware = () => {
             }
         }
 
+        import { auditExtension } from '../prisma/audit.extension';
+
+        // ... in the middleware ...
         if (tenantId && !isSuperAdmin) {
             reqPrisma = reqPrisma.$extends(tenantExtension(tenantId));
         }
+
+        const currentDeviceId = c.get('deviceId');
+        reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
 
         c.set('prisma', reqPrisma);
         c.set('can', async () => (payload?.roles?.includes('admin') || payload?.roles?.includes('super_admin')) ?? false);

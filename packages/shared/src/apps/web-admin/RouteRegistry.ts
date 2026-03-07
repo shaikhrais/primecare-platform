@@ -143,6 +143,8 @@ const PLATFORM = {
             AUDIT_DETAIL: (id: string) => `/platform/admin/security/audits/${id}`,
             SESSION_MONITOR: '/platform/admin/security/sessions',
             THREAT_DETECTION: '/platform/admin/security/threats',
+            GOVERNANCE: '/platform/admin/security/governance',
+            DEVICE_REGISTRY: '/platform/admin/security/devices',
         },
         OPERATIONS: {
             REALTIME_CAPACITY: '/platform/admin/ops/capacity',

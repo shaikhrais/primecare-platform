@@ -3,8 +3,12 @@ import { swaggerUI } from '@hono/swagger-ui';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
 import { prismaMiddleware } from './_shared/middleware/prisma';
+import { governanceMiddleware } from './_shared/middleware/governance';
 import { errorHandler } from './_shared/middleware/errors';
 import { Bindings, Variables } from './bindings';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { CorsRegistry } = AdminRegistry;
 
 // Modular Module Imports
 import authModule from './auth/auth.routes';
@@ -28,39 +32,41 @@ const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // 1. Foundational CORS (Must be at the very top)
 app.use('*', cors({
     origin: (origin) => {
-        const allowed = [
-            'https://primecare-admin.pages.dev',
-            'http://localhost:5173',
-            'http://localhost:8787'
-        ];
-        if (allowed.includes(origin)) return origin;
-        // If it's a direct browser request or similar, allowed[0] is the safest production bet
-        return allowed[0];
+        if (CorsRegistry.ALLOWED_ORIGINS.includes(origin as any)) return origin;
+        return CorsRegistry.ALLOWED_ORIGINS[0];
     },
-    allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status', 'x-tenant-id', 'x-tenant-slug'],
-    exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
-    maxAge: 600,
-    credentials: true,
+    allowMethods: Array.from(CorsRegistry.ALLOWED_METHODS),
+    allowHeaders: Array.from(CorsRegistry.ALLOWED_HEADERS),
+    exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS),
+    maxAge: CorsRegistry.MAX_AGE,
+    credentials: CorsRegistry.CREDENTIALS,
 }));
 
-// 3. Health Routes
+// 2. Health Routes
 app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString(), architecture: 'role-first-modular' });
 });
 
 app.onError((err, c) => {
     console.error('Hono Global Error:', err);
+
+    const origin = c.req.header('Origin');
+    const allowed = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
+    const headerOrigin = allowed.includes(origin || '') ? origin! : allowed[0];
+
+    c.header('Access-Control-Allow-Origin', headerOrigin);
+    c.header('Access-Control-Allow-Credentials', 'true');
+
     return c.json({
-        error: err.message || 'Internal Server Error',
-        stack: err.stack,
+        status: 'error',
+        message: err.message || 'Internal Server Error',
         path: c.req.path
     }, 500);
 });
 
 // 3. Middlewares
-app.use('*', secureHeaders());
 app.use('*', prismaMiddleware());
+app.use('*', governanceMiddleware());
 
 // 3.5 Public Branding
 app.get('/v1/public/branding', async (c) => {

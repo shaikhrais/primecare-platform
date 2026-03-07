@@ -25,4 +25,5 @@ export type Variables = {
     };
     prisma: any;
     can: (action: string, resource: string, resourceId?: string) => Promise<boolean>;
+    deviceId?: string | null;
 };

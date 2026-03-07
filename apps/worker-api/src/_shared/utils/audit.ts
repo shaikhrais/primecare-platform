@@ -9,7 +9,8 @@ export async function logAudit(
     action: string,
     resourceType: string,
     resourceId: string | null = null,
-    metadata: any = {}
+    metadata: any = {},
+    deviceId: string | null = null
 ) {
     try {
         await prisma.auditLog.create({
@@ -20,6 +21,7 @@ export async function logAudit(
                 resourceType,
                 resourceId,
                 metadataJson: metadata,
+                deviceId,
                 createdAt: new Date(),
             },
         });

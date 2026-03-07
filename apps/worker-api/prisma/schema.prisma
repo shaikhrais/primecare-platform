@@ -49,6 +49,7 @@ model User {
   performedAudits      TechnicalAudit[]    @relation("PerformedAudits")
   dailyAuditSignOffs   DailyAuditSignOff[]
   wellnessPulses       WellnessPulse[]
+  devices              UserDevice[]
 
   @@index([tenantId])
   @@map("users")
@@ -115,6 +116,12 @@ model Tenant {
   brandingConfig  Json?   @map("branding_config")
   stripeAccountId String? @map("stripe_account_id")
   onboardingStep  Int     @default(1) @map("onboarding_step")
+
+  // Security & Sovereignty Extensions
+  allowedVpnRanges   String[] @default([]) @map("allowed_vpn_ranges")
+  enforceVpn         Boolean  @default(false) @map("enforce_vpn")
+  requireDeviceApproval Boolean @default(false) @map("require_device_approval")
+  maxDevicesPerUser  Int      @default(5) @map("max_devices_per_user")
 
   // Fractal SaaS Extensions
   parentTenantId        String?                @map("parent_tenant_id")
@@ -475,6 +482,7 @@ model AuditLog {
   resourceType String   @map("resource_type")
   resourceId   String?  @map("resource_id")
   metadataJson Json?    @map("metadata_json")
+  deviceId     String?  @map("device_id")
   ipAddress    String?  @map("ip_address")
   createdAt    DateTime @default(now()) @map("created_at")
   tenantId     String   @map("tenant_id")
@@ -482,6 +490,7 @@ model AuditLog {
   tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
+  @@index([deviceId])
   @@map("audit_logs")
 }
 
@@ -642,6 +651,28 @@ model DailyEntry {
 
   @@index([tenantId])
   @@map("daily_entries")
+}
+
+model UserDevice {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  deviceId     String   @map("device_id")
+  deviceName   String?  @map("device_name")
+  deviceType   String?  @map("device_type")
+  lastIp       String?  @map("last_ip")
+  status       String   @default("active")
+  isAuthorized Boolean  @default(false) @map("is_authorized")
+  authorizedAt DateTime? @map("authorized_at")
+  isTemporary  Boolean  @default(false) @map("is_temporary")
+  expiresAt    DateTime? @map("expires_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  lastActiveAt DateTime @default(now()) @map("last_active_at")
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, deviceId])
+  @@index([userId])
+  @@map("user_devices")
 }
 
 enum Role {

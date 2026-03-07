@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AdminRegistry, SummaryRegistry, SummaryContext } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -13,17 +14,51 @@ export const RegistrySummaryDashboard: React.FC = () => {
     const { t } = useTranslation();
     const [contexts, setContexts] = useState<SummaryContext[]>(SummaryRegistry);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [stats, setStats] = useState<any>(null);
 
-    const handleSync = () => {
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await apiClient.get('/v1/admin/stats');
+                if (res.ok) {
+                    const data = await res.json();
+                    setStats(data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch platform stats:', error);
+            }
+        };
+        fetchStats();
+    }, []);
+
+    const handleSync = async () => {
         setIsSyncing(true);
-        // Simulate registry node calibration
-        setTimeout(() => {
-            setContexts(prev => prev.map(ctx => ({
-                ...ctx,
-                lastUpdated: new Date().toISOString()
-            })));
+        try {
+            const res = await apiClient.get('/v1/admin/stats');
+            if (res.ok) {
+                const data = await res.json();
+                setStats(data);
+                setContexts(prev => prev.map(ctx => ({
+                    ...ctx,
+                    lastUpdated: new Date().toISOString()
+                })));
+            }
+        } catch (error) {
+            console.error('Manual sync failed:', error);
+        } finally {
             setIsSyncing(false);
-        }, 1500);
+        }
+    };
+
+    const getKPIValue = (kpiId: string) => {
+        if (!stats) return '--';
+        switch (kpiId) {
+            case 'total-users': return stats.totalUsers ?? '--';
+            case 'new-leads': return stats.totalLeads ?? '--';
+            case 'pending-visits': return stats.pendingVisits ?? '--';
+            case 'revenue-mtd': return stats.MTD_REVENUE ?? '0.00';
+            default: return '--';
+        }
     };
 
     return (
@@ -93,7 +128,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
                                     </div>
                                     <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--brand-500)' }}>
                                         {kpi.unit === '$' && '$'}
-                                        --
+                                        {getKPIValue(kpi.id)}
                                         {kpi.unit && kpi.unit !== '$' && ` ${kpi.unit}`}
                                     </div>
                                     {kpi.targetRoute && (
