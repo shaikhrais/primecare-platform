@@ -302,4 +302,93 @@ r.openapi(getForensicTrailsRoute, async (c) => {
     return c.json(events as any, 200);
 });
 
+// GET /daily-summary - Aggregated daily system activity
+const getDailySummaryRoute = createRoute({
+    method: 'get',
+    path: '/daily-summary',
+    summary: 'Get Daily Activity Summary',
+    tags: ['Admin Security'],
+    request: {
+        query: z.object({
+            date: z.string().optional(), // YYYY-MM-DD
+        }),
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        date: z.string(),
+                        totalEvents: z.number(),
+                        byUser: z.array(z.object({
+                            actorUserId: z.string().nullable(),
+                            email: z.string().optional(),
+                            count: z.number(),
+                            operations: z.record(z.number()),
+                        })),
+                        byModel: z.record(z.number()),
+                    }),
+                },
+            },
+            description: 'Success',
+        },
+    },
+});
+
+r.openapi(getDailySummaryRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const dateStr = c.req.query('date') || new Date().toISOString().split('T')[0];
+
+    const startOfDay = new Date(dateStr);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(dateStr);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const events = await prisma.systemEvent.findMany({
+        where: {
+            tenantId,
+            createdAt: {
+                gte: startOfDay,
+                lte: endOfDay,
+            },
+        },
+        include: {
+            actor: { select: { email: true } }
+        }
+    });
+
+    const summary = {
+        date: dateStr,
+        totalEvents: events.length,
+        byUser: [] as any[],
+        byModel: {} as Record<string, number>,
+    };
+
+    const userMap = new Map<string | null, any>();
+
+    for (const event of events) {
+        // Aggregate by Model
+        summary.byModel[event.modelName] = (summary.byModel[event.modelName] || 0) + 1;
+
+        // Aggregate by User
+        let userStats = userMap.get(event.actorUserId);
+        if (!userStats) {
+            userStats = {
+                actorUserId: event.actorUserId,
+                email: event.actor?.email || 'System/Unknown',
+                count: 0,
+                operations: {} as Record<string, number>,
+            };
+            userMap.set(event.actorUserId, userStats);
+        }
+        userStats.count++;
+        userStats.operations[event.operation] = (userStats.operations[event.operation] || 0) + 1;
+    }
+
+    summary.byUser = Array.from(userMap.values());
+
+    return c.json(summary as any, 200);
+});
+
 export default r;

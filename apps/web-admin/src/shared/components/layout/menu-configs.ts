@@ -19,6 +19,7 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.LEADS, path: RouteRegistry.ADMIN.LEADS, icon: '📥' },
     { label: ContentRegistry.MENU.SERVICES, path: RouteRegistry.ADMIN.SERVICES, icon: '💰' },
     { label: ContentRegistry.MENU.AUDITS, path: RouteRegistry.ADMIN.AUDITS, icon: '🎙️' },
+    { label: ContentRegistry.MENU.FORENSIC_TRAILS, path: RouteRegistry.ADMIN.SECURITY.FORENSIC_TRAILS, icon: '🔬' },
     { label: ContentRegistry.MENU.CONTENT, path: RouteRegistry.ADMIN.CONTENT, icon: '📝' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },

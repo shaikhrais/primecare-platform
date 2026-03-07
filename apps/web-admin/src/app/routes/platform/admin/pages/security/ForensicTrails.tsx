@@ -21,9 +21,12 @@ export default function ForensicTrails() {
     const [events, setEvents] = useState<SystemEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState<SystemEvent | null>(null);
+    const [dailySummary, setDailySummary] = useState<any>(null);
+    const [showSummary, setShowSummary] = useState(false);
 
     useEffect(() => {
         fetchEvents();
+        fetchDailySummary();
     }, []);
 
     const fetchEvents = async () => {
@@ -38,6 +41,56 @@ export default function ForensicTrails() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const fetchDailySummary = async (date?: string) => {
+        try {
+            const res = await apiClient.get(`/v1/admin/settings/security/daily-summary${date ? `?date=${date}` : ''}`);
+            if (res.ok) {
+                const data = await res.json();
+                setDailySummary(data);
+            }
+        } catch (err) {
+            console.error('Failed to fetch daily summary:', err);
+        }
+    };
+
+    const handleDownloadDailyJSON = () => {
+        if (!dailySummary) return;
+        const blob = new Blob([JSON.stringify(dailySummary, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `daily-summary-${dailySummary.date}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    const handleExportJSONL = () => {
+        const jsonl = events.map(e => JSON.stringify({
+            id: e.id,
+            operation: e.operation,
+            modelName: e.modelName,
+            entityId: e.entityId,
+            payload: e.payload,
+            previousData: e.previousData,
+            actorUserId: e.actorUserId,
+            deviceId: e.deviceId,
+            ipAddress: e.ipAddress,
+            createdAt: e.createdAt
+        })).join('\n');
+
+        const blob = new Blob([jsonl], { type: 'application/x-jsonlines' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `forensic-flat-file-${new Date().toISOString()}.jsonl`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
     const OperationBadge = ({ op }: { op: string }) => {
@@ -73,50 +126,110 @@ export default function ForensicTrails() {
             <div className="pc-card">
                 <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span>System Mutation Log</span>
-                    <button className="btn secondary sm" onClick={fetchEvents}>Refresh</button>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button className="btn secondary sm" onClick={() => setShowSummary(!showSummary)} style={{ background: showSummary ? '#4F46E5' : '#374151' }}>
+                            {showSummary ? '📊 Show mutations' : '📅 Show Daily summary'}
+                        </button>
+                        <button className="btn secondary sm" onClick={handleExportJSONL} style={{ background: '#374151' }}>
+                            💾 Export Flat File (.jsonl)
+                        </button>
+                        <button className="btn secondary sm" onClick={() => { fetchEvents(); fetchDailySummary(); }}>Refresh</button>
+                    </div>
                 </div>
                 <div className="pc-card-b" style={{ padding: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
-                            <tr>
-                                <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>TIME</th>
-                                <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>OP</th>
-                                <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>MODEL / ID</th>
-                                <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>ACTOR</th>
-                                <th style={{ textAlign: 'right', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>DETAILS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {events.map(event => (
-                                <tr key={event.id} style={{ borderBottom: '1px solid #E5E7EB' }}>
-                                    <td style={{ padding: '16px', fontSize: '13px' }}>
-                                        {new Date(event.createdAt).toLocaleString()}
-                                    </td>
-                                    <td style={{ padding: '16px' }}>
-                                        <OperationBadge op={event.operation} />
-                                    </td>
-                                    <td style={{ padding: '16px' }}>
-                                        <div style={{ fontWeight: '600', fontSize: '14px' }}>{event.modelName}</div>
-                                        <div style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'monospace' }}>{event.entityId || 'N/A'}</div>
-                                    </td>
-                                    <td style={{ padding: '16px' }}>
-                                        <div style={{ fontSize: '13px' }}>{event.actor?.email || 'System'}</div>
-                                        <div style={{ fontSize: '11px', color: '#9CA3AF' }}>IP: {event.ipAddress || 'Internal'}</div>
-                                    </td>
-                                    <td style={{ padding: '16px', textAlign: 'right' }}>
-                                        <button
-                                            className="btn secondary sm"
-                                            onClick={() => setSelectedEvent(event)}
-                                            style={{ fontSize: '11px' }}
-                                        >
-                                            Inspect State
-                                        </button>
-                                    </td>
+                    {showSummary ? (
+                        <div style={{ padding: '24px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                                <h3 style={{ fontSize: '18px', fontWeight: '700' }}>Daily Activity: {dailySummary?.date}</h3>
+                                <button className="btn primary sm" onClick={handleDownloadDailyJSON}>
+                                    📥 Download Summary JSON
+                                </button>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+                                <div style={{ background: '#F3F4F6', padding: '16px', borderRadius: '8px' }}>
+                                    <div style={{ color: '#6B7280', fontSize: '12px' }}>TOTAL EVENTS</div>
+                                    <div style={{ fontSize: '24px', fontWeight: '800' }}>{dailySummary?.totalEvents}</div>
+                                </div>
+                                <div style={{ background: '#F3F4F6', padding: '16px', borderRadius: '8px' }}>
+                                    <div style={{ color: '#6B7280', fontSize: '12px' }}>ACTIVE USERS</div>
+                                    <div style={{ fontSize: '24px', fontWeight: '800' }}>{dailySummary?.byUser?.length || 0}</div>
+                                </div>
+                            </div>
+
+                            <h4 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '16px', color: '#374151' }}>✅ Daily Tasks Done by User</h4>
+                            <div className="pc-card" style={{ border: '1px solid #E5E7EB' }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                    <thead style={{ background: '#F9FAFB' }}>
+                                        <tr>
+                                            <th style={{ textAlign: 'left', padding: '12px', fontSize: '12px' }}>USER</th>
+                                            <th style={{ textAlign: 'left', padding: '12px', fontSize: '12px' }}>TOTAL TASKS</th>
+                                            <th style={{ textAlign: 'left', padding: '12px', fontSize: '12px' }}>TASK BREAKDOWN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dailySummary?.byUser?.map((u: any, i: number) => (
+                                            <tr key={i} style={{ borderTop: '1px solid #F3F4F6' }}>
+                                                <td style={{ padding: '12px', fontSize: '13px', fontWeight: '500' }}>{u.email}</td>
+                                                <td style={{ padding: '12px', fontSize: '13px' }}>{u.count} actions</td>
+                                                <td style={{ padding: '12px' }}>
+                                                    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                                                        {Object.entries(u.operations).map(([op, count]: any) => (
+                                                            <span key={op} style={{ fontSize: '10px', background: '#DBEAFE', color: '#1E40AF', padding: '2px 8px', borderRadius: '12px', fontWeight: '600' }}>
+                                                                {op}: {count}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ) : (
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
+                                <tr>
+                                    <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>TIME</th>
+                                    <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>OP</th>
+                                    <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>MODEL / ID</th>
+                                    <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>ACTOR</th>
+                                    <th style={{ textAlign: 'right', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>DETAILS</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {events.length === 0 && (
+                            </thead>
+                            <tbody>
+                                {events.map(event => (
+                                    <tr key={event.id} style={{ borderBottom: '1px solid #E5E7EB' }}>
+                                        <td style={{ padding: '16px', fontSize: '13px' }}>
+                                            {new Date(event.createdAt).toLocaleString()}
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <OperationBadge op={event.operation} />
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <div style={{ fontWeight: '600', fontSize: '14px' }}>{event.modelName}</div>
+                                            <div style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'monospace' }}>{event.entityId || 'N/A'}</div>
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <div style={{ fontSize: '13px' }}>{event.actor?.email || 'System'}</div>
+                                            <div style={{ fontSize: '11px', color: '#9CA3AF' }}>IP: {event.ipAddress || 'Internal'}</div>
+                                        </td>
+                                        <td style={{ padding: '16px', textAlign: 'right' }}>
+                                            <button
+                                                className="btn secondary sm"
+                                                onClick={() => setSelectedEvent(event)}
+                                                style={{ fontSize: '11px' }}
+                                            >
+                                                Inspect State
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                    {!showSummary && events.length === 0 && (
                         <div style={{ padding: '48px', textAlign: 'center', color: '#9CA3AF' }}>
                             No forensic events recorded yet.
                         </div>

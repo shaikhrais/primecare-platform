@@ -27,21 +27,27 @@ export const forensicExtension = (actorUserId?: string | null, deviceId?: string
                     const finalEntityId = args?.where?.id || result?.id || (Array.isArray(result) ? 'batch' : undefined);
 
                     try {
+                        const eventData = {
+                            id: crypto.randomUUID(),
+                            tenantId,
+                            operation: operation.toUpperCase(),
+                            modelName: model,
+                            entityId: finalEntityId ? String(finalEntityId) : null,
+                            payload: args.data || args,
+                            actorUserId,
+                            deviceId,
+                            ipAddress,
+                            createdAt: new Date().toISOString()
+                        };
+
+                        // Output structured JSON for flat-file log harvest (JSONL)
+                        console.log(`[FORENSIC_TRACER_JSON] ${JSON.stringify(eventData)}`);
+
                         // Use the prisma internal 'query' for SystemEvent
                         const prisma = (this as any);
                         if (prisma.systemEvent) {
                             prisma.systemEvent.create({
-                                data: {
-                                    tenantId,
-                                    operation: operation.toUpperCase(),
-                                    modelName: model,
-                                    entityId: finalEntityId ? String(finalEntityId) : null,
-                                    payload: args.data || args,
-                                    actorUserId,
-                                    deviceId,
-                                    ipAddress,
-                                    createdAt: new Date()
-                                }
+                                data: eventData
                             }).catch((err: any) => console.error('[FORENSIC_INTERNAL_ERROR]', err));
                         }
                     } catch (e) {

@@ -145,6 +145,7 @@ const PLATFORM = {
             THREAT_DETECTION: '/platform/admin/security/threats',
             GOVERNANCE: '/platform/admin/security/governance',
             DEVICE_REGISTRY: '/platform/admin/security/devices',
+            FORENSIC_TRAILS: '/platform/admin/security/forensic',
         },
         OPERATIONS: {
             REALTIME_CAPACITY: '/platform/admin/ops/capacity',

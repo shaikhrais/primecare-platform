@@ -45,6 +45,7 @@ export const ContentRegistry = {
         TELEHEALTH: 'Telehealth Center',
         RCM: 'Claims Hub',
         PHARMACY: 'Pharmacy Hub',
+        FORENSIC_TRAILS: 'Forensic Trails',
     },
     PHARMACY: {
         TITLE: 'Pharmacy & Medication Hub',
