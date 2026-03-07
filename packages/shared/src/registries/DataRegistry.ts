@@ -5,6 +5,7 @@ export enum Role {
     STAFF = 'staff',
     COORDINATOR = 'coordinator',
     FINANCE = 'finance',
+    FINANCE_DIRECTOR = 'finance_director',
     SCRUM_MASTER = 'scrum_master',
 }
 

@@ -155,6 +155,27 @@ export const InteractionRegistry = {
             }
         }
     },
+    FINANCE_DIRECTOR: {
+        DASHBOARD: {
+            REFRESH: {
+                id: 'fd-dashboard-refresh',
+                label: 'Refresh Ledger',
+                type: 'button',
+                module: 'FINANCE_DIRECTOR' as any,
+                purpose: 'Trigger a real-time ledger synchronization and P&L recalculation.',
+                permission: 'FINANCIAL_ADMIN',
+                apiEndpoint: ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT
+            },
+            GENERATE_AUDIT: {
+                id: 'fd-generate-audit',
+                label: 'Generate Audit',
+                type: 'button',
+                module: 'FINANCE_DIRECTOR' as any,
+                purpose: 'Produce a GAAP-compliant forensic audit trail of all ledger entries.',
+                permission: 'FINANCIAL_ADMIN'
+            }
+        }
+    },
     QA: {
         DASHBOARD: {
             SAFETY_REPORT: {
