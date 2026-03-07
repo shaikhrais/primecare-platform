@@ -28,26 +28,26 @@ const InteractionAudit = lazy(() => import('./pages/audit/InteractionAudit'));
 const ResponseBot = lazy(() => import('./pages/audit/ResponseBot'));
 
 export const ScrumMasterRoutes = () => (
-    <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
+    <Route path={`${RouteRegistry.SCRUM_MASTER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
         <Route index element={<ScrumMasterDashboard />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.API_ENDPOINTS} element={<ApiEndpointsHub />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.PAGES} element={<TechnicalAuditPortal />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.COMPONENTS} element={<TechnicalAuditPortal />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.ROLE_FLOWS} element={<RoleFlowsPage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.MONITORING} element={<SystemHealthMonitor />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.ENV_AUDIT} element={<EnvironmentAudit />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK} element={<RegistryIntegrityCheck />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.DATABASE_SCHEMA} element={<DatabaseSchemaAudit />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.THEME_CENTER} element={<ThemeCoreCenter />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.DEVELOPER} element={<DeveloperPortal />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.DEV_KB} element={<DeveloperKBPage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.PERFORMANCE} element={<PerformancePage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.BUILD_HEALTH} element={<BuildHealthPage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.SECURITY_SCANS} element={<SecurityScansPage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.LOCALIZATION} element={<LocalizationPage />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.AUTO_FIX} element={<RegistryAutoRepair />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.IMPERSONATE} element={<ImpersonationTool />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.INTERACTION_AUDIT} element={<InteractionAudit />} />
-        <Route path={RouteRegistry.SCRUM_MASTER.RESPONSE_BOT} element={<ResponseBot />} />
+        <Route path="api-endpoints" element={<ApiEndpointsHub />} />
+        <Route path="pages" element={<TechnicalAuditPortal />} />
+        <Route path="components" element={<TechnicalAuditPortal />} />
+        <Route path="role-flows" element={<RoleFlowsPage />} />
+        <Route path="monitoring" element={<SystemHealthMonitor />} />
+        <Route path="env-audit" element={<EnvironmentAudit />} />
+        <Route path="registry-check" element={<RegistryIntegrityCheck />} />
+        <Route path="database-schema" element={<DatabaseSchemaAudit />} />
+        <Route path="theme-center" element={<ThemeCoreCenter />} />
+        <Route path="developer" element={<DeveloperPortal />} />
+        <Route path="dev-kb" element={<DeveloperKBPage />} />
+        <Route path="performance" element={<PerformancePage />} />
+        <Route path="build-health" element={<BuildHealthPage />} />
+        <Route path="security-scans" element={<SecurityScansPage />} />
+        <Route path="localization" element={<LocalizationPage />} />
+        <Route path="auto-fix" element={<RegistryAutoRepair />} />
+        <Route path="impersonate" element={<ImpersonationTool />} />
+        <Route path="interaction-audit" element={<InteractionAudit />} />
+        <Route path="response-bot" element={<ResponseBot />} />
     </Route>
 );

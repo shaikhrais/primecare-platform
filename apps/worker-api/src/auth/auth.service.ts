@@ -7,14 +7,16 @@ import { hashPassword } from '../_shared/utils/crypto';
  */
 // Removed local hashPassword and using shared crypto utility
 
-export const generateToken = async (user: { id: string; roles: Role[]; tenantId: string }, secret: string, activeRole?: Role, expiresInMinutes: number = 60) => {
-    const payload = {
+export const generateToken = async (user: { id: string; roles: Role[]; tenantId: string }, secret: string, options: { activeRole?: Role, expiresInMinutes?: number, type?: string } = {}) => {
+    const { activeRole, expiresInMinutes = 60, type } = options;
+    const payload: any = {
         sub: user.id,
         roles: user.roles,
         activeRole: activeRole || user.roles[0],
         tenantId: user.tenantId,
         exp: Math.floor(Date.now() / 1000) + (expiresInMinutes * 60),
     };
+    if (type) payload.type = type;
     return await sign(payload, secret);
 };
 

@@ -44,6 +44,8 @@ export default function ShiftsPage() {
         }
     };
 
+    const COMMON = ContentRegistry.COMMON;
+
     return (
         <div className="shifts-page-container">
             <header className="shifts-header">
@@ -56,7 +58,7 @@ export default function ShiftsPage() {
             <div className="shifts-stats-grid">
                 <div className="stats-card">
                     <span className="stats-label">{DASH_CONTENT.STATS.WEEKLY_HOURS}</span>
-                    <span className="stats-value">38.5h</span>
+                    <span className="stats-value">38.5{COMMON.UNITS.HOURS}</span>
                 </div>
                 <div className="stats-card" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white' }}>
                     <span className="stats-label" style={{ color: 'rgba(255,255,255,0.6)' }}>{DASH_CONTENT.STATS.NEXT_VISIT}</span>
@@ -94,22 +96,22 @@ export default function ShiftsPage() {
                                 <tr
                                     key={shift.id}
                                     className="schedule-row"
-                                    onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.LIVE_VISIT}/${shift.id}`)}
+                                    onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.CHECK_IN.replace(':id', shift.id)}`)}
                                 >
                                     <td>
-                                        <span className="client-name">{shift.client?.fullName || 'Registry Node'}</span>
+                                        <span className="client-name">{shift.client?.fullName || COMMON.FALLBACKS.REGISTRY_NODE}</span>
                                     </td>
                                     <td>
                                         <span className="client-location">
-                                            {shift.client?.addressLine1 || 'N/A'}
+                                            {shift.client?.addressLine1 || COMMON.FALLBACKS.NA}
                                         </span>
                                     </td>
                                     <td>
                                         <span className="visit-time">
-                                            {shift.requestedStartAt ? new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : 'TBD'}
+                                            {shift.requestedStartAt ? new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : COMMON.FALLBACKS.TBD}
                                         </span>
                                     </td>
-                                    <td>{shift.service?.name || 'Care Service'}</td>
+                                    <td>{shift.service?.name || COMMON.FALLBACKS.CARE_SERVICE}</td>
                                     <td>
                                         <span className={`status-badge ${getStatusClass(shift.status)}`}>
                                             {shift.status}

@@ -60,6 +60,8 @@ r.openapi(loginRoute, async (c) => {
     const user = await prisma.user.findUnique({ where: { email } });
     const passwordHash = await hashPassword(password);
 
+    console.log(`[LOGIN] Attempt: ${email}, Found: ${!!user}, Hash Match: ${user ? user.passwordHash === passwordHash : 'N/A'}`);
+
     if (!user || user.passwordHash !== passwordHash) {
         return c.json({ error: 'Invalid credentials' }, 401);
     }

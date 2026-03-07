@@ -44,6 +44,7 @@ const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation')
 const CredentialVault = lazy(() => import('./psw/pages/credentials/CredentialVault'));
 const ProviderSocial = lazy(() => import('./psw/pages/feed/ProviderSocial'));
 const LiveVisit = lazy(() => import('./psw/pages/schedule/LiveVisit'));
+const CheckInScreen = lazy(() => import('./psw/pages/schedule/CheckInScreen'));
 const PswHandover = lazy(() => import('./psw/pages/handover'));
 const PswPayoutHistory = lazy(() => import('./psw/pages/payouts'));
 
@@ -79,112 +80,108 @@ const ResponseBotAudit = lazy(() => import('./scrum-master/pages/ResponseBotAudi
 export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
-        {/* MANAGER PORTAL */}
-        <Route path={RouteRegistry.MANAGER.DASHBOARD} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<ManagerDashboard />} />
             <Route path="operations" element={<OperationsHub />} />
             <Route path="regional-stats" element={<RegionalStats />} />
             <Route path="compliance" element={<ComplianceSync />} />
-            <Route path="finance/branch" element={<FinanceHub />} /> {/* Branch specific P&L */}
-            <Route path={RouteRegistry.MANAGER.PERFORMANCE} element={<StaffRanker />} />
+            <Route path="finance" element={<FinanceHub />} />
+            <Route path="performance" element={<StaffRanker />} />
             <Route path="portfolio" element={<Portfolio />} />
-            <Route path={RouteRegistry.MANAGER.TRAINING} element={<TrainingHub />} />
-            <Route path={RouteRegistry.MANAGER.SURVEYS} element={<SurveyManager />} />
-            <Route path={RouteRegistry.MANAGER.EVALUATIONS} element={<Evaluations />} />
-            <Route path={RouteRegistry.MANAGER.SERVICE_REVIEW} element={<ServiceReview />} />
-            <Route path={RouteRegistry.MANAGER.DAILY_ENTRY} element={<DailyEntry />} />
+            <Route path="training" element={<TrainingHub />} />
+            <Route path="surveys" element={<SurveyManager />} />
+            <Route path="evaluations" element={<Evaluations />} />
+            <Route path="service-review" element={<ServiceReview />} />
+            <Route path="daily-entry" element={<DailyEntry />} />
             <Route path="team" element={<UserList />} />
         </Route>
 
         {/* MARKETING PORTAL */}
-        <Route path={RouteRegistry.MANAGER.MARKETING} element={<RequireRole allowedRoles={['marketing_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.MARKETING}/*`} element={<RequireRole allowedRoles={['marketing_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<MarketingDashboard />} />
         </Route>
 
         {/* HR & RECRUITMENT PORTAL */}
-        <Route path={RouteRegistry.MANAGER.RECRUITING} element={<RequireRole allowedRoles={['hr_manager', 'recruiting_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.RECRUITING}/*`} element={<RequireRole allowedRoles={['hr_manager', 'recruiting_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<HrRecruitmentPortal />} />
         </Route>
 
         {/* FINANCE & REGIONAL HUB - FOR REGIONAL MANAGERS */}
-        <Route path={RouteRegistry.MANAGER.FINANCE} element={<RequireRole allowedRoles={['finance_manager', 'regional_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.FINANCE}/*`} element={<RequireRole allowedRoles={['finance_manager', 'regional_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<FinanceRegionalHub />} />
         </Route>
 
         {/* CLINICAL QA DASHBOARD */}
-        <Route path={RouteRegistry.MANAGER.CLINICAL} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.CLINICAL}/*`} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<ClinicalQaDashboard />} />
         </Route>
 
         {/* COORDINATOR PORTAL */}
-        <Route path={RouteRegistry.COORDINATOR.DASHBOARD} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.COORDINATOR.DASHBOARD}/*`} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<CoordinatorHub />} />
             <Route path="hub" element={<CoordinatorHub />} />
             <Route path="dispatch-map" element={<DispatchMap />} />
             <Route path="waitlist" element={<WaitlistManager />} />
             <Route path="sos-center" element={<SosCenter />} />
-            <Route path="schedule" element={<CoordinatorHub />} /> {/* Using Hub as the landing for schedule for now */}
+            <Route path="schedule" element={<CoordinatorHub />} />
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}
-        <Route path={RouteRegistry.PSW.DASHBOARD} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.PSW.DASHBOARD}/*`} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
             <Route index element={<PswDashboard />} />
-            <Route path={RouteRegistry.PSW.SCHEDULE} element={<PswSchedule />} />
-            <Route path={RouteRegistry.PSW.OPEN_SHIFTS} element={<PswOpenShifts />} />
-            <Route path={RouteRegistry.PSW.OFFERS} element={<PswOpenOffers />} />
-            <Route path={RouteRegistry.PSW.AVAILABILITY} element={<PswAvailability />} />
-            <Route path={RouteRegistry.PSW.EARNINGS} element={<PswEarnings />} />
-            <Route path={RouteRegistry.PSW.EXPENSES} element={<PswExpenses />} />
-            <Route path={RouteRegistry.PSW.SHIFT_CONFIRMATION} element={<PswShiftConfirmation />} />
-            <Route path={RouteRegistry.PSW.CREDENTIALS} element={<CredentialVault />} />
-            <Route path={RouteRegistry.PSW.FEED} element={<ProviderSocial />} />
-            <Route path={RouteRegistry.PSW.LIVE_VISIT} element={<LiveVisit />} />
-            <Route path={RouteRegistry.PSW.HANDOVER} element={<PswHandover />} />
-            <Route path={RouteRegistry.PSW.PAYOUTS} element={<PswPayoutHistory />} />
+            <Route path="schedule" element={<PswSchedule />} />
+            <Route path="open-shifts" element={<PswOpenShifts />} />
+            <Route path="offers" element={<PswOpenOffers />} />
+            <Route path="availability" element={<PswAvailability />} />
+            <Route path="earnings" element={<PswEarnings />} />
+            <Route path="expenses" element={<PswExpenses />} />
+            <Route path="shift-confirmation" element={<PswShiftConfirmation />} />
+            <Route path="credentials" element={<CredentialVault />} />
+            <Route path="feed" element={<ProviderSocial />} />
+            <Route path="live-visit/:id" element={<LiveVisit />} />
+            <Route path="check-in/:id" element={<CheckInScreen />} />
+            <Route path="handover" element={<PswHandover />} />
+            <Route path="payouts" element={<PswPayoutHistory />} />
         </Route>
 
         {/* RN PORTAL */}
-        <Route path={RouteRegistry.RN.DASHBOARD} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.RN.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<RnDashboard />} />
-            <Route path={RouteRegistry.RN.CARE_PLANS} element={<CarePlanManager />} />
-            <Route path={RouteRegistry.RN.DAILY_AUDIT} element={<EntryVerify />} />
-            <Route path={RouteRegistry.RN.SUPERVISION} element={<SupervisionHub />} />
-            <Route path={RouteRegistry.RN.ASSESSMENTS} element={<AssessmentsHub />} />
+            <Route path="care-plans" element={<CarePlanManager />} />
+            <Route path="entry-verify" element={<EntryVerify />} />
+            <Route path="supervision" element={<SupervisionHub />} />
+            <Route path="assessments" element={<AssessmentsHub />} />
         </Route>
 
         {/* CLIENT PORTAL */}
-        <Route path={RouteRegistry.CLIENT.DASHBOARD} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.CLIENT.DASHBOARD}/*`} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
             <Route index element={<ClientDashboard />} />
-            <Route path={RouteRegistry.CLIENT.BOOKINGS} element={<ClientBookings />} />
-            <Route path={RouteRegistry.CLIENT.BILLING} element={<ClientBilling />} />
-            <Route path={RouteRegistry.CLIENT.FEEDBACK} element={<ClientFeedback />} />
-            <Route path={RouteRegistry.CLIENT.REQUEST_BOOKING} element={<RequestBooking />} />
-            <Route path={RouteRegistry.CLIENT.SERVICES} element={<CatalogBrowser />} />
-            <Route path={RouteRegistry.CLIENT.SUPPORT} element={<ClientMessaging />} />
-            <Route path={RouteRegistry.CLIENT.TEAM} element={<CareTeam />} />
-            <Route path={RouteRegistry.CLIENT.FEEDBACK_LOOP} element={<FeedbackLoop />} />
-            <Route path={RouteRegistry.CLIENT.FAMILY_HUB} element={<FamilyCareHub />} />
+            <Route path="bookings" element={<ClientBookings />} />
+            <Route path="billing" element={<ClientBilling />} />
+            <Route path="feedback" element={<ClientFeedback />} />
+            <Route path="request-booking" element={<RequestBooking />} />
+            <Route path="services" element={<CatalogBrowser />} />
+            <Route path="support" element={<ClientMessaging />} />
+            <Route path="team" element={<CareTeam />} />
+            <Route path="feedback-loop" element={<FeedbackLoop />} />
+            <Route path="family-hub" element={<FamilyCareHub />} />
         </Route>
 
         {/* ALLIED HEALTH PORTAL */}
-        <Route path={RouteRegistry.PLAN.ALLIED.DASHBOARD} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.ALLIED.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
             <Route index element={<AlliedHealthDashboard />} />
         </Route>
 
         {/* STAFF PORTAL */}
-        <Route path={RouteRegistry.STAFF.DASHBOARD} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.STAFF.DASHBOARD}/*`} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
             <Route index element={<StaffDashboard />} />
-            <Route path={RouteRegistry.STAFF.CUSTOMERS} element={<UserList />} />
-            <Route path={RouteRegistry.STAFF.TASKS} element={<StaffTaskGrid />} />
-            <Route path={RouteRegistry.STAFF.MESSAGES} element={<StaffMessageCenter />} />
-            <Route path={RouteRegistry.STAFF.INCIDENTS} element={<StaffIncidentPortal />} />
-            <Route path={RouteRegistry.STAFF.COMPLIANCE} element={<StaffComplianceMonitor />} />
+            <Route path="customers" element={<UserList />} />
+            <Route path="tasks" element={<StaffTaskGrid />} />
+            <Route path="messages" element={<StaffMessageCenter />} />
+            <Route path="incidents" element={<StaffIncidentPortal />} />
+            <Route path="compliance" element={<StaffComplianceMonitor />} />
         </Route>
 
-        {/* SCRUM MASTER / GOVERNANCE PORTAL */}
-        <Route path={RouteRegistry.SCRUM_MASTER.DASHBOARD} element={<RequireRole allowedRoles={['scrum_master', 'admin']}><AppLayout /></RequireRole>}>
-            <Route index element={<ResponseBotAudit />} />
-            <Route path="response-bot" element={<ResponseBotAudit />} />
-        </Route>
+
     </>
 );

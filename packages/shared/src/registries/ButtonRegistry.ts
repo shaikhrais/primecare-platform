@@ -136,4 +136,5 @@ export const ButtonRegistry: ButtonDef[] = [
     { id: 'btn-psw-clock-out', label: 'Clock Out', role: 'psw', module: 'CARE_DELIVERY', type: 'secondary', action: 'GEOLOCATION_STAMP', apiPath: ApiRegistry.TENANCY.PSW.CHECK_OUT(':id'), description: 'Day-to-day clock-out for field caregivers.' },
     { id: 'btn-rn-sign-off', label: 'Approve Visit', role: 'rn', module: 'CLINICAL', type: 'primary', action: 'API_SIGNATURE', apiPath: ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF, description: 'RN clinical sign-off for a completed visit.' },
     { id: 'btn-coord-sos-resolved', label: 'Resolve SOS', role: 'coordinator', module: 'OPERATIONS', type: 'primary', action: 'API_TRIGGER', apiPath: ApiRegistry.TENANCY.COORDINATOR.SOS_ACK, description: 'Final resolution step for coordinator SOS management.' },
+    { id: 'btn-sm-summary-registry', label: 'Registry Intelligence Hub', role: 'scrum_master', module: 'GOVERNANCE', type: 'primary', action: 'UI_NAVIGATION', description: 'Accesses the consolidated platform KPIs and registry-driven insights.' },
 ];

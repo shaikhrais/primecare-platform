@@ -50,19 +50,26 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
                 const querySlug = slugFromHost || slugFromPath;
 
-                const url = querySlug
-                    ? `/v1/system/platform/branding/public?slug=${querySlug}`
-                    : '/v1/admin/settings/branding';
-
-                const response = await apiClient.get(url);
-                if (response.ok) {
-                    const data = await response.json();
-                    setBranding({
-                        primaryColor: data.brandingConfig?.primaryColor || '#2563EB',
-                        accentColor: data.brandingConfig?.accentColor || '#10B981',
-                        logoUrl: data.logoUrl,
-                        name: data.name
-                    });
+                if (querySlug) {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/public/branding?slug=${querySlug}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.brandingConfig) {
+                            setBranding(data.brandingConfig);
+                        }
+                    }
+                } else {
+                    // Fallback for admin settings if no public slug is found
+                    const response = await apiClient.get('/v1/admin/settings/branding');
+                    if (response.ok) {
+                        const data = await response.json();
+                        setBranding({
+                            primaryColor: data.brandingConfig?.primaryColor || '#2563EB',
+                            accentColor: data.brandingConfig?.accentColor || '#10B981',
+                            logoUrl: data.logoUrl,
+                            name: data.name
+                        });
+                    }
                 }
             } catch (error) {
                 console.error('Failed to fetch branding', error);

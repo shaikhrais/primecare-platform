@@ -26,12 +26,9 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CLINICAL_AI, path: RouteRegistry.ADMIN.CLINICAL_ASSISTANT, icon: '🩺' },
     { label: ContentRegistry.MENU.INTEROPERABILITY, path: RouteRegistry.ADMIN.INTEROP, icon: '🔗' },
     { label: ContentRegistry.MENU.AUTOMATION, path: RouteRegistry.ADMIN.AUTOPILOT, icon: '🤖' },
-    { label: ContentRegistry.MENU.GROWTH, path: RouteRegistry.ADMIN.GROWTH_STRATEGY, icon: '📈' },
     { label: ContentRegistry.MENU.KNOWLEDGE_BASE, path: RouteRegistry.ADMIN.KNOWLEDGE_BASE, icon: '📚' },
-    { label: ContentRegistry.MENU.RESELLER, path: RouteRegistry.ADMIN.RESELLER, icon: '🏢' },
     { label: ContentRegistry.MENU.PRIVATE_MARKET, path: RouteRegistry.ADMIN.PRIVATE_MARKETPLACE, icon: '🏪' },
     { label: ContentRegistry.MENU.IDENTITY, path: RouteRegistry.ADMIN.SOVEREIGN, icon: '🆔' },
-    { label: ContentRegistry.MENU.MARKETPLACE, path: RouteRegistry.ADMIN.MARKETPLACE, icon: '🌐' },
     { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },
 
     // Explicit Role-Based Knowledge Base Routes
@@ -125,7 +122,7 @@ export const managerMenu: MenuItem[] = [
 ];
 
 export const coordinatorMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.COORDINATOR, icon: '📊' },
+    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.COORDINATOR.DASHBOARD, icon: '📊' },
     { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.ADMIN.SCHEDULE, icon: '📅' },
     { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
     { label: ContentRegistry.MENU.USERS, path: RouteRegistry.ADMIN.USERS, icon: '👨‍⚕️' },

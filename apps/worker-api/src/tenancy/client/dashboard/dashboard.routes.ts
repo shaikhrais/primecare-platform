@@ -2,6 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 import { requireRole } from '../../../_shared/middleware/rbac';
+import { geocodeAddress } from '../../../_shared/utils/geocoding';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -101,6 +102,19 @@ r.openapi(updateProfileRoute, async (c) => {
         return c.json({ error: 'Forbidden' }, 403);
     }
 
+    // Geocode if address has changed
+    let lat = profileExists.lat;
+    let lng = profileExists.lng;
+
+    if (data.addressLine1 && data.addressLine1 !== profileExists.addressLine1) {
+        const fullAddress = `${data.addressLine1}, ${data.city || profileExists.city || ''}, ${data.province || profileExists.province || ''}`;
+        const geo = await geocodeAddress(fullAddress);
+        if (geo) {
+            lat = geo.lat;
+            lng = geo.lng;
+        }
+    }
+
     const profile = await prisma.clientProfile.update({
         where: { userId: payload.sub },
         data: {
@@ -111,6 +125,8 @@ r.openapi(updateProfileRoute, async (c) => {
             postalCode: data.postalCode,
             emergencyName: data.emergencyName,
             emergencyPhone: data.emergencyPhone,
+            lat,
+            lng,
         },
     });
 

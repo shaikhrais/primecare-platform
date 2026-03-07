@@ -172,6 +172,8 @@ const dispatchMapRoute = createRoute({
                     schema: z.object({
                         caregivers: z.array(z.any()),
                         clients: z.array(z.any()),
+                        activeVisits: z.array(z.any()),
+                        recentEvents: z.array(z.any()),
                     }),
                 },
             },
@@ -522,7 +524,7 @@ coordinator.openapi(dispatchMapRoute as any, async (c: any) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
 
-    const [psws, clients] = await Promise.all([
+    const [psws, clients, activeVisits, recentEvents] = await Promise.all([
         prisma.pswProfile.findMany({
             where: { tenantId, isApproved: true },
             select: { id: true, fullName: true, lastLat: true, lastLng: true, status: true }
@@ -530,10 +532,26 @@ coordinator.openapi(dispatchMapRoute as any, async (c: any) => {
         prisma.clientProfile.findMany({
             where: { tenantId },
             select: { id: true, fullName: true, lat: true, lng: true }
+        }),
+        prisma.visit.findMany({
+            where: { tenantId, status: { in: ['in_progress', 'arrived', 'en_route'] } },
+            include: {
+                client: { select: { id: true, fullName: true, lat: true, lng: true } },
+                psw: { select: { id: true, fullName: true, lastLat: true, lastLng: true } }
+            },
+            take: 20
+        }),
+        prisma.visitCheckEvent.findMany({
+            where: { tenantId },
+            orderBy: { createdAt: 'desc' },
+            take: 10,
+            include: {
+                pswProfile: { select: { fullName: true } }
+            }
         })
     ]);
 
-    return c.json({ caregivers: psws, clients }, 200);
+    return c.json({ caregivers: psws, clients, activeVisits, recentEvents }, 200);
 });
 
 coordinator.openapi(matchingEngineRoute as any, async (c: any) => {

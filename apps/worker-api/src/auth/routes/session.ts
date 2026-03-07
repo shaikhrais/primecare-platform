@@ -106,33 +106,38 @@ const whoamiRoute = createRoute({
 });
 
 r.openapi(whoamiRoute, async (c) => {
-    const payload = c.get('jwtPayload') as any;
-    let userId: string | undefined = payload?.sub;
+    try {
+        const payload = c.get('jwtPayload') as any;
+        let userId: string | undefined = payload?.sub;
 
-    if (!userId) {
-        const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
-        if (accessToken) {
-            try {
-                const decoded = await verify(accessToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
-                userId = decoded.sub as string;
-            } catch (e) {
-                return c.json({ error: 'Unauthorized', message: 'Invalid or expired session' }, 401);
+        if (!userId) {
+            const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
+            if (accessToken) {
+                try {
+                    const decoded = await verify(accessToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
+                    userId = decoded.sub as string;
+                } catch (e) {
+                    return c.json({ error: 'Unauthorized', message: 'Invalid or expired session' }, 401);
+                }
             }
         }
+
+        if (!userId) {
+            return c.json({ error: 'Not authenticated', message: 'No session found' }, 401);
+        }
+
+        const prisma = c.get('prisma');
+        const user = await prisma.user.findUnique({
+            where: { id: userId as string },
+            select: { id: true, email: true, roles: true, tenantId: true }
+        });
+
+        if (!user) return c.json({ error: 'User not found', message: 'User does not exist in database' }, 404);
+        return c.json({ user }, 200);
+    } catch (err: any) {
+        console.error('Whoami Error:', err);
+        return c.json({ error: 'Internal Server Error', message: err.message }, 500);
     }
-
-    if (!userId) {
-        return c.json({ error: 'Not authenticated' }, 401);
-    }
-
-    const prisma = c.get('prisma');
-    const user = await prisma.user.findUnique({
-        where: { id: userId as string },
-        select: { id: true, email: true, roles: true, tenantId: true }
-    });
-
-    if (!user) return c.json({ error: 'User not found' }, 404);
-    return c.json({ user }, 200);
 });
 
 export default r;

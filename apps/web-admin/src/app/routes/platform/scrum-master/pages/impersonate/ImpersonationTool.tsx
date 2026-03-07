@@ -13,6 +13,8 @@ export default function ImpersonationTool() {
     const [selectedUser, setSelectedUser] = useState<any>(null);
     const [isImpersonating, setIsImpersonating] = useState(false);
 
+    const CONTENT = AdminRegistry.ContentRegistry.IMPERSONATION;
+
     const handleSearch = async () => {
         setLoading(true);
         try {
@@ -33,21 +35,19 @@ export default function ImpersonationTool() {
         setSelectedUser(user);
 
         // Mocking the impersonation logic
-        // In a real app, this would exchange a token or set a session cookie
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Success state
         localStorage.setItem('impersonated_user', JSON.stringify(user));
-        window.location.href = '/platform/dashboard'; // Redirect to dashboard as this user
+        window.location.href = AdminRegistry.RouteRegistry.ADMIN.DASHBOARD;
     };
 
     return (
         <div className="p-8 max-w-6xl mx-auto space-y-8">
             <header className="space-y-2">
                 <h1 className="text-3xl font-black tracking-tight flex items-center gap-3">
-                    <span>👥</span> User Shadowing & Debug
+                    <span>👥</span> {t(CONTENT.TITLE)}
                 </h1>
-                <p className="text-muted-foreground">Securely simulate user sessions to diagnose technical issues and verify RBAC policies.</p>
+                <p className="text-muted-foreground">{t(CONTENT.SUBTITLE)}</p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -58,7 +58,7 @@ export default function ImpersonationTool() {
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg opacity-50">🔍</span>
                                 <input
                                     type="text"
-                                    placeholder="Search by name, email, or Role ID..."
+                                    placeholder={t(CONTENT.SEARCH_PLACEHOLDER)}
                                     className="w-full pl-12 pr-4 py-3 rounded-xl border bg-background focus:ring-2 focus:ring-primary outline-none transition-all"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -70,15 +70,15 @@ export default function ImpersonationTool() {
                                 disabled={loading}
                                 className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-50"
                             >
-                                {loading ? 'Searching...' : 'Find Users'}
+                                {loading ? t(CONTENT.SEARCHING) : t(CONTENT.SEARCH_BTN)}
                             </button>
                         </div>
                     </div>
 
                     <div className="space-y-4">
                         <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex justify-between items-center px-2">
-                            <span>Search Results</span>
-                            <span>{users.length} match(es)</span>
+                            <span>{t(CONTENT.RESULTS_TITLE)}</span>
+                            <span>{CONTENT.MATCH_COUNT(users.length)}</span>
                         </h2>
 
                         <div className="grid grid-cols-1 gap-4">
@@ -106,7 +106,7 @@ export default function ImpersonationTool() {
                                         onClick={() => setSelectedUser(user)}
                                         className="px-4 py-2 text-sm font-bold bg-secondary hover:bg-primary hover:text-primary-foreground rounded-lg transition-all opacity-0 group-hover:opacity-100"
                                     >
-                                        Inspect Identity
+                                        {t(CONTENT.INSPECT_BTN)}
                                     </button>
                                 </div>
                             ))}
@@ -114,8 +114,8 @@ export default function ImpersonationTool() {
                             {users.length === 0 && !loading && (
                                 <div className="py-20 text-center text-muted-foreground bg-secondary/30 rounded-3xl border-2 border-dashed">
                                     <div className="text-5xl mb-4">🕵️</div>
-                                    <p className="font-medium">No active audit targets selected.</p>
-                                    <p className="text-xs">Enter a search query to locate users across the franchise.</p>
+                                    <p className="font-medium">{t(CONTENT.EMPTY_STATE)}</p>
+                                    <p className="text-xs">{t(CONTENT.EMPTY_DESC)}</p>
                                 </div>
                             )}
                         </div>
@@ -131,12 +131,12 @@ export default function ImpersonationTool() {
                                         💎
                                     </div>
                                     <h3 className="text-xl font-black">{selectedUser.email}</h3>
-                                    <p className="text-sm text-muted-foreground">Tenant ID: {selectedUser.tenantId || 'GLOBAL'}</p>
+                                    <p className="text-sm text-muted-foreground">{AdminRegistry.ContentRegistry.USERS.TENANT_ID}: {selectedUser.tenantId || 'GLOBAL'}</p>
                                 </div>
 
                                 <div className="space-y-3 pt-6 border-t">
                                     <div className="flex justify-between text-xs">
-                                        <span className="text-muted-foreground font-bold uppercase">Security Tier</span>
+                                        <span className="text-muted-foreground font-bold uppercase">{AdminRegistry.ContentRegistry.USERS.ROLE}</span>
                                         <span className="font-mono">{selectedUser.roles[0].toUpperCase()}</span>
                                     </div>
                                     <div className="flex justify-between text-xs">
@@ -155,10 +155,10 @@ export default function ImpersonationTool() {
                                         disabled={isImpersonating}
                                         className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                     >
-                                        {isImpersonating ? '✨ Shifting Reality...' : 'Shadow User Session'}
+                                        {isImpersonating ? t(CONTENT.MODAL.SHIFTING) : t(CONTENT.MODAL.SHADOW_BTN)}
                                     </button>
                                     <p className="text-[10px] text-center text-muted-foreground mt-4 leading-relaxed px-4">
-                                        Shadowing creates a technical trace in the audit logs. You will have full access to the user's view, data, and permissions.
+                                        {t(CONTENT.MODAL.FOOTER)}
                                     </p>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@ export default function ImpersonationTool() {
                             <div className="text-center py-20 space-y-4">
                                 <div className="text-4xl opacity-20">🕳️</div>
                                 <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">
-                                    Select a user to<br />view identity metadata
+                                    {t(CONTENT.MODAL.SELECT_PROMPT).split('view')[0]}<br />{t(CONTENT.MODAL.SELECT_PROMPT).split('view')[1]}
                                 </p>
                             </div>
                         )}
@@ -175,10 +175,10 @@ export default function ImpersonationTool() {
                     <div className="bg-zinc-900 text-white rounded-3xl p-6 space-y-4">
                         <div className="flex items-center gap-2 text-xs font-black text-primary uppercase tracking-tighter">
                             <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-                            Live Governance
+                            {t(CONTENT.GOVERNANCE.TITLE)}
                         </div>
                         <p className="text-xs text-zinc-400 leading-relaxed">
-                            Shadowing is strictly monitored. Ensure your local environment is configured for 'TECHNICAL_SUPPORT' mode before assuming identities.
+                            {t(CONTENT.GOVERNANCE.FOOTER)}
                         </p>
                     </div>
                 </div>

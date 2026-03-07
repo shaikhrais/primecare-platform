@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './DispatchMap.css';
@@ -37,6 +37,8 @@ const PulseCircle = ({ lat, lng }: { lat: number, lng: number }) => {
 
 export default function DispatchMap() {
     const [nodes, setNodes] = useState<any[]>([]);
+    const [activeVisits, setActiveVisits] = useState<any[]>([]);
+    const [recentEvents, setRecentEvents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -61,6 +63,8 @@ export default function DispatchMap() {
                         icon: '🏠'
                     }));
                     setNodes([...caregivers, ...clients]);
+                    setActiveVisits(data.activeVisits || []);
+                    setRecentEvents(data.recentEvents || []);
                 }
             } catch (error) {
                 console.error('Failed to fetch dispatch map:', error);
@@ -105,6 +109,25 @@ export default function DispatchMap() {
                             </Marker>
                         </React.Fragment>
                     ))}
+
+                    {activeVisits.map(visit => {
+                        if (!visit.psw?.lastLat || !visit.client?.lat) return null;
+                        return (
+                            <Polyline
+                                key={visit.id}
+                                positions={[
+                                    [visit.psw.lastLat, visit.psw.lastLng],
+                                    [visit.client.lat, visit.client.lng]
+                                ]}
+                                pathOptions={{
+                                    color: visit.status === 'in_progress' ? '#10b981' : '#3b82f6',
+                                    weight: 3,
+                                    dashArray: '5, 10',
+                                    opacity: 0.6
+                                }}
+                            />
+                        );
+                    })}
                 </MapContainer>
 
                 <aside className="map-sidebar">
@@ -124,8 +147,16 @@ export default function DispatchMap() {
                     </div>
 
                     <div className="live-feed">
-                        <div className="feed-item">[GPS] OSM INTEGRATION ACTIVE</div>
-                        <div className="feed-item">[SYNC] CLOUD DISPATCH PULSE</div>
+                        <div className="feed-header">LIVE ATTENDANCE FEED</div>
+                        {recentEvents.length === 0 && <div className="feed-item">Waiting for check-in events...</div>}
+                        {recentEvents.map(event => (
+                            <div key={event.id} className={`feed-item ${event.eventType}`}>
+                                <span className="time">{new Date(event.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                <span className="event-type">{event.eventType === 'check_in' ? '🟢 IN' : '🔴 OUT'}</span>
+                                <span className="psw-name">{event.pswProfile?.fullName}</span>
+                                <span className="result">{event.result.toUpperCase()}</span>
+                            </div>
+                        ))}
                         {nodes.filter(n => n.status === 'sos').map(n => (
                             <div key={n.id} className="feed-item danger">🚨 SOS: {n.name}</div>
                         ))}

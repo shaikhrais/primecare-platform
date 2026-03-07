@@ -17,6 +17,14 @@ export const apiClient = {
         const userStr = localStorage.getItem('user');
         const userData = userStr ? JSON.parse(userStr) : null;
         const tenantId = userData?.tenantId;
+
+        // Defensive: Check for token in URL (for immediate post-login requests)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get('token');
+        if (urlToken) {
+            localStorage.setItem('token', urlToken);
+        }
+
         const token = localStorage.getItem('token');
 
         const isFormData = init.body instanceof FormData;

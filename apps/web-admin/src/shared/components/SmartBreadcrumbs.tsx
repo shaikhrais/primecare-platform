@@ -14,7 +14,7 @@ export const SmartBreadcrumbs: React.FC = () => {
     const dashboardRoot = isPlatform ? RouteRegistry.ADMIN.DASHBOARD : (isTenancy ? '/tenancy' : '/');
 
     // Don't show on dashboard to avoid redundancy
-    if (location.pathname === dashboardRoot || location.pathname === '/admin/dashboard' || location.pathname === '/admin') {
+    if (location.pathname === dashboardRoot || location.pathname === RouteRegistry.ADMIN.DASHBOARD) {
         return null;
     }
 

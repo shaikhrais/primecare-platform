@@ -1,5 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
+import { cors } from 'hono/cors';
 import registerRoutes from './routes/register';
 import loginRoutes from './routes/login';
 import sessionRoutes from './routes/session';

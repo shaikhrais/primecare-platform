@@ -10,7 +10,8 @@
         "prisma:push": "prisma db push",
         "prisma:seed": "ts-node prisma/seed.ts",
         "typecheck": "tsc --noEmit",
-        "verify:parts": "tsx scripts/verify-parts.ts"
+        "verify:parts": "tsx scripts/verify-parts.ts",
+        "osm-cli": "tsx scripts/osm-cli.ts"
     },
     "dependencies": {
         "@esbuild-plugins/node-globals-polyfill": "^0.2.3",

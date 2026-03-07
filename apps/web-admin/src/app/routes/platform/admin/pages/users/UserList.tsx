@@ -63,7 +63,7 @@ export default function UserList() {
                     email: u.email,
                     roles: u.roles || (u.role ? [u.role] : []),
                     profile: {
-                        fullName: u.pswProfile?.fullName || u.clientProfile?.fullName || u.profile?.fullName || 'Untitled User',
+                        fullName: u.pswProfile?.fullName || u.clientProfile?.fullName || u.profile?.fullName || t(ContentRegistry.COMMON.FALLBACKS.REGISTRY_NODE),
                         isVerified: u.status === 'verified'
                     }
                 }));

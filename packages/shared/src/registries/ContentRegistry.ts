@@ -39,6 +39,7 @@ export const ContentRegistry = {
             TITLE: '🚀 Business Ready?',
             SUBTITLE: 'Check your command center and complete your setup.',
             ACTION: 'Review Business Status',
+            TRAINING: '🎓 System Training',
             SCORE_LABEL: 'Business Model Score',
             STRATEGY_LINK: 'Business Strategy',
             STRATEGY_DESC: 'to reach 100%.',
@@ -55,6 +56,9 @@ export const ContentRegistry = {
             POST_SHIFT: '+ Post New Shift',
             POST_SHIFT_DESC: 'Direct or open posting',
             POST_SUCCESS: 'Shift posted successfully!',
+            FIX: 'Fix',
+            VIEW: 'View',
+            ACTION: 'Action',
         },
         STATUS: {
             API: 'Worker API Status',
@@ -129,6 +133,19 @@ export const ContentRegistry = {
             TITLE: 'Arrived at Location?',
             DESC: 'GPS verifies you are within range of the patient\'s residence.',
             BUTTON: 'Confirm & Check-in',
+            BACK: '← Back to Schedule',
+            LOADING: 'Authenticating Location Node...',
+            VISIT_DETAILS: {
+                LOCATION: 'Location',
+                TIME_SLOT: 'Time Slot',
+            },
+            GPS_TITLE: 'GPS Status',
+            GPS_IDLE: 'Ready for site verification',
+            GPS_VERIFYING: 'Syncing with orbital nodes...',
+            GPS_VERIFIED: (accuracy: number) => `Verified Accuracy: ${accuracy}m`,
+            GPS_ERROR: 'Verification Failed. Try again.',
+            BTN_VERIFYING: 'Verifying...',
+            BTN_VERIFIED: 'Verified ✓',
         },
         CHECKOUT: {
             BUTTON: 'Check-out & Sync',
@@ -142,9 +159,23 @@ export const ContentRegistry = {
             REGIONAL_BACKUP: 'Regional Backup',
             CONNECT_RN: 'Connect to RN',
         },
+        NAV: {
+            HOME: 'Home',
+            PROTOCOLS: 'Protocols',
+            NURSING: 'Nursing',
+            ACCOUNT: 'Account',
+        },
         MESSAGES: {
             SYNCING: 'Transmitting clinical data...',
             SUCCESS: 'Visit successfully synced to clinical ledger.',
+            CHECKOUT_ERROR: 'Check-out failed',
+            NETWORK_ERROR: 'Network error during communication',
+            DAILY_ENTRY_SUCCESS: 'Clinical Data Saved Successfully',
+            DAILY_ENTRY_ERROR: 'Failed to save clinical data',
+            GEOLOCATION_NOT_SUPPORTED: 'Geolocation not supported',
+            UNABLE_TO_RETRIEVE_LOCATION: 'Unable to retrieve location',
+            LOAD_VISIT_ERROR: 'Failed to load visit details',
+            LOAD_VISIT_NETWORK_ERROR: 'Network error loading visit',
         }
     },
     PSW_HANDOVER: {
@@ -246,6 +277,52 @@ export const ContentRegistry = {
             STATUS: 'Verification Status',
         },
         SUCCESS_VERIFY: 'Visit log professional verification complete.',
+    },
+    ADMIN_LEADS: {
+        TITLE: 'Lead Pipeline Management',
+        SUBTITLE: 'Onboard potential clients and track referral conversion.',
+        TABLE: {
+            NAME: 'Name',
+            CONTACT: 'Contact',
+            INTEREST: 'Interest',
+            STATUS: 'Status',
+            DATE: 'Date',
+            ACTIONS: 'Actions',
+        },
+        MESSAGES: {
+            LOADING: 'Loading leads...',
+            EMPTY_SEARCH: 'No leads match your search.',
+            EMPTY_LIST: 'No leads found.',
+            CONFIRM_DELETE: 'Delete this lead?',
+        },
+        STATUS: {
+            NEW: 'New',
+            CONTACTED: 'Contacted',
+            CONSULTATION: 'Consultation',
+            CONVERTED: 'Converted',
+            LOST: 'Lost',
+        }
+    },
+    SUMMARY_DASHBOARD: {
+        TITLE: 'Registry Intelligence Dashboard',
+        SUBTITLE: 'Real-time platform summaries, KPIs, and registry-driven insights.',
+        HEADER: {
+            CONTEXT: 'Context',
+            LAST_UPDATED: 'Last Synchronized',
+            SYNC_NOW: 'Sync Orbit',
+        },
+        CARDS: {
+            KPI: 'Performance KPI',
+            TREND: 'Registry Trend',
+            REGISTRY_HUB: {
+                TITLE: 'Registry Intelligence Hub',
+                SUBTITLE: 'Consolidated platform KPIs, stats, and registry-driven insights.',
+            }
+        },
+        MESSAGES: {
+            EMPTY: 'No summary contexts registered.',
+            SYNCING: 'Calibrating registry nodes...',
+        }
     },
     PLATFORM_DASHBOARD: {
         TITLE: 'Platform Command Center',
@@ -442,6 +519,7 @@ export const ContentRegistry = {
         STATUS: 'Status',
         INVITE_BTN: 'Invite User',
         ADD_BTN: 'Add New User',
+        TENANT_ID: 'Tenant ID',
         INVITE_PROMPT: 'Enter email to invite:',
         INVITE_SUCCESS: (email: string) => `Invitation sent to ${email}`,
         VERIFY_BTN: 'Verify Certs',
@@ -1087,6 +1165,28 @@ export const ContentRegistry = {
         DELETE: 'Delete',
         NETWORK_ERROR: 'Network error',
         PROCESSING: 'Processing...',
+        FALLBACKS: {
+            REGISTRY_NODE: 'Registry Node',
+            CARE_SERVICE: 'Care Service',
+            NA: 'N/A',
+            TBD: 'TBD',
+        },
+        UNITS: {
+            MMHG: 'mmHg',
+            METERS: 'm',
+            HOURS: 'h',
+        },
+        TABLE: {
+            NAME: 'Name',
+            EMAIL: 'Email',
+            PHONE: 'Phone',
+            DATE: 'Date',
+            STATUS: 'Status',
+            ACTIONS: 'Actions',
+            SEARCH_PLACEHOLDER: 'Search records...',
+            NO_RESULTS: 'No matching records found.',
+            LOADING: 'Synchronizing data...',
+        }
     },
     SETUP_WIZARD: {
         TITLE: 'Business Setup Wizard',
@@ -1096,6 +1196,10 @@ export const ContentRegistry = {
             STAFF: 'Onboard Staff',
             CLIENTS: 'Admit Clients',
             FINISH: 'Ready to Go!'
+        },
+        PROGRESS: {
+            TITLE: 'Overall Readiness',
+            SUBTITLE: 'Completing all wizards unlocks full automation.',
         },
         HEADERS: {
             STEP_1: 'Step 1: Define Your Care Services',
@@ -1517,5 +1621,181 @@ export const ContentRegistry = {
         CAPACITY: 'Real-time Regional Capacity',
         LOGISTICS: 'Logistics Chain Mapping',
         REGION_MAPPING: 'Network Topology',
+    },
+    IMPERSONATION: {
+        TITLE: 'User Shadowing & Debug',
+        SUBTITLE: 'Securely simulate user sessions to diagnose technical issues and verify RBAC policies.',
+        SEARCH_PLACEHOLDER: 'Search by name, email, or Role ID...',
+        SEARCH_BTN: 'Find Users',
+        SEARCHING: 'Searching...',
+        RESULTS_TITLE: 'Search Results',
+        MATCH_COUNT: (count: number) => `${count} match(es)`,
+        INSPECT_BTN: 'Inspect Identity',
+        EMPTY_STATE: 'No active audit targets selected.',
+        EMPTY_DESC: 'Enter a search query to locate users across the franchise.',
+        MODAL: {
+            TITLE: 'Identity Metadata',
+            SHADOW_BTN: 'Shadow User Session',
+            SHIFTING: '✨ Shifting Reality...',
+            FOOTER: "Shadowing creates a technical trace in the audit logs. You will have full access to the user's view, data, and permissions.",
+            SELECT_PROMPT: 'Select a user to view identity metadata',
+        },
+        GOVERNANCE: {
+            TITLE: 'Live Governance',
+            FOOTER: "Shadowing is strictly monitored. Ensure your local environment is configured for 'TECHNICAL_SUPPORT' mode before assuming identities.",
+        }
+    },
+    COORDINATOR: {
+        DASHBOARD: {
+            TITLE: 'Logistics Command Center',
+            STATS: {
+                LIVE_PSW: 'PSWs on Duty',
+                SOS_ACTIVE: 'Active SOS Alerts',
+                PENDING_MATCHES: 'Open Shift Offers',
+                WAITLIST: 'Waitlisted Clients',
+            }
+        },
+        SOS: {
+            ACK_SUCCESS: 'SOS alert acknowledged.',
+            DISPATCH_SUCCESS: 'Emergency replacement dispatched.',
+            NOT_FOUND: 'Incident or visit not found',
+        },
+        WAITLIST: {
+            SYNC_SUCCESS: 'Waitlist synchronized',
+        }
+    },
+    QUICK_ACTIONS: {
+        POST_SHIFT: 'Post Shift',
+        ADD_USER: 'Add User',
+        CRISIS_ALERTS: 'Crisis Mode',
+        CRISIS_ACTIVE: 'CRISIS ACTIVE',
+        WAITING: 'Wait...',
+        MESSAGES: {
+            CRISIS_CONFIRM: 'ACTIVATE CRISIS MODE? This will send emergency alerts to all active staff.',
+            CRISIS_DEACTIVATE: 'Deactivate Crisis Mode? This will resume normal notifications.',
+            CRISIS_ACTIVATED: 'CRISIS MODE ACTIVATED',
+            CRISIS_DEACTIVATED: 'Crisis Mode Deactivated',
+            ADMIN_ONLY: 'Only administrators can activate Crisis Mode',
+            SYNC_SUCCESS: 'Shift posted successfully!',
+            TEMP_ERROR: 'Failed to update Crisis Mode status',
+        }
+    },
+    PROFILE: {
+        TITLE: 'Account Profile',
+        SUBTITLE: 'Manage your personal information and preferences.',
+        FULL_NAME: 'Full Name',
+        BIO: 'Professional Bio',
+        ADDRESS: 'Address',
+        CITY: 'City',
+        EMAIL_LABEL: 'Email (Unchangeable)',
+        PHONE_LABEL: 'Phone',
+        SECURITY: {
+            TITLE: 'Location Verification',
+            SYNCED: '📍 Coordinate Synced',
+            PENDING: '⏳ Pending Sync',
+            FOOTER: (role: string) => `we use this for coordinate verification and secure ${role === 'psw' ? 'check-ins' : 'visit security'}.`,
+        },
+        GUARD: {
+            TITLE: 'Unsaved Changes',
+            MESSAGE: 'You have unsaved changes. Navigating away will discard them. Would you like to stay and save?',
+            LEAVE: 'Leave',
+            STAY: 'Stay',
+        },
+        MESSAGES: {
+            FETCH_ERROR: 'Failed to load profile data',
+            SAVE_SUCCESS: 'Profile updated successfully!',
+            SAVE_ERROR: 'Failed to update profile',
+            LOADING: 'Loading profile...',
+            SAVING: 'Saving...',
+            SAVE_BTN: 'Save Changes',
+        }
+    },
+    LINKS: {
+        ADMIN: {
+            AUDITS: 'Security Audits',
+            USERS: 'User Management',
+            SCHEDULE: 'Global Schedule',
+            INCIDENTS: 'Global Incidents',
+            TIMESHEETS: 'Payroll Timesheets',
+            LEADS: 'Growth Pipeline',
+            SERVICES: 'Service Catalog',
+            SETTINGS: 'Global Settings',
+            CONTENT: 'Content Manager',
+            ADMISSION: 'Admission Center',
+            REPORTS: 'Report Center',
+            SETUP_WIZARD: 'Setup Wizard',
+            SEARCH: 'Global Search',
+            CUSTOMERS: 'Customer CRM',
+            EARNINGS: 'Earnings Ledger',
+            INTEROP: 'Electronic Health Link',
+            LOCATIONS: 'Branch Mapping',
+            LOGISTICS: 'Logistics Hub',
+            REGIONS: 'Region Mapping'
+        },
+        SCRUM_MASTER: {
+            API_HUB: 'API Integrity Hub',
+            MONITORING: 'System Health',
+            ENV_AUDIT: 'Environment Audit',
+            REGISTRY: 'Registry Integrity',
+            SCHEMA: 'Schema Audit',
+            BUILDS: 'Build Surveillance',
+            SCANS: 'Vulnerability Scans',
+            LOCALIZATION: 'Localization Audit',
+            AUTO_FIX: 'Auto-Repair Engine',
+            IMPERSONATE: 'Role Shadowing',
+            RESPONSE_BOT: 'Response Bot AI',
+            PERFORMANCE: 'Node Performance',
+            THEME_LAB: 'Theme Studio'
+        },
+        MANAGER: {
+            PL: 'Branch Profit & Loss',
+            OPS_TRIAGE: 'Operations Triage',
+            COMPLIANCE: 'Compliance Monitor',
+            DASHBOARD: 'Branch Dashboard',
+            AGENCY_HUB: 'Agency Operations Hub',
+            FINANCIALS: 'Branch Financials',
+            TEAM: 'Branch Team'
+        },
+        COORDINATOR: {
+            HUB: 'Dispatch Center',
+            SOS: 'SOS Center',
+            MAP: 'Dispatcher Map',
+            WAITLIST: 'Inflow Waitlist',
+            SOS_HUB: 'SOS Dispatch Hub',
+            MASTER_SCHEDULE: 'Master Schedule'
+        },
+        PSW: {
+            OFFERS: 'Shift Marketplace',
+            HANDOVER: 'Shift Handover',
+            AVAILABILITY: 'Availability Overrides',
+            EARNINGS: 'Earnings & Payouts',
+            LIVE_VISIT: 'Live Visit Center',
+            MY_AVAILABILITY: 'My Availability'
+        },
+        RN: {
+            SUPERVISION: 'Supervision Hub',
+            OPS_VERIFY: 'Professional Sign-off',
+            CARE_PLANS: 'Care Plan Management',
+            ASSESSMENTS: 'Clinical Intake',
+            PHARMACY: 'Pharmacy Hub'
+        },
+        CLIENT: {
+            SUPPORT: 'Nursing Chat',
+            TEAM: 'My Care Team',
+            BILLING: 'Billing & Invoices'
+        },
+        REGIONAL: {
+            INTELLIGENCE: 'Regional Intelligence',
+            FINANCE: 'Regional Finance Hub'
+        },
+        SHARED: {
+            STOCK: 'Stock & Inventory',
+            PROCUREMENT: 'Procurement Hub',
+            TELEHEALTH: 'Telehealth Center',
+            REMOTE_ALERTS: 'Remote Alerts',
+            CLAIMS: 'Claims Command Center',
+            REVENUE: 'Revenue Analytics',
+            MAR: 'Digital MAR'
+        }
     }
 } as const;

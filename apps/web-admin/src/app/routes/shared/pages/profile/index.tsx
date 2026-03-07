@@ -1,6 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Fix for default marker icon
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
+
+// Helper to update map center
+function ChangeView({ center }: { center: [number, number] }) {
+    const map = useMap();
+    map.setView(center);
+    return null;
+}
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -184,6 +206,50 @@ export default function ProfilePage() {
                             style={{ width: '100%', padding: '0.625rem', borderRadius: '0.375rem', border: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}
                         />
                     </div>
+
+                    {/* MAP PREVIEW & GEO-STATUS */}
+                    {(role === 'client' || role === 'psw') && (
+                        <div style={{ gridColumn: 'span 2', marginTop: '1rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                <label style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
+                                    Location Verification
+                                </label>
+                                <span style={{
+                                    fontSize: '0.75rem',
+                                    padding: '2px 8px',
+                                    borderRadius: '999px',
+                                    backgroundColor: profile.lat ? '#E1F5FE' : '#FFF3E0',
+                                    color: profile.lat ? '#0288D1' : '#E65100',
+                                    fontWeight: 600
+                                }}>
+                                    {profile.lat ? '📍 Coordinate Synced' : '⏳ Pending Sync'}
+                                </span>
+                            </div>
+
+                            <div style={{ height: '200px', width: '100%', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                                <MapContainer
+                                    center={[profile.lat || 43.6532, profile.lng || -79.3832]}
+                                    zoom={13}
+                                    style={{ height: '100%', width: '100%' }}
+                                    scrollWheelZoom={false}
+                                >
+                                    <TileLayer
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                    {profile.lat && profile.lng && (
+                                        <>
+                                            <Marker position={[profile.lat, profile.lng]} />
+                                            <ChangeView center={[profile.lat, profile.lng]} />
+                                        </>
+                                    )}
+                                </MapContainer>
+                            </div>
+                            <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.5rem' }}>
+                                we use this for coordinate verification and secure {role === 'psw' ? 'check-ins' : 'visit security'}.
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>

@@ -72,6 +72,9 @@ export default function ScrumMasterDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
+                    <Link to={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} className="btn-utility" style={{ background: 'var(--brand-gradient)', color: 'white' }}>
+                        📊 {t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}
+                    </Link>
                     <Link to={RouteRegistry.LEARN} className="btn-utility" style={{ background: 'var(--brand-50)', color: 'var(--brand-600)' }}>
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
@@ -199,6 +202,16 @@ export default function ScrumMasterDashboard() {
                         <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>Dev Portal</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             Consolidated engineering tools and developer sandbox.
+                        </p>
+                    </div>
+                </Link>
+
+                <Link to={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} style={{ textDecoration: 'none' }}>
+                    <div className="sm-card" style={{ border: '2px border var(--brand-400)' }}>
+                        <div style={{ background: 'var(--brand-gradient)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(0, 77, 64, 0.3))' }}>📊</div>
+                        <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}</h3>
+                        <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
+                            {t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.SUBTITLE)}
                         </p>
                     </div>
                 </Link>

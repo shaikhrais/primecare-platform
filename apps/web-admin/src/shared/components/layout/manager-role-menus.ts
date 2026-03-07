@@ -42,18 +42,18 @@ export const getManagerRoleMenu = (role: string): MenuItem[] => {
                 commonDashboard,
                 { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
                 { label: ContentRegistry.MENU.INQUIRIES, path: RouteRegistry.ADMIN.LEADS, icon: '📞' },
-                { label: ContentRegistry.MENU.SATISFACTION, path: RouteRegistry.PLAN.MANAGER.SURVEYS, icon: '😊' },
+                { label: ContentRegistry.MENU.SATISFACTION, path: RouteRegistry.MANAGER.SURVEYS, icon: '😊' },
             ];
         case 'training':
             return [
                 commonDashboard,
-                { label: ContentRegistry.MENU.MODULES, path: RouteRegistry.PLAN.MANAGER.TRAINING_MODULES, icon: '📚' },
+                { label: ContentRegistry.MENU.MODULES, path: RouteRegistry.MANAGER.TRAINING, icon: '📚' },
                 { label: ContentRegistry.MENU.SKILLS, path: RouteRegistry.ADMIN.USERS, icon: '👨‍⚕️' },
             ];
         case 'rn':
             return [
                 commonDashboard,
-                { label: ContentRegistry.MENU.CARE_PLANS, path: RouteRegistry.PLAN.CARE_PLANS, icon: '📋' },
+                { label: ContentRegistry.MENU.CARE_PLANS, path: RouteRegistry.RN.CARE_PLANS, icon: '📋' },
                 { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
                 { label: ContentRegistry.MENU.DAILY_ENTRY, path: RouteRegistry.MANAGER.DAILY_ENTRY, icon: '📝' },
             ];

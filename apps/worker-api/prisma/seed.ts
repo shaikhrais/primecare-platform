@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '../generated/client';
 
 const prisma = new PrismaClient();
 
@@ -12,28 +12,33 @@ async function main() {
         create: { name: 'PrimeCare Toronto', slug: 'prime-toronto', status: 'active' }
     });
 
+    const tenantHQ = await prisma.tenant.upsert({
+        where: { slug: 'primecare-admin' },
+        update: {},
+        create: { name: 'PrimeCare Admin', slug: 'primecare-admin', status: 'active' }
+    });
+
     const tenantB = await prisma.tenant.upsert({
         where: { slug: 'prime-vancouver' },
         update: {},
         create: { name: 'PrimeCare Vancouver', slug: 'prime-vancouver', status: 'active' }
     });
 
-    // 2. Clear existing data (optional, but good for clean seeds)
-    // Be careful with this in shared environments
-
     // 3. Create Users & Profiles for Tenant A
-    const roles = ['admin', 'manager', 'staff', 'rn', 'psw', 'client'];
+    const roles: Role[] = ['admin', 'manager', 'staff', 'rn', 'psw', 'client', 'scrum_master'];
 
     for (const role of roles) {
         const email = `${role}.a@primecare.ca`;
+        const targetTenantId = role === 'admin' || role === 'scrum_master' ? tenantHQ.id : tenantA.id;
+
         const user = await prisma.user.upsert({
             where: { email },
             update: {},
             create: {
                 email,
-                passwordHash: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', // 'admin123'
-                roles: [role] as any,
-                tenantId: tenantA.id,
+                passwordHash: '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',
+                roles: [role],
+                tenantId: targetTenantId,
                 status: 'active'
             }
         });
@@ -45,12 +50,7 @@ async function main() {
                 create: {
                     userId: user.id,
                     tenantId: tenantA.id,
-                    fullName: 'John Client A',
-                    riskLevel: 'MEDIUM',
-                    carePlan: {
-                        goals: ['Maintain mobility'],
-                        interventions: ['Daily walking assistance']
-                    }
+                    fullName: 'John Client A'
                 }
             });
         } else if (role === 'psw') {
@@ -98,7 +98,8 @@ async function main() {
 
 main()
     .catch((e) => {
-        console.error(e);
+        console.error('❌ Seeding error:');
+        console.error(e.message || e);
         process.exit(1);
     })
     .finally(async () => {

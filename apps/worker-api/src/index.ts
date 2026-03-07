@@ -18,6 +18,7 @@ import coordinatorModule from './tenancy/coordinator/coordinator.module';
 import userModule from './user/user.routes';
 import systemModule from './platform/system/system.module';
 import scrumMasterModule from './platform/scrum_master/scrum_master.module';
+import debugModule from './platform/system/debug.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
 export { ChatServer };
@@ -26,39 +27,53 @@ const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // 1. Foundational CORS (Must be at the very top)
 app.use('*', cors({
-    origin: (origin) => origin,
+    origin: (origin) => {
+        const allowed = [
+            'https://primecare-admin.pages.dev',
+            'http://localhost:5173',
+            'http://localhost:8787'
+        ];
+        if (allowed.includes(origin)) return origin;
+        // If it's a direct browser request or similar, allowed[0] is the safest production bet
+        return allowed[0];
+    },
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status', 'x-tenant-id'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'X-Kinde-Status', 'x-tenant-id', 'x-tenant-slug'],
     exposeHeaders: ['Content-Length', 'X-Kinde-Status'],
     maxAge: 600,
     credentials: true,
 }));
-
-app.onError((err, c) => {
-    console.error('Hono Global Error:', err);
-
-    // Safety check: ensure we don't double-set headers if they were already sent
-    const origin = c.req.header('Origin') || 'https://primecare-admin.pages.dev';
-
-    return c.json({
-        error: err.message || 'Internal Server Error',
-        stack: err.stack,
-        path: c.req.path,
-        method: c.req.method
-    }, 500, {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Credentials': 'true',
-    });
-});
 
 // 3. Health Routes
 app.get('/v1/health', (c) => {
     return c.json({ status: 'ok', time: new Date().toISOString(), architecture: 'role-first-modular' });
 });
 
+app.onError((err, c) => {
+    console.error('Hono Global Error:', err);
+    return c.json({
+        error: err.message || 'Internal Server Error',
+        stack: err.stack,
+        path: c.req.path
+    }, 500);
+});
+
 // 3. Middlewares
 app.use('*', secureHeaders());
 app.use('*', prismaMiddleware());
+
+// 3.5 Public Branding
+app.get('/v1/public/branding', async (c) => {
+    const prisma = c.get('prisma');
+    const slug = c.req.query('slug');
+    if (!slug) return c.json({ error: 'Slug required' }, 400);
+    const tenant = await prisma.tenant.findUnique({
+        where: { slug },
+        select: { brandingConfig: true, logoUrl: true, name: true }
+    });
+    if (!tenant) return c.json({ error: 'Tenant not found' }, 404);
+    return c.json(tenant);
+});
 
 // 4. OpenAPI Documentation
 app.doc('/openapi.json', {
@@ -72,7 +87,7 @@ app.doc('/openapi.json', {
 
 app.get('/doc', swaggerUI({ url: '/openapi.json' }));
 
-// 5. Mount Modules (Role-First Architecture)
+// 5. Mount Modules
 app.route('/v1/auth', authModule);
 app.route('/v1/admin', adminModule);
 app.route('/v1/manager', managerModule);
@@ -84,8 +99,9 @@ app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 app.route('/v1/scrum-master', scrumMasterModule);
+app.route('/v1/debug', debugModule);
 
-// 5. Public Marketing Lead Support (Moved to a public endpoint if needed, or tucked into a module)
+// 6. Marketing Lead
 app.post('/v1/marketing/leads', async (c) => {
     const prisma = c.get('prisma');
     const data = await c.req.json();

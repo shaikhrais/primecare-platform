@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
+import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
+
+const { RouteRegistry } = AdminRegistry;
 
 interface QuickActionsProps {
     role: string;
@@ -14,41 +18,36 @@ export default function QuickActions({ role }: QuickActionsProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
+    const CONTENT = AdminRegistry.ContentRegistry.QUICK_ACTIONS;
+
     const toggleCrisisMode = async () => {
-        // ... (rest of toggleCrisisMode)
         if (role !== 'admin') {
-            showToast('Only administrators can activate Crisis Mode', 'error');
+            showToast(CONTENT.MESSAGES.ADMIN_ONLY, 'error');
             return;
         }
 
         const confirmMsg = isCrisisMode
-            ? "Deactivate Crisis Mode? This will resume normal notifications."
-            : "ACTIVATE CRISIS MODE? This will send emergency alerts to all active staff.";
+            ? CONTENT.MESSAGES.CRISIS_DEACTIVATE
+            : CONTENT.MESSAGES.CRISIS_CONFIRM;
 
         if (!window.confirm(confirmMsg)) return;
 
         setIsLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/incidents/crisis-mode`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ active: !isCrisisMode })
+            const response = await apiClient.post(ApiRegistry.ADMIN.CRISIS_MODE, {
+                active: !isCrisisMode
             });
 
             if (!response.ok) throw new Error('Failed to toggle crisis mode');
 
             setIsCrisisMode(!isCrisisMode);
             showToast(
-                isCrisisMode ? 'Crisis Mode Deactivated' : 'CRISIS MODE ACTIVATED',
+                isCrisisMode ? CONTENT.MESSAGES.CRISIS_DEACTIVATED : CONTENT.MESSAGES.CRISIS_ACTIVATED,
                 isCrisisMode ? 'info' : 'error'
             );
         } catch (error) {
             console.error('Crisis mode error:', error);
-            showToast('Failed to update Crisis Mode status', 'error');
+            showToast(CONTENT.MESSAGES.TEMP_ERROR, 'error');
         } finally {
             setIsLoading(false);
         }
@@ -57,7 +56,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
     if (!['admin', 'staff', 'manager'].includes(role)) return null;
 
     const handleAddUser = () => {
-        navigate('/admin/users');
+        navigate(RouteRegistry.ADMIN.USERS);
     };
 
     return (
@@ -81,7 +80,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
                 }}
             >
                 <span style={{ fontSize: '1.1rem' }}>📅</span>
-                Post Shift
+                {CONTENT.POST_SHIFT}
             </button>
 
             <button
@@ -102,7 +101,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
                 }}
             >
                 <span style={{ fontSize: '1.1rem' }}>👤</span>
-                Add User
+                {CONTENT.ADD_USER}
             </button>
 
             {role === 'admin' && (
@@ -125,7 +124,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
                     }}
                 >
                     <span style={{ fontSize: '1.1rem' }}>{isCrisisMode ? '🚨' : '🛡️'}</span>
-                    {isLoading ? 'Wait...' : isCrisisMode ? 'CRISIS ACTIVE' : 'Crisis Mode'}
+                    {isLoading ? CONTENT.WAITING : isCrisisMode ? CONTENT.CRISIS_ACTIVE : CONTENT.CRISIS_ALERTS}
                 </button>
             )}
 
@@ -134,9 +133,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
                 onClose={() => setIsPostShiftModalOpen(false)}
                 onSuccess={() => {
                     setIsPostShiftModalOpen(false);
-                    showToast('Shift posted successfully!', 'success');
-                    // If we're on the schedule page or dashboard, we might want to refresh, 
-                    // but for a global quick action, a toast is usually sufficient.
+                    showToast(CONTENT.MESSAGES.SYNC_SUCCESS, 'success');
                 }}
             />
         </div>

@@ -22,5 +22,13 @@
     "admin": {
         "email": "admin.a@primecare.ca",
         "password": "admin123"
+    },
+    "coordinator": {
+        "email": "coordinator.a@primecare.ca",
+        "password": "admin123"
+    },
+    "scrum_master": {
+        "email": "scrum_master.a@primecare.ca",
+        "password": "admin123"
     }
 }

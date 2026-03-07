@@ -9,6 +9,7 @@ export * from './registries/ButtonRegistry';
 export * from './registries/LinkRegistry';
 export * from './registries/InteractionARegistry';
 export * from './registries/InteractiveRegistry';
+export * from './registries/SummaryRegistry';
 
 // Existing
 export * from './theme';

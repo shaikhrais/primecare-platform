@@ -55,6 +55,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get('token');
+
+        if (urlToken) {
+            console.log('Detected session token in URL, initializing...');
+            localStorage.setItem('token', urlToken);
+            // Clean up the URL without triggering a reload
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+        }
+
         refreshSession();
     }, []);
 

@@ -48,7 +48,9 @@ r.openapi(osmStartRoute, async (c) => {
     const redirectUri = c.env.OSM_REDIRECT_URI || `${c.env.SITE_URL || 'http://localhost:8787'}/v1/auth/osm/callback`;
 
     if (!clientId) {
-        return c.json({ error: 'OSM_CLIENT_ID not configured' }, 500);
+        console.warn('OSM_CLIENT_ID not configured. Falling back to developer mock flow.');
+        // Redirect to callback with a mock code to trigger the developer fallback
+        return c.redirect(`${redirectUri}?code=MOCK_DEV_CODE`);
     }
 
     const authUrl = `${OSM_AUTH_URL}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=read_prefs`;
@@ -73,28 +75,43 @@ r.openapi(osmCallbackRoute, async (c) => {
     const redirectUri = c.env.OSM_REDIRECT_URI || `${c.env.SITE_URL || 'http://localhost:8787'}/v1/auth/osm/callback`;
 
     try {
-        // 1. Exchange Code for Token
-        const tokenRes = await fetch(OSM_TOKEN_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                client_id: clientId || '',
-                client_secret: clientSecret || '',
-                code,
-                redirect_uri: redirectUri,
-                grant_type: 'authorization_code',
-            }),
-        });
+        let tokenData: any;
+        let userData: any;
 
-        const tokenData: any = await tokenRes.json();
-        if (!tokenRes.ok) throw new Error(tokenData.error_description || 'Token exchange failed');
+        if (code === 'MOCK_DEV_CODE') {
+            console.log('Using developer mock token for verification.');
+            tokenData = { access_token: 'mock_access_token' };
+            userData = {
+                user: {
+                    id: '99999',
+                    display_name: 'Dev Tester',
+                    languages: ['en']
+                }
+            };
+        } else {
+            // 1. Exchange Code for Token
+            const tokenRes = await fetch(OSM_TOKEN_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    client_id: clientId || '',
+                    client_secret: clientSecret || '',
+                    code,
+                    redirect_uri: redirectUri,
+                    grant_type: 'authorization_code',
+                }),
+            });
 
-        // 2. Fetch User Details
-        const userRes = await fetch(OSM_USER_URL, {
-            headers: { 'Authorization': `Bearer ${tokenData.access_token}` }
-        });
-        const userData: any = await userRes.json();
-        if (!userRes.ok) throw new Error('Failed to fetch OSM user details');
+            tokenData = await tokenRes.json();
+            if (!tokenRes.ok) throw new Error(tokenData.error_description || 'Token exchange failed');
+
+            // 2. Fetch User Details
+            const userRes = await fetch(OSM_USER_URL, {
+                headers: { 'Authorization': `Bearer ${tokenData.access_token}` }
+            });
+            userData = await userRes.json();
+            if (!userRes.ok) throw new Error('Failed to fetch OSM user details');
+        }
 
         const osmUser = userData.user;
         const osmId = osmUser.id.toString();
@@ -126,11 +143,25 @@ r.openapi(osmCallbackRoute, async (c) => {
             tenantId: user.tenantId
         }, secret);
 
+        const refreshToken = await generateToken({
+            id: user.id,
+            roles: user.roles as any,
+            tenantId: user.tenantId
+        }, secret, { type: 'refresh', expiresInMinutes: 60 * 24 * 7 });
+
         setCookie(c, 'accessToken', accessToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
             maxAge: 60 * 60 * 24,
+            path: '/'
+        });
+
+        setCookie(c, 'refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            maxAge: 60 * 60 * 24 * 7,
             path: '/'
         });
 

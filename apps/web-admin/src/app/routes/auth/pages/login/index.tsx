@@ -53,7 +53,11 @@ export default function Login() {
                 }
             } else {
                 const data = await response.json();
-                setError(data.error || 'Login failed');
+                // Ensure error is a string to avoid React crash #31
+                const errorMessage = typeof data.error === 'object'
+                    ? JSON.stringify(data.error)
+                    : data.error || 'Login failed';
+                setError(errorMessage);
             }
         } catch (err) {
             setError('Network error. Please check your connection.');

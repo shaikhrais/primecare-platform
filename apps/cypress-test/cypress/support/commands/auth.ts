@@ -1,7 +1,7 @@
 
 import { SELECTORS } from "../selectors";
 
-type Role = "guest" | "client" | "psw" | "manager" | "staff" | "rn";
+type Role = "guest" | "client" | "psw" | "manager" | "staff" | "rn" | "coordinator" | "scrum_master" | "admin";
 
 export { };
 
@@ -11,6 +11,8 @@ declare global {
             loginAs(role: Role): Chainable<void>;
             loginAsAdmin(): Chainable<void>;
             loginAsManager(): Chainable<void>;
+            loginAsCoordinator(): Chainable<void>;
+            loginAsScrumMaster(): Chainable<void>;
             logout(): Chainable<void>;
         }
     }
@@ -55,6 +57,14 @@ Cypress.Commands.add("loginAsAdmin", () => {
 
 Cypress.Commands.add("loginAsManager", () => {
     cy.loginAs("manager");
+});
+
+Cypress.Commands.add("loginAsCoordinator", () => {
+    cy.loginAs("coordinator");
+});
+
+Cypress.Commands.add("loginAsScrumMaster", () => {
+    cy.loginAs("scrum_master");
 });
 
 Cypress.Commands.add("logout", () => {

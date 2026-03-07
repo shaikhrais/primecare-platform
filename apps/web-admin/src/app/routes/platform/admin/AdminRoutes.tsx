@@ -8,6 +8,7 @@ const { RouteRegistry } = AdminRegistry;
 
 // Admin components (Eagerly loaded to avoid layout shifts on dashboard)
 import AdminDashboard from './pages/dashboard';
+import RegistrySummaryDashboard from './pages/dashboard/RegistrySummaryDashboard';
 import { UserList, UserEntry } from './pages/users';
 import AdminEarningsPage from './pages/earnings';
 
@@ -59,6 +60,7 @@ const PharmacyHub = lazy(() => import('./pages/pharmacy/PharmacyHub'));
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
         <Route index element={<AdminDashboard />} />
+        <Route path={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} element={<RegistrySummaryDashboard />} />
         <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
         <Route path={RouteRegistry.ADMIN.USERS_NEW} element={<UserEntry />} />
         <Route path={RouteRegistry.ADMIN.USERS_EDIT(':id')} element={<UserEntry />} />

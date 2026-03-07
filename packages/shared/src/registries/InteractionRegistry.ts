@@ -72,7 +72,7 @@ export const InteractionRegistry = {
                 module: 'RN',
                 purpose: 'Access detailed performance and incident history for a caregiver.',
                 permission: 'PSW_SUPERVISE',
-                route: '/tenancy/rn/supervision/psw/:pswId'
+                route: RouteRegistry.RN.SUPERVISION_DETAIL(':pswId')
             }
         }
     },
@@ -246,7 +246,7 @@ export const InteractionRegistry = {
                 type: 'nav_item',
                 module: 'CLIENT',
                 purpose: 'Access the family care timeline and notifications.',
-                route: RouteRegistry.PLAN.CLIENT.FAMILY_HUB
+                route: RouteRegistry.CLIENT.FAMILY_HUB
             },
             PAY_INVOICE: {
                 id: 'client-pay-invoice',

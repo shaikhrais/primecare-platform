@@ -107,6 +107,7 @@ const PLATFORM = {
         VISITS_UNASSIGNED: '/v1/admin/visits/unassigned',
         VISITS_UPDATE: (id: string) => `/v1/admin/visits/${id}`,
         INCIDENTS: '/v1/admin/incidents',
+        CRISIS_MODE: '/v1/incidents/crisis-mode',
         TIMESHEETS: '/v1/admin/timesheets',
         INVOICES: '/v1/admin/invoices',
         CLIENTS: '/v1/admin/clients',
@@ -177,6 +178,7 @@ const PLATFORM = {
         AUDITS_HISTORY: '/v1/scrum-master/audits',
         REGISTRY_HEALTH: '/v1/scrum-master/registry/health',
         REGISTRY_SYNC: '/v1/scrum-master/registry/sync',
+        DEBUG_HASH: '/v1/debug/hash',
     },
     SYSTEM: {
         NOTIFICATIONS: '/v1/system/notifications',

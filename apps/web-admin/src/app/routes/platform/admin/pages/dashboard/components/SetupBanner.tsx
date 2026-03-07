@@ -39,7 +39,7 @@ export const SetupBanner: React.FC<SetupBannerProps> = ({ modelScore }) => {
                             borderRadius: '1rem',
                             cursor: 'pointer'
                         }}>
-                            🎓 System Training
+                            {t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TRAINING)}
                         </button>
                     </Link>
                     <Link to={RouteRegistry.ADMIN.BUSINESS_STATUS}>

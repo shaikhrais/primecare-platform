@@ -1,4 +1,5 @@
 import { RouteRegistry } from '../apps/web-admin/RouteRegistry';
+import { ContentRegistry } from './ContentRegistry';
 
 export type InteractiveCategory = 'button' | 'link' | 'submit' | 'tab' | 'navigation' | 'action';
 
@@ -20,7 +21,7 @@ export interface InteractiveElement {
 export const InteractiveElementRegistry: InteractiveElement[] = [
     // --- GOVERNANCE (ADMIN & SCRUM MASTER) ---
     { id: 'admin-user-invite', category: 'action', label: 'Invite User', path: '/v1/admin/users', role: 'admin', module: 'ADMIN', checkType: 'API' },
-    { id: 'admin-settings-biz', category: 'navigation', label: 'Business Model', path: RouteRegistry.ADMIN.SETTINGS, role: 'admin', module: 'ADMIN', checkType: 'ROUTE' },
+    { id: 'admin-settings-biz', category: 'navigation', label: ContentRegistry.BUSINESS_STATUS.DOMAINS.STRATEGY, path: RouteRegistry.ADMIN.SETTINGS, role: 'admin', module: 'ADMIN', checkType: 'ROUTE' },
     { id: 'sm-auto-fix', category: 'action', label: 'Start Auto-Fix', path: '/v1/admin/scrum/auto-fix', role: 'scrum_master', module: 'SCRUM_MASTER', checkType: 'API' },
     { id: 'sm-registry-sweep', category: 'action', label: 'Registry Sweep', path: '/v1/admin/scrum/env-audit', role: 'scrum_master', module: 'SCRUM_MASTER', checkType: 'API' },
 
@@ -28,7 +29,7 @@ export const InteractiveElementRegistry: InteractiveElement[] = [
     { id: 'mgr-perf-rank', category: 'navigation', label: 'Performance Ranker', path: RouteRegistry.MANAGER.PERFORMANCE, role: 'manager', module: 'MANAGER', checkType: 'ROUTE' },
     { id: 'mgr-payroll-audit', category: 'action', label: 'Audit Payroll', path: '/v1/manager/finance/payroll-audit', role: 'manager', module: 'MANAGER', checkType: 'API' },
     { id: 'coord-sos-dispatch', category: 'action', label: 'SOS Dispatch', path: '/v1/manager/coordinator/sos-dispatch', role: 'coordinator', module: 'OPERATIONS', checkType: 'API' },
-    { id: 'coord-live-pulse', category: 'navigation', label: 'Live Monitoring', path: RouteRegistry.MANAGER.COORDINATOR, role: 'coordinator', module: 'OPERATIONS', checkType: 'ROUTE' },
+    { id: 'coord-live-pulse', category: 'navigation', label: 'Live Monitoring', path: RouteRegistry.COORDINATOR.DASHBOARD, role: 'coordinator', module: 'OPERATIONS', checkType: 'ROUTE' },
 
     // --- CLINICAL (RN & PSW) ---
     { id: 'rn-care-plan-rev', category: 'action', label: 'Review Care Plan', path: '/v1/rn/clinical/care-plans/review', role: 'rn', module: 'CLINICAL', checkType: 'API' },

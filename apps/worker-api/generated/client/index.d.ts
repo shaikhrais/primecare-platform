@@ -9265,6 +9265,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     passwordHash: string | null
+    osmId: string | null
     status: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
@@ -9279,6 +9280,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     passwordHash: string | null
+    osmId: string | null
     status: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
@@ -9293,6 +9295,7 @@ export namespace Prisma {
     email: number
     phone: number
     passwordHash: number
+    osmId: number
     status: number
     resetToken: number
     resetTokenExpiry: number
@@ -9310,6 +9313,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     passwordHash?: true
+    osmId?: true
     status?: true
     resetToken?: true
     resetTokenExpiry?: true
@@ -9324,6 +9328,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     passwordHash?: true
+    osmId?: true
     status?: true
     resetToken?: true
     resetTokenExpiry?: true
@@ -9338,6 +9343,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     passwordHash?: true
+    osmId?: true
     status?: true
     resetToken?: true
     resetTokenExpiry?: true
@@ -9425,7 +9431,8 @@ export namespace Prisma {
     id: string
     email: string
     phone: string | null
-    passwordHash: string
+    passwordHash: string | null
+    osmId: string | null
     status: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
@@ -9458,6 +9465,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
+    osmId?: boolean
     status?: boolean
     resetToken?: boolean
     resetTokenExpiry?: boolean
@@ -9494,6 +9502,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
+    osmId?: boolean
     status?: boolean
     resetToken?: boolean
     resetTokenExpiry?: boolean
@@ -9510,6 +9519,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     passwordHash?: boolean
+    osmId?: boolean
     status?: boolean
     resetToken?: boolean
     resetTokenExpiry?: boolean
@@ -9575,7 +9585,8 @@ export namespace Prisma {
       id: string
       email: string
       phone: string | null
-      passwordHash: string
+      passwordHash: string | null
+      osmId: string | null
       status: string | null
       resetToken: string | null
       resetTokenExpiry: Date | null
@@ -10001,6 +10012,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
+    readonly osmId: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'String'>
     readonly resetToken: FieldRef<"User", 'String'>
     readonly resetTokenExpiry: FieldRef<"User", 'DateTime'>
@@ -90769,6 +90781,7 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     passwordHash: 'passwordHash',
+    osmId: 'osmId',
     status: 'status',
     resetToken: 'resetToken',
     resetTokenExpiry: 'resetTokenExpiry',
@@ -92241,7 +92254,8 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
-    passwordHash?: StringFilter<"User"> | string
+    passwordHash?: StringNullableFilter<"User"> | string | null
+    osmId?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
     resetToken?: StringNullableFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -92276,7 +92290,8 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
-    passwordHash?: SortOrder
+    passwordHash?: SortOrderInput | SortOrder
+    osmId?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     resetToken?: SortOrderInput | SortOrder
     resetTokenExpiry?: SortOrderInput | SortOrder
@@ -92310,11 +92325,12 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    osmId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     phone?: StringNullableFilter<"User"> | string | null
-    passwordHash?: StringFilter<"User"> | string
+    passwordHash?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
     resetToken?: StringNullableFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -92343,13 +92359,14 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditListRelationFilter
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "osmId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
-    passwordHash?: SortOrder
+    passwordHash?: SortOrderInput | SortOrder
+    osmId?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     resetToken?: SortOrderInput | SortOrder
     resetTokenExpiry?: SortOrderInput | SortOrder
@@ -92370,7 +92387,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
-    passwordHash?: StringWithAggregatesFilter<"User"> | string
+    passwordHash?: StringNullableWithAggregatesFilter<"User"> | string | null
+    osmId?: StringNullableWithAggregatesFilter<"User"> | string | null
     status?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -98784,7 +98802,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -98818,7 +98837,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -98852,7 +98872,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -98886,7 +98907,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -98920,7 +98942,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -98935,7 +98958,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -98949,7 +98973,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -106033,6 +106058,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
+    osmId?: SortOrder
     status?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
@@ -106048,6 +106074,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
+    osmId?: SortOrder
     status?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
@@ -106062,6 +106089,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     passwordHash?: SortOrder
+    osmId?: SortOrder
     status?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
@@ -121099,7 +121127,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -121132,7 +121161,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -123213,7 +123243,8 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
-    passwordHash?: StringFilter<"User"> | string
+    passwordHash?: StringNullableFilter<"User"> | string | null
+    osmId?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
     resetToken?: StringNullableFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -125011,7 +125042,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -125044,7 +125076,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -126009,7 +126042,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -126042,7 +126076,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -126691,7 +126726,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -126724,7 +126760,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -127399,7 +127436,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -127432,7 +127470,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -129513,7 +129552,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -129546,7 +129586,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -129896,7 +129937,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -129929,7 +129971,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -130913,7 +130956,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -130946,7 +130990,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -130984,7 +131029,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -131017,7 +131063,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -131300,7 +131347,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -131333,7 +131381,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -131377,7 +131426,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -131410,7 +131460,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -131780,7 +131831,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -131813,7 +131865,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -132100,7 +132153,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -132133,7 +132187,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133846,7 +133901,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -133879,7 +133935,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -133951,7 +134008,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -133984,7 +134042,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -134046,7 +134105,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -134079,7 +134139,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -134277,7 +134338,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -134310,7 +134372,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -136456,7 +136519,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -136489,7 +136553,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -136538,7 +136603,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -136571,7 +136637,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -136975,7 +137042,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -137008,7 +137076,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -137130,7 +137199,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -137163,7 +137233,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -137283,7 +137354,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -137316,7 +137388,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -137692,7 +137765,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -137725,7 +137799,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -139204,7 +139279,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -139237,7 +139313,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -139534,7 +139611,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -139567,7 +139645,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -146447,7 +146526,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -146480,7 +146560,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -146777,7 +146858,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -146810,7 +146892,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -150890,7 +150973,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -150923,7 +151007,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -151214,7 +151299,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -151247,7 +151333,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -151522,7 +151609,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -151555,7 +151643,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -151846,7 +151935,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -151879,7 +151969,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -152134,7 +152225,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -152167,7 +152259,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -152438,7 +152531,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -152471,7 +152565,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -153803,7 +153898,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -153836,7 +153932,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -154034,7 +154131,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -154067,7 +154165,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -154739,7 +154838,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -154772,7 +154872,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -155055,7 +155156,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -155088,7 +155190,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -155367,7 +155470,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -155400,7 +155504,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -155598,7 +155703,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -155631,7 +155737,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -157151,7 +157258,8 @@ export namespace Prisma {
     id?: string
     email: string
     phone?: string | null
-    passwordHash: string
+    passwordHash?: string | null
+    osmId?: string | null
     status?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
@@ -158254,7 +158362,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -158287,7 +158396,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -158320,7 +158430,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
