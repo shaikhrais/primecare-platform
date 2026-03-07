@@ -23,6 +23,7 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CORS_SETTINGS, path: RouteRegistry.ADMIN.SECURITY.CORS_SETTINGS, icon: '🌐' },
     { label: ContentRegistry.MENU.INTEGRITY_SCAN, path: RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN, icon: '🛡️' },
     { label: ContentRegistry.MENU.FINANCIAL_LEDGER, path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, icon: '🏦' },
+    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '🏛️' },
     { label: ContentRegistry.MENU.CONTENT, path: RouteRegistry.ADMIN.CONTENT, icon: '📝' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
@@ -141,6 +142,18 @@ export const financeMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
     { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.ADMIN.TIMESHEETS, icon: '💸' },
     { label: ContentRegistry.MENU.REPORTS, path: RouteRegistry.ADMIN.REPORTS, icon: '📈' },
+    { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-finance`, icon: '🎭' },
+    { label: ContentRegistry.MENU.KNOWLEDGE_BASE, path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
+    { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },
+];
+
+export const financeDirectorMenu: MenuItem[] = [
+    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '🏛️' },
+    { label: ContentRegistry.MENU.FINANCIAL_LEDGER, path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, icon: '🏦' },
+    { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
+    { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.ADMIN.TIMESHEETS, icon: '💸' },
+    { label: ContentRegistry.MENU.REPORTS, path: RouteRegistry.ADMIN.REPORTS, icon: '📈' },
+    { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
     { label: 'My Role Playbook', path: `${RouteRegistry.KNOWLEDGE_BASE}/role-finance`, icon: '🎭' },
     { label: ContentRegistry.MENU.KNOWLEDGE_BASE, path: RouteRegistry.KNOWLEDGE_BASE, icon: '📚' },
     { label: ContentRegistry.MENU.TRAINING, path: RouteRegistry.LEARN, icon: '🎓' },

@@ -267,4 +267,34 @@ financial.openapi(dailySummaryRoute, async (c) => {
     return c.json(summary, 200);
 });
 
+// GET /reports/trading-account
+const tradingAccountRoute = createRoute({
+    method: 'get',
+    path: '/reports/trading-account',
+    summary: 'Trading Account (Gross Profit)',
+    tags: ['Financial'],
+    request: {
+        query: z.object({
+            startDate: z.string().optional(),
+            endDate: z.string().optional(),
+        }),
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(tradingAccountRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const financialService = new FinancialService(prisma);
+    const query = c.req.valid('query');
+
+    const start = query.startDate ? new Date(query.startDate) : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    const end = query.endDate ? new Date(query.endDate) : new Date();
+
+    const report = await financialService.getTradingAccount(tenantId, start, end);
+    return c.json(report, 200);
+});
+
 export default financial;

@@ -45,6 +45,7 @@ admin.route('/developer', developerRoutes); // Keep in Tenant Admin for now as i
 admin.route('/search', searchRoutes);
 admin.route('/reports', reportRoutes);
 admin.route('/scrum', scrumRoutes);
+admin.route('/financial', financialRoutes);
 admin.route('/', contentRoutes);
 
 // Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)

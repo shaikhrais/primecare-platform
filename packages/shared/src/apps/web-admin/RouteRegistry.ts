@@ -171,6 +171,12 @@ const PLATFORM = {
         PHARMACY: {
             HUB: '/platform/admin/pharmacy/hub',
             MAR: '/platform/admin/pharmacy/mar',
+        },
+        FINANCE: {
+            DASHBOARD: '/platform/admin/finance/dashboard',
+            TRADING_ACCOUNT: '/platform/admin/finance/trading',
+            PROFIT_LOSS: '/platform/admin/finance/p-and-l',
+            BALANCE_SHEET: '/platform/admin/finance/balance-sheet',
         }
     },
     SUPERUSER: {
@@ -271,7 +277,8 @@ export const RouteRegistry = {
         rch: TENANCY.ALLIED.DASHBOARD,
         client: TENANCY.CLIENT.DASHBOARD,
         super_admin: PLATFORM.SUPERUSER.DASHBOARD,
-        scrum_master: PLATFORM.SCRUM_MASTER.DASHBOARD
+        scrum_master: PLATFORM.SCRUM_MASTER.DASHBOARD,
+        finance_director: PLATFORM.ADMIN.FINANCE.DASHBOARD
     } as Record<string, string>,
 
     ROLE_EDITOR: PLATFORM.ADMIN.ROLE_EDITOR,

@@ -13,8 +13,10 @@ export class FinancialService {
             { code: '2000', name: 'Accounts Payable', type: 'LIABILITY' },
             { code: '3000', name: 'Owner Equity', type: 'EQUITY' },
             { code: '4000', name: 'Service Revenue', type: 'REVENUE' },
-            { code: '5000', name: 'Payroll Expense', type: 'EXPENSE' },
-            { code: '5100', name: 'General & Administrative', type: 'EXPENSE' },
+            { code: '5000', name: 'Caregiver Payroll (Direct)', type: 'EXPENSE' }, // DIRECT COST
+            { code: '5100', name: 'Admin Payroll (Indirect)', type: 'EXPENSE' },
+            { code: '5200', name: 'Rent & Utilities', type: 'EXPENSE' },
+            { code: '5300', name: 'Software & Technology', type: 'EXPENSE' },
         ];
 
         for (const account of defaultAccounts) {
@@ -317,48 +319,6 @@ export class FinancialService {
     }
 
     /**
-     * Generates a Profit & Loss (Income Statement) report.
-     */
-    async getIncomeStatement(tenantId: string, startDate: Date, endDate: Date) {
-        const journals = await this.prisma.journalEntry.findMany({
-            where: {
-                tenantId,
-                createdAt: { gte: startDate, lte: endDate },
-                account: {
-                    type: { in: ['REVENUE', 'EXPENSE'] }
-                }
-            },
-            include: { account: true }
-        });
-
-        let revenue = new Decimal(0);
-        let expenses = new Decimal(0);
-        const breakdown: any = { revenue: {}, expenses: {} };
-
-        for (const entry of journals) {
-            const amount = new Decimal(entry.account.type === 'REVENUE'
-                ? new Decimal(entry.credit).minus(new Decimal(entry.debit))
-                : new Decimal(entry.debit).minus(new Decimal(entry.credit)));
-
-            if (entry.account.type === 'REVENUE') {
-                revenue = revenue.plus(amount);
-                breakdown.revenue[entry.account.name] = (breakdown.revenue[entry.account.name] || new Decimal(0)).plus(amount);
-            } else {
-                expenses = expenses.plus(amount);
-                breakdown.expenses[entry.account.name] = (breakdown.expenses[entry.account.name] || new Decimal(0)).plus(amount);
-            }
-        }
-
-        return {
-            period: { startDate, endDate },
-            totalRevenue: revenue.toNumber(),
-            totalExpenses: expenses.toNumber(),
-            netIncome: revenue.minus(expenses).toNumber(),
-            breakdown
-        };
-    }
-
-    /**
      * Calculates account balance up to a specific date (for before/after tracking).
      */
     async getAccountBalanceAtDate(tenantId: string, accountCode: string, date: Date) {
@@ -382,6 +342,92 @@ export class FinancialService {
             }
         }
         return balance.toNumber();
+    }
+
+    /**
+     * Generates a Trading Account (Gross Profit calculation)
+     */
+    async getTradingAccount(tenantId: string, startDate: Date, endDate: Date) {
+        const accounts = await this.prisma.chartOfAccount.findMany({
+            where: { tenantId },
+            include: {
+                journalEntries: {
+                    where: { createdAt: { gte: startDate, lte: endDate } }
+                }
+            }
+        });
+
+        let revenue = new Decimal(0);
+        let directCosts = new Decimal(0);
+        const revenueBreakdown: any = {};
+        const directCostsBreakdown: any = {};
+
+        for (const acc of accounts) {
+            let balance = new Decimal(0);
+            for (const entry of acc.journalEntries) {
+                if (['ASSET', 'EXPENSE'].includes(acc.type)) {
+                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                } else {
+                    balance = balance.plus(new Decimal(entry.credit)).minus(new Decimal(entry.debit));
+                }
+            }
+
+            if (acc.type === 'REVENUE') {
+                revenue = revenue.plus(balance);
+                revenueBreakdown[acc.name] = balance.toNumber();
+            } else if (acc.type === 'EXPENSE' && Number(acc.code) < 5100) {
+                // Codes 5000-5099 are Direct Expenses (COGS/COSS)
+                directCosts = directCosts.plus(balance);
+                directCostsBreakdown[acc.name] = balance.toNumber();
+            }
+        }
+
+        return {
+            period: { startDate, endDate },
+            revenue: revenue.toNumber(),
+            directCosts: directCosts.toNumber(),
+            grossProfit: revenue.minus(directCosts).toNumber(),
+            grossProfitMargin: revenue.isZero() ? 0 : revenue.minus(directCosts).dividedBy(revenue).times(100).toNumber(),
+            breakdown: { revenue: revenueBreakdown, directCosts: directCostsBreakdown }
+        };
+    }
+
+    /**
+     * Generates an Income Statement (P&L).
+     */
+    async getIncomeStatement(tenantId: string, startDate: Date, endDate: Date) {
+        const tradingAccount = await this.getTradingAccount(tenantId, startDate, endDate);
+
+        const accounts = await this.prisma.chartOfAccount.findMany({
+            where: { tenantId, type: 'EXPENSE', code: { gte: '5100' } }, // Indirect expenses only
+            include: {
+                journalEntries: {
+                    where: { createdAt: { gte: startDate, lte: endDate } }
+                }
+            }
+        });
+
+        let indirectExpenses = new Decimal(0);
+        const expensesBreakdown: any = {};
+
+        for (const acc of accounts) {
+            let balance = new Decimal(0);
+            for (const entry of acc.journalEntries) {
+                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+            }
+            indirectExpenses = indirectExpenses.plus(balance);
+            expensesBreakdown[acc.name] = balance.toNumber();
+        }
+
+        const netIncome = new Decimal(tradingAccount.grossProfit).minus(indirectExpenses);
+
+        return {
+            period: { startDate, endDate },
+            tradingAccount,
+            operatingExpenses: indirectExpenses.toNumber(),
+            netIncome: netIncome.toNumber(),
+            breakdown: { ...tradingAccount.breakdown, indirectExpenses: expensesBreakdown }
+        };
     }
 
     /**

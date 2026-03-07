@@ -62,9 +62,10 @@ const ForensicTrails = lazy(() => import('./pages/security/ForensicTrails'));
 const CorsSettings = lazy(() => import('./pages/security/CorsSettings'));
 const IntegrityVerification = lazy(() => import('./pages/security/IntegrityVerification'));
 const FinancialLedger = lazy(() => import('./pages/security/FinancialLedger'));
+const AccountingDashboard = lazy(() => import('./pages/security/AccountingDashboard'));
 
 export const AdminRoutes = () => (
-    <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
+    <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
         <Route index element={<AdminDashboard />} />
         <Route path={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} element={<RegistrySummaryDashboard />} />
         <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
@@ -117,5 +118,6 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.CORS_SETTINGS} element={<CorsSettings />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN} element={<IntegrityVerification />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
+        <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingDashboard />} />
     </Route>
 );

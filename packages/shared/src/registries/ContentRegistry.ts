@@ -848,6 +848,7 @@ export const ContentRegistry = {
         MY_CREDENTIALS: 'My Credentials',
         HELP_DESK: 'Help Desk',
         CLINICAL_DASHBOARD: 'Clinical Dashboard',
+        ACCOUNTING_INTELLIGENCE: 'Accounting Intelligence',
         CLINIENT_ADMISSION: 'Clients admission',
         DAILY_ENTRY: 'Daily Entry',
         EVALUATIONS: 'Evaluations',
@@ -1601,6 +1602,7 @@ export const ContentRegistry = {
         PSW: 'Caregiver (PSW)',
         RN: 'Registered Nurse (RN)',
         CLIENT: 'Client / Family',
+        FINANCE_DIRECTOR: 'Finance Director',
     },
     AI: {
         TITLE: 'Clinical Intelligence Hub',

@@ -162,6 +162,12 @@ const PLATFORM = {
         REGIONAL: {
             PL_EXPORT: '/v1/admin/regional/fin/pl-export',
             AUDIT_REQUEST: '/v1/admin/regional/governance/audit-req',
+        },
+        REPORTING: {
+            TRADING_ACCOUNT: '/v1/admin/financial/reports/trading-account',
+            PROFIT_LOSS: '/v1/admin/financial/reports/p-and-l',
+            BALANCE_SHEET: '/v1/admin/financial/reports/balance-sheet',
+            DAILY_SUMMARY: '/v1/admin/financial/reports/daily-summary',
         }
     },
     SCRUM_MASTER: {

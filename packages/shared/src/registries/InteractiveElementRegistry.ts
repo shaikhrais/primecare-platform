@@ -49,5 +49,7 @@ export const InteractiveElementRegistry: InteractiveElement[] = [
     { id: 'mkt-campaign-launch', category: 'action', label: 'Launch Campaign', path: '/v1/admin/marketing/campaigns', role: 'marketing_manager', module: 'MARKETING', checkType: 'API' },
     { id: 'hr-recruitment-post', category: 'action', label: 'Post Job', path: RouteRegistry.MANAGER.RECRUITING, role: 'recruiting_manager', module: 'HR', checkType: 'ROUTE' },
     { id: 'fin-regional-pl', category: 'navigation', label: 'Regional P&L', path: RouteRegistry.MANAGER.FINANCE, role: 'finance_manager', module: 'FINANCE', checkType: 'ROUTE' },
+    { id: 'fin-dir-dash', category: 'navigation', label: 'Financial Intelligence', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, role: 'finance_director', module: 'FINANCE', checkType: 'ROUTE' },
+    { id: 'fin-dir-ledger', category: 'navigation', label: 'Ledger Audit', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, role: 'finance_director', module: 'FINANCE', checkType: 'ROUTE' },
     { id: 'qa-safety-sweep', category: 'action', label: 'QA Sweep', path: RouteRegistry.MANAGER.CLINICAL, role: 'clinical_manager', module: 'QA', checkType: 'ROUTE' }
 ];
