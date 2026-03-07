@@ -30,17 +30,49 @@ export { ChatServer };
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // 1. Foundational CORS (Must be at the very top)
-app.use('*', cors({
-    origin: (origin) => {
-        if (CorsRegistry.ALLOWED_ORIGINS.includes(origin as any)) return origin;
-        return CorsRegistry.ALLOWED_ORIGINS[0];
-    },
-    allowMethods: Array.from(CorsRegistry.ALLOWED_METHODS),
-    allowHeaders: Array.from(CorsRegistry.ALLOWED_HEADERS),
-    exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS),
-    maxAge: CorsRegistry.MAX_AGE,
-    credentials: CorsRegistry.CREDENTIALS,
-}));
+app.use('*', async (c, next) => {
+    const tenantId = c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
+    const origin = c.req.header('Origin');
+
+    // Default fallback from Registry
+    let allowedOrigins: string[] = [...CorsRegistry.ALLOWED_ORIGINS];
+    let allowedMethods: string[] = [...CorsRegistry.ALLOWED_METHODS];
+    let allowedHeaders: string[] = [...CorsRegistry.ALLOWED_HEADERS];
+
+    if (tenantId) {
+        const prisma = c.get('prisma');
+        if (prisma) {
+            const tenant = await prisma.tenant.findUnique({
+                where: { id: tenantId },
+                select: {
+                    corsAllowedOrigins: true,
+                    corsAllowedMethods: true,
+                    corsAllowedHeaders: true
+                }
+            });
+            if (tenant) {
+                allowedOrigins = tenant.corsAllowedOrigins || allowedOrigins;
+                allowedMethods = tenant.corsAllowedMethods || allowedMethods;
+                allowedHeaders = tenant.corsAllowedHeaders || allowedHeaders;
+            }
+        }
+    }
+
+    const corsMiddleware = cors({
+        origin: (origin) => {
+            if (allowedOrigins.includes(origin)) return origin;
+            if (allowedOrigins.includes('*')) return origin;
+            return allowedOrigins[0];
+        },
+        allowMethods: allowedMethods,
+        allowHeaders: allowedHeaders,
+        exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS),
+        maxAge: CorsRegistry.MAX_AGE,
+        credentials: CorsRegistry.CREDENTIALS,
+    });
+
+    return await corsMiddleware(c, next);
+});
 
 // 2. Health Routes
 app.get('/v1/health', (c) => {

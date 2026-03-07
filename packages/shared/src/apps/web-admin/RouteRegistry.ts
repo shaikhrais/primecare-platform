@@ -146,6 +146,9 @@ const PLATFORM = {
             GOVERNANCE: '/platform/admin/security/governance',
             DEVICE_REGISTRY: '/platform/admin/security/devices',
             FORENSIC_TRAILS: '/platform/admin/security/forensic',
+            CORS_SETTINGS: '/platform/admin/security/cors',
+            INTEGRITY_SCAN: '/platform/admin/security/integrity',
+            FINANCIAL_LEDGER: '/platform/admin/security/ledger',
         },
         OPERATIONS: {
             REALTIME_CAPACITY: '/platform/admin/ops/capacity',

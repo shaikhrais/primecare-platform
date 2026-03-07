@@ -20,6 +20,7 @@ import { predictiveStaffingRoutes } from './routes/predictive-staffing.routes';
 import { riskSurveillanceRoutes } from './routes/risk-surveillance.routes';
 import { clinicalAutopilotRoutes } from './routes/clinical-autopilot.routes';
 import { resellerRoutes } from './routes/reseller.routes';
+import financialRoutes from './financial/financial.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

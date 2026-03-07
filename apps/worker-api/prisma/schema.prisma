@@ -124,6 +124,11 @@ model Tenant {
   requireDeviceApproval Boolean @default(false) @map("require_device_approval")
   maxDevicesPerUser  Int      @default(5) @map("max_devices_per_user")
 
+  // Runtime CORS Configuration
+  corsAllowedOrigins String[] @default(["https://primecare-admin.pages.dev", "http://localhost:5173", "http://localhost:8787"]) @map("cors_allowed_origins")
+  corsAllowedMethods String[] @default(["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]) @map("cors_allowed_methods")
+  corsAllowedHeaders String[] @default(["Content-Type", "Authorization", "X-Requested-With", "Accept", "X-Tenant-ID", "X-Device-ID"]) @map("cors_allowed_headers")
+
   // Fractal SaaS Extensions
   parentTenantId        String?                @map("parent_tenant_id")
   parentTenant          Tenant?                @relation("TenantHierarchy", fields: [parentTenantId], references: [id])
@@ -139,6 +144,13 @@ model Tenant {
   inventoryItems        InventoryItem[]
   purchaseOrders        PurchaseOrder[]
   systemEvents          SystemEvent[]
+
+  // Financial Engine
+  financialAccounts       ChartOfAccount[]
+  financialTransactions    FinancialTransaction[]
+  financialJournalEntries  JournalEntry[]
+  financialReconciliations FinancialReconciliation[]
+  bankTransactions        BankTransaction[]
 
   @@map("tenants")
 }
@@ -507,6 +519,8 @@ model SystemEvent {
   actorUserId  String?  @map("actor_user_id")
   deviceId     String?  @map("device_id")
   ipAddress    String?  @map("ip_address")
+  checksum     String   @default("")
+  previousChecksum String? @map("previous_checksum")
   createdAt    DateTime @default(now()) @map("created_at")
 
   tenant   Tenant @relation(fields: [tenantId], references: [id])
@@ -1598,4 +1612,111 @@ model SystemTouchpoint {
   tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
   @@map("system_touchpoints")
+}
+
+// ==========================================
+// FINANCIAL ENGINE MODULES (Bank-Level)
+// ==========================================
+
+model ChartOfAccount {
+  id          String   @id @default(uuid())
+  code        String   // e.g., '1000', '2000'
+  name        String   // e.g., 'Cash', 'Accounts Receivable'
+  type        AccountType
+  status      String   @default("active")
+  tenantId    String   @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  journalEntries JournalEntry[]
+
+  @@unique([tenantId, code])
+  @@map("financial_accounts")
+}
+
+model FinancialTransaction {
+  id           String            @id @default(uuid())
+  type         String            // INVOICE, PAYMENT, PAYROLL, EXPENSE
+  referenceId  String?           @map("reference_id") // ID of linked document
+  amount       Decimal           @db.Decimal(10, 2)
+  status       TransactionState  @default(draft)
+  tenantId     String            @map("tenant_id")
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+
+  tenant         Tenant         @relation(fields: [tenantId], references: [id])
+  journalEntries JournalEntry[]
+  reconciliations FinancialReconciliation[]
+
+  @@index([tenantId])
+  @@index([referenceId])
+  @@map("financial_transactions")
+}
+
+model JournalEntry {
+  id            String   @id @default(uuid())
+  transactionId String   @map("transaction_id")
+  accountId     String   @map("account_id")
+  debit         Decimal  @default(0) @db.Decimal(10, 2)
+  credit        Decimal  @default(0) @db.Decimal(10, 2)
+  balanceBefore Decimal  @default(0) @db.Decimal(10, 2) @map("balance_before")
+  balanceAfter  Decimal  @default(0) @db.Decimal(10, 2) @map("balance_after")
+  tenantId      String   @map("tenant_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  transaction FinancialTransaction @relation(fields: [transactionId], references: [id])
+  account     ChartOfAccount       @relation(fields: [accountId], references: [id])
+  tenant      Tenant               @relation(fields: [tenantId], references: [id])
+
+  @@index([transactionId])
+  @@index([accountId])
+  @@map("financial_journal_entries")
+}
+
+model FinancialReconciliation {
+  id                String   @id @default(uuid())
+  transactionId     String   @map("transaction_id")
+  bankTransactionId String?  @map("bank_transaction_id")
+  status            String   @default("pending") // pending, matched, reconciled
+  matchedAt         DateTime? @map("matched_at")
+  tenantId          String   @map("tenant_id")
+
+  transaction     FinancialTransaction @relation(fields: [transactionId], references: [id])
+  bankTransaction BankTransaction?    @relation(fields: [bankTransactionId], references: [id])
+  tenant          Tenant               @relation(fields: [tenantId], references: [id])
+
+  @@map("financial_reconciliations")
+}
+
+model BankTransaction {
+  id          String   @id @default(uuid())
+  bankDate    DateTime @map("bank_date")
+  description String
+  amount      Decimal  @db.Decimal(10, 2)
+  externalRef String?  @map("external_ref")
+  status      String   @default("unreconciled") // unreconciled, reconciled, ignored
+  tenantId    String   @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  reconciliations FinancialReconciliation[]
+
+  @@map("financial_bank_transactions")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+enum TransactionState {
+  draft
+  posted
+  matched
+  reconciled
+  closed
 }

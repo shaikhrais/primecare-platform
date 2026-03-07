@@ -413,6 +413,31 @@ export type WellnessPulse = $Result.DefaultSelection<Prisma.$WellnessPulsePayloa
  * 
  */
 export type SystemTouchpoint = $Result.DefaultSelection<Prisma.$SystemTouchpointPayload>
+/**
+ * Model ChartOfAccount
+ * 
+ */
+export type ChartOfAccount = $Result.DefaultSelection<Prisma.$ChartOfAccountPayload>
+/**
+ * Model FinancialTransaction
+ * 
+ */
+export type FinancialTransaction = $Result.DefaultSelection<Prisma.$FinancialTransactionPayload>
+/**
+ * Model JournalEntry
+ * 
+ */
+export type JournalEntry = $Result.DefaultSelection<Prisma.$JournalEntryPayload>
+/**
+ * Model FinancialReconciliation
+ * 
+ */
+export type FinancialReconciliation = $Result.DefaultSelection<Prisma.$FinancialReconciliationPayload>
+/**
+ * Model BankTransaction
+ * 
+ */
+export type BankTransaction = $Result.DefaultSelection<Prisma.$BankTransactionPayload>
 
 /**
  * Enums
@@ -548,6 +573,28 @@ export const DailyEntryStatus: {
 
 export type DailyEntryStatus = (typeof DailyEntryStatus)[keyof typeof DailyEntryStatus]
 
+
+export const AccountType: {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
+export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const TransactionState: {
+  draft: 'draft',
+  posted: 'posted',
+  matched: 'matched',
+  reconciled: 'reconciled',
+  closed: 'closed'
+};
+
+export type TransactionState = (typeof TransactionState)[keyof typeof TransactionState]
+
 }
 
 export type Role = $Enums.Role
@@ -593,6 +640,14 @@ export const DocStatus: typeof $Enums.DocStatus
 export type DailyEntryStatus = $Enums.DailyEntryStatus
 
 export const DailyEntryStatus: typeof $Enums.DailyEntryStatus
+
+export type AccountType = $Enums.AccountType
+
+export const AccountType: typeof $Enums.AccountType
+
+export type TransactionState = $Enums.TransactionState
+
+export const TransactionState: typeof $Enums.TransactionState
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1516,6 +1571,56 @@ export class PrismaClient<
     * ```
     */
   get systemTouchpoint(): Prisma.SystemTouchpointDelegate<ExtArgs>;
+
+  /**
+   * `prisma.chartOfAccount`: Exposes CRUD operations for the **ChartOfAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChartOfAccounts
+    * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+    * ```
+    */
+  get chartOfAccount(): Prisma.ChartOfAccountDelegate<ExtArgs>;
+
+  /**
+   * `prisma.financialTransaction`: Exposes CRUD operations for the **FinancialTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FinancialTransactions
+    * const financialTransactions = await prisma.financialTransaction.findMany()
+    * ```
+    */
+  get financialTransaction(): Prisma.FinancialTransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journalEntry`: Exposes CRUD operations for the **JournalEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JournalEntries
+    * const journalEntries = await prisma.journalEntry.findMany()
+    * ```
+    */
+  get journalEntry(): Prisma.JournalEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.financialReconciliation`: Exposes CRUD operations for the **FinancialReconciliation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FinancialReconciliations
+    * const financialReconciliations = await prisma.financialReconciliation.findMany()
+    * ```
+    */
+  get financialReconciliation(): Prisma.FinancialReconciliationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.bankTransaction`: Exposes CRUD operations for the **BankTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BankTransactions
+    * const bankTransactions = await prisma.bankTransaction.findMany()
+    * ```
+    */
+  get bankTransaction(): Prisma.BankTransactionDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2036,7 +2141,12 @@ export namespace Prisma {
     BookingRequest: 'BookingRequest',
     DailyAuditSignOff: 'DailyAuditSignOff',
     WellnessPulse: 'WellnessPulse',
-    SystemTouchpoint: 'SystemTouchpoint'
+    SystemTouchpoint: 'SystemTouchpoint',
+    ChartOfAccount: 'ChartOfAccount',
+    FinancialTransaction: 'FinancialTransaction',
+    JournalEntry: 'JournalEntry',
+    FinancialReconciliation: 'FinancialReconciliation',
+    BankTransaction: 'BankTransaction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2052,7 +2162,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7656,6 +7766,356 @@ export namespace Prisma {
           }
         }
       }
+      ChartOfAccount: {
+        payload: Prisma.$ChartOfAccountPayload<ExtArgs>
+        fields: Prisma.ChartOfAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChartOfAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.ChartOfAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChartOfAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findMany: {
+            args: Prisma.ChartOfAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          create: {
+            args: Prisma.ChartOfAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          createMany: {
+            args: Prisma.ChartOfAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChartOfAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.ChartOfAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          update: {
+            args: Prisma.ChartOfAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChartOfAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChartOfAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ChartOfAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.ChartOfAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChartOfAccount>
+          }
+          groupBy: {
+            args: Prisma.ChartOfAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChartOfAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountCountAggregateOutputType> | number
+          }
+        }
+      }
+      FinancialTransaction: {
+        payload: Prisma.$FinancialTransactionPayload<ExtArgs>
+        fields: Prisma.FinancialTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FinancialTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FinancialTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.FinancialTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FinancialTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.FinancialTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.FinancialTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.FinancialTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FinancialTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.FinancialTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          update: {
+            args: Prisma.FinancialTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.FinancialTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FinancialTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FinancialTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.FinancialTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialTransaction>
+          }
+          groupBy: {
+            args: Prisma.FinancialTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FinancialTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      JournalEntry: {
+        payload: Prisma.$JournalEntryPayload<ExtArgs>
+        fields: Prisma.JournalEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JournalEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JournalEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.JournalEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JournalEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          findMany: {
+            args: Prisma.JournalEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+          }
+          create: {
+            args: Prisma.JournalEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          createMany: {
+            args: Prisma.JournalEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JournalEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.JournalEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          update: {
+            args: Prisma.JournalEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.JournalEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JournalEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JournalEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.JournalEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJournalEntry>
+          }
+          groupBy: {
+            args: Prisma.JournalEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JournalEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      FinancialReconciliation: {
+        payload: Prisma.$FinancialReconciliationPayload<ExtArgs>
+        fields: Prisma.FinancialReconciliationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FinancialReconciliationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FinancialReconciliationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          findFirst: {
+            args: Prisma.FinancialReconciliationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FinancialReconciliationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          findMany: {
+            args: Prisma.FinancialReconciliationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>[]
+          }
+          create: {
+            args: Prisma.FinancialReconciliationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          createMany: {
+            args: Prisma.FinancialReconciliationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FinancialReconciliationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>[]
+          }
+          delete: {
+            args: Prisma.FinancialReconciliationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          update: {
+            args: Prisma.FinancialReconciliationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          deleteMany: {
+            args: Prisma.FinancialReconciliationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FinancialReconciliationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FinancialReconciliationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReconciliationPayload>
+          }
+          aggregate: {
+            args: Prisma.FinancialReconciliationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialReconciliation>
+          }
+          groupBy: {
+            args: Prisma.FinancialReconciliationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReconciliationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FinancialReconciliationCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReconciliationCountAggregateOutputType> | number
+          }
+        }
+      }
+      BankTransaction: {
+        payload: Prisma.$BankTransactionPayload<ExtArgs>
+        fields: Prisma.BankTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BankTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BankTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.BankTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BankTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.BankTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.BankTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.BankTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BankTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.BankTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          update: {
+            args: Prisma.BankTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.BankTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BankTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BankTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.BankTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBankTransaction>
+          }
+          groupBy: {
+            args: Prisma.BankTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BankTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BankTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<BankTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8071,6 +8531,11 @@ export namespace Prisma {
     inventoryItems: number
     purchaseOrders: number
     systemEvents: number
+    financialAccounts: number
+    financialTransactions: number
+    financialJournalEntries: number
+    financialReconciliations: number
+    bankTransactions: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8131,6 +8596,11 @@ export namespace Prisma {
     inventoryItems?: boolean | TenantCountOutputTypeCountInventoryItemsArgs
     purchaseOrders?: boolean | TenantCountOutputTypeCountPurchaseOrdersArgs
     systemEvents?: boolean | TenantCountOutputTypeCountSystemEventsArgs
+    financialAccounts?: boolean | TenantCountOutputTypeCountFinancialAccountsArgs
+    financialTransactions?: boolean | TenantCountOutputTypeCountFinancialTransactionsArgs
+    financialJournalEntries?: boolean | TenantCountOutputTypeCountFinancialJournalEntriesArgs
+    financialReconciliations?: boolean | TenantCountOutputTypeCountFinancialReconciliationsArgs
+    bankTransactions?: boolean | TenantCountOutputTypeCountBankTransactionsArgs
   }
 
   // Custom InputTypes
@@ -8541,6 +9011,41 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountSystemEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SystemEventWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountFinancialAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountFinancialTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountFinancialJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountFinancialReconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReconciliationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountBankTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankTransactionWhereInput
   }
 
 
@@ -9442,6 +9947,108 @@ export namespace Prisma {
    */
   export type PrescriptionCountOutputTypeCountMarEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MAR_EntryWhereInput
+  }
+
+
+  /**
+   * Count Type ChartOfAccountCountOutputType
+   */
+
+  export type ChartOfAccountCountOutputType = {
+    journalEntries: number
+  }
+
+  export type ChartOfAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journalEntries?: boolean | ChartOfAccountCountOutputTypeCountJournalEntriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccountCountOutputType
+     */
+    select?: ChartOfAccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
+  }
+
+
+  /**
+   * Count Type FinancialTransactionCountOutputType
+   */
+
+  export type FinancialTransactionCountOutputType = {
+    journalEntries: number
+    reconciliations: number
+  }
+
+  export type FinancialTransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journalEntries?: boolean | FinancialTransactionCountOutputTypeCountJournalEntriesArgs
+    reconciliations?: boolean | FinancialTransactionCountOutputTypeCountReconciliationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransactionCountOutputType
+     */
+    select?: FinancialTransactionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeCountJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeCountReconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReconciliationWhereInput
+  }
+
+
+  /**
+   * Count Type BankTransactionCountOutputType
+   */
+
+  export type BankTransactionCountOutputType = {
+    reconciliations: number
+  }
+
+  export type BankTransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reconciliations?: boolean | BankTransactionCountOutputTypeCountReconciliationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BankTransactionCountOutputType without action
+   */
+  export type BankTransactionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransactionCountOutputType
+     */
+    select?: BankTransactionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BankTransactionCountOutputType without action
+   */
+  export type BankTransactionCountOutputTypeCountReconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReconciliationWhereInput
   }
 
 
@@ -11046,6 +11653,9 @@ export namespace Prisma {
     enforceVpn: number
     requireDeviceApproval: number
     maxDevicesPerUser: number
+    corsAllowedOrigins: number
+    corsAllowedMethods: number
+    corsAllowedHeaders: number
     parentTenantId: number
     _all: number
   }
@@ -11115,6 +11725,9 @@ export namespace Prisma {
     enforceVpn?: true
     requireDeviceApproval?: true
     maxDevicesPerUser?: true
+    corsAllowedOrigins?: true
+    corsAllowedMethods?: true
+    corsAllowedHeaders?: true
     parentTenantId?: true
     _all?: true
   }
@@ -11223,6 +11836,9 @@ export namespace Prisma {
     enforceVpn: boolean
     requireDeviceApproval: boolean
     maxDevicesPerUser: number
+    corsAllowedOrigins: string[]
+    corsAllowedMethods: string[]
+    corsAllowedHeaders: string[]
     parentTenantId: string | null
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
@@ -11263,6 +11879,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: boolean
+    corsAllowedOrigins?: boolean
+    corsAllowedMethods?: boolean
+    corsAllowedHeaders?: boolean
     parentTenantId?: boolean
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
     bookings?: boolean | Tenant$bookingsArgs<ExtArgs>
@@ -11322,6 +11941,11 @@ export namespace Prisma {
     inventoryItems?: boolean | Tenant$inventoryItemsArgs<ExtArgs>
     purchaseOrders?: boolean | Tenant$purchaseOrdersArgs<ExtArgs>
     systemEvents?: boolean | Tenant$systemEventsArgs<ExtArgs>
+    financialAccounts?: boolean | Tenant$financialAccountsArgs<ExtArgs>
+    financialTransactions?: boolean | Tenant$financialTransactionsArgs<ExtArgs>
+    financialJournalEntries?: boolean | Tenant$financialJournalEntriesArgs<ExtArgs>
+    financialReconciliations?: boolean | Tenant$financialReconciliationsArgs<ExtArgs>
+    bankTransactions?: boolean | Tenant$bankTransactionsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -11343,6 +11967,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: boolean
+    corsAllowedOrigins?: boolean
+    corsAllowedMethods?: boolean
+    corsAllowedHeaders?: boolean
     parentTenantId?: boolean
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
@@ -11365,6 +11992,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: boolean
+    corsAllowedOrigins?: boolean
+    corsAllowedMethods?: boolean
+    corsAllowedHeaders?: boolean
     parentTenantId?: boolean
   }
 
@@ -11427,6 +12057,11 @@ export namespace Prisma {
     inventoryItems?: boolean | Tenant$inventoryItemsArgs<ExtArgs>
     purchaseOrders?: boolean | Tenant$purchaseOrdersArgs<ExtArgs>
     systemEvents?: boolean | Tenant$systemEventsArgs<ExtArgs>
+    financialAccounts?: boolean | Tenant$financialAccountsArgs<ExtArgs>
+    financialTransactions?: boolean | Tenant$financialTransactionsArgs<ExtArgs>
+    financialJournalEntries?: boolean | Tenant$financialJournalEntriesArgs<ExtArgs>
+    financialReconciliations?: boolean | Tenant$financialReconciliationsArgs<ExtArgs>
+    bankTransactions?: boolean | Tenant$bankTransactionsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11494,6 +12129,11 @@ export namespace Prisma {
       inventoryItems: Prisma.$InventoryItemPayload<ExtArgs>[]
       purchaseOrders: Prisma.$PurchaseOrderPayload<ExtArgs>[]
       systemEvents: Prisma.$SystemEventPayload<ExtArgs>[]
+      financialAccounts: Prisma.$ChartOfAccountPayload<ExtArgs>[]
+      financialTransactions: Prisma.$FinancialTransactionPayload<ExtArgs>[]
+      financialJournalEntries: Prisma.$JournalEntryPayload<ExtArgs>[]
+      financialReconciliations: Prisma.$FinancialReconciliationPayload<ExtArgs>[]
+      bankTransactions: Prisma.$BankTransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11513,6 +12153,9 @@ export namespace Prisma {
       enforceVpn: boolean
       requireDeviceApproval: boolean
       maxDevicesPerUser: number
+      corsAllowedOrigins: string[]
+      corsAllowedMethods: string[]
+      corsAllowedHeaders: string[]
       parentTenantId: string | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
@@ -11936,6 +12579,11 @@ export namespace Prisma {
     inventoryItems<T extends Tenant$inventoryItemsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$inventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany"> | Null>
     purchaseOrders<T extends Tenant$purchaseOrdersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$purchaseOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany"> | Null>
     systemEvents<T extends Tenant$systemEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$systemEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findMany"> | Null>
+    financialAccounts<T extends Tenant$financialAccountsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$financialAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany"> | Null>
+    financialTransactions<T extends Tenant$financialTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$financialTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    financialJournalEntries<T extends Tenant$financialJournalEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$financialJournalEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    financialReconciliations<T extends Tenant$financialReconciliationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$financialReconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findMany"> | Null>
+    bankTransactions<T extends Tenant$bankTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$bankTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11982,6 +12630,9 @@ export namespace Prisma {
     readonly enforceVpn: FieldRef<"Tenant", 'Boolean'>
     readonly requireDeviceApproval: FieldRef<"Tenant", 'Boolean'>
     readonly maxDevicesPerUser: FieldRef<"Tenant", 'Int'>
+    readonly corsAllowedOrigins: FieldRef<"Tenant", 'String[]'>
+    readonly corsAllowedMethods: FieldRef<"Tenant", 'String[]'>
+    readonly corsAllowedHeaders: FieldRef<"Tenant", 'String[]'>
     readonly parentTenantId: FieldRef<"Tenant", 'String'>
   }
     
@@ -13453,6 +14104,106 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.financialAccounts
+   */
+  export type Tenant$financialAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    cursor?: ChartOfAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.financialTransactions
+   */
+  export type Tenant$financialTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    cursor?: FinancialTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.financialJournalEntries
+   */
+  export type Tenant$financialJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    cursor?: JournalEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.financialReconciliations
+   */
+  export type Tenant$financialReconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    where?: FinancialReconciliationWhereInput
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    cursor?: FinancialReconciliationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.bankTransactions
+   */
+  export type Tenant$bankTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    where?: BankTransactionWhereInput
+    orderBy?: BankTransactionOrderByWithRelationInput | BankTransactionOrderByWithRelationInput[]
+    cursor?: BankTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BankTransactionScalarFieldEnum | BankTransactionScalarFieldEnum[]
   }
 
   /**
@@ -31341,6 +32092,8 @@ export namespace Prisma {
     actorUserId: string | null
     deviceId: string | null
     ipAddress: string | null
+    checksum: string | null
+    previousChecksum: string | null
     createdAt: Date | null
   }
 
@@ -31353,6 +32106,8 @@ export namespace Prisma {
     actorUserId: string | null
     deviceId: string | null
     ipAddress: string | null
+    checksum: string | null
+    previousChecksum: string | null
     createdAt: Date | null
   }
 
@@ -31367,6 +32122,8 @@ export namespace Prisma {
     actorUserId: number
     deviceId: number
     ipAddress: number
+    checksum: number
+    previousChecksum: number
     createdAt: number
     _all: number
   }
@@ -31381,6 +32138,8 @@ export namespace Prisma {
     actorUserId?: true
     deviceId?: true
     ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
     createdAt?: true
   }
 
@@ -31393,6 +32152,8 @@ export namespace Prisma {
     actorUserId?: true
     deviceId?: true
     ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
     createdAt?: true
   }
 
@@ -31407,6 +32168,8 @@ export namespace Prisma {
     actorUserId?: true
     deviceId?: true
     ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
     createdAt?: true
     _all?: true
   }
@@ -31494,6 +32257,8 @@ export namespace Prisma {
     actorUserId: string | null
     deviceId: string | null
     ipAddress: string | null
+    checksum: string
+    previousChecksum: string | null
     createdAt: Date
     _count: SystemEventCountAggregateOutputType | null
     _min: SystemEventMinAggregateOutputType | null
@@ -31525,6 +32290,8 @@ export namespace Prisma {
     actorUserId?: boolean
     deviceId?: boolean
     ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
     createdAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | SystemEvent$actorArgs<ExtArgs>
@@ -31541,6 +32308,8 @@ export namespace Prisma {
     actorUserId?: boolean
     deviceId?: boolean
     ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
     createdAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     actor?: boolean | SystemEvent$actorArgs<ExtArgs>
@@ -31557,6 +32326,8 @@ export namespace Prisma {
     actorUserId?: boolean
     deviceId?: boolean
     ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
     createdAt?: boolean
   }
 
@@ -31586,6 +32357,8 @@ export namespace Prisma {
       actorUserId: string | null
       deviceId: string | null
       ipAddress: string | null
+      checksum: string
+      previousChecksum: string | null
       createdAt: Date
     }, ExtArgs["result"]["systemEvent"]>
     composites: {}
@@ -31992,6 +32765,8 @@ export namespace Prisma {
     readonly actorUserId: FieldRef<"SystemEvent", 'String'>
     readonly deviceId: FieldRef<"SystemEvent", 'String'>
     readonly ipAddress: FieldRef<"SystemEvent", 'String'>
+    readonly checksum: FieldRef<"SystemEvent", 'String'>
+    readonly previousChecksum: FieldRef<"SystemEvent", 'String'>
     readonly createdAt: FieldRef<"SystemEvent", 'DateTime'>
   }
     
@@ -93153,6 +93928,5094 @@ export namespace Prisma {
 
 
   /**
+   * Model ChartOfAccount
+   */
+
+  export type AggregateChartOfAccount = {
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  export type ChartOfAccountMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.AccountType | null
+    status: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChartOfAccountMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.AccountType | null
+    status: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChartOfAccountCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    type: number
+    status: number
+    tenantId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ChartOfAccountMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChartOfAccountMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChartOfAccountCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ChartOfAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccount to aggregate.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChartOfAccounts
+    **/
+    _count?: true | ChartOfAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChartOfAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type GetChartOfAccountAggregateType<T extends ChartOfAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateChartOfAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChartOfAccount[P]>
+      : GetScalarType<T[P], AggregateChartOfAccount[P]>
+  }
+
+
+
+
+  export type ChartOfAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithAggregationInput | ChartOfAccountOrderByWithAggregationInput[]
+    by: ChartOfAccountScalarFieldEnum[] | ChartOfAccountScalarFieldEnum
+    having?: ChartOfAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChartOfAccountCountAggregateInputType | true
+    _min?: ChartOfAccountMinAggregateInputType
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type ChartOfAccountGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status: string
+    tenantId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  type GetChartOfAccountGroupByPayload<T extends ChartOfAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChartOfAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChartOfAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChartOfAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    journalEntries?: boolean | ChartOfAccount$journalEntriesArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ChartOfAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    journalEntries?: boolean | ChartOfAccount$journalEntriesArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ChartOfAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $ChartOfAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChartOfAccount"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      journalEntries: Prisma.$JournalEntryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      type: $Enums.AccountType
+      status: string
+      tenantId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["chartOfAccount"]>
+    composites: {}
+  }
+
+  type ChartOfAccountGetPayload<S extends boolean | null | undefined | ChartOfAccountDefaultArgs> = $Result.GetResult<Prisma.$ChartOfAccountPayload, S>
+
+  type ChartOfAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ChartOfAccountFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ChartOfAccountCountAggregateInputType | true
+    }
+
+  export interface ChartOfAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChartOfAccount'], meta: { name: 'ChartOfAccount' } }
+    /**
+     * Find zero or one ChartOfAccount that matches the filter.
+     * @param {ChartOfAccountFindUniqueArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChartOfAccountFindUniqueArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ChartOfAccount that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ChartOfAccountFindUniqueOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChartOfAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChartOfAccountFindFirstArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChartOfAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ChartOfAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+     * 
+     * // Get first 10 ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChartOfAccountFindManyArgs>(args?: SelectSubset<T, ChartOfAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ChartOfAccount.
+     * @param {ChartOfAccountCreateArgs} args - Arguments to create a ChartOfAccount.
+     * @example
+     * // Create one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.create({
+     *   data: {
+     *     // ... data to create a ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChartOfAccountCreateArgs>(args: SelectSubset<T, ChartOfAccountCreateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ChartOfAccounts.
+     * @param {ChartOfAccountCreateManyArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChartOfAccountCreateManyArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChartOfAccounts and returns the data saved in the database.
+     * @param {ChartOfAccountCreateManyAndReturnArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChartOfAccounts and only return the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChartOfAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ChartOfAccount.
+     * @param {ChartOfAccountDeleteArgs} args - Arguments to delete one ChartOfAccount.
+     * @example
+     * // Delete one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.delete({
+     *   where: {
+     *     // ... filter to delete one ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChartOfAccountDeleteArgs>(args: SelectSubset<T, ChartOfAccountDeleteArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ChartOfAccount.
+     * @param {ChartOfAccountUpdateArgs} args - Arguments to update one ChartOfAccount.
+     * @example
+     * // Update one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChartOfAccountUpdateArgs>(args: SelectSubset<T, ChartOfAccountUpdateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ChartOfAccounts.
+     * @param {ChartOfAccountDeleteManyArgs} args - Arguments to filter ChartOfAccounts to delete.
+     * @example
+     * // Delete a few ChartOfAccounts
+     * const { count } = await prisma.chartOfAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChartOfAccountDeleteManyArgs>(args?: SelectSubset<T, ChartOfAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChartOfAccountUpdateManyArgs>(args: SelectSubset<T, ChartOfAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChartOfAccount.
+     * @param {ChartOfAccountUpsertArgs} args - Arguments to update or create a ChartOfAccount.
+     * @example
+     * // Update or create a ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.upsert({
+     *   create: {
+     *     // ... data to create a ChartOfAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChartOfAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChartOfAccountUpsertArgs>(args: SelectSubset<T, ChartOfAccountUpsertArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountCountArgs} args - Arguments to filter ChartOfAccounts to count.
+     * @example
+     * // Count the number of ChartOfAccounts
+     * const count = await prisma.chartOfAccount.count({
+     *   where: {
+     *     // ... the filter for the ChartOfAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChartOfAccountCountArgs>(
+      args?: Subset<T, ChartOfAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChartOfAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChartOfAccountAggregateArgs>(args: Subset<T, ChartOfAccountAggregateArgs>): Prisma.PrismaPromise<GetChartOfAccountAggregateType<T>>
+
+    /**
+     * Group by ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChartOfAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChartOfAccountGroupByArgs['orderBy'] }
+        : { orderBy?: ChartOfAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChartOfAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChartOfAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChartOfAccount model
+   */
+  readonly fields: ChartOfAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChartOfAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChartOfAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    journalEntries<T extends ChartOfAccount$journalEntriesArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$journalEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChartOfAccount model
+   */ 
+  interface ChartOfAccountFieldRefs {
+    readonly id: FieldRef<"ChartOfAccount", 'String'>
+    readonly code: FieldRef<"ChartOfAccount", 'String'>
+    readonly name: FieldRef<"ChartOfAccount", 'String'>
+    readonly type: FieldRef<"ChartOfAccount", 'AccountType'>
+    readonly status: FieldRef<"ChartOfAccount", 'String'>
+    readonly tenantId: FieldRef<"ChartOfAccount", 'String'>
+    readonly createdAt: FieldRef<"ChartOfAccount", 'DateTime'>
+    readonly updatedAt: FieldRef<"ChartOfAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccount findUnique
+   */
+  export type ChartOfAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findUniqueOrThrow
+   */
+  export type ChartOfAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findFirst
+   */
+  export type ChartOfAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findFirstOrThrow
+   */
+  export type ChartOfAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findMany
+   */
+  export type ChartOfAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccounts to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount create
+   */
+  export type ChartOfAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+  }
+
+  /**
+   * ChartOfAccount createMany
+   */
+  export type ChartOfAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChartOfAccount createManyAndReturn
+   */
+  export type ChartOfAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccount update
+   */
+  export type ChartOfAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+    /**
+     * Choose, which ChartOfAccount to update.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount updateMany
+   */
+  export type ChartOfAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChartOfAccounts.
+     */
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ChartOfAccounts to update
+     */
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccount upsert
+   */
+  export type ChartOfAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChartOfAccount to update in case it exists.
+     */
+    where: ChartOfAccountWhereUniqueInput
+    /**
+     * In case the ChartOfAccount found by the `where` argument doesn't exist, create a new ChartOfAccount with this data.
+     */
+    create: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+    /**
+     * In case the ChartOfAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * ChartOfAccount delete
+   */
+  export type ChartOfAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter which ChartOfAccount to delete.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount deleteMany
+   */
+  export type ChartOfAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccounts to delete
+     */
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccount.journalEntries
+   */
+  export type ChartOfAccount$journalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    cursor?: JournalEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount without action
+   */
+  export type ChartOfAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FinancialTransaction
+   */
+
+  export type AggregateFinancialTransaction = {
+    _count: FinancialTransactionCountAggregateOutputType | null
+    _avg: FinancialTransactionAvgAggregateOutputType | null
+    _sum: FinancialTransactionSumAggregateOutputType | null
+    _min: FinancialTransactionMinAggregateOutputType | null
+    _max: FinancialTransactionMaxAggregateOutputType | null
+  }
+
+  export type FinancialTransactionAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type FinancialTransactionSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type FinancialTransactionMinAggregateOutputType = {
+    id: string | null
+    type: string | null
+    referenceId: string | null
+    amount: Decimal | null
+    status: $Enums.TransactionState | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FinancialTransactionMaxAggregateOutputType = {
+    id: string | null
+    type: string | null
+    referenceId: string | null
+    amount: Decimal | null
+    status: $Enums.TransactionState | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FinancialTransactionCountAggregateOutputType = {
+    id: number
+    type: number
+    referenceId: number
+    amount: number
+    status: number
+    tenantId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FinancialTransactionAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type FinancialTransactionSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type FinancialTransactionMinAggregateInputType = {
+    id?: true
+    type?: true
+    referenceId?: true
+    amount?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FinancialTransactionMaxAggregateInputType = {
+    id?: true
+    type?: true
+    referenceId?: true
+    amount?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FinancialTransactionCountAggregateInputType = {
+    id?: true
+    type?: true
+    referenceId?: true
+    amount?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FinancialTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialTransaction to aggregate.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FinancialTransactions
+    **/
+    _count?: true | FinancialTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FinancialTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FinancialTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FinancialTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FinancialTransactionMaxAggregateInputType
+  }
+
+  export type GetFinancialTransactionAggregateType<T extends FinancialTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFinancialTransaction[P]>
+      : GetScalarType<T[P], AggregateFinancialTransaction[P]>
+  }
+
+
+
+
+  export type FinancialTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithAggregationInput | FinancialTransactionOrderByWithAggregationInput[]
+    by: FinancialTransactionScalarFieldEnum[] | FinancialTransactionScalarFieldEnum
+    having?: FinancialTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FinancialTransactionCountAggregateInputType | true
+    _avg?: FinancialTransactionAvgAggregateInputType
+    _sum?: FinancialTransactionSumAggregateInputType
+    _min?: FinancialTransactionMinAggregateInputType
+    _max?: FinancialTransactionMaxAggregateInputType
+  }
+
+  export type FinancialTransactionGroupByOutputType = {
+    id: string
+    type: string
+    referenceId: string | null
+    amount: Decimal
+    status: $Enums.TransactionState
+    tenantId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: FinancialTransactionCountAggregateOutputType | null
+    _avg: FinancialTransactionAvgAggregateOutputType | null
+    _sum: FinancialTransactionSumAggregateOutputType | null
+    _min: FinancialTransactionMinAggregateOutputType | null
+    _max: FinancialTransactionMaxAggregateOutputType | null
+  }
+
+  type GetFinancialTransactionGroupByPayload<T extends FinancialTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FinancialTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FinancialTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FinancialTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FinancialTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    referenceId?: boolean
+    amount?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    journalEntries?: boolean | FinancialTransaction$journalEntriesArgs<ExtArgs>
+    reconciliations?: boolean | FinancialTransaction$reconciliationsArgs<ExtArgs>
+    _count?: boolean | FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialTransaction"]>
+
+  export type FinancialTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    referenceId?: boolean
+    amount?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialTransaction"]>
+
+  export type FinancialTransactionSelectScalar = {
+    id?: boolean
+    type?: boolean
+    referenceId?: boolean
+    amount?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FinancialTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    journalEntries?: boolean | FinancialTransaction$journalEntriesArgs<ExtArgs>
+    reconciliations?: boolean | FinancialTransaction$reconciliationsArgs<ExtArgs>
+    _count?: boolean | FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FinancialTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $FinancialTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialTransaction"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      journalEntries: Prisma.$JournalEntryPayload<ExtArgs>[]
+      reconciliations: Prisma.$FinancialReconciliationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: string
+      referenceId: string | null
+      amount: Prisma.Decimal
+      status: $Enums.TransactionState
+      tenantId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["financialTransaction"]>
+    composites: {}
+  }
+
+  type FinancialTransactionGetPayload<S extends boolean | null | undefined | FinancialTransactionDefaultArgs> = $Result.GetResult<Prisma.$FinancialTransactionPayload, S>
+
+  type FinancialTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FinancialTransactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FinancialTransactionCountAggregateInputType | true
+    }
+
+  export interface FinancialTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialTransaction'], meta: { name: 'FinancialTransaction' } }
+    /**
+     * Find zero or one FinancialTransaction that matches the filter.
+     * @param {FinancialTransactionFindUniqueArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FinancialTransactionFindUniqueArgs>(args: SelectSubset<T, FinancialTransactionFindUniqueArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FinancialTransaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FinancialTransactionFindUniqueOrThrowArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FinancialTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FinancialTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindFirstArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FinancialTransactionFindFirstArgs>(args?: SelectSubset<T, FinancialTransactionFindFirstArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FinancialTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindFirstOrThrowArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FinancialTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FinancialTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FinancialTransactions
+     * const financialTransactions = await prisma.financialTransaction.findMany()
+     * 
+     * // Get first 10 FinancialTransactions
+     * const financialTransactions = await prisma.financialTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const financialTransactionWithIdOnly = await prisma.financialTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FinancialTransactionFindManyArgs>(args?: SelectSubset<T, FinancialTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FinancialTransaction.
+     * @param {FinancialTransactionCreateArgs} args - Arguments to create a FinancialTransaction.
+     * @example
+     * // Create one FinancialTransaction
+     * const FinancialTransaction = await prisma.financialTransaction.create({
+     *   data: {
+     *     // ... data to create a FinancialTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends FinancialTransactionCreateArgs>(args: SelectSubset<T, FinancialTransactionCreateArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FinancialTransactions.
+     * @param {FinancialTransactionCreateManyArgs} args - Arguments to create many FinancialTransactions.
+     * @example
+     * // Create many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FinancialTransactionCreateManyArgs>(args?: SelectSubset<T, FinancialTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FinancialTransactions and returns the data saved in the database.
+     * @param {FinancialTransactionCreateManyAndReturnArgs} args - Arguments to create many FinancialTransactions.
+     * @example
+     * // Create many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FinancialTransactions and only return the `id`
+     * const financialTransactionWithIdOnly = await prisma.financialTransaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FinancialTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FinancialTransaction.
+     * @param {FinancialTransactionDeleteArgs} args - Arguments to delete one FinancialTransaction.
+     * @example
+     * // Delete one FinancialTransaction
+     * const FinancialTransaction = await prisma.financialTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one FinancialTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FinancialTransactionDeleteArgs>(args: SelectSubset<T, FinancialTransactionDeleteArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FinancialTransaction.
+     * @param {FinancialTransactionUpdateArgs} args - Arguments to update one FinancialTransaction.
+     * @example
+     * // Update one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FinancialTransactionUpdateArgs>(args: SelectSubset<T, FinancialTransactionUpdateArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FinancialTransactions.
+     * @param {FinancialTransactionDeleteManyArgs} args - Arguments to filter FinancialTransactions to delete.
+     * @example
+     * // Delete a few FinancialTransactions
+     * const { count } = await prisma.financialTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FinancialTransactionDeleteManyArgs>(args?: SelectSubset<T, FinancialTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FinancialTransactionUpdateManyArgs>(args: SelectSubset<T, FinancialTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FinancialTransaction.
+     * @param {FinancialTransactionUpsertArgs} args - Arguments to update or create a FinancialTransaction.
+     * @example
+     * // Update or create a FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.upsert({
+     *   create: {
+     *     // ... data to create a FinancialTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FinancialTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FinancialTransactionUpsertArgs>(args: SelectSubset<T, FinancialTransactionUpsertArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FinancialTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionCountArgs} args - Arguments to filter FinancialTransactions to count.
+     * @example
+     * // Count the number of FinancialTransactions
+     * const count = await prisma.financialTransaction.count({
+     *   where: {
+     *     // ... the filter for the FinancialTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends FinancialTransactionCountArgs>(
+      args?: Subset<T, FinancialTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FinancialTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FinancialTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FinancialTransactionAggregateArgs>(args: Subset<T, FinancialTransactionAggregateArgs>): Prisma.PrismaPromise<GetFinancialTransactionAggregateType<T>>
+
+    /**
+     * Group by FinancialTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FinancialTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FinancialTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FinancialTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FinancialTransaction model
+   */
+  readonly fields: FinancialTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FinancialTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FinancialTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    journalEntries<T extends FinancialTransaction$journalEntriesArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$journalEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    reconciliations<T extends FinancialTransaction$reconciliationsArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$reconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FinancialTransaction model
+   */ 
+  interface FinancialTransactionFieldRefs {
+    readonly id: FieldRef<"FinancialTransaction", 'String'>
+    readonly type: FieldRef<"FinancialTransaction", 'String'>
+    readonly referenceId: FieldRef<"FinancialTransaction", 'String'>
+    readonly amount: FieldRef<"FinancialTransaction", 'Decimal'>
+    readonly status: FieldRef<"FinancialTransaction", 'TransactionState'>
+    readonly tenantId: FieldRef<"FinancialTransaction", 'String'>
+    readonly createdAt: FieldRef<"FinancialTransaction", 'DateTime'>
+    readonly updatedAt: FieldRef<"FinancialTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FinancialTransaction findUnique
+   */
+  export type FinancialTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction findUniqueOrThrow
+   */
+  export type FinancialTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction findFirst
+   */
+  export type FinancialTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialTransactions.
+     */
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction findFirstOrThrow
+   */
+  export type FinancialTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialTransactions.
+     */
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction findMany
+   */
+  export type FinancialTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransactions to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction create
+   */
+  export type FinancialTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FinancialTransaction.
+     */
+    data: XOR<FinancialTransactionCreateInput, FinancialTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * FinancialTransaction createMany
+   */
+  export type FinancialTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FinancialTransactions.
+     */
+    data: FinancialTransactionCreateManyInput | FinancialTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialTransaction createManyAndReturn
+   */
+  export type FinancialTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FinancialTransactions.
+     */
+    data: FinancialTransactionCreateManyInput | FinancialTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FinancialTransaction update
+   */
+  export type FinancialTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FinancialTransaction.
+     */
+    data: XOR<FinancialTransactionUpdateInput, FinancialTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which FinancialTransaction to update.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction updateMany
+   */
+  export type FinancialTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FinancialTransactions.
+     */
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialTransactions to update
+     */
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * FinancialTransaction upsert
+   */
+  export type FinancialTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FinancialTransaction to update in case it exists.
+     */
+    where: FinancialTransactionWhereUniqueInput
+    /**
+     * In case the FinancialTransaction found by the `where` argument doesn't exist, create a new FinancialTransaction with this data.
+     */
+    create: XOR<FinancialTransactionCreateInput, FinancialTransactionUncheckedCreateInput>
+    /**
+     * In case the FinancialTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FinancialTransactionUpdateInput, FinancialTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * FinancialTransaction delete
+   */
+  export type FinancialTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which FinancialTransaction to delete.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction deleteMany
+   */
+  export type FinancialTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialTransactions to delete
+     */
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * FinancialTransaction.journalEntries
+   */
+  export type FinancialTransaction$journalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    cursor?: JournalEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction.reconciliations
+   */
+  export type FinancialTransaction$reconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    where?: FinancialReconciliationWhereInput
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    cursor?: FinancialReconciliationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction without action
+   */
+  export type FinancialTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JournalEntry
+   */
+
+  export type AggregateJournalEntry = {
+    _count: JournalEntryCountAggregateOutputType | null
+    _avg: JournalEntryAvgAggregateOutputType | null
+    _sum: JournalEntrySumAggregateOutputType | null
+    _min: JournalEntryMinAggregateOutputType | null
+    _max: JournalEntryMaxAggregateOutputType | null
+  }
+
+  export type JournalEntryAvgAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
+  }
+
+  export type JournalEntrySumAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
+  }
+
+  export type JournalEntryMinAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    accountId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type JournalEntryMaxAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    accountId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type JournalEntryCountAggregateOutputType = {
+    id: number
+    transactionId: number
+    accountId: number
+    debit: number
+    credit: number
+    balanceBefore: number
+    balanceAfter: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type JournalEntryAvgAggregateInputType = {
+    debit?: true
+    credit?: true
+    balanceBefore?: true
+    balanceAfter?: true
+  }
+
+  export type JournalEntrySumAggregateInputType = {
+    debit?: true
+    credit?: true
+    balanceBefore?: true
+    balanceAfter?: true
+  }
+
+  export type JournalEntryMinAggregateInputType = {
+    id?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type JournalEntryMaxAggregateInputType = {
+    id?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type JournalEntryCountAggregateInputType = {
+    id?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type JournalEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntry to aggregate.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JournalEntries
+    **/
+    _count?: true | JournalEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JournalEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JournalEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JournalEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JournalEntryMaxAggregateInputType
+  }
+
+  export type GetJournalEntryAggregateType<T extends JournalEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateJournalEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJournalEntry[P]>
+      : GetScalarType<T[P], AggregateJournalEntry[P]>
+  }
+
+
+
+
+  export type JournalEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithAggregationInput | JournalEntryOrderByWithAggregationInput[]
+    by: JournalEntryScalarFieldEnum[] | JournalEntryScalarFieldEnum
+    having?: JournalEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JournalEntryCountAggregateInputType | true
+    _avg?: JournalEntryAvgAggregateInputType
+    _sum?: JournalEntrySumAggregateInputType
+    _min?: JournalEntryMinAggregateInputType
+    _max?: JournalEntryMaxAggregateInputType
+  }
+
+  export type JournalEntryGroupByOutputType = {
+    id: string
+    transactionId: string
+    accountId: string
+    debit: Decimal
+    credit: Decimal
+    balanceBefore: Decimal
+    balanceAfter: Decimal
+    tenantId: string
+    createdAt: Date
+    _count: JournalEntryCountAggregateOutputType | null
+    _avg: JournalEntryAvgAggregateOutputType | null
+    _sum: JournalEntrySumAggregateOutputType | null
+    _min: JournalEntryMinAggregateOutputType | null
+    _max: JournalEntryMaxAggregateOutputType | null
+  }
+
+  type GetJournalEntryGroupByPayload<T extends JournalEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JournalEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JournalEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JournalEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], JournalEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JournalEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntry"]>
+
+  export type JournalEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntry"]>
+
+  export type JournalEntrySelectScalar = {
+    id?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type JournalEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $JournalEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JournalEntry"
+    objects: {
+      transaction: Prisma.$FinancialTransactionPayload<ExtArgs>
+      account: Prisma.$ChartOfAccountPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      transactionId: string
+      accountId: string
+      debit: Prisma.Decimal
+      credit: Prisma.Decimal
+      balanceBefore: Prisma.Decimal
+      balanceAfter: Prisma.Decimal
+      tenantId: string
+      createdAt: Date
+    }, ExtArgs["result"]["journalEntry"]>
+    composites: {}
+  }
+
+  type JournalEntryGetPayload<S extends boolean | null | undefined | JournalEntryDefaultArgs> = $Result.GetResult<Prisma.$JournalEntryPayload, S>
+
+  type JournalEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JournalEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JournalEntryCountAggregateInputType | true
+    }
+
+  export interface JournalEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JournalEntry'], meta: { name: 'JournalEntry' } }
+    /**
+     * Find zero or one JournalEntry that matches the filter.
+     * @param {JournalEntryFindUniqueArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JournalEntryFindUniqueArgs>(args: SelectSubset<T, JournalEntryFindUniqueArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JournalEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JournalEntryFindUniqueOrThrowArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JournalEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, JournalEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JournalEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindFirstArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JournalEntryFindFirstArgs>(args?: SelectSubset<T, JournalEntryFindFirstArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JournalEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindFirstOrThrowArgs} args - Arguments to find a JournalEntry
+     * @example
+     * // Get one JournalEntry
+     * const journalEntry = await prisma.journalEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JournalEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, JournalEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JournalEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JournalEntries
+     * const journalEntries = await prisma.journalEntry.findMany()
+     * 
+     * // Get first 10 JournalEntries
+     * const journalEntries = await prisma.journalEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journalEntryWithIdOnly = await prisma.journalEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JournalEntryFindManyArgs>(args?: SelectSubset<T, JournalEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JournalEntry.
+     * @param {JournalEntryCreateArgs} args - Arguments to create a JournalEntry.
+     * @example
+     * // Create one JournalEntry
+     * const JournalEntry = await prisma.journalEntry.create({
+     *   data: {
+     *     // ... data to create a JournalEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends JournalEntryCreateArgs>(args: SelectSubset<T, JournalEntryCreateArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JournalEntries.
+     * @param {JournalEntryCreateManyArgs} args - Arguments to create many JournalEntries.
+     * @example
+     * // Create many JournalEntries
+     * const journalEntry = await prisma.journalEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JournalEntryCreateManyArgs>(args?: SelectSubset<T, JournalEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JournalEntries and returns the data saved in the database.
+     * @param {JournalEntryCreateManyAndReturnArgs} args - Arguments to create many JournalEntries.
+     * @example
+     * // Create many JournalEntries
+     * const journalEntry = await prisma.journalEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JournalEntries and only return the `id`
+     * const journalEntryWithIdOnly = await prisma.journalEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JournalEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, JournalEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JournalEntry.
+     * @param {JournalEntryDeleteArgs} args - Arguments to delete one JournalEntry.
+     * @example
+     * // Delete one JournalEntry
+     * const JournalEntry = await prisma.journalEntry.delete({
+     *   where: {
+     *     // ... filter to delete one JournalEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JournalEntryDeleteArgs>(args: SelectSubset<T, JournalEntryDeleteArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JournalEntry.
+     * @param {JournalEntryUpdateArgs} args - Arguments to update one JournalEntry.
+     * @example
+     * // Update one JournalEntry
+     * const journalEntry = await prisma.journalEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JournalEntryUpdateArgs>(args: SelectSubset<T, JournalEntryUpdateArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JournalEntries.
+     * @param {JournalEntryDeleteManyArgs} args - Arguments to filter JournalEntries to delete.
+     * @example
+     * // Delete a few JournalEntries
+     * const { count } = await prisma.journalEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JournalEntryDeleteManyArgs>(args?: SelectSubset<T, JournalEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JournalEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JournalEntries
+     * const journalEntry = await prisma.journalEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JournalEntryUpdateManyArgs>(args: SelectSubset<T, JournalEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JournalEntry.
+     * @param {JournalEntryUpsertArgs} args - Arguments to update or create a JournalEntry.
+     * @example
+     * // Update or create a JournalEntry
+     * const journalEntry = await prisma.journalEntry.upsert({
+     *   create: {
+     *     // ... data to create a JournalEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JournalEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JournalEntryUpsertArgs>(args: SelectSubset<T, JournalEntryUpsertArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JournalEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryCountArgs} args - Arguments to filter JournalEntries to count.
+     * @example
+     * // Count the number of JournalEntries
+     * const count = await prisma.journalEntry.count({
+     *   where: {
+     *     // ... the filter for the JournalEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends JournalEntryCountArgs>(
+      args?: Subset<T, JournalEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JournalEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JournalEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JournalEntryAggregateArgs>(args: Subset<T, JournalEntryAggregateArgs>): Prisma.PrismaPromise<GetJournalEntryAggregateType<T>>
+
+    /**
+     * Group by JournalEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JournalEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JournalEntryGroupByArgs['orderBy'] }
+        : { orderBy?: JournalEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JournalEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJournalEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JournalEntry model
+   */
+  readonly fields: JournalEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JournalEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    transaction<T extends FinancialTransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransactionDefaultArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    account<T extends ChartOfAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccountDefaultArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JournalEntry model
+   */ 
+  interface JournalEntryFieldRefs {
+    readonly id: FieldRef<"JournalEntry", 'String'>
+    readonly transactionId: FieldRef<"JournalEntry", 'String'>
+    readonly accountId: FieldRef<"JournalEntry", 'String'>
+    readonly debit: FieldRef<"JournalEntry", 'Decimal'>
+    readonly credit: FieldRef<"JournalEntry", 'Decimal'>
+    readonly balanceBefore: FieldRef<"JournalEntry", 'Decimal'>
+    readonly balanceAfter: FieldRef<"JournalEntry", 'Decimal'>
+    readonly tenantId: FieldRef<"JournalEntry", 'String'>
+    readonly createdAt: FieldRef<"JournalEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JournalEntry findUnique
+   */
+  export type JournalEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry findUniqueOrThrow
+   */
+  export type JournalEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry findFirst
+   */
+  export type JournalEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntries.
+     */
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry findFirstOrThrow
+   */
+  export type JournalEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntry to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntries.
+     */
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry findMany
+   */
+  export type JournalEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntries to fetch.
+     */
+    where?: JournalEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntries to fetch.
+     */
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JournalEntries.
+     */
+    cursor?: JournalEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntries.
+     */
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry create
+   */
+  export type JournalEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JournalEntry.
+     */
+    data: XOR<JournalEntryCreateInput, JournalEntryUncheckedCreateInput>
+  }
+
+  /**
+   * JournalEntry createMany
+   */
+  export type JournalEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JournalEntries.
+     */
+    data: JournalEntryCreateManyInput | JournalEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JournalEntry createManyAndReturn
+   */
+  export type JournalEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JournalEntries.
+     */
+    data: JournalEntryCreateManyInput | JournalEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JournalEntry update
+   */
+  export type JournalEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JournalEntry.
+     */
+    data: XOR<JournalEntryUpdateInput, JournalEntryUncheckedUpdateInput>
+    /**
+     * Choose, which JournalEntry to update.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry updateMany
+   */
+  export type JournalEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JournalEntries.
+     */
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which JournalEntries to update
+     */
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * JournalEntry upsert
+   */
+  export type JournalEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JournalEntry to update in case it exists.
+     */
+    where: JournalEntryWhereUniqueInput
+    /**
+     * In case the JournalEntry found by the `where` argument doesn't exist, create a new JournalEntry with this data.
+     */
+    create: XOR<JournalEntryCreateInput, JournalEntryUncheckedCreateInput>
+    /**
+     * In case the JournalEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JournalEntryUpdateInput, JournalEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * JournalEntry delete
+   */
+  export type JournalEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    /**
+     * Filter which JournalEntry to delete.
+     */
+    where: JournalEntryWhereUniqueInput
+  }
+
+  /**
+   * JournalEntry deleteMany
+   */
+  export type JournalEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntries to delete
+     */
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * JournalEntry without action
+   */
+  export type JournalEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FinancialReconciliation
+   */
+
+  export type AggregateFinancialReconciliation = {
+    _count: FinancialReconciliationCountAggregateOutputType | null
+    _min: FinancialReconciliationMinAggregateOutputType | null
+    _max: FinancialReconciliationMaxAggregateOutputType | null
+  }
+
+  export type FinancialReconciliationMinAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    bankTransactionId: string | null
+    status: string | null
+    matchedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type FinancialReconciliationMaxAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    bankTransactionId: string | null
+    status: string | null
+    matchedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type FinancialReconciliationCountAggregateOutputType = {
+    id: number
+    transactionId: number
+    bankTransactionId: number
+    status: number
+    matchedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type FinancialReconciliationMinAggregateInputType = {
+    id?: true
+    transactionId?: true
+    bankTransactionId?: true
+    status?: true
+    matchedAt?: true
+    tenantId?: true
+  }
+
+  export type FinancialReconciliationMaxAggregateInputType = {
+    id?: true
+    transactionId?: true
+    bankTransactionId?: true
+    status?: true
+    matchedAt?: true
+    tenantId?: true
+  }
+
+  export type FinancialReconciliationCountAggregateInputType = {
+    id?: true
+    transactionId?: true
+    bankTransactionId?: true
+    status?: true
+    matchedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type FinancialReconciliationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialReconciliation to aggregate.
+     */
+    where?: FinancialReconciliationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReconciliations to fetch.
+     */
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FinancialReconciliationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReconciliations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReconciliations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FinancialReconciliations
+    **/
+    _count?: true | FinancialReconciliationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FinancialReconciliationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FinancialReconciliationMaxAggregateInputType
+  }
+
+  export type GetFinancialReconciliationAggregateType<T extends FinancialReconciliationAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialReconciliation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFinancialReconciliation[P]>
+      : GetScalarType<T[P], AggregateFinancialReconciliation[P]>
+  }
+
+
+
+
+  export type FinancialReconciliationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReconciliationWhereInput
+    orderBy?: FinancialReconciliationOrderByWithAggregationInput | FinancialReconciliationOrderByWithAggregationInput[]
+    by: FinancialReconciliationScalarFieldEnum[] | FinancialReconciliationScalarFieldEnum
+    having?: FinancialReconciliationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FinancialReconciliationCountAggregateInputType | true
+    _min?: FinancialReconciliationMinAggregateInputType
+    _max?: FinancialReconciliationMaxAggregateInputType
+  }
+
+  export type FinancialReconciliationGroupByOutputType = {
+    id: string
+    transactionId: string
+    bankTransactionId: string | null
+    status: string
+    matchedAt: Date | null
+    tenantId: string
+    _count: FinancialReconciliationCountAggregateOutputType | null
+    _min: FinancialReconciliationMinAggregateOutputType | null
+    _max: FinancialReconciliationMaxAggregateOutputType | null
+  }
+
+  type GetFinancialReconciliationGroupByPayload<T extends FinancialReconciliationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FinancialReconciliationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FinancialReconciliationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FinancialReconciliationGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialReconciliationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FinancialReconciliationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionId?: boolean
+    bankTransactionId?: boolean
+    status?: boolean
+    matchedAt?: boolean
+    tenantId?: boolean
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    bankTransaction?: boolean | FinancialReconciliation$bankTransactionArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialReconciliation"]>
+
+  export type FinancialReconciliationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionId?: boolean
+    bankTransactionId?: boolean
+    status?: boolean
+    matchedAt?: boolean
+    tenantId?: boolean
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    bankTransaction?: boolean | FinancialReconciliation$bankTransactionArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialReconciliation"]>
+
+  export type FinancialReconciliationSelectScalar = {
+    id?: boolean
+    transactionId?: boolean
+    bankTransactionId?: boolean
+    status?: boolean
+    matchedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type FinancialReconciliationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    bankTransaction?: boolean | FinancialReconciliation$bankTransactionArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type FinancialReconciliationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    bankTransaction?: boolean | FinancialReconciliation$bankTransactionArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $FinancialReconciliationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialReconciliation"
+    objects: {
+      transaction: Prisma.$FinancialTransactionPayload<ExtArgs>
+      bankTransaction: Prisma.$BankTransactionPayload<ExtArgs> | null
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      transactionId: string
+      bankTransactionId: string | null
+      status: string
+      matchedAt: Date | null
+      tenantId: string
+    }, ExtArgs["result"]["financialReconciliation"]>
+    composites: {}
+  }
+
+  type FinancialReconciliationGetPayload<S extends boolean | null | undefined | FinancialReconciliationDefaultArgs> = $Result.GetResult<Prisma.$FinancialReconciliationPayload, S>
+
+  type FinancialReconciliationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FinancialReconciliationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FinancialReconciliationCountAggregateInputType | true
+    }
+
+  export interface FinancialReconciliationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialReconciliation'], meta: { name: 'FinancialReconciliation' } }
+    /**
+     * Find zero or one FinancialReconciliation that matches the filter.
+     * @param {FinancialReconciliationFindUniqueArgs} args - Arguments to find a FinancialReconciliation
+     * @example
+     * // Get one FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FinancialReconciliationFindUniqueArgs>(args: SelectSubset<T, FinancialReconciliationFindUniqueArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FinancialReconciliation that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FinancialReconciliationFindUniqueOrThrowArgs} args - Arguments to find a FinancialReconciliation
+     * @example
+     * // Get one FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FinancialReconciliationFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialReconciliationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FinancialReconciliation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationFindFirstArgs} args - Arguments to find a FinancialReconciliation
+     * @example
+     * // Get one FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FinancialReconciliationFindFirstArgs>(args?: SelectSubset<T, FinancialReconciliationFindFirstArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FinancialReconciliation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationFindFirstOrThrowArgs} args - Arguments to find a FinancialReconciliation
+     * @example
+     * // Get one FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FinancialReconciliationFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialReconciliationFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FinancialReconciliations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FinancialReconciliations
+     * const financialReconciliations = await prisma.financialReconciliation.findMany()
+     * 
+     * // Get first 10 FinancialReconciliations
+     * const financialReconciliations = await prisma.financialReconciliation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const financialReconciliationWithIdOnly = await prisma.financialReconciliation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FinancialReconciliationFindManyArgs>(args?: SelectSubset<T, FinancialReconciliationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FinancialReconciliation.
+     * @param {FinancialReconciliationCreateArgs} args - Arguments to create a FinancialReconciliation.
+     * @example
+     * // Create one FinancialReconciliation
+     * const FinancialReconciliation = await prisma.financialReconciliation.create({
+     *   data: {
+     *     // ... data to create a FinancialReconciliation
+     *   }
+     * })
+     * 
+     */
+    create<T extends FinancialReconciliationCreateArgs>(args: SelectSubset<T, FinancialReconciliationCreateArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FinancialReconciliations.
+     * @param {FinancialReconciliationCreateManyArgs} args - Arguments to create many FinancialReconciliations.
+     * @example
+     * // Create many FinancialReconciliations
+     * const financialReconciliation = await prisma.financialReconciliation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FinancialReconciliationCreateManyArgs>(args?: SelectSubset<T, FinancialReconciliationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FinancialReconciliations and returns the data saved in the database.
+     * @param {FinancialReconciliationCreateManyAndReturnArgs} args - Arguments to create many FinancialReconciliations.
+     * @example
+     * // Create many FinancialReconciliations
+     * const financialReconciliation = await prisma.financialReconciliation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FinancialReconciliations and only return the `id`
+     * const financialReconciliationWithIdOnly = await prisma.financialReconciliation.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FinancialReconciliationCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialReconciliationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FinancialReconciliation.
+     * @param {FinancialReconciliationDeleteArgs} args - Arguments to delete one FinancialReconciliation.
+     * @example
+     * // Delete one FinancialReconciliation
+     * const FinancialReconciliation = await prisma.financialReconciliation.delete({
+     *   where: {
+     *     // ... filter to delete one FinancialReconciliation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FinancialReconciliationDeleteArgs>(args: SelectSubset<T, FinancialReconciliationDeleteArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FinancialReconciliation.
+     * @param {FinancialReconciliationUpdateArgs} args - Arguments to update one FinancialReconciliation.
+     * @example
+     * // Update one FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FinancialReconciliationUpdateArgs>(args: SelectSubset<T, FinancialReconciliationUpdateArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FinancialReconciliations.
+     * @param {FinancialReconciliationDeleteManyArgs} args - Arguments to filter FinancialReconciliations to delete.
+     * @example
+     * // Delete a few FinancialReconciliations
+     * const { count } = await prisma.financialReconciliation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FinancialReconciliationDeleteManyArgs>(args?: SelectSubset<T, FinancialReconciliationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialReconciliations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FinancialReconciliations
+     * const financialReconciliation = await prisma.financialReconciliation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FinancialReconciliationUpdateManyArgs>(args: SelectSubset<T, FinancialReconciliationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FinancialReconciliation.
+     * @param {FinancialReconciliationUpsertArgs} args - Arguments to update or create a FinancialReconciliation.
+     * @example
+     * // Update or create a FinancialReconciliation
+     * const financialReconciliation = await prisma.financialReconciliation.upsert({
+     *   create: {
+     *     // ... data to create a FinancialReconciliation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FinancialReconciliation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FinancialReconciliationUpsertArgs>(args: SelectSubset<T, FinancialReconciliationUpsertArgs<ExtArgs>>): Prisma__FinancialReconciliationClient<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FinancialReconciliations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationCountArgs} args - Arguments to filter FinancialReconciliations to count.
+     * @example
+     * // Count the number of FinancialReconciliations
+     * const count = await prisma.financialReconciliation.count({
+     *   where: {
+     *     // ... the filter for the FinancialReconciliations we want to count
+     *   }
+     * })
+    **/
+    count<T extends FinancialReconciliationCountArgs>(
+      args?: Subset<T, FinancialReconciliationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FinancialReconciliationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FinancialReconciliation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FinancialReconciliationAggregateArgs>(args: Subset<T, FinancialReconciliationAggregateArgs>): Prisma.PrismaPromise<GetFinancialReconciliationAggregateType<T>>
+
+    /**
+     * Group by FinancialReconciliation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReconciliationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FinancialReconciliationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FinancialReconciliationGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialReconciliationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FinancialReconciliationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialReconciliationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FinancialReconciliation model
+   */
+  readonly fields: FinancialReconciliationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FinancialReconciliation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FinancialReconciliationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    transaction<T extends FinancialTransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransactionDefaultArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    bankTransaction<T extends FinancialReconciliation$bankTransactionArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReconciliation$bankTransactionArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FinancialReconciliation model
+   */ 
+  interface FinancialReconciliationFieldRefs {
+    readonly id: FieldRef<"FinancialReconciliation", 'String'>
+    readonly transactionId: FieldRef<"FinancialReconciliation", 'String'>
+    readonly bankTransactionId: FieldRef<"FinancialReconciliation", 'String'>
+    readonly status: FieldRef<"FinancialReconciliation", 'String'>
+    readonly matchedAt: FieldRef<"FinancialReconciliation", 'DateTime'>
+    readonly tenantId: FieldRef<"FinancialReconciliation", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FinancialReconciliation findUnique
+   */
+  export type FinancialReconciliationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReconciliation to fetch.
+     */
+    where: FinancialReconciliationWhereUniqueInput
+  }
+
+  /**
+   * FinancialReconciliation findUniqueOrThrow
+   */
+  export type FinancialReconciliationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReconciliation to fetch.
+     */
+    where: FinancialReconciliationWhereUniqueInput
+  }
+
+  /**
+   * FinancialReconciliation findFirst
+   */
+  export type FinancialReconciliationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReconciliation to fetch.
+     */
+    where?: FinancialReconciliationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReconciliations to fetch.
+     */
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialReconciliations.
+     */
+    cursor?: FinancialReconciliationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReconciliations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReconciliations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialReconciliations.
+     */
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReconciliation findFirstOrThrow
+   */
+  export type FinancialReconciliationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReconciliation to fetch.
+     */
+    where?: FinancialReconciliationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReconciliations to fetch.
+     */
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialReconciliations.
+     */
+    cursor?: FinancialReconciliationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReconciliations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReconciliations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialReconciliations.
+     */
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReconciliation findMany
+   */
+  export type FinancialReconciliationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReconciliations to fetch.
+     */
+    where?: FinancialReconciliationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReconciliations to fetch.
+     */
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FinancialReconciliations.
+     */
+    cursor?: FinancialReconciliationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReconciliations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReconciliations.
+     */
+    skip?: number
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReconciliation create
+   */
+  export type FinancialReconciliationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FinancialReconciliation.
+     */
+    data: XOR<FinancialReconciliationCreateInput, FinancialReconciliationUncheckedCreateInput>
+  }
+
+  /**
+   * FinancialReconciliation createMany
+   */
+  export type FinancialReconciliationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FinancialReconciliations.
+     */
+    data: FinancialReconciliationCreateManyInput | FinancialReconciliationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialReconciliation createManyAndReturn
+   */
+  export type FinancialReconciliationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FinancialReconciliations.
+     */
+    data: FinancialReconciliationCreateManyInput | FinancialReconciliationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FinancialReconciliation update
+   */
+  export type FinancialReconciliationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FinancialReconciliation.
+     */
+    data: XOR<FinancialReconciliationUpdateInput, FinancialReconciliationUncheckedUpdateInput>
+    /**
+     * Choose, which FinancialReconciliation to update.
+     */
+    where: FinancialReconciliationWhereUniqueInput
+  }
+
+  /**
+   * FinancialReconciliation updateMany
+   */
+  export type FinancialReconciliationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FinancialReconciliations.
+     */
+    data: XOR<FinancialReconciliationUpdateManyMutationInput, FinancialReconciliationUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialReconciliations to update
+     */
+    where?: FinancialReconciliationWhereInput
+  }
+
+  /**
+   * FinancialReconciliation upsert
+   */
+  export type FinancialReconciliationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FinancialReconciliation to update in case it exists.
+     */
+    where: FinancialReconciliationWhereUniqueInput
+    /**
+     * In case the FinancialReconciliation found by the `where` argument doesn't exist, create a new FinancialReconciliation with this data.
+     */
+    create: XOR<FinancialReconciliationCreateInput, FinancialReconciliationUncheckedCreateInput>
+    /**
+     * In case the FinancialReconciliation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FinancialReconciliationUpdateInput, FinancialReconciliationUncheckedUpdateInput>
+  }
+
+  /**
+   * FinancialReconciliation delete
+   */
+  export type FinancialReconciliationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    /**
+     * Filter which FinancialReconciliation to delete.
+     */
+    where: FinancialReconciliationWhereUniqueInput
+  }
+
+  /**
+   * FinancialReconciliation deleteMany
+   */
+  export type FinancialReconciliationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialReconciliations to delete
+     */
+    where?: FinancialReconciliationWhereInput
+  }
+
+  /**
+   * FinancialReconciliation.bankTransaction
+   */
+  export type FinancialReconciliation$bankTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    where?: BankTransactionWhereInput
+  }
+
+  /**
+   * FinancialReconciliation without action
+   */
+  export type FinancialReconciliationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BankTransaction
+   */
+
+  export type AggregateBankTransaction = {
+    _count: BankTransactionCountAggregateOutputType | null
+    _avg: BankTransactionAvgAggregateOutputType | null
+    _sum: BankTransactionSumAggregateOutputType | null
+    _min: BankTransactionMinAggregateOutputType | null
+    _max: BankTransactionMaxAggregateOutputType | null
+  }
+
+  export type BankTransactionAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type BankTransactionSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type BankTransactionMinAggregateOutputType = {
+    id: string | null
+    bankDate: Date | null
+    description: string | null
+    amount: Decimal | null
+    externalRef: string | null
+    status: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type BankTransactionMaxAggregateOutputType = {
+    id: string | null
+    bankDate: Date | null
+    description: string | null
+    amount: Decimal | null
+    externalRef: string | null
+    status: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type BankTransactionCountAggregateOutputType = {
+    id: number
+    bankDate: number
+    description: number
+    amount: number
+    externalRef: number
+    status: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BankTransactionAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type BankTransactionSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type BankTransactionMinAggregateInputType = {
+    id?: true
+    bankDate?: true
+    description?: true
+    amount?: true
+    externalRef?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type BankTransactionMaxAggregateInputType = {
+    id?: true
+    bankDate?: true
+    description?: true
+    amount?: true
+    externalRef?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type BankTransactionCountAggregateInputType = {
+    id?: true
+    bankDate?: true
+    description?: true
+    amount?: true
+    externalRef?: true
+    status?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BankTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankTransaction to aggregate.
+     */
+    where?: BankTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankTransactions to fetch.
+     */
+    orderBy?: BankTransactionOrderByWithRelationInput | BankTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BankTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BankTransactions
+    **/
+    _count?: true | BankTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BankTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BankTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BankTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BankTransactionMaxAggregateInputType
+  }
+
+  export type GetBankTransactionAggregateType<T extends BankTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateBankTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBankTransaction[P]>
+      : GetScalarType<T[P], AggregateBankTransaction[P]>
+  }
+
+
+
+
+  export type BankTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankTransactionWhereInput
+    orderBy?: BankTransactionOrderByWithAggregationInput | BankTransactionOrderByWithAggregationInput[]
+    by: BankTransactionScalarFieldEnum[] | BankTransactionScalarFieldEnum
+    having?: BankTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BankTransactionCountAggregateInputType | true
+    _avg?: BankTransactionAvgAggregateInputType
+    _sum?: BankTransactionSumAggregateInputType
+    _min?: BankTransactionMinAggregateInputType
+    _max?: BankTransactionMaxAggregateInputType
+  }
+
+  export type BankTransactionGroupByOutputType = {
+    id: string
+    bankDate: Date
+    description: string
+    amount: Decimal
+    externalRef: string | null
+    status: string
+    tenantId: string
+    createdAt: Date
+    _count: BankTransactionCountAggregateOutputType | null
+    _avg: BankTransactionAvgAggregateOutputType | null
+    _sum: BankTransactionSumAggregateOutputType | null
+    _min: BankTransactionMinAggregateOutputType | null
+    _max: BankTransactionMaxAggregateOutputType | null
+  }
+
+  type GetBankTransactionGroupByPayload<T extends BankTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BankTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BankTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BankTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], BankTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BankTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bankDate?: boolean
+    description?: boolean
+    amount?: boolean
+    externalRef?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    reconciliations?: boolean | BankTransaction$reconciliationsArgs<ExtArgs>
+    _count?: boolean | BankTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankTransaction"]>
+
+  export type BankTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bankDate?: boolean
+    description?: boolean
+    amount?: boolean
+    externalRef?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankTransaction"]>
+
+  export type BankTransactionSelectScalar = {
+    id?: boolean
+    bankDate?: boolean
+    description?: boolean
+    amount?: boolean
+    externalRef?: boolean
+    status?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type BankTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    reconciliations?: boolean | BankTransaction$reconciliationsArgs<ExtArgs>
+    _count?: boolean | BankTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BankTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $BankTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BankTransaction"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      reconciliations: Prisma.$FinancialReconciliationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bankDate: Date
+      description: string
+      amount: Prisma.Decimal
+      externalRef: string | null
+      status: string
+      tenantId: string
+      createdAt: Date
+    }, ExtArgs["result"]["bankTransaction"]>
+    composites: {}
+  }
+
+  type BankTransactionGetPayload<S extends boolean | null | undefined | BankTransactionDefaultArgs> = $Result.GetResult<Prisma.$BankTransactionPayload, S>
+
+  type BankTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BankTransactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BankTransactionCountAggregateInputType | true
+    }
+
+  export interface BankTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BankTransaction'], meta: { name: 'BankTransaction' } }
+    /**
+     * Find zero or one BankTransaction that matches the filter.
+     * @param {BankTransactionFindUniqueArgs} args - Arguments to find a BankTransaction
+     * @example
+     * // Get one BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BankTransactionFindUniqueArgs>(args: SelectSubset<T, BankTransactionFindUniqueArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BankTransaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BankTransactionFindUniqueOrThrowArgs} args - Arguments to find a BankTransaction
+     * @example
+     * // Get one BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BankTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, BankTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BankTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionFindFirstArgs} args - Arguments to find a BankTransaction
+     * @example
+     * // Get one BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BankTransactionFindFirstArgs>(args?: SelectSubset<T, BankTransactionFindFirstArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BankTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionFindFirstOrThrowArgs} args - Arguments to find a BankTransaction
+     * @example
+     * // Get one BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BankTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, BankTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BankTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BankTransactions
+     * const bankTransactions = await prisma.bankTransaction.findMany()
+     * 
+     * // Get first 10 BankTransactions
+     * const bankTransactions = await prisma.bankTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bankTransactionWithIdOnly = await prisma.bankTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BankTransactionFindManyArgs>(args?: SelectSubset<T, BankTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BankTransaction.
+     * @param {BankTransactionCreateArgs} args - Arguments to create a BankTransaction.
+     * @example
+     * // Create one BankTransaction
+     * const BankTransaction = await prisma.bankTransaction.create({
+     *   data: {
+     *     // ... data to create a BankTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends BankTransactionCreateArgs>(args: SelectSubset<T, BankTransactionCreateArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BankTransactions.
+     * @param {BankTransactionCreateManyArgs} args - Arguments to create many BankTransactions.
+     * @example
+     * // Create many BankTransactions
+     * const bankTransaction = await prisma.bankTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BankTransactionCreateManyArgs>(args?: SelectSubset<T, BankTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BankTransactions and returns the data saved in the database.
+     * @param {BankTransactionCreateManyAndReturnArgs} args - Arguments to create many BankTransactions.
+     * @example
+     * // Create many BankTransactions
+     * const bankTransaction = await prisma.bankTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BankTransactions and only return the `id`
+     * const bankTransactionWithIdOnly = await prisma.bankTransaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BankTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, BankTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BankTransaction.
+     * @param {BankTransactionDeleteArgs} args - Arguments to delete one BankTransaction.
+     * @example
+     * // Delete one BankTransaction
+     * const BankTransaction = await prisma.bankTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one BankTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BankTransactionDeleteArgs>(args: SelectSubset<T, BankTransactionDeleteArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BankTransaction.
+     * @param {BankTransactionUpdateArgs} args - Arguments to update one BankTransaction.
+     * @example
+     * // Update one BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BankTransactionUpdateArgs>(args: SelectSubset<T, BankTransactionUpdateArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BankTransactions.
+     * @param {BankTransactionDeleteManyArgs} args - Arguments to filter BankTransactions to delete.
+     * @example
+     * // Delete a few BankTransactions
+     * const { count } = await prisma.bankTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BankTransactionDeleteManyArgs>(args?: SelectSubset<T, BankTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BankTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BankTransactions
+     * const bankTransaction = await prisma.bankTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BankTransactionUpdateManyArgs>(args: SelectSubset<T, BankTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BankTransaction.
+     * @param {BankTransactionUpsertArgs} args - Arguments to update or create a BankTransaction.
+     * @example
+     * // Update or create a BankTransaction
+     * const bankTransaction = await prisma.bankTransaction.upsert({
+     *   create: {
+     *     // ... data to create a BankTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BankTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BankTransactionUpsertArgs>(args: SelectSubset<T, BankTransactionUpsertArgs<ExtArgs>>): Prisma__BankTransactionClient<$Result.GetResult<Prisma.$BankTransactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BankTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionCountArgs} args - Arguments to filter BankTransactions to count.
+     * @example
+     * // Count the number of BankTransactions
+     * const count = await prisma.bankTransaction.count({
+     *   where: {
+     *     // ... the filter for the BankTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends BankTransactionCountArgs>(
+      args?: Subset<T, BankTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BankTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BankTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BankTransactionAggregateArgs>(args: Subset<T, BankTransactionAggregateArgs>): Prisma.PrismaPromise<GetBankTransactionAggregateType<T>>
+
+    /**
+     * Group by BankTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BankTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BankTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: BankTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BankTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BankTransaction model
+   */
+  readonly fields: BankTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BankTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BankTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    reconciliations<T extends BankTransaction$reconciliationsArgs<ExtArgs> = {}>(args?: Subset<T, BankTransaction$reconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReconciliationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BankTransaction model
+   */ 
+  interface BankTransactionFieldRefs {
+    readonly id: FieldRef<"BankTransaction", 'String'>
+    readonly bankDate: FieldRef<"BankTransaction", 'DateTime'>
+    readonly description: FieldRef<"BankTransaction", 'String'>
+    readonly amount: FieldRef<"BankTransaction", 'Decimal'>
+    readonly externalRef: FieldRef<"BankTransaction", 'String'>
+    readonly status: FieldRef<"BankTransaction", 'String'>
+    readonly tenantId: FieldRef<"BankTransaction", 'String'>
+    readonly createdAt: FieldRef<"BankTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BankTransaction findUnique
+   */
+  export type BankTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which BankTransaction to fetch.
+     */
+    where: BankTransactionWhereUniqueInput
+  }
+
+  /**
+   * BankTransaction findUniqueOrThrow
+   */
+  export type BankTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which BankTransaction to fetch.
+     */
+    where: BankTransactionWhereUniqueInput
+  }
+
+  /**
+   * BankTransaction findFirst
+   */
+  export type BankTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which BankTransaction to fetch.
+     */
+    where?: BankTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankTransactions to fetch.
+     */
+    orderBy?: BankTransactionOrderByWithRelationInput | BankTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankTransactions.
+     */
+    cursor?: BankTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankTransactions.
+     */
+    distinct?: BankTransactionScalarFieldEnum | BankTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * BankTransaction findFirstOrThrow
+   */
+  export type BankTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which BankTransaction to fetch.
+     */
+    where?: BankTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankTransactions to fetch.
+     */
+    orderBy?: BankTransactionOrderByWithRelationInput | BankTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankTransactions.
+     */
+    cursor?: BankTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankTransactions.
+     */
+    distinct?: BankTransactionScalarFieldEnum | BankTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * BankTransaction findMany
+   */
+  export type BankTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which BankTransactions to fetch.
+     */
+    where?: BankTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankTransactions to fetch.
+     */
+    orderBy?: BankTransactionOrderByWithRelationInput | BankTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BankTransactions.
+     */
+    cursor?: BankTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankTransactions.
+     */
+    skip?: number
+    distinct?: BankTransactionScalarFieldEnum | BankTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * BankTransaction create
+   */
+  export type BankTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BankTransaction.
+     */
+    data: XOR<BankTransactionCreateInput, BankTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * BankTransaction createMany
+   */
+  export type BankTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BankTransactions.
+     */
+    data: BankTransactionCreateManyInput | BankTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BankTransaction createManyAndReturn
+   */
+  export type BankTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BankTransactions.
+     */
+    data: BankTransactionCreateManyInput | BankTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BankTransaction update
+   */
+  export type BankTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BankTransaction.
+     */
+    data: XOR<BankTransactionUpdateInput, BankTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which BankTransaction to update.
+     */
+    where: BankTransactionWhereUniqueInput
+  }
+
+  /**
+   * BankTransaction updateMany
+   */
+  export type BankTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BankTransactions.
+     */
+    data: XOR<BankTransactionUpdateManyMutationInput, BankTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which BankTransactions to update
+     */
+    where?: BankTransactionWhereInput
+  }
+
+  /**
+   * BankTransaction upsert
+   */
+  export type BankTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BankTransaction to update in case it exists.
+     */
+    where: BankTransactionWhereUniqueInput
+    /**
+     * In case the BankTransaction found by the `where` argument doesn't exist, create a new BankTransaction with this data.
+     */
+    create: XOR<BankTransactionCreateInput, BankTransactionUncheckedCreateInput>
+    /**
+     * In case the BankTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BankTransactionUpdateInput, BankTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * BankTransaction delete
+   */
+  export type BankTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which BankTransaction to delete.
+     */
+    where: BankTransactionWhereUniqueInput
+  }
+
+  /**
+   * BankTransaction deleteMany
+   */
+  export type BankTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankTransactions to delete
+     */
+    where?: BankTransactionWhereInput
+  }
+
+  /**
+   * BankTransaction.reconciliations
+   */
+  export type BankTransaction$reconciliationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReconciliation
+     */
+    select?: FinancialReconciliationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReconciliationInclude<ExtArgs> | null
+    where?: FinancialReconciliationWhereInput
+    orderBy?: FinancialReconciliationOrderByWithRelationInput | FinancialReconciliationOrderByWithRelationInput[]
+    cursor?: FinancialReconciliationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialReconciliationScalarFieldEnum | FinancialReconciliationScalarFieldEnum[]
+  }
+
+  /**
+   * BankTransaction without action
+   */
+  export type BankTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankTransaction
+     */
+    select?: BankTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -93203,6 +99066,9 @@ export namespace Prisma {
     enforceVpn: 'enforceVpn',
     requireDeviceApproval: 'requireDeviceApproval',
     maxDevicesPerUser: 'maxDevicesPerUser',
+    corsAllowedOrigins: 'corsAllowedOrigins',
+    corsAllowedMethods: 'corsAllowedMethods',
+    corsAllowedHeaders: 'corsAllowedHeaders',
     parentTenantId: 'parentTenantId'
   };
 
@@ -93486,6 +99352,8 @@ export namespace Prisma {
     actorUserId: 'actorUserId',
     deviceId: 'deviceId',
     ipAddress: 'ipAddress',
+    checksum: 'checksum',
+    previousChecksum: 'previousChecksum',
     createdAt: 'createdAt'
   };
 
@@ -94385,6 +100253,75 @@ export namespace Prisma {
   export type SystemTouchpointScalarFieldEnum = (typeof SystemTouchpointScalarFieldEnum)[keyof typeof SystemTouchpointScalarFieldEnum]
 
 
+  export const ChartOfAccountScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    type: 'type',
+    status: 'status',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
+
+
+  export const FinancialTransactionScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    referenceId: 'referenceId',
+    amount: 'amount',
+    status: 'status',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FinancialTransactionScalarFieldEnum = (typeof FinancialTransactionScalarFieldEnum)[keyof typeof FinancialTransactionScalarFieldEnum]
+
+
+  export const JournalEntryScalarFieldEnum: {
+    id: 'id',
+    transactionId: 'transactionId',
+    accountId: 'accountId',
+    debit: 'debit',
+    credit: 'credit',
+    balanceBefore: 'balanceBefore',
+    balanceAfter: 'balanceAfter',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
+  export const FinancialReconciliationScalarFieldEnum: {
+    id: 'id',
+    transactionId: 'transactionId',
+    bankTransactionId: 'bankTransactionId',
+    status: 'status',
+    matchedAt: 'matchedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type FinancialReconciliationScalarFieldEnum = (typeof FinancialReconciliationScalarFieldEnum)[keyof typeof FinancialReconciliationScalarFieldEnum]
+
+
+  export const BankTransactionScalarFieldEnum: {
+    id: 'id',
+    bankDate: 'bankDate',
+    description: 'description',
+    amount: 'amount',
+    externalRef: 'externalRef',
+    status: 'status',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type BankTransactionScalarFieldEnum = (typeof BankTransactionScalarFieldEnum)[keyof typeof BankTransactionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -94674,6 +100611,34 @@ export namespace Prisma {
    */
   export type ListEnumDailyEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DailyEntryStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'AccountType'
+   */
+  export type EnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AccountType[]'
+   */
+  export type ListEnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionState'
+   */
+  export type EnumTransactionStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionState'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionState[]'
+   */
+  export type ListEnumTransactionStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionState[]'>
+    
   /**
    * Deep Input Types
    */
@@ -94858,6 +100823,9 @@ export namespace Prisma {
     enforceVpn?: BoolFilter<"Tenant"> | boolean
     requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
     maxDevicesPerUser?: IntFilter<"Tenant"> | number
+    corsAllowedOrigins?: StringNullableListFilter<"Tenant">
+    corsAllowedMethods?: StringNullableListFilter<"Tenant">
+    corsAllowedHeaders?: StringNullableListFilter<"Tenant">
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
@@ -94917,6 +100885,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemListRelationFilter
     purchaseOrders?: PurchaseOrderListRelationFilter
     systemEvents?: SystemEventListRelationFilter
+    financialAccounts?: ChartOfAccountListRelationFilter
+    financialTransactions?: FinancialTransactionListRelationFilter
+    financialJournalEntries?: JournalEntryListRelationFilter
+    financialReconciliations?: FinancialReconciliationListRelationFilter
+    bankTransactions?: BankTransactionListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -94937,6 +100910,9 @@ export namespace Prisma {
     enforceVpn?: SortOrder
     requireDeviceApproval?: SortOrder
     maxDevicesPerUser?: SortOrder
+    corsAllowedOrigins?: SortOrder
+    corsAllowedMethods?: SortOrder
+    corsAllowedHeaders?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     auditLogs?: AuditLogOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
@@ -94996,6 +100972,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemOrderByRelationAggregateInput
     purchaseOrders?: PurchaseOrderOrderByRelationAggregateInput
     systemEvents?: SystemEventOrderByRelationAggregateInput
+    financialAccounts?: ChartOfAccountOrderByRelationAggregateInput
+    financialTransactions?: FinancialTransactionOrderByRelationAggregateInput
+    financialJournalEntries?: JournalEntryOrderByRelationAggregateInput
+    financialReconciliations?: FinancialReconciliationOrderByRelationAggregateInput
+    bankTransactions?: BankTransactionOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -95019,6 +101000,9 @@ export namespace Prisma {
     enforceVpn?: BoolFilter<"Tenant"> | boolean
     requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
     maxDevicesPerUser?: IntFilter<"Tenant"> | number
+    corsAllowedOrigins?: StringNullableListFilter<"Tenant">
+    corsAllowedMethods?: StringNullableListFilter<"Tenant">
+    corsAllowedHeaders?: StringNullableListFilter<"Tenant">
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
     auditLogs?: AuditLogListRelationFilter
     bookings?: BookingListRelationFilter
@@ -95078,6 +101062,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemListRelationFilter
     purchaseOrders?: PurchaseOrderListRelationFilter
     systemEvents?: SystemEventListRelationFilter
+    financialAccounts?: ChartOfAccountListRelationFilter
+    financialTransactions?: FinancialTransactionListRelationFilter
+    financialJournalEntries?: JournalEntryListRelationFilter
+    financialReconciliations?: FinancialReconciliationListRelationFilter
+    bankTransactions?: BankTransactionListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -95098,6 +101087,9 @@ export namespace Prisma {
     enforceVpn?: SortOrder
     requireDeviceApproval?: SortOrder
     maxDevicesPerUser?: SortOrder
+    corsAllowedOrigins?: SortOrder
+    corsAllowedMethods?: SortOrder
+    corsAllowedHeaders?: SortOrder
     parentTenantId?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
@@ -95127,6 +101119,9 @@ export namespace Prisma {
     enforceVpn?: BoolWithAggregatesFilter<"Tenant"> | boolean
     requireDeviceApproval?: BoolWithAggregatesFilter<"Tenant"> | boolean
     maxDevicesPerUser?: IntWithAggregatesFilter<"Tenant"> | number
+    corsAllowedOrigins?: StringNullableListFilter<"Tenant">
+    corsAllowedMethods?: StringNullableListFilter<"Tenant">
+    corsAllowedHeaders?: StringNullableListFilter<"Tenant">
     parentTenantId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
   }
 
@@ -96718,6 +102713,8 @@ export namespace Prisma {
     actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
     deviceId?: StringNullableFilter<"SystemEvent"> | string | null
     ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    checksum?: StringFilter<"SystemEvent"> | string
+    previousChecksum?: StringNullableFilter<"SystemEvent"> | string | null
     createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -96734,6 +102731,8 @@ export namespace Prisma {
     actorUserId?: SortOrderInput | SortOrder
     deviceId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     actor?: UserOrderByWithRelationInput
@@ -96753,6 +102752,8 @@ export namespace Prisma {
     actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
     deviceId?: StringNullableFilter<"SystemEvent"> | string | null
     ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    checksum?: StringFilter<"SystemEvent"> | string
+    previousChecksum?: StringNullableFilter<"SystemEvent"> | string | null
     createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -96769,6 +102770,8 @@ export namespace Prisma {
     actorUserId?: SortOrderInput | SortOrder
     deviceId?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: SystemEventCountOrderByAggregateInput
     _max?: SystemEventMaxOrderByAggregateInput
@@ -96789,6 +102792,8 @@ export namespace Prisma {
     actorUserId?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
     deviceId?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
     ipAddress?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
+    checksum?: StringWithAggregatesFilter<"SystemEvent"> | string
+    previousChecksum?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SystemEvent"> | Date | string
   }
 
@@ -101453,6 +107458,382 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"SystemTouchpoint"> | string
   }
 
+  export type ChartOfAccountWhereInput = {
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    status?: StringFilter<"ChartOfAccount"> | string
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    journalEntries?: JournalEntryListRelationFilter
+  }
+
+  export type ChartOfAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    journalEntries?: JournalEntryOrderByRelationAggregateInput
+  }
+
+  export type ChartOfAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_code?: ChartOfAccountTenantIdCodeCompoundUniqueInput
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    status?: StringFilter<"ChartOfAccount"> | string
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    journalEntries?: JournalEntryListRelationFilter
+  }, "id" | "tenantId_code">
+
+  export type ChartOfAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ChartOfAccountCountOrderByAggregateInput
+    _max?: ChartOfAccountMaxOrderByAggregateInput
+    _min?: ChartOfAccountMinOrderByAggregateInput
+  }
+
+  export type ChartOfAccountScalarWhereWithAggregatesInput = {
+    AND?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    OR?: ChartOfAccountScalarWhereWithAggregatesInput[]
+    NOT?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    code?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    name?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeWithAggregatesFilter<"ChartOfAccount"> | $Enums.AccountType
+    status?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    tenantId?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
+  }
+
+  export type FinancialTransactionWhereInput = {
+    AND?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    OR?: FinancialTransactionWhereInput[]
+    NOT?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    id?: StringFilter<"FinancialTransaction"> | string
+    type?: StringFilter<"FinancialTransaction"> | string
+    referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFilter<"FinancialTransaction"> | $Enums.TransactionState
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    journalEntries?: JournalEntryListRelationFilter
+    reconciliations?: FinancialReconciliationListRelationFilter
+  }
+
+  export type FinancialTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    referenceId?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    journalEntries?: JournalEntryOrderByRelationAggregateInput
+    reconciliations?: FinancialReconciliationOrderByRelationAggregateInput
+  }
+
+  export type FinancialTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    OR?: FinancialTransactionWhereInput[]
+    NOT?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    type?: StringFilter<"FinancialTransaction"> | string
+    referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFilter<"FinancialTransaction"> | $Enums.TransactionState
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    journalEntries?: JournalEntryListRelationFilter
+    reconciliations?: FinancialReconciliationListRelationFilter
+  }, "id">
+
+  export type FinancialTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    referenceId?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FinancialTransactionCountOrderByAggregateInput
+    _avg?: FinancialTransactionAvgOrderByAggregateInput
+    _max?: FinancialTransactionMaxOrderByAggregateInput
+    _min?: FinancialTransactionMinOrderByAggregateInput
+    _sum?: FinancialTransactionSumOrderByAggregateInput
+  }
+
+  export type FinancialTransactionScalarWhereWithAggregatesInput = {
+    AND?: FinancialTransactionScalarWhereWithAggregatesInput | FinancialTransactionScalarWhereWithAggregatesInput[]
+    OR?: FinancialTransactionScalarWhereWithAggregatesInput[]
+    NOT?: FinancialTransactionScalarWhereWithAggregatesInput | FinancialTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    type?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    referenceId?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
+    amount?: DecimalWithAggregatesFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateWithAggregatesFilter<"FinancialTransaction"> | $Enums.TransactionState
+    tenantId?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+  }
+
+  export type JournalEntryWhereInput = {
+    AND?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    OR?: JournalEntryWhereInput[]
+    NOT?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    id?: StringFilter<"JournalEntry"> | string
+    transactionId?: StringFilter<"JournalEntry"> | string
+    accountId?: StringFilter<"JournalEntry"> | string
+    debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFilter<"JournalEntry"> | string
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    account?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type JournalEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    transaction?: FinancialTransactionOrderByWithRelationInput
+    account?: ChartOfAccountOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    OR?: JournalEntryWhereInput[]
+    NOT?: JournalEntryWhereInput | JournalEntryWhereInput[]
+    transactionId?: StringFilter<"JournalEntry"> | string
+    accountId?: StringFilter<"JournalEntry"> | string
+    debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFilter<"JournalEntry"> | string
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    account?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type JournalEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    _count?: JournalEntryCountOrderByAggregateInput
+    _avg?: JournalEntryAvgOrderByAggregateInput
+    _max?: JournalEntryMaxOrderByAggregateInput
+    _min?: JournalEntryMinOrderByAggregateInput
+    _sum?: JournalEntrySumOrderByAggregateInput
+  }
+
+  export type JournalEntryScalarWhereWithAggregatesInput = {
+    AND?: JournalEntryScalarWhereWithAggregatesInput | JournalEntryScalarWhereWithAggregatesInput[]
+    OR?: JournalEntryScalarWhereWithAggregatesInput[]
+    NOT?: JournalEntryScalarWhereWithAggregatesInput | JournalEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JournalEntry"> | string
+    transactionId?: StringWithAggregatesFilter<"JournalEntry"> | string
+    accountId?: StringWithAggregatesFilter<"JournalEntry"> | string
+    debit?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalWithAggregatesFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    tenantId?: StringWithAggregatesFilter<"JournalEntry"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
+  }
+
+  export type FinancialReconciliationWhereInput = {
+    AND?: FinancialReconciliationWhereInput | FinancialReconciliationWhereInput[]
+    OR?: FinancialReconciliationWhereInput[]
+    NOT?: FinancialReconciliationWhereInput | FinancialReconciliationWhereInput[]
+    id?: StringFilter<"FinancialReconciliation"> | string
+    transactionId?: StringFilter<"FinancialReconciliation"> | string
+    bankTransactionId?: StringNullableFilter<"FinancialReconciliation"> | string | null
+    status?: StringFilter<"FinancialReconciliation"> | string
+    matchedAt?: DateTimeNullableFilter<"FinancialReconciliation"> | Date | string | null
+    tenantId?: StringFilter<"FinancialReconciliation"> | string
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    bankTransaction?: XOR<BankTransactionNullableRelationFilter, BankTransactionWhereInput> | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type FinancialReconciliationOrderByWithRelationInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    bankTransactionId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    matchedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    transaction?: FinancialTransactionOrderByWithRelationInput
+    bankTransaction?: BankTransactionOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type FinancialReconciliationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FinancialReconciliationWhereInput | FinancialReconciliationWhereInput[]
+    OR?: FinancialReconciliationWhereInput[]
+    NOT?: FinancialReconciliationWhereInput | FinancialReconciliationWhereInput[]
+    transactionId?: StringFilter<"FinancialReconciliation"> | string
+    bankTransactionId?: StringNullableFilter<"FinancialReconciliation"> | string | null
+    status?: StringFilter<"FinancialReconciliation"> | string
+    matchedAt?: DateTimeNullableFilter<"FinancialReconciliation"> | Date | string | null
+    tenantId?: StringFilter<"FinancialReconciliation"> | string
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    bankTransaction?: XOR<BankTransactionNullableRelationFilter, BankTransactionWhereInput> | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type FinancialReconciliationOrderByWithAggregationInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    bankTransactionId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    matchedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    _count?: FinancialReconciliationCountOrderByAggregateInput
+    _max?: FinancialReconciliationMaxOrderByAggregateInput
+    _min?: FinancialReconciliationMinOrderByAggregateInput
+  }
+
+  export type FinancialReconciliationScalarWhereWithAggregatesInput = {
+    AND?: FinancialReconciliationScalarWhereWithAggregatesInput | FinancialReconciliationScalarWhereWithAggregatesInput[]
+    OR?: FinancialReconciliationScalarWhereWithAggregatesInput[]
+    NOT?: FinancialReconciliationScalarWhereWithAggregatesInput | FinancialReconciliationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FinancialReconciliation"> | string
+    transactionId?: StringWithAggregatesFilter<"FinancialReconciliation"> | string
+    bankTransactionId?: StringNullableWithAggregatesFilter<"FinancialReconciliation"> | string | null
+    status?: StringWithAggregatesFilter<"FinancialReconciliation"> | string
+    matchedAt?: DateTimeNullableWithAggregatesFilter<"FinancialReconciliation"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"FinancialReconciliation"> | string
+  }
+
+  export type BankTransactionWhereInput = {
+    AND?: BankTransactionWhereInput | BankTransactionWhereInput[]
+    OR?: BankTransactionWhereInput[]
+    NOT?: BankTransactionWhereInput | BankTransactionWhereInput[]
+    id?: StringFilter<"BankTransaction"> | string
+    bankDate?: DateTimeFilter<"BankTransaction"> | Date | string
+    description?: StringFilter<"BankTransaction"> | string
+    amount?: DecimalFilter<"BankTransaction"> | Decimal | DecimalJsLike | number | string
+    externalRef?: StringNullableFilter<"BankTransaction"> | string | null
+    status?: StringFilter<"BankTransaction"> | string
+    tenantId?: StringFilter<"BankTransaction"> | string
+    createdAt?: DateTimeFilter<"BankTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    reconciliations?: FinancialReconciliationListRelationFilter
+  }
+
+  export type BankTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    bankDate?: SortOrder
+    description?: SortOrder
+    amount?: SortOrder
+    externalRef?: SortOrderInput | SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    reconciliations?: FinancialReconciliationOrderByRelationAggregateInput
+  }
+
+  export type BankTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BankTransactionWhereInput | BankTransactionWhereInput[]
+    OR?: BankTransactionWhereInput[]
+    NOT?: BankTransactionWhereInput | BankTransactionWhereInput[]
+    bankDate?: DateTimeFilter<"BankTransaction"> | Date | string
+    description?: StringFilter<"BankTransaction"> | string
+    amount?: DecimalFilter<"BankTransaction"> | Decimal | DecimalJsLike | number | string
+    externalRef?: StringNullableFilter<"BankTransaction"> | string | null
+    status?: StringFilter<"BankTransaction"> | string
+    tenantId?: StringFilter<"BankTransaction"> | string
+    createdAt?: DateTimeFilter<"BankTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    reconciliations?: FinancialReconciliationListRelationFilter
+  }, "id">
+
+  export type BankTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    bankDate?: SortOrder
+    description?: SortOrder
+    amount?: SortOrder
+    externalRef?: SortOrderInput | SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    _count?: BankTransactionCountOrderByAggregateInput
+    _avg?: BankTransactionAvgOrderByAggregateInput
+    _max?: BankTransactionMaxOrderByAggregateInput
+    _min?: BankTransactionMinOrderByAggregateInput
+    _sum?: BankTransactionSumOrderByAggregateInput
+  }
+
+  export type BankTransactionScalarWhereWithAggregatesInput = {
+    AND?: BankTransactionScalarWhereWithAggregatesInput | BankTransactionScalarWhereWithAggregatesInput[]
+    OR?: BankTransactionScalarWhereWithAggregatesInput[]
+    NOT?: BankTransactionScalarWhereWithAggregatesInput | BankTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BankTransaction"> | string
+    bankDate?: DateTimeWithAggregatesFilter<"BankTransaction"> | Date | string
+    description?: StringWithAggregatesFilter<"BankTransaction"> | string
+    amount?: DecimalWithAggregatesFilter<"BankTransaction"> | Decimal | DecimalJsLike | number | string
+    externalRef?: StringNullableWithAggregatesFilter<"BankTransaction"> | string | null
+    status?: StringWithAggregatesFilter<"BankTransaction"> | string
+    tenantId?: StringWithAggregatesFilter<"BankTransaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BankTransaction"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -101666,6 +108047,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -101724,6 +108108,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -101744,6 +108133,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -101802,6 +108194,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -101822,6 +108219,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -101880,6 +108280,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -101900,6 +108305,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -101958,6 +108366,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -101978,6 +108391,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
   }
 
@@ -101999,6 +108415,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -102019,6 +108438,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -103730,6 +110152,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutSystemEventsInput
     actor?: UserCreateNestedOneWithoutSystemEventsInput
@@ -103746,6 +110170,8 @@ export namespace Prisma {
     actorUserId?: string | null
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
   }
 
@@ -103758,6 +110184,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutSystemEventsNestedInput
     actor?: UserUpdateOneWithoutSystemEventsNestedInput
@@ -103774,6 +110202,8 @@ export namespace Prisma {
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -103788,6 +110218,8 @@ export namespace Prisma {
     actorUserId?: string | null
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
   }
 
@@ -103800,6 +110232,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -103814,6 +110248,8 @@ export namespace Prisma {
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -108729,6 +115165,391 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ChartOfAccountCreateInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialAccountsInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialAccountsNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type ChartOfAccountCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChartOfAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionCreateInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
+    reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
+    reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
+    reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
+    reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionCreateManyInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FinancialTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryCreateInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    transaction: FinancialTransactionCreateNestedOneWithoutJournalEntriesInput
+    account: ChartOfAccountCreateNestedOneWithoutJournalEntriesInput
+    tenant: TenantCreateNestedOneWithoutFinancialJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutJournalEntriesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutJournalEntriesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryCreateManyInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReconciliationCreateInput = {
+    id?: string
+    status?: string
+    matchedAt?: Date | string | null
+    transaction: FinancialTransactionCreateNestedOneWithoutReconciliationsInput
+    bankTransaction?: BankTransactionCreateNestedOneWithoutReconciliationsInput
+    tenant: TenantCreateNestedOneWithoutFinancialReconciliationsInput
+  }
+
+  export type FinancialReconciliationUncheckedCreateInput = {
+    id?: string
+    transactionId: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type FinancialReconciliationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutReconciliationsNestedInput
+    bankTransaction?: BankTransactionUpdateOneWithoutReconciliationsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialReconciliationsNestedInput
+  }
+
+  export type FinancialReconciliationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FinancialReconciliationCreateManyInput = {
+    id?: string
+    transactionId: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type FinancialReconciliationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BankTransactionCreateInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBankTransactionsInput
+    reconciliations?: FinancialReconciliationCreateNestedManyWithoutBankTransactionInput
+  }
+
+  export type BankTransactionUncheckedCreateInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+    reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutBankTransactionInput
+  }
+
+  export type BankTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBankTransactionsNestedInput
+    reconciliations?: FinancialReconciliationUpdateManyWithoutBankTransactionNestedInput
+  }
+
+  export type BankTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutBankTransactionNestedInput
+  }
+
+  export type BankTransactionCreateManyInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type BankTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -109408,6 +116229,36 @@ export namespace Prisma {
     none?: PurchaseOrderWhereInput
   }
 
+  export type ChartOfAccountListRelationFilter = {
+    every?: ChartOfAccountWhereInput
+    some?: ChartOfAccountWhereInput
+    none?: ChartOfAccountWhereInput
+  }
+
+  export type FinancialTransactionListRelationFilter = {
+    every?: FinancialTransactionWhereInput
+    some?: FinancialTransactionWhereInput
+    none?: FinancialTransactionWhereInput
+  }
+
+  export type JournalEntryListRelationFilter = {
+    every?: JournalEntryWhereInput
+    some?: JournalEntryWhereInput
+    none?: JournalEntryWhereInput
+  }
+
+  export type FinancialReconciliationListRelationFilter = {
+    every?: FinancialReconciliationWhereInput
+    some?: FinancialReconciliationWhereInput
+    none?: FinancialReconciliationWhereInput
+  }
+
+  export type BankTransactionListRelationFilter = {
+    every?: BankTransactionWhereInput
+    some?: BankTransactionWhereInput
+    none?: BankTransactionWhereInput
+  }
+
   export type BookingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -109580,6 +116431,26 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ChartOfAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FinancialTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JournalEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FinancialReconciliationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BankTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TenantCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -109598,6 +116469,9 @@ export namespace Prisma {
     enforceVpn?: SortOrder
     requireDeviceApproval?: SortOrder
     maxDevicesPerUser?: SortOrder
+    corsAllowedOrigins?: SortOrder
+    corsAllowedMethods?: SortOrder
+    corsAllowedHeaders?: SortOrder
     parentTenantId?: SortOrder
   }
 
@@ -110819,6 +117693,8 @@ export namespace Prisma {
     actorUserId?: SortOrder
     deviceId?: SortOrder
     ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -110831,6 +117707,8 @@ export namespace Prisma {
     actorUserId?: SortOrder
     deviceId?: SortOrder
     ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -110843,6 +117721,8 @@ export namespace Prisma {
     actorUserId?: SortOrder
     deviceId?: SortOrder
     ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -113387,6 +120267,252 @@ export namespace Prisma {
     tenantId?: SortOrder
   }
 
+  export type EnumAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeFilter<$PrismaModel> | $Enums.AccountType
+  }
+
+  export type ChartOfAccountTenantIdCodeCompoundUniqueInput = {
+    tenantId: string
+    code: string
+  }
+
+  export type ChartOfAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChartOfAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChartOfAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.AccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumAccountTypeFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionState | EnumTransactionStateFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStateFilter<$PrismaModel> | $Enums.TransactionState
+  }
+
+  export type FinancialTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    referenceId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialTransactionAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type FinancialTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    referenceId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    referenceId?: SortOrder
+    amount?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialTransactionSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumTransactionStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionState | EnumTransactionStateFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStateWithAggregatesFilter<$PrismaModel> | $Enums.TransactionState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionStateFilter<$PrismaModel>
+    _max?: NestedEnumTransactionStateFilter<$PrismaModel>
+  }
+
+  export type FinancialTransactionRelationFilter = {
+    is?: FinancialTransactionWhereInput
+    isNot?: FinancialTransactionWhereInput
+  }
+
+  export type ChartOfAccountRelationFilter = {
+    is?: ChartOfAccountWhereInput
+    isNot?: ChartOfAccountWhereInput
+  }
+
+  export type JournalEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntryAvgOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type JournalEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntrySumOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type BankTransactionNullableRelationFilter = {
+    is?: BankTransactionWhereInput | null
+    isNot?: BankTransactionWhereInput | null
+  }
+
+  export type FinancialReconciliationCountOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    bankTransactionId?: SortOrder
+    status?: SortOrder
+    matchedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type FinancialReconciliationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    bankTransactionId?: SortOrder
+    status?: SortOrder
+    matchedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type FinancialReconciliationMinOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    bankTransactionId?: SortOrder
+    status?: SortOrder
+    matchedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type BankTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    bankDate?: SortOrder
+    description?: SortOrder
+    amount?: SortOrder
+    externalRef?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankTransactionAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type BankTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bankDate?: SortOrder
+    description?: SortOrder
+    amount?: SortOrder
+    externalRef?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    bankDate?: SortOrder
+    description?: SortOrder
+    amount?: SortOrder
+    externalRef?: SortOrder
+    status?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankTransactionSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type UserCreaterolesInput = {
     set: $Enums.Role[]
   }
@@ -114292,6 +121418,18 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type TenantCreatecorsAllowedOriginsInput = {
+    set: string[]
+  }
+
+  export type TenantCreatecorsAllowedMethodsInput = {
+    set: string[]
+  }
+
+  export type TenantCreatecorsAllowedHeadersInput = {
+    set: string[]
+  }
+
   export type AuditLogCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -114697,6 +121835,41 @@ export namespace Prisma {
     connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
   }
 
+  export type ChartOfAccountCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type JournalEntryCreateNestedManyWithoutTenantInput = {
+    create?: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput> | JournalEntryCreateWithoutTenantInput[] | JournalEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTenantInput | JournalEntryCreateOrConnectWithoutTenantInput[]
+    createMany?: JournalEntryCreateManyTenantInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type FinancialReconciliationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput> | FinancialReconciliationCreateWithoutTenantInput[] | FinancialReconciliationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTenantInput | FinancialReconciliationCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialReconciliationCreateManyTenantInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type BankTransactionCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput> | BankTransactionCreateWithoutTenantInput[] | BankTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutTenantInput | BankTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: BankTransactionCreateManyTenantInputEnvelope
+    connect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -115096,6 +122269,41 @@ export namespace Prisma {
     connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
   }
 
+  export type ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type JournalEntryUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput> | JournalEntryCreateWithoutTenantInput[] | JournalEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTenantInput | JournalEntryCreateOrConnectWithoutTenantInput[]
+    createMany?: JournalEntryCreateManyTenantInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput> | FinancialReconciliationCreateWithoutTenantInput[] | FinancialReconciliationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTenantInput | FinancialReconciliationCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialReconciliationCreateManyTenantInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type BankTransactionUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput> | BankTransactionCreateWithoutTenantInput[] | BankTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutTenantInput | BankTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: BankTransactionCreateManyTenantInputEnvelope
+    connect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -115111,6 +122319,21 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type TenantUpdatecorsAllowedOriginsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdatecorsAllowedMethodsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdatecorsAllowedHeadersInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type AuditLogUpdateManyWithoutTenantNestedInput = {
@@ -115921,6 +123144,76 @@ export namespace Prisma {
     deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
   }
 
+  export type ChartOfAccountUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput | ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput | ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutTenantInput | ChartOfAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput | FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput | FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutTenantInput | FinancialTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type JournalEntryUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput> | JournalEntryCreateWithoutTenantInput[] | JournalEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTenantInput | JournalEntryCreateOrConnectWithoutTenantInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutTenantInput | JournalEntryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: JournalEntryCreateManyTenantInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutTenantInput | JournalEntryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutTenantInput | JournalEntryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type FinancialReconciliationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput> | FinancialReconciliationCreateWithoutTenantInput[] | FinancialReconciliationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTenantInput | FinancialReconciliationCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutTenantInput | FinancialReconciliationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialReconciliationCreateManyTenantInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutTenantInput | FinancialReconciliationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutTenantInput | FinancialReconciliationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
+  export type BankTransactionUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput> | BankTransactionCreateWithoutTenantInput[] | BankTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutTenantInput | BankTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: BankTransactionUpsertWithWhereUniqueWithoutTenantInput | BankTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BankTransactionCreateManyTenantInputEnvelope
+    set?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    disconnect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    delete?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    connect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    update?: BankTransactionUpdateWithWhereUniqueWithoutTenantInput | BankTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BankTransactionUpdateManyWithWhereWithoutTenantInput | BankTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BankTransactionScalarWhereInput | BankTransactionScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -116717,6 +124010,76 @@ export namespace Prisma {
     update?: SystemEventUpdateWithWhereUniqueWithoutTenantInput | SystemEventUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: SystemEventUpdateManyWithWhereWithoutTenantInput | SystemEventUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput | ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput | ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutTenantInput | ChartOfAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput | FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput | FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutTenantInput | FinancialTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput> | JournalEntryCreateWithoutTenantInput[] | JournalEntryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTenantInput | JournalEntryCreateOrConnectWithoutTenantInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutTenantInput | JournalEntryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: JournalEntryCreateManyTenantInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutTenantInput | JournalEntryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutTenantInput | JournalEntryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput> | FinancialReconciliationCreateWithoutTenantInput[] | FinancialReconciliationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTenantInput | FinancialReconciliationCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutTenantInput | FinancialReconciliationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialReconciliationCreateManyTenantInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutTenantInput | FinancialReconciliationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutTenantInput | FinancialReconciliationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
+  export type BankTransactionUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput> | BankTransactionCreateWithoutTenantInput[] | BankTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutTenantInput | BankTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: BankTransactionUpsertWithWhereUniqueWithoutTenantInput | BankTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BankTransactionCreateManyTenantInputEnvelope
+    set?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    disconnect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    delete?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    connect?: BankTransactionWhereUniqueInput | BankTransactionWhereUniqueInput[]
+    update?: BankTransactionUpdateWithWhereUniqueWithoutTenantInput | BankTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BankTransactionUpdateManyWithWhereWithoutTenantInput | BankTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BankTransactionScalarWhereInput | BankTransactionScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutApiKeysInput = {
@@ -121477,6 +128840,310 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSystemTouchpointsInput, TenantUpdateWithoutSystemTouchpointsInput>, TenantUncheckedUpdateWithoutSystemTouchpointsInput>
   }
 
+  export type TenantCreateNestedOneWithoutFinancialAccountsInput = {
+    create?: XOR<TenantCreateWithoutFinancialAccountsInput, TenantUncheckedCreateWithoutFinancialAccountsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialAccountsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type JournalEntryCreateNestedManyWithoutAccountInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput> | JournalEntryCreateWithoutAccountInput[] | JournalEntryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountInput | JournalEntryCreateOrConnectWithoutAccountInput[]
+    createMany?: JournalEntryCreateManyAccountInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type JournalEntryUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput> | JournalEntryCreateWithoutAccountInput[] | JournalEntryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountInput | JournalEntryCreateOrConnectWithoutAccountInput[]
+    createMany?: JournalEntryCreateManyAccountInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type EnumAccountTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AccountType
+  }
+
+  export type TenantUpdateOneRequiredWithoutFinancialAccountsNestedInput = {
+    create?: XOR<TenantCreateWithoutFinancialAccountsInput, TenantUncheckedCreateWithoutFinancialAccountsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialAccountsInput
+    upsert?: TenantUpsertWithoutFinancialAccountsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutFinancialAccountsInput, TenantUpdateWithoutFinancialAccountsInput>, TenantUncheckedUpdateWithoutFinancialAccountsInput>
+  }
+
+  export type JournalEntryUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput> | JournalEntryCreateWithoutAccountInput[] | JournalEntryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountInput | JournalEntryCreateOrConnectWithoutAccountInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutAccountInput | JournalEntryUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: JournalEntryCreateManyAccountInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutAccountInput | JournalEntryUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutAccountInput | JournalEntryUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput> | JournalEntryCreateWithoutAccountInput[] | JournalEntryUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountInput | JournalEntryCreateOrConnectWithoutAccountInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutAccountInput | JournalEntryUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: JournalEntryCreateManyAccountInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutAccountInput | JournalEntryUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutAccountInput | JournalEntryUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutFinancialTransactionsInput = {
+    create?: XOR<TenantCreateWithoutFinancialTransactionsInput, TenantUncheckedCreateWithoutFinancialTransactionsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialTransactionsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type JournalEntryCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput> | JournalEntryCreateWithoutTransactionInput[] | JournalEntryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTransactionInput | JournalEntryCreateOrConnectWithoutTransactionInput[]
+    createMany?: JournalEntryCreateManyTransactionInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type FinancialReconciliationCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput> | FinancialReconciliationCreateWithoutTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTransactionInput | FinancialReconciliationCreateOrConnectWithoutTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyTransactionInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type JournalEntryUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput> | JournalEntryCreateWithoutTransactionInput[] | JournalEntryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTransactionInput | JournalEntryCreateOrConnectWithoutTransactionInput[]
+    createMany?: JournalEntryCreateManyTransactionInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput> | FinancialReconciliationCreateWithoutTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTransactionInput | FinancialReconciliationCreateOrConnectWithoutTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyTransactionInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type EnumTransactionStateFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionState
+  }
+
+  export type TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput = {
+    create?: XOR<TenantCreateWithoutFinancialTransactionsInput, TenantUncheckedCreateWithoutFinancialTransactionsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialTransactionsInput
+    upsert?: TenantUpsertWithoutFinancialTransactionsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutFinancialTransactionsInput, TenantUpdateWithoutFinancialTransactionsInput>, TenantUncheckedUpdateWithoutFinancialTransactionsInput>
+  }
+
+  export type JournalEntryUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput> | JournalEntryCreateWithoutTransactionInput[] | JournalEntryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTransactionInput | JournalEntryCreateOrConnectWithoutTransactionInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutTransactionInput | JournalEntryUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: JournalEntryCreateManyTransactionInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutTransactionInput | JournalEntryUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutTransactionInput | JournalEntryUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type FinancialReconciliationUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput> | FinancialReconciliationCreateWithoutTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTransactionInput | FinancialReconciliationCreateOrConnectWithoutTransactionInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutTransactionInput | FinancialReconciliationUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyTransactionInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutTransactionInput | FinancialReconciliationUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutTransactionInput | FinancialReconciliationUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput> | JournalEntryCreateWithoutTransactionInput[] | JournalEntryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutTransactionInput | JournalEntryCreateOrConnectWithoutTransactionInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutTransactionInput | JournalEntryUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: JournalEntryCreateManyTransactionInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutTransactionInput | JournalEntryUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutTransactionInput | JournalEntryUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput> | FinancialReconciliationCreateWithoutTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutTransactionInput | FinancialReconciliationCreateOrConnectWithoutTransactionInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutTransactionInput | FinancialReconciliationUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyTransactionInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutTransactionInput | FinancialReconciliationUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutTransactionInput | FinancialReconciliationUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
+  export type FinancialTransactionCreateNestedOneWithoutJournalEntriesInput = {
+    create?: XOR<FinancialTransactionCreateWithoutJournalEntriesInput, FinancialTransactionUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutJournalEntriesInput
+    connect?: FinancialTransactionWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutJournalEntriesInput = {
+    create?: XOR<ChartOfAccountCreateWithoutJournalEntriesInput, ChartOfAccountUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutJournalEntriesInput
+    connect?: ChartOfAccountWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutFinancialJournalEntriesInput = {
+    create?: XOR<TenantCreateWithoutFinancialJournalEntriesInput, TenantUncheckedCreateWithoutFinancialJournalEntriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialJournalEntriesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FinancialTransactionUpdateOneRequiredWithoutJournalEntriesNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutJournalEntriesInput, FinancialTransactionUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutJournalEntriesInput
+    upsert?: FinancialTransactionUpsertWithoutJournalEntriesInput
+    connect?: FinancialTransactionWhereUniqueInput
+    update?: XOR<XOR<FinancialTransactionUpdateToOneWithWhereWithoutJournalEntriesInput, FinancialTransactionUpdateWithoutJournalEntriesInput>, FinancialTransactionUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type ChartOfAccountUpdateOneRequiredWithoutJournalEntriesNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutJournalEntriesInput, ChartOfAccountUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutJournalEntriesInput
+    upsert?: ChartOfAccountUpsertWithoutJournalEntriesInput
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutJournalEntriesInput, ChartOfAccountUpdateWithoutJournalEntriesInput>, ChartOfAccountUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutFinancialJournalEntriesNestedInput = {
+    create?: XOR<TenantCreateWithoutFinancialJournalEntriesInput, TenantUncheckedCreateWithoutFinancialJournalEntriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialJournalEntriesInput
+    upsert?: TenantUpsertWithoutFinancialJournalEntriesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutFinancialJournalEntriesInput, TenantUpdateWithoutFinancialJournalEntriesInput>, TenantUncheckedUpdateWithoutFinancialJournalEntriesInput>
+  }
+
+  export type FinancialTransactionCreateNestedOneWithoutReconciliationsInput = {
+    create?: XOR<FinancialTransactionCreateWithoutReconciliationsInput, FinancialTransactionUncheckedCreateWithoutReconciliationsInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutReconciliationsInput
+    connect?: FinancialTransactionWhereUniqueInput
+  }
+
+  export type BankTransactionCreateNestedOneWithoutReconciliationsInput = {
+    create?: XOR<BankTransactionCreateWithoutReconciliationsInput, BankTransactionUncheckedCreateWithoutReconciliationsInput>
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutReconciliationsInput
+    connect?: BankTransactionWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutFinancialReconciliationsInput = {
+    create?: XOR<TenantCreateWithoutFinancialReconciliationsInput, TenantUncheckedCreateWithoutFinancialReconciliationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialReconciliationsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FinancialTransactionUpdateOneRequiredWithoutReconciliationsNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutReconciliationsInput, FinancialTransactionUncheckedCreateWithoutReconciliationsInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutReconciliationsInput
+    upsert?: FinancialTransactionUpsertWithoutReconciliationsInput
+    connect?: FinancialTransactionWhereUniqueInput
+    update?: XOR<XOR<FinancialTransactionUpdateToOneWithWhereWithoutReconciliationsInput, FinancialTransactionUpdateWithoutReconciliationsInput>, FinancialTransactionUncheckedUpdateWithoutReconciliationsInput>
+  }
+
+  export type BankTransactionUpdateOneWithoutReconciliationsNestedInput = {
+    create?: XOR<BankTransactionCreateWithoutReconciliationsInput, BankTransactionUncheckedCreateWithoutReconciliationsInput>
+    connectOrCreate?: BankTransactionCreateOrConnectWithoutReconciliationsInput
+    upsert?: BankTransactionUpsertWithoutReconciliationsInput
+    disconnect?: BankTransactionWhereInput | boolean
+    delete?: BankTransactionWhereInput | boolean
+    connect?: BankTransactionWhereUniqueInput
+    update?: XOR<XOR<BankTransactionUpdateToOneWithWhereWithoutReconciliationsInput, BankTransactionUpdateWithoutReconciliationsInput>, BankTransactionUncheckedUpdateWithoutReconciliationsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutFinancialReconciliationsNestedInput = {
+    create?: XOR<TenantCreateWithoutFinancialReconciliationsInput, TenantUncheckedCreateWithoutFinancialReconciliationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialReconciliationsInput
+    upsert?: TenantUpsertWithoutFinancialReconciliationsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutFinancialReconciliationsInput, TenantUpdateWithoutFinancialReconciliationsInput>, TenantUncheckedUpdateWithoutFinancialReconciliationsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutBankTransactionsInput = {
+    create?: XOR<TenantCreateWithoutBankTransactionsInput, TenantUncheckedCreateWithoutBankTransactionsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBankTransactionsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FinancialReconciliationCreateNestedManyWithoutBankTransactionInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput> | FinancialReconciliationCreateWithoutBankTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutBankTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutBankTransactionInput | FinancialReconciliationCreateOrConnectWithoutBankTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyBankTransactionInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type FinancialReconciliationUncheckedCreateNestedManyWithoutBankTransactionInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput> | FinancialReconciliationCreateWithoutBankTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutBankTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutBankTransactionInput | FinancialReconciliationCreateOrConnectWithoutBankTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyBankTransactionInputEnvelope
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutBankTransactionsNestedInput = {
+    create?: XOR<TenantCreateWithoutBankTransactionsInput, TenantUncheckedCreateWithoutBankTransactionsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBankTransactionsInput
+    upsert?: TenantUpsertWithoutBankTransactionsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBankTransactionsInput, TenantUpdateWithoutBankTransactionsInput>, TenantUncheckedUpdateWithoutBankTransactionsInput>
+  }
+
+  export type FinancialReconciliationUpdateManyWithoutBankTransactionNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput> | FinancialReconciliationCreateWithoutBankTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutBankTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutBankTransactionInput | FinancialReconciliationCreateOrConnectWithoutBankTransactionInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput | FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyBankTransactionInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutBankTransactionInput | FinancialReconciliationUpdateWithWhereUniqueWithoutBankTransactionInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutBankTransactionInput | FinancialReconciliationUpdateManyWithWhereWithoutBankTransactionInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutBankTransactionNestedInput = {
+    create?: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput> | FinancialReconciliationCreateWithoutBankTransactionInput[] | FinancialReconciliationUncheckedCreateWithoutBankTransactionInput[]
+    connectOrCreate?: FinancialReconciliationCreateOrConnectWithoutBankTransactionInput | FinancialReconciliationCreateOrConnectWithoutBankTransactionInput[]
+    upsert?: FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput | FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput[]
+    createMany?: FinancialReconciliationCreateManyBankTransactionInputEnvelope
+    set?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    disconnect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    delete?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    connect?: FinancialReconciliationWhereUniqueInput | FinancialReconciliationWhereUniqueInput[]
+    update?: FinancialReconciliationUpdateWithWhereUniqueWithoutBankTransactionInput | FinancialReconciliationUpdateWithWhereUniqueWithoutBankTransactionInput[]
+    updateMany?: FinancialReconciliationUpdateManyWithWhereWithoutBankTransactionInput | FinancialReconciliationUpdateManyWithWhereWithoutBankTransactionInput[]
+    deleteMany?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -122008,6 +129675,40 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedEnumAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeFilter<$PrismaModel> | $Enums.AccountType
+  }
+
+  export type NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.AccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumAccountTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionState | EnumTransactionStateFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStateFilter<$PrismaModel> | $Enums.TransactionState
+  }
+
+  export type NestedEnumTransactionStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionState | EnumTransactionStateFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionState[] | ListEnumTransactionStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStateWithAggregatesFilter<$PrismaModel> | $Enums.TransactionState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionStateFilter<$PrismaModel>
+    _max?: NestedEnumTransactionStateFilter<$PrismaModel>
+  }
+
   export type AuditLogCreateWithoutActorInput = {
     id?: string
     action: string
@@ -122468,6 +130169,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -122525,6 +130229,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -122545,6 +130254,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -122602,6 +130314,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -122968,6 +130685,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutSystemEventsInput
   }
@@ -122982,6 +130701,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
   }
 
@@ -123453,6 +131174,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -123510,6 +131234,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -123530,6 +131259,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -123587,6 +131319,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -123926,6 +131663,8 @@ export namespace Prisma {
     actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
     deviceId?: StringNullableFilter<"SystemEvent"> | string | null
     ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    checksum?: StringFilter<"SystemEvent"> | string
+    previousChecksum?: StringNullableFilter<"SystemEvent"> | string | null
     createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
   }
 
@@ -125631,6 +133370,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -125688,6 +133430,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChildTenantsInput = {
@@ -125708,6 +133455,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -125765,6 +133515,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChildTenantsInput = {
@@ -125790,6 +133545,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -125847,6 +133605,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutParentTenantInput = {
@@ -125867,6 +133630,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -125924,6 +133690,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutParentTenantInput = {
@@ -126257,6 +134028,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
     actor?: UserCreateNestedOneWithoutSystemEventsInput
   }
@@ -126271,6 +134044,8 @@ export namespace Prisma {
     actorUserId?: string | null
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
   }
 
@@ -126281,6 +134056,162 @@ export namespace Prisma {
 
   export type SystemEventCreateManyTenantInputEnvelope = {
     data: SystemEventCreateManyTenantInput | SystemEventCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChartOfAccountCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountCreateManyTenantInputEnvelope = {
+    data: ChartOfAccountCreateManyTenantInput | ChartOfAccountCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FinancialTransactionCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
+    reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
+    reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionCreateManyTenantInputEnvelope = {
+    data: FinancialTransactionCreateManyTenantInput | FinancialTransactionCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JournalEntryCreateWithoutTenantInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    transaction: FinancialTransactionCreateNestedOneWithoutJournalEntriesInput
+    account: ChartOfAccountCreateNestedOneWithoutJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutTenantInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryCreateOrConnectWithoutTenantInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type JournalEntryCreateManyTenantInputEnvelope = {
+    data: JournalEntryCreateManyTenantInput | JournalEntryCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FinancialReconciliationCreateWithoutTenantInput = {
+    id?: string
+    status?: string
+    matchedAt?: Date | string | null
+    transaction: FinancialTransactionCreateNestedOneWithoutReconciliationsInput
+    bankTransaction?: BankTransactionCreateNestedOneWithoutReconciliationsInput
+  }
+
+  export type FinancialReconciliationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    transactionId: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+  }
+
+  export type FinancialReconciliationCreateOrConnectWithoutTenantInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    create: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialReconciliationCreateManyTenantInputEnvelope = {
+    data: FinancialReconciliationCreateManyTenantInput | FinancialReconciliationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BankTransactionCreateWithoutTenantInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    createdAt?: Date | string
+    reconciliations?: FinancialReconciliationCreateNestedManyWithoutBankTransactionInput
+  }
+
+  export type BankTransactionUncheckedCreateWithoutTenantInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    createdAt?: Date | string
+    reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutBankTransactionInput
+  }
+
+  export type BankTransactionCreateOrConnectWithoutTenantInput = {
+    where: BankTransactionWhereUniqueInput
+    create: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BankTransactionCreateManyTenantInputEnvelope = {
+    data: BankTransactionCreateManyTenantInput | BankTransactionCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -127581,6 +135512,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -127638,6 +135572,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChildTenantsInput = {
@@ -127658,6 +135597,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -127715,6 +135657,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUpsertWithWhereUniqueWithoutParentTenantInput = {
@@ -127754,6 +135701,9 @@ export namespace Prisma {
     enforceVpn?: BoolFilter<"Tenant"> | boolean
     requireDeviceApproval?: BoolFilter<"Tenant"> | boolean
     maxDevicesPerUser?: IntFilter<"Tenant"> | number
+    corsAllowedOrigins?: StringNullableListFilter<"Tenant">
+    corsAllowedMethods?: StringNullableListFilter<"Tenant">
+    corsAllowedHeaders?: StringNullableListFilter<"Tenant">
     parentTenantId?: StringNullableFilter<"Tenant"> | string | null
   }
 
@@ -128033,6 +135983,155 @@ export namespace Prisma {
     data: XOR<SystemEventUpdateManyMutationInput, SystemEventUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    update: XOR<ChartOfAccountUpdateWithoutTenantInput, ChartOfAccountUncheckedUpdateWithoutTenantInput>
+    create: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    data: XOR<ChartOfAccountUpdateWithoutTenantInput, ChartOfAccountUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountUpdateManyWithWhereWithoutTenantInput = {
+    where: ChartOfAccountScalarWhereInput
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ChartOfAccountScalarWhereInput = {
+    AND?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    OR?: ChartOfAccountScalarWhereInput[]
+    NOT?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    status?: StringFilter<"ChartOfAccount"> | string
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+  }
+
+  export type FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    update: XOR<FinancialTransactionUpdateWithoutTenantInput, FinancialTransactionUncheckedUpdateWithoutTenantInput>
+    create: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    data: XOR<FinancialTransactionUpdateWithoutTenantInput, FinancialTransactionUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithWhereWithoutTenantInput = {
+    where: FinancialTransactionScalarWhereInput
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type FinancialTransactionScalarWhereInput = {
+    AND?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    OR?: FinancialTransactionScalarWhereInput[]
+    NOT?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    id?: StringFilter<"FinancialTransaction"> | string
+    type?: StringFilter<"FinancialTransaction"> | string
+    referenceId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFilter<"FinancialTransaction"> | $Enums.TransactionState
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+  }
+
+  export type JournalEntryUpsertWithWhereUniqueWithoutTenantInput = {
+    where: JournalEntryWhereUniqueInput
+    update: XOR<JournalEntryUpdateWithoutTenantInput, JournalEntryUncheckedUpdateWithoutTenantInput>
+    create: XOR<JournalEntryCreateWithoutTenantInput, JournalEntryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type JournalEntryUpdateWithWhereUniqueWithoutTenantInput = {
+    where: JournalEntryWhereUniqueInput
+    data: XOR<JournalEntryUpdateWithoutTenantInput, JournalEntryUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type JournalEntryUpdateManyWithWhereWithoutTenantInput = {
+    where: JournalEntryScalarWhereInput
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type JournalEntryScalarWhereInput = {
+    AND?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    OR?: JournalEntryScalarWhereInput[]
+    NOT?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    id?: StringFilter<"JournalEntry"> | string
+    transactionId?: StringFilter<"JournalEntry"> | string
+    accountId?: StringFilter<"JournalEntry"> | string
+    debit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFilter<"JournalEntry"> | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFilter<"JournalEntry"> | string
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+  }
+
+  export type FinancialReconciliationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    update: XOR<FinancialReconciliationUpdateWithoutTenantInput, FinancialReconciliationUncheckedUpdateWithoutTenantInput>
+    create: XOR<FinancialReconciliationCreateWithoutTenantInput, FinancialReconciliationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialReconciliationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    data: XOR<FinancialReconciliationUpdateWithoutTenantInput, FinancialReconciliationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type FinancialReconciliationUpdateManyWithWhereWithoutTenantInput = {
+    where: FinancialReconciliationScalarWhereInput
+    data: XOR<FinancialReconciliationUpdateManyMutationInput, FinancialReconciliationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type FinancialReconciliationScalarWhereInput = {
+    AND?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+    OR?: FinancialReconciliationScalarWhereInput[]
+    NOT?: FinancialReconciliationScalarWhereInput | FinancialReconciliationScalarWhereInput[]
+    id?: StringFilter<"FinancialReconciliation"> | string
+    transactionId?: StringFilter<"FinancialReconciliation"> | string
+    bankTransactionId?: StringNullableFilter<"FinancialReconciliation"> | string | null
+    status?: StringFilter<"FinancialReconciliation"> | string
+    matchedAt?: DateTimeNullableFilter<"FinancialReconciliation"> | Date | string | null
+    tenantId?: StringFilter<"FinancialReconciliation"> | string
+  }
+
+  export type BankTransactionUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BankTransactionWhereUniqueInput
+    update: XOR<BankTransactionUpdateWithoutTenantInput, BankTransactionUncheckedUpdateWithoutTenantInput>
+    create: XOR<BankTransactionCreateWithoutTenantInput, BankTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BankTransactionUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BankTransactionWhereUniqueInput
+    data: XOR<BankTransactionUpdateWithoutTenantInput, BankTransactionUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BankTransactionUpdateManyWithWhereWithoutTenantInput = {
+    where: BankTransactionScalarWhereInput
+    data: XOR<BankTransactionUpdateManyMutationInput, BankTransactionUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BankTransactionScalarWhereInput = {
+    AND?: BankTransactionScalarWhereInput | BankTransactionScalarWhereInput[]
+    OR?: BankTransactionScalarWhereInput[]
+    NOT?: BankTransactionScalarWhereInput | BankTransactionScalarWhereInput[]
+    id?: StringFilter<"BankTransaction"> | string
+    bankDate?: DateTimeFilter<"BankTransaction"> | Date | string
+    description?: StringFilter<"BankTransaction"> | string
+    amount?: DecimalFilter<"BankTransaction"> | Decimal | DecimalJsLike | number | string
+    externalRef?: StringNullableFilter<"BankTransaction"> | string | null
+    status?: StringFilter<"BankTransaction"> | string
+    tenantId?: StringFilter<"BankTransaction"> | string
+    createdAt?: DateTimeFilter<"BankTransaction"> | Date | string
+  }
+
   export type TenantCreateWithoutApiKeysInput = {
     id?: string
     name: string
@@ -128051,6 +136150,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -128108,6 +136210,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -128128,6 +136235,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -128185,6 +136295,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -128221,6 +136336,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -128278,6 +136396,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -128298,6 +136421,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -128355,6 +136481,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookingCreateWithoutClientInput = {
@@ -128413,6 +136544,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -128470,6 +136604,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -128490,6 +136629,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -128547,6 +136689,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -129421,6 +137568,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -129478,6 +137628,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -129498,6 +137653,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129555,6 +137713,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -130125,6 +138288,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -130182,6 +138348,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswProfilesInput = {
@@ -130202,6 +138373,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -130259,6 +138433,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswProfilesInput = {
@@ -130843,6 +139022,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -130900,6 +139082,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswProfilesInput = {
@@ -130920,6 +139107,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -130977,6 +139167,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutPswProfileInput = {
@@ -131819,6 +140014,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -131876,6 +140074,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -131896,6 +140099,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -131953,6 +140159,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
@@ -132475,6 +140686,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -132532,6 +140746,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -132552,6 +140771,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -132609,6 +140831,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ShiftHandoverUpsertWithWhereUniqueWithoutVisitInput = {
@@ -132690,6 +140917,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -132747,6 +140977,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -132767,6 +141002,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -132824,6 +141062,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -132982,6 +141225,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -133039,6 +141285,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -133059,6 +141310,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133116,6 +141370,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -133312,6 +141571,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -133369,6 +141631,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCheckEventsInput = {
@@ -133389,6 +141656,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -133446,6 +141716,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCheckEventsInput = {
@@ -133723,6 +141998,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -133780,6 +142058,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCheckEventsInput = {
@@ -133800,6 +142083,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -133857,6 +142143,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -134754,6 +143045,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -134811,6 +143105,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -134831,6 +143130,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -134888,6 +143190,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -135175,6 +143482,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -135232,6 +143542,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -135252,6 +143567,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -135309,6 +143627,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -135588,6 +143911,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -135645,6 +143971,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -135665,6 +143996,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -135722,6 +144056,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -135930,6 +144269,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -135987,6 +144329,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -136007,6 +144354,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136064,6 +144414,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -136419,6 +144774,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -136476,6 +144834,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -136496,6 +144859,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -136553,6 +144919,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -136710,6 +145081,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -136767,6 +145141,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -136787,6 +145166,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -136844,6 +145226,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -137143,6 +145530,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -137200,6 +145590,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -137220,6 +145615,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -137277,6 +145675,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -137495,6 +145898,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -137552,6 +145958,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -137572,6 +145983,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -137629,6 +146043,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -137938,6 +146357,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -137995,6 +146417,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -138015,6 +146442,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -138072,6 +146502,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -138191,6 +146626,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -138248,6 +146686,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -138268,6 +146711,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -138325,6 +146771,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemEventsInput = {
@@ -138345,6 +146796,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -138402,6 +146856,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemEventsInput = {
@@ -138422,6 +146881,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -138479,6 +146941,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemEventsInput = {
@@ -138592,6 +147059,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -138649,6 +147119,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemEventsInput = {
@@ -138669,6 +147144,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -138726,6 +147204,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSystemEventsInput = {
@@ -138829,6 +147312,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -138886,6 +147372,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeadsInput = {
@@ -138906,6 +147397,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -138963,6 +147457,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeadsInput = {
@@ -138999,6 +147498,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -139056,6 +147558,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeadsInput = {
@@ -139076,6 +147583,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139133,6 +147643,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingsInput = {
@@ -139240,6 +147755,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
     dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
@@ -139297,6 +147815,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingsInput = {
@@ -139317,6 +147840,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -139374,6 +147900,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingsInput = {
@@ -139593,6 +148124,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
     dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
@@ -139650,6 +148184,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingsInput = {
@@ -139670,6 +148209,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -139727,6 +148269,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
@@ -139830,6 +148377,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -139887,6 +148437,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
@@ -139907,6 +148462,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -139964,6 +148522,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
@@ -140073,6 +148636,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -140130,6 +148696,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
@@ -140150,6 +148721,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140207,6 +148781,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutAssignmentsInput = {
@@ -140294,6 +148873,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -140351,6 +148933,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -140371,6 +148958,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -140428,6 +149018,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -140622,6 +149217,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -140679,6 +149277,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -140699,6 +149302,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -140756,6 +149362,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutAssignmentsInput = {
@@ -141027,6 +149638,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141084,6 +149698,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffTasksInput = {
@@ -141104,6 +149723,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -141161,6 +149783,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffTasksInput = {
@@ -141197,6 +149824,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -141254,6 +149884,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffTasksInput = {
@@ -141274,6 +149909,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -141331,6 +149969,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -141815,6 +150458,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -141872,6 +150518,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -141892,6 +150543,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -141949,6 +150603,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -142246,6 +150905,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -142303,6 +150965,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -142323,6 +150990,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142380,6 +151050,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -142651,6 +151326,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -142708,6 +151386,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceListingsInput = {
@@ -142728,6 +151411,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -142785,6 +151471,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceListingsInput = {
@@ -142821,6 +151512,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -142878,6 +151572,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceListingsInput = {
@@ -142898,6 +151597,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -142955,6 +151657,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFeedbacksInput = {
@@ -143062,6 +151769,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -143119,6 +151829,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeedbacksInput = {
@@ -143139,6 +151854,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -143196,6 +151914,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeedbacksInput = {
@@ -143410,6 +152133,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -143467,6 +152193,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeedbacksInput = {
@@ -143487,6 +152218,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -143544,6 +152278,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutFeedbacksInput = {
@@ -143742,6 +152481,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -143799,6 +152541,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlansInput = {
@@ -143819,6 +152566,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -143876,6 +152626,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlansInput = {
@@ -144082,6 +152837,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -144139,6 +152897,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlansInput = {
@@ -144159,6 +152922,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144216,6 +152982,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutCarePlansAuthoredInput = {
@@ -144319,6 +153090,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -144376,6 +153150,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingModulesInput = {
@@ -144396,6 +153175,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -144453,6 +153235,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingModulesInput = {
@@ -144517,6 +153304,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -144574,6 +153364,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
@@ -144594,6 +153389,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -144651,6 +153449,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
@@ -144760,6 +153563,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -144817,6 +153623,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSurveysInput = {
@@ -144837,6 +153648,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -144894,6 +153708,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSurveysInput = {
@@ -144954,6 +153773,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -145011,6 +153833,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSurveysInput = {
@@ -145031,6 +153858,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145088,6 +153918,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
@@ -145191,6 +154026,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -145248,6 +154086,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegionsInput = {
@@ -145268,6 +154111,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -145325,6 +154171,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegionsInput = {
@@ -145391,6 +154242,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -145448,6 +154302,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegionsInput = {
@@ -145468,6 +154327,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145525,6 +154387,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BranchCapacityUpsertWithWhereUniqueWithoutRegionInput = {
@@ -145635,6 +154502,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -145692,6 +154562,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalRecordsInput = {
@@ -145712,6 +154587,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -145769,6 +154647,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalRecordsInput = {
@@ -145805,6 +154688,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -145862,6 +154748,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalRecordsInput = {
@@ -145882,6 +154773,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -145939,6 +154833,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFhirSyncLogsInput = {
@@ -145959,6 +154858,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -146016,6 +154918,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFhirSyncLogsInput = {
@@ -146036,6 +154943,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -146093,6 +155003,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFhirSyncLogsInput = {
@@ -146129,6 +155044,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -146186,6 +155104,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFhirSyncLogsInput = {
@@ -146206,6 +155129,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146263,6 +155189,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiRecommendationsInput = {
@@ -146283,6 +155214,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -146340,6 +155274,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRecommendationsInput = {
@@ -146360,6 +155299,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -146417,6 +155359,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRecommendationsInput = {
@@ -146453,6 +155400,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -146510,6 +155460,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRecommendationsInput = {
@@ -146530,6 +155485,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146587,6 +155545,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSentimentAnalysesInput = {
@@ -146607,6 +155570,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -146664,6 +155630,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSentimentAnalysesInput = {
@@ -146684,6 +155655,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -146741,6 +155715,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSentimentAnalysesInput = {
@@ -146777,6 +155756,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -146834,6 +155816,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSentimentAnalysesInput = {
@@ -146854,6 +155841,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146911,6 +155901,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSecurityThreatsInput = {
@@ -146931,6 +155926,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -146988,6 +155986,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSecurityThreatsInput = {
@@ -147008,6 +156011,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -147065,6 +156071,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSecurityThreatsInput = {
@@ -147101,6 +156112,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -147158,6 +156172,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSecurityThreatsInput = {
@@ -147178,6 +156197,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -147235,6 +156257,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSlasInput = {
@@ -147255,6 +156282,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -147312,6 +156342,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSlasInput = {
@@ -147332,6 +156367,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -147389,6 +156427,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSlasInput = {
@@ -147425,6 +156468,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -147482,6 +156528,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSlasInput = {
@@ -147502,6 +156553,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -147559,6 +156613,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutFleetStatusInput = {
@@ -147871,6 +156930,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -147928,6 +156990,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitMatchesInput = {
@@ -147948,6 +157015,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -148005,6 +157075,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitMatchesInput = {
@@ -148205,6 +157280,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -148262,6 +157340,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitMatchesInput = {
@@ -148282,6 +157365,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -148339,6 +157425,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutWaitlistEntriesInput = {
@@ -148481,6 +157572,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -148538,6 +157632,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -148558,6 +157657,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -148615,6 +157717,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -148785,6 +157892,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -148842,6 +157952,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -148862,6 +157977,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -148919,6 +158037,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBranchStatsInput = {
@@ -148939,6 +158062,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -148996,6 +158122,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBranchStatsInput = {
@@ -149016,6 +158147,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -149073,6 +158207,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBranchStatsInput = {
@@ -149109,6 +158248,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -149166,6 +158308,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBranchStatsInput = {
@@ -149186,6 +158333,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -149243,6 +158393,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutComplianceRecordsInput = {
@@ -149263,6 +158418,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -149320,6 +158478,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutComplianceRecordsInput = {
@@ -149340,6 +158503,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -149397,6 +158563,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutComplianceRecordsInput = {
@@ -149433,6 +158604,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -149490,6 +158664,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutComplianceRecordsInput = {
@@ -149510,6 +158689,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -149567,6 +158749,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFranchisesInput = {
@@ -149587,6 +158774,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -149644,6 +158834,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFranchisesInput = {
@@ -149664,6 +158859,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -149721,6 +158919,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFranchisesInput = {
@@ -149877,6 +159080,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -149934,6 +159140,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFranchisesInput = {
@@ -149954,6 +159165,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -150011,6 +159225,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ResellerAgreementUpsertWithWhereUniqueWithoutFranchiseInput = {
@@ -150182,6 +159401,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -150239,6 +159461,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInventoryItemsInput = {
@@ -150259,6 +159486,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -150316,6 +159546,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInventoryItemsInput = {
@@ -150439,6 +159674,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -150496,6 +159734,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInventoryItemsInput = {
@@ -150516,6 +159759,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -150573,6 +159819,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutInventoryItemsInput = {
@@ -150713,6 +159964,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -150770,6 +160024,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -150790,6 +160049,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -150847,6 +160109,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -151003,6 +160270,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -151060,6 +160330,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -151080,6 +160355,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -151137,6 +160415,11 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPurchaseOrdersInput = {
@@ -151250,6 +160533,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -151307,6 +160593,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -151327,6 +160618,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -151384,6 +160678,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -151584,6 +160883,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -151641,6 +160943,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -151661,6 +160968,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -151718,6 +161028,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutTelehealthSessionsInput = {
@@ -152094,6 +161409,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -152151,6 +161469,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPatientAlertsInput = {
@@ -152171,6 +161494,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -152228,6 +161554,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPatientAlertsInput = {
@@ -152351,6 +161682,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -152408,6 +161742,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPatientAlertsInput = {
@@ -152428,6 +161767,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152485,6 +161827,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPatientAlertsInput = {
@@ -152598,6 +161945,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -152655,6 +162005,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInsuranceProvidersInput = {
@@ -152675,6 +162030,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -152732,6 +162090,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInsuranceProvidersInput = {
@@ -152800,6 +162163,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -152857,6 +162223,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInsuranceProvidersInput = {
@@ -152877,6 +162248,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152934,6 +162308,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClaimUpsertWithWhereUniqueWithoutProviderInput = {
@@ -152970,6 +162349,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -153027,6 +162409,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClaimsInput = {
@@ -153047,6 +162434,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -153104,6 +162494,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClaimsInput = {
@@ -153252,6 +162647,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -153309,6 +162707,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClaimsInput = {
@@ -153329,6 +162732,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -153386,6 +162792,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutClaimsInput = {
@@ -153586,6 +162997,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -153643,6 +163057,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPrescriptionsInput = {
@@ -153663,6 +163082,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -153720,6 +163142,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPrescriptionsInput = {
@@ -153896,6 +163323,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -153953,6 +163383,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPrescriptionsInput = {
@@ -153973,6 +163408,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -154030,6 +163468,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPrescriptionsInput = {
@@ -154598,6 +164041,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -154655,6 +164101,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHandoversInput = {
@@ -154675,6 +164126,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -154732,6 +164186,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHandoversInput = {
@@ -154932,6 +164391,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -154989,6 +164451,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHandoversInput = {
@@ -155009,6 +164476,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155066,6 +164536,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutOverridesInput = {
@@ -155153,6 +164628,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -155210,6 +164688,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAvailabilityOverridesInput = {
@@ -155230,6 +164713,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -155287,6 +164773,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAvailabilityOverridesInput = {
@@ -155396,6 +164887,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -155453,6 +164947,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAvailabilityOverridesInput = {
@@ -155473,6 +164972,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155530,6 +165032,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutPayoutsInput = {
@@ -155617,6 +165124,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -155674,6 +165184,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayoutsInput = {
@@ -155694,6 +165209,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -155751,6 +165269,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayoutsInput = {
@@ -155860,6 +165383,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -155917,6 +165443,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayoutsInput = {
@@ -155937,6 +165468,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155994,6 +165528,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutAssessmentsInput = {
@@ -156178,6 +165717,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -156235,6 +165777,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalAssessmentsInput = {
@@ -156255,6 +165802,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -156312,6 +165862,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalAssessmentsInput = {
@@ -156524,6 +166079,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -156581,6 +166139,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalAssessmentsInput = {
@@ -156601,6 +166164,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -156658,6 +166224,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutMedicationReconsInput = {
@@ -156842,6 +166413,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -156899,6 +166473,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicationReconsInput = {
@@ -156919,6 +166498,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -156976,6 +166558,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicationReconsInput = {
@@ -157188,6 +166775,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -157245,6 +166835,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicationReconsInput = {
@@ -157265,6 +166860,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -157322,6 +166920,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutSupervisionLogsInput = {
@@ -157486,6 +167089,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -157543,6 +167149,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSupervisionLogsInput = {
@@ -157563,6 +167174,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -157620,6 +167234,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSupervisionLogsInput = {
@@ -157812,6 +167431,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -157869,6 +167491,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -157889,6 +167516,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -157946,6 +167576,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyNotificationsInput = {
@@ -158053,6 +167688,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -158110,6 +167748,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -158130,6 +167773,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -158187,6 +167833,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -158316,6 +167967,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -158373,6 +168027,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -158393,6 +168052,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -158450,6 +168112,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutCareFeedbacksInput = {
@@ -158642,6 +168309,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -158699,6 +168369,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCareFeedbacksInput = {
@@ -158719,6 +168394,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -158776,6 +168454,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCareFeedbacksInput = {
@@ -158996,6 +168679,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -159053,6 +168739,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -159073,6 +168764,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -159130,6 +168824,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutPerformedAuditsInput = {
@@ -159227,6 +168926,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -159284,6 +168986,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
@@ -159304,6 +169011,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -159361,6 +169071,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
@@ -159480,6 +169195,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -159537,6 +169255,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
@@ -159557,6 +169280,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -159614,6 +169340,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingRequestsInput = {
@@ -159721,6 +169452,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -159778,6 +169512,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingRequestsInput = {
@@ -159798,6 +169537,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -159855,6 +169597,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingRequestsInput = {
@@ -159984,6 +169731,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -160041,6 +169791,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
@@ -160061,6 +169816,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -160118,6 +169876,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDailyAuditSignOffsInput = {
@@ -160215,6 +169978,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -160272,6 +170038,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -160292,6 +170063,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -160349,6 +170123,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -160553,6 +170332,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -160610,6 +170392,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -160630,6 +170417,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -160687,6 +170477,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyAuditSignOffInput = {
@@ -160875,6 +170670,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -160932,6 +170730,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
@@ -160952,6 +170755,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -161009,6 +170815,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
@@ -161128,6 +170939,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -161185,6 +170999,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -161205,6 +171024,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -161262,6 +171084,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemTouchpointsInput = {
@@ -161282,6 +171109,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
     bookings?: BookingCreateNestedManyWithoutTenantInput
     clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
@@ -161339,6 +171169,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
@@ -161359,6 +171194,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
     parentTenantId?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
     bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
@@ -161416,6 +171254,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
@@ -161452,6 +171295,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -161509,6 +171355,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
@@ -161529,6 +171380,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
@@ -161586,6 +171440,2219 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutFinancialAccountsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutFinancialAccountsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutFinancialAccountsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutFinancialAccountsInput, TenantUncheckedCreateWithoutFinancialAccountsInput>
+  }
+
+  export type JournalEntryCreateWithoutAccountInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    transaction: FinancialTransactionCreateNestedOneWithoutJournalEntriesInput
+    tenant: TenantCreateNestedOneWithoutFinancialJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutAccountInput = {
+    id?: string
+    transactionId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryCreateOrConnectWithoutAccountInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput>
+  }
+
+  export type JournalEntryCreateManyAccountInputEnvelope = {
+    data: JournalEntryCreateManyAccountInput | JournalEntryCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutFinancialAccountsInput = {
+    update: XOR<TenantUpdateWithoutFinancialAccountsInput, TenantUncheckedUpdateWithoutFinancialAccountsInput>
+    create: XOR<TenantCreateWithoutFinancialAccountsInput, TenantUncheckedCreateWithoutFinancialAccountsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutFinancialAccountsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutFinancialAccountsInput, TenantUncheckedUpdateWithoutFinancialAccountsInput>
+  }
+
+  export type TenantUpdateWithoutFinancialAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutFinancialAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type JournalEntryUpsertWithWhereUniqueWithoutAccountInput = {
+    where: JournalEntryWhereUniqueInput
+    update: XOR<JournalEntryUpdateWithoutAccountInput, JournalEntryUncheckedUpdateWithoutAccountInput>
+    create: XOR<JournalEntryCreateWithoutAccountInput, JournalEntryUncheckedCreateWithoutAccountInput>
+  }
+
+  export type JournalEntryUpdateWithWhereUniqueWithoutAccountInput = {
+    where: JournalEntryWhereUniqueInput
+    data: XOR<JournalEntryUpdateWithoutAccountInput, JournalEntryUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type JournalEntryUpdateManyWithWhereWithoutAccountInput = {
+    where: JournalEntryScalarWhereInput
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type TenantCreateWithoutFinancialTransactionsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutFinancialTransactionsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutFinancialTransactionsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutFinancialTransactionsInput, TenantUncheckedCreateWithoutFinancialTransactionsInput>
+  }
+
+  export type JournalEntryCreateWithoutTransactionInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    account: ChartOfAccountCreateNestedOneWithoutJournalEntriesInput
+    tenant: TenantCreateNestedOneWithoutFinancialJournalEntriesInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryCreateOrConnectWithoutTransactionInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type JournalEntryCreateManyTransactionInputEnvelope = {
+    data: JournalEntryCreateManyTransactionInput | JournalEntryCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FinancialReconciliationCreateWithoutTransactionInput = {
+    id?: string
+    status?: string
+    matchedAt?: Date | string | null
+    bankTransaction?: BankTransactionCreateNestedOneWithoutReconciliationsInput
+    tenant: TenantCreateNestedOneWithoutFinancialReconciliationsInput
+  }
+
+  export type FinancialReconciliationUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type FinancialReconciliationCreateOrConnectWithoutTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    create: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type FinancialReconciliationCreateManyTransactionInputEnvelope = {
+    data: FinancialReconciliationCreateManyTransactionInput | FinancialReconciliationCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutFinancialTransactionsInput = {
+    update: XOR<TenantUpdateWithoutFinancialTransactionsInput, TenantUncheckedUpdateWithoutFinancialTransactionsInput>
+    create: XOR<TenantCreateWithoutFinancialTransactionsInput, TenantUncheckedCreateWithoutFinancialTransactionsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutFinancialTransactionsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutFinancialTransactionsInput, TenantUncheckedUpdateWithoutFinancialTransactionsInput>
+  }
+
+  export type TenantUpdateWithoutFinancialTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutFinancialTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type JournalEntryUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: JournalEntryWhereUniqueInput
+    update: XOR<JournalEntryUpdateWithoutTransactionInput, JournalEntryUncheckedUpdateWithoutTransactionInput>
+    create: XOR<JournalEntryCreateWithoutTransactionInput, JournalEntryUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type JournalEntryUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: JournalEntryWhereUniqueInput
+    data: XOR<JournalEntryUpdateWithoutTransactionInput, JournalEntryUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type JournalEntryUpdateManyWithWhereWithoutTransactionInput = {
+    where: JournalEntryScalarWhereInput
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyWithoutTransactionInput>
+  }
+
+  export type FinancialReconciliationUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    update: XOR<FinancialReconciliationUpdateWithoutTransactionInput, FinancialReconciliationUncheckedUpdateWithoutTransactionInput>
+    create: XOR<FinancialReconciliationCreateWithoutTransactionInput, FinancialReconciliationUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type FinancialReconciliationUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    data: XOR<FinancialReconciliationUpdateWithoutTransactionInput, FinancialReconciliationUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type FinancialReconciliationUpdateManyWithWhereWithoutTransactionInput = {
+    where: FinancialReconciliationScalarWhereInput
+    data: XOR<FinancialReconciliationUpdateManyMutationInput, FinancialReconciliationUncheckedUpdateManyWithoutTransactionInput>
+  }
+
+  export type FinancialTransactionCreateWithoutJournalEntriesInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
+    reconciliations?: FinancialReconciliationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutJournalEntriesInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutJournalEntriesInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutJournalEntriesInput, FinancialTransactionUncheckedCreateWithoutJournalEntriesInput>
+  }
+
+  export type ChartOfAccountCreateWithoutJournalEntriesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialAccountsInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutJournalEntriesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutJournalEntriesInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutJournalEntriesInput, ChartOfAccountUncheckedCreateWithoutJournalEntriesInput>
+  }
+
+  export type TenantCreateWithoutFinancialJournalEntriesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutFinancialJournalEntriesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutFinancialJournalEntriesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutFinancialJournalEntriesInput, TenantUncheckedCreateWithoutFinancialJournalEntriesInput>
+  }
+
+  export type FinancialTransactionUpsertWithoutJournalEntriesInput = {
+    update: XOR<FinancialTransactionUpdateWithoutJournalEntriesInput, FinancialTransactionUncheckedUpdateWithoutJournalEntriesInput>
+    create: XOR<FinancialTransactionCreateWithoutJournalEntriesInput, FinancialTransactionUncheckedCreateWithoutJournalEntriesInput>
+    where?: FinancialTransactionWhereInput
+  }
+
+  export type FinancialTransactionUpdateToOneWithWhereWithoutJournalEntriesInput = {
+    where?: FinancialTransactionWhereInput
+    data: XOR<FinancialTransactionUpdateWithoutJournalEntriesInput, FinancialTransactionUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type FinancialTransactionUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
+    reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type ChartOfAccountUpsertWithoutJournalEntriesInput = {
+    update: XOR<ChartOfAccountUpdateWithoutJournalEntriesInput, ChartOfAccountUncheckedUpdateWithoutJournalEntriesInput>
+    create: XOR<ChartOfAccountCreateWithoutJournalEntriesInput, ChartOfAccountUncheckedCreateWithoutJournalEntriesInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutJournalEntriesInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutJournalEntriesInput, ChartOfAccountUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialAccountsNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantUpsertWithoutFinancialJournalEntriesInput = {
+    update: XOR<TenantUpdateWithoutFinancialJournalEntriesInput, TenantUncheckedUpdateWithoutFinancialJournalEntriesInput>
+    create: XOR<TenantCreateWithoutFinancialJournalEntriesInput, TenantUncheckedCreateWithoutFinancialJournalEntriesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutFinancialJournalEntriesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutFinancialJournalEntriesInput, TenantUncheckedUpdateWithoutFinancialJournalEntriesInput>
+  }
+
+  export type TenantUpdateWithoutFinancialJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutFinancialJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type FinancialTransactionCreateWithoutReconciliationsInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionsInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutReconciliationsInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutReconciliationsInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutReconciliationsInput, FinancialTransactionUncheckedCreateWithoutReconciliationsInput>
+  }
+
+  export type BankTransactionCreateWithoutReconciliationsInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBankTransactionsInput
+  }
+
+  export type BankTransactionUncheckedCreateWithoutReconciliationsInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type BankTransactionCreateOrConnectWithoutReconciliationsInput = {
+    where: BankTransactionWhereUniqueInput
+    create: XOR<BankTransactionCreateWithoutReconciliationsInput, BankTransactionUncheckedCreateWithoutReconciliationsInput>
+  }
+
+  export type TenantCreateWithoutFinancialReconciliationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutFinancialReconciliationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutFinancialReconciliationsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutFinancialReconciliationsInput, TenantUncheckedCreateWithoutFinancialReconciliationsInput>
+  }
+
+  export type FinancialTransactionUpsertWithoutReconciliationsInput = {
+    update: XOR<FinancialTransactionUpdateWithoutReconciliationsInput, FinancialTransactionUncheckedUpdateWithoutReconciliationsInput>
+    create: XOR<FinancialTransactionCreateWithoutReconciliationsInput, FinancialTransactionUncheckedCreateWithoutReconciliationsInput>
+    where?: FinancialTransactionWhereInput
+  }
+
+  export type FinancialTransactionUpdateToOneWithWhereWithoutReconciliationsInput = {
+    where?: FinancialTransactionWhereInput
+    data: XOR<FinancialTransactionUpdateWithoutReconciliationsInput, FinancialTransactionUncheckedUpdateWithoutReconciliationsInput>
+  }
+
+  export type FinancialTransactionUpdateWithoutReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionsNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type BankTransactionUpsertWithoutReconciliationsInput = {
+    update: XOR<BankTransactionUpdateWithoutReconciliationsInput, BankTransactionUncheckedUpdateWithoutReconciliationsInput>
+    create: XOR<BankTransactionCreateWithoutReconciliationsInput, BankTransactionUncheckedCreateWithoutReconciliationsInput>
+    where?: BankTransactionWhereInput
+  }
+
+  export type BankTransactionUpdateToOneWithWhereWithoutReconciliationsInput = {
+    where?: BankTransactionWhereInput
+    data: XOR<BankTransactionUpdateWithoutReconciliationsInput, BankTransactionUncheckedUpdateWithoutReconciliationsInput>
+  }
+
+  export type BankTransactionUpdateWithoutReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBankTransactionsNestedInput
+  }
+
+  export type BankTransactionUncheckedUpdateWithoutReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantUpsertWithoutFinancialReconciliationsInput = {
+    update: XOR<TenantUpdateWithoutFinancialReconciliationsInput, TenantUncheckedUpdateWithoutFinancialReconciliationsInput>
+    create: XOR<TenantCreateWithoutFinancialReconciliationsInput, TenantUncheckedCreateWithoutFinancialReconciliationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutFinancialReconciliationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutFinancialReconciliationsInput, TenantUncheckedUpdateWithoutFinancialReconciliationsInput>
+  }
+
+  export type TenantUpdateWithoutFinancialReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutFinancialReconciliationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutBankTransactionsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBankTransactionsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBankTransactionsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBankTransactionsInput, TenantUncheckedCreateWithoutBankTransactionsInput>
+  }
+
+  export type FinancialReconciliationCreateWithoutBankTransactionInput = {
+    id?: string
+    status?: string
+    matchedAt?: Date | string | null
+    transaction: FinancialTransactionCreateNestedOneWithoutReconciliationsInput
+    tenant: TenantCreateNestedOneWithoutFinancialReconciliationsInput
+  }
+
+  export type FinancialReconciliationUncheckedCreateWithoutBankTransactionInput = {
+    id?: string
+    transactionId: string
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type FinancialReconciliationCreateOrConnectWithoutBankTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    create: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput>
+  }
+
+  export type FinancialReconciliationCreateManyBankTransactionInputEnvelope = {
+    data: FinancialReconciliationCreateManyBankTransactionInput | FinancialReconciliationCreateManyBankTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutBankTransactionsInput = {
+    update: XOR<TenantUpdateWithoutBankTransactionsInput, TenantUncheckedUpdateWithoutBankTransactionsInput>
+    create: XOR<TenantCreateWithoutBankTransactionsInput, TenantUncheckedCreateWithoutBankTransactionsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBankTransactionsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBankTransactionsInput, TenantUncheckedUpdateWithoutBankTransactionsInput>
+  }
+
+  export type TenantUpdateWithoutBankTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBankTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    update: XOR<FinancialReconciliationUpdateWithoutBankTransactionInput, FinancialReconciliationUncheckedUpdateWithoutBankTransactionInput>
+    create: XOR<FinancialReconciliationCreateWithoutBankTransactionInput, FinancialReconciliationUncheckedCreateWithoutBankTransactionInput>
+  }
+
+  export type FinancialReconciliationUpdateWithWhereUniqueWithoutBankTransactionInput = {
+    where: FinancialReconciliationWhereUniqueInput
+    data: XOR<FinancialReconciliationUpdateWithoutBankTransactionInput, FinancialReconciliationUncheckedUpdateWithoutBankTransactionInput>
+  }
+
+  export type FinancialReconciliationUpdateManyWithWhereWithoutBankTransactionInput = {
+    where: FinancialReconciliationScalarWhereInput
+    data: XOR<FinancialReconciliationUpdateManyMutationInput, FinancialReconciliationUncheckedUpdateManyWithoutBankTransactionInput>
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -161826,6 +173893,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
     createdAt?: Date | string
   }
 
@@ -162524,6 +174593,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutSystemEventsNestedInput
   }
@@ -162538,6 +174609,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -162551,6 +174624,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -163109,6 +175184,9 @@ export namespace Prisma {
     enforceVpn?: boolean
     requireDeviceApproval?: boolean
     maxDevicesPerUser?: number
+    corsAllowedOrigins?: TenantCreatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantCreatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantCreatecorsAllowedHeadersInput | string[]
   }
 
   export type FranchiseCreateManyResellerInput = {
@@ -163225,6 +175303,57 @@ export namespace Prisma {
     actorUserId?: string | null
     deviceId?: string | null
     ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChartOfAccountCreateManyTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FinancialTransactionCreateManyTenantInput = {
+    id?: string
+    type: string
+    referenceId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.TransactionState
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JournalEntryCreateManyTenantInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type FinancialReconciliationCreateManyTenantInput = {
+    id?: string
+    transactionId: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+  }
+
+  export type BankTransactionCreateManyTenantInput = {
+    id?: string
+    bankDate: Date | string
+    description: string
+    amount: Decimal | DecimalJsLike | number | string
+    externalRef?: string | null
+    status?: string
     createdAt?: Date | string
   }
 
@@ -165017,6 +177146,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
     bookings?: BookingUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
@@ -165074,6 +177206,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutParentTenantInput = {
@@ -165094,6 +177231,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
     clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -165151,6 +177291,11 @@ export namespace Prisma {
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantInput = {
@@ -165171,6 +177316,9 @@ export namespace Prisma {
     enforceVpn?: BoolFieldUpdateOperationsInput | boolean
     requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
     maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: TenantUpdatecorsAllowedOriginsInput | string[]
+    corsAllowedMethods?: TenantUpdatecorsAllowedMethodsInput | string[]
+    corsAllowedHeaders?: TenantUpdatecorsAllowedHeadersInput | string[]
   }
 
   export type FranchiseUpdateWithoutResellerInput = {
@@ -165498,6 +177646,8 @@ export namespace Prisma {
     previousData?: NullableJsonNullValueInput | InputJsonValue
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     actor?: UserUpdateOneWithoutSystemEventsNestedInput
   }
@@ -165512,6 +177662,8 @@ export namespace Prisma {
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -165525,6 +177677,163 @@ export namespace Prisma {
     actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceId?: NullableStringFieldUpdateOperationsInput | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUpdateManyWithoutAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUpdateManyWithoutTransactionNestedInput
+    reconciliations?: FinancialReconciliationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutTransactionNestedInput
+    reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumTransactionStateFieldUpdateOperationsInput | $Enums.TransactionState
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutJournalEntriesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReconciliationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutReconciliationsNestedInput
+    bankTransaction?: BankTransactionUpdateOneWithoutReconciliationsNestedInput
+  }
+
+  export type FinancialReconciliationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BankTransactionUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reconciliations?: FinancialReconciliationUpdateManyWithoutBankTransactionNestedInput
+  }
+
+  export type BankTransactionUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutBankTransactionNestedInput
+  }
+
+  export type BankTransactionUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -168580,6 +180889,158 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type JournalEntryCreateManyAccountInput = {
+    id?: string
+    transactionId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutJournalEntriesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryCreateManyTransactionInput = {
+    id?: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    balanceBefore?: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string
+    tenantId: string
+    createdAt?: Date | string
+  }
+
+  export type FinancialReconciliationCreateManyTransactionInput = {
+    id?: string
+    bankTransactionId?: string | null
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type JournalEntryUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    account?: ChartOfAccountUpdateOneRequiredWithoutJournalEntriesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialJournalEntriesNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReconciliationUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bankTransaction?: BankTransactionUpdateOneWithoutReconciliationsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialReconciliationsNestedInput
+  }
+
+  export type FinancialReconciliationUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FinancialReconciliationCreateManyBankTransactionInput = {
+    id?: string
+    transactionId: string
+    status?: string
+    matchedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type FinancialReconciliationUpdateWithoutBankTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutReconciliationsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutFinancialReconciliationsNestedInput
+  }
+
+  export type FinancialReconciliationUncheckedUpdateWithoutBankTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FinancialReconciliationUncheckedUpdateManyWithoutBankTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -168657,6 +181118,18 @@ export namespace Prisma {
      * @deprecated Use PrescriptionCountOutputTypeDefaultArgs instead
      */
     export type PrescriptionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PrescriptionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ChartOfAccountCountOutputTypeDefaultArgs instead
+     */
+    export type ChartOfAccountCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FinancialTransactionCountOutputTypeDefaultArgs instead
+     */
+    export type FinancialTransactionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BankTransactionCountOutputTypeDefaultArgs instead
+     */
+    export type BankTransactionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BankTransactionCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -168977,6 +181450,26 @@ export namespace Prisma {
      * @deprecated Use SystemTouchpointDefaultArgs instead
      */
     export type SystemTouchpointArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemTouchpointDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ChartOfAccountDefaultArgs instead
+     */
+    export type ChartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ChartOfAccountDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FinancialTransactionDefaultArgs instead
+     */
+    export type FinancialTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FinancialTransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JournalEntryDefaultArgs instead
+     */
+    export type JournalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FinancialReconciliationDefaultArgs instead
+     */
+    export type FinancialReconciliationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FinancialReconciliationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BankTransactionDefaultArgs instead
+     */
+    export type BankTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BankTransactionDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

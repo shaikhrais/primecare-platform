@@ -46,6 +46,9 @@ export const ContentRegistry = {
         RCM: 'Claims Hub',
         PHARMACY: 'Pharmacy Hub',
         FORENSIC_TRAILS: 'Forensic Trails',
+        CORS_SETTINGS: 'CORS Settings',
+        INTEGRITY_SCAN: 'Integrity Check',
+        FINANCIAL_LEDGER: 'Financial Ledger',
     },
     PHARMACY: {
         TITLE: 'Pharmacy & Medication Hub',

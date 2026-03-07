@@ -391,4 +391,152 @@ r.openapi(getDailySummaryRoute, async (c) => {
     return c.json(summary as any, 200);
 });
 
+const corsConfigSchema = z.object({
+    corsAllowedOrigins: z.array(z.string()),
+    corsAllowedMethods: z.array(z.string()),
+    corsAllowedHeaders: z.array(z.string()),
+});
+
+// GET /cors - Get CORS config
+const getCorsRoute = createRoute({
+    method: 'get',
+    path: '/cors',
+    summary: 'Get Tenant CORS Config',
+    tags: ['Admin Security'],
+    responses: {
+        200: {
+            content: { 'application/json': { schema: corsConfigSchema } },
+            description: 'Success',
+        },
+    },
+});
+
+r.openapi(getCorsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const tenant = await prisma.tenant.findUnique({
+        where: { id: tenantId },
+        select: {
+            corsAllowedOrigins: true,
+            corsAllowedMethods: true,
+            corsAllowedHeaders: true,
+        },
+    });
+    return c.json(tenant || {
+        corsAllowedOrigins: [],
+        corsAllowedMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        corsAllowedHeaders: ['Content-Type', 'Authorization'],
+    }, 200);
+});
+
+// PATCH /cors - Update CORS config
+const updateCorsRoute = createRoute({
+    method: 'patch',
+    path: '/cors',
+    summary: 'Update Tenant CORS Config',
+    tags: ['Admin Security'],
+    request: {
+        body: {
+            content: { 'application/json': { schema: corsConfigSchema.partial() } },
+        },
+    },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.object({ success: z.boolean() }) } },
+            description: 'Success',
+        },
+    },
+});
+
+r.openapi(updateCorsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const body = c.req.valid('json');
+
+    await prisma.tenant.update({
+        where: { id: tenantId },
+        data: body,
+    });
+    return c.json({ success: true }, 200);
+});
+
+// POST /verify-integrity - Scan chain for tampering
+const verifyIntegrityRoute = createRoute({
+    method: 'post',
+    path: '/verify-integrity',
+    summary: 'Verify Forensic Chain Integrity',
+    tags: ['Admin Security'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        isValid: z.boolean(),
+                        totalEvents: z.number(),
+                        brokenEvents: z.array(z.string()),
+                        message: z.string(),
+                    })
+                }
+            },
+            description: 'Success',
+        },
+    },
+});
+
+r.openapi(verifyIntegrityRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const events = await prisma.systemEvent.findMany({
+        where: { tenantId },
+        orderBy: { createdAt: 'asc' },
+    });
+
+    let isValid = true;
+    let lastChecksum: string | null = null;
+    const brokenEvents: string[] = [];
+
+    for (const event of events) {
+        // 1. Verify link to previous
+        if (event.previousChecksum !== lastChecksum) {
+            isValid = false;
+            brokenEvents.push(event.id);
+            continue;
+        }
+
+        // 2. Verify own hash
+        const rawData = JSON.stringify({
+            tenantId: event.tenantId,
+            operation: event.operation,
+            modelName: event.modelName,
+            entityId: event.entityId,
+            payload: event.payload,
+            actorUserId: event.actorUserId,
+            deviceId: event.deviceId,
+            ipAddress: event.ipAddress,
+            previousChecksum: event.previousChecksum,
+            createdAt: event.createdAt.toISOString()
+        });
+
+        const msgUint8 = new TextEncoder().encode(rawData);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const computedChecksum = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+        if (computedChecksum !== event.checksum) {
+            isValid = false;
+            brokenEvents.push(event.id);
+        }
+
+        lastChecksum = event.checksum;
+    }
+
+    return c.json({
+        isValid,
+        totalEvents: events.length,
+        brokenEvents,
+        message: isValid ? 'Chain integrity verified. No tampering detected.' : 'INTEGRITY BREACH: Tampering detected in the audit trail.'
+    }, 200);
+});
+
 export default r;

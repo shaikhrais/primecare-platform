@@ -156,6 +156,9 @@ exports.Prisma.TenantScalarFieldEnum = {
   enforceVpn: 'enforceVpn',
   requireDeviceApproval: 'requireDeviceApproval',
   maxDevicesPerUser: 'maxDevicesPerUser',
+  corsAllowedOrigins: 'corsAllowedOrigins',
+  corsAllowedMethods: 'corsAllowedMethods',
+  corsAllowedHeaders: 'corsAllowedHeaders',
   parentTenantId: 'parentTenantId'
 };
 
@@ -388,6 +391,8 @@ exports.Prisma.SystemEventScalarFieldEnum = {
   actorUserId: 'actorUserId',
   deviceId: 'deviceId',
   ipAddress: 'ipAddress',
+  checksum: 'checksum',
+  previousChecksum: 'previousChecksum',
   createdAt: 'createdAt'
 };
 
@@ -1101,6 +1106,60 @@ exports.Prisma.SystemTouchpointScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FinancialTransactionScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  referenceId: 'referenceId',
+  amount: 'amount',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.JournalEntryScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  accountId: 'accountId',
+  debit: 'debit',
+  credit: 'credit',
+  balanceBefore: 'balanceBefore',
+  balanceAfter: 'balanceAfter',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.FinancialReconciliationScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  bankTransactionId: 'bankTransactionId',
+  status: 'status',
+  matchedAt: 'matchedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.BankTransactionScalarFieldEnum = {
+  id: 'id',
+  bankDate: 'bankDate',
+  description: 'description',
+  amount: 'amount',
+  externalRef: 'externalRef',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1228,6 +1287,22 @@ exports.DailyEntryStatus = exports.$Enums.DailyEntryStatus = {
   SUBMITTED: 'SUBMITTED'
 };
 
+exports.AccountType = exports.$Enums.AccountType = {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
+exports.TransactionState = exports.$Enums.TransactionState = {
+  draft: 'draft',
+  posted: 'posted',
+  matched: 'matched',
+  reconciled: 'reconciled',
+  closed: 'closed'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
@@ -1308,7 +1383,12 @@ exports.Prisma.ModelName = {
   BookingRequest: 'BookingRequest',
   DailyAuditSignOff: 'DailyAuditSignOff',
   WellnessPulse: 'WellnessPulse',
-  SystemTouchpoint: 'SystemTouchpoint'
+  SystemTouchpoint: 'SystemTouchpoint',
+  ChartOfAccount: 'ChartOfAccount',
+  FinancialTransaction: 'FinancialTransaction',
+  JournalEntry: 'JournalEntry',
+  FinancialReconciliation: 'FinancialReconciliation',
+  BankTransaction: 'BankTransaction'
 };
 
 /**

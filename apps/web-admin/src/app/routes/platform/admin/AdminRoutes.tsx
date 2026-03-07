@@ -59,6 +59,9 @@ const PharmacyHub = lazy(() => import('./pages/pharmacy/PharmacyHub'));
 const SecurityGovernance = lazy(() => import('./pages/security/SecurityGovernance'));
 const DeviceManagement = lazy(() => import('./pages/security/DeviceManagement'));
 const ForensicTrails = lazy(() => import('./pages/security/ForensicTrails'));
+const CorsSettings = lazy(() => import('./pages/security/CorsSettings'));
+const IntegrityVerification = lazy(() => import('./pages/security/IntegrityVerification'));
+const FinancialLedger = lazy(() => import('./pages/security/FinancialLedger'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin']}><AppLayout /></RequireRole>}>
@@ -84,7 +87,6 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
         <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
         <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />
-        <Route path={RouteRegistry.ADMIN.AUDITS} element={<AuditLogs />} />
         <Route path={RouteRegistry.ADMIN.ADMISSION} element={<LeadAdmission />} />
         <Route path={RouteRegistry.ADMIN.ONBOARDING} element={<Onboarding />} />
         <Route path={RouteRegistry.ADMIN.REPORTS} element={<ReportCenter />} />
@@ -112,5 +114,8 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.GOVERNANCE} element={<SecurityGovernance />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.DEVICE_REGISTRY} element={<DeviceManagement />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.FORENSIC_TRAILS} element={<ForensicTrails />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.CORS_SETTINGS} element={<CorsSettings />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN} element={<IntegrityVerification />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
     </Route>
 );
