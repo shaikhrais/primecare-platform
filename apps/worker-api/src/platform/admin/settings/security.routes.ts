@@ -253,4 +253,53 @@ r.openapi(getDeviceActivityRoute, async (c) => {
     return c.json(logs as any, 200);
 });
 
+// GET /forensic-trails - Get all system events for the tenant
+const getForensicTrailsRoute = createRoute({
+    method: 'get',
+    path: '/forensic-trails',
+    summary: 'Get Forensic System Events',
+    tags: ['Admin Security'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        id: z.string(),
+                        tenantId: z.string(),
+                        operation: z.string(),
+                        modelName: z.string(),
+                        entityId: z.string().nullable(),
+                        payload: z.any().nullable(),
+                        previousData: z.any().nullable(),
+                        actorUserId: z.string().nullable(),
+                        deviceId: z.string().nullable(),
+                        ipAddress: z.string().nullable(),
+                        createdAt: z.string(),
+                        actor: z.object({
+                            email: z.string()
+                        }).nullable().optional()
+                    })),
+                },
+            },
+            description: 'Success',
+        },
+    },
+});
+
+r.openapi(getForensicTrailsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const events = await prisma.systemEvent.findMany({
+        where: { tenantId },
+        include: {
+            actor: { select: { email: true } }
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 100
+    });
+
+    return c.json(events as any, 200);
+});
+
 export default r;

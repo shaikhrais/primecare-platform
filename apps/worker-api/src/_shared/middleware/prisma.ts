@@ -1,6 +1,8 @@
 ﻿import { createMiddleware } from 'hono/factory';
 import { Bindings, Variables } from '../../bindings';
 import { tenantExtension } from '../prisma/tenant.extension';
+import { auditExtension } from '../prisma/audit.extension';
+import { forensicExtension } from '../prisma/forensic.extension';
 
 let prismaInstance: any = null;
 
@@ -63,15 +65,16 @@ export const prismaMiddleware = () => {
             }
         }
 
-        import { auditExtension } from '../prisma/audit.extension';
-
-        // ... in the middleware ...
         if (tenantId && !isSuperAdmin) {
-            reqPrisma = reqPrisma.$extends(tenantExtension(tenantId));
+            reqPrisma = reqPrisma.$extends(tenantExtension(tenantId as string));
         }
 
         const currentDeviceId = c.get('deviceId');
+        const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
+        const actorUserId = payload?.sub;
+
         reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
+        reqPrisma = reqPrisma.$extends(forensicExtension(actorUserId, currentDeviceId, clientIp));
 
         c.set('prisma', reqPrisma);
         c.set('can', async () => (payload?.roles?.includes('admin') || payload?.roles?.includes('super_admin')) ?? false);

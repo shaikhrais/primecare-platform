@@ -104,6 +104,11 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 /**
+ * Model SystemEvent
+ * 
+ */
+export type SystemEvent = $Result.DefaultSelection<Prisma.$SystemEventPayload>
+/**
  * Model Lead
  * 
  */
@@ -891,6 +896,16 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.systemEvent`: Exposes CRUD operations for the **SystemEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemEvents
+    * const systemEvents = await prisma.systemEvent.findMany()
+    * ```
+    */
+  get systemEvent(): Prisma.SystemEventDelegate<ExtArgs>;
 
   /**
    * `prisma.lead`: Exposes CRUD operations for the **Lead** model.
@@ -1960,6 +1975,7 @@ export namespace Prisma {
     MessageThread: 'MessageThread',
     Message: 'Message',
     AuditLog: 'AuditLog',
+    SystemEvent: 'SystemEvent',
     Lead: 'Lead',
     Booking: 'Booking',
     PswAvailability: 'PswAvailability',
@@ -2036,7 +2052,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
+      modelProps: "user" | "tenant" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3297,6 +3313,76 @@ export namespace Prisma {
           count: {
             args: Prisma.AuditLogCountArgs<ExtArgs>
             result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemEvent: {
+        payload: Prisma.$SystemEventPayload<ExtArgs>
+        fields: Prisma.SystemEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          findMany: {
+            args: Prisma.SystemEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>[]
+          }
+          create: {
+            args: Prisma.SystemEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          createMany: {
+            args: Prisma.SystemEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          update: {
+            args: Prisma.SystemEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SystemEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemEventPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemEvent>
+          }
+          groupBy: {
+            args: Prisma.SystemEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemEventCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemEventCountAggregateOutputType> | number
           }
         }
       }
@@ -7753,6 +7839,7 @@ export namespace Prisma {
     dailyAuditSignOffs: number
     wellnessPulses: number
     devices: number
+    systemEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7774,6 +7861,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | UserCountOutputTypeCountDailyAuditSignOffsArgs
     wellnessPulses?: boolean | UserCountOutputTypeCountWellnessPulsesArgs
     devices?: boolean | UserCountOutputTypeCountDevicesArgs
+    systemEvents?: boolean | UserCountOutputTypeCountSystemEventsArgs
   }
 
   // Custom InputTypes
@@ -7913,6 +8001,13 @@ export namespace Prisma {
     where?: UserDeviceWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSystemEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemEventWhereInput
+  }
+
 
   /**
    * Count Type TenantCountOutputType
@@ -7975,6 +8070,7 @@ export namespace Prisma {
     supervisionLogs: number
     inventoryItems: number
     purchaseOrders: number
+    systemEvents: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8034,6 +8130,7 @@ export namespace Prisma {
     supervisionLogs?: boolean | TenantCountOutputTypeCountSupervisionLogsArgs
     inventoryItems?: boolean | TenantCountOutputTypeCountInventoryItemsArgs
     purchaseOrders?: boolean | TenantCountOutputTypeCountPurchaseOrdersArgs
+    systemEvents?: boolean | TenantCountOutputTypeCountSystemEventsArgs
   }
 
   // Custom InputTypes
@@ -8437,6 +8534,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountPurchaseOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PurchaseOrderWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountSystemEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemEventWhereInput
   }
 
 
@@ -9590,6 +9694,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
     devices?: boolean | User$devicesArgs<ExtArgs>
+    systemEvents?: boolean | User$systemEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -9648,6 +9753,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | User$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | User$wellnessPulsesArgs<ExtArgs>
     devices?: boolean | User$devicesArgs<ExtArgs>
+    systemEvents?: boolean | User$systemEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9678,6 +9784,7 @@ export namespace Prisma {
       dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
       wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
       devices: Prisma.$UserDevicePayload<ExtArgs>[]
+      systemEvents: Prisma.$SystemEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10078,6 +10185,7 @@ export namespace Prisma {
     dailyAuditSignOffs<T extends User$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
     wellnessPulses<T extends User$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, User$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
     devices<T extends User$devicesArgs<ExtArgs> = {}>(args?: Subset<T, User$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findMany"> | Null>
+    systemEvents<T extends User$systemEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$systemEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10828,6 +10936,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.systemEvents
+   */
+  export type User$systemEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    where?: SystemEventWhereInput
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    cursor?: SystemEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11193,6 +11321,7 @@ export namespace Prisma {
     supervisionLogs?: boolean | Tenant$supervisionLogsArgs<ExtArgs>
     inventoryItems?: boolean | Tenant$inventoryItemsArgs<ExtArgs>
     purchaseOrders?: boolean | Tenant$purchaseOrdersArgs<ExtArgs>
+    systemEvents?: boolean | Tenant$systemEventsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -11297,6 +11426,7 @@ export namespace Prisma {
     supervisionLogs?: boolean | Tenant$supervisionLogsArgs<ExtArgs>
     inventoryItems?: boolean | Tenant$inventoryItemsArgs<ExtArgs>
     purchaseOrders?: boolean | Tenant$purchaseOrdersArgs<ExtArgs>
+    systemEvents?: boolean | Tenant$systemEventsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11363,6 +11493,7 @@ export namespace Prisma {
       supervisionLogs: Prisma.$SupervisionLogPayload<ExtArgs>[]
       inventoryItems: Prisma.$InventoryItemPayload<ExtArgs>[]
       purchaseOrders: Prisma.$PurchaseOrderPayload<ExtArgs>[]
+      systemEvents: Prisma.$SystemEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11804,6 +11935,7 @@ export namespace Prisma {
     supervisionLogs<T extends Tenant$supervisionLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$supervisionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupervisionLogPayload<ExtArgs>, T, "findMany"> | Null>
     inventoryItems<T extends Tenant$inventoryItemsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$inventoryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany"> | Null>
     purchaseOrders<T extends Tenant$purchaseOrdersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$purchaseOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany"> | Null>
+    systemEvents<T extends Tenant$systemEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$systemEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13301,6 +13433,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PurchaseOrderScalarFieldEnum | PurchaseOrderScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.systemEvents
+   */
+  export type Tenant$systemEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    where?: SystemEventWhereInput
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    cursor?: SystemEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
   }
 
   /**
@@ -31167,6 +31319,1024 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AuditLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SystemEvent
+   */
+
+  export type AggregateSystemEvent = {
+    _count: SystemEventCountAggregateOutputType | null
+    _min: SystemEventMinAggregateOutputType | null
+    _max: SystemEventMaxAggregateOutputType | null
+  }
+
+  export type SystemEventMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    operation: string | null
+    modelName: string | null
+    entityId: string | null
+    actorUserId: string | null
+    deviceId: string | null
+    ipAddress: string | null
+    createdAt: Date | null
+  }
+
+  export type SystemEventMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    operation: string | null
+    modelName: string | null
+    entityId: string | null
+    actorUserId: string | null
+    deviceId: string | null
+    ipAddress: string | null
+    createdAt: Date | null
+  }
+
+  export type SystemEventCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    operation: number
+    modelName: number
+    entityId: number
+    payload: number
+    previousData: number
+    actorUserId: number
+    deviceId: number
+    ipAddress: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SystemEventMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    operation?: true
+    modelName?: true
+    entityId?: true
+    actorUserId?: true
+    deviceId?: true
+    ipAddress?: true
+    createdAt?: true
+  }
+
+  export type SystemEventMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    operation?: true
+    modelName?: true
+    entityId?: true
+    actorUserId?: true
+    deviceId?: true
+    ipAddress?: true
+    createdAt?: true
+  }
+
+  export type SystemEventCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    operation?: true
+    modelName?: true
+    entityId?: true
+    payload?: true
+    previousData?: true
+    actorUserId?: true
+    deviceId?: true
+    ipAddress?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SystemEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemEvent to aggregate.
+     */
+    where?: SystemEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemEvents to fetch.
+     */
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemEvents
+    **/
+    _count?: true | SystemEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemEventMaxAggregateInputType
+  }
+
+  export type GetSystemEventAggregateType<T extends SystemEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemEvent[P]>
+      : GetScalarType<T[P], AggregateSystemEvent[P]>
+  }
+
+
+
+
+  export type SystemEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemEventWhereInput
+    orderBy?: SystemEventOrderByWithAggregationInput | SystemEventOrderByWithAggregationInput[]
+    by: SystemEventScalarFieldEnum[] | SystemEventScalarFieldEnum
+    having?: SystemEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemEventCountAggregateInputType | true
+    _min?: SystemEventMinAggregateInputType
+    _max?: SystemEventMaxAggregateInputType
+  }
+
+  export type SystemEventGroupByOutputType = {
+    id: string
+    tenantId: string
+    operation: string
+    modelName: string
+    entityId: string | null
+    payload: JsonValue | null
+    previousData: JsonValue | null
+    actorUserId: string | null
+    deviceId: string | null
+    ipAddress: string | null
+    createdAt: Date
+    _count: SystemEventCountAggregateOutputType | null
+    _min: SystemEventMinAggregateOutputType | null
+    _max: SystemEventMaxAggregateOutputType | null
+  }
+
+  type GetSystemEventGroupByPayload<T extends SystemEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemEventGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    operation?: boolean
+    modelName?: boolean
+    entityId?: boolean
+    payload?: boolean
+    previousData?: boolean
+    actorUserId?: boolean
+    deviceId?: boolean
+    ipAddress?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | SystemEvent$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["systemEvent"]>
+
+  export type SystemEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    operation?: boolean
+    modelName?: boolean
+    entityId?: boolean
+    payload?: boolean
+    previousData?: boolean
+    actorUserId?: boolean
+    deviceId?: boolean
+    ipAddress?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | SystemEvent$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["systemEvent"]>
+
+  export type SystemEventSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    operation?: boolean
+    modelName?: boolean
+    entityId?: boolean
+    payload?: boolean
+    previousData?: boolean
+    actorUserId?: boolean
+    deviceId?: boolean
+    ipAddress?: boolean
+    createdAt?: boolean
+  }
+
+  export type SystemEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | SystemEvent$actorArgs<ExtArgs>
+  }
+  export type SystemEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | SystemEvent$actorArgs<ExtArgs>
+  }
+
+  export type $SystemEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemEvent"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      actor: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      operation: string
+      modelName: string
+      entityId: string | null
+      payload: Prisma.JsonValue | null
+      previousData: Prisma.JsonValue | null
+      actorUserId: string | null
+      deviceId: string | null
+      ipAddress: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["systemEvent"]>
+    composites: {}
+  }
+
+  type SystemEventGetPayload<S extends boolean | null | undefined | SystemEventDefaultArgs> = $Result.GetResult<Prisma.$SystemEventPayload, S>
+
+  type SystemEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SystemEventFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SystemEventCountAggregateInputType | true
+    }
+
+  export interface SystemEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemEvent'], meta: { name: 'SystemEvent' } }
+    /**
+     * Find zero or one SystemEvent that matches the filter.
+     * @param {SystemEventFindUniqueArgs} args - Arguments to find a SystemEvent
+     * @example
+     * // Get one SystemEvent
+     * const systemEvent = await prisma.systemEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemEventFindUniqueArgs>(args: SelectSubset<T, SystemEventFindUniqueArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SystemEvent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SystemEventFindUniqueOrThrowArgs} args - Arguments to find a SystemEvent
+     * @example
+     * // Get one SystemEvent
+     * const systemEvent = await prisma.systemEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemEventFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SystemEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventFindFirstArgs} args - Arguments to find a SystemEvent
+     * @example
+     * // Get one SystemEvent
+     * const systemEvent = await prisma.systemEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemEventFindFirstArgs>(args?: SelectSubset<T, SystemEventFindFirstArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SystemEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventFindFirstOrThrowArgs} args - Arguments to find a SystemEvent
+     * @example
+     * // Get one SystemEvent
+     * const systemEvent = await prisma.systemEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemEventFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SystemEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemEvents
+     * const systemEvents = await prisma.systemEvent.findMany()
+     * 
+     * // Get first 10 SystemEvents
+     * const systemEvents = await prisma.systemEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemEventWithIdOnly = await prisma.systemEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemEventFindManyArgs>(args?: SelectSubset<T, SystemEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SystemEvent.
+     * @param {SystemEventCreateArgs} args - Arguments to create a SystemEvent.
+     * @example
+     * // Create one SystemEvent
+     * const SystemEvent = await prisma.systemEvent.create({
+     *   data: {
+     *     // ... data to create a SystemEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemEventCreateArgs>(args: SelectSubset<T, SystemEventCreateArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SystemEvents.
+     * @param {SystemEventCreateManyArgs} args - Arguments to create many SystemEvents.
+     * @example
+     * // Create many SystemEvents
+     * const systemEvent = await prisma.systemEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemEventCreateManyArgs>(args?: SelectSubset<T, SystemEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemEvents and returns the data saved in the database.
+     * @param {SystemEventCreateManyAndReturnArgs} args - Arguments to create many SystemEvents.
+     * @example
+     * // Create many SystemEvents
+     * const systemEvent = await prisma.systemEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemEvents and only return the `id`
+     * const systemEventWithIdOnly = await prisma.systemEvent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemEventCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SystemEvent.
+     * @param {SystemEventDeleteArgs} args - Arguments to delete one SystemEvent.
+     * @example
+     * // Delete one SystemEvent
+     * const SystemEvent = await prisma.systemEvent.delete({
+     *   where: {
+     *     // ... filter to delete one SystemEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemEventDeleteArgs>(args: SelectSubset<T, SystemEventDeleteArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SystemEvent.
+     * @param {SystemEventUpdateArgs} args - Arguments to update one SystemEvent.
+     * @example
+     * // Update one SystemEvent
+     * const systemEvent = await prisma.systemEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemEventUpdateArgs>(args: SelectSubset<T, SystemEventUpdateArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SystemEvents.
+     * @param {SystemEventDeleteManyArgs} args - Arguments to filter SystemEvents to delete.
+     * @example
+     * // Delete a few SystemEvents
+     * const { count } = await prisma.systemEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemEventDeleteManyArgs>(args?: SelectSubset<T, SystemEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemEvents
+     * const systemEvent = await prisma.systemEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemEventUpdateManyArgs>(args: SelectSubset<T, SystemEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SystemEvent.
+     * @param {SystemEventUpsertArgs} args - Arguments to update or create a SystemEvent.
+     * @example
+     * // Update or create a SystemEvent
+     * const systemEvent = await prisma.systemEvent.upsert({
+     *   create: {
+     *     // ... data to create a SystemEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemEventUpsertArgs>(args: SelectSubset<T, SystemEventUpsertArgs<ExtArgs>>): Prisma__SystemEventClient<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SystemEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventCountArgs} args - Arguments to filter SystemEvents to count.
+     * @example
+     * // Count the number of SystemEvents
+     * const count = await prisma.systemEvent.count({
+     *   where: {
+     *     // ... the filter for the SystemEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemEventCountArgs>(
+      args?: Subset<T, SystemEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemEventAggregateArgs>(args: Subset<T, SystemEventAggregateArgs>): Prisma.PrismaPromise<GetSystemEventAggregateType<T>>
+
+    /**
+     * Group by SystemEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemEventGroupByArgs['orderBy'] }
+        : { orderBy?: SystemEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemEvent model
+   */
+  readonly fields: SystemEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    actor<T extends SystemEvent$actorArgs<ExtArgs> = {}>(args?: Subset<T, SystemEvent$actorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemEvent model
+   */ 
+  interface SystemEventFieldRefs {
+    readonly id: FieldRef<"SystemEvent", 'String'>
+    readonly tenantId: FieldRef<"SystemEvent", 'String'>
+    readonly operation: FieldRef<"SystemEvent", 'String'>
+    readonly modelName: FieldRef<"SystemEvent", 'String'>
+    readonly entityId: FieldRef<"SystemEvent", 'String'>
+    readonly payload: FieldRef<"SystemEvent", 'Json'>
+    readonly previousData: FieldRef<"SystemEvent", 'Json'>
+    readonly actorUserId: FieldRef<"SystemEvent", 'String'>
+    readonly deviceId: FieldRef<"SystemEvent", 'String'>
+    readonly ipAddress: FieldRef<"SystemEvent", 'String'>
+    readonly createdAt: FieldRef<"SystemEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemEvent findUnique
+   */
+  export type SystemEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemEvent to fetch.
+     */
+    where: SystemEventWhereUniqueInput
+  }
+
+  /**
+   * SystemEvent findUniqueOrThrow
+   */
+  export type SystemEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemEvent to fetch.
+     */
+    where: SystemEventWhereUniqueInput
+  }
+
+  /**
+   * SystemEvent findFirst
+   */
+  export type SystemEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemEvent to fetch.
+     */
+    where?: SystemEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemEvents to fetch.
+     */
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemEvents.
+     */
+    cursor?: SystemEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemEvents.
+     */
+    distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
+  }
+
+  /**
+   * SystemEvent findFirstOrThrow
+   */
+  export type SystemEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemEvent to fetch.
+     */
+    where?: SystemEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemEvents to fetch.
+     */
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemEvents.
+     */
+    cursor?: SystemEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemEvents.
+     */
+    distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
+  }
+
+  /**
+   * SystemEvent findMany
+   */
+  export type SystemEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter, which SystemEvents to fetch.
+     */
+    where?: SystemEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemEvents to fetch.
+     */
+    orderBy?: SystemEventOrderByWithRelationInput | SystemEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemEvents.
+     */
+    cursor?: SystemEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemEvents.
+     */
+    skip?: number
+    distinct?: SystemEventScalarFieldEnum | SystemEventScalarFieldEnum[]
+  }
+
+  /**
+   * SystemEvent create
+   */
+  export type SystemEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SystemEvent.
+     */
+    data: XOR<SystemEventCreateInput, SystemEventUncheckedCreateInput>
+  }
+
+  /**
+   * SystemEvent createMany
+   */
+  export type SystemEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemEvents.
+     */
+    data: SystemEventCreateManyInput | SystemEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemEvent createManyAndReturn
+   */
+  export type SystemEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SystemEvents.
+     */
+    data: SystemEventCreateManyInput | SystemEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SystemEvent update
+   */
+  export type SystemEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SystemEvent.
+     */
+    data: XOR<SystemEventUpdateInput, SystemEventUncheckedUpdateInput>
+    /**
+     * Choose, which SystemEvent to update.
+     */
+    where: SystemEventWhereUniqueInput
+  }
+
+  /**
+   * SystemEvent updateMany
+   */
+  export type SystemEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemEvents.
+     */
+    data: XOR<SystemEventUpdateManyMutationInput, SystemEventUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemEvents to update
+     */
+    where?: SystemEventWhereInput
+  }
+
+  /**
+   * SystemEvent upsert
+   */
+  export type SystemEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SystemEvent to update in case it exists.
+     */
+    where: SystemEventWhereUniqueInput
+    /**
+     * In case the SystemEvent found by the `where` argument doesn't exist, create a new SystemEvent with this data.
+     */
+    create: XOR<SystemEventCreateInput, SystemEventUncheckedCreateInput>
+    /**
+     * In case the SystemEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemEventUpdateInput, SystemEventUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemEvent delete
+   */
+  export type SystemEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
+    /**
+     * Filter which SystemEvent to delete.
+     */
+    where: SystemEventWhereUniqueInput
+  }
+
+  /**
+   * SystemEvent deleteMany
+   */
+  export type SystemEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemEvents to delete
+     */
+    where?: SystemEventWhereInput
+  }
+
+  /**
+   * SystemEvent.actor
+   */
+  export type SystemEvent$actorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * SystemEvent without action
+   */
+  export type SystemEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemEvent
+     */
+    select?: SystemEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SystemEventInclude<ExtArgs> | null
   }
 
 
@@ -92305,6 +93475,23 @@ export namespace Prisma {
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
+  export const SystemEventScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    operation: 'operation',
+    modelName: 'modelName',
+    entityId: 'entityId',
+    payload: 'payload',
+    previousData: 'previousData',
+    actorUserId: 'actorUserId',
+    deviceId: 'deviceId',
+    ipAddress: 'ipAddress',
+    createdAt: 'createdAt'
+  };
+
+  export type SystemEventScalarFieldEnum = (typeof SystemEventScalarFieldEnum)[keyof typeof SystemEventScalarFieldEnum]
+
+
   export const LeadScalarFieldEnum: {
     id: 'id',
     fullName: 'fullName',
@@ -93530,6 +94717,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     devices?: UserDeviceListRelationFilter
+    systemEvents?: SystemEventListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -93567,6 +94755,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
     wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
     devices?: UserDeviceOrderByRelationAggregateInput
+    systemEvents?: SystemEventOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -93607,6 +94796,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     devices?: UserDeviceListRelationFilter
+    systemEvents?: SystemEventListRelationFilter
   }, "id" | "email" | "osmId">
 
   export type UserOrderByWithAggregationInput = {
@@ -93726,6 +94916,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogListRelationFilter
     inventoryItems?: InventoryItemListRelationFilter
     purchaseOrders?: PurchaseOrderListRelationFilter
+    systemEvents?: SystemEventListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -93804,6 +94995,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogOrderByRelationAggregateInput
     inventoryItems?: InventoryItemOrderByRelationAggregateInput
     purchaseOrders?: PurchaseOrderOrderByRelationAggregateInput
+    systemEvents?: SystemEventOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -93885,6 +95077,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogListRelationFilter
     inventoryItems?: InventoryItemListRelationFilter
     purchaseOrders?: PurchaseOrderListRelationFilter
+    systemEvents?: SystemEventListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -95509,6 +96702,94 @@ export namespace Prisma {
     ipAddress?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
     tenantId?: StringWithAggregatesFilter<"AuditLog"> | string
+  }
+
+  export type SystemEventWhereInput = {
+    AND?: SystemEventWhereInput | SystemEventWhereInput[]
+    OR?: SystemEventWhereInput[]
+    NOT?: SystemEventWhereInput | SystemEventWhereInput[]
+    id?: StringFilter<"SystemEvent"> | string
+    tenantId?: StringFilter<"SystemEvent"> | string
+    operation?: StringFilter<"SystemEvent"> | string
+    modelName?: StringFilter<"SystemEvent"> | string
+    entityId?: StringNullableFilter<"SystemEvent"> | string | null
+    payload?: JsonNullableFilter<"SystemEvent">
+    previousData?: JsonNullableFilter<"SystemEvent">
+    actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
+    deviceId?: StringNullableFilter<"SystemEvent"> | string | null
+    ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type SystemEventOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    operation?: SortOrder
+    modelName?: SortOrder
+    entityId?: SortOrderInput | SortOrder
+    payload?: SortOrderInput | SortOrder
+    previousData?: SortOrderInput | SortOrder
+    actorUserId?: SortOrderInput | SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    actor?: UserOrderByWithRelationInput
+  }
+
+  export type SystemEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SystemEventWhereInput | SystemEventWhereInput[]
+    OR?: SystemEventWhereInput[]
+    NOT?: SystemEventWhereInput | SystemEventWhereInput[]
+    tenantId?: StringFilter<"SystemEvent"> | string
+    operation?: StringFilter<"SystemEvent"> | string
+    modelName?: StringFilter<"SystemEvent"> | string
+    entityId?: StringNullableFilter<"SystemEvent"> | string | null
+    payload?: JsonNullableFilter<"SystemEvent">
+    previousData?: JsonNullableFilter<"SystemEvent">
+    actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
+    deviceId?: StringNullableFilter<"SystemEvent"> | string | null
+    ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type SystemEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    operation?: SortOrder
+    modelName?: SortOrder
+    entityId?: SortOrderInput | SortOrder
+    payload?: SortOrderInput | SortOrder
+    previousData?: SortOrderInput | SortOrder
+    actorUserId?: SortOrderInput | SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SystemEventCountOrderByAggregateInput
+    _max?: SystemEventMaxOrderByAggregateInput
+    _min?: SystemEventMinOrderByAggregateInput
+  }
+
+  export type SystemEventScalarWhereWithAggregatesInput = {
+    AND?: SystemEventScalarWhereWithAggregatesInput | SystemEventScalarWhereWithAggregatesInput[]
+    OR?: SystemEventScalarWhereWithAggregatesInput[]
+    NOT?: SystemEventScalarWhereWithAggregatesInput | SystemEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SystemEvent"> | string
+    tenantId?: StringWithAggregatesFilter<"SystemEvent"> | string
+    operation?: StringWithAggregatesFilter<"SystemEvent"> | string
+    modelName?: StringWithAggregatesFilter<"SystemEvent"> | string
+    entityId?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
+    payload?: JsonNullableWithAggregatesFilter<"SystemEvent">
+    previousData?: JsonNullableWithAggregatesFilter<"SystemEvent">
+    actorUserId?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
+    deviceId?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"SystemEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SystemEvent"> | Date | string
   }
 
   export type LeadWhereInput = {
@@ -100206,6 +101487,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -100242,6 +101524,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserUpdateInput = {
@@ -100278,6 +101561,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -100314,6 +101598,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -100438,6 +101723,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -100515,6 +101801,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -100592,6 +101879,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -100669,6 +101957,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -102430,6 +103719,102 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemEventCreateInput = {
+    id?: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSystemEventsInput
+    actor?: UserCreateNestedOneWithoutSystemEventsInput
+  }
+
+  export type SystemEventUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: string | null
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SystemEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSystemEventsNestedInput
+    actor?: UserUpdateOneWithoutSystemEventsNestedInput
+  }
+
+  export type SystemEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemEventCreateManyInput = {
+    id?: string
+    tenantId: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: string | null
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SystemEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeadCreateInput = {
@@ -107521,6 +108906,12 @@ export namespace Prisma {
     none?: UserDeviceWhereInput
   }
 
+  export type SystemEventListRelationFilter = {
+    every?: SystemEventWhereInput
+    some?: SystemEventWhereInput
+    none?: SystemEventWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -107591,6 +108982,10 @@ export namespace Prisma {
   }
 
   export type UserDeviceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SystemEventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -109411,6 +110806,44 @@ export namespace Prisma {
     ipAddress?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
+  }
+
+  export type SystemEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    operation?: SortOrder
+    modelName?: SortOrder
+    entityId?: SortOrder
+    payload?: SortOrder
+    previousData?: SortOrder
+    actorUserId?: SortOrder
+    deviceId?: SortOrder
+    ipAddress?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    operation?: SortOrder
+    modelName?: SortOrder
+    entityId?: SortOrder
+    actorUserId?: SortOrder
+    deviceId?: SortOrder
+    ipAddress?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SystemEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    operation?: SortOrder
+    modelName?: SortOrder
+    entityId?: SortOrder
+    actorUserId?: SortOrder
+    deviceId?: SortOrder
+    ipAddress?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LeadCountOrderByAggregateInput = {
@@ -112102,6 +113535,13 @@ export namespace Prisma {
     connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
   }
 
+  export type SystemEventCreateNestedManyWithoutActorInput = {
+    create?: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput> | SystemEventCreateWithoutActorInput[] | SystemEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutActorInput | SystemEventCreateOrConnectWithoutActorInput[]
+    createMany?: SystemEventCreateManyActorInputEnvelope
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -112238,6 +113678,13 @@ export namespace Prisma {
     connectOrCreate?: UserDeviceCreateOrConnectWithoutUserInput | UserDeviceCreateOrConnectWithoutUserInput[]
     createMany?: UserDeviceCreateManyUserInputEnvelope
     connect?: UserDeviceWhereUniqueInput | UserDeviceWhereUniqueInput[]
+  }
+
+  export type SystemEventUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput> | SystemEventCreateWithoutActorInput[] | SystemEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutActorInput | SystemEventCreateOrConnectWithoutActorInput[]
+    createMany?: SystemEventCreateManyActorInputEnvelope
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -112541,6 +113988,20 @@ export namespace Prisma {
     deleteMany?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
   }
 
+  export type SystemEventUpdateManyWithoutActorNestedInput = {
+    create?: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput> | SystemEventCreateWithoutActorInput[] | SystemEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutActorInput | SystemEventCreateOrConnectWithoutActorInput[]
+    upsert?: SystemEventUpsertWithWhereUniqueWithoutActorInput | SystemEventUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: SystemEventCreateManyActorInputEnvelope
+    set?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    disconnect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    delete?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    update?: SystemEventUpdateWithWhereUniqueWithoutActorInput | SystemEventUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: SystemEventUpdateManyWithWhereWithoutActorInput | SystemEventUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -112811,6 +114272,20 @@ export namespace Prisma {
     update?: UserDeviceUpdateWithWhereUniqueWithoutUserInput | UserDeviceUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserDeviceUpdateManyWithWhereWithoutUserInput | UserDeviceUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserDeviceScalarWhereInput | UserDeviceScalarWhereInput[]
+  }
+
+  export type SystemEventUncheckedUpdateManyWithoutActorNestedInput = {
+    create?: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput> | SystemEventCreateWithoutActorInput[] | SystemEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutActorInput | SystemEventCreateOrConnectWithoutActorInput[]
+    upsert?: SystemEventUpsertWithWhereUniqueWithoutActorInput | SystemEventUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: SystemEventCreateManyActorInputEnvelope
+    set?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    disconnect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    delete?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    update?: SystemEventUpdateWithWhereUniqueWithoutActorInput | SystemEventUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: SystemEventUpdateManyWithWhereWithoutActorInput | SystemEventUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
   }
 
   export type TenantCreateallowedVpnRangesInput = {
@@ -113215,6 +114690,13 @@ export namespace Prisma {
     connect?: PurchaseOrderWhereUniqueInput | PurchaseOrderWhereUniqueInput[]
   }
 
+  export type SystemEventCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput> | SystemEventCreateWithoutTenantInput[] | SystemEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutTenantInput | SystemEventCreateOrConnectWithoutTenantInput[]
+    createMany?: SystemEventCreateManyTenantInputEnvelope
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -113605,6 +115087,13 @@ export namespace Prisma {
     connectOrCreate?: PurchaseOrderCreateOrConnectWithoutTenantInput | PurchaseOrderCreateOrConnectWithoutTenantInput[]
     createMany?: PurchaseOrderCreateManyTenantInputEnvelope
     connect?: PurchaseOrderWhereUniqueInput | PurchaseOrderWhereUniqueInput[]
+  }
+
+  export type SystemEventUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput> | SystemEventCreateWithoutTenantInput[] | SystemEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutTenantInput | SystemEventCreateOrConnectWithoutTenantInput[]
+    createMany?: SystemEventCreateManyTenantInputEnvelope
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -114418,6 +115907,20 @@ export namespace Prisma {
     deleteMany?: PurchaseOrderScalarWhereInput | PurchaseOrderScalarWhereInput[]
   }
 
+  export type SystemEventUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput> | SystemEventCreateWithoutTenantInput[] | SystemEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutTenantInput | SystemEventCreateOrConnectWithoutTenantInput[]
+    upsert?: SystemEventUpsertWithWhereUniqueWithoutTenantInput | SystemEventUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SystemEventCreateManyTenantInputEnvelope
+    set?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    disconnect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    delete?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    update?: SystemEventUpdateWithWhereUniqueWithoutTenantInput | SystemEventUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SystemEventUpdateManyWithWhereWithoutTenantInput | SystemEventUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -115200,6 +116703,20 @@ export namespace Prisma {
     update?: PurchaseOrderUpdateWithWhereUniqueWithoutTenantInput | PurchaseOrderUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: PurchaseOrderUpdateManyWithWhereWithoutTenantInput | PurchaseOrderUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: PurchaseOrderScalarWhereInput | PurchaseOrderScalarWhereInput[]
+  }
+
+  export type SystemEventUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput> | SystemEventCreateWithoutTenantInput[] | SystemEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SystemEventCreateOrConnectWithoutTenantInput | SystemEventCreateOrConnectWithoutTenantInput[]
+    upsert?: SystemEventUpsertWithWhereUniqueWithoutTenantInput | SystemEventUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SystemEventCreateManyTenantInputEnvelope
+    set?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    disconnect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    delete?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    connect?: SystemEventWhereUniqueInput | SystemEventWhereUniqueInput[]
+    update?: SystemEventUpdateWithWhereUniqueWithoutTenantInput | SystemEventUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SystemEventUpdateManyWithWhereWithoutTenantInput | SystemEventUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutApiKeysInput = {
@@ -118064,6 +119581,36 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutAuditLogsInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAuditLogsInput, TenantUpdateWithoutAuditLogsInput>, TenantUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutSystemEventsInput = {
+    create?: XOR<TenantCreateWithoutSystemEventsInput, TenantUncheckedCreateWithoutSystemEventsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSystemEventsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSystemEventsInput = {
+    create?: XOR<UserCreateWithoutSystemEventsInput, UserUncheckedCreateWithoutSystemEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSystemEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutSystemEventsNestedInput = {
+    create?: XOR<TenantCreateWithoutSystemEventsInput, TenantUncheckedCreateWithoutSystemEventsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSystemEventsInput
+    upsert?: TenantUpsertWithoutSystemEventsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSystemEventsInput, TenantUpdateWithoutSystemEventsInput>, TenantUncheckedUpdateWithoutSystemEventsInput>
+  }
+
+  export type UserUpdateOneWithoutSystemEventsNestedInput = {
+    create?: XOR<UserCreateWithoutSystemEventsInput, UserUncheckedCreateWithoutSystemEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSystemEventsInput
+    upsert?: UserUpsertWithoutSystemEventsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSystemEventsInput, UserUpdateWithoutSystemEventsInput>, UserUncheckedUpdateWithoutSystemEventsInput>
   }
 
   export type LeadCreateserviceInterestInput = {
@@ -120977,6 +122524,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -121053,6 +122601,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -121407,6 +122956,42 @@ export namespace Prisma {
 
   export type UserDeviceCreateManyUserInputEnvelope = {
     data: UserDeviceCreateManyUserInput | UserDeviceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemEventCreateWithoutActorInput = {
+    id?: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutSystemEventsInput
+  }
+
+  export type SystemEventUncheckedCreateWithoutActorInput = {
+    id?: string
+    tenantId: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SystemEventCreateOrConnectWithoutActorInput = {
+    where: SystemEventWhereUniqueInput
+    create: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput>
+  }
+
+  export type SystemEventCreateManyActorInputEnvelope = {
+    data: SystemEventCreateManyActorInput | SystemEventCreateManyActorInput[]
     skipDuplicates?: boolean
   }
 
@@ -121924,6 +123509,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -122000,6 +123586,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -122307,6 +123894,39 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UserDevice"> | Date | string
     updatedAt?: DateTimeFilter<"UserDevice"> | Date | string
     lastActiveAt?: DateTimeFilter<"UserDevice"> | Date | string
+  }
+
+  export type SystemEventUpsertWithWhereUniqueWithoutActorInput = {
+    where: SystemEventWhereUniqueInput
+    update: XOR<SystemEventUpdateWithoutActorInput, SystemEventUncheckedUpdateWithoutActorInput>
+    create: XOR<SystemEventCreateWithoutActorInput, SystemEventUncheckedCreateWithoutActorInput>
+  }
+
+  export type SystemEventUpdateWithWhereUniqueWithoutActorInput = {
+    where: SystemEventWhereUniqueInput
+    data: XOR<SystemEventUpdateWithoutActorInput, SystemEventUncheckedUpdateWithoutActorInput>
+  }
+
+  export type SystemEventUpdateManyWithWhereWithoutActorInput = {
+    where: SystemEventScalarWhereInput
+    data: XOR<SystemEventUpdateManyMutationInput, SystemEventUncheckedUpdateManyWithoutActorInput>
+  }
+
+  export type SystemEventScalarWhereInput = {
+    AND?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
+    OR?: SystemEventScalarWhereInput[]
+    NOT?: SystemEventScalarWhereInput | SystemEventScalarWhereInput[]
+    id?: StringFilter<"SystemEvent"> | string
+    tenantId?: StringFilter<"SystemEvent"> | string
+    operation?: StringFilter<"SystemEvent"> | string
+    modelName?: StringFilter<"SystemEvent"> | string
+    entityId?: StringNullableFilter<"SystemEvent"> | string | null
+    payload?: JsonNullableFilter<"SystemEvent">
+    previousData?: JsonNullableFilter<"SystemEvent">
+    actorUserId?: StringNullableFilter<"SystemEvent"> | string | null
+    deviceId?: StringNullableFilter<"SystemEvent"> | string | null
+    ipAddress?: StringNullableFilter<"SystemEvent"> | string | null
+    createdAt?: DateTimeFilter<"SystemEvent"> | Date | string
   }
 
   export type AuditLogCreateWithoutTenantInput = {
@@ -122932,6 +124552,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -122967,6 +124588,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -124065,6 +125687,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChildTenantsInput = {
@@ -124141,6 +125764,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChildTenantsInput = {
@@ -124222,6 +125846,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutParentTenantInput = {
@@ -124298,6 +125923,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutParentTenantInput = {
@@ -124619,6 +126245,42 @@ export namespace Prisma {
 
   export type PurchaseOrderCreateManyTenantInputEnvelope = {
     data: PurchaseOrderCreateManyTenantInput | PurchaseOrderCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SystemEventCreateWithoutTenantInput = {
+    id?: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+    actor?: UserCreateNestedOneWithoutSystemEventsInput
+  }
+
+  export type SystemEventUncheckedCreateWithoutTenantInput = {
+    id?: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: string | null
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SystemEventCreateOrConnectWithoutTenantInput = {
+    where: SystemEventWhereUniqueInput
+    create: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SystemEventCreateManyTenantInputEnvelope = {
+    data: SystemEventCreateManyTenantInput | SystemEventCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -125975,6 +127637,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChildTenantsInput = {
@@ -126051,6 +127714,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUpsertWithWhereUniqueWithoutParentTenantInput = {
@@ -126353,6 +128017,22 @@ export namespace Prisma {
     clientProfileId?: StringNullableFilter<"PurchaseOrder"> | string | null
   }
 
+  export type SystemEventUpsertWithWhereUniqueWithoutTenantInput = {
+    where: SystemEventWhereUniqueInput
+    update: XOR<SystemEventUpdateWithoutTenantInput, SystemEventUncheckedUpdateWithoutTenantInput>
+    create: XOR<SystemEventCreateWithoutTenantInput, SystemEventUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SystemEventUpdateWithWhereUniqueWithoutTenantInput = {
+    where: SystemEventWhereUniqueInput
+    data: XOR<SystemEventUpdateWithoutTenantInput, SystemEventUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SystemEventUpdateManyWithWhereWithoutTenantInput = {
+    where: SystemEventScalarWhereInput
+    data: XOR<SystemEventUpdateManyMutationInput, SystemEventUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantCreateWithoutApiKeysInput = {
     id?: string
     name: string
@@ -126427,6 +128107,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -126503,6 +128184,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -126595,6 +128277,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -126671,6 +128354,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookingCreateWithoutClientInput = {
@@ -126785,6 +128469,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -126861,6 +128546,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -126901,6 +128587,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -126936,6 +128623,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -127789,6 +129477,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -127865,6 +129554,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -127911,6 +129601,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -127946,6 +129637,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -128489,6 +130181,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswProfilesInput = {
@@ -128565,6 +130258,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswProfilesInput = {
@@ -128605,6 +130299,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -128640,6 +130335,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -129203,6 +130899,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswProfilesInput = {
@@ -129279,6 +130976,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutPswProfileInput = {
@@ -129325,6 +131023,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -129360,6 +131059,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -130175,6 +131875,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -130251,6 +131952,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
@@ -130829,6 +132531,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -130905,6 +132608,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ShiftHandoverUpsertWithWhereUniqueWithoutVisitInput = {
@@ -131042,6 +132746,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -131118,6 +132823,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -131332,6 +133038,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -131408,6 +133115,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -131475,6 +133183,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -131510,6 +133219,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -131658,6 +133368,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCheckEventsInput = {
@@ -131734,6 +133445,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCheckEventsInput = {
@@ -131870,6 +133582,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -131905,6 +133618,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -132065,6 +133779,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCheckEventsInput = {
@@ -132141,6 +133856,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -132899,6 +134615,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -132934,6 +134651,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -132974,6 +134692,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -133009,6 +134728,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -133090,6 +134810,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -133166,6 +134887,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -133302,6 +135024,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -133337,6 +135060,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -133383,6 +135107,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -133418,6 +135143,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -133505,6 +135231,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -133581,6 +135308,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -133798,6 +135526,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -133833,6 +135562,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -133914,6 +135644,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -133990,6 +135721,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -134130,6 +135862,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -134165,6 +135898,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -134252,6 +135986,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -134328,6 +136063,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -134739,6 +136475,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -134815,6 +136552,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -135028,6 +136766,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -135104,6 +136843,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -135459,6 +137199,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -135535,6 +137276,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -135809,6 +137551,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -135885,6 +137628,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -135920,6 +137664,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -135955,6 +137700,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -136029,6 +137775,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -136064,6 +137811,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -136128,6 +137876,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -136163,6 +137912,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -136244,6 +137994,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -136320,6 +138071,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -136371,6 +138123,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -136406,6 +138159,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -136493,6 +138247,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -136569,6 +138324,491 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutSystemEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutSystemEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges?: TenantCreateallowedVpnRangesInput | string[]
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSystemEventsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSystemEventsInput, TenantUncheckedCreateWithoutSystemEventsInput>
+  }
+
+  export type UserCreateWithoutSystemEventsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSystemEventsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: UserCreaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSystemEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSystemEventsInput, UserUncheckedCreateWithoutSystemEventsInput>
+  }
+
+  export type TenantUpsertWithoutSystemEventsInput = {
+    update: XOR<TenantUpdateWithoutSystemEventsInput, TenantUncheckedUpdateWithoutSystemEventsInput>
+    create: XOR<TenantCreateWithoutSystemEventsInput, TenantUncheckedCreateWithoutSystemEventsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutSystemEventsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutSystemEventsInput, TenantUncheckedUpdateWithoutSystemEventsInput>
+  }
+
+  export type TenantUpdateWithoutSystemEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSystemEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: TenantUpdateallowedVpnRangesInput | string[]
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutSystemEventsInput = {
+    update: XOR<UserUpdateWithoutSystemEventsInput, UserUncheckedUpdateWithoutSystemEventsInput>
+    create: XOR<UserCreateWithoutSystemEventsInput, UserUncheckedCreateWithoutSystemEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSystemEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSystemEventsInput, UserUncheckedUpdateWithoutSystemEventsInput>
+  }
+
+  export type UserUpdateWithoutSystemEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSystemEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: UserUpdaterolesInput | $Enums.Role[]
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutLeadsInput = {
@@ -136645,6 +138885,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeadsInput = {
@@ -136721,6 +138962,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeadsInput = {
@@ -136813,6 +139055,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeadsInput = {
@@ -136889,6 +139132,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingsInput = {
@@ -137052,6 +139296,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingsInput = {
@@ -137128,6 +139373,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingsInput = {
@@ -137403,6 +139649,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingsInput = {
@@ -137479,6 +139726,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
@@ -137638,6 +139886,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
@@ -137714,6 +139963,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
@@ -137879,6 +140129,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
@@ -137955,6 +140206,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutAssignmentsInput = {
@@ -138098,6 +140350,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -138174,6 +140427,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -138424,6 +140678,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -138500,6 +140755,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutAssignmentsInput = {
@@ -138626,6 +140882,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -138661,6 +140918,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -138712,6 +140970,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -138747,6 +141006,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -138823,6 +141083,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffTasksInput = {
@@ -138899,6 +141160,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffTasksInput = {
@@ -138991,6 +141253,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffTasksInput = {
@@ -139067,6 +141330,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -139169,6 +141433,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -139204,6 +141469,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -139328,6 +141594,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -139363,6 +141630,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -139485,6 +141753,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -139520,6 +141789,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -139601,6 +141871,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -139677,6 +141948,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -139906,6 +142178,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -139941,6 +142214,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -140028,6 +142302,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -140104,6 +142379,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -140230,6 +142506,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutDevicesInput = {
@@ -140265,6 +142542,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutDevicesInput = {
@@ -140316,6 +142594,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDevicesInput = {
@@ -140351,6 +142630,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantCreateWithoutMarketplaceListingsInput = {
@@ -140427,6 +142707,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceListingsInput = {
@@ -140503,6 +142784,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceListingsInput = {
@@ -140595,6 +142877,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceListingsInput = {
@@ -140671,6 +142954,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFeedbacksInput = {
@@ -140834,6 +143118,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeedbacksInput = {
@@ -140910,6 +143195,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeedbacksInput = {
@@ -141180,6 +143466,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeedbacksInput = {
@@ -141256,6 +143543,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutFeedbacksInput = {
@@ -141510,6 +143798,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlansInput = {
@@ -141586,6 +143875,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlansInput = {
@@ -141626,6 +143916,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -141661,6 +143952,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -141846,6 +144138,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlansInput = {
@@ -141922,6 +144215,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutCarePlansAuthoredInput = {
@@ -141968,6 +144262,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -142003,6 +144298,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantCreateWithoutTrainingModulesInput = {
@@ -142079,6 +144375,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingModulesInput = {
@@ -142155,6 +144452,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingModulesInput = {
@@ -142275,6 +144573,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
@@ -142351,6 +144650,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
@@ -142516,6 +144816,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSurveysInput = {
@@ -142592,6 +144893,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSurveysInput = {
@@ -142708,6 +145010,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSurveysInput = {
@@ -142784,6 +145087,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
@@ -142943,6 +145247,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegionsInput = {
@@ -143019,6 +145324,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegionsInput = {
@@ -143141,6 +145447,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegionsInput = {
@@ -143217,6 +145524,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BranchCapacityUpsertWithWhereUniqueWithoutRegionInput = {
@@ -143383,6 +145691,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalRecordsInput = {
@@ -143459,6 +145768,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalRecordsInput = {
@@ -143551,6 +145861,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalRecordsInput = {
@@ -143627,6 +145938,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFhirSyncLogsInput = {
@@ -143703,6 +146015,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFhirSyncLogsInput = {
@@ -143779,6 +146092,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFhirSyncLogsInput = {
@@ -143871,6 +146185,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFhirSyncLogsInput = {
@@ -143947,6 +146262,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiRecommendationsInput = {
@@ -144023,6 +146339,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRecommendationsInput = {
@@ -144099,6 +146416,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRecommendationsInput = {
@@ -144191,6 +146509,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRecommendationsInput = {
@@ -144267,6 +146586,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSentimentAnalysesInput = {
@@ -144343,6 +146663,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSentimentAnalysesInput = {
@@ -144419,6 +146740,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSentimentAnalysesInput = {
@@ -144511,6 +146833,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSentimentAnalysesInput = {
@@ -144587,6 +146910,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSecurityThreatsInput = {
@@ -144663,6 +146987,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSecurityThreatsInput = {
@@ -144739,6 +147064,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSecurityThreatsInput = {
@@ -144831,6 +147157,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSecurityThreatsInput = {
@@ -144907,6 +147234,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSlasInput = {
@@ -144983,6 +147311,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSlasInput = {
@@ -145059,6 +147388,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSlasInput = {
@@ -145151,6 +147481,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSlasInput = {
@@ -145227,6 +147558,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutFleetStatusInput = {
@@ -145595,6 +147927,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitMatchesInput = {
@@ -145671,6 +148004,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitMatchesInput = {
@@ -145927,6 +148261,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitMatchesInput = {
@@ -146003,6 +148338,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutWaitlistEntriesInput = {
@@ -146201,6 +148537,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -146277,6 +148614,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -146503,6 +148841,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -146579,6 +148918,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBranchStatsInput = {
@@ -146655,6 +148995,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBranchStatsInput = {
@@ -146731,6 +149072,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBranchStatsInput = {
@@ -146823,6 +149165,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBranchStatsInput = {
@@ -146899,6 +149242,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutComplianceRecordsInput = {
@@ -146975,6 +149319,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutComplianceRecordsInput = {
@@ -147051,6 +149396,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutComplianceRecordsInput = {
@@ -147143,6 +149489,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutComplianceRecordsInput = {
@@ -147219,6 +149566,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFranchisesInput = {
@@ -147295,6 +149643,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFranchisesInput = {
@@ -147371,6 +149720,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFranchisesInput = {
@@ -147583,6 +149933,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFranchisesInput = {
@@ -147659,6 +150010,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ResellerAgreementUpsertWithWhereUniqueWithoutFranchiseInput = {
@@ -147886,6 +150238,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInventoryItemsInput = {
@@ -147962,6 +150315,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInventoryItemsInput = {
@@ -148141,6 +150495,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInventoryItemsInput = {
@@ -148217,6 +150572,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutInventoryItemsInput = {
@@ -148413,6 +150769,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -148489,6 +150846,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -148701,6 +151059,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -148777,6 +151136,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPurchaseOrdersInput = {
@@ -148946,6 +151306,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -149022,6 +151383,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -149149,6 +151511,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -149184,6 +151547,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -149276,6 +151640,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -149352,6 +151717,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutTelehealthSessionsInput = {
@@ -149491,6 +151857,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -149526,6 +151893,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -149782,6 +152150,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPatientAlertsInput = {
@@ -149858,6 +152227,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPatientAlertsInput = {
@@ -150037,6 +152407,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPatientAlertsInput = {
@@ -150113,6 +152484,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPatientAlertsInput = {
@@ -150282,6 +152654,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInsuranceProvidersInput = {
@@ -150358,6 +152731,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInsuranceProvidersInput = {
@@ -150482,6 +152856,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInsuranceProvidersInput = {
@@ -150558,6 +152933,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClaimUpsertWithWhereUniqueWithoutProviderInput = {
@@ -150650,6 +153026,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClaimsInput = {
@@ -150726,6 +153103,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClaimsInput = {
@@ -150930,6 +153308,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClaimsInput = {
@@ -151006,6 +153385,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutClaimsInput = {
@@ -151262,6 +153642,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPrescriptionsInput = {
@@ -151338,6 +153719,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPrescriptionsInput = {
@@ -151570,6 +153952,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPrescriptionsInput = {
@@ -151646,6 +154029,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPrescriptionsInput = {
@@ -152270,6 +154654,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHandoversInput = {
@@ -152346,6 +154731,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHandoversInput = {
@@ -152602,6 +154988,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHandoversInput = {
@@ -152678,6 +155065,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutOverridesInput = {
@@ -152821,6 +155209,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAvailabilityOverridesInput = {
@@ -152897,6 +155286,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAvailabilityOverridesInput = {
@@ -153062,6 +155452,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAvailabilityOverridesInput = {
@@ -153138,6 +155529,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutPayoutsInput = {
@@ -153281,6 +155673,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayoutsInput = {
@@ -153357,6 +155750,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayoutsInput = {
@@ -153522,6 +155916,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayoutsInput = {
@@ -153598,6 +155993,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutAssessmentsInput = {
@@ -153720,6 +156116,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -153755,6 +156152,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -153836,6 +156234,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalAssessmentsInput = {
@@ -153912,6 +156311,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalAssessmentsInput = {
@@ -154056,6 +156456,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -154091,6 +156492,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -154178,6 +156580,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalAssessmentsInput = {
@@ -154254,6 +156657,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutMedicationReconsInput = {
@@ -154376,6 +156780,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -154411,6 +156816,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -154492,6 +156898,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicationReconsInput = {
@@ -154568,6 +156975,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicationReconsInput = {
@@ -154712,6 +157120,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -154747,6 +157156,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -154834,6 +157244,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicationReconsInput = {
@@ -154910,6 +157321,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutSupervisionLogsInput = {
@@ -155012,6 +157424,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -155047,6 +157460,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -155128,6 +157542,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSupervisionLogsInput = {
@@ -155204,6 +157619,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSupervisionLogsInput = {
@@ -155328,6 +157744,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -155363,6 +157780,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -155450,6 +157868,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -155526,6 +157945,7 @@ export namespace Prisma {
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyNotificationsInput = {
@@ -155689,6 +158109,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -155765,6 +158186,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -155950,6 +158372,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -156026,6 +158449,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutCareFeedbacksInput = {
@@ -156274,6 +158698,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCareFeedbacksInput = {
@@ -156350,6 +158775,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCareFeedbacksInput = {
@@ -156626,6 +159052,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -156702,6 +159129,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutPerformedAuditsInput = {
@@ -156737,6 +159165,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
@@ -156772,6 +159201,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPerformedAuditsInput = {
@@ -156853,6 +159283,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
@@ -156929,6 +159360,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
@@ -156980,6 +159412,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
@@ -157015,6 +159448,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutTechnicalAuditsInput = {
@@ -157102,6 +159536,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
@@ -157178,6 +159613,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingRequestsInput = {
@@ -157341,6 +159777,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingRequestsInput = {
@@ -157417,6 +159854,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingRequestsInput = {
@@ -157602,6 +160040,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
@@ -157678,6 +160117,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDailyAuditSignOffsInput = {
@@ -157713,6 +160153,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -157748,6 +160189,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -157829,6 +160271,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -157905,6 +160348,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -158041,6 +160485,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -158076,6 +160521,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutDailyAuditSignOffsInput = {
@@ -158163,6 +160609,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -158239,6 +160686,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyAuditSignOffInput = {
@@ -158365,6 +160813,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutWellnessPulsesInput = {
@@ -158400,6 +160849,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutWellnessPulsesInput = {
@@ -158481,6 +160931,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
@@ -158557,6 +161008,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
@@ -158608,6 +161060,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -158643,6 +161096,7 @@ export namespace Prisma {
     performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TenantUpsertWithoutWellnessPulsesInput = {
@@ -158730,6 +161184,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -158806,6 +161261,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemTouchpointsInput = {
@@ -158882,6 +161338,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
@@ -158958,6 +161415,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
     inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
     purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
@@ -159050,6 +161508,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
@@ -159126,6 +161585,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -159354,6 +161814,19 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastActiveAt?: Date | string
+  }
+
+  export type SystemEventCreateManyActorInput = {
+    id?: string
+    tenantId: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutActorInput = {
@@ -160042,6 +162515,45 @@ export namespace Prisma {
     lastActiveAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SystemEventUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutSystemEventsNestedInput
+  }
+
+  export type SystemEventUncheckedUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemEventUncheckedUpdateManyWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -160701,6 +163213,19 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     clientProfileId?: string | null
+  }
+
+  export type SystemEventCreateManyTenantInput = {
+    id?: string
+    operation: string
+    modelName: string
+    entityId?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: string | null
+    deviceId?: string | null
+    ipAddress?: string | null
+    createdAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutTenantInput = {
@@ -161369,6 +163894,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -161404,6 +163930,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -162546,6 +165073,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutParentTenantInput = {
@@ -162622,6 +165150,7 @@ export namespace Prisma {
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
     inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
     purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantInput = {
@@ -162958,6 +165487,45 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clientProfileId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SystemEventUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneWithoutSystemEventsNestedInput
+  }
+
+  export type SystemEventUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemEventUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    operation?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    previousData?: NullableJsonNullValueInput | InputJsonValue
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateManyClientInput = {
@@ -166161,6 +168729,10 @@ export namespace Prisma {
      * @deprecated Use AuditLogDefaultArgs instead
      */
     export type AuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuditLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SystemEventDefaultArgs instead
+     */
+    export type SystemEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemEventDefaultArgs<ExtArgs>
     /**
      * @deprecated Use LeadDefaultArgs instead
      */

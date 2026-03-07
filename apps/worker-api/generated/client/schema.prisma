@@ -50,6 +50,7 @@ model User {
   dailyAuditSignOffs    DailyAuditSignOff[]
   wellnessPulses        WellnessPulse[]
   devices               UserDevice[]
+  systemEvents          SystemEvent[]
 
   @@index([tenantId])
   @@map("users")
@@ -137,6 +138,7 @@ model Tenant {
   supervisionLogs       SupervisionLog[]
   inventoryItems        InventoryItem[]
   purchaseOrders        PurchaseOrder[]
+  systemEvents          SystemEvent[]
 
   @@map("tenants")
 }
@@ -492,6 +494,28 @@ model AuditLog {
   @@index([tenantId])
   @@index([deviceId])
   @@map("audit_logs")
+}
+
+model SystemEvent {
+  id           String   @id @default(uuid())
+  tenantId     String   @map("tenant_id")
+  operation    String // CREATE, UPDATE, DELETE
+  modelName    String   @map("model_name")
+  entityId     String?  @map("entity_id")
+  payload      Json?
+  previousData Json?    @map("previous_data")
+  actorUserId  String?  @map("actor_user_id")
+  deviceId     String?  @map("device_id")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  actor  User?  @relation(fields: [actorUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([modelName, entityId])
+  @@index([createdAt])
+  @@map("system_events")
 }
 
 model Lead {

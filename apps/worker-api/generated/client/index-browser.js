@@ -377,6 +377,20 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   tenantId: 'tenantId'
 };
 
+exports.Prisma.SystemEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  operation: 'operation',
+  modelName: 'modelName',
+  entityId: 'entityId',
+  payload: 'payload',
+  previousData: 'previousData',
+  actorUserId: 'actorUserId',
+  deviceId: 'deviceId',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.LeadScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
@@ -1233,6 +1247,7 @@ exports.Prisma.ModelName = {
   MessageThread: 'MessageThread',
   Message: 'Message',
   AuditLog: 'AuditLog',
+  SystemEvent: 'SystemEvent',
   Lead: 'Lead',
   Booking: 'Booking',
   PswAvailability: 'PswAvailability',
