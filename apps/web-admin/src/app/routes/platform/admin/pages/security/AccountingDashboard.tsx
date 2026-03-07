@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ContentRegistry, ApiRegistry } = AdminRegistry;
+const strings = ContentRegistry.ACCOUNTING_DASHBOARD;
 
 interface TradingAccount {
     revenue: number;
@@ -37,9 +41,9 @@ export default function AccountingDashboard() {
         setLoading(true);
         try {
             const [taRes, plRes, bsRes] = await Promise.all([
-                apiClient.get('/platform/admin/financial/reports/trading-account'),
-                apiClient.get('/platform/admin/financial/reports/p-and-l'),
-                apiClient.get('/platform/admin/financial/reports/balance-sheet')
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT),
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.PROFIT_LOSS),
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET)
             ]);
 
             if (taRes.ok) setTradingAcc(await taRes.json());
@@ -68,7 +72,7 @@ export default function AccountingDashboard() {
         }}>
             <div style={{ textAlign: 'center' }}>
                 <div className="loader" style={{ marginBottom: '16px' }}></div>
-                <div style={{ fontSize: '18px', fontWeight: '600', letterSpacing: '0.05em' }}>ORCHESTRATING FINANCIAL ENGINE...</div>
+                <div style={{ fontSize: '18px', fontWeight: '600', letterSpacing: '0.05em' }}>{strings.LOADING}</div>
             </div>
         </div>
     );
@@ -92,9 +96,9 @@ export default function AccountingDashboard() {
             }}>
                 <div>
                     <h1 style={{ fontSize: '36px', fontWeight: '800', margin: '0', background: 'linear-gradient(to right, #60a5fa, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                        Accounting Intelligence
+                        {strings.TITLE}
                     </h1>
-                    <p style={{ color: '#94a3b8', fontSize: '16px', marginTop: '8px' }}>Real-time GAAP reporting for PrimeCare Platform.</p>
+                    <p style={{ color: '#94a3b8', fontSize: '16px', marginTop: '8px' }}>{strings.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button onClick={loadData} style={{
@@ -106,7 +110,7 @@ export default function AccountingDashboard() {
                         cursor: 'pointer',
                         fontWeight: '600',
                         backdropFilter: 'blur(10px)'
-                    }}>Refresh Engine</button>
+                    }}>{strings.REFRESH}</button>
                     <button style={{
                         background: 'linear-gradient(to right, #3b82f6, #2563eb)',
                         border: 'none',
@@ -116,7 +120,7 @@ export default function AccountingDashboard() {
                         cursor: 'pointer',
                         fontWeight: '700',
                         boxShadow: '0 4px 20px rgba(37, 99, 235, 0.3)'
-                    }}>Generate Audit</button>
+                    }}>{strings.GENERATE_AUDIT}</button>
                 </div>
             </header>
 
