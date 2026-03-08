@@ -7,8 +7,20 @@ interface BrandingConfig {
     accentColor: string;
     logoUrl?: string;
     name?: string;
+    tagline?: string;
     isPlatform?: boolean;
+    needsSetup?: boolean;
 }
+
+const DEFAULT_PRIMECARE_BRAND: BrandingConfig = {
+    primaryColor: '#0F172A',
+    accentColor: '#3B82F6',
+    logoUrl: '/primecare-logo-white.svg',
+    name: 'PrimeCare',
+    tagline: 'Compassionate Home Healthcare',
+    isPlatform: true,
+    needsSetup: true,
+};
 
 const CORPORATE_BRANDING: BrandingConfig = {
     primaryColor: '#0F172A', // Slate 900
@@ -40,39 +52,46 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }
 
             try {
-                // Determine tenant context from URL (e.g., pc.ca/slug/...)
                 const pathParts = window.location.pathname.split('/');
                 const slugFromPath = pathParts[1] && pathParts[1] !== 'login' ? pathParts[1] : null;
-
-                // Or from subdomain (slug.pc.ca)
                 const hostParts = window.location.hostname.split('.');
                 const slugFromHost = hostParts.length > 2 ? hostParts[0] : null;
-
                 const querySlug = slugFromHost || slugFromPath;
 
                 if (querySlug) {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/public/branding?slug=${querySlug}`);
+                    const response = await apiClient.get(`/v1/public/branding?slug=${querySlug}`);
                     if (response.ok) {
                         const data = await response.json();
                         if (data.brandingConfig) {
-                            setBranding(data.brandingConfig);
+                            setBranding({
+                                ...data.brandingConfig,
+                                needsSetup: data._needsSetup || false,
+                            });
+                        } else {
+                            setBranding(DEFAULT_PRIMECARE_BRAND);
                         }
+                    } else {
+                        // API error — use default PrimeCare brand, retry in background
+                        setBranding(DEFAULT_PRIMECARE_BRAND);
+                        setTimeout(async () => {
+                            try {
+                                const retry = await apiClient.get(`/v1/public/branding?slug=${querySlug}`);
+                                if (retry.ok) {
+                                    const data = await retry.json();
+                                    if (data.brandingConfig) {
+                                        setBranding({ ...data.brandingConfig, needsSetup: data._needsSetup || false });
+                                    }
+                                }
+                            } catch { /* silent retry */ }
+                        }, 2000);
                     }
                 } else {
-                    // Fallback for admin settings if no public slug is found
-                    const response = await apiClient.get('/v1/admin/settings/branding');
-                    if (response.ok) {
-                        const data = await response.json();
-                        setBranding({
-                            primaryColor: data.brandingConfig?.primaryColor || '#2563EB',
-                            accentColor: data.brandingConfig?.accentColor || '#10B981',
-                            logoUrl: data.logoUrl,
-                            name: data.name
-                        });
-                    }
+                    // No slug — use default PrimeCare brand
+                    setBranding(DEFAULT_PRIMECARE_BRAND);
                 }
             } catch (error) {
                 console.error('Failed to fetch branding', error);
+                setBranding(DEFAULT_PRIMECARE_BRAND);
             } finally {
                 setLoading(false);
             }

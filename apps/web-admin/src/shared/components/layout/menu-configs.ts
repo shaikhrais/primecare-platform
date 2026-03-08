@@ -68,6 +68,7 @@ export const scrumMasterMenu: MenuItem[] = [
     { label: 'Dev KB', path: RouteRegistry.SCRUM_MASTER.DEV_KB, icon: '🛠️' },
     { label: ContentRegistry.SCRUM_MASTER.ENV_AUDIT.TITLE, path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, icon: '🌐' },
     { label: ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.TITLE, path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, icon: '📋' },
+    { label: 'Usage Stats', path: `${RouteRegistry.SCRUM_MASTER.DASHBOARD}/usage-stats`, icon: '📊' },
 ];
 
 export const clientMenu: MenuItem[] = [

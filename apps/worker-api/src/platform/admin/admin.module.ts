@@ -21,6 +21,7 @@ import { riskSurveillanceRoutes } from './routes/risk-surveillance.routes';
 import { clinicalAutopilotRoutes } from './routes/clinical-autopilot.routes';
 import { resellerRoutes } from './routes/reseller.routes';
 import financialRoutes from './financial/financial.routes';
+import registryRoutes from './registries/registries.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -46,6 +47,7 @@ admin.route('/search', searchRoutes);
 admin.route('/reports', reportRoutes);
 admin.route('/scrum', scrumRoutes);
 admin.route('/financial', financialRoutes);
+admin.route('/registries', registryRoutes);
 admin.route('/', contentRoutes);
 
 // Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)

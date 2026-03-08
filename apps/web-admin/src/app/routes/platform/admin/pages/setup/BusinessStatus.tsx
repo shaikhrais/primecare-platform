@@ -31,7 +31,7 @@ export default function BusinessStatus() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await apiClient.get(ApiRegistry.ADMIN.STATS);
+                const response = await apiClient.get('/v1/public/stats');
                 if (response.ok) {
                     const data = await response.json();
                     setStats(data);

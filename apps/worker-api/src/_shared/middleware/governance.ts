@@ -12,7 +12,7 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
         c.set('deviceId', deviceId);
         const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
 
-        if (!tenantId) {
+        if (!tenantId || !prisma) {
             return await next();
         }
 

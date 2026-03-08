@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+import { useRouteTracker } from '@/shared/hooks/useRouteTracker';
 
 // Components
 import { Sidebar } from './Sidebar';
@@ -23,6 +24,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const isMobile = useMediaQuery('(max-width: 1024px)');
+    useRouteTracker(); // auto-track every navigation
 
     useEffect(() => {
         setIsSidebarOpen(false);

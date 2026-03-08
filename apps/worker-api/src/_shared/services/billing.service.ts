@@ -1,5 +1,19 @@
 import { FinancialService } from './financial.service';
-import { Decimal } from '@prisma/client/runtime/library';
+
+/** Lightweight Decimal for Cloudflare Workers (replaces @prisma/client Decimal) */
+class Decimal {
+    private value: number;
+    constructor(v: number | string | Decimal) {
+        this.value = typeof v === 'object' && v instanceof Decimal ? v.toNumber() : Number(v);
+    }
+    times(other: number | string | Decimal) { return new Decimal(this.value * new Decimal(other).toNumber()); }
+    dividedBy(other: number | string | Decimal) { return new Decimal(this.value / new Decimal(other).toNumber()); }
+    plus(other: number | string | Decimal) { return new Decimal(this.value + new Decimal(other).toNumber()); }
+    greaterThanOrEqualTo(other: number | string | Decimal) { return this.value >= new Decimal(other).toNumber(); }
+    toNumber() { return this.value; }
+    toString() { return this.value.toString(); }
+    toJSON() { return this.value; }
+}
 
 export class BillingService {
     private financialService: FinancialService;
@@ -14,8 +28,8 @@ export class BillingService {
     async generateInvoice(params: {
         tenantId: string;
         clientId: string;
-        amount: number | Decimal;
-        tax?: number | Decimal;
+        amount: number;
+        tax?: number;
     }) {
         let { tenantId, clientId, amount, tax } = params;
 
@@ -26,10 +40,10 @@ export class BillingService {
                 select: { taxPercentage: true }
             });
             const taxPct = new Decimal((tenant?.taxPercentage || 0).toString());
-            tax = new Decimal(amount).times(taxPct.dividedBy(100));
+            tax = new Decimal(amount).times(taxPct.dividedBy(100)).toNumber();
         }
 
-        const total = new Decimal(amount).plus(new Decimal(tax));
+        const total = new Decimal(amount).plus(new Decimal(tax ?? 0));
 
         return await this.prisma.$transaction(async (tx: any) => {
             // 2. Create the business record
@@ -37,15 +51,15 @@ export class BillingService {
                 data: {
                     tenantId,
                     clientId,
-                    subtotal: new Decimal(amount),
-                    tax: new Decimal(tax),
-                    total,
+                    subtotal: new Decimal(amount).toNumber(),
+                    tax: new Decimal(tax ?? 0).toNumber(),
+                    total: total.toNumber(),
                     status: 'posted'
                 }
             });
 
             // 3. Create the financial ledger entries (AR/Revenue/Tax)
-            await this.financialService.recordInvoice(tenantId, invoice.id, amount, tax!);
+            await this.financialService.recordInvoice(tenantId, invoice.id, Number(amount), Number(tax!));
 
             return invoice;
         });
@@ -57,7 +71,7 @@ export class BillingService {
     async processPayment(params: {
         tenantId: string;
         invoiceId: string;
-        amount: number | Decimal;
+        amount: number;
         method: string;
     }) {
         const { tenantId, invoiceId, amount, method } = params;
@@ -67,7 +81,7 @@ export class BillingService {
             const payment = await tx.payment.create({
                 data: {
                     invoiceId,
-                    amount: new Decimal(amount),
+                    amount: new Decimal(amount).toNumber(),
                     status: 'completed'
                 }
             });
@@ -89,7 +103,7 @@ export class BillingService {
             }
 
             // 3. Create the financial ledger entries (Cash/AR)
-            await this.financialService.recordPayment(tenantId, payment.id, amount, invoiceId);
+            await this.financialService.recordPayment(tenantId, payment.id, Number(amount), invoiceId);
 
             return payment;
         });
@@ -101,7 +115,7 @@ export class BillingService {
     async recordExpense(params: {
         tenantId: string;
         category: string;
-        amount: number | Decimal;
+        amount: number;
         description: string;
     }) {
         const { tenantId, category, amount, description } = params;
@@ -113,10 +127,10 @@ export class BillingService {
             tenantId,
             type: 'EXPENSE',
             referenceId: 'MANUAL', // Or some document ID
-            amount,
+            amount: Number(amount),
             entries: [
-                { accountCode, debit: amount }, // Expense account
-                { accountCode: '1000', credit: amount } // Cash
+                { accountCode, debit: Number(amount) }, // Expense account
+                { accountCode: '1000', credit: Number(amount) } // Cash
             ]
         });
     }

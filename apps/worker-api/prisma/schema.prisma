@@ -153,7 +153,30 @@ model Tenant {
   financialReconciliations FinancialReconciliation[]
   bankTransactions        BankTransaction[]
 
+  // Registry
+  registries              Registry[]
+
   @@map("tenants")
+}
+
+model Registry {
+  id          String   @id @default(uuid())
+  key         String   // dot-path key e.g. "ADMIN_DASHBOARD.TITLE"
+  value       String   // the actual text/content value
+  category    String   // content, api, route, theme, button, interaction
+  section     String?  // grouping: e.g. "dashboards", "nav", "operations"
+  metadata    Json?    // extra config, icon, color, etc.
+  tenantId    String?  @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@unique([key, tenantId])
+  @@index([category])
+  @@index([section])
+  @@index([tenantId])
+  @@map("registries")
 }
 
 model ApiKey {

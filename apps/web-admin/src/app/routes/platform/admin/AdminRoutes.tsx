@@ -89,6 +89,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SERVICES} element={<Services />} />
         <Route path={RouteRegistry.ADMIN.SETTINGS} element={<Settings />} />
         <Route path={RouteRegistry.ADMIN.CONTENT} element={<ContentManager />} />
+        <Route path={RouteRegistry.ADMIN.AUDITS} element={<AuditLogs />} />
         <Route path={RouteRegistry.ADMIN.ADMISSION} element={<LeadAdmission />} />
         <Route path={RouteRegistry.ADMIN.ONBOARDING} element={<Onboarding />} />
         <Route path={RouteRegistry.ADMIN.REPORTS} element={<ReportCenter />} />

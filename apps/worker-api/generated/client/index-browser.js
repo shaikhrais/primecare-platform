@@ -159,7 +159,20 @@ exports.Prisma.TenantScalarFieldEnum = {
   corsAllowedOrigins: 'corsAllowedOrigins',
   corsAllowedMethods: 'corsAllowedMethods',
   corsAllowedHeaders: 'corsAllowedHeaders',
+  taxPercentage: 'taxPercentage',
   parentTenantId: 'parentTenantId'
+};
+
+exports.Prisma.RegistryScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  category: 'category',
+  section: 'section',
+  metadata: 'metadata',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ApiKeyScalarFieldEnum = {
@@ -1122,6 +1135,7 @@ exports.Prisma.FinancialTransactionScalarFieldEnum = {
   type: 'type',
   referenceId: 'referenceId',
   amount: 'amount',
+  currency: 'currency',
   status: 'status',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -1134,6 +1148,7 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   accountId: 'accountId',
   debit: 'debit',
   credit: 'credit',
+  currency: 'currency',
   balanceBefore: 'balanceBefore',
   balanceAfter: 'balanceAfter',
   tenantId: 'tenantId',
@@ -1154,6 +1169,7 @@ exports.Prisma.BankTransactionScalarFieldEnum = {
   bankDate: 'bankDate',
   description: 'description',
   amount: 'amount',
+  currency: 'currency',
   externalRef: 'externalRef',
   status: 'status',
   tenantId: 'tenantId',
@@ -1306,6 +1322,7 @@ exports.TransactionState = exports.$Enums.TransactionState = {
 exports.Prisma.ModelName = {
   User: 'User',
   Tenant: 'Tenant',
+  Registry: 'Registry',
   ApiKey: 'ApiKey',
   ClientProfile: 'ClientProfile',
   PswProfile: 'PswProfile',

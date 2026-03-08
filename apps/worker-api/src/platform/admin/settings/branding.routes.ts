@@ -44,8 +44,12 @@ const updateBrandingRoute = createRoute({
                         logoUrl: z.string().url().optional(),
                         brandingConfig: z.object({
                             primaryColor: z.string().optional(),
+                            primaryDarkColor: z.string().optional(),
                             accentColor: z.string().optional(),
+                            backgroundColor: z.string().optional(),
+                            surfaceColor: z.string().optional(),
                             fontFamily: z.string().optional(),
+                            presetName: z.string().optional(),
                         }).optional(),
                     }),
                 },

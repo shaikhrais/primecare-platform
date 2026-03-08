@@ -59,9 +59,11 @@ app.use('*', async (c, next) => {
     }
 
     const corsMiddleware = cors({
-        origin: (origin) => {
-            if (allowedOrigins.includes(origin)) return origin;
-            if (allowedOrigins.includes('*')) return origin;
+        origin: (reqOrigin) => {
+            if (allowedOrigins.includes(reqOrigin)) return reqOrigin;
+            if (allowedOrigins.includes('*')) return reqOrigin;
+            // Support Cloudflare Pages preview subdomains
+            if (/^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(reqOrigin)) return reqOrigin;
             return allowedOrigins[0];
         },
         allowMethods: allowedMethods,
@@ -84,7 +86,8 @@ app.onError((err, c) => {
 
     const origin = c.req.header('Origin');
     const allowed = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
-    const headerOrigin = allowed.includes(origin || '') ? origin! : allowed[0];
+    const isPreview = origin && /^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(origin);
+    const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0];
 
     c.header('Access-Control-Allow-Origin', headerOrigin);
     c.header('Access-Control-Allow-Credentials', 'true');
@@ -105,12 +108,50 @@ app.get('/v1/public/branding', async (c) => {
     const prisma = c.get('prisma');
     const slug = c.req.query('slug');
     if (!slug) return c.json({ error: 'Slug required' }, 400);
-    const tenant = await prisma.tenant.findUnique({
-        where: { slug },
-        select: { brandingConfig: true, logoUrl: true, name: true }
-    });
-    if (!tenant) return c.json({ error: 'Tenant not found' }, 404);
-    return c.json(tenant);
+
+    // Default PrimeCare brand — returned when branding is not configured
+    const DEFAULT_BRAND = {
+        name: 'PrimeCare',
+        slug: slug,
+        status: 'active',
+        logoUrl: '/primecare-logo-white.svg',
+        brandingConfig: {
+            primaryColor: '#0F172A',
+            accentColor: '#3B82F6',
+            logoUrl: '/primecare-logo-white.svg',
+            name: 'PrimeCare',
+            tagline: 'Compassionate Home Healthcare',
+            isPlatform: true,
+        },
+        _needsSetup: true,
+    };
+
+    if (!prisma) return c.json(DEFAULT_BRAND);
+    try {
+        const tenant = await prisma.tenant.findUnique({
+            where: { slug },
+            select: { name: true, slug: true, status: true, logoUrl: true, brandingConfig: true }
+        });
+        if (!tenant) return c.json(DEFAULT_BRAND);
+        // If tenant exists but has no branding configured, return default with tenant name
+        if (!tenant.brandingConfig) {
+            return c.json({ ...DEFAULT_BRAND, name: tenant.name, _needsSetup: true });
+        }
+        return c.json(tenant);
+    } catch (e: any) {
+        try {
+            const basic = await prisma.tenant.findUnique({
+                where: { slug },
+                select: { name: true, slug: true, status: true }
+            });
+            if (basic && !basic.brandingConfig) {
+                return c.json({ ...DEFAULT_BRAND, name: basic.name, _needsSetup: true });
+            }
+            return c.json({ ...basic, brandingConfig: DEFAULT_BRAND.brandingConfig, logoUrl: DEFAULT_BRAND.logoUrl });
+        } catch {
+            return c.json(DEFAULT_BRAND);
+        }
+    }
 });
 
 // 4. OpenAPI Documentation
@@ -152,4 +193,112 @@ app.post('/v1/marketing/leads', async (c) => {
     return c.json({ success: true, lead }, 201);
 });
 
-export default app;
+// 7. Public Stats (no auth required — used by Summary Dashboard)
+app.get('/v1/public/stats', async (c) => {
+    try {
+        const prisma = c.get('prisma');
+        if (!prisma) {
+            return c.json({ error: 'Prisma not initialized', totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() });
+        }
+
+        // Single raw SQL query for all counts — minimal CPU/connection usage
+        const result: any[] = await prisma.$queryRawUnsafe(`
+            SELECT
+                (SELECT COUNT(*) FROM users)::int AS "totalUsers",
+                (SELECT COUNT(*) FROM visits)::int AS "totalVisits",
+                (SELECT COUNT(*) FROM visits WHERE status = 'requested')::int AS "pendingVisits",
+                (SELECT COUNT(*) FROM leads)::int AS "totalLeads"
+        `);
+
+        const row = result[0] || { totalUsers: 0, totalVisits: 0, pendingVisits: 0, totalLeads: 0 };
+
+        return c.json({
+            totalUsers: row.totalUsers || 0,
+            pendingVisits: row.pendingVisits || 0,
+            totalVisits: row.totalVisits || 0,
+            totalLeads: row.totalLeads || 0,
+            modelScore: 0, MTD_REVENUE: '0.00',
+            healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 },
+            syncedAt: new Date().toISOString(),
+        });
+    } catch (e: any) {
+        return c.json({
+            totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0,
+            modelScore: 0, MTD_REVENUE: '0.00',
+            healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 },
+            error: e.message || 'Unknown error',
+            syncedAt: new Date().toISOString(),
+        });
+    }
+});
+
+// 8. Public Registries (no auth required — used by frontend to load registry data from DB)
+app.get('/v1/public/registries', async (c) => {
+    const prisma = c.get('prisma');
+    const category = c.req.query('category');
+    const section = c.req.query('section');
+    try {
+        const where: any = {};
+        if (category) where.category = category;
+        if (section) where.section = section;
+        const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' } });
+        return c.json({ total: items.length, items, syncedAt: new Date().toISOString() });
+    } catch (e: any) {
+        return c.json({ total: 0, items: [], error: e.message });
+    }
+});
+
+// Wrap export to guarantee CORS headers on ALL responses (including 500 errors)
+const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
+const CORS_PREVIEW_RE = /^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/;
+
+export default {
+    ...app,
+    async fetch(request: Request, env: any, ctx: any) {
+        const origin = request.headers.get('Origin') || '';
+        const isAllowed = CORS_ORIGINS.includes(origin) || CORS_PREVIEW_RE.test(origin);
+        const allowOrigin = isAllowed ? origin : CORS_ORIGINS[0];
+
+        // Handle preflight
+        if (request.method === 'OPTIONS') {
+            return new Response(null, {
+                status: 204,
+                headers: {
+                    'Access-Control-Allow-Origin': allowOrigin,
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type,Authorization,X-Requested-With,Accept,X-Tenant-ID,x-tenant-id,x-tenant-slug,X-Device-ID,X-Device-Name,X-Device-Type,X-Is-Temporary',
+                    'Access-Control-Allow-Credentials': 'true',
+                    'Access-Control-Max-Age': '600',
+                },
+            });
+        }
+
+        try {
+            const response = await app.fetch(request, env, ctx);
+            // Clone and ensure CORS headers are present
+            const newHeaders = new Headers(response.headers);
+            newHeaders.set('Access-Control-Allow-Origin', allowOrigin);
+            newHeaders.set('Access-Control-Allow-Credentials', 'true');
+            return new Response(response.body, { status: response.status, statusText: response.statusText, headers: newHeaders });
+        } catch (err: any) {
+            // Ultimate fallback for uncaught errors
+            return new Response(JSON.stringify({ error: err.message || 'Internal Server Error' }), {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': allowOrigin,
+                    'Access-Control-Allow-Credentials': 'true',
+                },
+            });
+        }
+    },
+    // Cron trigger: keep worker warm by initializing Prisma every minute
+    async scheduled(event: any, env: any, ctx: any) {
+        // Hit auth/whoami (non-light route) to force WASM/Prisma initialization
+        // The 401 response is expected — the WASM init is the goal
+        try {
+            const req = new Request('https://primecare-api.itpro-mohammed.workers.dev/v1/auth/whoami');
+            await app.fetch(req, env, ctx);
+        } catch { /* ignore */ }
+    },
+};

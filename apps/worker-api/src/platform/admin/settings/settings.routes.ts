@@ -3,6 +3,8 @@ import { Bindings, Variables } from '../../../bindings';
 import brandingRoutes from './branding.routes';
 import securityRoutes from './security.routes';
 
+import usageStatsRoutes from './usage-stats.routes';
+
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // PATCH /business-model - Save tenant business model settings
@@ -110,5 +112,6 @@ r.post('/logo', async (c) => {
 
 r.route('/branding', brandingRoutes);
 r.route('/security', securityRoutes);
+r.route('/usage-stats', usageStatsRoutes);
 
 export default r;

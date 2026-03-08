@@ -19,9 +19,7 @@ export const ChartCard = ({
     onClick,
     isDemo
 }: ChartCardProps) => {
-    useEffect(() => {
-        console.log(`[ChartCard] Mounting: ${title} | Height: ${height} | Demo: ${isDemo}`);
-    }, [title, height, isDemo]);
+
 
     return (
         <div
@@ -65,8 +63,8 @@ export const ChartCard = ({
             <div style={{
                 width: '100%',
                 height: typeof height === 'number' ? height : 300,
-                minHeight: typeof height === 'number' ? height : 300,
-                minWidth: 0,
+                minHeight: typeof height === 'number' ? Math.max(height, 1) : 1,
+                minWidth: 1,
                 overflow: 'hidden',
                 position: 'relative',
                 display: 'block'

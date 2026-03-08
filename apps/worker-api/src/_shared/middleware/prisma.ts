@@ -11,6 +11,18 @@ export const prismaMiddleware = () => {
         // Skip for OPTIONS
         if (c.req.method === 'OPTIONS') return await next();
 
+        // Check if this is a light route BEFORE attempting Prisma WASM init
+        // WASM import can exceed Cloudflare's CPU limit and kill the isolate
+        const path = c.req.path;
+        const isLightRoute = path.startsWith('/v1/public/') || path.startsWith('/v1/debug/') || path.startsWith('/v1/marketing/') || path === '/v1/health';
+
+        if (!prismaInstance && isLightRoute) {
+            // Don't load WASM for light routes — use fallback data
+            c.set('prisma', null as any);
+            c.set('can', async () => false);
+            return await next();
+        }
+
         if (!prismaInstance) {
             const dbUrl = c.env.DATABASE_URL;
             const isAccelerate = dbUrl?.startsWith('prisma://');
@@ -41,21 +53,29 @@ export const prismaMiddleware = () => {
                     console.log('[PRISMA_INIT_SUCCESS] Direct (WASM)');
                 }
             } catch (err: any) {
-                console.error('[PRISMA_INIT_ERROR]', err.message, err.stack);
-                throw err;
+                console.error('[PRISMA_INIT_ERROR]', err.message);
+                // DON'T throw — let route handlers handle null prisma gracefully
+                // prismaInstance stays null, next request will retry init
             }
         }
 
         let reqPrisma = prismaInstance;
+        if (!reqPrisma) {
+            // Prisma failed to init — let route handler deal with null
+            c.set('prisma', null as any);
+            c.set('can', async () => false);
+            return await next();
+        }
         const payload = c.get('jwtPayload');
         const isSuperAdmin = payload?.roles?.includes('super_admin');
         let tenantId = payload?.tenantId || c.req.header('X-Tenant-ID');
 
-        // Tenant Detection
-        if (!tenantId && prismaInstance) {
+        // Tenant Detection — skip for public/debug/auth routes (path/isLightRoute declared above)
+
+        if (!tenantId && prismaInstance && !isLightRoute) {
             const host = c.req.header('Host') || '';
             const parts = host.split('.');
-            if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost'].includes(parts[0])) {
+            if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost', 'primecare-api'].includes(parts[0])) {
                 const tenantSlug = parts[0];
                 const tenant = await prismaInstance.tenant.findUnique({
                     where: { slug: tenantSlug },
@@ -69,12 +89,16 @@ export const prismaMiddleware = () => {
             reqPrisma = reqPrisma.$extends(tenantExtension(tenantId as string));
         }
 
-        const currentDeviceId = c.get('deviceId');
-        const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
-        const actorUserId = payload?.sub;
-
-        reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
-        reqPrisma = reqPrisma.$extends(forensicExtension(actorUserId, currentDeviceId, clientIp));
+        // Skip heavy extensions for GET requests and light routes (avoids CPU timeout)
+        // Forensic SHA-256 hashing is only relevant for mutations
+        const isMutation = c.req.method !== 'GET' && c.req.method !== 'HEAD';
+        if (!isLightRoute && isMutation) {
+            const currentDeviceId = c.get('deviceId');
+            const clientIp = c.req.header('CF-Connecting-IP') || '127.0.0.1';
+            const actorUserId = payload?.sub;
+            reqPrisma = reqPrisma.$extends(auditExtension(currentDeviceId));
+            reqPrisma = reqPrisma.$extends(forensicExtension(actorUserId, currentDeviceId, clientIp));
+        }
 
         c.set('prisma', reqPrisma);
         c.set('can', async () => (payload?.roles?.includes('admin') || payload?.roles?.includes('super_admin')) ?? false);

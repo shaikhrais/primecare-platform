@@ -3,7 +3,6 @@ import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 
 const { RouteRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
 
 interface User {
     id: string;
@@ -41,14 +40,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const finalUser = { ...userData, activeRole };
                 setUser(finalUser);
                 localStorage.setItem('user', JSON.stringify(finalUser));
-            } else {
+            } else if (response.status === 401) {
+                // Only clear on explicit 401 (unauthorized) — NOT on 500 (cold start)
                 setUser(null);
                 localStorage.removeItem('user');
-                localStorage.removeItem('token'); // Cleanup legacy token
+                localStorage.removeItem('token');
+            } else {
+                // Server error (500 cold start) — use cached user, no retry
+                const cachedUser = localStorage.getItem('user');
+                if (cachedUser) {
+                    setUser(JSON.parse(cachedUser));
+                }
             }
         } catch (error) {
-            console.error('Silent re-auth failed:', error);
-            setUser(null);
+            // Network error — use cached user
+            const cachedUser = localStorage.getItem('user');
+            if (cachedUser) {
+                setUser(JSON.parse(cachedUser));
+            }
         } finally {
             setLoading(false);
         }
@@ -81,7 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const logout = async () => {
         try {
-            await fetch(`${API_URL}/v1/auth/logout`, { method: 'POST', credentials: 'include' });
+            await apiClient.post('/v1/auth/logout');
         } catch (e) {
             console.error('Logout failed', e);
         }

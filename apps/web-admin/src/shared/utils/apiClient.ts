@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 interface RequestOptions extends RequestInit {
     params?: Record<string, string>;
@@ -39,7 +39,23 @@ export const apiClient = {
             credentials: 'include',
         };
 
-        let response = await fetch(url, defaultOptions);
+        // Retry with backoff for cold-start resilience
+        let response!: Response;
+        let lastError: any;
+        for (let attempt = 0; attempt < 3; attempt++) {
+            try {
+                response = await fetch(url, defaultOptions);
+                lastError = null;
+                break;
+            } catch (err) {
+                lastError = err;
+                // Only retry on network errors (cold start crashes), not HTTP errors
+                if (attempt < 2) {
+                    await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
+                }
+            }
+        }
+        if (lastError) throw lastError;
 
         // Handle Token Refresh (401)
         const { AdminRegistry } = await import('prime-care-shared');
@@ -90,6 +106,9 @@ export const apiClient = {
                 console.error('Refresh re-auth attempt failed', err);
             }
         }
+
+        // Auto-track API usage (lazy import — zero cost if tracker not loaded)
+        import('@/shared/services/UsageTracker').then(m => m.UsageTracker.trackApiCall(path, init.method || 'GET', !response.ok)).catch(() => { });
 
         return response;
     },

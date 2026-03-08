@@ -32,3 +32,7 @@ bindings = [
 [[migrations]]
 tag = "v1"
 new_classes = ["ChatServer"]
+
+# Keep worker warm — prevent Prisma cold start crashes
+[triggers]
+crons = ["* * * * *"]
