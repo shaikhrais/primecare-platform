@@ -33,7 +33,6 @@ const loginRoute = createRoute({
                 'application/json': {
                     schema: z.object({
                         user: z.any(),
-                        token: z.string(),
                         deviceStatus: z.string().optional(),
                         message: z.string().optional(),
                     }),
@@ -149,7 +148,7 @@ r.openapi(loginRoute, async (c) => {
                 const safeUserPending = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
                 return c.json({
                     user: safeUserPending,
-                    token: accessToken,
+                    // R19: token removed from body — HttpOnly cookie handles auth
                     deviceStatus: 'pending_approval',
                     message: 'Login successful, but this device requires administrator approval.'
                 }, 200);
@@ -197,7 +196,8 @@ r.openapi(loginRoute, async (c) => {
 
     // Return safe user fields only — NEVER expose passwordHash, resetToken, etc.
     const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
-    return c.json({ user: safeUser, token: accessToken }, 200);
+    // R19: Don't return token in body — HttpOnly cookie handles auth
+    return c.json({ user: safeUser }, 200);
 });
 
 // Switch Role
@@ -269,7 +269,8 @@ r.openapi(switchRoleRoute, async (c) => {
         path: '/'
     });
 
-    return c.json({ token, activeRole: targetRole }, 200);
+    // R19: Don't return token in body — HttpOnly cookie handles auth
+    return c.json({ activeRole: targetRole }, 200);
 });
 
 export default r;

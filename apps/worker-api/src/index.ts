@@ -64,7 +64,8 @@ app.use('*', async (c, next) => {
     const corsMiddleware = cors({
         origin: (reqOrigin) => {
             if (allowedOrigins.includes(reqOrigin)) return reqOrigin;
-            if (allowedOrigins.includes('*')) return reqOrigin;
+            // R20: Block wildcard (*) with credentials — browsers reject this combination
+            // and it's a security risk. Only match exact origins.
             // Support Cloudflare Pages preview subdomains
             if (/^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(reqOrigin)) return reqOrigin;
             return allowedOrigins[0];
@@ -124,7 +125,7 @@ app.use('*', sessionTimeout());    // R3: X-Session-Expires-In header
 app.use('*', async (c, next) => {
     await next();
     c.header('X-API-Version', '1.0.0');
-    c.header('X-Powered-By', 'PrimeCare Platform');
+    // R20: Don't expose server technology — removed X-Powered-By
 });
 
 // 3.5 Public Branding
@@ -161,7 +162,22 @@ app.get('/v1/public/branding', async (c) => {
         if (!tenant.brandingConfig) {
             return c.json({ ...DEFAULT_BRAND, name: tenant.name, _needsSetup: true });
         }
-        return c.json(tenant);
+        // R20: Only return safe visual branding fields — not full tenant
+        const config = (tenant.brandingConfig as any) || {};
+        return c.json({
+            name: tenant.name,
+            slug: tenant.slug,
+            status: tenant.status,
+            logoUrl: tenant.logoUrl,
+            brandingConfig: {
+                primaryColor: config.primaryColor,
+                accentColor: config.accentColor,
+                logoUrl: config.logoUrl,
+                name: config.name,
+                tagline: config.tagline,
+                isPlatform: config.isPlatform,
+            },
+        });
     } catch (e: any) {
         try {
             const basic = await prisma.tenant.findUnique({

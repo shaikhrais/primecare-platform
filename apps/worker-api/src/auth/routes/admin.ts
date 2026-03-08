@@ -114,7 +114,8 @@ r.openapi(impersonateRoute, async (c) => {
         tenantId: targetUser.tenantId,
     };
 
-    return c.json({ user: safeUser, token: accessToken }, 200);
+    // R19: Don't return token in body — HttpOnly cookie handles auth
+    return c.json({ user: safeUser }, 200);
 });
 
 export default r;

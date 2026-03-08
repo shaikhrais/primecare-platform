@@ -119,7 +119,11 @@ r.openapi(updateProfileRoute, async (c) => {
     try {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            include: { pswProfile: true, clientProfile: true }
+            // R20: Don't load passwordHash — only need roles + tenantId for profile update
+            select: {
+                id: true, email: true, roles: true, phone: true, tenantId: true,
+                pswProfile: true, clientProfile: true,
+            }
         });
 
         if (!user) return c.json({ error: 'User not found' }, 404);

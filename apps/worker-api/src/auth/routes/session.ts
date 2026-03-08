@@ -70,7 +70,8 @@ r.openapi(refreshRoute, async (c) => {
             path: '/'
         });
 
-        return c.json({ token: accessToken }, 200);
+        // R19: Don't return token in body — HttpOnly cookie handles auth
+        return c.json({ refreshed: true }, 200);
     } catch (e) {
         return c.json({ error: 'Invalid refresh token' }, 401);
     }

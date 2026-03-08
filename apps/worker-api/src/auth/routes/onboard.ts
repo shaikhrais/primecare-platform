@@ -7,6 +7,10 @@ import { hashPassword } from '../../_shared/utils/crypto';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
+// R19: Rate limit onboarding (5 per minute per IP)
+import { authRateLimit } from '../../_shared/middleware/rate-limit';
+r.use('/onboard-business', authRateLimit);
+
 // POST /v1/auth/onboard-business
 const onboardRoute = createRoute({
     method: 'post',
@@ -92,7 +96,8 @@ r.openapi(onboardRoute, async (c) => {
 
     // R4: Return safe objects (no passwordHash)
     const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId };
-    return c.json({ user: safeUser, tenant, token: accessToken }, 201);
+    // R19: Don't return token in body — HttpOnly cookie handles auth
+    return c.json({ user: safeUser, tenant }, 201);
 });
 
 export default r;

@@ -8,6 +8,10 @@ import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
+// R19: Rate limit registration (5 per minute per IP)
+import { authRateLimit } from '../../_shared/middleware/rate-limit';
+r.use('/register', authRateLimit);
+
 // Register
 const registerRoute = createRoute({
     ...ROUTE_METADATA.AUTH.REGISTER,
@@ -124,7 +128,8 @@ r.openapi(registerRoute, async (c) => {
 
     // R4: Return safe user object (no passwordHash)
     const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId };
-    return c.json({ user: safeUser, token: accessToken }, 201);
+    // R19: Don't return token in body — HttpOnly cookie handles auth
+    return c.json({ user: safeUser }, 201);
 });
 
 export default r;
