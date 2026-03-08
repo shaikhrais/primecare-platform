@@ -75,8 +75,12 @@ r.openapi(onboardRoute, async (c) => {
     });
 
     // 4. Generate Auth
-    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, c.env.JWT_SECRET || 'fallback_secret');
-    const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
+    // R4: Hard fail if JWT_SECRET is missing
+    const jwtSecret = c.env.JWT_SECRET;
+    if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
+
+    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, jwtSecret);
+    const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     setCookie(c, 'accessToken', accessToken, {
         httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24, path: '/'
@@ -86,7 +90,9 @@ r.openapi(onboardRoute, async (c) => {
         httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24 * 7, path: '/v1/auth/refresh'
     });
 
-    return c.json({ user, tenant, token: accessToken }, 201);
+    // R4: Return safe objects (no passwordHash)
+    const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId };
+    return c.json({ user: safeUser, tenant, token: accessToken }, 201);
 });
 
 export default r;

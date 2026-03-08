@@ -67,35 +67,44 @@ r.openapi(registerRoute, async (c) => {
 
     const passwordHash = await hashPassword(password);
 
-    const user = await prisma.user.create({
-        data: {
-            email,
-            passwordHash,
-            roles: [role] as any,
-            tenantId: tenant.id
-        },
+    // R5: Wrap user + profile creation in $transaction — prevents orphaned records
+    const user = await prisma.$transaction(async (tx: any) => {
+        const newUser = await tx.user.create({
+            data: {
+                email,
+                passwordHash,
+                roles: [role] as any,
+                tenantId: tenant.id
+            },
+        });
+
+        if (role === 'client') {
+            await tx.clientProfile.create({
+                data: {
+                    userId: newUser.id,
+                    fullName: email.split('@')[0],
+                    tenantId: tenant.id
+                }
+            });
+        } else if (role === 'psw') {
+            await tx.pswProfile.create({
+                data: {
+                    userId: newUser.id,
+                    fullName: email.split('@')[0],
+                    tenantId: tenant.id
+                }
+            });
+        }
+
+        return newUser;
     });
 
-    if (role === 'client') {
-        await prisma.clientProfile.create({
-            data: {
-                userId: user.id,
-                fullName: email.split('@')[0],
-                tenantId: tenant.id
-            }
-        });
-    } else if (role === 'psw') {
-        await prisma.pswProfile.create({
-            data: {
-                userId: user.id,
-                fullName: email.split('@')[0],
-                tenantId: tenant.id
-            }
-        });
-    }
+    // R4: Hard fail if JWT_SECRET is missing
+    const jwtSecret = c.env.JWT_SECRET;
+    if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
-    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, c.env.JWT_SECRET || 'fallback_secret');
-    const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
+    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, jwtSecret);
+    const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     setCookie(c, 'accessToken', accessToken, {
         httpOnly: true,
@@ -113,7 +122,9 @@ r.openapi(registerRoute, async (c) => {
         path: '/v1/auth/refresh'
     });
 
-    return c.json({ user, token: accessToken }, 201);
+    // R4: Return safe user object (no passwordHash)
+    const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId };
+    return c.json({ user: safeUser, token: accessToken }, 201);
 });
 
 export default r;

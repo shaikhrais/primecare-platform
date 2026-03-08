@@ -4,6 +4,7 @@ import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../../bindings';
 import { generateToken } from '../auth.service';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
+import { logAudit } from '../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -24,6 +25,9 @@ const refreshRoute = createRoute({
         401: {
             description: 'No refresh token or invalid refresh token',
         },
+        500: {
+            description: 'Server configuration error',
+        },
     },
 });
 
@@ -31,19 +35,28 @@ r.openapi(refreshRoute, async (c) => {
     const refreshToken = getCookie(c, 'refreshToken');
     if (!refreshToken) return c.json({ error: 'No refresh token' }, 401);
 
+    // R4: Hard fail if JWT_SECRET is missing
+    const jwtSecret = c.env.JWT_SECRET;
+    if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
+
     const prisma = c.get('prisma');
 
     try {
-        const payload = await verify(refreshToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
+        const payload = await verify(refreshToken, jwtSecret, 'HS256');
         const user = await prisma.user.findUnique({ where: { id: payload.sub as string } });
 
         if (!user) return c.json({ error: 'User not found' }, 401);
+
+        // R4: Check user status — don't refresh for disabled/suspended accounts
+        if (user.status && user.status !== 'active') {
+            return c.json({ error: 'Account disabled' }, 401);
+        }
 
         const accessToken = await generateToken({
             id: user.id,
             roles: user.roles as any,
             tenantId: user.tenantId
-        }, c.env.JWT_SECRET || 'fallback_secret');
+        }, jwtSecret);
 
         setCookie(c, 'accessToken', accessToken, {
             httpOnly: true,
@@ -76,9 +89,20 @@ const logoutRoute = createRoute({
     },
 });
 
-r.openapi(logoutRoute, (c) => {
-    deleteCookie(c, 'accessToken');
-    deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh' });
+r.openapi(logoutRoute, async (c) => {
+    // R4: Wipe all auth cookies with matching options
+    deleteCookie(c, 'accessToken', { path: '/', secure: true, sameSite: 'None' });
+    deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh', secure: true, sameSite: 'None' });
+
+    // R4: Log the logout event for audit trail
+    try {
+        const payload = c.get('jwtPayload') as any;
+        if (payload?.sub) {
+            const prisma = c.get('prisma');
+            await logAudit(prisma, payload.sub, 'logout', 'session', null, { tenantId: payload.tenantId || 'system' });
+        }
+    } catch { /* best effort */ }
+
     return c.json({ success: true }, 200);
 });
 
@@ -111,10 +135,14 @@ r.openapi(whoamiRoute, async (c) => {
         let userId: string | undefined = payload?.sub;
 
         if (!userId) {
+            // R4: Hard fail if JWT_SECRET is missing
+            const jwtSecret = c.env.JWT_SECRET;
+            if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
+
             const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
             if (accessToken) {
                 try {
-                    const decoded = await verify(accessToken, c.env.JWT_SECRET || 'fallback_secret', 'HS256');
+                    const decoded = await verify(accessToken, jwtSecret, 'HS256');
                     userId = decoded.sub as string;
                 } catch (e) {
                     return c.json({ error: 'Unauthorized', message: 'Invalid or expired session' }, 401);
@@ -129,18 +157,21 @@ r.openapi(whoamiRoute, async (c) => {
         const prisma = c.get('prisma');
         const user = await prisma.user.findUnique({
             where: { id: userId as string },
-            select: { id: true, email: true, roles: true, tenantId: true }
+            select: { id: true, email: true, roles: true, tenantId: true, status: true }
         });
 
         if (!user) return c.json({ error: 'User not found', message: 'User does not exist in database' }, 404);
+
+        // R4: Block suspended/disabled accounts on session check
+        if (user.status && user.status !== 'active') {
+            return c.json({ error: 'Account disabled' }, 401);
+        }
+
         return c.json({ user }, 200);
     } catch (err: any) {
-        console.error('Whoami Error:', err);
-        return c.json({ error: 'Internal Server Error', message: err.message }, 500);
+        // R4: Don't log full error, just message
+        return c.json({ error: 'Internal Server Error' }, 500);
     }
 });
 
 export default r;
-
-
-

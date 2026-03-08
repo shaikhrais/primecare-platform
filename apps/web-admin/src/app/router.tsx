@@ -53,27 +53,9 @@ const LoadingFallback = () => (
 // COMPONENTS
 // ----------------------------------------------------------------------
 
-class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
-    constructor(props: { children: React.ReactNode }) {
-        super(props);
-        this.state = { hasError: false };
-    }
-    static getDerivedStateFromError() { return { hasError: true }; }
-    componentDidCatch(error: any, errorInfo: any) {
-        console.error("Global Error Boundary caught an error:", error, errorInfo);
-    }
-    render() {
-        if (this.state.hasError) {
-            return (
-                <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h1>Something went wrong.</h1>
-                    <button onClick={() => window.location.href = '/'}>Go Home</button>
-                </div>
-            );
-        }
-        return this.props.children;
-    }
-}
+// ErrorBoundary removed — now handled globally by src/shared/components/ErrorBoundary.tsx
+// Wrapped in App.tsx, so router-level one is no longer needed.
+import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
 
 const IndexRedirect: React.FC = () => {
     const { user, loading } = useAuth();
