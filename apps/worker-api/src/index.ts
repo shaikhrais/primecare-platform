@@ -7,6 +7,7 @@ import { governanceMiddleware } from './_shared/middleware/governance';
 import { errorHandler } from './_shared/middleware/errors';
 import { tenantIsolation, csrfProtection, sanitizeInput } from './_shared/middleware/security';
 import { apiRateLimit } from './_shared/middleware/rate-limit';
+import { correlationId, requestLogger, sessionTimeout } from './_shared/middleware/observability';
 import { Bindings, Variables } from './bindings';
 import { AdminRegistry } from 'prime-care-shared';
 
@@ -109,12 +110,15 @@ app.onError((err, c) => {
 });
 
 // 3. Middlewares
-app.use('*', secureHeaders());  // #16: Content-Security-Policy + security headers
+app.use('*', correlationId());     // R3: Request tracing
+app.use('*', requestLogger());     // R3: Structured JSON logging
+app.use('*', secureHeaders());     // #16: CSP + security headers
 app.use('*', prismaMiddleware());
 app.use('*', governanceMiddleware());
 app.use('*', tenantIsolation());
 app.use('*', csrfProtection());
 app.use('*', sanitizeInput());
+app.use('*', sessionTimeout());    // R3: X-Session-Expires-In header
 
 // #17: API versioning + deprecation headers
 app.use('*', async (c, next) => {

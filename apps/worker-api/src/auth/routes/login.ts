@@ -3,7 +3,7 @@ import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { LoginSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken } from '../auth.service';
-import { hashPassword } from '../../_shared/utils/crypto';
+import { hashPassword, comparePassword, isLegacyHash } from '../../_shared/utils/crypto';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { logAudit } from '../../_shared/utils/audit';
 import { authRateLimit } from '../../_shared/middleware/rate-limit';
@@ -76,10 +76,21 @@ r.openapi(loginRoute, async (c) => {
     const prisma = c.get('prisma');
 
     const user = await prisma.user.findUnique({ where: { email } });
-    const passwordHash = await hashPassword(password);
 
-    if (!user || user.passwordHash !== passwordHash) {
+    if (!user || !user.passwordHash) {
         return c.json({ error: 'Invalid credentials' }, 401);
+    }
+
+    // R3-1: Use comparePassword which supports both PBKDF2 and legacy SHA-256
+    const isValid = await comparePassword(password, user.passwordHash);
+    if (!isValid) {
+        return c.json({ error: 'Invalid credentials' }, 401);
+    }
+
+    // R3-1: Auto-rehash legacy SHA-256 to PBKDF2 (transparent migration)
+    if (isLegacyHash(user.passwordHash)) {
+        const newHash = await hashPassword(password);
+        await prisma.user.update({ where: { id: user.id }, data: { passwordHash: newHash } }).catch(() => { });
     }
 
     const jwtSecret = c.env.JWT_SECRET;
