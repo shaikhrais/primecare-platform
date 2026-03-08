@@ -1,3 +1,5 @@
+import { dashboardsFinanceContent } from './dashboards-finance';
+
 export const dashboardsContent = {
     ADMIN_DASHBOARD: {
         STATS: {
@@ -52,9 +54,7 @@ export const dashboardsContent = {
         BUTTON_REQUEST: 'Request New Care',
         MODAL_TITLE: 'Request New Care',
         MODAL_SUBTITLE: 'Please select your care type and preferred time.',
-        MESSAGES: {
-            LOADING: 'Loading Client Dashboard...',
-        },
+        MESSAGES: { LOADING: 'Loading Client Dashboard...' },
         FAMILY_HUB: {
             TITLE: 'Family Care Hub',
             SUBTITLE: 'Oversight, notifications, and care team engagement.',
@@ -80,16 +80,12 @@ export const dashboardsContent = {
             WEEKLY_HOURS: 'Weekly Hours',
             PENDING_PAYOUT: 'Pending Payout',
         },
-        MESSAGES: {
-            LOADING: 'Synchronizing Command Center...',
-        }
+        MESSAGES: { LOADING: 'Synchronizing Command Center...' }
     },
     RN_DASHBOARD: {
         TITLE: 'Clinical Dashboard',
         SUBTITLE: 'Branch-wide clinical overview and task triage.',
-        MESSAGES: {
-            LOADING: 'Synchronizing Clinical Center...',
-        },
+        MESSAGES: { LOADING: 'Synchronizing Clinical Center...' },
         STATS: {
             PENDING_CARE_PLANS: 'Pending Care Plans',
             DAILY_REVIEWS: 'Daily Audits Needed',
@@ -106,9 +102,7 @@ export const dashboardsContent = {
         TITLE_BRANCH: 'Branch Coordination Hub',
         TITLE_NETWORK: 'Network Coordination Hub',
         SUBTITLE: 'Daily Schedule & Compliance',
-        MESSAGES: {
-            LOADING: 'Loading Staff Dashboard...',
-        },
+        MESSAGES: { LOADING: 'Loading Staff Dashboard...' },
         STATS: {
             URGENT_NEEDS: 'Urgent Scheduling Needs',
             URGENT_DESC: 'Shifts requiring immediate assignment',
@@ -148,17 +142,13 @@ export const dashboardsContent = {
             LOG_INCIDENT: 'Log Incident',
             VIEW_CLIENTS: 'View Clients',
         },
-        PERSPECTIVES: ['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'],
-        MESSAGES: {
-            LOADING: 'Loading Dashboard...',
-        }
+        PERSPECTIVES: ['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'] as const,
+        MESSAGES: { LOADING: 'Loading Dashboard...' }
     },
     PLATFORM_DASHBOARD: {
         TITLE: 'Platform Command Center',
         SUBTITLE: 'Fractal SaaS Network Overview',
-        MESSAGES: {
-            LOADING: 'Loading Global Stats...',
-        },
+        MESSAGES: { LOADING: 'Loading Global Stats...' },
         STATS: {
             MASTER_AGENCIES: 'Master Franchises (Roots)',
             NETWORK_USERS: 'Total Network Users',
@@ -176,11 +166,7 @@ export const dashboardsContent = {
     SUMMARY_DASHBOARD: {
         TITLE: 'Registry Intelligence Dashboard',
         SUBTITLE: 'Real-time platform summaries, KPIs, and registry-driven insights.',
-        HEADER: {
-            CONTEXT: 'Context',
-            LAST_UPDATED: 'Last Synchronized',
-            SYNC_NOW: 'Sync Orbit',
-        },
+        HEADER: { CONTEXT: 'Context', LAST_UPDATED: 'Last Synchronized', SYNC_NOW: 'Sync Orbit' },
         CARDS: {
             KPI: 'Performance KPI',
             TREND: 'Registry Trend',
@@ -189,10 +175,7 @@ export const dashboardsContent = {
                 SUBTITLE: 'Consolidated platform KPIs, stats, and registry-driven insights.',
             }
         },
-        MESSAGES: {
-            EMPTY: 'No summary contexts registered.',
-            SYNCING: 'Calibrating registry nodes...',
-        }
+        MESSAGES: { EMPTY: 'No summary contexts registered.', SYNCING: 'Calibrating registry nodes...' }
     },
     COORDINATOR_HUB: {
         TITLE: 'Logistics Control Center',
@@ -207,88 +190,8 @@ export const dashboardsContent = {
             PENDING_MATCHES: 'Open Shifts',
             WAITLIST_COUNT: 'Waitlisted Clients',
         },
-        ACTIONS: {
-            ACKNOWLEDGE_SOS: 'Acknowledge SOS',
-            OVERRIDE_MATCH: 'Override Match',
-            SYNC_WAITLIST: 'Sync Priorities',
-        },
-        SUCCESS: {
-            SOS_ACK: 'SOS alert acknowledged.',
-            MATCH_OVERRIDDEN: 'PSW manual assignment confirmed.',
-            WAITLIST_SYNCED: 'Waitlist priorities updated.',
-        }
+        ACTIONS: { ACKNOWLEDGE_SOS: 'Acknowledge SOS', OVERRIDE_MATCH: 'Override Match', SYNC_WAITLIST: 'Sync Priorities' },
+        SUCCESS: { SOS_ACK: 'SOS alert acknowledged.', MATCH_OVERRIDDEN: 'PSW manual assignment confirmed.', WAITLIST_SYNCED: 'Waitlist priorities updated.' }
     },
-    ACCOUNTING_DASHBOARD: {
-        TITLE: 'Accounting Intelligence',
-        SUBTITLE: 'Real-time GAAP reporting for PrimeCare Platform.',
-        LOADING: 'ORCHESTRATING FINANCIAL ENGINE...',
-        REFRESH: 'Refresh Engine',
-        GENERATE_AUDIT: 'Generate Audit',
-        WIDGETS: {
-            TRADING: 'Trading Account',
-            PROFIT_LOSS: 'Profit & Loss',
-            BALANCE_SHEET: 'Balance Sheet',
-            GP: 'Gross Profit',
-            NI: 'Net Income',
-            SURPLUS: 'Surplus this period',
-            DEFICIT: 'Deficit this period',
-            MARGIN: 'Gross Margin',
-            TOTAL_REVENUE: 'Total Revenue',
-            DIRECT_COSTS: 'Direct Costs',
-            OPEX: 'Operating Expenses',
-            ASSETS: 'Assets',
-            LIABILITIES: 'Liabilities',
-            EQUITY: 'Equity',
-            NET_WORTH: 'Net Worth',
-            TOTAL_ASSETS: 'Total Assets',
-        },
-        BREAKDOWN: {
-            TITLE: 'Expenditure Intelligence',
-            OPEX_TITLE: 'Operating Expenses Breakdown',
-            BURN_LABEL: 'TOTAL INDIRECT BURN',
-            REVENUE_PCT: 'Revenue Percentage',
-        },
-        COMPLIANCE: {
-            TITLE: 'AI Compliance Guard',
-            HASH: 'Hash Integrity Verified',
-            HASH_DESC: 'All ledger blocks cryptographically valid.',
-            TRIAL: 'Trial Balance Check',
-            TRIAL_DESC: 'Debits and Credits perfectly balanced.',
-            FORENSIC: 'Forensic Audit Trail',
-            FORENSIC_DESC: 'Point-in-time state tracking active.',
-            STATUS_LABEL: 'CONTINUOUS COMPLIANCE STATUS',
-            STATUS_OK: 'OPERATIONAL',
-        }
-    },
-    REGIONAL_STATS: {
-        TITLE: 'Regional Oversight',
-        SUBTITLE: 'Cross-branch clinical and operational intelligence.',
-        STATS: {
-            ACTIVE_BRANCHES: 'Active Branches',
-            TOTAL_PATIENTS: 'Regional Patients',
-            LABEL_AVG_SCORE: 'Compliance Average',
-            CHURN: 'Patient Churn Rate',
-            COMPLIANCE_SCORE: 'Avg Compliance Score',
-            UTILIZATION: 'Staff Utilization',
-            REVENUE: 'Regional Revenue',
-            REVENUE_GROWTH: 'Revenue Growth',
-        },
-        BENTO: {
-            CLINICAL: 'Clinical Excellence Index',
-            PERFORMANCE: 'Operational Performance Hub',
-            FINANCIAL: 'Fiscal Regional Pulse',
-            GROWTH: 'Market Penetration',
-            RISK: 'Compliance Heatmap',
-        },
-        ACTIONS: {
-            REFRESH: 'Refresh Satellite Data',
-            EXPORT: 'Export Regional Report',
-            EXPORT_PL: 'Regional P&L Export',
-        },
-        CHARTS: {
-            LOAD: 'Load Distribution',
-            GROWTH: 'Growth Vector',
-            RISK: 'Risk Concentration',
-        }
-    },
+    ...dashboardsFinanceContent,
 } as const;

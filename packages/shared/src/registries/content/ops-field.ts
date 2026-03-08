@@ -87,72 +87,38 @@ export const opsFieldContent = {
     PSW_MESSAGES: {
         TITLE: 'Caregiver Communications',
         SUBTITLE: 'Direct messaging with coordination and RN oversight.',
-        RECIPIENTS: {
-            OFFICE: 'Office Staff',
-            RN: 'Supervising RN',
-            FAMILY: 'Client Family',
-        }
+        RECIPIENTS: { OFFICE: 'Office Staff', RN: 'Supervising RN', FAMILY: 'Client Family' }
     },
     PSW_SCHEDULE: {
         TITLE: 'Shift Registry',
         SUBTITLE: 'Your upcoming and completed care visits.',
-        TABS: {
-            UPCOMING: 'Upcoming',
-            COMPLETED: 'Completed',
-            OFFERS: 'Open Offers',
-        },
-        ACTIONS: {
-            ACCEPT: 'Accept Shift',
-            DECLINE: 'Decline',
-            DETAILS: 'View Details',
-        },
+        TABS: { UPCOMING: 'Upcoming', COMPLETED: 'Completed', OFFERS: 'Open Offers' },
+        ACTIONS: { ACCEPT: 'Accept Shift', DECLINE: 'Decline', DETAILS: 'View Details' },
         TABLE: {
-            CLIENT: 'Client',
-            TIME: 'Visit Time',
-            DATETIME: 'Schedule Datetime',
-            SERVICE: 'Care Service',
-            LOCATION: 'Location',
-            STATUS: 'Status',
-            RATE: 'Pay Rate',
+            CLIENT: 'Client', TIME: 'Visit Time', DATETIME: 'Schedule Datetime',
+            SERVICE: 'Care Service', LOCATION: 'Location', STATUS: 'Status', RATE: 'Pay Rate',
         },
         MESSAGES: {
-            LOADING: 'Loading shift registry...',
-            SUCCESS_ACCEPT: 'Shift accepted successfully!',
-            SUCCESS_DECLINE: 'Shift declined',
-            ERROR_ACTION: 'Failed to process shift action',
+            LOADING: 'Loading shift registry...', SUCCESS_ACCEPT: 'Shift accepted successfully!',
+            SUCCESS_DECLINE: 'Shift declined', ERROR_ACTION: 'Failed to process shift action',
             EMPTY: 'No shifts found for this criteria.',
         }
     },
     PSW_HANDOVER: {
         TITLE: 'Shift Handover',
         SUBTITLE: 'Professional transfer of care responsibility.',
-        LABEL_VISIT: 'Select Visit',
-        LABEL_NOTES: 'Handover Notes',
-        LABEL_SAFETY: 'Safety Concerns',
-        LABEL_SUPPLIES: 'Critical Supplies Handover',
+        LABEL_VISIT: 'Select Visit', LABEL_NOTES: 'Handover Notes',
+        LABEL_SAFETY: 'Safety Concerns', LABEL_SUPPLIES: 'Critical Supplies Handover',
         PLACEHOLDER_NOTES: 'Summary of clinical status and ADL highlights...',
-        SUCCESS_MSG: 'Handover documented successfully',
-        ERROR_MSG: 'Failed to save handover',
+        SUCCESS_MSG: 'Handover documented successfully', ERROR_MSG: 'Failed to save handover',
     },
     PSW_PAYOUTS: {
         TITLE: 'Earnings & Payouts',
         SUBTITLE: 'Your payroll history and pending clinic settlements.',
-        METRICS: {
-            PENDING: 'Pending Approval',
-            AVAILABLE: 'Available for Payout',
-            TOTAL: 'Lifetime Earnings',
-        },
+        METRICS: { PENDING: 'Pending Approval', AVAILABLE: 'Available for Payout', TOTAL: 'Lifetime Earnings' },
         HISTORY_TITLE: 'Settlement History',
-        TABLE: {
-            DATE: 'Payout Date',
-            AMOUNT: 'Amount',
-            STATUS: 'Status',
-            METHOD: 'Transfer Method',
-        },
-        ACTIONS: {
-            WITHDRAW: 'Request Payout',
-            HISTORY: 'Full History',
-        },
+        TABLE: { DATE: 'Payout Date', AMOUNT: 'Amount', STATUS: 'Status', METHOD: 'Transfer Method' },
+        ACTIONS: { WITHDRAW: 'Request Payout', HISTORY: 'Full History' },
         SUCCESS_REQUEST: 'Payout request submitted successfully',
         ERROR_REQUEST: 'Failed to submit payout request',
     },
@@ -163,113 +129,5 @@ export const opsFieldContent = {
         ADD_OVERRIDE: 'Add Specific Date Override',
         SUCCESS_SYNC: 'Availability synced successfully',
         ERROR_SYNC: 'Failed to sync availability',
-    },
-    MANAGER_OPERATIONS: {
-        TITLE: 'Regional Operations Hub',
-        SUBTITLE: 'Cross-branch administrative and logistics triage.',
-        TABS: {
-            LOGISTICS: 'Logistics Overview',
-            COMPLIANCE: 'Regional Compliance',
-            TICKETS: 'Support Tickets',
-        },
-        ALERTS: {
-            HIGH_RISK: 'High Risk Branch Alert',
-            STAFFING_GAP: 'Regional Staffing Gap',
-            COMPLIANCE_DROP: 'Compliance Variance Detected',
-        },
-        KPI: {
-            LOGISTICS_EFFICIENCY: 'Logistics Efficiency',
-            REVENUE: 'Regional Revenue Accrual',
-            UTILIZATION: 'Regional Staffing Utilization',
-            TURNOVER: 'Regional Turnover',
-            COMPLIANCE: 'Regional Compliance',
-            COMPLIANCE_RATE: 'Average Compliance Rate',
-            AUDIT_PROGRESS: 'Regional Audit Progress',
-        },
-        GRID: {
-            BRANCH: 'Branch',
-            MANAGER: 'Branch Manager',
-            HEALTH: 'Health Score',
-            LAST_AUDIT: 'Last Audit',
-        },
-        ACTIONS: {
-            AUDIT: 'Initiate Regional Audit',
-            SYNC: 'Sync branch ledgers',
-            GLOBAL_SYNC: 'Regional Satellite Sync',
-            DOWNLOAD_REPORT: 'Download Operations Report',
-        },
-        MESSAGES: {
-            AUDIT_START: 'Regional audit sequence initiated...',
-            SYNC_SUCCESS: 'All branch data synchronized',
-        }
-    },
-    COORDINATOR_WAITLIST: {
-        TITLE: 'Waitlist Management',
-        SUBTITLE: 'Prioritize and match clients awaiting care.',
-        COLUMNS: {
-            PRIORITY: 'Priority Rank',
-            CLIENT: 'Client Name',
-            STATUS: 'Waitlist Status',
-            SINCE: 'Waiting Since',
-            ENTRY_DATE: 'Date Added',
-            URGENCY: 'Clinical Urgency',
-            ACUITY: 'Clinical Acuity Score',
-            PREFERENCE: 'Provider Preference',
-        },
-        ACTIONS: {
-            MATCH: 'Execute Match',
-            PRIORITIZE: 'Adjust Priority',
-            BOOST_PRIORITY: 'Priority Elevation',
-            ASSIGN_STAFF: 'Manual Caregiver Assignment',
-            REMOVE: 'Remove from List',
-        },
-        MESSAGES: {
-            SUCCESS_MATCH: 'Client matched successfully',
-            ERROR_MATCH: 'Failed to find suitable match',
-        }
-    },
-    COORDINATOR_SOS: {
-        TITLE: 'Emergency Response Center',
-        SUBTITLE: 'Real-time SOS monitoring and clinical triage.',
-        ALERTS_TITLE: 'Active Clinical SOS Alerts',
-        FORM: {
-            RESOLUTION_LABEL: 'Resolution Summary',
-            PLACEHOLDER_RESOLUTION: 'Describe clinical outcome, dispatch status...',
-            INCIDENT_LOG: 'Emergency Incident Log',
-            RESOLVE_BTN: 'Finalize Resolution',
-        },
-        TABLE: {
-            TIME: 'Alert Time',
-            PSW: 'Caregiver',
-            CLIENT: 'Patient',
-            LOCATION: 'Live GPS',
-            STATUS: 'Alert Status',
-        },
-        ACTIONS: {
-            ACKNOWLEDGE: 'Acknowledge SOS',
-            DISPATCH: 'Dispatch Emergency Services',
-            RESOLVE: 'Mark as Resolved',
-        },
-        MESSAGES: {
-            SUCCESS_ACK: 'SOS alert acknowledged and escalated',
-            ERROR_ACK: 'Failed to acknowledge SOS',
-            LOCK_WARNING: 'Another coordinator is currently responding to this alert.',
-            NO_ALERTS: 'No active clinical SOS alerts detected.',
-        }
-    },
-    COORDINATOR_MAP: {
-        TITLE: 'Live Logistics Map',
-        SUBTITLE: 'Real-time spatial visualization of regional clinical operations.',
-        LEGEND: {
-            ACTIVE: 'Active Visit',
-            IDLE: 'Idle/Travel',
-            SOS: 'SOS Alert',
-            CLIENT: 'Client Location',
-        },
-        ACTIONS: {
-            REFRESH: 'Refresh Fleet Data',
-            CENTER: 'Center on Region',
-            FILTER: 'Filter Assets',
-        }
     },
 } as const;
