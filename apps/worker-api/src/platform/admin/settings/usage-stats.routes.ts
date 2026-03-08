@@ -26,7 +26,18 @@ const saveUsageRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        usageStats: z.any(),
+                        // R16: Validate structure instead of z.any()
+                        usageStats: z.object({
+                            routes: z.record(z.any()).optional(),
+                            forms: z.record(z.any()).optional(),
+                            apiCalls: z.record(z.any()).optional(),
+                            clicks: z.record(z.any()).optional(),
+                            sessionStart: z.number().optional(),
+                            totalSessions: z.number().optional(),
+                            lastActivity: z.number().optional(),
+                            totalClicks: z.number().optional(),
+                            totalFormSubmits: z.number().optional(),
+                        }),
                     }),
                 },
             },

@@ -185,7 +185,9 @@ r.openapi(elevateUserRoute, async (c) => {
 
     const user = await prisma.user.update({
         where: { id },
-        data: { roles: roles as any }
+        data: { roles: roles as any },
+        // R16: Don't return passwordHash
+        select: { id: true, email: true, roles: true, status: true, createdAt: true },
     });
 
     await logAudit(prisma, payload.sub, 'SUPER_USER_ELEVATED', 'User', id, { roles });

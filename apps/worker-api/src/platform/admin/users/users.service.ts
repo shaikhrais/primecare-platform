@@ -20,6 +20,8 @@ export class AdminUserService {
         return await this.prisma.user.update({
             where: { id },
             data: { status: 'verified' },
+            // R16: Don't return passwordHash
+            select: { id: true, email: true, roles: true, status: true, createdAt: true },
         });
     }
 
@@ -30,7 +32,6 @@ export class AdminUserService {
                 roles: data.roles || ['staff'],
                 status: data.status || 'active',
                 tenantId: data.tenantId || 'system',
-                // We would typically create a profile here too
                 pswProfile: data.roles.includes('psw') ? {
                     create: {
                         fullName: data.fullName,
@@ -43,7 +44,9 @@ export class AdminUserService {
                         tenantId: data.tenantId || 'system'
                     }
                 } : undefined
-            }
+            },
+            // R16: Don't return passwordHash
+            select: { id: true, email: true, roles: true, status: true, createdAt: true },
         });
     }
 
@@ -51,6 +54,8 @@ export class AdminUserService {
         return await this.prisma.user.update({
             where: { id },
             data: { roles: roles as any },
+            // R16: Don't return passwordHash
+            select: { id: true, email: true, roles: true, status: true, createdAt: true },
         });
     }
 }

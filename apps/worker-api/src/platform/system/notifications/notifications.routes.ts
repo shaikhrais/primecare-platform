@@ -40,7 +40,7 @@ const registerDeviceRoute = createRoute({
 
 r.openapi(registerDeviceRoute, async (c) => {
     const { token, platform } = c.req.valid('json');
-    console.log(`Registered device for push: ${token} (${platform})`);
+    // R15: Don't log push tokens — they're device credentials
     return c.json({ success: true }, 200);
 });
 

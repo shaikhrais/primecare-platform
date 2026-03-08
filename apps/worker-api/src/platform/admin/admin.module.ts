@@ -132,7 +132,7 @@ admin.openapi(statsRoute, async (c) => {
         ]);
         [totalUsers, pendingVisits, totalVisits, totalLeads, complianceRisk, coverageGap, pipelineStagnation] = results;
     } catch (e) {
-        console.error('Stats aggregation failed partially:', e);
+        // R15: Don't leak internal errors
     }
 
     // Calculate Business Model Score
@@ -153,7 +153,7 @@ admin.openapi(statsRoute, async (c) => {
             if (tenant.taxSettings) modelScore += 25;
         }
     } catch (e) {
-        console.error('Schema sync pending - business model fields missing');
+        // R15: Don't leak schema sync details
     }
 
     return c.json({

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { webChatService } from '../../../../../services/WebChatService';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface ChatMessage {
     id: number | string;
@@ -15,15 +16,11 @@ export default function MessagingPortal() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
-    const token = localStorage.getItem('token');
-    const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        // If staff viewing a specific thread, fetch historical messages
+        // R15: Use apiClient instead of raw fetch + localStorage token
         if (threadId && (user.role === 'staff' || user.role === 'admin')) {
-            fetch(`${API_URL}/v1/staff/tickets/${threadId}/messages`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
+            apiClient.get(`/v1/staff/tickets/${threadId}/messages`)
                 .then(res => res.json())
                 .then(data => {
                     const formatted = data.map((m: any) => ({
@@ -41,7 +38,6 @@ export default function MessagingPortal() {
             const id = user.id || user.email;
             webChatService.connect(id);
             const unsubscribe = webChatService.addListener((msg: { sender?: string; userId: string; message: string }) => {
-                // If viewing a thread, only show messages for that thread (simple logic for now)
                 setMessages((prev: ChatMessage[]) => [...prev, {
                     id: Date.now(),
                     sender: msg.sender || (msg.userId === id ? 'Me' : 'Support'),
@@ -55,25 +51,17 @@ export default function MessagingPortal() {
                 webChatService.disconnect();
             };
         }
-    }, [user.id, user.email, threadId, token]);
+    }, [user.id, user.email, threadId]);
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newMessage.trim()) return;
 
         if (threadId && (user.role === 'staff' || user.role === 'admin')) {
-            // Send via API for staff replying to specific thread
-            const response = await fetch(`${API_URL}/v1/staff/tickets/${threadId}/reply`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ bodyText: newMessage }),
-            });
+            // R15: Use apiClient instead of raw fetch + localStorage token
+            const response = await apiClient.post(`/v1/staff/tickets/${threadId}/reply`, { bodyText: newMessage });
             if (response.ok) {
                 setNewMessage('');
-                // Local echo
                 setMessages((prev: ChatMessage[]) => [...prev, {
                     id: Date.now(),
                     sender: 'Me',

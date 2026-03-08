@@ -82,9 +82,14 @@ branding.openapi(updateBrandingRoute, async (c) => {
     const tenantId = c.get('jwtPayload').tenantId;
     const body = c.req.valid('json');
 
+    // R16: Explicitly pick only allowed fields — don't pass raw body to Prisma
+    const updateData: any = {};
+    if (body.logoUrl !== undefined) updateData.logoUrl = body.logoUrl;
+    if (body.brandingConfig !== undefined) updateData.brandingConfig = body.brandingConfig;
+
     await prisma.tenant.update({
         where: { id: tenantId },
-        data: body
+        data: updateData
     });
 
     return c.json({ success: true });

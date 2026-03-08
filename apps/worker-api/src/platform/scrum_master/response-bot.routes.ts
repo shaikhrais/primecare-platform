@@ -92,7 +92,7 @@ const listTouchpointsRoute = createRoute({
 r.openapi(sweepRegistryRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
-    const { publicUrlBase } = (await c.req.json()) as { publicUrlBase?: string };
+    const { publicUrlBase } = c.req.valid('json');
 
     let totalAudited = 0;
     let errorsFound = 0;
@@ -286,7 +286,7 @@ r.openapi(sweepRegistryRoute, async (c) => {
 r.openapi(updateTouchpointRoute, async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.param();
-    const data = await c.req.json();
+    const data = c.req.valid('json');
 
     const updated = await prisma.systemTouchpoint.update({
         where: { id },
