@@ -169,6 +169,11 @@ const PLATFORM = {
             BALANCE_SHEET: '/v1/admin/financial/reports/balance-sheet',
             DAILY_SUMMARY: '/v1/admin/financial/reports/daily-summary',
             RECONCILIATION_SUMMARY: '/v1/admin/financial/reports/reconciliation-summary',
+            RECONCILE: '/v1/admin/financial/reconcile',
+            AUTO_RECONCILE: '/v1/admin/financial/reconcile/auto',
+            FORECAST: '/v1/admin/financial/reports/forecast',
+            TAX_FILING: '/v1/admin/financial/reports/tax-filing',
+            TAX_REMITTANCE: '/v1/admin/financial/tax-remittance',
         }
     },
     SCRUM_MASTER: {

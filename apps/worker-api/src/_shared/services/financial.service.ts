@@ -263,6 +263,7 @@ export class FinancialService {
             where: { tenantId, status: 'unreconciled' }
         });
 
+        let matchedCount = 0;
         for (const bt of unreconciledBank) {
             // Fuzzy Match: Amount ± 0.01 and Date ± 3 days
             const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
@@ -304,8 +305,10 @@ export class FinancialService {
                         data: { status: 'reconciled' }
                     })
                 ]);
+                matchedCount++;
             }
         }
+        return matchedCount;
     }
 
     /**
@@ -531,5 +534,53 @@ export class FinancialService {
         }
 
         return summary;
+    }
+
+    /**
+     * Generates a tax filing report for a specific period.
+     */
+    async generateTaxFilingReport(tenantId: string, startDate: Date, endDate: Date) {
+        // Aggregate all journal entries for the Sales Tax Payable account (2100)
+        const entries = await this.prisma.journalEntry.findMany({
+            where: {
+                tenantId,
+                account: { code: '2100' },
+                createdAt: { gte: startDate, lte: endDate }
+            },
+            include: { transaction: true }
+        });
+
+        let totalCollected = new Decimal(0); // Credits increase liability (collected from clients)
+        let totalPaidOnExpenses = new Decimal(0); // Debits decrease liability (paid to vendors)
+
+        for (const entry of entries) {
+            totalCollected = totalCollected.plus(new Decimal(entry.credit));
+            totalPaidOnExpenses = totalPaidOnExpenses.plus(new Decimal(entry.debit));
+        }
+
+        return {
+            periodStart: startDate.toISOString().split('T')[0],
+            periodEnd: endDate.toISOString().split('T')[0],
+            totalCollected: totalCollected.toNumber(),
+            totalInputCredits: totalPaidOnExpenses.toNumber(),
+            netTaxOwed: totalCollected.minus(totalPaidOnExpenses).toNumber(),
+            entryCount: entries.length
+        };
+    }
+
+    /**
+     * Records a tax remittance payment to the revenue agency.
+     */
+    async recordTaxRemittance(tenantId: string, amount: number | Decimal, reference: string) {
+        return await this.recordTransaction({
+            tenantId,
+            type: 'EXPENSE',
+            referenceId: reference,
+            amount,
+            entries: [
+                { accountCode: '2100', debit: amount }, // Decrease Tax Payable liability
+                { accountCode: '1000', credit: amount }  // Decrease Cash asset
+            ]
+        });
     }
 }

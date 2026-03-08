@@ -149,6 +149,7 @@ const PLATFORM = {
             CORS_SETTINGS: '/platform/admin/security/cors',
             INTEGRITY_SCAN: '/platform/admin/security/integrity',
             FINANCIAL_LEDGER: '/platform/admin/security/ledger',
+            TAX_HUB: '/platform/admin/security/tax-hub',
         },
         OPERATIONS: {
             REALTIME_CAPACITY: '/platform/admin/ops/capacity',

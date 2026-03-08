@@ -11,7 +11,7 @@ export interface LinkDef {
     isExternal?: boolean;
 }
 
-const { LINKS } = ContentRegistry;
+const { LINKS, ACCOUNTING_DASHBOARD } = ContentRegistry as any;
 
 export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-admin-audit-logs', label: LINKS.ADMIN.AUDITS, role: 'admin', module: 'ADMIN', path: RouteRegistry.ADMIN.AUDITS, description: 'Direct access to platform-wide security logs.' },
@@ -103,4 +103,8 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-mgr-team', label: LINKS.MANAGER.TEAM, role: 'manager', module: 'OPERATIONS', path: RouteRegistry.MANAGER.TEAM, description: 'Management of branch staff profiles and performance.' },
     { id: 'lnk-coord-master-schedule', label: LINKS.COORDINATOR.MASTER_SCHEDULE, role: 'coordinator', module: 'OPERATIONS', path: RouteRegistry.COORDINATOR.SCHEDULE, description: 'Unified master schedule for branch-wide shift oversight.' },
     { id: 'lnk-psw-availability-my', label: LINKS.PSW.MY_AVAILABILITY, role: 'psw', module: 'CARE_DELIVERY', path: RouteRegistry.PSW.AVAILABILITY, description: 'Manage your weekly availability and service areas.' },
+    // Finance Director
+    { id: 'lnk-fd-dashboard', label: ACCOUNTING_DASHBOARD.TITLE, role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: 'High-level financial intelligence and real-time ledger oversight.' },
+    { id: 'lnk-fd-ledger', label: 'Financial Ledger', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: 'Forensic audit trail and immutable ledger verification.' },
+    { id: 'lnk-fd-tax-hub', label: 'Tax Compliance Hub', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: 'Periodic HST/GST filing and automated remittance processing.' },
 ];

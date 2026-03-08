@@ -62,6 +62,7 @@ const ForensicTrails = lazy(() => import('./pages/security/ForensicTrails'));
 const CorsSettings = lazy(() => import('./pages/security/CorsSettings'));
 const IntegrityVerification = lazy(() => import('./pages/security/IntegrityVerification'));
 const FinancialLedger = lazy(() => import('./pages/security/FinancialLedger'));
+const TaxComplianceHub = lazy(() => import('./pages/security/TaxComplianceHub'));
 const AccountingDashboard = lazy(() => import('./pages/security/AccountingDashboard'));
 
 export const AdminRoutes = () => (
@@ -118,6 +119,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.CORS_SETTINGS} element={<CorsSettings />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN} element={<IntegrityVerification />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.TAX_HUB} element={<TaxComplianceHub />} />
         <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingDashboard />} />
     </Route>
 );

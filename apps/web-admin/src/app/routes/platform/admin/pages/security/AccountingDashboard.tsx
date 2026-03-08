@@ -31,24 +31,44 @@ interface BalanceSheet {
     equity: { total: number; accounts: Record<string, number> };
 }
 
+interface ForecastPoint {
+    date: string;
+    projectedCash: number;
+}
+
+interface ForecastingResult {
+    currentCash: number;
+    avgDailyRevenue: number;
+    avgDailyBurn: number;
+    netDailyFlow: number;
+    daysOfRunway: number | 'infinite';
+    forecast: ForecastPoint[];
+}
+
 export default function AccountingDashboard() {
     const [tradingAcc, setTradingAcc] = useState<TradingAccount | null>(null);
     const [pAndL, setPAndL] = useState<ProfitAndLoss | null>(null);
     const [balanceSheet, setBalanceSheet] = useState<BalanceSheet | null>(null);
+    const [reconSummary, setReconSummary] = useState<{ unreconciledBankCount: number; unreconciledLedgerCount: number } | null>(null);
+    const [forecastData, setForecastData] = useState<ForecastingResult | null>(null);
     const [loading, setLoading] = useState(true);
 
     const loadData = async () => {
         setLoading(true);
         try {
-            const [taRes, plRes, bsRes] = await Promise.all([
+            const [taRes, plRes, bsRes, reconRes, forecastRes] = await Promise.all([
                 apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT),
                 apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.PROFIT_LOSS),
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET)
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET),
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.RECONCILIATION_SUMMARY),
+                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.FORECAST)
             ]);
 
             if (taRes.ok) setTradingAcc(await taRes.json());
             if (plRes.ok) setPAndL(await plRes.json());
             if (bsRes.ok) setBalanceSheet(await bsRes.json());
+            if (reconRes.ok) setReconSummary(await reconRes.json());
+            if (forecastRes.ok) setForecastData(await forecastRes.json());
         } catch (error) {
             console.error('Failed to load accounting data:', error);
         } finally {
@@ -60,7 +80,21 @@ export default function AccountingDashboard() {
         loadData();
     }, []);
 
+    const handleAutoReconcile = async () => {
+        try {
+            const res = await apiClient.post(ApiRegistry.PLATFORM.ADMIN.REPORTING.AUTO_RECONCILE, {});
+            if (res.ok) {
+                const data = await res.json();
+                alert(`Successfully matched ${data.matchedCount} transactions!`);
+                loadData();
+            }
+        } catch (error) {
+            console.error('Auto-reconciliation failed:', error);
+        }
+    };
+
     if (loading) return (
+        // ... (rest of the file)
         <div style={{
             height: '100vh',
             display: 'flex',
@@ -123,6 +157,42 @@ export default function AccountingDashboard() {
                     }}>{strings.GENERATE_AUDIT}</button>
                 </div>
             </header>
+
+            {/* Reconciliation Banner */}
+            {reconSummary && reconSummary.unreconciledBankCount > 0 && (
+                <div style={{
+                    background: 'linear-gradient(to right, #f59e0b, #d97706)',
+                    padding: '16px 24px',
+                    borderRadius: '16px',
+                    marginBottom: '32px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    boxShadow: '0 10px 30px rgba(245, 158, 11, 0.2)'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <span style={{ fontSize: '24px' }}>🔔</span>
+                        <div>
+                            <div style={{ fontWeight: '800', fontSize: '16px' }}>Action Required: Bank Reconciliation</div>
+                            <div style={{ fontSize: '14px', opacity: '0.9' }}>
+                                You have {reconSummary.unreconciledBankCount} unmatched bank transactions.
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        onClick={handleAutoReconcile}
+                        style={{
+                            background: '#fff',
+                            color: '#d97706',
+                            border: 'none',
+                            padding: '8px 20px',
+                            borderRadius: '8px',
+                            fontWeight: '700',
+                            cursor: 'pointer'
+                        }}
+                    >Reconcile Now</button>
+                </div>
+            )}
 
             {/* Bento Grid */}
             <div style={{
@@ -277,6 +347,23 @@ export default function AccountingDashboard() {
                                 {((pAndL?.operatingExpenses || 0) / (tradingAcc?.revenue || 1) * 100).toFixed(1)}% of Gross Revenue
                             </span>
                         </div>
+                        <div style={{ padding: '24px', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                            <h3 style={{ fontSize: '12px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', marginBottom: '16px' }}>Tax Liability Tracking</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                <div>
+                                    <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '700' }}>SALES TAX PAYABLE (HST/GST)</div>
+                                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#fbbf24' }}>
+                                        ${balanceSheet?.liabilities.accounts['Sales Tax Payable (HST/GST)']?.toLocaleString() || '0'}
+                                    </div>
+                                </div>
+                                <div
+                                    onClick={() => window.location.hash = '#/platform/admin/security/tax-hub'}
+                                    style={{ cursor: 'pointer', padding: '12px', background: 'rgba(251, 191, 36, 0.05)', border: '1px solid rgba(251, 191, 36, 0.1)', borderRadius: '8px' }}>
+                                    <div style={{ fontSize: '12px', color: '#fbbf24', fontWeight: '600' }}>Compliance Alert</div>
+                                    <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>Click to view tax filing report and record remittance in the Compliance Hub.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -323,6 +410,55 @@ export default function AccountingDashboard() {
                     <div style={{ marginTop: '40px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', textAlign: 'center' }}>
                         <div style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.1em', opacity: '0.6' }}>CONTINUOUS COMPLIANCE STATUS</div>
                         <div style={{ fontSize: '24px', fontWeight: '900', marginTop: '8px', color: '#4ade80' }}>OPERATIONAL</div>
+                    </div>
+                </div>
+
+                {/* AI Projection Hub */}
+                <div style={{
+                    gridColumn: 'span 12',
+                    background: 'rgba(30, 41, 59, 0.7)',
+                    borderRadius: '24px',
+                    padding: '32px',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(20px)',
+                    marginTop: '24px'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f472b6' }}></div>
+                            <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#f8fafc' }}>AI Projection Hub</h2>
+                        </div>
+                        <div style={{ display: 'flex', gap: '24px' }}>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '800' }}>ESTIMATED RUNWAY</div>
+                                <div style={{ fontSize: '24px', fontWeight: '900', color: (forecastData?.daysOfRunway === 'infinite') ? '#4ade80' : '#f87171' }}>
+                                    {forecastData?.daysOfRunway === 'infinite' ? '∞ Days' : `${forecastData?.daysOfRunway} Days`}
+                                </div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '800' }}>NET DAILY FLOW</div>
+                                <div style={{ fontSize: '24px', fontWeight: '900', color: (forecastData?.netDailyFlow || 0) >= 0 ? '#4ade80' : '#f87171' }}>
+                                    {(forecastData?.netDailyFlow || 0) >= 0 ? '+' : ''}${forecastData?.netDailyFlow?.toLocaleString()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Simple Trend Visualization */}
+                    <div style={{ height: '120px', position: 'relative', background: 'rgba(0,0,0,0.2)', borderRadius: '16px', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', padding: '0 10px' }}>
+                        {(forecastData?.forecast || []).filter((_, i) => i % 5 === 0).map((p) => {
+                            const height = Math.min(100, (p.projectedCash / (forecastData?.currentCash || 1)) * 100);
+                            return (
+                                <div key={p.date} style={{
+                                    flex: '1',
+                                    height: `${height}%`,
+                                    background: 'linear-gradient(to top, rgba(244, 114, 182, 0.2), rgba(244, 114, 182, 0.4))',
+                                    borderTop: '2px solid #f472b6',
+                                    marginLeft: '2px'
+                                }}></div>
+                            );
+                        })}
+                        <div style={{ position: 'absolute', top: '10px', left: '20px', fontSize: '12px', color: '#94a3b8', opacity: '0.6' }}>90-Day Cash Projection (Predictive Model)</div>
                     </div>
                 </div>
 

@@ -2,6 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { FinancialService } from '../../../_shared/services/financial.service';
 import { BillingService } from '../../../_shared/services/billing.service';
+import { ForecastingService } from '../../../_shared/services/forecasting.service';
 
 const financial = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -183,6 +184,36 @@ financial.openapi(reconcileRoute, async (c) => {
     return c.json({ success: true }, 200);
 });
 
+// POST /reconcile/auto
+const autoReconcileRoute = createRoute({
+    method: 'post',
+    path: '/reconcile/auto',
+    summary: 'Trigger Automated Reconciliation',
+    tags: ['Financial'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        matchedCount: z.number(),
+                    }),
+                },
+            },
+            description: 'Success',
+        },
+    },
+});
+
+financial.openapi(autoReconcileRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const financialService = new FinancialService(prisma);
+
+    const matchedCount = await financialService.autoMatchBankFeed(tenantId);
+
+    return c.json({ matchedCount }, 200);
+});
+
 // GET /reconciliation-summary
 const reconciliationSummaryRoute = createRoute({
     method: 'get',
@@ -328,6 +359,96 @@ financial.openapi(tradingAccountRoute, async (c) => {
 
     const report = await financialService.getTradingAccount(tenantId, start, end);
     return c.json(report, 200);
+});
+
+// GET /reports/forecast
+const forecastRoute = createRoute({
+    method: 'get',
+    path: '/reports/forecast',
+    summary: 'Predictive Cash Flow Forecast',
+    tags: ['Financial'],
+    request: {
+        query: z.object({
+            days: z.string().optional(),
+        }),
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(forecastRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const forecastingService = new ForecastingService(prisma);
+    const query = c.req.valid('query');
+
+    const days = query.days ? parseInt(query.days) : 90;
+    const forecast = await forecastingService.generateCashFlowForecast(tenantId, days);
+    return c.json(forecast, 200);
+});
+
+// GET /reports/tax-filing
+const taxFilingRoute = createRoute({
+    method: 'get',
+    path: '/reports/tax-filing',
+    summary: 'Tax Filing Report',
+    tags: ['Financial'],
+    request: {
+        query: z.object({
+            startDate: z.string().optional(),
+            endDate: z.string().optional(),
+        }),
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(taxFilingRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const financialService = new FinancialService(prisma);
+    const query = c.req.valid('query');
+
+    const start = query.startDate ? new Date(query.startDate) : new Date(new Date().getFullYear(), new Date().getMonth() - 3, 1);
+    const end = query.endDate ? new Date(query.endDate) : new Date();
+
+    const report = await financialService.generateTaxFilingReport(tenantId, start, end);
+    return c.json(report, 200);
+});
+
+// POST /tax-remittance
+const taxRemittanceRoute = createRoute({
+    method: 'post',
+    path: '/tax-remittance',
+    summary: 'Record Tax Remittance',
+    tags: ['Financial'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        amount: z.number(),
+                        reference: z.string(),
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(taxRemittanceRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const financialService = new FinancialService(prisma);
+    const body = c.req.valid('json');
+
+    const tx = await financialService.recordTaxRemittance(tenantId, body.amount, body.reference);
+    return c.json(tx, 200);
 });
 
 export default financial;
