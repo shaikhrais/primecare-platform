@@ -17,11 +17,22 @@ export class BillingService {
         amount: number | Decimal;
         tax?: number | Decimal;
     }) {
-        const { tenantId, clientId, amount, tax = 0 } = params;
+        let { tenantId, clientId, amount, tax } = params;
+
+        // 1. Fetch tax settings from tenant if tax amount not explicitly provided
+        if (tax === undefined) {
+            const tenant = await this.prisma.tenant.findUnique({
+                where: { id: tenantId },
+                select: { taxPercentage: true }
+            });
+            const taxPct = new Decimal((tenant?.taxPercentage || 0).toString());
+            tax = new Decimal(amount).times(taxPct.dividedBy(100));
+        }
+
         const total = new Decimal(amount).plus(new Decimal(tax));
 
         return await this.prisma.$transaction(async (tx: any) => {
-            // 1. Create the business record
+            // 2. Create the business record
             const invoice = await tx.invoice.create({
                 data: {
                     tenantId,
@@ -33,8 +44,8 @@ export class BillingService {
                 }
             });
 
-            // 2. Create the financial ledger entries (AR/Revenue)
-            await this.financialService.recordInvoice(tenantId, invoice.id, total);
+            // 3. Create the financial ledger entries (AR/Revenue/Tax)
+            await this.financialService.recordInvoice(tenantId, invoice.id, amount, tax!);
 
             return invoice;
         });

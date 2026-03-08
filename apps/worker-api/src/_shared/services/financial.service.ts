@@ -11,6 +11,7 @@ export class FinancialService {
             { code: '1000', name: 'Cash', type: 'ASSET' },
             { code: '1100', name: 'Accounts Receivable', type: 'ASSET' },
             { code: '2000', name: 'Accounts Payable', type: 'LIABILITY' },
+            { code: '2100', name: 'Sales Tax Payable (HST/GST)', type: 'LIABILITY' },
             { code: '3000', name: 'Owner Equity', type: 'EQUITY' },
             { code: '4000', name: 'Service Revenue', type: 'REVENUE' },
             { code: '5000', name: 'Caregiver Payroll (Direct)', type: 'EXPENSE' }, // DIRECT COST
@@ -44,13 +45,14 @@ export class FinancialService {
         type: 'INVOICE' | 'PAYMENT' | 'PAYROLL' | 'EXPENSE';
         referenceId: string;
         amount: number | Decimal;
+        currency?: string;
         entries: {
             accountCode: string;
             debit?: number | Decimal;
             credit?: number | Decimal;
         }[];
     }) {
-        const { tenantId, type, referenceId, amount, entries } = params;
+        const { tenantId, type, referenceId, amount, currency = 'CAD', entries } = params;
 
         // 1. Verify balance (Debits must equal Credits)
         let totalDebit = new Decimal(0);
@@ -73,6 +75,7 @@ export class FinancialService {
                     type,
                     referenceId,
                     amount: new Decimal(amount),
+                    currency,
                     status: 'posted'
                 }
             });
@@ -119,6 +122,7 @@ export class FinancialService {
                         accountId: account.id,
                         debit,
                         credit,
+                        currency,
                         balanceBefore,
                         balanceAfter
                     }
@@ -134,16 +138,23 @@ export class FinancialService {
      * Dr Accounts Receivable
      * Cr Service Revenue
      */
-    async recordInvoice(tenantId: string, invoiceId: string, total: number | Decimal) {
+    async recordInvoice(tenantId: string, invoiceId: string, subtotal: number | Decimal, taxAmount: number | Decimal) {
+        const total = new Decimal(subtotal).plus(new Decimal(taxAmount));
+        const entries = [
+            { accountCode: '1100', debit: total }, // A/R
+            { accountCode: '4000', credit: subtotal }, // Revenue
+        ];
+
+        if (new Decimal(taxAmount).gt(0)) {
+            entries.push({ accountCode: '2100', credit: taxAmount }); // Tax Payable
+        }
+
         return await this.recordTransaction({
             tenantId,
             type: 'INVOICE',
             referenceId: invoiceId,
             amount: total,
-            entries: [
-                { accountCode: '1100', debit: total }, // A/R
-                { accountCode: '4000', credit: total } // Revenue
-            ]
+            entries
         });
     }
 
@@ -253,11 +264,22 @@ export class FinancialService {
         });
 
         for (const bt of unreconciledBank) {
-            // Find a posted transaction with the same amount
+            // Fuzzy Match: Amount ± 0.01 and Date ± 3 days
+            const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
+            const startDate = new Date(bt.bankDate.getTime() - threeDaysMs);
+            const endDate = new Date(bt.bankDate.getTime() + threeDaysMs);
+
             const match = await this.prisma.financialTransaction.findFirst({
                 where: {
                     tenantId,
-                    amount: bt.amount,
+                    amount: {
+                        gte: new Decimal(bt.amount).minus(0.01),
+                        lte: new Decimal(bt.amount).plus(0.01)
+                    },
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate
+                    },
                     status: 'posted'
                 }
             });

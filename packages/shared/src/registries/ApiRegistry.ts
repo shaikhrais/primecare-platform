@@ -168,6 +168,7 @@ const PLATFORM = {
             PROFIT_LOSS: '/v1/admin/financial/reports/p-and-l',
             BALANCE_SHEET: '/v1/admin/financial/reports/balance-sheet',
             DAILY_SUMMARY: '/v1/admin/financial/reports/daily-summary',
+            RECONCILIATION_SUMMARY: '/v1/admin/financial/reports/reconciliation-summary',
         }
     },
     SCRUM_MASTER: {

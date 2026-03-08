@@ -183,6 +183,39 @@ financial.openapi(reconcileRoute, async (c) => {
     return c.json({ success: true }, 200);
 });
 
+// GET /reconciliation-summary
+const reconciliationSummaryRoute = createRoute({
+    method: 'get',
+    path: '/reconciliation-summary',
+    summary: 'Get Reconciliation Metrics',
+    tags: ['Financial'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        unreconciledBankCount: z.number(),
+                        unreconciledLedgerCount: z.number(),
+                    }),
+                },
+            },
+            description: 'Success',
+        },
+    },
+});
+
+financial.openapi(reconciliationSummaryRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+
+    const [unreconciledBankCount, unreconciledLedgerCount] = await Promise.all([
+        prisma.bankTransaction.count({ where: { tenantId, status: 'unreconciled' } }),
+        prisma.financialTransaction.count({ where: { tenantId, status: 'posted' } })
+    ]);
+
+    return c.json({ unreconciledBankCount, unreconciledLedgerCount }, 200);
+});
+
 // GET /reports/p-and-l
 const pAndLRoute = createRoute({
     method: 'get',
