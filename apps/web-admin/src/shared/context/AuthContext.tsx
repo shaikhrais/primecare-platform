@@ -18,6 +18,7 @@ interface AuthContextType {
     login: (user: User, token: string) => void;
     logout: () => void;
     refreshSession: () => Promise<void>;
+    isOnline: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,6 +26,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+    // #7: Track online/offline status for graceful degradation
+    useEffect(() => {
+        const handleOnline = () => setIsOnline(true);
+        const handleOffline = () => setIsOnline(false);
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
+    }, []);
 
     const refreshSession = async () => {
         try {
@@ -33,15 +47,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (response.ok) {
                 const data = await response.json();
                 const userData = data.user;
-                // Preserve activeRole from localStorage if it exists, otherwise default
+                // Preserve activeRole from localStorage if it exists
                 const storedUser = localStorage.getItem('user');
                 const activeRole = storedUser ? JSON.parse(storedUser).activeRole : userData.roles[0];
 
                 const finalUser = { ...userData, activeRole };
                 setUser(finalUser);
-                localStorage.setItem('user', JSON.stringify(finalUser));
+                // #5: Only store minimal UI state — NOT tokens
+                localStorage.setItem('user', JSON.stringify({
+                    id: finalUser.id,
+                    email: finalUser.email,
+                    roles: finalUser.roles,
+                    activeRole: finalUser.activeRole,
+                    tenantId: finalUser.tenantId,
+                }));
             } else if (response.status === 401) {
-                // Only clear on explicit 401 (unauthorized) — NOT on 500 (cold start)
                 setUser(null);
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');
@@ -64,25 +84,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlToken = urlParams.get('token');
-
-        if (urlToken) {
-            console.log('Detected session token in URL, initializing...');
-            localStorage.setItem('token', urlToken);
-            // Clean up the URL without triggering a reload
-            const newUrl = window.location.pathname;
-            window.history.replaceState({}, '', newUrl);
-        }
-
+        // #2: REMOVED URL token handling — tokens in URLs are a security risk
+        // Auth is handled via HttpOnly cookies set by the backend
         refreshSession();
     }, []);
 
     const login = (userData: User, token?: string) => {
         setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-        // We still accept token for legacy or immediate post-login redirection if needed,
-        // but the backend has already set the HttpOnly cookie.
+        // #5: Store only safe UI fields
+        localStorage.setItem('user', JSON.stringify({
+            id: userData.id,
+            email: userData.email,
+            roles: userData.roles,
+            activeRole: userData.activeRole,
+            tenantId: userData.tenantId,
+        }));
+        // Keep token for Authorization header backup (legacy support)
         if (token) {
             localStorage.setItem('token', token);
         }
@@ -92,7 +109,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await apiClient.post('/v1/auth/logout');
         } catch (e) {
-            console.error('Logout failed', e);
+            // Silent — logout should always complete client-side
         }
         setUser(null);
         localStorage.removeItem('user');
@@ -101,7 +118,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, refreshSession }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, refreshSession, isOnline }}>
             {children}
         </AuthContext.Provider>
     );

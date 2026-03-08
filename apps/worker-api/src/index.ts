@@ -109,13 +109,14 @@ app.onError((err, c) => {
 });
 
 // 3. Middlewares
+app.use('*', secureHeaders());  // #16: Content-Security-Policy + security headers
 app.use('*', prismaMiddleware());
 app.use('*', governanceMiddleware());
 app.use('*', tenantIsolation());
 app.use('*', csrfProtection());
 app.use('*', sanitizeInput());
 
-// #17: API versioning header
+// #17: API versioning + deprecation headers
 app.use('*', async (c, next) => {
     await next();
     c.header('X-API-Version', '1.0.0');

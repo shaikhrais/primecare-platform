@@ -2,11 +2,24 @@ const API_URL = import.meta.env.VITE_API_URL || '';
 
 interface RequestOptions extends RequestInit {
     params?: Record<string, string>;
+    timeoutMs?: number;  // #11: Request timeout
+}
+
+// #23: Typed API error class
+export class ApiError extends Error {
+    status: number;
+    data: any;
+    constructor(status: number, message: string, data?: any) {
+        super(message);
+        this.name = 'ApiError';
+        this.status = status;
+        this.data = data;
+    }
 }
 
 export const apiClient = {
     async request(path: string, options: RequestOptions = {}) {
-        const { params, ...init } = options;
+        const { params, timeoutMs = 30000, ...init } = options;
         let url = `${API_URL}${path}`;
 
         if (params) {
@@ -18,12 +31,8 @@ export const apiClient = {
         const userData = userStr ? JSON.parse(userStr) : null;
         const tenantId = userData?.tenantId;
 
-        // Defensive: Check for token in URL (for immediate post-login requests)
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlToken = urlParams.get('token');
-        if (urlToken) {
-            localStorage.setItem('token', urlToken);
-        }
+        // #2: REMOVED URL token handling — use HttpOnly cookies only
+        // Tokens in URLs are an XSS injection + browser history leak vector
 
         const token = localStorage.getItem('token');
 
@@ -34,10 +43,16 @@ export const apiClient = {
                 ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
                 ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
                 ...(tenantId ? { 'X-Tenant-ID': tenantId } : {}),
+                'X-Requested-With': 'XMLHttpRequest',  // #13: CSRF protection header
                 ...init.headers,
             },
             credentials: 'include',
         };
+
+        // #11: AbortController for request timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+        defaultOptions.signal = controller.signal;
 
         // Retry with backoff for cold-start resilience
         let response!: Response;
@@ -47,14 +62,19 @@ export const apiClient = {
                 response = await fetch(url, defaultOptions);
                 lastError = null;
                 break;
-            } catch (err) {
+            } catch (err: any) {
                 lastError = err;
+                if (err.name === 'AbortError') {
+                    clearTimeout(timeoutId);
+                    throw new ApiError(408, `Request timeout after ${timeoutMs}ms`, { path });
+                }
                 // Only retry on network errors (cold start crashes), not HTTP errors
                 if (attempt < 2) {
                     await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
                 }
             }
         }
+        clearTimeout(timeoutId);
         if (lastError) throw lastError;
 
         // Handle Token Refresh (401)
@@ -62,15 +82,10 @@ export const apiClient = {
         const { ApiRegistry, RouteRegistry } = AdminRegistry;
         if (response.status === 401 && !path.includes(ApiRegistry.AUTH.REFRESH) && !path.includes(ApiRegistry.AUTH.LOGIN)) {
             try {
-                // We don't want to import AdminRegistry here to avoid circular dependencies if possible, 
-                // but since it's a shared package it should be fine.
-                // Ideally ApiRegistry is imported directly.
-                const { ApiRegistry } = await import('prime-care-shared');
-
-                // Try refreshing using the HttpOnly refreshToken cookie
                 const refreshResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.REFRESH}`, {
                     method: 'POST',
                     credentials: 'include',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
                 });
 
                 if (refreshResponse.ok) {
@@ -79,14 +94,14 @@ export const apiClient = {
                         localStorage.setItem('token', data.token);
                     }
 
-                    // Retry original request
-                    // The new accessToken cookie (set by the backend) will be included automatically
+                    // Retry original request with new token
                     const isFormDataRetry = init.body instanceof FormData;
                     const retryOptions: RequestInit = {
                         ...init,
                         headers: {
                             ...(!isFormDataRetry ? { 'Content-Type': 'application/json' } : {}),
                             ...(data.token ? { 'Authorization': `Bearer ${data.token}` } : {}),
+                            'X-Requested-With': 'XMLHttpRequest',
                             ...init.headers,
                         },
                         credentials: 'include' as RequestCredentials,
@@ -103,7 +118,7 @@ export const apiClient = {
                     }
                 }
             } catch (err) {
-                console.error('Refresh re-auth attempt failed', err);
+                console.error('Refresh re-auth attempt failed');
             }
         }
 

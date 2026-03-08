@@ -5,11 +5,13 @@ import { NotificationProvider } from '@/shared/context/NotificationContext';
 import CookieConsent from '@/shared/components/ui/CookieConsent';
 import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper';
 import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
+import { NetworkStatusBanner } from '@/shared/components/ui/NetworkStatusBanner';
 
 function App() {
   return (
     <ErrorBoundary>
       <NotificationProvider>
+        <NetworkStatusBanner />
         <CookieConsent />
         <BrowserRouter>
           <CommandPaletteWrapper>
