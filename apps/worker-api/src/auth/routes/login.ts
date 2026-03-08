@@ -6,8 +6,12 @@ import { generateToken, generateRefreshToken } from '../auth.service';
 import { hashPassword } from '../../_shared/utils/crypto';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { logAudit } from '../../_shared/utils/audit';
+import { authRateLimit } from '../../_shared/middleware/rate-limit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+// #6: Apply rate limiting to login (5 attempts per minute per IP)
+r.use('/login', authRateLimit);
 
 // Login
 const loginRoute = createRoute({
@@ -74,19 +78,20 @@ r.openapi(loginRoute, async (c) => {
     const user = await prisma.user.findUnique({ where: { email } });
     const passwordHash = await hashPassword(password);
 
-    console.log(`[LOGIN] Attempt: ${email}, Found: ${!!user}, Hash Match: ${user ? user.passwordHash === passwordHash : 'N/A'}`);
-
     if (!user || user.passwordHash !== passwordHash) {
         return c.json({ error: 'Invalid credentials' }, 401);
     }
+
+    const jwtSecret = c.env.JWT_SECRET;
+    if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
     const accessToken = await generateToken({
         id: user.id,
         roles: user.roles as any,
         tenantId: user.tenantId
-    }, c.env.JWT_SECRET || 'fallback_secret');
+    }, jwtSecret);
 
-    const refreshToken = await generateRefreshToken(user.id, c.env.JWT_SECRET || 'fallback_secret');
+    const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     // --- Device Governance Registration ---
     const deviceId = c.req.header('X-Device-ID');
@@ -177,7 +182,9 @@ r.openapi(loginRoute, async (c) => {
         );
     }
 
-    return c.json({ user, token: accessToken }, 200);
+    // Return safe user fields only — NEVER expose passwordHash, resetToken, etc.
+    const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
+    return c.json({ user: safeUser, token: accessToken }, 200);
 });
 
 // Switch Role
@@ -232,11 +239,14 @@ r.openapi(switchRoleRoute, async (c) => {
     const user = await prisma.user.findUnique({ where: { id: payload.sub } });
     if (!user) return c.json({ error: 'User not found' }, 404);
 
+    const jwtSecret = c.env.JWT_SECRET;
+    if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
+
     const token = await generateToken({
         id: user.id,
         roles: user.roles as any,
         tenantId: user.tenantId
-    }, c.env.JWT_SECRET || 'fallback_secret', targetRole as any);
+    }, jwtSecret, targetRole as any);
 
     setCookie(c, 'accessToken', token, {
         httpOnly: true,

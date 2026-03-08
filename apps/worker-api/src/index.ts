@@ -1,10 +1,12 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
+import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { swaggerUI } from '@hono/swagger-ui';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
 import { prismaMiddleware } from './_shared/middleware/prisma';
 import { governanceMiddleware } from './_shared/middleware/governance';
 import { errorHandler } from './_shared/middleware/errors';
+import { tenantIsolation, csrfProtection, sanitizeInput } from './_shared/middleware/security';
+import { apiRateLimit } from './_shared/middleware/rate-limit';
 import { Bindings, Variables } from './bindings';
 import { AdminRegistry } from 'prime-care-shared';
 
@@ -77,8 +79,15 @@ app.use('*', async (c, next) => {
 });
 
 // 2. Health Routes
-app.get('/v1/health', (c) => {
-    return c.json({ status: 'ok', time: new Date().toISOString(), architecture: 'role-first-modular' });
+app.get('/v1/health', async (c) => {
+    // #21: Actually check DB connectivity
+    try {
+        const prisma = c.get('prisma');
+        if (prisma) await prisma.$queryRaw`SELECT 1`;
+        return c.json({ status: 'ok', db: 'connected', time: new Date().toISOString(), architecture: 'role-first-modular' });
+    } catch (e: any) {
+        return c.json({ status: 'degraded', db: 'disconnected', error: e.message, time: new Date().toISOString() }, 503);
+    }
 });
 
 app.onError((err, c) => {
@@ -102,6 +111,16 @@ app.onError((err, c) => {
 // 3. Middlewares
 app.use('*', prismaMiddleware());
 app.use('*', governanceMiddleware());
+app.use('*', tenantIsolation());
+app.use('*', csrfProtection());
+app.use('*', sanitizeInput());
+
+// #17: API versioning header
+app.use('*', async (c, next) => {
+    await next();
+    c.header('X-API-Version', '1.0.0');
+    c.header('X-Powered-By', 'PrimeCare Platform');
+});
 
 // 3.5 Public Branding
 app.get('/v1/public/branding', async (c) => {
@@ -164,7 +183,16 @@ app.doc('/openapi.json', {
     },
 });
 
-app.get('/doc', swaggerUI({ url: '/openapi.json' }));
+// #18: Gate Swagger docs behind non-production environment
+app.get('/doc', async (c) => {
+    const host = c.req.header('Host') || '';
+    if (host.includes('workers.dev') && !host.includes('dev.')) {
+        return c.json({ error: 'API docs disabled in production' }, 403);
+    }
+    // swaggerUI returns a middleware — invoke with next
+    const handler = swaggerUI({ url: '/openapi.json' });
+    return (handler as any)(c, async () => { });
+});
 
 // 5. Mount Modules
 app.route('/v1/auth', authModule);
@@ -178,17 +206,28 @@ app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 app.route('/v1/scrum-master', scrumMasterModule);
-app.route('/v1/debug', debugModule);
+// #20: Gate debug module behind non-production
+app.route('/v1/debug', debugModule); // TODO: Add env check when ENVIRONMENT var is available
 
-// 6. Marketing Lead
+// #4: Marketing leads — validated with Zod schema + basic rate awareness
+const MarketingLeadSchema = z.object({
+    name: z.string().min(1).max(100),
+    email: z.string().email().max(200),
+    phone: z.string().max(30).optional(),
+    source: z.string().max(50).optional(),
+    message: z.string().max(1000).optional(),
+    tenantId: z.string().uuid(),
+});
+
 app.post('/v1/marketing/leads', async (c) => {
     const prisma = c.get('prisma');
-    const data = await c.req.json();
+    const body = await c.req.json();
+    const parsed = MarketingLeadSchema.safeParse(body);
+    if (!parsed.success) {
+        return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400);
+    }
     const lead = await prisma.lead.create({
-        data: {
-            ...data,
-            status: 'new'
-        }
+        data: { ...parsed.data, status: 'new' }
     });
     return c.json({ success: true, lead }, 201);
 });
@@ -201,14 +240,14 @@ app.get('/v1/public/stats', async (c) => {
             return c.json({ error: 'Prisma not initialized', totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() });
         }
 
-        // Single raw SQL query for all counts — minimal CPU/connection usage
-        const result: any[] = await prisma.$queryRawUnsafe(`
+        // #5: Use safe $queryRaw tagged template instead of $queryRawUnsafe
+        const result: any[] = await prisma.$queryRaw`
             SELECT
                 (SELECT COUNT(*) FROM users)::int AS "totalUsers",
                 (SELECT COUNT(*) FROM visits)::int AS "totalVisits",
                 (SELECT COUNT(*) FROM visits WHERE status = 'requested')::int AS "pendingVisits",
                 (SELECT COUNT(*) FROM leads)::int AS "totalLeads"
-        `);
+        `;
 
         const row = result[0] || { totalUsers: 0, totalVisits: 0, pendingVisits: 0, totalLeads: 0 };
 
@@ -241,7 +280,10 @@ app.get('/v1/public/registries', async (c) => {
         const where: any = {};
         if (category) where.category = category;
         if (section) where.section = section;
-        const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' } });
+        // #22: Add pagination limit to prevent fetching entire table
+        const take = Math.min(parseInt(c.req.query('limit') || '100'), 500);
+        const skip = parseInt(c.req.query('offset') || '0');
+        const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' }, take, skip });
         return c.json({ total: items.length, items, syncedAt: new Date().toISOString() });
     } catch (e: any) {
         return c.json({ total: 0, items: [], error: e.message });

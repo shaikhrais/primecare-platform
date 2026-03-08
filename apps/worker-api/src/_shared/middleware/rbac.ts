@@ -16,9 +16,9 @@ export const requireRole = (allowedRoles: Role[]) => {
             const lowerRole = role.toLowerCase();
             if (allowedRoles.includes(role)) return true;
 
-            // 1. Manager Umbrella: any role string containing 'manager'
+            // 1. Manager Umbrella: explicit subrole membership (NOT string-includes)
             const isManagerAllowed = allowedRoles.includes('manager' as Role);
-            if (isManagerAllowed && lowerRole.includes('manager')) return true;
+            if (isManagerAllowed && MANAGER_SUBROLES.includes(lowerRole)) return true;
 
             // 2. Service Provider Umbrella: PSW, RN, RMT, RPT, RCH
             const isSPAllowed = allowedRoles.includes('service_provider' as any);

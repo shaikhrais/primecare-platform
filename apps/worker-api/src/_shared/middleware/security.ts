@@ -1,0 +1,110 @@
+import { MiddlewareHandler } from 'hono';
+import { Bindings, Variables } from '../../bindings';
+
+/**
+ * #16: Tenant Isolation Middleware
+ * Ensures all authenticated requests have tenantId extracted and validated.
+ * Sets c.get('tenantId') for downstream use.
+ * Verifies the JWT tenantId matches the X-Tenant-ID header when both are present.
+ */
+export const tenantIsolation = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
+    return async (c, next) => {
+        const headerTenantId = c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
+        const jwtPayload = c.get('jwtPayload' as any) as { tenantId?: string } | undefined;
+        const jwtTenantId = jwtPayload?.tenantId;
+
+        // If both exist, they must match (prevents cross-tenant token reuse)
+        if (headerTenantId && jwtTenantId && headerTenantId !== jwtTenantId) {
+            return c.json({
+                error: 'Tenant Mismatch',
+                message: 'Session tenant does not match request tenant.'
+            }, 403);
+        }
+
+        // Set resolved tenantId for downstream
+        const tenantId = jwtTenantId || headerTenantId;
+        if (tenantId) {
+            c.set('tenantId' as any, tenantId);
+        }
+
+        await next();
+    };
+};
+
+/**
+ * #13: CSRF Protection Middleware
+ * For mutation requests (POST/PUT/PATCH/DELETE), requires a custom header
+ * that can't be sent by plain HTML forms or cross-origin AJAX.
+ */
+export const csrfProtection = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
+    return async (c, next) => {
+        const method = c.req.method;
+        const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
+
+        if (safeMethods.includes(method)) {
+            return await next();
+        }
+
+        // Mutation request — verify custom header exists
+        // Browsers won't send this header from a cross-origin form/script
+        const hasCustomHeader = c.req.header('X-Requested-With') || c.req.header('Authorization');
+        if (!hasCustomHeader) {
+            // Allow if Content-Type is JSON (can't be sent from plain form)
+            const contentType = c.req.header('Content-Type') || '';
+            if (contentType.includes('application/json')) {
+                return await next();
+            }
+            return c.json({
+                error: 'CSRF Protection',
+                message: 'Missing required request headers.'
+            }, 403);
+        }
+
+        await next();
+    };
+};
+
+/**
+ * #14: Input Sanitization Middleware
+ * Strips common XSS vectors from string values in JSON request bodies.
+ * Applied globally to POST/PUT/PATCH requests.
+ */
+export const sanitizeInput = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
+    const SCRIPT_RE = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+    const EVENT_RE = /\bon\w+\s*=/gi;
+    const HREF_JS_RE = /javascript\s*:/gi;
+
+    const sanitize = (val: any): any => {
+        if (typeof val === 'string') {
+            return val
+                .replace(SCRIPT_RE, '')
+                .replace(EVENT_RE, '')
+                .replace(HREF_JS_RE, '');
+        }
+        if (Array.isArray(val)) return val.map(sanitize);
+        if (val && typeof val === 'object') {
+            const clean: any = {};
+            for (const [k, v] of Object.entries(val)) {
+                clean[k] = sanitize(v);
+            }
+            return clean;
+        }
+        return val;
+    };
+
+    return async (c, next) => {
+        const method = c.req.method;
+        if (['POST', 'PUT', 'PATCH'].includes(method)) {
+            const contentType = c.req.header('Content-Type') || '';
+            if (contentType.includes('application/json')) {
+                try {
+                    const body = await c.req.json();
+                    const sanitized = sanitize(body);
+                    // Replace the parsed body (Hono caches req.json())
+                    (c.req as any)._json = sanitized;
+                } catch { /* not JSON body */ }
+            }
+        }
+        await next();
+    };
+};

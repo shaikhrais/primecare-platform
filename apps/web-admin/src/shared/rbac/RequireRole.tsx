@@ -25,12 +25,16 @@ export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles
 
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
-    if (user.roles?.includes('admin')) {
+    // #10: Only super_admin and scrum_master get full bypass — admin still checks allowed list
+    if (user.roles?.includes('super_admin') || user.roles?.includes('scrum_master')) {
         return <>{children}</>;
     }
 
+    // Check if user's active role or any of their roles match the allowed list
     if (!allowedRoles.includes(role)) {
-        return <Unauthorized />;
+        // Also check if any user role matches (umbrella access)
+        const hasAnyMatch = user.roles?.some((r: string) => allowedRoles.includes(r));
+        if (!hasAnyMatch) return <Unauthorized />;
     }
 
     return <>{children}</>;

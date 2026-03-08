@@ -4,17 +4,20 @@ import { AppRouter } from './app/router';
 import { NotificationProvider } from '@/shared/context/NotificationContext';
 import CookieConsent from '@/shared/components/ui/CookieConsent';
 import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper';
+import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
 
 function App() {
   return (
-    <NotificationProvider>
-      <CookieConsent />
-      <BrowserRouter>
-        <CommandPaletteWrapper>
-          <AppRouter />
-        </CommandPaletteWrapper>
-      </BrowserRouter>
-    </NotificationProvider>
+    <ErrorBoundary>
+      <NotificationProvider>
+        <CookieConsent />
+        <BrowserRouter>
+          <CommandPaletteWrapper>
+            <AppRouter />
+          </CommandPaletteWrapper>
+        </BrowserRouter>
+      </NotificationProvider>
+    </ErrorBoundary>
   );
 
 }
