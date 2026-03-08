@@ -118,7 +118,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
         return c.json({ data: riskScores } as any, 200 as const);
 
     } catch (error) {
-        console.error('Error calculating predictive staffing:', error);
+        // R14: Don't leak internal errors
         return c.json({ data: [], error: 'Internal server error' } as any, 500 as const);
     }
 });

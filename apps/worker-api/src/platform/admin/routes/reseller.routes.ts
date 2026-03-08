@@ -2,6 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { requireRole } from '../../../_shared/middleware/rbac';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
+import { hashPassword } from '../../../_shared/utils/crypto';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -112,7 +113,7 @@ r.openapi(getChildTenantsRoute, async (c) => {
 
         return c.json({ children: formatted }, 200 as const);
     } catch (error) {
-        console.error('Error fetching child tenants:', error);
+        // R14: Don't leak internal errors
         return c.json({ error: 'Failed' } as any, 500 as const);
     }
 });
@@ -138,8 +139,8 @@ r.openapi(provisionChildTenantRoute, async (c) => {
             return c.json({ error: 'Admin email already exists in the system.' }, 400 as const);
         }
 
-        // Normally we'd hash the password here with bcrypt, skipping for brevity mock
-        const mockHash = `hash_${adminPassword}`;
+        // R14: CRITICAL — was using fake hash `hash_${password}`. Now uses real PBKDF2.
+        const passwordHash = await hashPassword(adminPassword);
 
         // Create the child tenant and its admin user in a transaction
         const result = await prisma.$transaction(async (tx: any) => {
@@ -155,7 +156,7 @@ r.openapi(provisionChildTenantRoute, async (c) => {
             const newAdmin = await tx.user.create({
                 data: {
                     email: adminEmail,
-                    passwordHash: mockHash,
+                    passwordHash,
                     tenantId: newTenant.id,
                     roles: ['admin'] // Set as admin for their new tenant
                 }
@@ -172,7 +173,7 @@ r.openapi(provisionChildTenantRoute, async (c) => {
         }, 200 as const);
 
     } catch (error) {
-        console.error('Error provisioning child tenant:', error);
+        // R14: Don't leak internal errors
         return c.json({ error: 'Failed' } as any, 500 as const);
     }
 });

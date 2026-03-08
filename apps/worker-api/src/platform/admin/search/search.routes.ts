@@ -77,7 +77,7 @@ search.openapi(globalSearchRoute as any, async (c: any) => {
             total: users.length + clients.length + leads.length + incidents.length
         }, 200);
     } catch (error: any) {
-        return c.json({ error: error.message }, 500);
+        return c.json({ error: 'Search failed' }, 500);
     }
 });
 

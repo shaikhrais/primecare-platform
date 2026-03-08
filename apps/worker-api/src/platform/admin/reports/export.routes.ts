@@ -66,7 +66,7 @@ reports.openapi(exportDataRoute, async (c) => {
         return c.json({ error: 'PDF export not yet implemented' }, 501);
 
     } catch (error: any) {
-        return c.json({ error: error.message }, 500);
+        return c.json({ error: 'Export failed' }, 500);
     }
 });
 

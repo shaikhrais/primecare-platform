@@ -121,7 +121,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
         }, 200 as const);
 
     } catch (error) {
-        console.error('Error running clinical auto-pilot:', error);
+        // R14: Don't leak internal errors
         return c.json({ error: 'Internal server error' } as any, 500 as const);
     }
 });

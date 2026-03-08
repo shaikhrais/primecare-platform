@@ -150,7 +150,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
         return c.json({ data: riskData } as any, 200 as const);
 
     } catch (error) {
-        console.error('Error calculating risk surveillance:', error);
+        // R14: Don't leak internal errors
         return c.json({ data: [], error: 'Internal server error' } as any, 500 as const);
     }
 });
