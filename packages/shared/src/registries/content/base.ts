@@ -1,4 +1,5 @@
 import { baseAdminContent } from './base-admin';
+import { baseGrowthContent } from './base-growth';
 
 const baseCoreContent = {
     APP: {
@@ -171,4 +172,5 @@ const baseCoreContent = {
 export const baseContent = {
     ...baseCoreContent,
     ...baseAdminContent,
+    ...baseGrowthContent,
 } as const;
