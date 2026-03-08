@@ -44,16 +44,22 @@ export const forensicExtension = (actorUserId?: string | null, deviceId?: string
                         const eventId = crypto.randomUUID();
                         const timestamp = new Date().toISOString();
 
+                        // R8: Sanitize payload — strip sensitive fields before logging/storing
+                        const SENSITIVE_FIELDS = ['passwordHash', 'password', 'token', 'secret', 'accessToken', 'refreshToken'];
+                        const sanitizedPayload = JSON.parse(JSON.stringify(args.data || args));
+                        for (const field of SENSITIVE_FIELDS) {
+                            if (sanitizedPayload[field]) sanitizedPayload[field] = '[REDACTED]';
+                        }
+
                         // Prepare the data to be hashed
                         const rawData = JSON.stringify({
                             tenantId,
                             operation: operation.toUpperCase(),
                             modelName: model,
                             entityId: finalEntityId ? String(finalEntityId) : null,
-                            payload: args.data || args,
+                            payload: sanitizedPayload,
                             actorUserId,
                             deviceId,
-                            ipAddress,
                             previousChecksum,
                             createdAt: timestamp
                         });
@@ -70,10 +76,10 @@ export const forensicExtension = (actorUserId?: string | null, deviceId?: string
                             operation: operation.toUpperCase(),
                             modelName: model,
                             entityId: finalEntityId ? String(finalEntityId) : null,
-                            payload: args.data || args,
+                            payload: sanitizedPayload,       // R8: Sanitized payload
                             actorUserId,
                             deviceId,
-                            ipAddress,
+                            // R8: ipAddress removed from stored events (PII under PHIPA/PIPEDA)
                             checksum,
                             previousChecksum,
                             createdAt: timestamp
@@ -83,9 +89,10 @@ export const forensicExtension = (actorUserId?: string | null, deviceId?: string
                         console.log(`[FORENSIC_TRACER_JSON] ${JSON.stringify(eventData)}`);
 
                         if (prisma.systemEvent) {
-                            prisma.systemEvent.create({
+                            // R8: Await create to avoid lost events
+                            await prisma.systemEvent.create({
                                 data: eventData
-                            }).catch((err: any) => console.error('[FORENSIC_INTERNAL_ERROR]', err));
+                            }).catch((err: any) => { });  // Silent catch to avoid blocking main flow
                         }
                     } catch (e) {
                         console.error('[FORENSIC_CAPTURE_ERROR]', e);

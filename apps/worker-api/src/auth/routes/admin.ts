@@ -5,6 +5,7 @@ import { generateToken, generateRefreshToken } from '../auth.service';
 import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
+import { logAudit } from '../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -34,39 +35,39 @@ const impersonateRoute = createRoute({
             },
             description: 'Successfully impersonating target user',
         },
-        401: {
-            description: 'Unauthorized',
-        },
-        403: {
-            description: 'Forbidden: Admin role required',
-        },
+        401: { description: 'Unauthorized' },
+        403: { description: 'Forbidden: Super Admin role required' },
         404: {
-            content: {
-                'application/json': {
-                    schema: z.object({ error: z.string() }),
-                },
-            },
+            content: { 'application/json': { schema: z.object({ error: z.string() }) } },
             description: 'Target user not found',
+        },
+        500: {
+            content: { 'application/json': { schema: z.object({ error: z.string() }) } },
+            description: 'Server error',
         },
     },
 });
 
 r.openapi(impersonateRoute, async (c) => {
-    const secret = c.env.JWT_SECRET || 'fallback_secret';
+    // R6: Hard fail if JWT_SECRET is missing
+    const secret = c.env.JWT_SECRET;
+    if (!secret) return c.json({ error: 'Server configuration error' }, 500);
 
-    // Manual checks because we don't have middleware property in createRoute for sub-routes if it needs closure over secret
+    // Manual auth + role checks
     const authMiddleware = requireAuth(secret);
     let authPassed = false;
     await authMiddleware(c, async () => { authPassed = true; });
     if (!authPassed) return c.json({ error: 'Unauthorized' }, 401);
 
-    const roleMiddleware = requireRole(['admin']);
+    // R6: Require super_admin — regular admins should NOT impersonate
+    const roleMiddleware = requireRole(['super_admin']);
     let rolePassed = false;
     await roleMiddleware(c, async () => { rolePassed = true; });
-    if (!rolePassed) return c.json({ error: 'Forbidden: Admin role required' }, 403);
+    if (!rolePassed) return c.json({ error: 'Forbidden: Super Admin role required' }, 403);
 
     const { targetUserId } = c.req.valid('json');
     const prisma = c.get('prisma');
+    const payload = c.get('jwtPayload') as any;
 
     const targetUser = await prisma.user.findUnique({
         where: { id: targetUserId }
@@ -74,29 +75,44 @@ r.openapi(impersonateRoute, async (c) => {
 
     if (!targetUser) return c.json({ error: 'Target user not found' }, 404);
 
-    const accessToken = await generateToken(targetUser, secret);
+    // R6: Prevent impersonating other super_admins
+    const targetRoles = (targetUser.roles || []) as string[];
+    if (targetRoles.includes('super_admin')) {
+        return c.json({ error: 'Cannot impersonate another Super Admin' }, 403);
+    }
+
+    // R6: Audit log — impersonation is a sensitive action
+    await logAudit(prisma, payload?.sub, 'impersonate', 'user', targetUserId, {
+        tenantId: payload?.tenantId || 'system',
+        impersonatedEmail: targetUser.email,
+    });
+
+    const accessToken = await generateToken({
+        id: targetUser.id,
+        roles: targetUser.roles as any,
+        tenantId: targetUser.tenantId,
+    }, secret);
     const refreshToken = await generateRefreshToken(targetUser.id, secret);
 
     setCookie(c, 'accessToken', accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-        maxAge: 60 * 60 * 24,
-        path: '/'
+        httpOnly: true, secure: true, sameSite: 'None',
+        maxAge: 60 * 60 * 24, path: '/'
     });
 
     setCookie(c, 'refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/v1/auth/refresh'
+        httpOnly: true, secure: true, sameSite: 'None',
+        maxAge: 60 * 60 * 24 * 7, path: '/v1/auth/refresh'
     });
 
-    return c.json({ user: targetUser, token: accessToken }, 200);
+    // R6: Return safe user object — no passwordHash
+    const safeUser = {
+        id: targetUser.id,
+        email: targetUser.email,
+        roles: targetUser.roles,
+        tenantId: targetUser.tenantId,
+    };
+
+    return c.json({ user: safeUser, token: accessToken }, 200);
 });
 
 export default r;
-
-
-

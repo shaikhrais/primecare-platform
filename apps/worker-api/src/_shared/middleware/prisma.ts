@@ -28,7 +28,7 @@ export const prismaMiddleware = () => {
             const isAccelerate = dbUrl?.startsWith('prisma://');
 
             try {
-                console.log('[PRISMA_INIT_START]', { isAccelerate, dbUrlPrefix: dbUrl?.substring(0, 15) });
+                console.log('[PRISMA_INIT_START]', { isAccelerate });
                 if (isAccelerate) {
                     // @ts-ignore
                     const mod = await import('../../../generated/client/edge');

@@ -14,7 +14,8 @@ export const tenantExtension = (tenantId: string) => {
                     }
 
                     // Inject tenantId into where clause for read/update/delete operations
-                    if (['findFirst', 'findMany', 'count', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'].includes(operation)) {
+                    // R7: Added 'findUnique' — without it, users could bypass tenant isolation by ID lookup
+                    if (['findUnique', 'findFirst', 'findMany', 'count', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'].includes(operation)) {
                         (args as any).where = { ...(args as any).where, tenantId };
                     }
 

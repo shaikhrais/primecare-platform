@@ -42,7 +42,7 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
             });
 
             if (!isAllowed) {
-                console.warn(`[GOVERNANCE] Blocked IP ${clientIp} for Tenant ${tenantId} (VPN Required)`);
+                console.warn(`[GOVERNANCE] Blocked request for Tenant ${tenantId} (VPN Required)`);
                 return c.json({
                     error: 'Network Access Restricted',
                     message: 'Please connect to the company VPN to access this resource.'

@@ -7,7 +7,8 @@ const user = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // All /v1/user routes require authentication
 user.use('*', async (c, next) => {
-    const secret = c.env.JWT_SECRET || 'fallback_secret';
+    const secret = c.env.JWT_SECRET;
+    if (!secret) return c.json({ error: 'Server configuration error' }, 500);
     const middleware = requireAuth(secret);
     return await middleware(c, next);
 });

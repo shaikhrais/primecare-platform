@@ -341,10 +341,9 @@ export default {
     },
     // Cron trigger: keep worker warm by initializing Prisma every minute
     async scheduled(event: any, env: any, ctx: any) {
-        // Hit auth/whoami (non-light route) to force WASM/Prisma initialization
-        // The 401 response is expected — the WASM init is the goal
+        // R7: Use internal request without hardcoded domain
         try {
-            const req = new Request('https://primecare-api.itpro-mohammed.workers.dev/v1/auth/whoami');
+            const req = new Request('http://localhost/v1/health');
             await app.fetch(req, env, ctx);
         } catch { /* ignore */ }
     },

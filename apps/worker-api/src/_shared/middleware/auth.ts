@@ -35,7 +35,7 @@ export const requireAuth = (secret: string) => {
 
         const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string };
         if (!payload) {
-            return c.json({ error: 'Unauthorized', message: authError?.message || 'Valid session not found' }, 401);
+            return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);
         }
 
         // Map sub to id and roles to role (primary current role)
