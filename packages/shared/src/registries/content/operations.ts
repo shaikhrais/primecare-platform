@@ -298,6 +298,20 @@ export const operationsContent = {
             CLIENTS: 'Client Growth',
         }
     },
+    MANAGER_COMPLIANCE: {
+        TITLE: 'Branch Compliance Monitor',
+        SUBTITLE: 'Audit staff and client documentation parity.',
+        ALERTS: {
+            MISSED_VISIT: 'Missed Visit Alert',
+            LATE_ENTRY: 'Late Daily Entry',
+            DOC_GAP: 'Missing Clinical Note',
+        },
+        MESSAGES: {
+            SUCCESS_AUDIT: 'Compliance Audit Complete',
+            SYNC_SUCCESS: 'Registry Synchronized',
+            ERROR_AUDIT: 'Failed to complete audit',
+        }
+    },
     EARNINGS: {
         TITLE: 'Earnings Center',
         SUBTITLE: 'Enterprise-grade financial oversight and payout management',
@@ -324,5 +338,95 @@ export const operationsContent = {
         REVENUE: 'Revenue',
         PAYROLL: 'Payroll',
         PROFIT: 'Profit',
+    },
+    STAFF_PORTAL: {
+        TASKS: {
+            TITLE: 'Operational Tasks',
+            SUBTITLE: 'Daily workflow management',
+            EMPTY: 'No pending tasks.',
+        },
+        MESSAGES: {
+            FETCH_ERROR: 'Failed to load messages',
+            SAVE_SUCCESS: 'Message sent successfully!',
+            SAVE_ERROR: 'Failed to send message',
+            SEND_BTN: 'Send Message',
+            TITLE: 'Message Center',
+            INPUT_PLACEHOLDER: 'Type your message here...',
+            SEARCH_PLACEHOLDER: 'Search messages...',
+            LOADING: 'Loading messages...',
+        }
+    },
+    WAITLIST: {
+        TITLE: 'Inflow Waitlist',
+        SUBTITLE: 'Pending client admissions',
+        EMPTY: 'Waitlist is clear.',
+    },
+    QUICK_ACTIONS: {
+        TITLE: 'Quick Actions',
+        ADD_CLIENT: 'Add Client',
+        ADD_STAFF: 'Add Staff',
+        ADD_USER: 'Add User',
+        CREATE_VISIT: 'Create Visit',
+        POST_SHIFT: 'Post Shift',
+        FINAL_CHECK: 'Final Check',
+        LOG_INCIDENT: 'Log Incident',
+        BROADCAST: 'Broadcast SOS',
+        CRISIS_ALERTS: 'Crisis Alerts',
+        CRISIS_ACTIVE: 'CRISIS ACTIVE',
+        WAITING: 'WAITING',
+        MESSAGES: {
+            SUCCESS: 'Action completed successfully',
+            SYNC_SUCCESS: 'Registry Synchronized',
+            CRISIS_ACTIVATED: 'CRISIS ACTIVATED',
+            CRISIS_DEACTIVATED: 'CRISIS DEACTIVATED',
+            CRISIS_DEACTIVATE: 'Are you sure you want to deactivate the crisis alert?',
+            CRISIS_CONFIRM: 'Are you sure you want to broadcast a crisis alert?',
+            ADMIN_ONLY: 'This action is restricted to administrators',
+            TEMP_ERROR: 'Temporary Error',
+            ERROR: 'Failed to complete action',
+        }
+    },
+    RN_SUPERVISION: {
+        TITLE: 'Clinical Supervision Hub',
+        SUBTITLE: 'Professional RN oversight and sign-off.',
+        LOG_TITLE: 'Supervision Activity Log',
+        LIST: {
+            PENDING: 'Pending Supervision',
+            COMPLETED: 'Supervision History',
+            NO_ENTRIES: 'No entries requiring supervision.',
+        }
+    },
+    CLINICAL_MESSAGES: {
+        SUCCESS_SIGN_OFF: 'RN Sign-off Complete',
+        ERROR_SIGN_OFF: 'Failed to complete sign-off',
+    },
+    RN_CARE_PLAN: {
+        TITLE: 'Clinical Care Plan Management',
+        SUBTITLE: 'Design and authorize customized care pathways.',
+        ACTIONS: {
+            CREATE: 'Create Care Plan',
+            EDIT: 'Edit Plan',
+            AUTHORIZE: 'Authorize Plan',
+            SAVE: 'Save Plan',
+        },
+        SUCCESS_SAVE: 'Care plan saved successfully!',
+        ERROR_SAVE: 'Failed to save care plan',
+        FIELDS: {
+            CLIENT: 'Client Name',
+            DIAGNOSIS: 'Primary Diagnosis',
+            DIAGNOSES: 'Associated Diagnoses',
+            ASSESSMENT: 'Registered Nurse Assessment',
+            GOALS: 'Care Goals',
+            INTERVENTIONS: 'Nursing Interventions',
+            FREQUENCY: 'Service Frequency',
+            SIGNATURE: 'RN Digital Signature',
+            DATE: 'Date Authorized',
+        },
+        TABLE: {
+            CLIENT: 'Client',
+            VERSION: 'Version',
+            STATUS: 'Status',
+            DATE: 'Last Updated',
+        }
     },
 } as const;

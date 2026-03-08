@@ -14,24 +14,6 @@ export const systemContent = {
         TITLE: 'UI Comp',
         SUBTITLE: 'Design tokens',
     },
-    MONITORING: {
-        TITLE: 'Health',
-        SUBTITLE: 'Infrastructure telemetry',
-        API_CLUSTER: 'Nodes',
-        UPTIME_DESC: '24h • 42ms',
-        DB_TELEMETRY: 'P99 • 8.4GB',
-        LOGS_TITLE: 'Logs',
-        HEARTBEAT: 'OK.',
-    },
-    ENV_AUDIT: {
-        TITLE: 'Env',
-        SUBTITLE: 'Config audit',
-        SECURITY_NOTE: 'Sensitive keys masked.',
-    },
-    REGISTRY_CHECK: {
-        TITLE: 'Integrity',
-        SUBTITLE: 'Sync status',
-    },
     DATABASE_SCHEMA: {
         TITLE: 'Schema',
         SUBTITLE: 'Prisma overview',
@@ -113,7 +95,7 @@ export const systemContent = {
                 DESC: 'PSWs in specific regions are under-utilized.'
             }
         },
-        FIX: 'Fix', // Added for SCRUM_MASTER dashboard needs
+        FIX: 'Fix',
         LOADING: 'Synchronizing data...',
     },
     AI: {
@@ -142,45 +124,5 @@ export const systemContent = {
         COMPONENT: 'Component',
         OBSERVATION: 'Observation',
         TECHNICAL_SUGGESTION: 'Technical Suggestion',
-    },
-    PERFORMANCE: {
-        TITLE: 'Perf',
-        SUBTITLE: 'Lighthouse & Latency',
-    },
-    BUILD_HEALTH: {
-        TITLE: 'Builds',
-        SUBTITLE: 'CI/CD History',
-    },
-    SECURITY_SCANS: {
-        TITLE: 'Scans',
-        SUBTITLE: 'SAST & Deps',
-    },
-    LOCALIZATION: {
-        TITLE: 'Locales',
-        SUBTITLE: 'i18n Coverage',
-    },
-    DEV_KB: {
-        TITLE: 'Developer Knowledge Base',
-        SUBTITLE: 'Technical documentation and system architecture audit',
-    },
-    AUDIT: {
-        TABS: {
-            ROUTES: 'System Routes',
-            COMPONENTS: 'Core Components',
-        },
-        TABLE: {
-            ROUTE_NAME: 'Route Name',
-            PATH: 'Browser Path',
-            REFERENCE: 'Registry Reference',
-            MODULE: 'Module',
-            COMPONENT_NAME: 'Component Name',
-            LAYER: 'Architecture Layer',
-        }
-    },
-    LEARN: {
-        TITLE: 'System Training Hub',
-        SUBTITLE: 'Learn how to effectively use the PrimeCare platform',
-        WHAT_YOU_CAN_DO: 'What You Can Do',
-        PRO_TIPS: 'Pro Tips & Efficient Workflows',
     },
 } as const;

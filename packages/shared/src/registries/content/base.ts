@@ -222,4 +222,11 @@ export const baseContent = {
         MEDIUM: 'Medium',
         HIGH: 'High',
     },
+    LEARN: {
+        TITLE: 'PrimeCare Academy',
+        SUBTITLE: 'Documentation and training resources.',
+        COURSES: 'Course Registry',
+        VIDEO_GUIDES: 'Video Guides',
+        DOCS: 'Platform Docs',
+    },
 } as const;
