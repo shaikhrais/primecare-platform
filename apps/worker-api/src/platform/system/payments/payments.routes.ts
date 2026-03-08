@@ -7,7 +7,7 @@ import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const PaymentIntentSchema = z.object({
-    amount: z.number().min(100),
+    amount: z.number().min(100, 'Minimum amount is $1.00').max(5000000, 'Maximum amount is $50,000'),
     currency: z.string().default('cad'),
 });
 
@@ -72,7 +72,8 @@ r.openapi(createPaymentIntentRoute, async (c) => {
             clientSecret: paymentIntent.client_secret,
         }, 200);
     } catch (error: any) {
-        return c.json({ error: error.message }, 400);
+        // R10: Don't leak Stripe internal error messages
+        return c.json({ error: 'Payment processing failed. Please try again.' }, 400);
     }
 });
 

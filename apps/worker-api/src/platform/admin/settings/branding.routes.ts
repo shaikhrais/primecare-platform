@@ -29,7 +29,23 @@ branding.get('/public', async (c) => {
         select: { brandingConfig: true, logoUrl: true, name: true }
     });
 
-    return c.json(tenant);
+    if (!tenant) return c.json({ error: 'Tenant not found' }, 404);
+
+    // R10: Only expose safe visual branding fields — not full config
+    const config = (tenant.brandingConfig as any) || {};
+    return c.json({
+        name: tenant.name,
+        logoUrl: tenant.logoUrl,
+        branding: {
+            primaryColor: config.primaryColor,
+            primaryDarkColor: config.primaryDarkColor,
+            accentColor: config.accentColor,
+            backgroundColor: config.backgroundColor,
+            surfaceColor: config.surfaceColor,
+            fontFamily: config.fontFamily,
+            presetName: config.presetName,
+        }
+    });
 });
 
 // PATCH /v1/admin/settings/branding

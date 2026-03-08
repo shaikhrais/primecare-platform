@@ -2,6 +2,7 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import profileRoutes from './profile.routes';
+import passwordRoutes from './password.routes';
 
 const user = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -14,5 +15,6 @@ user.use('*', async (c, next) => {
 });
 
 user.route('/profile', profileRoutes);
+user.route('/', passwordRoutes);
 
 export default user;

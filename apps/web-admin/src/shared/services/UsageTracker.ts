@@ -271,9 +271,11 @@ class UsageTrackerService {
         // Sync to DB before page unload
         window.addEventListener('beforeunload', () => {
             this.dirty = true;
-            // Use sendBeacon for reliable last-second save
+            // R9: Use sendBeacon for reliable last-second save
+            // NOTE: sendBeacon doesn't include cookies or auth headers automatically.
+            // Usage stats are non-sensitive analytics — accepted risk for last-second saves.
+            // Primary sync happens via authenticated apiClient.patch() every 30s.
             try {
-                const token = localStorage.getItem('token');
                 const API_URL = (window as any).__VITE_API_URL || '';
                 navigator.sendBeacon(
                     `${API_URL}/v1/admin/settings/usage-stats`,

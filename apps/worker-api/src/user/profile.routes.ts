@@ -110,7 +110,7 @@ r.openapi(updateProfileRoute, async (c) => {
     const prisma = c.get('prisma');
     const jwtPayload = c.get('jwtPayload');
     const { sub: userId } = jwtPayload;
-    const body = await c.req.json();
+    const body = c.req.valid('json');
 
     try {
         const user = await prisma.user.findUnique({

@@ -45,7 +45,7 @@ export default function DevPerspectiveSwitcher() {
                 setUsers(data);
             }
         } catch (err) {
-            console.error('Failed to fetch users', err);
+            // R13: Silent error — don't expose internal details
         }
     };
 
@@ -71,28 +71,29 @@ export default function DevPerspectiveSwitcher() {
             if (response.ok) {
                 const data = await response.json();
                 if (!isImpersonating) {
+                    // R13: Only store non-sensitive user data for UI restore — NOT tokens
                     sessionStorage.setItem('originalAdmin', userStr);
-                    sessionStorage.setItem('originalToken', localStorage.getItem('token') || '');
                 }
-                localStorage.setItem('token', data.token);
+                // R13: Token is set via HttpOnly cookie by backend — don't store in localStorage
                 localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));
                 window.location.href = RouteRegistry.ADMIN.DASHBOARD;
             }
         } catch (err) {
-            console.error('Impersonation failed', err);
+            // R13: Silent error
         } finally {
             setLoading(false);
         }
     };
 
-    const exitImpersonation = () => {
+    const exitImpersonation = async () => {
         const originalAdmin = sessionStorage.getItem('originalAdmin');
-        const originalToken = sessionStorage.getItem('originalToken');
-        if (originalAdmin && originalToken) {
+        if (originalAdmin) {
+            // R13: Call backend to restore original admin session via cookie
+            try {
+                await apiClient.post('/v1/auth/exit-impersonation');
+            } catch { /* will redirect anyway */ }
             localStorage.setItem('user', originalAdmin);
-            localStorage.setItem('token', originalToken);
             sessionStorage.removeItem('originalAdmin');
-            sessionStorage.removeItem('originalToken');
             window.location.href = RouteRegistry.ADMIN.DASHBOARD;
         }
     };

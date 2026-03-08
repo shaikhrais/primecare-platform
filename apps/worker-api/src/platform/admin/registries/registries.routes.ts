@@ -30,13 +30,10 @@ r.get('/', async (c) => {
             grouped[reg.category].push(reg);
         }
 
-        return c.json({
-            total: registries.length,
-            grouped,
-            items: registries,
-        });
+        return c.json({ total: registries.length, grouped, items: registries });
     } catch (e: any) {
-        return c.json({ error: e.message, items: [], total: 0 });
+        // R11: Don't leak error.message
+        return c.json({ error: 'Failed to fetch registries', items: [], total: 0 });
     }
 });
 
@@ -49,15 +46,28 @@ r.get('/:id', async (c) => {
         if (!reg) return c.json({ error: 'Not found' }, 404);
         return c.json(reg);
     } catch (e: any) {
-        return c.json({ error: e.message }, 500);
+        return c.json({ error: 'Failed to fetch registry entry' }, 500);
     }
 });
 
 // PUT /registries/:id — update entry
+// R11: Added Zod validation schema
+const updateRegistrySchema = z.object({
+    value: z.string().optional(),
+    metadata: z.any().optional(),
+    section: z.string().optional(),
+    category: z.string().optional(),
+});
+
 r.put('/:id', async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.param();
-    const body = await c.req.json();
+    // R11: Parse and validate body
+    const raw = await c.req.json();
+    const parsed = updateRegistrySchema.safeParse(raw);
+    if (!parsed.success) return c.json({ error: 'Invalid input' }, 400);
+    const body = parsed.data;
+
     try {
         const reg = await prisma.registry.update({
             where: { id },
@@ -70,14 +80,27 @@ r.put('/:id', async (c) => {
         });
         return c.json(reg);
     } catch (e: any) {
-        return c.json({ error: e.message }, 500);
+        return c.json({ error: 'Failed to update registry' }, 500);
     }
 });
 
 // POST /registries — create new entry
+const createRegistrySchema = z.object({
+    key: z.string().min(1),
+    value: z.string().min(1),
+    category: z.string().default('content'),
+    section: z.string().optional(),
+    metadata: z.any().optional(),
+    tenantId: z.string().nullable().optional(),
+});
+
 r.post('/', async (c) => {
     const prisma = c.get('prisma');
-    const body = await c.req.json();
+    const raw = await c.req.json();
+    const parsed = createRegistrySchema.safeParse(raw);
+    if (!parsed.success) return c.json({ error: 'Invalid input', details: parsed.error.flatten() }, 400);
+    const body = parsed.data;
+
     try {
         const reg = await prisma.registry.create({
             data: {
@@ -91,7 +114,7 @@ r.post('/', async (c) => {
         });
         return c.json(reg, 201);
     } catch (e: any) {
-        return c.json({ error: e.message }, 500);
+        return c.json({ error: 'Failed to create registry entry' }, 500);
     }
 });
 
@@ -103,7 +126,7 @@ r.delete('/:id', async (c) => {
         await prisma.registry.delete({ where: { id } });
         return c.json({ success: true });
     } catch (e: any) {
-        return c.json({ error: e.message }, 500);
+        return c.json({ error: 'Failed to delete registry entry' }, 500);
     }
 });
 
@@ -121,16 +144,10 @@ r.post('/seed', async (c) => {
             await prisma.registry.upsert({
                 where: { key_tenantId: { key: entry.key, tenantId: null as any } },
                 update: { value: entry.value, section, category: 'content' },
-                create: {
-                    key: entry.key,
-                    value: entry.value,
-                    category: 'content',
-                    section,
-                },
+                create: { key: entry.key, value: entry.value, category: 'content', section },
             });
             created++;
         } catch (e: any) {
-            // Handle null tenantId in unique constraint
             try {
                 const existing = await prisma.registry.findFirst({
                     where: { key: entry.key, tenantId: null }
@@ -143,10 +160,7 @@ r.post('/seed', async (c) => {
                     created++;
                 } else {
                     await prisma.registry.create({
-                        data: {
-                            key: entry.key, value: entry.value,
-                            category: 'content', section
-                        }
+                        data: { key: entry.key, value: entry.value, category: 'content', section }
                     });
                     created++;
                 }
@@ -157,11 +171,7 @@ r.post('/seed', async (c) => {
     }
 
     return c.json({
-        success: true,
-        total: entries.length,
-        created,
-        skipped,
-        errors,
+        success: true, total: entries.length, created, skipped, errors,
         sampleKeys: entries.slice(0, 10).map(e => e.key),
     });
 });

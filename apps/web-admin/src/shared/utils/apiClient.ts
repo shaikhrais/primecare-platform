@@ -31,17 +31,14 @@ export const apiClient = {
         const userData = userStr ? JSON.parse(userStr) : null;
         const tenantId = userData?.tenantId;
 
-        // #2: REMOVED URL token handling — use HttpOnly cookies only
-        // Tokens in URLs are an XSS injection + browser history leak vector
-
-        const token = localStorage.getItem('token');
+        // R12: REMOVED localStorage token — use HttpOnly cookies only via credentials:'include'
+        // Tokens in localStorage are accessible to any XSS payload
 
         const isFormData = init.body instanceof FormData;
         const defaultOptions: RequestInit = {
             ...init,
             headers: {
                 ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
-                ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
                 ...(tenantId ? { 'X-Tenant-ID': tenantId } : {}),
                 'X-Requested-With': 'XMLHttpRequest',  // #13: CSRF protection header
                 ...init.headers,
@@ -89,10 +86,7 @@ export const apiClient = {
                 });
 
                 if (refreshResponse.ok) {
-                    const data = await refreshResponse.json();
-                    if (data.token) {
-                        localStorage.setItem('token', data.token);
-                    }
+                    // R12: No need to store token — cookies are refreshed server-side
 
                     // Retry original request with new token
                     const isFormDataRetry = init.body instanceof FormData;
@@ -100,7 +94,6 @@ export const apiClient = {
                         ...init,
                         headers: {
                             ...(!isFormDataRetry ? { 'Content-Type': 'application/json' } : {}),
-                            ...(data.token ? { 'Authorization': `Bearer ${data.token}` } : {}),
                             'X-Requested-With': 'XMLHttpRequest',
                             ...init.headers,
                         },
@@ -110,7 +103,6 @@ export const apiClient = {
                 } else {
                     // Refresh failed, cleanup and redirect
                     localStorage.removeItem('user');
-                    localStorage.removeItem('token');
 
                     const isAuthPage = window.location.pathname === RouteRegistry.LOGIN || window.location.pathname === RouteRegistry.REGISTER;
                     if (!isAuthPage) {

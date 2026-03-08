@@ -64,7 +64,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else if (response.status === 401) {
                 setUser(null);
                 localStorage.removeItem('user');
-                localStorage.removeItem('token');
             } else {
                 // Server error (500 cold start) — use cached user, no retry
                 const cachedUser = localStorage.getItem('user');
@@ -99,10 +98,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             activeRole: userData.activeRole,
             tenantId: userData.tenantId,
         }));
-        // Keep token for Authorization header backup (legacy support)
-        if (token) {
-            localStorage.setItem('token', token);
-        }
+        // R12: Token is handled by HttpOnly cookies — no localStorage storage
+        // if (token) localStorage.setItem('token', token); // REMOVED
     };
 
     const logout = async () => {
@@ -113,7 +110,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         setUser(null);
         localStorage.removeItem('user');
-        localStorage.removeItem('token');
         window.location.href = RouteRegistry.LOGIN;
     };
 

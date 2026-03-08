@@ -156,7 +156,7 @@ scrum.openapi(responseBotScanRoute, async (c) => {
 
 scrum.openapi(registrySyncRoute, async (c) => {
     const prisma = c.get('prisma');
-    const { entries } = await c.req.json();
+    const { entries } = c.req.valid('json');
     let synced = 0;
     let errors = 0;
 
@@ -188,7 +188,7 @@ scrum.openapi(registrySyncRoute, async (c) => {
             });
             synced++;
         } catch (e) {
-            console.error(`Failed to sync registry entry ${entry.externalId}:`, e);
+            // R10: Don't leak internal errors
             errors++;
         }
     }

@@ -87,12 +87,12 @@ app.get('/v1/health', async (c) => {
         if (prisma) await prisma.$queryRaw`SELECT 1`;
         return c.json({ status: 'ok', db: 'connected', time: new Date().toISOString(), architecture: 'role-first-modular' });
     } catch (e: any) {
-        return c.json({ status: 'degraded', db: 'disconnected', error: e.message, time: new Date().toISOString() }, 503);
+        return c.json({ status: 'degraded', db: 'disconnected', time: new Date().toISOString() }, 503);
     }
 });
 
 app.onError((err, c) => {
-    console.error('Hono Global Error:', err);
+    // R11: Don't log full error objects in production
 
     const origin = c.req.header('Origin');
     const allowed = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
@@ -270,7 +270,7 @@ app.get('/v1/public/stats', async (c) => {
             totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0,
             modelScore: 0, MTD_REVENUE: '0.00',
             healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 },
-            error: e.message || 'Unknown error',
+            error: 'Stats aggregation failed',
             syncedAt: new Date().toISOString(),
         });
     }
@@ -291,7 +291,7 @@ app.get('/v1/public/registries', async (c) => {
         const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' }, take, skip });
         return c.json({ total: items.length, items, syncedAt: new Date().toISOString() });
     } catch (e: any) {
-        return c.json({ total: 0, items: [], error: e.message });
+        return c.json({ total: 0, items: [], error: 'Failed to fetch registries' });
     }
 });
 
@@ -329,7 +329,7 @@ export default {
             return new Response(response.body, { status: response.status, statusText: response.statusText, headers: newHeaders });
         } catch (err: any) {
             // Ultimate fallback for uncaught errors
-            return new Response(JSON.stringify({ error: err.message || 'Internal Server Error' }), {
+            return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
                 status: 500,
                 headers: {
                     'Content-Type': 'application/json',

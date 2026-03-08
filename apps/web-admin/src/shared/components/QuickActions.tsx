@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface QuickActionsProps {
     role: string;
@@ -24,15 +25,8 @@ export default function QuickActions({ role }: QuickActionsProps) {
 
         setIsLoading(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/incidents/crisis-mode`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ active: !isCrisisMode })
-            });
+            // R12: Use apiClient instead of raw fetch + localStorage token
+            const response = await apiClient.post('/v1/incidents/crisis-mode', { active: !isCrisisMode });
 
             if (!response.ok) throw new Error('Failed to toggle crisis mode');
 
@@ -42,7 +36,6 @@ export default function QuickActions({ role }: QuickActionsProps) {
                 isCrisisMode ? 'info' : 'error'
             );
         } catch (error) {
-            console.error('Crisis mode error:', error);
             showToast('Failed to update Crisis Mode status', 'error');
         } finally {
             setIsLoading(false);

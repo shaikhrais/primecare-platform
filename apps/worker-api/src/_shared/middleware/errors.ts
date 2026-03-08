@@ -4,12 +4,11 @@ export const errorHandler = async (c: Context, next: Next) => {
     try {
         await next();
     } catch (err: any) {
-        console.error('API Error caught in errorHandler:', err.message);
+        // R11: Don't log full error object or leak message
         const origin = c.req.header('Origin') || '';
 
         return c.json({
-            error: err.message || 'Internal Server Error',
-            // #1: Never expose stack traces in production
+            error: 'Internal Server Error',
             context: 'errorHandler'
         }, 500, {
             'Access-Control-Allow-Origin': origin || 'https://primecare-admin.pages.dev',
@@ -20,4 +19,3 @@ export const errorHandler = async (c: Context, next: Next) => {
         });
     }
 };
-

@@ -4,11 +4,20 @@ import { hashPassword } from '../../_shared/utils/crypto';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
+// R11: All debug routes gated behind ENVIRONMENT check
+r.use('*', async (c, next) => {
+    const env = c.env.ENVIRONMENT || 'production';
+    if (env === 'production') {
+        return c.json({ error: 'Debug routes are disabled in production' }, 403);
+    }
+    await next();
+});
+
 const hashRoute = createRoute({
     method: 'get',
     path: '/hash',
     summary: 'Debug Hashing Utility',
-    description: 'Generates a hash for a given password string. FOR DEBUGGING ONLY.',
+    description: 'Generates a hash for a given password string. DEV ONLY.',
     request: {
         query: z.object({
             password: z.string().min(1)
@@ -16,18 +25,11 @@ const hashRoute = createRoute({
     },
     responses: {
         200: {
-            content: {
-                'application/json': {
-                    schema: z.object({
-                        hash: z.string()
-                    }),
-                },
-            },
+            content: { 'application/json': { schema: z.object({ hash: z.string() }) } },
             description: 'The hashed password',
         },
-        400: {
-            description: 'Password is required'
-        }
+        400: { description: 'Password is required' },
+        403: { description: 'Disabled in production' }
     },
 });
 
@@ -37,11 +39,18 @@ r.openapi(hashRoute, async (c) => {
     return c.json({ hash }, 200);
 });
 
-// Debug: upsert user (for production bootstrapping)
+// R11: upsert-user kept for dev bootstrapping only — production gated above
 r.post('/upsert-user', async (c) => {
     const prisma = c.get('prisma');
-    const { email, passwordHash, roles, tenantSlug } = await c.req.json();
-    if (!email || !passwordHash) return c.json({ error: 'email and passwordHash required' }, 400);
+    const body = await c.req.json();
+    // R11: Validate required fields
+    const { email, roles, tenantSlug } = body;
+    if (!email) return c.json({ error: 'email required' }, 400);
+
+    // R11: Hash password from plaintext — never accept raw passwordHash
+    const password = body.password;
+    if (!password) return c.json({ error: 'password required (plaintext, will be hashed)' }, 400);
+    const passwordHash = await hashPassword(password);
 
     const tenant = tenantSlug
         ? await prisma.tenant.findUnique({ where: { slug: tenantSlug } })
@@ -58,66 +67,8 @@ r.post('/upsert-user', async (c) => {
     return c.json({ success: true, id: user.id, email: user.email, roles: user.roles });
 });
 
-// Debug: create registries table via raw SQL
-r.post('/create-registries-table', async (c) => {
-    const prisma = c.get('prisma');
-    try {
-        await prisma.$executeRawUnsafe(`
-            CREATE TABLE IF NOT EXISTS registries (
-                id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
-                key TEXT NOT NULL,
-                value TEXT NOT NULL,
-                category TEXT NOT NULL DEFAULT 'content',
-                section TEXT,
-                metadata JSONB,
-                tenant_id TEXT REFERENCES tenants(id),
-                created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-                updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-                UNIQUE(key, tenant_id)
-            )
-        `);
-        await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_registries_category ON registries(category)`);
-        await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_registries_section ON registries(section)`);
-        await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_registries_tenant ON registries(tenant_id)`);
-        return c.json({ success: true, message: 'registries table created' });
-    } catch (e: any) {
-        return c.json({ error: e.message }, 500);
-    }
-});
-
-// Debug: seed registries from ContentRegistry (no auth required)
-r.post('/seed-registries', async (c) => {
-    const prisma = c.get('prisma');
-    const { AdminRegistry } = await import('prime-care-shared');
-    const { flattenObject, detectSection } = await import('../../_shared/utils/registry-seeder');
-    const { ContentRegistry } = AdminRegistry;
-
-    const entries = flattenObject(ContentRegistry as any);
-    let created = 0, errors = 0;
-
-    for (const entry of entries) {
-        const section = detectSection(entry.key);
-        try {
-            const existing = await prisma.registry.findFirst({
-                where: { key: entry.key, tenantId: null }
-            });
-            if (existing) {
-                await prisma.registry.update({
-                    where: { id: existing.id },
-                    data: { value: entry.value, section, category: 'content' }
-                });
-            } else {
-                await prisma.registry.create({
-                    data: { key: entry.key, value: entry.value, category: 'content', section }
-                });
-            }
-            created++;
-        } catch (e: any) {
-            errors++;
-        }
-    }
-
-    return c.json({ success: true, total: entries.length, created, errors, sampleKeys: entries.slice(0, 5).map(e => e.key) });
-});
+// R11: Removed $executeRawUnsafe endpoints — DDL should only run via Prisma migrations
+// create-registries-table: REMOVED (use prisma migrate)
+// seed-registries: REMOVED (moved to registries.routes.ts /seed)
 
 export default r;

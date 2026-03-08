@@ -75,38 +75,49 @@ r.openapi(updateBusinessModelRoute, async (c) => {
         });
         return c.json({ success: true }, 200);
     } catch (e) {
-        console.error('Schema sync pending - business model settings failed', e);
+        // R13: Don't leak internal migration instructions
         return c.json({
             success: false,
-            error: 'DATABASE_OUT_OF_SYNC',
-            message: 'Database missing new columns. Run prisma db push with production DATABASE_URL.'
+            error: 'Settings update failed',
+            message: 'Please contact support if this persists.'
         }, 500);
     }
 });
 
 // POST /logo - Upload business logo to R2
+const MAX_LOGO_SIZE = 2 * 1024 * 1024; // 2MB
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+
 r.post('/logo', async (c) => {
     const formData = await c.req.formData();
     const file = formData.get('file');
 
     if (!file || typeof file === 'string') {
-        console.error('Logo Upload: No file or invalid file in formData');
         return c.json({ error: 'No file uploaded' }, 400);
     }
 
     const logoFile = file as any as File;
-    const tenantId = c.get('jwtPayload').tenantId;
-    const fileExtension = logoFile.name.split('.').pop();
-    const key = `logos/${tenantId}/${Date.now()}.${fileExtension}`;
 
-    // Upload to R2
+    // R13: Validate file size
+    if (logoFile.size > MAX_LOGO_SIZE) {
+        return c.json({ error: `Logo too large. Maximum: ${MAX_LOGO_SIZE / 1024 / 1024}MB` }, 413);
+    }
+
+    // R13: Validate content type
+    if (!ALLOWED_IMAGE_TYPES.includes(logoFile.type)) {
+        return c.json({ error: 'Invalid file type. Only images allowed.' }, 400);
+    }
+
+    const tenantId = c.get('jwtPayload').tenantId;
+    // R13: Safe key — no user-controlled filenames
+    const ext = logoFile.type.split('/')[1] || 'png';
+    const key = `logos/${tenantId}/${Date.now()}.${ext}`;
+
     await c.env.DOCS_BUCKET.put(key, await logoFile.arrayBuffer(), {
         httpMetadata: { contentType: logoFile.type },
     });
 
-    // Generate public URL (assuming a public R2 bucket or worker proxy)
     const logoUrl = `/v1/system/files/${key}`;
-
     return c.json({ logoUrl }, 201);
 });
 

@@ -4,6 +4,10 @@ import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
+// R10: Voice upload validation constants
+const MAX_VOICE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_VOICE_TYPES = ['audio/webm', 'audio/ogg', 'audio/mp4', 'audio/mpeg', 'audio/wav', 'audio/x-wav'];
+
 const uploadVoiceRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.VOICE,
     method: 'post',
@@ -32,12 +36,9 @@ const uploadVoiceRoute = createRoute({
             },
             description: 'Voice note uploaded successfully',
         },
-        400: {
-            description: 'Bad request (missing file or userId)',
-        },
-        500: {
-            description: 'Internal server error',
-        },
+        400: { description: 'Bad request' },
+        413: { description: 'File too large' },
+        500: { description: 'Internal server error' },
     },
 });
 
@@ -55,19 +56,31 @@ r.openapi(uploadVoiceRoute, async (c) => {
             return c.json({ error: 'Missing userId' }, 400);
         }
 
-        const filename = `voice/${userId}/${Date.now()}_${file.name}`;
+        // R10: Validate file size
+        if (file.size > MAX_VOICE_SIZE) {
+            return c.json({ error: `File too large. Maximum: ${MAX_VOICE_SIZE / 1024 / 1024}MB` }, 413);
+        }
 
-        await c.env.DOCS_BUCKET.put(filename, await file.arrayBuffer(), {
+        // R10: Validate content type
+        if (!ALLOWED_VOICE_TYPES.includes(file.type)) {
+            return c.json({ error: 'Invalid file type. Only audio files allowed.' }, 400);
+        }
+
+        // R10: Generate safe filename — NO user-controlled input in storage path
+        const ext = file.type.split('/')[1] || 'webm';
+        const safeFilename = `voice/${userId}/${Date.now()}_${crypto.randomUUID().slice(0, 8)}.${ext}`;
+
+        await c.env.DOCS_BUCKET.put(safeFilename, await file.arrayBuffer(), {
             httpMetadata: {
                 contentType: file.type,
             }
         });
 
-        const publicUrl = `/v1/system/storage/file/${filename}`;
+        const publicUrl = `/v1/system/storage/file/${safeFilename}`;
 
         const id = c.env.CHAT_SERVER.idFromName(userId);
         const stub = c.env.CHAT_SERVER.get(id);
-        await stub.fetch(new Request('https:/worker/broadcast', {
+        await stub.fetch(new Request('https://worker/broadcast', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -80,7 +93,7 @@ r.openapi(uploadVoiceRoute, async (c) => {
         return c.json({ success: true, url: publicUrl }, 200);
 
     } catch (e) {
-        console.error('Upload error', e);
+        // R10: Don't leak internal errors
         return c.json({ error: 'Upload failed' }, 500);
     }
 });

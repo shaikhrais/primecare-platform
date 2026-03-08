@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 const { ApiRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
 
 interface User {
     id: string;
@@ -22,9 +23,9 @@ export default function RoleSwitcher() {
     const [isOpen, setIsOpen] = useState(false);
 
     const userStr = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    // R13: Removed localStorage.getItem('token') — auth via HttpOnly cookies
 
-    if (!userStr || userStr === 'undefined' || !token) return null;
+    if (!userStr || userStr === 'undefined') return null;
 
     const user: User = JSON.parse(userStr);
     const activeRole = user.activeRole;
@@ -51,19 +52,9 @@ export default function RoleSwitcher() {
         try {
             let success = true;
             if (!isAdmin) {
-                const response = await fetch(`${API_URL}${ApiRegistry.AUTH.SWITCH_ROLE}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ targetRole })
-                });
+                // R13: Use apiClient instead of raw fetch + localStorage token
+                const response = await apiClient.post(ApiRegistry.AUTH.SWITCH_ROLE, { targetRole });
                 success = response.ok;
-                if (success) {
-                    const data = await response.json();
-                    localStorage.setItem('token', data.token);
-                }
             }
 
             if (success) {
@@ -76,7 +67,7 @@ export default function RoleSwitcher() {
                 navigate(targetPath);
             }
         } catch (err) {
-            console.error('Error switching role:', err);
+            // R13: Silent error
         } finally {
             setLoading(false);
         }
