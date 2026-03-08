@@ -54,17 +54,13 @@ export const requestLogger = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
 };
 
 /**
- * Session timeout warning — add session expiry to response headers.
- * Frontend can read this to show "session expiring" warnings.
+ * Session timeout awareness — R23 (L30): Removed X-Session-Expires-In header
+ * The header leaked exact token expiry times to any network observer.
+ * Session awareness is now handled via the authenticated response body (whoami).
  */
 export const sessionTimeout = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
     return async (c, next) => {
         await next();
-
-        const jwtPayload = c.get('jwtPayload' as any) as { exp?: number } | undefined;
-        if (jwtPayload?.exp) {
-            const remainingSecs = jwtPayload.exp - Math.floor(Date.now() / 1000);
-            c.header('X-Session-Expires-In', String(remainingSecs));
-        }
+        // R23: Token lifetime no longer exposed in response headers
     };
 };

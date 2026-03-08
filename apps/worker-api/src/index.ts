@@ -227,8 +227,15 @@ app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 app.route('/v1/scrum-master', scrumMasterModule);
-// #20: Gate debug module behind non-production
-app.route('/v1/debug', debugModule); // TODO: Add env check when ENVIRONMENT var is available
+// R23 (L29): Gate debug module behind non-production environment
+app.use('/v1/debug/*', async (c, next) => {
+    const env = c.env?.ENVIRONMENT || 'development';
+    if (env === 'production') {
+        return c.json({ error: 'Debug routes disabled in production' }, 403);
+    }
+    return await next();
+});
+app.route('/v1/debug', debugModule);
 
 // #4: Marketing leads — validated with Zod schema + basic rate awareness
 const MarketingLeadSchema = z.object({
@@ -253,24 +260,31 @@ app.post('/v1/marketing/leads', async (c) => {
     return c.json({ success: true, lead }, 201);
 });
 
-// 7. Public Stats (no auth required — used by Summary Dashboard)
+// R23 (L21): Public Stats — now scoped to requesting tenant to prevent BI leakage
 app.get('/v1/public/stats', async (c) => {
     try {
         const prisma = c.get('prisma');
-        if (!prisma) {
-            return c.json({ error: 'Prisma not initialized', totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() });
+        const tenantId = c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
+
+        const EMPTY = { totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() };
+
+        if (!prisma) return c.json(EMPTY);
+
+        // R23: Require tenant context — don't leak platform-wide aggregate data
+        if (!tenantId) {
+            return c.json({ ...EMPTY, error: 'Tenant context required' });
         }
 
-        // #5: Use safe $queryRaw tagged template instead of $queryRawUnsafe
+        // Scope queries to the requesting tenant
         const result: any[] = await prisma.$queryRaw`
             SELECT
-                (SELECT COUNT(*) FROM users)::int AS "totalUsers",
-                (SELECT COUNT(*) FROM visits)::int AS "totalVisits",
-                (SELECT COUNT(*) FROM visits WHERE status = 'requested')::int AS "pendingVisits",
-                (SELECT COUNT(*) FROM leads)::int AS "totalLeads"
+                (SELECT COUNT(*) FROM users WHERE "tenantId" = ${tenantId})::int AS "totalUsers",
+                (SELECT COUNT(*) FROM visits WHERE "tenantId" = ${tenantId})::int AS "totalVisits",
+                (SELECT COUNT(*) FROM visits WHERE "tenantId" = ${tenantId} AND status = 'requested')::int AS "pendingVisits",
+                (SELECT COUNT(*) FROM leads WHERE "tenantId" = ${tenantId})::int AS "totalLeads"
         `;
 
-        const row = result[0] || { totalUsers: 0, totalVisits: 0, pendingVisits: 0, totalLeads: 0 };
+        const row = result[0] || EMPTY;
 
         return c.json({
             totalUsers: row.totalUsers || 0,

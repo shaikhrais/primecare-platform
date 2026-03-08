@@ -105,9 +105,18 @@ r.openapi(logoutRoute, async (c) => {
     deleteCookie(c, 'accessToken', { path: '/', secure: true, sameSite: 'None' });
     deleteCookie(c, 'refreshToken', { path: '/v1/auth/refresh', secure: true, sameSite: 'None' });
 
-    // R4: Log the logout event for audit trail
+    // R23: Write token's jti to KV denylist so stolen tokens can't be replayed
     try {
         const payload = c.get('jwtPayload') as any;
+        if (payload?.jti && payload?.exp) {
+            const kv = (c.env as any)?.TOKEN_DENYLIST;
+            if (kv) {
+                const remainingSecs = Math.max(0, payload.exp - Math.floor(Date.now() / 1000));
+                await kv.put(`deny:${payload.jti}`, '1', { expirationTtl: Math.max(60, remainingSecs) });
+            }
+        }
+
+        // R4: Log the logout event for audit trail
         if (payload?.sub) {
             const prisma = c.get('prisma');
             await logAudit(prisma, payload.sub, 'logout', 'session', null, { tenantId: payload.tenantId || 'system' });
@@ -115,6 +124,15 @@ r.openapi(logoutRoute, async (c) => {
     } catch { /* best effort */ }
 
     return c.json({ success: true }, 200);
+});
+
+// R23: Safe user schema — explicit fields only (no z.any())
+const SafeUserSchema = z.object({
+    id: z.string(),
+    email: z.string(),
+    roles: z.array(z.string()),
+    tenantId: z.string(),
+    status: z.string().nullable().optional(),
 });
 
 // Whoami
@@ -126,7 +144,7 @@ const whoamiRoute = createRoute({
         200: {
             content: {
                 'application/json': {
-                    schema: z.object({ user: z.any() }),
+                    schema: z.object({ user: SafeUserSchema }),
                 },
             },
             description: 'User details',
@@ -150,7 +168,8 @@ r.openapi(whoamiRoute, async (c) => {
             const jwtSecret = c.env.JWT_SECRET;
             if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
-            const accessToken = getCookie(c, 'accessToken') || c.req.header('Authorization')?.replace('Bearer ', '');
+            // R23: Cookie-only — removed Authorization header fallback (was defeating HttpOnly protection)
+            const accessToken = getCookie(c, 'accessToken');
             if (accessToken) {
                 try {
                     const decoded = await verify(accessToken, jwtSecret, 'HS256');

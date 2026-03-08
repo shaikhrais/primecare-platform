@@ -24,19 +24,31 @@ export const requireClientAssignedToPSW = async (c: Context<{ Bindings: Bindings
 
     const prisma = c.get('prisma');
 
-    // Check assignment in DB
-    // Assuming a ClientProfile can be searched for by assigned staff or similar logic in our schema
-    const assignment = await prisma.clientProfile.findFirst({
+    // R23 (L26): Actually verify the PSW is assigned to this client
+    // Check if the PSW has any visits/assignments linking them to this client
+    const assignment = await prisma.visit.findFirst({
         where: {
-            id: clientId,
+            clientId: clientId,
+            assignedPswId: user.sub,
             tenantId: user.tenantId,
-            // If we have an explicit assignment table, we check that.
-            // For now, let's assume if they are a PSW, they need to be linked to the visit/client.
-        }
+        },
+        select: { id: true }
     });
 
     if (!assignment) {
-        return c.json({ error: 'Forbidden: Client not assigned to you' }, 403);
+        // Fallback: check if there's a direct client profile assignment
+        const profileAssignment = await prisma.clientProfile.findFirst({
+            where: {
+                id: clientId,
+                tenantId: user.tenantId,
+                assignedPswId: user.sub,
+            },
+            select: { id: true }
+        });
+
+        if (!profileAssignment) {
+            return c.json({ error: 'Forbidden: Client not assigned to you' }, 403);
+        }
     }
 
     await next();

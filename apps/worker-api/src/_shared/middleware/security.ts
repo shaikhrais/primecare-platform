@@ -27,6 +27,19 @@ export const tenantIsolation = (): MiddlewareHandler<{ Bindings: Bindings; Varia
             c.set('tenantId' as any, tenantId);
         }
 
+        // R23 (L25): Enforce tenantId for authenticated non-public requests
+        // Without tenantId, the Prisma tenant extension won't activate, leaking cross-tenant data
+        if (!tenantId && jwtPayload) {
+            const path = c.req.path;
+            const isPublicOrAuth = path.startsWith('/v1/public/') || path.startsWith('/v1/auth/') || path.startsWith('/v1/debug/') || path === '/v1/health';
+            if (!isPublicOrAuth) {
+                return c.json({
+                    error: 'Tenant Context Required',
+                    message: 'Request must include tenant identification.'
+                }, 403);
+            }
+        }
+
         await next();
     };
 };
@@ -46,14 +59,10 @@ export const csrfProtection = (): MiddlewareHandler<{ Bindings: Bindings; Variab
         }
 
         // Mutation request — verify custom header exists
-        // Browsers won't send this header from a cross-origin form/script
-        const hasCustomHeader = c.req.header('X-Requested-With') || c.req.header('Authorization');
+        const hasCustomHeader = c.req.header('X-Requested-With');
+        // R23 (L27): Removed Content-Type bypass — application/json CAN be sent cross-origin
+        // with SameSite: None cookies. X-Requested-With is the only reliable CSRF defense.
         if (!hasCustomHeader) {
-            // Allow if Content-Type is JSON (can't be sent from plain form)
-            const contentType = c.req.header('Content-Type') || '';
-            if (contentType.includes('application/json')) {
-                return await next();
-            }
             return c.json({
                 error: 'CSRF Protection',
                 message: 'Missing required request headers.'
@@ -85,6 +94,8 @@ export const sanitizeInput = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
         if (val && typeof val === 'object') {
             const clean: any = {};
             for (const [k, v] of Object.entries(val)) {
+                // R23: Block prototype pollution via __proto__ or constructor
+                if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
                 clean[k] = sanitize(v);
             }
             return clean;

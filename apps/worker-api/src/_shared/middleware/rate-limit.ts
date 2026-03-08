@@ -2,11 +2,11 @@ import { MiddlewareHandler } from 'hono';
 import { Bindings, Variables } from '../../bindings';
 
 /**
- * #6: Simple in-memory rate limiter for auth endpoints.
- * Uses a Map with IP-based keys. Resets on worker restart.
- * For production, consider Cloudflare Workers KV or Durable Objects.
+ * R23 (L22): Distributed rate limiter using Cloudflare KV.
+ * Falls back to in-memory Map for local development.
+ * In production, rate limits survive worker restarts and work across isolates.
  */
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+const localRateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
 interface RateLimitOptions {
     windowMs?: number;      // Time window in ms (default: 60s)
@@ -16,23 +16,55 @@ interface RateLimitOptions {
 
 export const rateLimit = (options: RateLimitOptions = {}): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
     const { windowMs = 60_000, maxRequests = 10, keyPrefix = 'rl' } = options;
+    const windowSecs = Math.ceil(windowMs / 1000);
 
     return async (c, next) => {
         const ip = c.req.header('CF-Connecting-IP') || c.req.header('X-Forwarded-For') || '127.0.0.1';
         const key = `${keyPrefix}:${ip}`;
         const now = Date.now();
+        const kv = (c.env as any)?.TOKEN_DENYLIST;
 
-        // Cleanup expired entries periodically
-        if (rateLimitStore.size > 10000) {
-            for (const [k, v] of rateLimitStore) {
-                if (v.resetAt < now) rateLimitStore.delete(k);
+        if (kv) {
+            // R23: Distributed KV-backed rate limiting
+            const kvKey = `rl:${key}`;
+            const existing = await kv.get(kvKey, 'json') as { count: number; resetAt: number } | null;
+
+            if (!existing || existing.resetAt < now) {
+                await kv.put(kvKey, JSON.stringify({ count: 1, resetAt: now + windowMs }), { expirationTtl: windowSecs + 10 });
+                c.header('X-RateLimit-Limit', String(maxRequests));
+                c.header('X-RateLimit-Remaining', String(maxRequests - 1));
+                return await next();
+            }
+
+            if (existing.count >= maxRequests) {
+                const retryAfter = Math.ceil((existing.resetAt - now) / 1000);
+                c.header('Retry-After', String(retryAfter));
+                c.header('X-RateLimit-Limit', String(maxRequests));
+                c.header('X-RateLimit-Remaining', '0');
+                return c.json({
+                    error: 'Too Many Requests',
+                    message: `Rate limit exceeded. Try again in ${retryAfter} seconds.`,
+                    retryAfter,
+                }, 429);
+            }
+
+            await kv.put(kvKey, JSON.stringify({ count: existing.count + 1, resetAt: existing.resetAt }), { expirationTtl: windowSecs + 10 });
+            c.header('X-RateLimit-Limit', String(maxRequests));
+            c.header('X-RateLimit-Remaining', String(maxRequests - existing.count - 1));
+            return await next();
+        }
+
+        // Fallback: In-memory rate limiting (local dev / no KV binding)
+        if (localRateLimitStore.size > 10000) {
+            for (const [k, v] of localRateLimitStore) {
+                if (v.resetAt < now) localRateLimitStore.delete(k);
             }
         }
 
-        const entry = rateLimitStore.get(key);
+        const entry = localRateLimitStore.get(key);
 
         if (!entry || entry.resetAt < now) {
-            rateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
+            localRateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
             c.header('X-RateLimit-Limit', String(maxRequests));
             c.header('X-RateLimit-Remaining', String(maxRequests - 1));
             return await next();

@@ -20,7 +20,7 @@ export const requireAuth = (secret: string) => {
             return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);
         }
 
-        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string; iss?: string; aud?: string; type?: string };
+        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string; iss?: string; aud?: string; type?: string; jti?: string };
         if (!payload) {
             return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);
         }
@@ -35,6 +35,17 @@ export const requireAuth = (secret: string) => {
             return c.json({ error: 'Unauthorized', message: 'Invalid token type' }, 401);
         }
 
+        // R23: Check JWT denylist — revoked tokens (from logout) are blocked here
+        if (payload.jti) {
+            const kv = (c.env as any)?.TOKEN_DENYLIST;
+            if (kv) {
+                const denied = await kv.get(`deny:${payload.jti}`);
+                if (denied) {
+                    return c.json({ error: 'Unauthorized', message: 'Session has been revoked' }, 401);
+                }
+            }
+        }
+
         // Map sub to id and roles to role (primary current role)
         c.set('user' as any, {
             id: payload.sub,
@@ -45,13 +56,5 @@ export const requireAuth = (secret: string) => {
     };
 };
 
-/**
- * Fallback to Header-based Auth for legacy support or non-browser clients (if needed).
- */
-export const requireHeaderAuth = (secret: string) => {
-    return jwt({
-        secret,
-        alg: 'HS256'
-    });
-};
+// R23: requireHeaderAuth DELETED — dead code that defeated HttpOnly cookie protection (L20)
 

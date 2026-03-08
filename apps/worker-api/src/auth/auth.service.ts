@@ -22,6 +22,7 @@ export const generateToken = async (
         roles: user.roles,
         activeRole: activeRole || user.roles[0],
         tenantId: user.tenantId,
+        jti: crypto.randomUUID(),               // R23: Unique token ID for revocation denylist
         iat: now,                           // R8: When token was issued
         exp: now + (expiresInMinutes * 60),
         iss: 'primecare-api',               // R8: Issuer claim
@@ -41,6 +42,7 @@ export const generateRefreshToken = async (userId: string, secret: string) => {
     const payload = {
         sub: userId,
         type: 'refresh',                    // R8: Distinguishes from access tokens
+        jti: crypto.randomUUID(),           // R23: Unique token ID for revocation denylist
         iat: now,
         exp: now + 60 * 60 * 24 * 7,        // 7 days
         iss: 'primecare-api',

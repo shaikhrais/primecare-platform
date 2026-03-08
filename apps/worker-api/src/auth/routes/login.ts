@@ -80,6 +80,13 @@ r.openapi(loginRoute, async (c) => {
         return c.json({ error: 'Invalid credentials' }, 401);
     }
 
+    // R23 (L19): Verify tenant context — prevent cross-tenant login
+    // If a tenant context is provided (via header or JWT), ensure the user belongs to that tenant
+    const requestTenantId = c.get('tenantId' as any) || c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
+    if (requestTenantId && user.tenantId !== requestTenantId) {
+        return c.json({ error: 'Invalid credentials' }, 401);
+    }
+
     // R3-1: Use comparePassword which supports both PBKDF2 and legacy SHA-256
     const isValid = await comparePassword(password, user.passwordHash);
     if (!isValid) {

@@ -52,7 +52,17 @@ r.openapi(osmStartRoute, async (c) => {
         return c.json({ error: 'OSM OAuth not configured. Set OSM_CLIENT_ID.' }, 500);
     }
 
-    const authUrl = `${OSM_AUTH_URL}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=read_prefs`;
+    // R23: Generate random state parameter for CSRF protection
+    const state = crypto.randomUUID();
+    // Store state in a short-lived cookie for validation on callback
+    const { setCookie: setStateCookie } = await import('hono/cookie');
+    setStateCookie(c, 'oauth_state', state, {
+        httpOnly: true, secure: true, sameSite: 'Lax',
+        maxAge: 300, // 5 minutes
+        path: '/v1/auth/osm'
+    });
+
+    const authUrl = `${OSM_AUTH_URL}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=read_prefs&state=${state}`;
 
     return c.redirect(authUrl);
 });
@@ -67,6 +77,14 @@ r.openapi(osmCallbackRoute, async (c) => {
 
     if (!code) {
         return c.json({ error: 'Missing code' }, 400);
+    }
+
+    // R23: Validate state parameter to prevent CSRF
+    const { getCookie } = await import('hono/cookie');
+    const savedState = getCookie(c, 'oauth_state');
+    const returnedState = c.req.query('state');
+    if (!savedState || !returnedState || savedState !== returnedState) {
+        return c.json({ error: 'Invalid OAuth state — possible CSRF attack' }, 403);
     }
 
     const clientId = c.env.OSM_CLIENT_ID;
