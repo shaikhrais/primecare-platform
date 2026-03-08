@@ -27,6 +27,7 @@ const ImpersonationTool = lazy(() => import('./pages/impersonate/ImpersonationTo
 const InteractionAudit = lazy(() => import('./pages/audit/InteractionAudit'));
 const ResponseBot = lazy(() => import('./pages/audit/ResponseBot'));
 const UsageStatisticsManager = lazy(() => import('./pages/usage/UsageStatisticsManager'));
+const DigitalPropertyManager = lazy(() => import('./pages/property/DigitalPropertyManager'));
 
 export const ScrumMasterRoutes = () => (
     <Route path={`${RouteRegistry.SCRUM_MASTER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
@@ -51,5 +52,6 @@ export const ScrumMasterRoutes = () => (
         <Route path="interaction-audit" element={<InteractionAudit />} />
         <Route path="response-bot" element={<ResponseBot />} />
         <Route path="usage-stats" element={<UsageStatisticsManager />} />
+        <Route path="digital-property" element={<DigitalPropertyManager />} />
     </Route>
 );

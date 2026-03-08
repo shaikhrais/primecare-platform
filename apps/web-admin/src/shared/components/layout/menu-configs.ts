@@ -69,6 +69,7 @@ export const scrumMasterMenu: MenuItem[] = [
     { label: ContentRegistry.SCRUM_MASTER.ENV_AUDIT.TITLE, path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, icon: '🌐' },
     { label: ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.TITLE, path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, icon: '📋' },
     { label: 'Usage Stats', path: `${RouteRegistry.SCRUM_MASTER.DASHBOARD}/usage-stats`, icon: '📊' },
+    { label: 'Digital Property', path: `${RouteRegistry.SCRUM_MASTER.DASHBOARD}/digital-property`, icon: '🏛️' },
 ];
 
 export const clientMenu: MenuItem[] = [
