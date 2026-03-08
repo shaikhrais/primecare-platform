@@ -102,6 +102,8 @@ export const baseContent = {
         TITLE: 'Users & PSWs',
         SUBTITLE: 'Manage staff, caregivers, and administrative users.',
         ADD_USER_BTN: '+ Add New User',
+        TENANT_ID: 'Franchise ID',
+        ROLE: 'Access Role',
         SEARCH_PLACEHOLDER: 'Search by name or email...',
         TABLE: {
             NAME: 'Full Name',
@@ -228,5 +230,17 @@ export const baseContent = {
         COURSES: 'Course Registry',
         VIDEO_GUIDES: 'Video Guides',
         DOCS: 'Platform Docs',
+        WHAT_YOU_CAN_DO: 'Authorized Skillset',
     },
+    AUDIT: {
+        TITLE: 'Security Audit',
+        TABLE: {
+            MODULE: 'System Module',
+            PATH: 'API Route',
+            STATUS: 'Access Status',
+        },
+        TABS: {
+            ROUTES: 'Total Routes',
+        }
+    }
 } as const;

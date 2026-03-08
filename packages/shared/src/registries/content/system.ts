@@ -5,6 +5,9 @@ export const systemContent = {
         TEST_BTN: 'Test',
         READY: 'Ready',
         TESTING: '⌛...',
+        READY_SM: 'Ready',
+        TESTING_SM: '⌛...',
+        TEST_BTN_SM: 'Test',
     },
     PAGES: {
         TITLE: 'Pages',
@@ -36,15 +39,6 @@ export const systemContent = {
         SESSIONS: 'Active Session Governance',
         CRYPTO: 'End-to-End Encryption Audit',
     },
-    GOVERNANCE: {
-        TITLE: 'Live Governance',
-        FOOTER: "Shadowing is strictly monitored. Ensure your local environment is configured for 'TECHNICAL_SUPPORT' mode before assuming identities.",
-        TITLE_ALERTS: 'Security & Compliance Guardrails',
-        DATA_ISOLATION: 'Tenant Data Isolation',
-        ENCRYPTION: 'At-Rest Encryption',
-        AUDIT_TRAIL: 'Immutable Audit Logs',
-        STATUS_LOCKED: 'Secured',
-    },
     IMPERSONATION: {
         TITLE: 'User Shadowing & Debug',
         SUBTITLE: 'Securely simulate user sessions to diagnose technical issues and verify RBAC policies.',
@@ -56,13 +50,24 @@ export const systemContent = {
         INSPECT_BTN: 'Inspect Identity',
         EMPTY_STATE: 'No active audit targets selected.',
         EMPTY_DESC: 'Enter a search query to locate users across the franchise.',
+        FOOTER: "Shadowing creates a technical trace in the audit logs. You will have full access to the user's view, data, and permissions.",
+        SELECT_PROMPT: 'Select a user to view identity metadata',
         MODAL: {
             TITLE: 'Identity Metadata',
             SHADOW_BTN: 'Shadow User Session',
             SHIFTING: '✨ Shifting Reality...',
             FOOTER: "Shadowing creates a technical trace in the audit logs. You will have full access to the user's view, data, and permissions.",
             SELECT_PROMPT: 'Select a user to view identity metadata',
-        }
+        },
+        GOVERNANCE: {
+            TITLE: 'Live Governance',
+            FOOTER: "Shadowing is strictly monitored. Ensure your local environment is configured for 'TECHNICAL_SUPPORT' mode before assuming identities.",
+            TITLE_ALERTS: 'Security & Compliance Guardrails',
+            DATA_ISOLATION: 'Tenant Data Isolation',
+            ENCRYPTION: 'At-Rest Encryption',
+            AUDIT_TRAIL: 'Immutable Audit Logs',
+            STATUS_LOCKED: 'Secured',
+        },
     },
     INSIGHTS: {
         TITLE: 'PrimeCare AI Insights',
@@ -118,6 +123,11 @@ export const systemContent = {
         APPROVE_BTN: 'Approve & Save',
         EDIT_BTN: 'Edit Draft'
     },
+    DEV_KB: {
+        TITLE: 'Developer Knowledge Base',
+        SUBTITLE: 'Documentation for technical architecture and engineering patterns.',
+        SEARCH_PLACEHOLDER: 'Search architecture docs...',
+    },
     ANOMALIES: {
         TITLE: 'Detected Anomalies',
         SEVERITY: 'Severity',
@@ -126,3 +136,4 @@ export const systemContent = {
         TECHNICAL_SUGGESTION: 'Technical Suggestion',
     },
 } as const;
+

@@ -14,6 +14,10 @@ export default function ApiEndpointsHub() {
     const endpoints = useMemo(() => {
         const list: { name: string; path: string; method: string; category: string }[] = [];
 
+        // Explicitly check for content to avoid TS inference issues
+        const smContent = ContentRegistry.SCRUM_MASTER.API_HUB;
+        console.log('SM Content:', smContent);
+
         const processRegistry = (obj: any, category: string) => {
             Object.entries(obj).forEach(([key, value]) => {
                 if (typeof value === 'string') {
@@ -75,10 +79,10 @@ export default function ApiEndpointsHub() {
         <div data-cy="api-endpoints-hub">
             <div style={{ marginBottom: '2.5rem' }}>
                 <h1 style={{ margin: '0 0 8px 0', fontSize: '32px', fontWeight: 800, color: 'var(--text-100)' }}>
-                    {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE)}
+                    {t((ContentRegistry.SCRUM_MASTER.API_HUB as any).TITLE)}
                 </h1>
                 <p style={{ margin: 0, color: 'var(--text-300)', fontSize: '1.1rem' }}>
-                    {t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.SUBTITLE)}
+                    {t((ContentRegistry.SCRUM_MASTER.API_HUB as any).SUBTITLE)}
                 </p>
             </div>
 
@@ -150,7 +154,7 @@ export default function ApiEndpointsHub() {
                                             <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{testResults[idx].status} ({testResults[idx].time})</span>
                                         </div>
                                     ) : (
-                                        <span style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>{t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.READY)}</span>
+                                        <span style={{ color: 'var(--text-300)', fontSize: '0.85rem' }}>{t((ContentRegistry.SCRUM_MASTER.API_HUB as any).READY)}</span>
                                     )}
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem', textAlign: 'right' }}>
@@ -170,7 +174,7 @@ export default function ApiEndpointsHub() {
                                             transition: '0.2s'
                                         }}
                                     >
-                                        {testingId === idx.toString() ? t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TESTING) : t(ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TEST_BTN)}
+                                        {testingId === idx.toString() ? t((ContentRegistry.SCRUM_MASTER.API_HUB as any).TESTING) : t((ContentRegistry.SCRUM_MASTER.API_HUB as any).TEST_BTN)}
                                     </button>
                                 </td>
                             </tr>

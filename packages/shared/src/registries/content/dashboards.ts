@@ -260,4 +260,35 @@ export const dashboardsContent = {
             STATUS_OK: 'OPERATIONAL',
         }
     },
+    REGIONAL_STATS: {
+        TITLE: 'Regional Oversight',
+        SUBTITLE: 'Cross-branch clinical and operational intelligence.',
+        STATS: {
+            ACTIVE_BRANCHES: 'Active Branches',
+            TOTAL_PATIENTS: 'Regional Patients',
+            LABEL_AVG_SCORE: 'Compliance Average',
+            CHURN: 'Patient Churn Rate',
+            COMPLIANCE_SCORE: 'Avg Compliance Score',
+            UTILIZATION: 'Staff Utilization',
+            REVENUE: 'Regional Revenue',
+            REVENUE_GROWTH: 'Revenue Growth',
+        },
+        BENTO: {
+            CLINICAL: 'Clinical Excellence Index',
+            PERFORMANCE: 'Operational Performance Hub',
+            FINANCIAL: 'Fiscal Regional Pulse',
+            GROWTH: 'Market Penetration',
+            RISK: 'Compliance Heatmap',
+        },
+        ACTIONS: {
+            REFRESH: 'Refresh Satellite Data',
+            EXPORT: 'Export Regional Report',
+            EXPORT_PL: 'Regional P&L Export',
+        },
+        CHARTS: {
+            LOAD: 'Load Distribution',
+            GROWTH: 'Growth Vector',
+            RISK: 'Risk Concentration',
+        }
+    },
 } as const;

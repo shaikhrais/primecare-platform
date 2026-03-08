@@ -88,27 +88,64 @@ export const navContent = {
         }
     },
     SCRUM_MASTER: {
-        API_HUB: { TITLE: 'API Integrity Hub' },
-        MONITORING: { TITLE: 'System Health' },
+        API_HUB: {
+            TITLE: 'API Integrity Hub',
+            SUBTITLE: 'Endpoint registry',
+            TEST_BTN: 'Test Protocol',
+            READY: 'Registry Ready',
+            TESTING: '⌛ Analysis...',
+        },
+        MONITORING: {
+            TITLE: 'System Health',
+            SUBTITLE: 'Real-time platform vitals and operational telemetry.',
+            API_CLUSTER: 'Worker API Cluster',
+            UPTIME_DESC: 'Continuous operational uptime per role basis.',
+            DB_TELEMETRY: 'Database Query Latency',
+            LOGS_TITLE: 'Live System Logs',
+            HEARTBEAT: 'System heartbeat pulse detected.',
+        },
         ENV_AUDIT: { TITLE: 'Environment Audit' },
         REGISTRY_CHECK: { TITLE: 'Registry Integrity' },
         SCHEMA: { TITLE: 'Schema Audit' },
         BUILDS: { TITLE: 'Build Surveillance' },
         SCANS: { TITLE: 'Vulnerability Scans' },
-        LOCALIZATION: { TITLE: 'Localization Audit' },
-        PERFORMANCE: { TITLE: 'Node Performance' },
+        LOCALIZATION: {
+            TITLE: 'Localization Audit',
+            SUBTITLE: 'I18n coverage and registry shadowing report.',
+        },
+        PERFORMANCE: {
+            TITLE: 'Node Performance',
+            SUBTITLE: 'Real-time node and worker performance metrics.',
+        },
         THEME_LAB: { TITLE: 'Theme Studio' },
-        SECURITY_SCANS: { TITLE: 'Security Scans' },
-        BUILD_HEALTH: { TITLE: 'Build Health' },
+        SECURITY_SCANS: {
+            TITLE: 'Security Scans',
+            SUBTITLE: 'Vulnerability and dependency lattice surveillance.',
+        },
+        BUILD_HEALTH: {
+            TITLE: 'Build Health',
+            SUBTITLE: 'Live CI/CD and production bundle status.',
+        },
         MONITORING_STATS: { TITLE: 'Monitoring Stats' },
         DATABASE_SCHEMA: { TITLE: 'Database Schema' },
         INTEGRITY: { TITLE: 'System Integrity' },
         COMPONENTS: { TITLE: 'UI Comp' },
-        PAGES: { TITLE: 'Pages' },
-        API_ENDPOINTS: { TITLE: 'APIs' },
+        PAGES: {
+            TITLE: 'Pages',
+            SUBTITLE: 'Fractal tiering and route validation.',
+        },
+        API_ENDPOINTS: {
+            TITLE: 'APIs',
+            SUBTITLE: 'Endpoint health and latency tracking.',
+        },
         DASHBOARD: {
             TITLE: 'Scrum Master Dashboard',
-            SUBTITLE: 'Technical system audit and testing center',
+            SUBTITLE: 'Engineering oversight and platform integrity metrics.',
+        },
+        DEV_KB: {
+            TITLE: 'Developer Knowledge Base',
+            SUBTITLE: 'Documentation for technical architecture and engineering patterns.',
+            SEARCH_PLACEHOLDER: 'Search architecture docs...',
         },
         ANALYTICS: {
             TITLE: 'System Health Telemetry',
