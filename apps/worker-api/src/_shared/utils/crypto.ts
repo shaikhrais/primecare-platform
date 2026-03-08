@@ -16,6 +16,19 @@ const KEY_LENGTH = 64;  // bytes
 const SALT_LENGTH = 16; // bytes
 
 /**
+ * R21: Constant-time string comparison to prevent timing attacks.
+ * Always checks all characters regardless of mismatch position.
+ */
+function timingSafeEqual(a: string, b: string): boolean {
+    if (a.length !== b.length) return false;
+    let result = 0;
+    for (let i = 0; i < a.length; i++) {
+        result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    }
+    return result === 0;
+}
+
+/**
  * Hash a password using PBKDF2-SHA256 with a random salt.
  * Output format: `pbkdf2:iterations:salt_hex:hash_hex`
  */
@@ -53,7 +66,8 @@ export async function comparePassword(password: string, storedHash: string): Pro
             keyMaterial, KEY_LENGTH * 8
         );
         const computedHex = Array.from(new Uint8Array(derivedBits)).map(b => b.toString(16).padStart(2, '0')).join('');
-        return computedHex === hashHex;
+        // R21: Constant-time comparison — prevents timing attacks
+        return timingSafeEqual(computedHex, hashHex);
     }
 
     // Legacy SHA-256 (unsalted) — for backwards compatibility during migration
@@ -61,7 +75,8 @@ export async function comparePassword(password: string, storedHash: string): Pro
     const data = encoder.encode(password);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
     const legacyHash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-    return legacyHash === storedHash;
+    // R21: Constant-time comparison for legacy hashes too
+    return timingSafeEqual(legacyHash, storedHash);
 }
 
 /**

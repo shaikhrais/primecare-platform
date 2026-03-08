@@ -43,6 +43,12 @@ r.openapi(refreshRoute, async (c) => {
 
     try {
         const payload = await verify(refreshToken, jwtSecret, 'HS256');
+
+        // R21: Validate this is actually a refresh token — not an access token being replayed
+        if (payload.type !== 'refresh') {
+            return c.json({ error: 'Invalid token type' }, 401);
+        }
+
         const user = await prisma.user.findUnique({
             where: { id: payload.sub as string },
             // R18: Only load what's needed — not passwordHash
