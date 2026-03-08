@@ -1,4 +1,6 @@
-export const baseContent = {
+import { baseAdminContent } from './base-admin';
+
+const baseCoreContent = {
     APP: {
         NAME: 'PrimeCare',
         TAGLINE: 'Compassionate Care, Professional Service',
@@ -105,6 +107,9 @@ export const baseContent = {
         TENANT_ID: 'Franchise ID',
         ROLE: 'Access Role',
         SEARCH_PLACEHOLDER: 'Search by name or email...',
+        INVITE_PROMPT: 'Enter email to invite...',
+        INVITE_BTN: 'Send Invite',
+        INVITE_SUCCESS: (email: string) => `Invitation sent to ${email}!`,
         TABLE: {
             NAME: 'Full Name',
             EMAIL: 'Email',
@@ -112,12 +117,59 @@ export const baseContent = {
             STATUS: 'Status',
             ACTIONS: 'Actions',
         },
+        MODAL: {
+            INVITE_TITLE: 'Invite New User',
+            DISCARD_TITLE: 'Discard Changes?',
+            DISCARD_DESC: 'You have unsaved changes that will be lost.',
+            DISCARD_BTN: 'Discard',
+            STAY_BTN: 'Stay',
+            SEND_BTN: 'Send Invitation',
+            SENDING: 'Sending...',
+        },
         TABS: {
             STAFF: 'Office Staff',
             PSW: 'Caregivers (PSW)',
-            RN: 'Clinical (RN)',
+            RN: 'Nurses (RN)',
             ADMIN: 'Administrators',
-        }
+        },
+        ID_VERIFICATION: 'Identity Verified',
+        ACTIONS: 'Actions',
+        MESSAGES: {
+            FETCH_ERROR: 'Failed to load users',
+            SAVE_SUCCESS: 'User saved successfully!',
+            LOADING: 'Loading users...',
+            EMPTY: 'No users found.',
+            ERROR_LOAD: 'Could not load user data.',
+            SUCCESS_VERIFY: 'User verified successfully!',
+            ERROR_VERIFY: 'Verification failed.',
+            ERROR_ACTION: 'Action failed. Please try again.',
+        },
+        VERIFIED: 'Verified',
+        PENDING: 'Pending',
+        EDIT_BTN: 'Edit',
+        VERIFY_BTN: 'Verify',
+        ADD_BTN: '+ Add User',
+        ACTIVE_FILTERS: 'Active Filters',
+        CLEAR_FILTERS: 'Clear All',
+        FORM: {
+            BTN_CANCEL: 'Cancel',
+            BTN_SUBMIT: 'Submit',
+            BTN_UPDATE: 'Update User',
+            BTN_CREATE: 'Create User',
+            TITLE_EDIT: 'Edit User',
+            TITLE_CREATE: 'Create New User',
+            SUBTITLE: 'Fill in user details below.',
+            LOADING: 'Loading user data...',
+            ERROR_LOAD: 'Could not load user.',
+            SUCCESS_UPDATE: 'User updated successfully!',
+            SUCCESS_CREATE: 'User created successfully!',
+            ERROR_ACTION: 'Action failed. Please try again.',
+        },
+        STATUS: {
+            ACTIVE: 'Active',
+            INACTIVE: 'Inactive',
+            SUSPENDED: 'Suspended',
+        },
     },
     LAYOUT: {
         LOGOUT: 'Sign Out',
@@ -185,62 +237,9 @@ export const baseContent = {
             LOADING: 'Synchronizing data...',
         }
     },
-    MODALS: {
-        CREATE_VISIT: {
-            TITLE_CREATE: 'Create New Shift Request',
-            TITLE_EDIT: 'Edit Shift Request',
-            SUBMIT_CREATE: 'Create Shift',
-            SUBMIT_SAVE: 'Save Changes',
-            CANCEL: 'Cancel',
-            PROCESSING: 'Processing...',
-            SUCCESS_CREATE: 'Shift created successfully!',
-            SUCCESS_UPDATE: 'Shift updated successfully!',
-            ERROR_CREATE: 'Failed to create shift',
-            ERROR_UPDATE: 'Failed to update shift',
-        },
-        CONFIRM_DELETE: {
-            TITLE: 'Confirm Deletion',
-            DESC: 'Are you sure you want to delete this item? This action cannot be undone.',
-            CONFIRM: 'Delete',
-            CANCEL: 'Cancel',
-        }
-    },
-    SHARED: {
-        VARIABLE_KEY: 'Variable Key',
-        CURRENT_VALUE: 'Current Value',
-        SECURITY_LEVEL: 'Security Level',
-        STATUS: 'Status',
-        ARCHITECTURE_INSIGHT: 'Architecture Insight',
-        SECURITY_NOTE: 'Security Note',
-        HEALTHY: 'Healthy',
-        VERIFIED: 'Verified',
-        ACCESSIBLE: 'Accessible',
-        MATCH: 'Match',
-        SECURE: 'Secure',
-        PUBLIC: 'Public',
-        SYSTEM: 'System',
-        SENSITIVE: 'Sensitive',
-        LOW: 'Low',
-        MEDIUM: 'Medium',
-        HIGH: 'High',
-    },
-    LEARN: {
-        TITLE: 'PrimeCare Academy',
-        SUBTITLE: 'Documentation and training resources.',
-        COURSES: 'Course Registry',
-        VIDEO_GUIDES: 'Video Guides',
-        DOCS: 'Platform Docs',
-        WHAT_YOU_CAN_DO: 'Authorized Skillset',
-    },
-    AUDIT: {
-        TITLE: 'Security Audit',
-        TABLE: {
-            MODULE: 'System Module',
-            PATH: 'API Route',
-            STATUS: 'Access Status',
-        },
-        TABS: {
-            ROUTES: 'Total Routes',
-        }
-    }
+} as const;
+
+export const baseContent = {
+    ...baseCoreContent,
+    ...baseAdminContent,
 } as const;

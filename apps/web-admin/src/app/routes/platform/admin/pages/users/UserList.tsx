@@ -137,7 +137,7 @@ export default function UserList() {
                     )}
                     {searchParams.get('status') && (
                         <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '9999px', fontSize: '0.875rem' }}>
-                            {t(ContentRegistry.USERS.STATUS)}: {searchParams.get('status')}
+                            {t(ContentRegistry.USERS.STATUS as any)}: {searchParams.get('status')}
                         </span>
                     )}
                     <button onClick={() => navigate(RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>

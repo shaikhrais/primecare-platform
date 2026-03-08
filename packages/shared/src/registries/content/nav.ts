@@ -1,3 +1,5 @@
+import { scrumMasterContent } from './scrum-master';
+
 export const navContent = {
     LINKS: {
         ADMIN: {
@@ -87,121 +89,7 @@ export const navContent = {
             MAR: 'Digital MAR'
         }
     },
-    SCRUM_MASTER: {
-        API_HUB: {
-            TITLE: 'API Integrity Hub',
-            SUBTITLE: 'Endpoint registry',
-            TEST_BTN: 'Test Protocol',
-            READY: 'Registry Ready',
-            TESTING: '⌛ Analysis...',
-        },
-        MONITORING: {
-            TITLE: 'System Health',
-            SUBTITLE: 'Real-time platform vitals and operational telemetry.',
-            API_CLUSTER: 'Worker API Cluster',
-            UPTIME_DESC: 'Continuous operational uptime per role basis.',
-            DB_TELEMETRY: 'Database Query Latency',
-            LOGS_TITLE: 'Live System Logs',
-            HEARTBEAT: 'System heartbeat pulse detected.',
-        },
-        ENV_AUDIT: { TITLE: 'Environment Audit' },
-        REGISTRY_CHECK: { TITLE: 'Registry Integrity' },
-        SCHEMA: { TITLE: 'Schema Audit' },
-        BUILDS: { TITLE: 'Build Surveillance' },
-        SCANS: { TITLE: 'Vulnerability Scans' },
-        LOCALIZATION: {
-            TITLE: 'Localization Audit',
-            SUBTITLE: 'I18n coverage and registry shadowing report.',
-        },
-        PERFORMANCE: {
-            TITLE: 'Node Performance',
-            SUBTITLE: 'Real-time node and worker performance metrics.',
-        },
-        THEME_LAB: { TITLE: 'Theme Studio' },
-        SECURITY_SCANS: {
-            TITLE: 'Security Scans',
-            SUBTITLE: 'Vulnerability and dependency lattice surveillance.',
-        },
-        BUILD_HEALTH: {
-            TITLE: 'Build Health',
-            SUBTITLE: 'Live CI/CD and production bundle status.',
-        },
-        MONITORING_STATS: { TITLE: 'Monitoring Stats' },
-        DATABASE_SCHEMA: { TITLE: 'Database Schema' },
-        INTEGRITY: { TITLE: 'System Integrity' },
-        COMPONENTS: { TITLE: 'UI Comp' },
-        PAGES: {
-            TITLE: 'Pages',
-            SUBTITLE: 'Fractal tiering and route validation.',
-        },
-        API_ENDPOINTS: {
-            TITLE: 'APIs',
-            SUBTITLE: 'Endpoint health and latency tracking.',
-        },
-        DASHBOARD: {
-            TITLE: 'Scrum Master Dashboard',
-            SUBTITLE: 'Engineering oversight and platform integrity metrics.',
-        },
-        DEV_KB: {
-            TITLE: 'Developer Knowledge Base',
-            SUBTITLE: 'Documentation for technical architecture and engineering patterns.',
-            SEARCH_PLACEHOLDER: 'Search architecture docs...',
-        },
-        ANALYTICS: {
-            TITLE: 'System Health Telemetry',
-            LATENCY: 'API Latency (v1)',
-            ERRORS: 'Error Distribution',
-            AVAILABILITY: 'System Availability',
-            COMPLIANCE: 'Registry Compliance',
-            X_AXIS: 'Time',
-            Y_AXIS: 'ms',
-        },
-        ALERTS: {
-            TITLE: 'Active System Alerts',
-            CRITICAL: 'Critical Environment Failure',
-            WARNING: 'Sync Latency High',
-            INFO: 'Daily Compliance Job Pending',
-            RESOLVE: 'Resolve',
-        },
-        ROADMAP: {
-            TITLE: 'Product Roadmap & Enhancements',
-            PHASE_1: 'Phase 14: Health Analytics',
-            PHASE_2: 'Phase 15: AI-Driven Self-Healing',
-            PHASE_3: 'Phase 16: Multi-Cloud Replication',
-            STATUS_PLANNED: 'Planned',
-            STATUS_IN_PROGRESS: 'In Progress',
-            STATUS_COMPLETED: 'Completed',
-        },
-        COPILOT: {
-            TITLE: 'Scrum Master AI Copilot',
-            SUBTITLE: 'Predictive analytics and autonomous health management',
-            SUGGESTION_1: 'Optimize API caching for /v1/admission',
-            SUGGESTION_2: 'Unusual latency spike detected in US-EAST cluster',
-            SUGGESTION_3: 'Schema drift detected in Earnings module',
-        },
-        ROLE_FLOWS: {
-            TITLE: 'Flows',
-            SUBTITLE: 'User journeys',
-            SECURITY_ROLES: 'Security Roles',
-            WORKFLOW_PATHWAY: 'Workflow pathway',
-            STEPS: {
-                ADMIN: ['Dashboard Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'],
-                SCRUM_MASTER: ['Technical Dashboard', 'API Registry Audit', 'Blueprint Gap Analysis', 'Performance Sweep', 'Security Surveillance', 'Theme Customization'],
-                MANAGER: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'],
-                MARKETING_MANAGER: ['Growth Pipeline', 'CRM Management', 'Lead Conversion', 'Campaign Performance'],
-                HR_MANAGER: ['Talent Pipeline', 'Recruitment Funnel', 'Onboarding Tracking', 'Compliance Audits'],
-                FINANCE_MANAGER: ['Revenue Intelligence', 'Expense Audits', 'Payroll Reconciliation', 'Tax Compliance'],
-                REGIONAL_MANAGER: ['Regional P&L', 'Branch Benchmarking', 'Operational Overhead', 'Growth Strategy'],
-                CLINICAL_MANAGER: ['Clinical Audit', 'Medication Safety', 'QA Compliance', 'Incident Oversight'],
-                COORDINATOR: ['Live Dispatch Map', 'SOS Queue', 'Coverage Alerts', 'Emergency Check-in'],
-                RECRUITING_MANAGER: ['Job Postings', 'Candidate Screening', 'Interview Roster', 'Offer Management'],
-                STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'],
-                RN: ['Clinical Dashboard', 'Care Plan Manager', 'Daily Entry Audit', 'Supervision Hub'],
-                PSW: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'],
-                CLIENT: ['Care Hub', 'New Request', 'Assigned Team', 'Digital Invoices', 'Feedback Gateway'],
-            }
-        },
-    },
+    SCRUM_MASTER: scrumMasterContent,
     PROFILE: {
         TITLE: 'Account Profile',
         SUBTITLE: 'Manage your personal information and preferences.',
