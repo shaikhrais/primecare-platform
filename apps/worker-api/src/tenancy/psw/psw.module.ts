@@ -9,6 +9,7 @@ import handoverRoutes from './handover/handover.routes';
 import availabilityRoutes from './availability/availability.routes';
 import payoutsRoutes from './payouts/payouts.routes';
 import wellnessRoutes from './wellness/wellness.routes';
+import mileageRoutes from './mileage/mileage.routes';
 
 const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -27,5 +28,6 @@ psw.route('/handover', handoverRoutes);
 psw.route('/availability', availabilityRoutes);
 psw.route('/payouts', payoutsRoutes);
 psw.route('/wellness', wellnessRoutes);
+psw.route('/mileage', mileageRoutes);
 
 export default psw;

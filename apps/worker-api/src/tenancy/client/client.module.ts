@@ -7,6 +7,7 @@ import carePlanRoutes from './carePlan/carePlan.routes';
 import serviceRoutes from './services/services.routes';
 import relationshipRoutes from './relationship/relationship.routes';
 import engagementRoutes from './client_engagement.routes';
+import familyRoutes from './family/family.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -23,5 +24,6 @@ client.route('/care-plan', carePlanRoutes);
 client.route('/', serviceRoutes);
 client.route('/', relationshipRoutes); // support/feedback at /support/feedback
 client.route('/engagement', engagementRoutes); // feed at /engagement/feed
+client.route('/family', familyRoutes);
 
 export default client;

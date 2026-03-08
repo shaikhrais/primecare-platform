@@ -22,6 +22,13 @@ import { clinicalAutopilotRoutes } from './routes/clinical-autopilot.routes';
 import { resellerRoutes } from './routes/reseller.routes';
 import financialRoutes from './financial/financial.routes';
 import registryRoutes from './registries/registries.routes';
+import evvRoutes from './evv/evv.routes';
+import authorizationRoutes from './authorizations/authorizations.routes';
+import referralRoutes from './referrals/referrals.routes';
+import consentRoutes from './consent/consent.routes';
+import claimRoutes from './claims/claims.routes';
+import webhookRoutes from './webhooks/webhooks.routes';
+import auditExportRoutes from './audit-export/audit-export.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -62,6 +69,15 @@ admin.route('/automation/clinical-autopilot', clinicalAutopilotRoutes);
 
 // Reseller // Sub-Tenant Routes
 admin.route('/reseller', resellerRoutes);
+
+// Domain Feature Extensions
+admin.route('/evv', evvRoutes);
+admin.route('/authorizations', authorizationRoutes);
+admin.route('/referrals', referralRoutes);
+admin.route('/consent', consentRoutes);
+admin.route('/claims', claimRoutes);
+admin.route('/webhooks', webhookRoutes);
+admin.route('/audit-export', auditExportRoutes);
 
 const statsRoute = createRoute({
     method: 'get',

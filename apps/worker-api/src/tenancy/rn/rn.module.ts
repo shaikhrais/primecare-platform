@@ -4,6 +4,9 @@ import { requireAuth } from '../../_shared/middleware/auth';
 import supervisionRoutes from './supervision/supervision.routes';
 import dailyReviewRoutes from './dailyReview/dailyReview.routes';
 import clinicalRoutes from './clinical/clinical.routes';
+import marRoutes from './mar/mar.routes';
+import woundCareRoutes from './wound-care/wound-care.routes';
+import raiHcRoutes from './assessments/rai-hc.routes';
 
 const rn = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -17,5 +20,8 @@ rn.use('*', async (c, next) => {
 rn.route('/supervision', supervisionRoutes);
 rn.route('/daily-review', dailyReviewRoutes);
 rn.route('/clinical', clinicalRoutes);
+rn.route('/mar', marRoutes);
+rn.route('/wound-care', woundCareRoutes);
+rn.route('/assessments', raiHcRoutes);
 
 export default rn;

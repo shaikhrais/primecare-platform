@@ -51,6 +51,7 @@ model User {
   wellnessPulses       WellnessPulse[]
   devices              UserDevice[]
   systemEvents         SystemEvent[]
+  performanceReviewsAuthored PerformanceReview[] @relation("ReviewAuthor")
 
   @@index([tenantId])
   @@map("users")
@@ -156,6 +157,16 @@ model Tenant {
   // Registry
   registries              Registry[]
 
+  // Domain Feature Extensions
+  evvRecords              EVVRecord[]
+  serviceAuthorizations   ServiceAuthorization[]
+  consentForms            ConsentForm[]
+  mileageLogs             MileageLog[]
+  referrals               Referral[]
+  familyMembers           FamilyMember[]
+  performanceReviews      PerformanceReview[]
+  webhookEndpoints        WebhookEndpoint[]
+
   @@map("tenants")
 }
 
@@ -236,6 +247,9 @@ model ClientProfile {
   familyNotifications FamilyNotification[]
   careFeedbacks       CareFeedback[]
   bookingRequests     BookingRequest[]
+  serviceAuthorizations ServiceAuthorization[]
+  consentForms         ConsentForm[]
+  familyMembers        FamilyMember[]
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -273,6 +287,8 @@ model PswProfile {
   fleetStatus      FleetStatus?
   supervisionLogs  SupervisionLog[]
   matches          VisitMatch[]           @relation("VisitMatches")
+  mileageLogs      MileageLog[]
+  performanceReviews PerformanceReview[]
 
   @@index([tenantId])
   @@map("psw_profiles")
@@ -1746,4 +1762,214 @@ enum TransactionState {
   matched
   reconciled
   closed
+}
+
+// ==========================================
+// DOMAIN FEATURE EXTENSIONS (Phase 1)
+// ==========================================
+
+model EVVRecord {
+  id                 String   @id @default(uuid())
+  visitId            String   @map("visit_id")
+  pswId              String   @map("psw_id")
+  checkType          String   @map("check_type") // check_in, check_out
+  lat                Float?
+  lng                Float?
+  accuracy           Float?
+  verificationMethod String   @default("gps") @map("verification_method") // gps, pin, biometric
+  status             String   @default("valid") // valid, exception, overridden
+  overrideById       String?  @map("override_by_id")
+  overrideReason     String?  @map("override_reason")
+  rawData            Json?    @map("raw_data")
+  capturedAt         DateTime @default(now()) @map("captured_at")
+  tenantId           String   @map("tenant_id")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([visitId])
+  @@index([pswId])
+  @@map("evv_records")
+}
+
+model ServiceAuthorization {
+  id              String    @id @default(uuid())
+  clientId        String    @map("client_id")
+  serviceId       String?   @map("service_id")
+  fundingSource   String    @map("funding_source") // ohip, private, insurance, lhin
+  authorizedHours Float     @map("authorized_hours")
+  usedHours       Float     @default(0) @map("used_hours")
+  startDate       DateTime  @map("start_date")
+  endDate         DateTime  @map("end_date")
+  status          String    @default("active") // active, expired, exhausted, suspended
+  authCode        String?   @map("auth_code")
+  notes           String?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  tenantId        String    @map("tenant_id")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@map("service_authorizations")
+}
+
+model ConsentForm {
+  id               String    @id @default(uuid())
+  clientId         String    @map("client_id")
+  formType         String    @map("form_type") // service_agreement, phipa_consent, dnr, hipaa, general
+  status           String    @default("pending") // pending, signed, expired, revoked
+  signatureDataUrl String?   @map("signature_data_url") @db.Text
+  signedAt         DateTime? @map("signed_at")
+  expiresAt        DateTime? @map("expires_at")
+  documentKey      String?   @map("document_key") // R2 storage key for PDF
+  witnessName      String?   @map("witness_name")
+  templateVersion  Int       @default(1) @map("template_version")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+  tenantId         String    @map("tenant_id")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@map("consent_forms")
+}
+
+model MileageLog {
+  id                  String   @id @default(uuid())
+  pswId               String   @map("psw_id")
+  date                DateTime
+  fromVisitId         String?  @map("from_visit_id")
+  toVisitId           String?  @map("to_visit_id")
+  fromAddress         String?  @map("from_address")
+  toAddress           String?  @map("to_address")
+  distanceKm          Float    @map("distance_km")
+  travelMinutes       Int?     @map("travel_minutes")
+  reimbursementRate   Float    @default(0.70) @map("reimbursement_rate") // CRA 2025 rate
+  reimbursementAmount Float?   @map("reimbursement_amount")
+  status              String   @default("pending") // pending, approved, paid
+  createdAt           DateTime @default(now()) @map("created_at")
+  tenantId            String   @map("tenant_id")
+
+  psw    PswProfile @relation(fields: [pswId], references: [id])
+  tenant Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([pswId])
+  @@map("mileage_logs")
+}
+
+model Referral {
+  id                String    @id @default(uuid())
+  clientName        String    @map("client_name")
+  clientPhone       String?   @map("client_phone")
+  clientEmail       String?   @map("client_email")
+  referrerName      String    @map("referrer_name")
+  referrerOrg       String?   @map("referrer_org") // hospital, LHIN, CCAC, physician
+  referrerType      String    @default("external") @map("referrer_type") // internal, external, self
+  serviceNeeded     String?   @map("service_needed")
+  urgency           String    @default("routine") // routine, urgent, emergent
+  clinicalNotes     String?   @map("clinical_notes")
+  status            String    @default("pending") // pending, accepted, waitlisted, converted, declined
+  convertedClientId String?   @map("converted_client_id")
+  convertedAt       DateTime? @map("converted_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  tenantId          String    @map("tenant_id")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@map("referrals")
+}
+
+model FamilyMember {
+  id           String   @id @default(uuid())
+  clientId     String   @map("client_id")
+  name         String
+  email        String?
+  phone        String?
+  relationship String   // spouse, child, sibling, parent, guardian, other
+  accessLevel  String   @default("view_only") @map("access_level") // view_only, care_updates, full
+  linkedUserId String?  @map("linked_user_id") // optional link to User account
+  isEmergency  Boolean  @default(false) @map("is_emergency")
+  notifyVisits Boolean  @default(true) @map("notify_visits")
+  notifyCare   Boolean  @default(true) @map("notify_care")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  tenantId     String   @map("tenant_id")
+
+  client ClientProfile @relation(fields: [clientId], references: [id])
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@map("family_members")
+}
+
+model PerformanceReview {
+  id            String    @id @default(uuid())
+  pswId         String    @map("psw_id")
+  reviewerId    String    @map("reviewer_id")
+  periodStart   DateTime  @map("period_start")
+  periodEnd     DateTime  @map("period_end")
+  overallRating Float?    @map("overall_rating") // 1.0 - 5.0
+  kpis          Json?     // { onTimeRate, satisfactionScore, incidentRate, completionRate }
+  goals         Json?     // [{ description, status, dueDate }]
+  strengths     String?
+  improvements  String?
+  notes         String?
+  status        String    @default("draft") // draft, submitted, acknowledged
+  acknowledgedAt DateTime? @map("acknowledged_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  tenantId      String    @map("tenant_id")
+
+  psw      PswProfile @relation(fields: [pswId], references: [id])
+  reviewer User       @relation("ReviewAuthor", fields: [reviewerId], references: [id])
+  tenant   Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([pswId])
+  @@map("performance_reviews")
+}
+
+model WebhookEndpoint {
+  id            String   @id @default(uuid())
+  url           String
+  events        String[] // visit.completed, incident.created, invoice.paid, etc.
+  secret        String   // HMAC signing secret
+  status        String   @default("active") // active, paused, disabled
+  lastDeliveredAt DateTime? @map("last_delivered_at")
+  failureCount  Int      @default(0) @map("failure_count")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  tenantId      String   @map("tenant_id")
+
+  deliveries WebhookDelivery[]
+  tenant     Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("webhook_endpoints")
+}
+
+model WebhookDelivery {
+  id           String   @id @default(uuid())
+  endpointId   String   @map("endpoint_id")
+  event        String   // e.g., visit.completed
+  payload      Json
+  statusCode   Int?     @map("status_code")
+  responseBody String?  @map("response_body")
+  retryCount   Int      @default(0) @map("retry_count")
+  deliveredAt  DateTime @default(now()) @map("delivered_at")
+
+  endpoint WebhookEndpoint @relation(fields: [endpointId], references: [id])
+
+  @@index([endpointId])
+  @@map("webhook_deliveries")
 }
