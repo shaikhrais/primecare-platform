@@ -16,14 +16,17 @@ class WebChatService {
             this.socket.close();
         }
 
+        // R17: Include auth cookie in WebSocket connection
+        // Note: WebSocket API sends cookies automatically for same-origin.
+        // For cross-origin, the browser includes cookies if withCredentials-like behavior is set at the server.
+        // The userId is still sent as a hint, but the server MUST validate the JWT cookie.
         const wsUrl = `${this.url}?userId=${userId}`;
-        console.log('Connecting to Chat:', wsUrl);
 
         try {
             this.socket = new WebSocket(wsUrl);
 
             this.socket.onopen = () => {
-                console.log('Chat Connected');
+                // R17: Don't log WebSocket connection details
                 if (this.reconnectInterval) {
                     clearInterval(this.reconnectInterval);
                     this.reconnectInterval = null;
@@ -40,7 +43,7 @@ class WebChatService {
             };
 
             this.socket.onclose = (e) => {
-                console.log('Chat Disconnected', e.reason);
+                // R17: Don't log disconnect reasons
                 if (!this.reconnectInterval) {
                     this.reconnectInterval = setInterval(() => {
                         if (this.userId) this.connect(this.userId);
@@ -48,19 +51,17 @@ class WebChatService {
                 }
             };
 
-            this.socket.onerror = (e) => {
-                console.log('Chat Error:', e);
+            this.socket.onerror = () => {
+                // R17: Don't log WebSocket errors to console
             };
-        } catch (e) {
-            console.error('Socket creation error:', e);
+        } catch {
+            // R17: Silent fail — reconnect will retry
         }
     }
 
     sendMessage(message: string) {
         if (this.socket && this.socket.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify({ message, userId: this.userId, timestamp: new Date().toISOString() }));
-        } else {
-            console.warn('Socket not open');
         }
     }
 

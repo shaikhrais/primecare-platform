@@ -43,7 +43,11 @@ r.openapi(refreshRoute, async (c) => {
 
     try {
         const payload = await verify(refreshToken, jwtSecret, 'HS256');
-        const user = await prisma.user.findUnique({ where: { id: payload.sub as string } });
+        const user = await prisma.user.findUnique({
+            where: { id: payload.sub as string },
+            // R18: Only load what's needed — not passwordHash
+            select: { id: true, email: true, roles: true, tenantId: true, status: true },
+        });
 
         if (!user) return c.json({ error: 'User not found' }, 401);
 

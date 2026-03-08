@@ -145,8 +145,10 @@ r.openapi(loginRoute, async (c) => {
             // If approval is required, the governance middleware will block subsequent requests 
             // but we can allow the login response to return the status.
             if (tenant?.requireDeviceApproval) {
+                // R17: Return safe user fields only — the original code leaked passwordHash here!
+                const safeUserPending = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
                 return c.json({
-                    user,
+                    user: safeUserPending,
                     token: accessToken,
                     deviceStatus: 'pending_approval',
                     message: 'Login successful, but this device requires administrator approval.'

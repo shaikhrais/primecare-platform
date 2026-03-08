@@ -33,7 +33,11 @@ r.openapi(getProfileRoute, async (c) => {
     try {
         const userWithProfile = await prisma.user.findUnique({
             where: { id: userId },
-            include: { pswProfile: true, clientProfile: true }
+            // R18: Exclude passwordHash from query — defense in depth
+            select: {
+                id: true, email: true, roles: true, phone: true, status: true, createdAt: true,
+                pswProfile: true, clientProfile: true,
+            }
         });
 
         if (!userWithProfile) return c.json({ error: 'User not found' }, 404);

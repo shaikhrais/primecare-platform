@@ -104,7 +104,7 @@ app.onError((err, c) => {
 
     return c.json({
         status: 'error',
-        message: err.message || 'Internal Server Error',
+        message: 'Internal Server Error',
         path: c.req.path
     }, 500);
 });

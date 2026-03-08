@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { hashPassword } from '../../../_shared/utils/crypto';
 
 export class AdminClientService {
     constructor(private prisma: PrismaClient) { }
@@ -26,15 +27,19 @@ export class AdminClientService {
         tenantId: string;
     }) {
         // 1. Create User
+        // R18: Generate a random temporary password hash instead of hardcoded string
+        const tempHash = await hashPassword(crypto.randomUUID());
         const user = await this.prisma.user.create({
             data: {
                 email: data.email,
                 phone: data.phone,
-                passwordHash: 'temporary_hash_change_me', // Should be handled by invite flow
+                passwordHash: tempHash,
                 roles: ['client'],
                 tenantId: data.tenantId,
                 status: 'pending'
-            }
+            },
+            // R18: Don't return passwordHash
+            select: { id: true, email: true, phone: true, roles: true, status: true, tenantId: true, createdAt: true },
         });
 
         // 2. Create Profile
@@ -55,7 +60,12 @@ export class AdminClientService {
     async getClient(id: string) {
         return this.prisma.clientProfile.findUnique({
             where: { id },
-            include: { user: true }
+            // R18: Don't return passwordHash via user relation
+            include: {
+                user: {
+                    select: { id: true, email: true, status: true, phone: true, roles: true }
+                }
+            }
         });
     }
 }

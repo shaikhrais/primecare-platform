@@ -70,7 +70,9 @@ r.openapi(impersonateRoute, async (c) => {
     const payload = c.get('jwtPayload') as any;
 
     const targetUser = await prisma.user.findUnique({
-        where: { id: targetUserId }
+        where: { id: targetUserId },
+        // R18: Only need roles/email/tenantId for impersonation — not passwordHash
+        select: { id: true, email: true, roles: true, tenantId: true, status: true },
     });
 
     if (!targetUser) return c.json({ error: 'Target user not found' }, 404);
