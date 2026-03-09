@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function DocumentCenter() {
+    const { showToast } = useNotification();
     const [documents, setDocuments] = useState<any[]>([]);
 
     useEffect(() => {
@@ -24,12 +26,12 @@ export default function DocumentCenter() {
     };
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>📁</div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Document Management Center</h1>
+                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }} data-cy="page.title">Document Management Center</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Upload, verify, and manage PSW credentials, certifications, and compliance documents. Generates presigned upload/download URLs.</p>
                     </div>
                 </div>
@@ -61,8 +63,8 @@ export default function DocumentCenter() {
                                 <td style={{ padding: '16px 24px' }}>{statusBadge(d.status)}</td>
                                 <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)' }}>{d.uploadedAt}</td>
                                 <td style={{ padding: '16px 24px', display: 'flex', gap: '6px' }}>
-                                    <button className="btn secondary" style={{ fontSize: '11px', padding: '4px 8px' }}>📥 Download</button>
-                                    {d.status === 'pending_review' && <><button className="btn primary" style={{ fontSize: '11px', padding: '4px 8px' }}>✅ Approve</button><button className="btn secondary" style={{ fontSize: '11px', padding: '4px 8px', color: '#EF4444' }}>❌ Reject</button></>}
+                                    <button className="btn secondary" data-cy={`btn-download-${d.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(`Generating download link for ${d.docType}...`, 'info')}>📥 Download</button>
+                                    {d.status === 'pending_review' && <><button className="btn primary" data-cy={`btn-approve-${d.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(`${d.docType} approved for ${d.pswName}`, 'success')}>✅ Approve</button><button className="btn secondary" data-cy={`btn-reject-${d.id}`} style={{ fontSize: '11px', padding: '4px 8px', color: '#EF4444' }} onClick={() => showToast(`${d.docType} rejected for ${d.pswName}`, 'warning')}>❌ Reject</button></>}
                                 </td>
                             </tr>
                         ))}

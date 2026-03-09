@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function NotificationsHub() {
+    const { showToast } = useNotification();
     const [notifications, setNotifications] = useState<any[]>([]);
     const [unreadCount, setUnreadCount] = useState(0);
 
@@ -21,16 +23,16 @@ export default function NotificationsHub() {
     };
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>🔔</div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Notification Engine</h1>
+                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }} data-cy="page.title">Notification Engine</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Real-time alerts, compliance warnings, SOS signals, and system messages. {unreadCount} unread.</p>
                     </div>
                 </div>
-                <button className="btn primary" onClick={() => alert('Broadcasting...')}>📢 Broadcast Message</button>
+                <button className="btn primary" data-cy="btn-broadcast" onClick={() => showToast('Broadcast message sent to all users', 'success')}>📢 Broadcast Message</button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>
@@ -63,7 +65,7 @@ export default function NotificationsHub() {
                             </div>
                             <div style={{ fontSize: '14px', color: 'var(--text-100)', fontWeight: n.status === 'unread' ? '600' : '400' }}>{n.message}</div>
                         </div>
-                        {n.status === 'unread' && <button className="btn secondary" style={{ fontSize: '11px', padding: '4px 8px' }}>Mark Read</button>}
+                        {n.status === 'unread' && <button className="btn secondary" data-cy={`btn-mark-read-${n.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast('Notification marked as read', 'info')}>Mark Read</button>}
                     </div>
                 ))}
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
 
 const { ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -44,11 +45,17 @@ export default function ForgotPassword() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f2f5'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)', position: 'relative'
         }} data-cy="forgot-password-page">
+            <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
+                <FlagLanguageSwitcher />
+            </div>
             <div style={{
-                padding: '2rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px'
+                padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid var(--line)', boxShadow: 'var(--shadow-md)', width: '100%', maxWidth: '400px'
             }}>
+                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                    <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
+                </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
                     Reset Password
                 </h1>
@@ -78,7 +85,7 @@ export default function ForgotPassword() {
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.75rem', backgroundColor: '#059669', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer'
+                            width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {loading ? 'Sending...' : 'Send Reset Link'}

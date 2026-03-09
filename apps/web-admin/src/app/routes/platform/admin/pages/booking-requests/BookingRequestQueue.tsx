@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function BookingRequestQueue() {
+    const { showToast } = useNotification();
     const [requests] = useState([
         { id: '1', clientName: 'Sarah Jenkins', serviceType: 'Personal Care', preferredDate: '2026-03-12', notes: 'Morning preferred', status: 'pending', createdAt: '2026-03-08' },
         { id: '2', clientName: 'Emily Wilson', serviceType: 'Respite Care', preferredDate: '2026-03-15', notes: 'Full day needed — caregiver medical appointment', status: 'pending', createdAt: '2026-03-07' },
@@ -8,11 +10,11 @@ export default function BookingRequestQueue() {
     ]);
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>📋</div>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Booking Request Approval Queue</h1>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }} data-cy="page.title">Booking Request Approval Queue</h1>
                     <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Review client self-service booking requests. Approve to auto-create visits, or reject with reason.</p>
                 </div>
             </div>
@@ -45,7 +47,7 @@ export default function BookingRequestQueue() {
                                 <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)', maxWidth: '200px' }}>{r.notes || '—'}</td>
                                 <td style={{ padding: '16px 24px' }}><span className={`pc-badge ${r.status === 'approved' ? 'primary' : 'secondary'}`}>{r.status === 'approved' ? '✅ Approved' : '⏳ Pending'}</span></td>
                                 <td style={{ padding: '16px 24px', display: 'flex', gap: '6px' }}>
-                                    {r.status === 'pending' && <><button className="btn primary" style={{ fontSize: '11px', padding: '4px 8px' }}>Approve</button><button className="btn secondary" style={{ fontSize: '11px', padding: '4px 8px' }}>Reject</button></>}
+                                    {r.status === 'pending' && <><button className="btn primary" data-cy={`btn-approve-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(`Booking request from ${r.clientName} approved`, 'success')}>Approve</button><button className="btn secondary" data-cy={`btn-reject-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(`Booking request from ${r.clientName} rejected`, 'warning')}>Reject</button></>}
                                 </td>
                             </tr>
                         ))}

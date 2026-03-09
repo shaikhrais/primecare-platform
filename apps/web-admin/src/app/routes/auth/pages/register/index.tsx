@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -67,8 +68,11 @@ export default function Register() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f2f5'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)', position: 'relative'
         }}>
+            <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
+                <FlagLanguageSwitcher />
+            </div>
             <div style={{
                 padding: '2.5rem', backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', width: '100%', maxWidth: '400px', border: '1px solid #f3f4f6'
             }}>
@@ -131,14 +135,14 @@ export default function Register() {
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.75rem', backgroundColor: '#059669', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer'
+                            width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {loading ? 'Creating Account...' : t(ContentRegistry.AUTH.BUTTON_REGISTER)}
                     </button>
 
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.LOGIN}?role=${roleParam}`} style={{ fontSize: '0.875rem', color: '#059669', textDecoration: 'none' }}>
+                        <a href={`${RouteRegistry.LOGIN}?role=${roleParam}`} style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             Already have an account? Sign in
                         </a>
                     </div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function PayrollHub() {
+    const { showToast } = useNotification();
     const [timesheets, setTimesheets] = useState<any[]>([]);
     const [summary, setSummary] = useState({ totalHours: 0, totalPayout: 0, approvedCount: 0, pendingCount: 0 });
 
@@ -16,18 +18,18 @@ export default function PayrollHub() {
     }, []);
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>💰</div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Payroll Batch Processing</h1>
+                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }} data-cy="page.title">Payroll Batch Processing</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Approve timesheets in bulk, run payroll batches, and generate payouts for all providers. Week: 2026-W10.</p>
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={() => alert('Bulk approving...')}>✅ Bulk Approve All</button>
-                    <button className="btn primary" onClick={() => alert('Running payroll...')}>🚀 Run Payroll</button>
+                    <button className="btn secondary" data-cy="btn-bulk-approve" onClick={() => showToast('All pending timesheets approved', 'success')}>✅ Bulk Approve All</button>
+                    <button className="btn primary" data-cy="btn-run-payroll" onClick={() => showToast('Payroll batch initiated for period 2026-W10', 'success')}>🚀 Run Payroll</button>
                 </div>
             </div>
 
@@ -62,7 +64,7 @@ export default function PayrollHub() {
                                     <span className={`pc-badge ${t.status === 'approved' ? 'primary' : 'secondary'}`}>{t.status === 'approved' ? '✅ Approved' : '⏳ Pending'}</span>
                                 </td>
                                 <td style={{ padding: '16px 24px' }}>
-                                    {t.status === 'pending' && <button className="btn primary" style={{ fontSize: '11px', padding: '4px 8px' }}>Approve</button>}
+                                    {t.status === 'pending' && <button className="btn primary" data-cy={`btn-approve-${t.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(`Timesheet approved for ${t.pswName}`, 'success')}>Approve</button>}
                                 </td>
                             </tr>
                         ))}

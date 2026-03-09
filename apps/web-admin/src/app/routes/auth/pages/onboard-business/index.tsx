@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
 
 const { ApiRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -49,8 +50,11 @@ export default function OnboardBusiness() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--bg)', padding: '2rem'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--bg)', padding: '2rem', position: 'relative'
         }}>
+            <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
+                <FlagLanguageSwitcher />
+            </div>
             <div style={{
                 padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid var(--line)', width: '100%', maxWidth: '450px', boxShadow: 'var(--shadow-lg)'
             }}>

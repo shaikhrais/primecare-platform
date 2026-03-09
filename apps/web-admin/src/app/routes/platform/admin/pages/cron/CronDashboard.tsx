@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function CronDashboard() {
+    const { showToast } = useNotification();
     const [jobs] = useState([
         { id: 'compliance-sweep', name: 'Compliance Sweep', description: 'Scans all PSW credentials for expired certifications, licenses, and VSS docs. Auto-generates compliance alerts.', schedule: 'Daily @ 06:00', lastRun: '2026-03-09T06:00:00', status: 'success', duration: '12s' },
         { id: 'training-reminders', name: 'Training Reminders', description: 'Sends reminder notifications to PSWs with overdue or upcoming training module deadlines.', schedule: 'Daily @ 08:00', lastRun: '2026-03-09T08:00:00', status: 'success', duration: '4s' },
@@ -9,11 +11,11 @@ export default function CronDashboard() {
     ]);
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>⏱️</div>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Scheduled Jobs Dashboard</h1>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }} data-cy="page.title">Scheduled Jobs Dashboard</h1>
                     <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Monitor automated cron tasks: compliance sweeps, training reminders, authorization monitoring, and inventory alerts. Powered by Cloudflare Cron Triggers.</p>
                 </div>
             </div>
@@ -31,7 +33,7 @@ export default function CronDashboard() {
                                 </div>
                                 <p style={{ color: 'var(--text-300)', margin: '0', fontSize: '14px', maxWidth: '700px' }}>{j.description}</p>
                             </div>
-                            <button className="btn secondary" onClick={() => alert(`Triggering ${j.name}...`)}>▶ Run Now</button>
+                            <button className="btn secondary" data-cy={`btn-run-${j.id}`} onClick={() => showToast(`${j.name} triggered manually`, 'success')}>▶ Run Now</button>
                         </div>
                         <div style={{ display: 'flex', gap: '32px', marginTop: '16px', fontSize: '13px', color: 'var(--text-300)' }}>
                             <span><strong>Schedule:</strong> {j.schedule}</span>
