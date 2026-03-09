@@ -29,6 +29,7 @@ import consentRoutes from './consent/consent.routes';
 import claimRoutes from './claims/claims.routes';
 import webhookRoutes from './webhooks/webhooks.routes';
 import auditExportRoutes from './audit-export/audit-export.routes';
+import aiStubRoutes from './ai-stubs/ai-stubs.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -78,6 +79,7 @@ admin.route('/consent', consentRoutes);
 admin.route('/claims', claimRoutes);
 admin.route('/webhooks', webhookRoutes);
 admin.route('/audit-export', auditExportRoutes);
+admin.route('/ai-iot', aiStubRoutes);
 
 const statsRoute = createRoute({
     method: 'get',

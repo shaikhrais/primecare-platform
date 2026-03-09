@@ -17,6 +17,8 @@ const TENANCY = {
         PAYROLL: '/tenancy/manager/payroll',
         TEAM: '/tenancy/manager/team',
         PORTFOLIO: '/tenancy/manager/portfolio',
+        REVIEWS: '/tenancy/manager/reviews',
+        REVIEW_KPI: (pswId: string) => `/tenancy/manager/reviews/kpi/${pswId}`,
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',
@@ -41,6 +43,7 @@ const TENANCY = {
         LIVE_VISIT: '/tenancy/psw/live-visit',
         CHECK_IN: '/tenancy/psw/check-in/:id',
         HANDOVER: '/tenancy/psw/handover',
+        MILEAGE: '/tenancy/psw/mileage',
     },
     RN: {
         DASHBOARD: '/tenancy/rn',
@@ -50,6 +53,12 @@ const TENANCY = {
         SUPERVISION_DETAIL: (pswId: string) => `/tenancy/rn/supervision/psw/${pswId}`,
         ASSESSMENTS: '/tenancy/rn/assessments',
         RECONCILIATION: '/tenancy/rn/reconciliation',
+        MAR: '/tenancy/rn/mar',
+        MAR_CLIENT: (clientId: string) => `/tenancy/rn/mar/${clientId}`,
+        WOUND_CARE: '/tenancy/rn/wound-care',
+        WOUND_CARE_CLIENT: (clientId: string) => `/tenancy/rn/wound-care/${clientId}`,
+        RAI_ASSESSMENTS: '/tenancy/rn/rai-assessments',
+        RAI_ASSESSMENT_DETAIL: (id: string) => `/tenancy/rn/rai-assessments/${id}`,
     },
     COORDINATOR: {
         DASHBOARD: '/tenancy/coordinator',
@@ -71,6 +80,7 @@ const TENANCY = {
         TEAM: '/tenancy/client/team',
         FEEDBACK_LOOP: '/tenancy/client/feedback-loop',
         FAMILY_HUB: '/tenancy/client/family-hub',
+        FAMILY_PORTAL: '/tenancy/client/family-portal',
     },
     ALLIED: {
         DASHBOARD: '/tenancy/allied-health',
@@ -178,7 +188,41 @@ const PLATFORM = {
             TRADING_ACCOUNT: '/platform/admin/finance/trading',
             PROFIT_LOSS: '/platform/admin/finance/p-and-l',
             BALANCE_SHEET: '/platform/admin/finance/balance-sheet',
-        }
+        },
+        // Domain Feature Pages
+        EVV: {
+            DASHBOARD: '/platform/admin/evv',
+            EXCEPTIONS: '/platform/admin/evv/exceptions',
+            EXPORT: '/platform/admin/evv/export',
+        },
+        AUTHORIZATIONS: {
+            LIST: '/platform/admin/authorizations',
+            ALERTS: '/platform/admin/authorizations/alerts',
+            UTILIZATION: (clientId: string) => `/platform/admin/authorizations/utilization/${clientId}`,
+        },
+        CONSENT: {
+            LIST: '/platform/admin/consent',
+            TEMPLATES: '/platform/admin/consent/templates',
+            EXPIRING: '/platform/admin/consent/expiring',
+        },
+        REFERRALS: {
+            LIST: '/platform/admin/referrals',
+            ANALYTICS: '/platform/admin/referrals/analytics',
+            CONVERT: (id: string) => `/platform/admin/referrals/${id}/convert`,
+        },
+        CLAIMS: {
+            LIST: '/platform/admin/claims',
+            ERA: '/platform/admin/claims/era',
+        },
+        WEBHOOKS: {
+            LIST: '/platform/admin/webhooks',
+            DELIVERIES: '/platform/admin/webhooks/deliveries',
+        },
+        AUDIT_EXPORT: {
+            DOWNLOAD: '/platform/admin/audit-export',
+            COMPLIANCE: '/platform/admin/audit-export/compliance',
+            REGULATORY: '/platform/admin/audit-export/regulatory',
+        },
     },
     SUPERUSER: {
         DASHBOARD: '/platform',

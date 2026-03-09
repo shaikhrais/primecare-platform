@@ -240,6 +240,11 @@ const PLATFORM = {
             COMPLIANCE_DASHBOARD: '/v1/admin/audit-export/compliance-dashboard',
             REGULATORY_REPORT: '/v1/admin/audit-export/regulatory-report',
         },
+        AI_IOT: {
+            PREDICTIONS: '/v1/admin/ai-iot/predictions',
+            VITALS: (clientId: string) => `/v1/admin/ai-iot/vitals/${clientId}`,
+            TELEHEALTH_SESSION: '/v1/admin/ai-iot/telehealth/session',
+        },
     },
     SCRUM_MASTER: {
         DASHBOARD: '/v1/scrum-master/stats',

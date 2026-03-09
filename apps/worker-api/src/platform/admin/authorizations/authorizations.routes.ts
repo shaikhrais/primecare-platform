@@ -63,7 +63,10 @@ const updateRoute = createRoute({
         params: z.object({ id: z.string() }),
         body: { content: { 'application/json': { schema: AuthorizationSchema.partial() } } },
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' } },
+    responses: {
+        200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' },
+        404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+    },
 });
 
 authorizations.openapi(updateRoute, async (c) => {
