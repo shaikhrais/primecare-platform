@@ -17,15 +17,20 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
         }
 
         // 1. Fetch Tenant Security Config
-        const tenant = await prisma.tenant.findUnique({
-            where: { id: tenantId },
-            select: {
-                enforceVpn: true,
-                allowedVpnRanges: true,
-                requireDeviceApproval: true,
-                maxDevicesPerUser: true
-            }
-        });
+        let tenant: any = null;
+        try {
+            tenant = await prisma.tenant.findUnique({
+                where: { id: tenantId },
+                select: {
+                    enforceVpn: true,
+                    allowedVpnRanges: true,
+                    requireDeviceApproval: true,
+                    maxDevicesPerUser: true
+                }
+            });
+        } catch (e) {
+            // Invalid UUID format or db error logs here
+        }
 
         if (!tenant) {
             return await next();

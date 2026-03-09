@@ -28,7 +28,7 @@ export default function OnboardBusiness() {
         try {
             const response = await fetch(`${API_URL}/v1/auth/onboard-business`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: JSON.stringify({ email, password, tenantName, tenantSlug }),
                 credentials: 'include'
             });
@@ -132,10 +132,10 @@ export default function OnboardBusiness() {
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.875rem', backgroundColor: '#2563EB', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer', fontSize: '1rem', transition: 'background-color 0.2s'
+                            width: '100%', padding: '0.875rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer', fontSize: '1rem', transition: 'background-color 0.2s'
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1D4ED8'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2563EB'}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--brand-600)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--brand-500)'}
                     >
                         {loading ? 'Setting up your business...' : 'Launch Business Portal'}
                     </button>

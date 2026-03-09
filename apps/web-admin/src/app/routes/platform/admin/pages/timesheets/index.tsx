@@ -13,19 +13,20 @@ export default function TimesheetList() {
     const [selectedTimesheet, setSelectedTimesheet] = useState<any>(null);
 
     useEffect(() => {
-        fetch('/v1/admin/timesheets', {
+        fetch('/api/v1/admin/timesheets', {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         })
             .then(res => res.json())
             .then(data => {
                 setTimesheets(data);
                 setLoading(false);
-            });
+            })
+            .catch(() => setLoading(false));
     }, []);
 
     const handleApprove = (id: string, status: string, e: React.MouseEvent) => {
         e.stopPropagation(); // Prevent modal opening
-        fetch(`/v1/admin/timesheets/${id}`, {
+        fetch(`/api/v1/admin/timesheets/${id}`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

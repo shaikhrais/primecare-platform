@@ -22,7 +22,7 @@ export default function ForgotPassword() {
         try {
             const response = await fetch(`${API_URL}/v1/auth/forgot-password`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: JSON.stringify({ email }),
             });
 

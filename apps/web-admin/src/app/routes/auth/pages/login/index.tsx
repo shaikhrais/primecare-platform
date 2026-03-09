@@ -19,6 +19,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     // New Multi-Role States
     const [authStep, setAuthStep] = useState<'login' | 'select-role'>('login');
@@ -33,7 +34,7 @@ export default function Login() {
         try {
             const response = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: JSON.stringify({ email, password }),
                 credentials: 'include'
             });
@@ -165,14 +166,25 @@ export default function Login() {
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t(ContentRegistry.AUTH.PASSWORD_LABEL)}
                         </label>
-                        <input
-                            data-cy="inp-password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--line)', borderRadius: '4px', boxSizing: 'border-box' }}
-                            required
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                data-cy="inp-password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                style={{ width: '100%', padding: '0.6rem', paddingRight: '2.5rem', border: '1px solid var(--line)', borderRadius: '4px', boxSizing: 'border-box' }}
+                                required
+                            />
+                            <button
+                                type="button"
+                                data-cy="btn-toggle-password"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }}
+                                tabIndex={-1}
+                            >
+                                {showPassword ? '🙈' : '👁️'}
+                            </button>
+                        </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
                         <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>

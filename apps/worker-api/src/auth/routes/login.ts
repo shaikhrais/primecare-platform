@@ -126,7 +126,7 @@ r.openapi(loginRoute, async (c) => {
         if (!existingDevice) {
             // Check Device Limit
             const deviceCount = await prisma.userDevice.count({ where: { userId: user.id } });
-            if (tenant && deviceCount >= tenant.maxDevicesPerUser) {
+            if (tenant && tenant.maxDevicesPerUser !== undefined && tenant.maxDevicesPerUser !== null && deviceCount >= tenant.maxDevicesPerUser) {
                 return c.json({
                     error: 'Device Limit Exceeded',
                     message: `You have reached the maximum limit of ${tenant.maxDevicesPerUser} devices. Please revoke an existing device to continue.`

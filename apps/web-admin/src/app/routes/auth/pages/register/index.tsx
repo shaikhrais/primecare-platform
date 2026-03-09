@@ -14,6 +14,8 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(window.location.search);
     const roleParam = searchParams.get('role') || 'client'; // Default to client
@@ -33,7 +35,7 @@ export default function Register() {
             // 1. Register
             const registerResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.REGISTER}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: JSON.stringify({ email, password, role: roleParam }),
             });
 
@@ -45,7 +47,7 @@ export default function Register() {
             // 2. Auto-Login
             const loginResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: JSON.stringify({ email, password }),
             });
 
@@ -106,28 +108,38 @@ export default function Register() {
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t(ContentRegistry.AUTH.PASSWORD_LABEL)}
                         </label>
-                        <input
-                            data-cy="inp-password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
-                            required
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                data-cy="inp-password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                style={{ width: '100%', padding: '0.5rem', paddingRight: '2.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                                required
+                            />
+                            <button type="button" data-cy="btn-toggle-password" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }} tabIndex={-1}>
+                                {showPassword ? '🙈' : '👁️'}
+                            </button>
+                        </div>
                     </div>
                     <div style={{ marginBottom: '1.5rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             Confirm Password
                         </label>
-                        <input
-                            data-cy="inp-confirm-password"
-                            name="confirmPassword"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
-                            required
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                data-cy="inp-confirm-password"
+                                name="confirmPassword"
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                style={{ width: '100%', padding: '0.5rem', paddingRight: '2.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                                required
+                            />
+                            <button type="button" data-cy="btn-toggle-confirm" onClick={() => setShowConfirmPassword(!showConfirmPassword)} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }} tabIndex={-1}>
+                                {showConfirmPassword ? '🙈' : '👁️'}
+                            </button>
+                        </div>
                     </div>
 
                     <button
