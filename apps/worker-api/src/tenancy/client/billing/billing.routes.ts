@@ -117,4 +117,29 @@ billing.openapi(statementRoute, async (c) => {
     }, 200);
 });
 
+// GET /billing/payment-methods — Payment methods on file
+const paymentMethodsRoute = createRoute({
+    method: 'get', path: '/payment-methods',
+    summary: 'List payment methods on file', tags: ['Client Billing'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        id: z.string(), type: z.string(), last4: z.string(), isDefault: z.boolean(),
+                    }))
+                }
+            }, description: 'Payment methods'
+        },
+    },
+});
+
+billing.openapi(paymentMethodsRoute, async (c) => {
+    // Payment methods would come from Stripe/payment processor
+    // For now return a structured placeholder
+    return c.json([
+        { id: 'pm_default', type: 'card', last4: '4242', isDefault: true },
+    ], 200);
+});
+
 export default billing;

@@ -2,7 +2,7 @@ import React from 'react';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
 import QuickActions from '@/shared/components/dashboard/QuickActions';
 import { AdminRegistry } from 'prime-care-shared';
-import { useTranslation } from 'react-i18next';
+import FlagLanguageSwitcher from './FlagLanguageSwitcher';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -21,7 +21,7 @@ export const TopBarActions: React.FC<TopBarActionsProps> = ({
     toggleFullscreen,
     role
 }) => {
-    const { i18n } = useTranslation();
+
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -76,24 +76,7 @@ export const TopBarActions: React.FC<TopBarActionsProps> = ({
                 📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
             </div>
 
-            <select
-                value={i18n.language}
-                onChange={(e) => i18n.changeLanguage(e.target.value)}
-                style={{
-                    padding: '6px 12px',
-                    borderRadius: '8px',
-                    border: '1px solid #E5E7EB',
-                    backgroundColor: '#F9FAFB',
-                    fontSize: '0.85rem',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    color: '#374151'
-                }}
-            >
-                <option value="en">EN</option>
-                <option value="fr">FR</option>
-            </select>
+            <FlagLanguageSwitcher />
 
             <QuickActions role={role} />
         </div>

@@ -277,4 +277,80 @@ clinical.openapi(listDailyAuditRoute, async (c) => {
     return c.json(entries, 200);
 });
 
+/**
+ * G25: RN Reconciliation — List Pending
+ */
+const reconciliationPendingRoute = createRoute({
+    summary: 'List Pending Reconciliation Entries',
+    description: 'Retrieve medication reconciliation entries pending RN review.',
+    tags: ['RN Clinical Audit'],
+    method: 'get',
+    path: '/reconciliation/pending',
+    middleware: [requirePermission('CARE_PLAN_UPDATE')],
+    responses: {
+        200: {
+            description: 'Pending reconciliation entries',
+            content: { 'application/json': { schema: z.array(z.any()) } },
+        },
+    },
+});
+
+clinical.openapi(reconciliationPendingRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const entries = await prisma.medicationRecon.findMany({
+        where: { tenantId, status: 'pending' },
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+    });
+
+    return c.json(entries, 200);
+});
+
+/**
+ * G25: RN Reconciliation — Approve
+ */
+const reconciliationApproveRoute = createRoute({
+    summary: 'Approve Reconciliation Entry',
+    description: 'RN approves a medication reconciliation entry.',
+    tags: ['RN Clinical Audit'],
+    method: 'post',
+    path: '/reconciliation/{id}/approve',
+    middleware: [requirePermission('CARE_PLAN_UPDATE')],
+    request: {
+        params: z.object({ id: z.string() }),
+        body: { content: { 'application/json': { schema: z.object({ notes: z.string().optional() }) } } },
+    },
+    responses: {
+        200: {
+            description: 'Reconciliation approved',
+            content: { 'application/json': { schema: z.object({ success: z.boolean() }) } },
+        },
+        404: {
+            description: 'Not found',
+            content: { 'application/json': { schema: z.object({ error: z.string() }) } },
+        },
+    },
+});
+
+clinical.openapi(reconciliationApproveRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const userId = c.get('jwtPayload').sub;
+    const body = c.req.valid('json');
+
+    try {
+        await prisma.medicationRecon.update({
+            where: { id },
+            data: { status: 'approved', reviewedBy: userId, reviewNotes: body.notes },
+        });
+
+        await logAudit(prisma, userId, 'APPROVE_RECONCILIATION', 'MEDICATION_RECON', id, body);
+        return c.json({ success: true }, 200);
+    } catch {
+        return c.json({ error: 'Entry not found' }, 404);
+    }
+});
+
 export default clinical;

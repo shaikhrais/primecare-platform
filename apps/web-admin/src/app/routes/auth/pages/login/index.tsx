@@ -8,6 +8,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 import { useAuth } from '@/shared/context/AuthContext';
 import { useTheme } from '@/shared/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
 
 export default function Login() {
     const { t } = useTranslation();
@@ -125,8 +126,12 @@ export default function Login() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)', position: 'relative'
         }}>
+            {/* Language Switcher — top-right corner */}
+            <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
+                <FlagLanguageSwitcher />
+            </div>
             <div style={{
                 padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)'
             }}>

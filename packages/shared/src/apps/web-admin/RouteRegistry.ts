@@ -27,6 +27,7 @@ const TENANCY = {
         MESSAGES: '/tenancy/staff/messages',
         INCIDENTS: '/tenancy/staff/incidents',
         COMPLIANCE: '/tenancy/staff/compliance',
+        ALLIED_HEALTH: '/tenancy/staff/allied-health',
     },
     PSW: {
         DASHBOARD: '/tenancy/psw',
@@ -44,6 +45,7 @@ const TENANCY = {
         CHECK_IN: '/tenancy/psw/check-in/:id',
         HANDOVER: '/tenancy/psw/handover',
         MILEAGE: '/tenancy/psw/mileage',
+        TRAINING: '/tenancy/psw/training',
     },
     RN: {
         DASHBOARD: '/tenancy/rn',
@@ -68,6 +70,8 @@ const TENANCY = {
         SOS: '/tenancy/coordinator/sos-center',
         SCHEDULE: '/tenancy/coordinator/schedule',
         SOS_HUB: '/coordinator/sos',
+        FLEET: '/tenancy/coordinator/fleet',
+        SHIFT_SWAP: '/tenancy/coordinator/shift-swap',
     },
     CLIENT: {
         DASHBOARD: '/tenancy/client',
@@ -81,6 +85,8 @@ const TENANCY = {
         FEEDBACK_LOOP: '/tenancy/client/feedback-loop',
         FAMILY_HUB: '/tenancy/client/family-hub',
         FAMILY_PORTAL: '/tenancy/client/family-portal',
+        BOOKING_REQUEST_NEW: '/tenancy/client/request-booking',
+        MEDICAL_SUMMARY: '/tenancy/client/medical-summary',
     },
     ALLIED: {
         DASHBOARD: '/tenancy/allied-health',
