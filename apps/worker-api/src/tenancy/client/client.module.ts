@@ -8,6 +8,9 @@ import serviceRoutes from './services/services.routes';
 import relationshipRoutes from './relationship/relationship.routes';
 import engagementRoutes from './client_engagement.routes';
 import familyRoutes from './family/family.routes';
+import billingRoutes from './billing/billing.routes';
+import feedbackRoutes from './feedback/feedback.routes';
+import portalRoutes from './portal/portal.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -25,5 +28,8 @@ client.route('/', serviceRoutes);
 client.route('/', relationshipRoutes); // support/feedback at /support/feedback
 client.route('/engagement', engagementRoutes); // feed at /engagement/feed
 client.route('/family', familyRoutes);
+client.route('/billing', billingRoutes);
+client.route('/feedback', feedbackRoutes);
+client.route('/', portalRoutes);
 
 export default client;

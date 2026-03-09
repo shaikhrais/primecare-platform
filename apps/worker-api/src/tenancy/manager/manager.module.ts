@@ -6,6 +6,7 @@ import dashboardRoutes from './dashboard/dashboard.routes';
 import financeRoutes from './finance/finance.routes';
 import managerOpsRoutes from './manager_ops.routes';
 import reviewRoutes from './reviews/reviews.routes';
+import trainingAdminRoutes from './training/training.routes';
 
 const manager = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -21,5 +22,6 @@ manager.route('/dashboard', dashboardRoutes);
 manager.route('/finance', financeRoutes);
 manager.route('/ops', managerOpsRoutes);
 manager.route('/reviews', reviewRoutes);
+manager.route('/training', trainingAdminRoutes);
 
 export default manager;

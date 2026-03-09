@@ -30,6 +30,14 @@ import claimRoutes from './claims/claims.routes';
 import webhookRoutes from './webhooks/webhooks.routes';
 import auditExportRoutes from './audit-export/audit-export.routes';
 import aiStubRoutes from './ai-stubs/ai-stubs.routes';
+import notificationRoutes from './notifications/notifications.routes';
+import documentRoutes from './documents/documents.routes';
+import payrollRoutes from './payroll/payroll.routes';
+import dischargeRoutes from './discharge/discharge.routes';
+import bookingRequestRoutes from './booking-requests/booking-requests.routes';
+import referenceDataRoutes from './reference-data/reference-data.routes';
+import interopRoutes from './interop/interop.routes';
+import cronRoutes from './cron/cron.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -80,6 +88,14 @@ admin.route('/claims', claimRoutes);
 admin.route('/webhooks', webhookRoutes);
 admin.route('/audit-export', auditExportRoutes);
 admin.route('/ai-iot', aiStubRoutes);
+admin.route('/notifications', notificationRoutes);
+admin.route('/documents', documentRoutes);
+admin.route('/payroll', payrollRoutes);
+admin.route('/clients', dischargeRoutes);
+admin.route('/booking-requests', bookingRequestRoutes);
+admin.route('/', referenceDataRoutes);
+admin.route('/interop', interopRoutes);
+admin.route('/cron', cronRoutes);
 
 const statsRoute = createRoute({
     method: 'get',

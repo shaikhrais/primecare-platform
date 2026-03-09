@@ -19,6 +19,9 @@ const TENANCY = {
         AUDIT_ATTENDANCE: '/v1/manager/audit/attendance',
         REVIEWS: '/v1/manager/reviews',
         REVIEWS_KPI: (pswId: string) => `/v1/manager/reviews/kpi/${pswId}`,
+        TRAINING_ASSIGN: '/v1/manager/training/assign',
+        TRAINING_COMPLIANCE: '/v1/manager/training/compliance',
+        TRAINING_MODULES: '/v1/manager/training/modules',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -36,6 +39,17 @@ const TENANCY = {
         FAMILY_MEMBERS: '/v1/client/family/members',
         FAMILY_FEED: (clientId: string) => `/v1/client/family/feed/${clientId}`,
         FAMILY_MESSAGE: '/v1/client/family/message',
+        // Round 3 Extensions
+        BILLING_INVOICES: '/v1/client/billing/invoices',
+        BILLING_INVOICE_DETAIL: (id: string) => `/v1/client/billing/invoices/${id}`,
+        BILLING_STATEMENT: '/v1/client/billing/statement',
+        FEEDBACK_SURVEYS: '/v1/client/feedback/surveys',
+        FEEDBACK_NEW: '/v1/client/feedback',
+        FEEDBACK_ANALYTICS: '/v1/client/feedback/analytics',
+        BOOKING_REQUEST_NEW: '/v1/client/bookings/request',
+        BOOKING_REQUEST_LIST: '/v1/client/bookings/requests',
+        CARE_TEAM_VIEW: '/v1/client/team',
+        MEDICAL_SUMMARY: '/v1/client/profile/medical-summary',
     },
     PSW: {
         VISITS: '/v1/psw/schedule/visits',
@@ -57,6 +71,11 @@ const TENANCY = {
         MILEAGE: '/v1/psw/mileage',
         MILEAGE_CALCULATE: '/v1/psw/mileage/calculate',
         MILEAGE_SUMMARY: '/v1/psw/mileage/summary',
+        FLEET_HEARTBEAT: '/v1/psw/fleet/heartbeat',
+        TRAINING_ASSIGNED: '/v1/psw/training/assigned',
+        TRAINING_COMPLETE: (id: string) => `/v1/psw/training/${id}/complete`,
+        // Round 3 Extensions
+        SOS_TRIGGER: '/v1/psw/sos/trigger',
     },
     RN: {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',
@@ -110,6 +129,15 @@ const TENANCY = {
         SHIFT_BROADCAST: '/v1/coordinator/shifts/broadcast',
         SHIFT_TRIAGE: '/v1/coordinator/shifts/triage',
         GPS_PING: (id: string) => `/v1/coordinator/tracking/${id}/ping`,
+        FLEET_POSITIONS: '/v1/coordinator/fleet/positions',
+        FLEET_ETA: (visitId: string) => `/v1/coordinator/fleet/eta/${visitId}`,
+        SHIFT_SWAP_REQUESTS: '/v1/coordinator/shift-swap/requests',
+        SHIFT_SWAP_APPROVE: (visitId: string) => `/v1/coordinator/shift-swap/requests/${visitId}/approve`,
+        // Round 3 Extensions
+        SOS_ACTIVE: '/v1/coordinator/sos/active',
+        SOS_ACKNOWLEDGE: (id: string) => `/v1/coordinator/sos/${id}/acknowledge`,
+        WAITLIST: '/v1/coordinator/waitlist',
+        WAITLIST_PRIORITIZE: (id: string) => `/v1/coordinator/waitlist/${id}/prioritize`,
     },
 } as const;
 
@@ -245,6 +273,56 @@ const PLATFORM = {
             VITALS: (clientId: string) => `/v1/admin/ai-iot/vitals/${clientId}`,
             TELEHEALTH_SESSION: '/v1/admin/ai-iot/telehealth/session',
         },
+        // Round 2 Domain Feature Extensions
+        NOTIFICATIONS: {
+            LIST: '/v1/admin/notifications',
+            BROADCAST: '/v1/admin/notifications/broadcast',
+            READ: (id: string) => `/v1/admin/notifications/${id}/read`,
+            FAMILY: (clientId: string) => `/v1/admin/notifications/family/${clientId}`,
+        },
+        DOCUMENTS: {
+            LIST: '/v1/admin/documents',
+            UPLOAD: '/v1/admin/documents/upload',
+            DOWNLOAD: (id: string) => `/v1/admin/documents/${id}/download`,
+            VERIFY: (id: string) => `/v1/admin/documents/${id}/verify`,
+        },
+        PAYROLL: {
+            PENDING: '/v1/admin/payroll/pending',
+            BATCH_APPROVE: '/v1/admin/payroll/batch/approve',
+            RUN: '/v1/admin/payroll/run',
+            SUMMARY: (weekId: string) => `/v1/admin/payroll/summary/${weekId}`,
+        },
+        DISCHARGE: {
+            DISCHARGE: (clientId: string) => `/v1/admin/clients/${clientId}/discharge`,
+            READMIT: (clientId: string) => `/v1/admin/clients/${clientId}/readmit`,
+            SUMMARY: (clientId: string) => `/v1/admin/clients/${clientId}/discharge-summary`,
+        },
+        BOOKING_REQUESTS: {
+            LIST: '/v1/admin/booking-requests',
+            APPROVE: (id: string) => `/v1/admin/booking-requests/${id}/approve`,
+            REJECT: (id: string) => `/v1/admin/booking-requests/${id}/reject`,
+        },
+        INSURANCE_PROVIDERS: {
+            LIST: '/v1/admin/insurance-providers',
+            CREATE: '/v1/admin/insurance-providers',
+            DELETE: (id: string) => `/v1/admin/insurance-providers/${id}`,
+        },
+        BILLING_CODES: {
+            LIST: '/v1/admin/billing-codes',
+            CREATE: '/v1/admin/billing-codes',
+            UPDATE: (id: string) => `/v1/admin/billing-codes/${id}`,
+        },
+        FHIR: {
+            EXPORT: '/v1/admin/interop/fhir/export',
+            IMPORT: '/v1/admin/interop/fhir/import',
+            SYNC_LOG: '/v1/admin/interop/fhir/sync-log',
+        },
+        CRON: {
+            COMPLIANCE_SWEEP: '/v1/admin/cron/compliance-sweep',
+            TRAINING_REMINDERS: '/v1/admin/cron/training-reminders',
+            AUTH_EXHAUSTION: '/v1/admin/cron/authorization-exhaustion',
+            INVENTORY_REORDER: '/v1/admin/cron/inventory-reorder',
+        },
     },
     SCRUM_MASTER: {
         DASHBOARD: '/v1/scrum-master/stats',
@@ -320,6 +398,10 @@ export const ApiRegistry = {
     },
     USER: {
         PROFILE: '/v1/user/profile',
+        MESSAGING_THREADS: '/v1/user/messaging/threads',
+        MESSAGING_SEND: (threadId: string) => `/v1/user/messaging/threads/${threadId}/messages`,
+        TRAINING_CATALOG: '/v1/user/training/catalog',
+        TRAINING_PROGRESS: '/v1/user/training/my-progress',
     },
     PLATFORM,
     ...PLATFORM,

@@ -10,6 +10,7 @@ import opsRoutes from './ops/ops.routes';
 import tasksRoutes from './ops/tasks.routes';
 import incidentsRoutes from './ops/incidents.routes';
 import messagesRoutes from './messages/messages.routes';
+import alliedHealthRoutes from './allied-health.routes';
 
 const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -29,5 +30,6 @@ staff.route('/ops', opsRoutes);
 staff.route('/tasks', tasksRoutes);
 staff.route('/ops/incidents', incidentsRoutes);
 staff.route('/messages', messagesRoutes);
+staff.route('/allied', alliedHealthRoutes);
 
 export default staff;

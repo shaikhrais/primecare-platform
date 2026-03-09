@@ -1,15 +1,46 @@
 {
-    "name": "PrimeCare Admin",
-    "short_name": "PC Admin",
+    "name": "PrimeCare — Home Care Management",
+    "short_name": "PrimeCare",
+    "description": "Enterprise-grade home healthcare management platform for PSW scheduling, clinical care, and compliance.",
     "start_url": "/",
     "display": "standalone",
+    "orientation": "any",
+    "scope": "/",
     "background_color": "#0f1733",
     "theme_color": "#0f1733",
+    "categories": [
+        "medical",
+        "business",
+        "health"
+    ],
+    "lang": "en-CA",
+    "dir": "ltr",
     "icons": [
+        {
+            "src": "/primecare-icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
         {
             "src": "/logo.png",
             "sizes": "512x512",
             "type": "image/png"
+        }
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "Dashboard",
+            "short_name": "Dashboard",
+            "url": "/platform/admin",
+            "icons": []
+        },
+        {
+            "name": "Schedule",
+            "short_name": "Schedule",
+            "url": "/platform/admin/schedule",
+            "icons": []
         }
     ]
 }
