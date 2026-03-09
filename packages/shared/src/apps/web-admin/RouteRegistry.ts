@@ -223,6 +223,13 @@ const PLATFORM = {
             COMPLIANCE: '/platform/admin/audit-export/compliance',
             REGULATORY: '/platform/admin/audit-export/regulatory',
         },
+        // Round 2-3 Domain Feature Pages
+        NOTIFICATIONS_HUB: '/platform/admin/notifications',
+        DOCUMENT_CENTER: '/platform/admin/documents',
+        PAYROLL_HUB: '/platform/admin/payroll',
+        BOOKING_REQUESTS: '/platform/admin/booking-requests',
+        REFERENCE_DATA: '/platform/admin/reference-data',
+        CRON_DASHBOARD: '/platform/admin/cron-dashboard',
     },
     SUPERUSER: {
         DASHBOARD: '/platform',

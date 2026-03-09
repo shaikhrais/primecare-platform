@@ -64,6 +64,12 @@ const IntegrityVerification = lazy(() => import('./pages/security/IntegrityVerif
 const FinancialLedger = lazy(() => import('./pages/security/FinancialLedger'));
 const TaxComplianceHub = lazy(() => import('./pages/security/TaxComplianceHub'));
 const AccountingDashboard = lazy(() => import('./pages/security/AccountingDashboard'));
+const NotificationsHub = lazy(() => import('./pages/notifications/NotificationsHub'));
+const DocumentCenter = lazy(() => import('./pages/documents/DocumentCenter'));
+const PayrollHub = lazy(() => import('./pages/payroll/PayrollHub'));
+const BookingRequestQueue = lazy(() => import('./pages/booking-requests/BookingRequestQueue'));
+const ReferenceDataHub = lazy(() => import('./pages/reference-data/ReferenceDataHub'));
+const CronDashboard = lazy(() => import('./pages/cron/CronDashboard'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
@@ -122,5 +128,11 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.TAX_HUB} element={<TaxComplianceHub />} />
         <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingDashboard />} />
+        <Route path={RouteRegistry.ADMIN.NOTIFICATIONS_HUB} element={<NotificationsHub />} />
+        <Route path={RouteRegistry.ADMIN.DOCUMENT_CENTER} element={<DocumentCenter />} />
+        <Route path={RouteRegistry.ADMIN.PAYROLL_HUB} element={<PayrollHub />} />
+        <Route path={RouteRegistry.ADMIN.BOOKING_REQUESTS} element={<BookingRequestQueue />} />
+        <Route path={RouteRegistry.ADMIN.REFERENCE_DATA} element={<ReferenceDataHub />} />
+        <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronDashboard />} />
     </Route>
 );

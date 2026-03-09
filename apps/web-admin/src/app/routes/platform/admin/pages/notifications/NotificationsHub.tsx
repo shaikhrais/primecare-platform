@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react';
+
+export default function NotificationsHub() {
+    const [notifications, setNotifications] = useState<any[]>([]);
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    useEffect(() => {
+        setNotifications([
+            { id: '1', type: 'COMPLIANCE', message: 'PSW Jane Smith — CPR certification expires in 7 days', status: 'unread', createdAt: '2026-03-09T10:30:00' },
+            { id: '2', type: 'VISIT_ALERT', message: 'Client Robert Chen — missed medication window at 9:00 AM', status: 'unread', createdAt: '2026-03-09T09:15:00' },
+            { id: '3', type: 'SYSTEM', message: 'Payroll batch #2026-W10 completed — 47 payouts processed', status: 'read', createdAt: '2026-03-08T17:00:00' },
+            { id: '4', type: 'SOS', message: 'SOS Alert: PSW Maria Garcia triggered emergency alert near 123 Oak St', status: 'unread', createdAt: '2026-03-09T08:45:00' },
+            { id: '5', type: 'BOOKING', message: 'New booking request from Sarah Jenkins — Personal Care, Mar 12', status: 'read', createdAt: '2026-03-08T14:20:00' },
+        ]);
+        setUnreadCount(3);
+    }, []);
+
+    const typeBadge = (type: string) => {
+        const colors: Record<string, string> = { COMPLIANCE: '#F59E0B', VISIT_ALERT: '#EF4444', SYSTEM: '#6366F1', SOS: '#DC2626', BOOKING: '#10B981' };
+        return <span style={{ backgroundColor: colors[type] || '#6B7280', color: '#fff', padding: '2px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: '700' }}>{type}</span>;
+    };
+
+    return (
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>🔔</div>
+                    <div>
+                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Notification Engine</h1>
+                        <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Real-time alerts, compliance warnings, SOS signals, and system messages. {unreadCount} unread.</p>
+                    </div>
+                </div>
+                <button className="btn primary" onClick={() => alert('Broadcasting...')}>📢 Broadcast Message</button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>
+                <div className="pc-card" style={{ padding: '20px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Total Notifications</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>{notifications.length}</div>
+                </div>
+                <div className="pc-card" style={{ padding: '20px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Unread</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#EF4444', marginTop: '4px' }}>{unreadCount}</div>
+                </div>
+                <div className="pc-card" style={{ padding: '20px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>SOS Alerts (Active)</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#DC2626', marginTop: '4px' }}>1</div>
+                </div>
+                <div className="pc-card" style={{ padding: '20px' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Compliance Warnings</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#F59E0B', marginTop: '4px' }}>1</div>
+                </div>
+            </div>
+
+            <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
+                <div className="pc-card-h">Notification Feed</div>
+                {notifications.map(n => (
+                    <div key={n.id} style={{ padding: '16px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: n.status === 'unread' ? 'var(--brand-50)' : 'transparent' }}>
+                        <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
+                                {typeBadge(n.type)}
+                                <span style={{ fontSize: '12px', color: 'var(--text-300)' }}>{new Date(n.createdAt).toLocaleString()}</span>
+                            </div>
+                            <div style={{ fontSize: '14px', color: 'var(--text-100)', fontWeight: n.status === 'unread' ? '600' : '400' }}>{n.message}</div>
+                        </div>
+                        {n.status === 'unread' && <button className="btn secondary" style={{ fontSize: '11px', padding: '4px 8px' }}>Mark Read</button>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
