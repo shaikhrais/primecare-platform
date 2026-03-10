@@ -77,6 +77,21 @@ const StaffComplianceMonitor = lazy(() => import('./staff/pages/operations/Compl
 // Scrum Master Pages
 const ResponseBotAudit = lazy(() => import('./scrum-master/pages/ResponseBotAudit'));
 
+const MedicalSummary = lazy(() => import('./client/pages/medical/MedicalSummary'));
+const FamilyPortal = lazy(() => import('./client/pages/family/FamilyPortal'));
+const MarDashboard = lazy(() => import('./rn/pages/mar/MarDashboard'));
+const MarClient = lazy(() => import('./rn/pages/mar/MarClient'));
+const WoundCareDashboard = lazy(() => import('./rn/pages/wound-care/WoundCareDashboard'));
+const WoundCareClient = lazy(() => import('./rn/pages/wound-care/WoundCareClient'));
+const RaiAssessments = lazy(() => import('./rn/pages/rai/RaiAssessments'));
+const RaiAssessmentDetail = lazy(() => import('./rn/pages/rai/RaiAssessmentDetail'));
+const MileageTracker = lazy(() => import('./psw/pages/mileage/MileageTracker'));
+const PswTrainingHub = lazy(() => import('./psw/pages/training/PswTrainingHub'));
+const FleetManagement = lazy(() => import('./coordinator/pages/fleet/FleetManagement'));
+const ShiftSwap = lazy(() => import('./coordinator/pages/shift-swap/ShiftSwap'));
+const TreatmentList = lazy(() => import('./allied-health/pages/treatments/TreatmentList'));
+const SignOff = lazy(() => import('./allied-health/pages/sign-off/SignOff'));
+
 export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
@@ -182,6 +197,25 @@ export const TenancyRoutes = () => (
             <Route path="compliance" element={<StaffComplianceMonitor />} />
         </Route>
 
+
+    
+        {/* NEWLY GENERATED STUB PAGES (Absolute Paths) */}
+        <Route element={<RequireRole allowedRoles={['admin', 'client', 'rn', 'psw', 'coordinator', 'rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
+            <Route path={RouteRegistry.CLIENT.MEDICAL_SUMMARY} element={<MedicalSummary />} />
+            <Route path={RouteRegistry.CLIENT.FAMILY_PORTAL} element={<FamilyPortal />} />
+            <Route path={RouteRegistry.RN.MAR} element={<MarDashboard />} />
+            <Route path={RouteRegistry.RN.MAR_CLIENT(':clientId')} element={<MarClient />} />
+            <Route path={RouteRegistry.RN.WOUND_CARE} element={<WoundCareDashboard />} />
+            <Route path={RouteRegistry.RN.WOUND_CARE_CLIENT(':clientId')} element={<WoundCareClient />} />
+            <Route path={RouteRegistry.RN.RAI_ASSESSMENTS} element={<RaiAssessments />} />
+            <Route path={RouteRegistry.RN.RAI_ASSESSMENT_DETAIL(':id')} element={<RaiAssessmentDetail />} />
+            <Route path={RouteRegistry.PSW.MILEAGE} element={<MileageTracker />} />
+            <Route path={RouteRegistry.PSW.TRAINING} element={<PswTrainingHub />} />
+            <Route path={RouteRegistry.COORDINATOR.FLEET} element={<FleetManagement />} />
+            <Route path={RouteRegistry.COORDINATOR.SHIFT_SWAP} element={<ShiftSwap />} />
+            <Route path={RouteRegistry.ALLIED.TREATMENTS} element={<TreatmentList />} />
+            <Route path={RouteRegistry.ALLIED.SIGN_OFF} element={<SignOff />} />
+        </Route>
 
     </>
 );

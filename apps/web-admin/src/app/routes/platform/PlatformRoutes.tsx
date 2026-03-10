@@ -14,6 +14,8 @@ const RiskSurveillanceDashboard = lazy(() => import('./superuser/super-admin/pag
 const TenantList = lazy(() => import('./pages/tenants'));
 const GovernanceHub = lazy(() => import('./pages/governance-hub'));
 
+const SystemPolicies = lazy(() => import('./pages/policies/SystemPolicies'));
+
 export const PlatformRoutes = () => (
     <Route path={RouteRegistry.SUPERUSER.DASHBOARD} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
         <Route index element={<PlatformDashboard />} />
@@ -22,5 +24,6 @@ export const PlatformRoutes = () => (
         <Route path={RouteRegistry.SUPERUSER.SLA} element={<SLAMonitoring />} />
         <Route path={RouteRegistry.SUPERUSER.RISK_SURVEILLANCE} element={<RiskSurveillanceDashboard />} />
         <Route path={RouteRegistry.SUPERUSER.GOVERNANCE_HUB} element={<GovernanceHub />} />
+            <Route path={RouteRegistry.SUPERUSER.SYSTEM_POLICIES} element={<SystemPolicies />} />
     </Route>
 );

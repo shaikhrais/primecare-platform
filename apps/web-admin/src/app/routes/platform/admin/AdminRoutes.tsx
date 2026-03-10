@@ -71,6 +71,34 @@ const BookingRequestQueue = lazy(() => import('./pages/booking-requests/BookingR
 const ReferenceDataHub = lazy(() => import('./pages/reference-data/ReferenceDataHub'));
 const CronDashboard = lazy(() => import('./pages/cron/CronDashboard'));
 
+const EvvDashboard = lazy(() => import('./pages/evv/EvvDashboard'));
+const EvvExceptions = lazy(() => import('./pages/evv/EvvExceptions'));
+const EvvExport = lazy(() => import('./pages/evv/EvvExport'));
+const AuthList = lazy(() => import('./pages/authorizations/AuthList'));
+const AuthAlerts = lazy(() => import('./pages/authorizations/AuthAlerts'));
+const AuthUtilization = lazy(() => import('./pages/authorizations/AuthUtilization'));
+const ConsentList = lazy(() => import('./pages/consent/ConsentList'));
+const ConsentTemplates = lazy(() => import('./pages/consent/ConsentTemplates'));
+const ConsentExpiring = lazy(() => import('./pages/consent/ConsentExpiring'));
+const ReferralList = lazy(() => import('./pages/referrals/ReferralList'));
+const ReferralAnalytics = lazy(() => import('./pages/referrals/ReferralAnalytics'));
+const ClaimsList = lazy(() => import('./pages/claims/ClaimsList'));
+const ClaimsEra = lazy(() => import('./pages/claims/ClaimsEra'));
+const WebhookList = lazy(() => import('./pages/webhooks/WebhookList'));
+const WebhookDeliveries = lazy(() => import('./pages/webhooks/WebhookDeliveries'));
+const AuditDownload = lazy(() => import('./pages/audit-export/AuditDownload'));
+const ComplianceExport = lazy(() => import('./pages/audit-export/ComplianceExport'));
+const RegulatoryExport = lazy(() => import('./pages/audit-export/RegulatoryExport'));
+const AiDashboard = lazy(() => import('./pages/ai/AiDashboard'));
+const PredictiveAnalytics = lazy(() => import('./pages/ai/PredictiveAnalytics'));
+const ChurnRisk = lazy(() => import('./pages/ai/ChurnRisk'));
+const VisitOptimization = lazy(() => import('./pages/ai/VisitOptimization'));
+const SentimentAnalysis = lazy(() => import('./pages/ai/SentimentAnalysis'));
+const PermissionGrid = lazy(() => import('./pages/security/PermissionGrid'));
+const SessionMonitor = lazy(() => import('./pages/security/SessionMonitor'));
+const ThreatDetection = lazy(() => import('./pages/security/ThreatDetection'));
+const SupplyDemand = lazy(() => import('./pages/ops/SupplyDemand'));
+
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
         <Route index element={<AdminDashboard />} />
@@ -134,5 +162,32 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.BOOKING_REQUESTS} element={<BookingRequestQueue />} />
         <Route path={RouteRegistry.ADMIN.REFERENCE_DATA} element={<ReferenceDataHub />} />
         <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronDashboard />} />
+            <Route path={RouteRegistry.ADMIN.EVV.DASHBOARD} element={<EvvDashboard />} />
+        <Route path={RouteRegistry.ADMIN.EVV.EXCEPTIONS} element={<EvvExceptions />} />
+        <Route path={RouteRegistry.ADMIN.EVV.EXPORT} element={<EvvExport />} />
+        <Route path={RouteRegistry.ADMIN.AUTHORIZATIONS.LIST} element={<AuthList />} />
+        <Route path={RouteRegistry.ADMIN.AUTHORIZATIONS.ALERTS} element={<AuthAlerts />} />
+        <Route path={RouteRegistry.ADMIN.AUTHORIZATIONS.UTILIZATION(':clientId')} element={<AuthUtilization />} />
+        <Route path={RouteRegistry.ADMIN.CONSENT.LIST} element={<ConsentList />} />
+        <Route path={RouteRegistry.ADMIN.CONSENT.TEMPLATES} element={<ConsentTemplates />} />
+        <Route path={RouteRegistry.ADMIN.CONSENT.EXPIRING} element={<ConsentExpiring />} />
+        <Route path={RouteRegistry.ADMIN.REFERRALS.LIST} element={<ReferralList />} />
+        <Route path={RouteRegistry.ADMIN.REFERRALS.ANALYTICS} element={<ReferralAnalytics />} />
+        <Route path={RouteRegistry.ADMIN.CLAIMS.LIST} element={<ClaimsList />} />
+        <Route path={RouteRegistry.ADMIN.CLAIMS.ERA} element={<ClaimsEra />} />
+        <Route path={RouteRegistry.ADMIN.WEBHOOKS.LIST} element={<WebhookList />} />
+        <Route path={RouteRegistry.ADMIN.WEBHOOKS.DELIVERIES} element={<WebhookDeliveries />} />
+        <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.DOWNLOAD} element={<AuditDownload />} />
+        <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.COMPLIANCE} element={<ComplianceExport />} />
+        <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.REGULATORY} element={<RegulatoryExport />} />
+        <Route path={RouteRegistry.ADMIN.AI.DASHBOARD} element={<AiDashboard />} />
+        <Route path={RouteRegistry.ADMIN.AI.PREDICTIVE_ANALYTICS} element={<PredictiveAnalytics />} />
+        <Route path={RouteRegistry.ADMIN.AI.CHURN_RISK} element={<ChurnRisk />} />
+        <Route path={RouteRegistry.ADMIN.AI.VISIT_OPTIMIZATION} element={<VisitOptimization />} />
+        <Route path={RouteRegistry.ADMIN.AI.SENTIMENT_ANALYSIS} element={<SentimentAnalysis />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.PERMISSION_GRID} element={<PermissionGrid />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.SESSION_MONITOR} element={<SessionMonitor />} />
+        <Route path={RouteRegistry.ADMIN.SECURITY.THREAT_DETECTION} element={<ThreatDetection />} />
+        <Route path={RouteRegistry.ADMIN.OPERATIONS.SUPPLY_DEMAND} element={<SupplyDemand />} />
     </Route>
 );
