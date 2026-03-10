@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
@@ -87,45 +88,59 @@ export default function IncidentList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {incidents.map((incident: any) => (
-                            <tr key={incident.id} data-cy={`incident-row-${incident.id}`}>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">
-                                    <Link
-                                        to={`${AdminRegistry.RouteRegistry.ADMIN.USERS}?search=${incident.reporter?.email}`}
-                                        style={{ color: '#00875A', textDecoration: 'none', fontWeight: 500 }}
-                                    >
-                                        {incident.reporter?.email}
-                                    </Link>
-                                </td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                    <span data-cy="incident-status" style={{
-                                        padding: '0.25rem 0.5rem',
-                                        borderRadius: '9999px',
-                                        fontSize: '0.75rem',
-                                        backgroundColor: incident.status === 'open' ? '#fee2e2' : '#d1fae5',
-                                        color: incident.status === 'open' ? '#991b1b' : '#065f46'
-                                    }}>
-                                        {incident.status}
-                                    </span>
-                                </td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{new Date(incident.createdAt).toLocaleDateString()}</td>
-                                <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                    {incident.status === 'open' && (
-                                        <button
-                                            data-cy="btn.incident.resolve"
-                                            onClick={() => {
-                                                setSelectedIncident(incident.id);
-                                                setIsModalOpen(true);
-                                            }}
-                                            style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
-                                        >
-                                            {t(ContentRegistry.INCIDENTS.RESOLVE.BTN)}
-                                        </button>
-                                    )}
+                        {incidents.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} style={{ padding: '2rem' }}>
+                                    <EmptyState
+                                        title={t('incidents.empty_title', { defaultValue: 'No Incidents Found' })}
+                                        description={t('incidents.empty_desc', { defaultValue: 'There are currently no incidents matching the selected criteria.' })}
+                                        icon="🚨"
+                                        actionLabel={t(ContentRegistry.INCIDENTS?.ADD_BTN || 'Report Incident')}
+                                        onAction={() => navigate(RouteRegistry.ADMIN.INCIDENTS_NEW)}
+                                    />
                                 </td>
                             </tr>
-                        ))}
+                        ) : (
+                            incidents.map((incident: any) => (
+                                <tr key={incident.id} data-cy={`incident-row-${incident.id}`}>
+                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
+                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-reporter">
+                                        <Link
+                                            to={`${AdminRegistry.RouteRegistry.ADMIN.USERS}?search=${incident.reporter?.email}`}
+                                            style={{ color: '#00875A', textDecoration: 'none', fontWeight: 500 }}
+                                        >
+                                            {incident.reporter?.email}
+                                        </Link>
+                                    </td>
+                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
+                                        <span data-cy="incident-status" style={{
+                                            padding: '0.25rem 0.5rem',
+                                            borderRadius: '9999px',
+                                            fontSize: '0.75rem',
+                                            backgroundColor: incident.status === 'open' ? '#fee2e2' : '#d1fae5',
+                                            color: incident.status === 'open' ? '#991b1b' : '#065f46'
+                                        }}>
+                                            {incident.status}
+                                        </span>
+                                    </td>
+                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{new Date(incident.createdAt).toLocaleDateString()}</td>
+                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
+                                        {incident.status === 'open' && (
+                                            <button
+                                                data-cy="btn.incident.resolve"
+                                                onClick={() => {
+                                                    setSelectedIncident(incident.id);
+                                                    setIsModalOpen(true);
+                                                }}
+                                                style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
+                                            >
+                                                {t(ContentRegistry.INCIDENTS.RESOLVE.BTN)}
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -136,6 +151,6 @@ export default function IncidentList() {
                 onResolve={handleResolve}
                 submitting={submitting}
             />
-        </div>
+        </div >
     );
 }

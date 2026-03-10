@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import './ShiftsPage.css';
 
 const CONTENT = ContentRegistry.PSW_SCHEDULE;
@@ -89,6 +90,7 @@ export default function ShiftsPage() {
                                 <th>{CONTENT.TABLE.DATETIME}</th>
                                 <th>{CONTENT.TABLE.SERVICE}</th>
                                 <th>{CONTENT.TABLE.STATUS}</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +98,6 @@ export default function ShiftsPage() {
                                 <tr
                                     key={shift.id}
                                     className="schedule-row"
-                                    onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.CHECK_IN.replace(':id', shift.id)}`)}
                                 >
                                     <td>
                                         <span className="client-name">{shift.client?.fullName || COMMON.FALLBACKS.REGISTRY_NODE}</span>
@@ -117,14 +118,34 @@ export default function ShiftsPage() {
                                             {shift.status}
                                         </span>
                                     </td>
+                                    <td>
+                                        <button
+                                            onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.CHECK_IN.replace(':id', shift.id)}`)}
+                                            style={{
+                                                padding: '8px 16px',
+                                                backgroundColor: 'var(--brand-500, #0f172a)',
+                                                color: '#FFFFFF',
+                                                border: 'none',
+                                                borderRadius: '6px',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                fontSize: '0.875rem'
+                                            }}
+                                        >
+                                            View Shift
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 ) : (
-                    <div className="loading-state">
-                        <p>{CONTENT.MESSAGES.EMPTY}</p>
-                    </div>
+                    <EmptyState
+                        title="No Upcoming Shifts"
+                        description="You currently have no scheduled visits. Please check the Open Shifts board for available opportunities."
+                        actionLabel="Find Open Shifts"
+                        onAction={() => navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD)}
+                    />
                 )}
             </div>
         </div>

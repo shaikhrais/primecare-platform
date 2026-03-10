@@ -85,7 +85,7 @@ export default function Register() {
                     {t(ContentRegistry.AUTH.REGISTER_TITLE)}
                 </h1>
                 <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem', fontSize: '0.9rem' }} data-cy="page.subtitle">
-                    Create your {roleParam} account
+                    {t('auth.register_role_subtitle', { role: roleParam, defaultValue: `Create your ${roleParam} account` })}
                 </p>
 
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
@@ -114,48 +114,55 @@ export default function Register() {
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                style={{ width: '100%', padding: '0.5rem', paddingRight: '2.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                                style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
                                 required
+                                minLength={8}
                             />
-                            <button type="button" data-cy="btn-toggle-password" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }} tabIndex={-1}>
-                                {showPassword ? '🙈' : '👁️'}
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', fontSize: '0.8rem' }}
+                            >
+                                {showPassword ? t('auth.hide', { defaultValue: 'Hide' }) : t('auth.show', { defaultValue: 'Show' })}
                             </button>
                         </div>
                     </div>
                     <div style={{ marginBottom: '1.5rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            Confirm Password
+                            {t('auth.confirm_password_label', { defaultValue: 'Confirm Password' })}
                         </label>
                         <div style={{ position: 'relative' }}>
                             <input
                                 data-cy="inp-confirm-password"
-                                name="confirmPassword"
                                 type={showConfirmPassword ? 'text' : 'password'}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                style={{ width: '100%', padding: '0.5rem', paddingRight: '2.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
+                                style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
                                 required
+                                minLength={8}
                             />
-                            <button type="button" data-cy="btn-toggle-confirm" onClick={() => setShowConfirmPassword(!showConfirmPassword)} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }} tabIndex={-1}>
-                                {showConfirmPassword ? '🙈' : '👁️'}
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', fontSize: '0.8rem' }}
+                            >
+                                {showConfirmPassword ? t('auth.hide', { defaultValue: 'Hide' }) : t('auth.show', { defaultValue: 'Show' })}
                             </button>
                         </div>
                     </div>
-
                     <button
-                        data-cy="btn-register"
+                        data-cy="btn-register-submit"
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '4px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
+                            width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
-                        {loading ? 'Creating Account...' : t(ContentRegistry.AUTH.BUTTON_REGISTER)}
+                        {loading ? t('auth.registering', { defaultValue: 'Creating account...' }) : t('auth.register_submit', { defaultValue: 'Create Account' })}
                     </button>
-
-                    <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={`${RouteRegistry.LOGIN}?role=${roleParam}`} style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
-                            Already have an account? Sign in
+                    <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                        <a href={`/login?role=${roleParam}`} style={{ fontSize: '0.875rem', color: '#6b7280', textDecoration: 'none' }}>
+                            {t('auth.already_have_account', { defaultValue: 'Already have an account? Login' })}
                         </a>
                     </div>
                 </form>

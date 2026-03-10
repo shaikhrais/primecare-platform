@@ -3,6 +3,7 @@ import { ApiRegistry, AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
 import { apiClient } from '@/shared/utils/apiClient';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import './EarningsPage.css';
 
 const CONTENT = ContentRegistry.PSW_PAYOUTS;
@@ -67,6 +68,19 @@ export default function EarningsPage() {
                 <button
                     className="history-btn"
                     onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.PAYOUTS)}
+                    style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#FFFFFF',
+                        color: 'var(--brand-500, #0f172a)',
+                        border: '1px solid #E5E7EB',
+                        borderRadius: '8px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                    }}
                 >
                     <span>🧾</span> {CONTENT.HISTORY_TITLE}
                 </button>
@@ -87,14 +101,25 @@ export default function EarningsPage() {
                         <tbody>
                             {loading ? (
                                 <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>Loading...</td></tr>
-                            ) : visits.map((v) => (
+                            ) : visits.length > 0 ? visits.map((v) => (
                                 <tr key={v.id}>
                                     <td>{new Date(v.requestedStartAt).toLocaleDateString()}</td>
                                     <td className="client-name">{v.client?.fullName || 'Registry Node'}</td>
                                     <td>{v.durationMinutes || 60}m</td>
                                     <td className="amount-cell">${calculateEarnings(v.durationMinutes || 60).toFixed(2)}</td>
                                 </tr>
-                            ))}
+                            )) : (
+                                <tr>
+                                    <td colSpan={4} style={{ padding: 0, borderBottom: 'none' }}>
+                                        <EmptyState
+                                            title="No Verified Shifts"
+                                            description="You have no completed shifts finalized for payout yet. Complete your assigned visits to build your balance."
+                                            actionLabel="View Schedule"
+                                            onAction={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
+                                        />
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -107,6 +132,18 @@ export default function EarningsPage() {
                             className="payout-btn"
                             disabled={requesting || totalEarnings === 0}
                             onClick={handlePayout}
+                            style={{
+                                width: '100%',
+                                padding: '14px',
+                                backgroundColor: (requesting || totalEarnings === 0) ? '#9CA3AF' : 'var(--brand-500, #0f172a)',
+                                color: '#FFFFFF',
+                                border: 'none',
+                                borderRadius: '8px',
+                                fontWeight: '700',
+                                cursor: (requesting || totalEarnings === 0) ? 'not-allowed' : 'pointer',
+                                transition: 'all 0.2s',
+                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                            }}
                         >
                             {requesting ? 'Processing...' : (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-payout-sync')?.label || 'Sync to Bank')}
                         </button>

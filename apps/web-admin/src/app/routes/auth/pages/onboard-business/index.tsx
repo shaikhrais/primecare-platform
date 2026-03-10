@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/shared/context/AuthContext';
 
 const { ApiRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
-import { useAuth } from '@/shared/context/AuthContext';
-
 export default function OnboardBusiness() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { login } = useAuth();
 
@@ -39,10 +40,10 @@ export default function OnboardBusiness() {
                 navigate(RouteRegistry.ADMIN.SETUP_WIZARD);
             } else {
                 const data = await response.json();
-                setError(data.error || 'Onboarding failed');
+                setError(data.error || t('auth.onboarding_failed', { defaultValue: 'Onboarding failed' }));
             }
         } catch (err) {
-            setError('Network error. Please try again.');
+            setError(t('auth.network_error', { defaultValue: 'Network error. Please try again.' }));
         } finally {
             setLoading(false);
         }
@@ -59,21 +60,23 @@ export default function OnboardBusiness() {
                 padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid var(--line)', width: '100%', maxWidth: '450px', boxShadow: 'var(--shadow-lg)'
             }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <img src="/logo.png" alt="PrimeCare" style={{ width: '140px', height: 'auto' }} />
+                    <img src="/logo.svg" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
 
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', color: '#111827' }}>
-                    Start Your Care Business
+                    {t('auth.start_your_business', { defaultValue: 'Start Your Care Business' })}
                 </h1>
                 <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '2rem', fontSize: '0.95rem' }}>
-                    Create your organization and launch your platform in minutes.
+                    {t('auth.start_business_subtitle', { defaultValue: 'Create your organization and launch your platform in minutes.' })}
                 </p>
 
                 {error && <div style={{ marginBottom: '1.5rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.75rem', borderRadius: '6px' }}>{error}</div>}
 
                 <form onSubmit={handleOnboard}>
                     <div style={{ marginBottom: '1.25rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Business Name</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>
+                            {t('auth.business_name', { defaultValue: 'Business Name' })}
+                        </label>
                         <input
                             type="text"
                             placeholder="e.g. PrimeCare North"
@@ -88,7 +91,9 @@ export default function OnboardBusiness() {
                     </div>
 
                     <div style={{ marginBottom: '1.25rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Portal Slug (URL)</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>
+                            {t('auth.portal_slug', { defaultValue: 'Portal Slug (URL)' })}
+                        </label>
                         <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line)', borderRadius: '6px', overflow: 'hidden' }}>
                             <span style={{ padding: '0.75rem', backgroundColor: '#F3F4F6', color: '#6B7280', borderRight: '1px solid var(--line)', fontSize: '0.875rem' }}>pc.ca/</span>
                             <input
@@ -105,10 +110,11 @@ export default function OnboardBusiness() {
                     <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid var(--line)' }} />
 
                     <div style={{ marginBottom: '1.25rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Admin Email</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>
+                            {t('auth.admin_email', { defaultValue: 'Admin Email' })}
+                        </label>
                         <input
                             type="email"
-                            placeholder="you@business.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--line)', borderRadius: '6px', boxSizing: 'border-box' }}
@@ -117,14 +123,16 @@ export default function OnboardBusiness() {
                     </div>
 
                     <div style={{ marginBottom: '2rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Password</label>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>
+                            {t('auth.admin_password', { defaultValue: 'Admin Password' })}
+                        </label>
                         <input
                             type="password"
-                            placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--line)', borderRadius: '6px', boxSizing: 'border-box' }}
                             required
+                            minLength={8}
                         />
                     </div>
 
@@ -132,18 +140,19 @@ export default function OnboardBusiness() {
                         type="submit"
                         disabled={loading}
                         style={{
-                            width: '100%', padding: '0.875rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer', fontSize: '1rem', transition: 'background-color 0.2s'
+                            width: '100%', padding: '0.875rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', fontSize: '1rem', cursor: loading ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s'
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--brand-600)'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--brand-500)'}
                     >
-                        {loading ? 'Setting up your business...' : 'Launch Business Portal'}
+                        {loading ? t('auth.creating', { defaultValue: 'Creating Workspace...' }) : t('auth.create_workspace', { defaultValue: 'Create Workspace' })}
                     </button>
 
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <p style={{ fontSize: '0.875rem', color: '#6B7280' }}>
-                            Already have an account? <a href={RouteRegistry.LOGIN} style={{ color: '#2563EB', textDecoration: 'none', fontWeight: '600' }}>Sign In</a>
-                        </p>
+                        <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                            {t('auth.already_have_tenant', { defaultValue: 'Already have a workspace?' })}
+                        </span>
+                        <a href="/login" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none', fontWeight: '500', marginLeft: '0.5rem' }}>
+                            {t('auth.sign_in', { defaultValue: 'Sign in' })}
+                        </a>
                     </div>
                 </form>
             </div>

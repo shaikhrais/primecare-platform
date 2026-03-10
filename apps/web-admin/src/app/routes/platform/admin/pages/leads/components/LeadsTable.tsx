@@ -1,4 +1,5 @@
 import React from 'react';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
@@ -140,8 +141,12 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#6b7280' }}>
-                                {searchTerm ? CONTENT.MESSAGES.EMPTY_SEARCH : CONTENT.MESSAGES.EMPTY_LIST}
+                            <td colSpan={6} style={{ padding: '2rem' }}>
+                                <EmptyState
+                                    title={searchTerm ? String(CONTENT.MESSAGES.EMPTY_SEARCH) : String(CONTENT.MESSAGES.EMPTY_LIST)}
+                                    description={searchTerm ? 'Try adjusting your search terms.' : 'There are no active CRM leads or inquiries at this time.'}
+                                    icon="🔍"
+                                />
                             </td>
                         </tr>
                     )}

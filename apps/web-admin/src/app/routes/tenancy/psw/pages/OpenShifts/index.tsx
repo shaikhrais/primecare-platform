@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import EmptyState from '@/shared/components/layout/EmptyState';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
@@ -74,16 +75,20 @@ export default function OpenShifts() {
             </div>
 
             {loading ? (
-                <p>Loading available shifts...</p>
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+                    <p style={{ color: '#6b7280' }}>Loading available shifts...</p>
+                </div>
             ) : shifts.length > 0 ? (
-                <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
+                <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
                     {shifts.map(shift => (
                         <div key={shift.id} style={{
-                            backgroundColor: 'white',
+                            backgroundColor: '#FFFFFF',
                             padding: '1.5rem',
                             borderRadius: '12px',
-                            border: '1px solid #e5e7eb',
-                            boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                            border: '1px solid #E5E7EB',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                            display: 'flex',
+                            flexDirection: 'column'
                         }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                                 <span style={{
@@ -112,30 +117,37 @@ export default function OpenShifts() {
                                 📍 {shift.client?.city || 'Unknown City'}
                             </div>
 
-                            <button
-                                onClick={() => handleAcceptShift(shift.id)}
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    backgroundColor: '#000000',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    fontWeight: 600,
-                                    cursor: 'pointer',
-                                    transition: 'opacity 0.2s'
-                                }}
-                            >
-                                Accept Shift
-                            </button>
+                            <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+                                <button
+                                    onClick={() => handleAcceptShift(shift.id)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '12px',
+                                        backgroundColor: 'var(--brand-500, #0f172a)',
+                                        color: '#FFFFFF',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        transition: 'opacity 0.2s',
+                                        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
+                                    onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                                >
+                                    Accept Shift
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div style={{ textAlign: 'center', padding: '3rem', backgroundColor: '#f9fafb', borderRadius: '12px', border: '1px dashed #d1d5db' }}>
-                    <p style={{ color: '#6b7280', fontSize: '1.1rem' }}>No open shifts are currently available.</p>
-                    <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>Check back later for new opportunities.</p>
-                </div>
+                <EmptyState
+                    title="No Open Shifts Available"
+                    description="There are currently no unfilled shifts in your service area. Please check back later for new opportunities."
+                    actionLabel="View My Schedule"
+                    onAction={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
+                />
             )}
         </div>
     );

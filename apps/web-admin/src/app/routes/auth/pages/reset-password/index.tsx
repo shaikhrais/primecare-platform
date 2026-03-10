@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
-const { ApiRegistry } = AdminRegistry;
+const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ResetPassword() {
+    const { t } = useTranslation();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState<string | null>(null);
@@ -24,13 +26,13 @@ export default function ResetPassword() {
         setMessage(null);
 
         if (password !== confirmPassword) {
-            setError('Passwords do not match');
+            setError(t('auth.passwords_do_not_match', { defaultValue: 'Passwords do not match' }));
             setLoading(false);
             return;
         }
 
         if (!token) {
-            setError('Invalid or missing reset token');
+            setError(t('auth.invalid_reset_token', { defaultValue: 'Invalid or missing reset token' }));
             setLoading(false);
             return;
         }
@@ -45,15 +47,15 @@ export default function ResetPassword() {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage('Password reset successfully. Redirecting to login...');
+                setMessage(t('auth.password_reset_success', { defaultValue: 'Password reset successfully. Redirecting to login...' }));
                 setTimeout(() => {
                     navigate(AdminRegistry.RouteRegistry.LOGIN);
                 }, 2000);
             } else {
-                setError(data.error || 'Reset failed');
+                setError(data.error || t('auth.reset_failed', { defaultValue: 'Reset failed' }));
             }
         } catch (err) {
-            setError('Network error. Please check your connection.');
+            setError(t('auth.network_error', { defaultValue: 'Network error. Please check your connection.' }));
         } finally {
             setLoading(false);
         }
@@ -73,7 +75,7 @@ export default function ResetPassword() {
                     <img src="/logo.png" alt="PrimeCare" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
-                    Set New Password
+                    {t('auth.set_new_password', { defaultValue: 'Set New Password' })}
                 </h1>
 
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
@@ -82,7 +84,7 @@ export default function ResetPassword() {
                 <form onSubmit={handleSubmit}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            New Password
+                            {t('auth.new_password', { defaultValue: 'New Password' })}
                         </label>
                         <input
                             data-cy="inp-reset-password"
@@ -96,15 +98,16 @@ export default function ResetPassword() {
                     </div>
                     <div style={{ marginBottom: '1.5rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                            Confirm Password
+                            {t('auth.confirm_password_label', { defaultValue: 'Confirm Password' })}
                         </label>
                         <input
-                            data-cy="inp-reset-confirm-password"
+                            data-cy="inp-reset-confirm"
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '4px', boxSizing: 'border-box' }}
                             required
+                            minLength={8}
                         />
                     </div>
                     <button
@@ -115,11 +118,11 @@ export default function ResetPassword() {
                             width: '100%', padding: '0.75rem', backgroundColor: 'var(--brand-500)', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '700', cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
-                        {loading ? 'Resetting...' : 'Reset Password'}
+                        {loading ? t('auth.resetting', { defaultValue: 'Resetting...' }) : t('auth.reset_password_submit', { defaultValue: 'Reset Password' })}
                     </button>
-                    <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href={AdminRegistry.RouteRegistry.LOGIN} style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
-                            ← Back to Login
+                    <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                        <a href="/login" style={{ fontSize: '0.875rem', color: '#6b7280', textDecoration: 'none' }}>
+                            {t('auth.back_to_login', { defaultValue: 'Back to Login' })}
                         </a>
                     </div>
                 </form>

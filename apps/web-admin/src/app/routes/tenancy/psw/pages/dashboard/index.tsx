@@ -32,7 +32,6 @@ export default function PswDashboard() {
     const [shifts, setShifts] = useState<Shift[]>([]);
     const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const isMobile = useMediaQuery('(max-width: 1024px)');
 
     const fetchShiftsAndStats = async () => {
         setLoading(true);
@@ -143,25 +142,25 @@ export default function PswDashboard() {
 
     const { user } = useAuth();
     return (
-        <div data-cy="page.container" style={{ padding: isMobile ? '0' : '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' }}>
             <div style={{
                 display: 'flex',
-                flexDirection: isMobile ? 'column' : 'row',
+                flexWrap: 'wrap',
                 justifyContent: 'space-between',
-                alignItems: isMobile ? 'flex-start' : 'flex-end',
+                alignItems: 'center',
                 gap: '1.5rem',
                 marginBottom: '2.5rem'
             }}>
-                <div>
-                    <h1 data-cy="page.title" style={{ margin: '0', fontSize: isMobile ? '2rem' : '2.5rem', fontWeight: 800, color: '#000000', lineHeight: 1.1 }}>
+                <div style={{ flex: '1 1 300px' }}>
+                    <h1 data-cy="page.title" style={{ margin: '0', fontSize: '2.5rem', fontWeight: 800, color: '#000000', lineHeight: 1.1 }}>
                         {user?.tenantId ? 'My Provider Dashboard' : t(ContentRegistry.PSW_DASHBOARD.TITLE)}
                     </h1>
-                    <p data-cy="page.subtitle" style={{ margin: '12px 0 0 0', color: '#4B5563', fontSize: isMobile ? '1rem' : '1.1rem' }}>
+                    <p data-cy="page.subtitle" style={{ margin: '12px 0 0 0', color: '#4B5563', fontSize: '1.1rem' }}>
                         {user?.email ? `${user.email} • Independent Provider` : t(ContentRegistry.PSW_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '12px', width: isMobile ? '100%' : 'auto' }}>
-                    <Link to={RouteRegistry.LEARN} style={{ flex: isMobile ? 1 : 'none', textDecoration: 'none' }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
+                    <Link to={RouteRegistry.LEARN} style={{ textDecoration: 'none', flex: '1 1 auto', maxWidth: '200px' }}>
                         <button style={{
                             padding: '12px 24px',
                             backgroundColor: '#FFFFFF',
@@ -184,13 +183,14 @@ export default function PswDashboard() {
                         onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
                         style={{
                             padding: '12px 24px',
-                            backgroundColor: '#000000',
+                            backgroundColor: 'var(--brand-500, #0f172a)',
                             color: '#FFFFFF',
                             border: 'none',
                             borderRadius: '8px',
                             fontWeight: '600',
                             cursor: 'pointer',
-                            flex: isMobile ? 1 : 'none'
+                            flex: '1 1 auto',
+                            maxWidth: '200px'
                         }}
                     >
                         {t(ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE)}
@@ -200,16 +200,18 @@ export default function PswDashboard() {
 
             <PswStats chartData={chartData} />
 
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 350px', gap: '2rem' }}>
-                <ShiftList
-                    shifts={shifts}
-                    loading={loading}
-                    isMobile={isMobile}
-                    onCheckIn={handleCheckIn}
-                    onCheckOut={handleCheckOut}
-                />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+                <div style={{ gridColumn: '1 / -1', '@media (min-width: 1024px)': { gridColumn: 'auto' } } as any}>
+                    <ShiftList
+                        shifts={shifts}
+                        loading={loading}
+                        isMobile={false} // Component likely needs refactoring inside too, but for outer layout we pass false
+                        onCheckIn={handleCheckIn}
+                        onCheckOut={handleCheckOut}
+                    />
+                </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', minWidth: '350px' }}>
                     <ComplianceSection />
                     <WellnessPulse />
                 </div>

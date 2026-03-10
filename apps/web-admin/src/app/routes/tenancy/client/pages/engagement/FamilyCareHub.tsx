@@ -18,7 +18,7 @@ const FamilyCareHub: React.FC = () => {
     const fetchHubData = async () => {
         try {
             const [feedRes, statsRes] = await Promise.all([
-                apiClient.get(ApiRegistry.TENANCY.CLIENT.FAMILY_FEED),
+                apiClient.get(ApiRegistry.TENANCY.CLIENT.FAMILY_FEED('me')),
                 apiClient.get(ApiRegistry.TENANCY.CLIENT.DASHBOARD_STATS)
             ]);
             const feedData = await feedRes.json();

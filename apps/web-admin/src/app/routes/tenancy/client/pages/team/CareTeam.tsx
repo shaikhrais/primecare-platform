@@ -20,79 +20,104 @@ export default function CareTeam() {
     ]);
 
     return (
-        <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in zoom-in-95 duration-700">
-            <header className="flex justify-between items-center bg-card border-2 border-zinc-100 p-8 rounded-[2.5rem] shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-[0.05] text-8xl rotate-12 -translate-y-4">
+        <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <header style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FFFFFF', border: '1px solid var(--line)',
+                padding: '2.5rem', borderRadius: '1.5rem', boxShadow: 'var(--shadow-sm)', position: 'relative', overflow: 'hidden'
+            }}>
+                <div style={{ position: 'absolute', top: '0', right: '0', padding: '2rem', opacity: '0.05', fontSize: '6rem', transform: 'rotate(12deg) translateY(-1rem)' }}>
                     🤝
                 </div>
                 <div>
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-green-600">Active Care Circle</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                        <span style={{ fontSize: '10px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#059669' }}>Active Care Circle</span>
                     </div>
-                    <h1 className="text-3xl font-black tracking-tight uppercase">My Care Team</h1>
-                    <p className="text-muted-foreground font-medium">Meet the dedicated professionals supporting your family's health journey.</p>
+                    <h1 style={{ fontSize: '2rem', fontWeight: '900', letterSpacing: '-0.02em', textTransform: 'uppercase', margin: '0', color: 'var(--text-100)' }}>My Care Team</h1>
+                    <p style={{ color: 'var(--text-300)', fontWeight: '500', marginTop: '0.5rem' }}>Meet the dedicated professionals supporting your family's health journey.</p>
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                 {team.map(member => (
-                    <div key={member.id} className="bg-card border-2 border-zinc-100 rounded-[3rem] p-8 hover:border-primary/50 transition-all group relative overflow-hidden">
-                        <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-[0.02] transition-opacity" />
-
-                        <div className="flex flex-col items-center text-center space-y-6 relative z-10">
-                            <div className="relative">
-                                <div className="w-32 h-32 rounded-[2.5rem] bg-zinc-200 border-4 border-white shadow-2xl flex items-center justify-center text-4xl font-black group-hover:scale-105 transition-transform">
+                    <div key={member.id} style={{
+                        backgroundColor: '#FFFFFF', border: '1px solid var(--line)', borderRadius: '1.5rem', padding: '2rem',
+                        transition: 'all 0.2s ease', position: 'relative', overflow: 'hidden', boxShadow: 'var(--shadow-sm)'
+                    }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--brand-300)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}
+                    >
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1.5rem', position: 'relative', zIndex: 10 }}>
+                            <div style={{ position: 'relative' }}>
+                                <div style={{
+                                    width: '8rem', height: '8rem', borderRadius: '1.25rem', backgroundColor: '#F4F4F5', border: '4px solid #FFFFFF',
+                                    boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', fontWeight: '900', color: 'var(--text-200)'
+                                }}>
                                     {member.name.split(' ').map(n => n[0]).join('')}
                                 </div>
-                                <div className="absolute -bottom-2 -right-2 bg-white px-4 py-1.5 rounded-full border-2 border-zinc-100 shadow-sm flex items-center gap-1">
-                                    <span className="text-[10px] font-black tracking-tighter text-amber-500">★</span>
-                                    <span className="text-[10px] font-black">{member.rating}</span>
+                                <div style={{
+                                    position: 'absolute', bottom: '-0.5rem', right: '-0.5rem', backgroundColor: '#FFFFFF', padding: '0.25rem 0.75rem',
+                                    borderRadius: '9999px', border: '1px solid var(--line)', boxShadow: 'var(--shadow-sm)', display: 'flex', alignItems: 'center', gap: '0.25rem'
+                                }}>
+                                    <span style={{ fontSize: '10px', fontWeight: '900', color: '#F59E0B' }}>★</span>
+                                    <span style={{ fontSize: '10px', fontWeight: '900', color: 'var(--text-100)' }}>{member.rating}</span>
                                 </div>
                             </div>
 
                             <div>
-                                <h3 className="text-xl font-black tracking-tight">{member.name}</h3>
-                                <div className="text-[10px] font-black uppercase tracking-widest text-primary mt-1">{member.role}</div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '900', letterSpacing: '-0.02em', margin: '0', color: 'var(--text-100)' }}>{member.name}</h3>
+                                <div style={{ fontSize: '10px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--brand-600)', marginTop: '0.25rem' }}>{member.role}</div>
                             </div>
 
-                            <div className="bg-zinc-50 border border-zinc-100 w-full p-4 rounded-2xl flex justify-around">
-                                <div className="text-center">
-                                    <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Visits</div>
-                                    <div className="font-black text-sm">{member.visits}</div>
+                            <div style={{ backgroundColor: '#FAFAFA', border: '1px solid var(--line)', width: '100%', padding: '1rem', borderRadius: '1rem', display: 'flex', justifyContent: 'space-around' }}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontSize: '9px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-400)' }}>Visits</div>
+                                    <div style={{ fontWeight: '900', fontSize: '0.875rem', color: 'var(--text-100)', marginTop: '0.25rem' }}>{member.visits}</div>
                                 </div>
-                                <div className="divider w-px bg-zinc-200" />
-                                <div className="text-center">
-                                    <div className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Focus</div>
-                                    <div className="font-black text-[10px] uppercase truncate max-w-[80px]">{member.specialty}</div>
+                                <div style={{ width: '1px', backgroundColor: 'var(--line)' }} />
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontSize: '9px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-400)' }}>Focus</div>
+                                    <div style={{ fontWeight: '900', fontSize: '10px', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '80px', color: 'var(--text-100)', marginTop: '0.25rem' }}>{member.specialty}</div>
                                 </div>
                             </div>
 
-                            <p className="text-xs font-medium text-muted-foreground leading-relaxed h-12 overflow-hidden text-ellipsis italic">
+                            <p style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--text-300)', lineHeight: '1.6', height: '3rem', overflow: 'hidden', textOverflow: 'ellipsis', fontStyle: 'italic', margin: '0' }}>
                                 "{member.bio}"
                             </p>
 
-                            <button className="w-full bg-zinc-900 text-white py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest group-hover:bg-primary transition-all shadow-xl shadow-zinc-200">
+                            <button style={{
+                                width: '100%', backgroundColor: 'var(--text-100)', color: '#FFFFFF', padding: '1rem', borderRadius: '1rem',
+                                fontWeight: '900', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', border: 'none', cursor: 'pointer', transition: 'background-color 0.2s ease', WebkitFontSmoothing: 'antialiased'
+                            }}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--brand-500)'}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--text-100)'}
+                            >
                                 Send Message
                             </button>
                         </div>
                     </div>
                 ))}
 
-                <div className="bg-zinc-50 border-2 border-dashed border-zinc-200 rounded-[3rem] p-8 flex flex-col items-center justify-center text-center space-y-4 hover:border-primary/50 transition-all cursor-pointer group">
-                    <div className="text-4xl grayscale group-hover:grayscale-0 transition-all opacity-40 group-hover:opacity-100">➕</div>
+                <div style={{
+                    backgroundColor: '#FAFAFA', border: '2px dashed var(--line)', borderRadius: '1.5rem', padding: '2rem',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease'
+                }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--brand-300)'; e.currentTarget.style.backgroundColor = '#F5FBFA'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.backgroundColor = '#FAFAFA'; }}
+                >
+                    <div style={{ fontSize: '2.25rem', opacity: '0.4', transition: 'opacity 0.2s ease' }}>➕</div>
                     <div>
-                        <div className="font-black text-sm uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-all">Request Specialist</div>
-                        <p className="text-[10px] font-medium text-muted-foreground/60 mt-2 px-6 leading-relaxed">Need a physical therapist or specialized RMT? Call coordinate to add to team.</p>
+                        <div style={{ fontWeight: '900', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-300)', transition: 'color 0.2s ease' }}>Request Specialist</div>
+                        <p style={{ fontSize: '10px', fontWeight: '500', color: 'var(--text-400)', marginTop: '0.5rem', padding: '0 1.5rem', lineHeight: '1.6' }}>Need a physical therapist or specialized RMT? Call coordinate to add to team.</p>
                     </div>
                 </div>
             </div>
 
-            <div className="bg-amber-50 border-2 border-amber-100 p-8 rounded-[3rem] flex items-center gap-8">
-                <div className="bg-amber-100/50 p-6 rounded-3xl text-4xl">🔐</div>
+            <div style={{ backgroundColor: '#FFFBEB', border: '2px solid #FEF3C7', padding: '2rem', borderRadius: '1.5rem', display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                <div style={{ backgroundColor: '#FEF3C7', padding: '1.5rem', borderRadius: '1rem', fontSize: '2rem' }}>🔐</div>
                 <div>
-                    <h3 className="text-sm font-black uppercase tracking-widest text-amber-900">Clinically Verified Network</h3>
-                    <p className="text-xs font-medium text-amber-800/80 leading-relaxed max-w-2xl mt-2">
+                    <h3 style={{ fontSize: '0.875rem', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#78350F', margin: '0 0 0.5rem 0' }}>Clinically Verified Network</h3>
+                    <p style={{ fontSize: '0.75rem', fontWeight: '500', color: '#92400E', lineHeight: '1.6', maxWidth: '42rem', margin: '0' }}>
                         Every professional in your care circle has undergone a mandatory criminal background check, vulnerable sector screening, and rigorous clinical credential verification.
                     </p>
                 </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 
@@ -98,6 +99,12 @@ export default function GovernanceAuditPage() {
 
                 {loading ? (
                     <div style={{ padding: '4rem', textAlign: 'center', color: '#64748b' }}>Orchestrating audit records...</div>
+                ) : logs.length === 0 ? (
+                    <EmptyState
+                        title="No Audit Trails"
+                        description="There are currently no governance audit logs recorded in the system."
+                        icon="🛡️"
+                    />
                 ) : (
                     logs.map(log => (
                         <div key={log.id} className="audit-row">
