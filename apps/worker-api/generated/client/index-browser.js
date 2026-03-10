@@ -1176,6 +1176,152 @@ exports.Prisma.BankTransactionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.EVVRecordScalarFieldEnum = {
+  id: 'id',
+  visitId: 'visitId',
+  pswId: 'pswId',
+  checkType: 'checkType',
+  lat: 'lat',
+  lng: 'lng',
+  accuracy: 'accuracy',
+  verificationMethod: 'verificationMethod',
+  status: 'status',
+  overrideById: 'overrideById',
+  overrideReason: 'overrideReason',
+  rawData: 'rawData',
+  capturedAt: 'capturedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.ServiceAuthorizationScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  serviceId: 'serviceId',
+  fundingSource: 'fundingSource',
+  authorizedHours: 'authorizedHours',
+  usedHours: 'usedHours',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  authCode: 'authCode',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.ConsentFormScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  formType: 'formType',
+  status: 'status',
+  signatureDataUrl: 'signatureDataUrl',
+  signedAt: 'signedAt',
+  expiresAt: 'expiresAt',
+  documentKey: 'documentKey',
+  witnessName: 'witnessName',
+  templateVersion: 'templateVersion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.MileageLogScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  date: 'date',
+  fromVisitId: 'fromVisitId',
+  toVisitId: 'toVisitId',
+  fromAddress: 'fromAddress',
+  toAddress: 'toAddress',
+  distanceKm: 'distanceKm',
+  travelMinutes: 'travelMinutes',
+  reimbursementRate: 'reimbursementRate',
+  reimbursementAmount: 'reimbursementAmount',
+  status: 'status',
+  createdAt: 'createdAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.ReferralScalarFieldEnum = {
+  id: 'id',
+  clientName: 'clientName',
+  clientPhone: 'clientPhone',
+  clientEmail: 'clientEmail',
+  referrerName: 'referrerName',
+  referrerOrg: 'referrerOrg',
+  referrerType: 'referrerType',
+  serviceNeeded: 'serviceNeeded',
+  urgency: 'urgency',
+  clinicalNotes: 'clinicalNotes',
+  status: 'status',
+  convertedClientId: 'convertedClientId',
+  convertedAt: 'convertedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.FamilyMemberScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  relationship: 'relationship',
+  accessLevel: 'accessLevel',
+  linkedUserId: 'linkedUserId',
+  isEmergency: 'isEmergency',
+  notifyVisits: 'notifyVisits',
+  notifyCare: 'notifyCare',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.PerformanceReviewScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  reviewerId: 'reviewerId',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  overallRating: 'overallRating',
+  kpis: 'kpis',
+  goals: 'goals',
+  strengths: 'strengths',
+  improvements: 'improvements',
+  notes: 'notes',
+  status: 'status',
+  acknowledgedAt: 'acknowledgedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  events: 'events',
+  secret: 'secret',
+  status: 'status',
+  lastDeliveredAt: 'lastDeliveredAt',
+  failureCount: 'failureCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  endpointId: 'endpointId',
+  event: 'event',
+  payload: 'payload',
+  statusCode: 'statusCode',
+  responseBody: 'responseBody',
+  retryCount: 'retryCount',
+  deliveredAt: 'deliveredAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1405,7 +1551,16 @@ exports.Prisma.ModelName = {
   FinancialTransaction: 'FinancialTransaction',
   JournalEntry: 'JournalEntry',
   FinancialReconciliation: 'FinancialReconciliation',
-  BankTransaction: 'BankTransaction'
+  BankTransaction: 'BankTransaction',
+  EVVRecord: 'EVVRecord',
+  ServiceAuthorization: 'ServiceAuthorization',
+  ConsentForm: 'ConsentForm',
+  MileageLog: 'MileageLog',
+  Referral: 'Referral',
+  FamilyMember: 'FamilyMember',
+  PerformanceReview: 'PerformanceReview',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDelivery: 'WebhookDelivery'
 };
 
 /**

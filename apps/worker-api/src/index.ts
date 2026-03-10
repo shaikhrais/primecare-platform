@@ -93,6 +93,7 @@ app.get('/v1/health', async (c) => {
 });
 
 app.onError((err, c) => {
+    console.error('Unhandled Exception (Worker Crash):', err);
     // R11: Don't log full error objects in production
 
     const origin = c.req.header('Origin');
