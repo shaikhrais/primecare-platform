@@ -4,6 +4,9 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import EmptyState from '@/shared/components/layout/EmptyState';
+import { ApprovalSwipeStack } from './components/ApprovalSwipeStack';
+import { OrgHierarchyChart } from './components/OrgHierarchyChart';
+import { BurnoutGauge } from './components/BurnoutGauge';
 import './OperationsHub.css';
 
 const { MANAGER_OPERATIONS } = ContentRegistry;
@@ -195,9 +198,38 @@ export default function OperationsHub() {
                             </div>
                         </div>
                     </article>
+                    <article className="bento-card">
+                        <div className="card-header">
+                            <h2>Org Hierarchy & Flight Risk</h2>
+                        </div>
+                        <div className="card-body">
+                            <OrgHierarchyChart />
+                        </div>
+                    </article>
                 </div>
 
-                <div className="operational-tools">
+                <div className="operational-tools" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <article className="bento-card">
+                        <div className="card-header">
+                            <h2>Timesheet Inbox</h2>
+                        </div>
+                        <div className="card-body" style={{ padding: '0 4px 4px 4px' }}>
+                            <ApprovalSwipeStack />
+                        </div>
+                    </article>
+
+                    <article className="bento-card">
+                        <div className="card-header">
+                            <h2>Telemetry Spot-Check</h2>
+                        </div>
+                        <div className="card-body" style={{ display: 'flex', justifyContent: 'center' }}>
+                            <BurnoutGauge 
+                                staffName="Susan Lee" 
+                                metrics={{ consecutiveDays: 7, overtimeHoursWeek: 9, acuityScoreAvg: 78 }} 
+                            />
+                        </div>
+                    </article>
+
                     <article className="bento-card">
                         <div className="card-header">
                             <h2>{t('manager.quick_links_title', { defaultValue: 'Quick Resource Links' })}</h2>

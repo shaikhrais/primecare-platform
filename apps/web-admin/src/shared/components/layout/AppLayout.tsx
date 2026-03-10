@@ -11,6 +11,10 @@ import SideFloatingButton from './SideFloatingButton';
 import OfflineIndicator from './OfflineIndicator';
 import PswBottomNav from './PswBottomNav';
 import SosButton from './SosButton';
+import { CommandPalette } from './CommandPalette';
+import { SoftphoneWidget } from '../communications/SoftphoneWidget';
+import { ImpersonationBanner } from './ImpersonationBanner';
+import { SystemHealthFooter } from './SystemHealthFooter';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
@@ -155,6 +159,18 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
                 <>
                     <PswBottomNav />
                     <SosButton />
+                </>
+            )}
+
+            {/* Coordinator/Dispatcher Global Accelerators */}
+            <CommandPalette />
+            <SoftphoneWidget />
+            
+            {/* Platform Administrator Telemetry & Barriers */}
+            {role.toLowerCase() === 'super_admin' && (
+                <>
+                    <ImpersonationBanner />
+                    <SystemHealthFooter />
                 </>
             )}
         </div>

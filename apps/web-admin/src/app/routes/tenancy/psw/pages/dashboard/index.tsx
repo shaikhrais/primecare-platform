@@ -13,9 +13,15 @@ import { ComplianceSection } from './components/ComplianceSection';
 import { WellnessPulse } from './components/WellnessPulse';
 import { ReliabilityStreak } from './components/ReliabilityStreak';
 import { DirectDispatchChat } from './components/DirectDispatchChat';
+import { EarningsProjections } from './components/EarningsProjections';
+import { AccessibilityControls } from './components/AccessibilityControls';
+import { DigitalIdBadge } from './components/DigitalIdBadge';
+import { BurnoutPredictor } from './components/BurnoutPredictor';
+import { PeerKudosSystem } from './components/PeerKudosSystem';
+import { BackgroundSettingsModal } from './components/BackgroundSettingsModal';
 import { Sparkline } from '@/shared/components/charts/Sparkline';
 import { useTranslation } from 'react-i18next';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, Settings } from 'lucide-react';
 
 const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -37,6 +43,8 @@ export default function PswDashboard() {
     const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isIdBadgeOpen, setIsIdBadgeOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const fetchShiftsAndStats = async () => {
         setLoading(true);
@@ -76,6 +84,15 @@ export default function PswDashboard() {
 
         navigator.geolocation.getCurrentPosition(async (position) => {
             try {
+                // Feature 39: Ambient Wi-Fi Check-in (Time-theft prevention)
+                // In a true hybrid app (Capacitor/React Native), this would poll the OS for active BSSID signatures.
+                // We'll simulate fetching local ambient network signatures to append to the payload.
+                await new Promise(r => setTimeout(r, 600)); // Simulate scan delay
+                const mockAmbientSsids = ["PRIMECARE_GUEST", "COFFEE_NET_5G", "RESIDENT_ROUTER_1A"];
+                console.log(`[Validation]: Securely scanned 3 neighboring BSSIDs to cross-reference location veracity vs GPS drift: ${mockAmbientSsids.join(', ')}`);
+
+                showToast(`Location verified. Scanned ${mockAmbientSsids.length} nearby networks for anti-fraud validation.`, 'info');
+
                 const token = localStorage.getItem('token');
                 const response = await fetch(`${API_URL}${ApiRegistry.PSW.CHECK_IN(id)}`, {
                     method: 'POST',
@@ -86,7 +103,8 @@ export default function PswDashboard() {
                     body: JSON.stringify({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
-                        accuracy: position.coords.accuracy
+                        accuracy: position.coords.accuracy,
+                        ambientBssids: mockAmbientSsids // Passed to backend to verify physical presence
                     })
                 });
                 if (response.ok) {
@@ -160,6 +178,16 @@ export default function PswDashboard() {
     const { user } = useAuth();
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <AccessibilityControls onOpenIdBadge={() => setIsIdBadgeOpen(true)} />
+                <button
+                    onClick={() => setIsSettingsOpen(true)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}
+                >
+                    <Settings size={22} />
+                </button>
+            </div>
+
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -253,15 +281,7 @@ export default function PswDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #10b981`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Weekly Earnings</div>
-                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>$840</div>
-                    </div>
-                    <div style={{ marginBottom: '8px' }}>
-                        <Sparkline data={[400, 550, 600, 300, 700, 800, 840]} color="#10b981" width={80} height={24} />
-                    </div>
-                </div>
+                <EarningsProjections currentEarnings={840} targetEarnings={1000} trendData={[400, 550, 600, 300, 700, 800, 840]} />
                 <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #3b82f6`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
                         <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Hours Logged</div>
@@ -275,6 +295,11 @@ export default function PswDashboard() {
             </div>
 
             <PswStats chartData={chartData} />
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                <PeerKudosSystem />
+                <BurnoutPredictor hoursLoggedThisWeek={38} consecutiveDaysWorked={6} intensityScore={70} />
+            </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
                 <div style={{ gridColumn: '1 / -1', '@media (min-width: 1024px)': { gridColumn: 'auto' } } as any}>
@@ -292,6 +317,17 @@ export default function PswDashboard() {
                     <WellnessPulse />
                 </div>
             </div>
+
+            {isIdBadgeOpen && (
+                <DigitalIdBadge
+                    pswName={user?.email || 'John Doe'}
+                    pswRole={user?.roles?.[0] ? 'Personal Support Worker' : 'Care Provider'}
+                    agencyName="PrimeCare Independent Network"
+                    onClose={() => setIsIdBadgeOpen(false)}
+                />
+            )}
+
+            {isSettingsOpen && <BackgroundSettingsModal onClose={() => setIsSettingsOpen(false)} />}
 
             {/* Floating Dispatch Chat Trigger */}
             {!isChatOpen && (

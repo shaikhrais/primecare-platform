@@ -9,7 +9,7 @@ import { useAuth } from '@/shared/context/AuthContext';
 import { useTheme } from '@/shared/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
-import { BiometricLogin } from '../components/BiometricLogin';
+import { BiometricLogin } from '../../components/BiometricLogin';
 import { Fingerprint } from 'lucide-react';
 
 export default function Login() {

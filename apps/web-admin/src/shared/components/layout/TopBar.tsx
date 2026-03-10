@@ -5,6 +5,7 @@ import { useTheme } from '@/shared/context/ThemeContext';
 // Components
 import { TopBarIdentity } from './topbar/TopBarIdentity';
 import { TopBarActions } from './topbar/TopBarActions';
+import { AccessibilityToggle } from '@/app/routes/tenancy/client/pages/dashboard/components/AccessibilityToggle';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -127,13 +128,16 @@ export const TopBar: React.FC<TopBarProps> = ({
                 <TopBarIdentity role={role} user={user} isMobile={isMobile} />
             </div>
 
-            <TopBarActions
-                isMobile={isMobile}
-                currentTime={currentTime}
-                isFullscreen={isFullscreen}
-                toggleFullscreen={toggleFullscreen}
-                role={role}
-            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                {role.toLowerCase() === 'client' && <AccessibilityToggle />}
+                <TopBarActions
+                    isMobile={isMobile}
+                    currentTime={currentTime}
+                    isFullscreen={isFullscreen}
+                    toggleFullscreen={toggleFullscreen}
+                    role={role}
+                />
+            </div>
         </header>
     );
 };

@@ -6,6 +6,12 @@ import { apiClient } from '@/shared/utils/apiClient';
 import { VitalHistoryTooltip } from './components/VitalHistoryTooltip';
 import { InAppTimer } from './components/InAppTimer';
 import { QuickReportMacros } from './components/QuickReportMacros';
+import { SecureCamera } from '@/shared/components/media/SecureCamera';
+import { Camera, Globe } from 'lucide-react';
+import { VoiceDictationButton } from '@/shared/components/media/VoiceDictationButton';
+import { AllergyBanner } from './components/AllergyBanner';
+import { MedAdminRecord, Medication } from './components/MedAdminRecord';
+import { TaskCarouselWizard } from './components/TaskCarouselWizard';
 
 const ConfettiOverlay = () => {
     return (
@@ -45,24 +51,54 @@ export default function LiveVisit() {
         { id: '2', label: 'Mobility Support & Transfers', done: false, isStandard: true },
         { id: '3', label: 'Hydration & Nutrition Check', done: false, isStandard: true },
         { id: '4', label: 'Documentation Sink', done: false, isStandard: false },
+        { id: 'add-1', label: 'Catheter Bag Exchange (Protocol)', done: false, isStandard: false, isComplex: true },
         { id: '5', label: 'ROM Exercises (15 mins)', done: false, isStandard: false, requiresTimer: true },
     ]);
     const [visitNotes, setVisitNotes] = useState('');
     const [showVitalHistory, setShowVitalHistory] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
+    const [isCameraOpen, setIsCameraOpen] = useState(false);
+    const [securePhotos, setSecurePhotos] = useState<string[]>([]);
+
+    // Phase 7 State
+    const [isListening, setIsListening] = useState(false);
+    const [wizardTask, setWizardTask] = useState<string | null>(null);
+    const [isTranslated, setIsTranslated] = useState(false);
+
+    const MOCK_ALLERGIES = ['Penicillin', 'Latex - Severe Anaphylaxis'];
+    const MOCK_MEDS: Medication[] = [
+        { id: 'm1', name: 'Lisinopril', dosage: '10mg', route: 'Oral', time: '08:00 AM', instructions: 'Take with food to absorb fully.' },
+        { id: 'm2', name: 'Atorvastatin', dosage: '20mg', route: 'Oral', time: '08:00 AM', instructions: 'Do not take with grapefruit juice.' }
+    ];
+    const MOCK_WIZARD_STEPS = [
+        { title: 'Gather Supplies', description: 'Ensure you have clean gloves, a new sterile catheter bag, alcohol swabs, and a disposable towel.', criticalWarning: 'Verify sterile packaging is fully intact.' },
+        { title: 'Prepare Client', description: 'Position client comfortably and explain the procedure to minimize anxiety and stress.', image: '🛏️' },
+        { title: 'Exchange Bag', description: 'Clamp the old tube, swab the connection point securely with alcohol, disconnect, and immediately reattach the new sterile bag.', criticalWarning: 'Do not let the open tube touch any unsterile surface.' }
+    ];
 
     useEffect(() => {
         const controller = new AbortController();
         const fetchVisit = async () => {
+            const cacheKey = `care_plan_cache_${id}`;
             try {
                 const response = await apiClient.get(AdminRegistry.ApiRegistry.PLATFORM.ADMIN.VISITS_UPDATE(id!), { signal: controller.signal });
                 if (response.ok) {
                     const data = await response.json();
                     setVisit(data);
+                    // Suggestion 11: Offline-First Caching. Save the Care Plan securely to cache for dead-zone redundancy.
+                    localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data }));
                 }
             } catch (error: unknown) {
                 if ((error as Error).name !== 'AbortError') {
                     console.error('Error fetching visit details:', error);
+                    // Fallback to cache if offline
+                    const cachedSnapshot = localStorage.getItem(cacheKey);
+                    if (cachedSnapshot) {
+                        const parsed = JSON.parse(cachedSnapshot);
+                        // showToast('Network unreachable. Loaded Care Plan from offline secure storage.', 'warning'); // optional
+                        console.log('Restored Care Plan from Offline Cache', parsed);
+                        setVisit(parsed.data);
+                    }
                 }
             }
         };
@@ -154,6 +190,7 @@ export default function LiveVisit() {
                 visitId: id,
                 adlData: tasks.filter(t => t.done).map(t => t.label),
                 notes: visitNotes,
+                imagesAttached: securePhotos.length, // Only send count or metadata, not base64 directly to this specific log endpoint unless strictly required
                 status: 'SUBMITTED'
             });
 
@@ -186,13 +223,25 @@ export default function LiveVisit() {
                         <p>{visit?.client?.fullName || COMMON.FALLBACKS.REGISTRY_NODE} • {visit?.service?.name || COMMON.FALLBACKS.CARE_SERVICE}</p>
                     </div>
                 </div>
-                <div className="header-right">
-                    <div className="clock-face">{currentTime}</div>
-                    <div className="clock-label">{CONTENT.HEADER.STAMP}</div>
+                <div className="header-right" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <button
+                        onClick={() => { setIsTranslated(!isTranslated); showToast(isTranslated ? 'Translated back to English.' : 'Care Plan translated to locale (Spanish).', 'info'); }}
+                        style={{ background: 'transparent', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isTranslated ? '#3B82F6' : '#64748B', backgroundColor: isTranslated ? '#EFF6FF' : 'transparent' }}
+                        title="Translate Care Protocol"
+                    >
+                        <Globe size={20} />
+                    </button>
+                    <div>
+                        <div className="clock-face">{currentTime}</div>
+                        <div className="clock-label">{CONTENT.HEADER.STAMP}</div>
+                    </div>
                 </div>
             </header>
 
-            <div className="session-block session-active">
+            <div className="session-block session-active" style={{ padding: '16px' }}>
+                <AllergyBanner allergies={MOCK_ALLERGIES} />
+                <MedAdminRecord medications={MOCK_MEDS} onMedicationUpdate={(medId, status) => showToast(`Medication ${medId} marked as ${status}`, status === 'GIVEN' ? 'success' : 'warning')} />
+
                 <div className="pulse-bg" />
                 <div className="active-grid">
                     <div className="active-top-bar">
@@ -232,10 +281,11 @@ export default function LiveVisit() {
                             <React.Fragment key={task.id}>
                                 <div
                                     className={`task-item ${task.done ? 'done' : ''}`}
-                                    onClick={() => toggleTask(task.id)}
+                                    onClick={() => (task as any).isComplex ? setWizardTask(task.id) : toggleTask(task.id)}
                                     onTouchStart={(e) => { touchStartXRef.current = e.touches[0].clientX; }}
                                     onTouchMove={(e) => {
                                         if (touchStartXRef.current === null) return;
+                                        if ((task as any).isComplex) return; // Disallow swipe for complex tasks that need wizard
                                         const diff = e.touches[0].clientX - touchStartXRef.current;
                                         if (diff > 80 || diff < -80) {
                                             toggleTask(task.id);
@@ -246,7 +296,7 @@ export default function LiveVisit() {
                                     onTouchEnd={() => { touchStartXRef.current = null; }}
                                     style={{ touchAction: 'pan-y' }}
                                 >
-                                    <span className="task-label">{task.label} <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', display: 'block' }}>Swipe or tap to complete</span></span>
+                                    <span className="task-label">{task.label} <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', display: 'block' }}>{(task as any).isComplex ? 'Tap to open Step-by-Step Wizard' : 'Swipe or tap to complete'}</span></span>
                                     <div className="task-checkbox">
                                         {task.done ? '✓' : ''}
                                     </div>
@@ -263,7 +313,33 @@ export default function LiveVisit() {
                         ))}
 
                         <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #E2E8F0' }}>
-                            <h3 style={{ fontSize: '1.2rem', margin: '0 0 16px 0', color: '#0F172A' }}>Daily Notes</h3>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                                <h3 style={{ fontSize: '1.2rem', margin: 0, color: '#0F172A' }}>Daily Notes</h3>
+                                <div style={{ display: 'flex', gap: '8px' }}>
+                                    <VoiceDictationButton
+                                        isListening={isListening}
+                                        setIsListening={setIsListening}
+                                        onResult={(text) => setVisitNotes(prev => prev + text)}
+                                    />
+                                    <button
+                                        onClick={() => setIsCameraOpen(true)}
+                                        style={{ background: 'none', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: '#3B82F6', fontWeight: 600, fontSize: '0.85rem' }}
+                                    >
+                                        <Camera size={16} /> Secure Photo
+                                    </button>
+                                </div>
+                            </div>
+
+                            {securePhotos.length > 0 && (
+                                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', marginBottom: '16px', paddingBottom: '8px' }}>
+                                    {securePhotos.map((photo, idx) => (
+                                        <div key={idx} style={{ position: 'relative', minWidth: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2E8F0' }}>
+                                            <img src={photo} alt="Secure Clinical" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
                             <QuickReportMacros onSelectMacro={(m) => setVisitNotes(prev => prev ? `${prev} ${m}` : m)} />
                             <textarea
                                 value={visitNotes}
@@ -354,7 +430,31 @@ export default function LiveVisit() {
                     <span className="nav-label">{CONTENT.NAV.ACCOUNT}</span>
                 </div>
             </nav>
+
+            {isCameraOpen && (
+                <SecureCamera
+                    onClose={() => setIsCameraOpen(false)}
+                    onCapture={(base64) => {
+                        setSecurePhotos(prev => [...prev, base64]);
+                        setIsCameraOpen(false);
+                        showToast('Secure clinical photo attached to note.', 'success');
+                    }}
+                />
+            )}
+
+            {wizardTask !== null && (
+                <TaskCarouselWizard
+                    taskName={tasks.find(t => t.id === wizardTask)?.label || 'Clinical Task'}
+                    steps={MOCK_WIZARD_STEPS}
+                    onClose={() => setWizardTask(null)}
+                    onComplete={() => {
+                        toggleTask(wizardTask);
+                        setWizardTask(null);
+                        showToast(`${tasks.find(t => t.id === wizardTask)?.label} complete.`, 'success');
+                        if (window.navigator?.vibrate) { window.navigator.vibrate([100, 50, 100]); }
+                    }}
+                />
+            )}
         </div>
     );
 }
-

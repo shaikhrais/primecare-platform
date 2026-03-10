@@ -1,173 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
-const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
-import { useNotification } from '@/shared/context/NotificationContext';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/shared/context/AuthContext';
 
-// Components
-import { ClientOverview } from './components/ClientOverview';
-import { ServiceBookingModal } from './components/ServiceBookingModal';
-import { useTranslation } from 'react-i18next';
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-interface Booking {
-    id: string;
-    service: { name: string };
-    requestedStartAt: string;
-    status: string;
-    psw?: { fullName: string };
-}
+// Client Specific Components (Zero-Data Grid Architecture)
+import { WhosComingCard } from './components/WhosComingCard';
+import { CareJourneyMap } from './components/CareJourneyMap';
+import { FundingThermometer } from './components/FundingThermometer';
+import { TelehealthLauncher } from './components/TelehealthLauncher';
+import { PostVisitRatingModal } from '@/shared/components/modals/PostVisitRatingModal';
 
 export default function ClientDashboard() {
-    const navigate = useNavigate();
     const { t } = useTranslation();
-    const { showToast } = useNotification();
-    const [bookings, setBookings] = useState<Booking[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [services, setServices] = useState<any[]>([]);
-    const [stats, setStats] = useState<any>(null);
-
-    const fetchBookings = async () => {
-        setLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKINGS}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setBookings(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch bookings', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const fetchServices = async () => {
-        try {
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.SERVICES}`);
-            if (response.ok) {
-                const data = await response.json();
-                setServices(data.filter((s: any) => s.isActive));
-            }
-        } catch (error) {
-            console.error('Failed to fetch services', error);
-        }
-    };
-
-    const fetchStats = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.DASHBOARD_STATS}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setStats(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch dashboard stats', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchBookings();
-        fetchServices();
-        fetchStats();
-    }, []);
-
-    if (loading) {
-        return <div style={{ padding: '2rem', textAlign: 'center' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MESSAGES.LOADING)}</div>;
-    }
-
     const { user } = useAuth();
+    
+    const clientName = user?.firstName || 'Marjorie';
+
     return (
-        <div data-cy="page.container">
-            {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <div>
-                    <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }} data-cy="page.title">
-                        {user?.tenantId ? 'Patient Care Portal' : t(ContentRegistry.CLIENT_DASHBOARD.TITLE)}
-                    </h1>
-                    <p className="sub" style={{ margin: 0 }} data-cy="page.subtitle">
-                        {user?.email ? `${user.email} • Your Care Team` : t(ContentRegistry.CLIENT_DASHBOARD.SUBTITLE)}
-                    </p>
-                </div>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => document.documentElement.style.fontSize = document.documentElement.style.fontSize === '120%' ? '100%' : '120%'}
-                        style={{ padding: '12px 16px', borderRadius: '12px', border: '2px solid #0f172a', background: 'transparent', fontWeight: 'bold', cursor: 'pointer', fontSize: '1.2rem', minHeight: '48px', minWidth: '48px' }}
-                        title="Toggle Large Text"
-                        aria-label="Toggle Large Text"
-                    >
-                        Aa
-                    </button>
-                    <Link
-                        to={RouteRegistry.LEARN}
-                        style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            padding: '12px 24px',
-                            backgroundColor: 'white',
-                            color: 'var(--brand-600)',
-                            borderRadius: '12px',
-                            textDecoration: 'none',
-                            fontWeight: 700,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                            transition: 'all 0.2s',
-                            minHeight: '48px',
-                            fontSize: '1.1rem'
-                        }}
-                    >
-                        🎓 {t(ContentRegistry.LEARN.TITLE)}
-                    </Link>
-                    <button
-                        className="btn"
-                        style={{ backgroundColor: 'white', color: 'var(--brand-600)', border: '1px solid #e5e7eb', padding: '12px 24px', borderRadius: '12px', fontWeight: 600, minHeight: '48px', fontSize: '1.1rem' }}
-                        onClick={() => alert('Opening Support Chat...')}
-                    >
-                        💬 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-support-chat')?.label || 'Chat'}
-                    </button>
-                    <button
-                        className="btn"
-                        onClick={() => navigate('/tenancy/client/family')}
-                        style={{ backgroundColor: 'var(--brand-100)', color: 'var(--brand-700)', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: 600, minHeight: '48px', fontSize: '1.1rem' }}
-                    >
-                        👨‍👩‍👧‍👦 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-family-hub')?.label || 'Family Hub'}
-                    </button>
-                    <button
-                        data-cy="btn-client-request-care"
-                        className="btn btn-primary"
-                        onClick={() => setIsModalOpen(true)}
-                        style={{ minHeight: '48px', padding: '12px 32px', fontSize: '1.1rem', borderRadius: '12px', fontWeight: 700 }}
-                    >
-                        {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-request-care')?.label || t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
-                    </button>
-                </div>
-            </div>
-            {/* Phase 13 extra client actions */}
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600 }} onClick={() => alert('View Careplan')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-view-careplan')?.label || 'View Careplan'}</button>
-                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600 }} onClick={() => setIsModalOpen(true)}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-booking-request')?.label || 'Booking Request'}</button>
-                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600, color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fee2e2' }} onClick={() => alert('Cancel Visit')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-visit-cancel')?.label || 'Cancel Visit'}</button>
-            </div>
+        <div style={{ padding: '0 0 100px 0', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+            
+            <header>
+                <h1 style={{ fontSize: '3rem', fontWeight: 900, color: '#0F172A', margin: '0 0 12px 0', lineHeight: 1.1 }}>
+                    Good afternoon,<br />
+                    <span style={{ color: '#3B82F6' }}>{clientName}</span>.
+                </h1>
+                <p style={{ fontSize: '1.5rem', color: '#64748B', margin: 0 }}>Here is your care summary for today.</p>
+            </header>
 
-            <ClientOverview stats={stats} />
+            {/* Primary Action Area */}
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px' }}>
+                <WhosComingCard 
+                    workerName="Sarah Jenkins"
+                    workerRole="Registered Nurse (RN)"
+                    arrivalTime="2:30 PM (In 45 mins)"
+                    bio="I love gardening, dogs, and making sure my patients are comfortable! Looking forward to our visit today."
+                    imageUrl="https://i.pravatar.cc/300?img=47"
+                />
+                <TelehealthLauncher />
+            </section>
 
-            <ServiceBookingModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                services={services}
-                onSuccess={fetchBookings}
-                showToast={showToast}
-            />
+            {/* Visual Tracking Area */}
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+                <CareJourneyMap />
+                <FundingThermometer 
+                    totalHours={90}
+                    hoursUsed={72}
+                />
+            </section>
+
+            {/* Triggering this on mount for the demonstration of the zero-friction pattern */}
+            <PostVisitRatingModal />
+            
         </div>
     );
 }

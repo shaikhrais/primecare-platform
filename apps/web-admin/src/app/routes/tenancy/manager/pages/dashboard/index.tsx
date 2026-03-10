@@ -8,11 +8,13 @@ const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 import './ManagerDashboard.css';
 import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
-// Components
 import { DashboardStats } from './components/DashboardStats';
 import { QuickActions } from './components/QuickActions';
 import { AnalyticsSection } from './components/AnalyticsSection';
 import { ShiftTimeline } from './components/ShiftTimeline';
+import { FleetRadarMap } from '../logistics/components/FleetRadarMap';
+import { TriageHeatmap } from '../intake/components/TriageHeatmap';
+import { ShiftDragBoard } from '../logistics/components/ShiftDragBoard';
 import { useTranslation } from 'react-i18next';
 
 interface KPIData {
@@ -142,8 +144,20 @@ export default function ManagerDashboard() {
             <QuickActions />
 
             <div className="dashboard-main-content">
-                <AnalyticsSection displayData={displayData} isDemo={!chartData} />
-                <ShiftTimeline shifts={shifts} />
+                {perspective === 'Operations' ? (
+                    <>
+                        <AnalyticsSection displayData={displayData} isDemo={!chartData} />
+                        <ShiftTimeline shifts={shifts} />
+                    </>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '24px' }}>
+                            <FleetRadarMap />
+                            <TriageHeatmap />
+                        </div>
+                        <ShiftDragBoard />
+                    </div>
+                )}
             </div>
         </div>
     );

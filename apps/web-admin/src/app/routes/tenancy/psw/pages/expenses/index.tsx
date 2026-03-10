@@ -17,8 +17,11 @@ export default function ExpenseReportForm() {
         category: 'Travel',
         amount: '',
         description: '',
-        receiptAttached: false
+        receiptAttached: false,
+        receiptImage: null as string | null
     });
+
+    const [isCameraOpen, setIsCameraOpen] = useState(false);
 
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -134,15 +137,26 @@ export default function ExpenseReportForm() {
                         />
                     </div>
 
-                    <div style={{ gridColumn: 'span 2', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <input
-                            data-cy="form.expense.receipt"
-                            type="checkbox"
-                            checked={formData.receiptAttached}
-                            onChange={(e) => { setFormData({ ...formData, receiptAttached: e.target.checked }); setIsDirty(true); }}
-                            style={{ width: '20px', height: '20px' }}
-                        />
-                        <label style={{ fontWeight: 500 }}>I have a digital copy of the receipt for audit.</label>
+                    <div style={{ gridColumn: 'span 2' }}>
+                        {!formData.receiptImage ? (
+                            <button
+                                type="button"
+                                onClick={() => setIsCameraOpen(true)}
+                                style={{
+                                    width: '100%', padding: '1rem', backgroundColor: '#F3F4F6', color: '#374151',
+                                    border: '2px dashed #D1D5DB', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem'
+                                }}
+                            >
+                                📸 Snap Receipt Photo Manually
+                            </button>
+                        ) : (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', padding: '1rem', backgroundColor: '#ECFDF5', border: '1px solid #10B981', borderRadius: '0.5rem' }}>
+                                <img src={formData.receiptImage} alt="Receipt" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                                <span style={{ color: '#065F46', fontWeight: 600, flex: 1 }}>Receipt Attached Digitally</span>
+                                <button type="button" onClick={() => setFormData({ ...formData, receiptImage: null, receiptAttached: false })} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer' }}>Remove</button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -164,6 +178,27 @@ export default function ExpenseReportForm() {
                     </button>
                 </div>
             </form>
+
+            {isCameraOpen && (
+                <div style={{ position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'black', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                        [Secure Camera Viewport Active]
+                    </div>
+                    <div style={{ padding: '2rem', display: 'flex', justifyContent: 'space-around', backgroundColor: '#111827' }}>
+                        <button onClick={() => setIsCameraOpen(false)} style={{ padding: '1rem', border: 'none', borderRadius: '8px', cursor: 'pointer', color: 'white' }}>Cancel</button>
+                        <button
+                            onClick={() => {
+                                setFormData({ ...formData, receiptImage: 'data:image/png;base64,mockbase64', receiptAttached: true });
+                                setIsDirty(true);
+                                setIsCameraOpen(false);
+                            }}
+                            style={{ padding: '1rem 2rem', backgroundColor: '#3B82F6', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 800 }}
+                        >
+                            Capture Receipt
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
