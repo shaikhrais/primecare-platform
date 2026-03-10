@@ -130,8 +130,8 @@ app.use('*', async (c, next) => {
 });
 
 // 3.5 Public Branding
+// 3.5 Public Branding
 app.get('/v1/public/branding', async (c) => {
-    const prisma = c.get('prisma');
     const slug = c.req.query('slug');
     if (!slug) return c.json({ error: 'Slug required' }, 400);
 
@@ -152,48 +152,10 @@ app.get('/v1/public/branding', async (c) => {
         _needsSetup: true,
     };
 
-    if (!prisma) return c.json(DEFAULT_BRAND);
-    try {
-        const tenant = await prisma.tenant.findUnique({
-            where: { slug },
-            select: { name: true, slug: true, status: true, logoUrl: true, brandingConfig: true }
-        });
-        if (!tenant) return c.json(DEFAULT_BRAND);
-        // If tenant exists but has no branding configured, return default with tenant name
-        if (!tenant.brandingConfig) {
-            return c.json({ ...DEFAULT_BRAND, name: tenant.name, _needsSetup: true });
-        }
-        // R20: Only return safe visual branding fields — not full tenant
-        const config = (tenant.brandingConfig as any) || {};
-        return c.json({
-            name: tenant.name,
-            slug: tenant.slug,
-            status: tenant.status,
-            logoUrl: tenant.logoUrl,
-            brandingConfig: {
-                primaryColor: config.primaryColor,
-                accentColor: config.accentColor,
-                logoUrl: config.logoUrl,
-                name: config.name,
-                tagline: config.tagline,
-                isPlatform: config.isPlatform,
-            },
-        });
-    } catch (e: any) {
-        try {
-            const basic = await prisma.tenant.findUnique({
-                where: { slug },
-                select: { name: true, slug: true, status: true }
-            });
-            if (basic && !basic.brandingConfig) {
-                return c.json({ ...DEFAULT_BRAND, name: basic.name, _needsSetup: true });
-            }
-            return c.json({ ...basic, brandingConfig: DEFAULT_BRAND.brandingConfig, logoUrl: DEFAULT_BRAND.logoUrl });
-        } catch {
-            return c.json(DEFAULT_BRAND);
-        }
-    }
+    // ALWAYS RETURN DEFAULT TO PREVENT PRISMA POOL HANGS OVER CLOUDFLARE EDGE
+    return c.json(DEFAULT_BRAND);
 });
+
 
 // 4. OpenAPI Documentation
 app.doc('/openapi.json', {

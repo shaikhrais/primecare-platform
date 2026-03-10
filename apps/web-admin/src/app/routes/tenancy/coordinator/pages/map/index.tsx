@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
+import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -81,9 +81,20 @@ export default function DispatchMap() {
 
     return (
         <div className="dispatch-map-container">
-            <header className="map-header">
-                <h1>{COORDINATOR_MAP.TITLE}</h1>
-                <p>{COORDINATOR_MAP.SUBTITLE}</p>
+            <header className="map-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h1>{COORDINATOR_MAP.TITLE}</h1>
+                    <p>{COORDINATOR_MAP.SUBTITLE}</p>
+                </div>
+                <div>
+                    <button
+                        className="btn-premium secondary"
+                        onClick={() => alert('Pinging active fleet nodes...')}
+                        style={{ background: 'white', color: '#475569', border: '1px solid #cbd5e1' }}
+                    >
+                        {ButtonRegistry.find(b => b.id === 'btn-coord-gps-ping')?.label || 'Ping Location'}
+                    </button>
+                </div>
             </header>
 
             <div className="map-viewport-wrapper">

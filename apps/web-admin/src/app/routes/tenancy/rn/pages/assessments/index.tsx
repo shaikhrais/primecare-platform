@@ -60,10 +60,25 @@ export const AssessmentsHub: React.FC = () => {
 
     return (
         <div className="assessments-container" data-cy="assessments-hub">
-            <header className="assess-header">
-                <h1 data-cy="page-title">{ContentRegistry.RN_ASSESSMENTS.TITLE}</h1>
-                <p data-cy="page-subtitle">{ContentRegistry.RN_ASSESSMENTS.SUBTITLE}</p>
+            <header className="assess-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h1 data-cy="page-title">{ContentRegistry.RN_ASSESSMENTS.TITLE}</h1>
+                    <p data-cy="page-subtitle">{ContentRegistry.RN_ASSESSMENTS.SUBTITLE}</p>
+                </div>
+                <button
+                    className="btn-premium primary"
+                    onClick={() => alert('Starting generic assessment wizard...')}
+                >
+                    {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-new-assessment')?.label || 'Start New Assessment'}
+                </button>
             </header>
+
+            {/* Phase 13 RN Assess Extra actions */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Submit')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-assess-submit')?.label || 'Submit Assess'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Log Super')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-supervision-log')?.label || 'Log Supervision'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Sync')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-recon-sync')?.label || 'Sync Recon'}</button>
+            </div>
 
             <div className="bento-grid">
                 <div className="bento-item featured">

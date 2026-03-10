@@ -143,13 +143,25 @@ export default function SosCenter() {
                                     onChange={(e) => setLog(e.target.value)}
                                     placeholder="Detail immediate actions taken, police involvement, or clinical triage..."
                                 />
-                                <button
-                                    onClick={handleResolve}
-                                    disabled={isResolving || currentInc.status === 'investigating' || currentInc.status === 'resolved'}
-                                    style={{ opacity: (isResolving || currentInc.status === 'investigating' || currentInc.status === 'resolved') ? 0.7 : 1 }}
-                                >
-                                    {isResolving ? 'TRANSMITTING...' : (ButtonRegistry.find(b => b.id === 'btn-coord-sos-ack-v2')?.label || COORDINATOR_SOS.FORM.RESOLVE_BTN)}
-                                </button>
+                                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                                    <button
+                                        className="btn-premium danger"
+                                        onClick={handleResolve}
+                                        disabled={isResolving || currentInc.status === 'investigating' || currentInc.status === 'resolved'}
+                                        style={{ opacity: (isResolving || currentInc.status === 'investigating' || currentInc.status === 'resolved') ? 0.7 : 1, flex: 1 }}
+                                    >
+                                        {isResolving ? 'TRANSMITTING...' : (ButtonRegistry.find(b => b.id === 'btn-coord-sos-ack-v2')?.label || COORDINATOR_SOS.FORM.RESOLVE_BTN)}
+                                    </button>
+
+                                    <button
+                                        className="btn-premium"
+                                        onClick={() => showToast('SOS Officially resolved.', 'success')}
+                                        disabled={currentInc.status === 'resolved'}
+                                        style={{ flex: 1, backgroundColor: '#10b981', color: 'white', border: 'none' }}
+                                    >
+                                        {ButtonRegistry.find(b => b.id === 'btn-coord-sos-resolved')?.label || 'Resolve SOS'}
+                                    </button>
+                                </div>
                                 {currentInc.status === 'investigating' && (
                                     <p style={{ marginTop: '10px', color: '#f59e0b', fontSize: '0.875rem' }}>
                                         {COORDINATOR_SOS.MESSAGES.LOCK_WARNING}

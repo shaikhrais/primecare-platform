@@ -127,7 +127,7 @@ export default function Login() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)', position: 'relative'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '1rem', paddingBottom: '5rem', backgroundColor: 'var(--bg)', position: 'relative', boxSizing: 'border-box'
         }}>
             {/* Language Switcher — top-right corner */}
             <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
@@ -137,7 +137,7 @@ export default function Login() {
                 padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)'
             }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <img src={branding?.logoUrl || "/logo.png"} alt={branding?.name || "PrimeCare"} data-cy="logo" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
+                    <img src="/logo.png" alt="PrimeCare" data-cy="logo" style={{ width: 'clamp(140px, 50%, 280px)', height: 'auto' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', marginTop: 0, textAlign: 'center', color: '#111827' }} data-cy="page.title">
                     {t(ContentRegistry.AUTH.LOGIN_TITLE)}
@@ -186,11 +186,17 @@ export default function Login() {
                             </button>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: '#4B5563' }}>
+                            <input type="checkbox" style={{ accentColor: 'var(--brand-500)', width: '16px', height: '16px' }} />
+                            {t('auth.remember_me', { defaultValue: 'Remember me' })}
+                        </label>
                         <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
                             Forgot password?
                         </a>
                     </div>
+
                     <button
                         data-cy="btn-login"
                         type="submit"

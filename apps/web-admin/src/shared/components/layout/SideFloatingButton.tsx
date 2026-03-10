@@ -13,7 +13,9 @@ export default function SideFloatingButton() {
         '/admin/services', '/platform/admin/services'
     ];
 
-    if (hiddenPaths.some(p => location.pathname.includes(p))) {
+    const currentPath = window.location.hash || location.pathname;
+
+    if (hiddenPaths.some(p => currentPath.includes(p))) {
         return null;
     }
 

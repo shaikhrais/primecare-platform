@@ -134,7 +134,7 @@ export const CarePlanManager: React.FC = () => {
                         <div className="builder-controls">
                             <button className="btn btn-ghost" onClick={() => setIsModalOpen(false)}>Cancel</button>
                             <button className="btn-premium" data-cy="btn-save-plan">
-                                {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-careplan-save')?.label || (ContentRegistry.RN_CARE_PLAN.SUCCESS_SAVE ? 'Deploy Protocol' : 'Finalize Plan')}
+                                {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-careplan-verify')?.label || 'Verify Care Plan'}
                             </button>
                         </div>
                     </div>

@@ -86,9 +86,26 @@ export default function CoordinatorHub() {
 
     return (
         <div className="coordinator-hub-container">
-            <header className="hub-header">
-                <h1>{COORDINATOR_HUB.TITLE}</h1>
-                <p>{COORDINATOR_HUB.SUBTITLE}</p>
+            <header className="hub-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h1>{COORDINATOR_HUB.TITLE}</h1>
+                    <p>{COORDINATOR_HUB.SUBTITLE}</p>
+                </div>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button className="btn-premium danger" onClick={() => navigate('/tenancy/coordinator/triage')}>
+                        {ButtonRegistry.find(b => b.id === 'btn-coord-shift-triage')?.label || 'Triage Alerts'}
+                    </button>
+                    <button className="btn-premium secondary" onClick={() => alert('Broadcasting Shift...')}>
+                        {ButtonRegistry.find(b => b.id === 'btn-coord-broadcast-shift')?.label || 'Broadcast Shift'}
+                    </button>
+                    <button className="btn-premium primary" onClick={() => triggerMatching()}>
+                        {ButtonRegistry.find(b => b.id === 'btn-coord-match-run')?.label || 'Run AI Matching'}
+                    </button>
+                    {/* Phase 13 Coordinator Action */}
+                    <button className="btn-premium danger" onClick={() => navigate('/tenancy/coordinator/sos')}>
+                        {ButtonRegistry.find(b => b.id === 'btn-coord-sos-center')?.label || 'SOS Center'}
+                    </button>
+                </div>
             </header>
 
             <section className="stats-grid">

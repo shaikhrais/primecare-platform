@@ -90,7 +90,10 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                                 cursor: 'pointer'
                                             }}
                                         >
-                                            {shift.status.toLowerCase() === 'in_progress' ? 'Finish Visit' : 'Check-In Now'}
+                                            {shift.status.toLowerCase() === 'in_progress' ?
+                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-out')?.label || 'Clock Out') :
+                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-in')?.label || 'Clock In')
+                                            }
                                         </button>
                                     )}
                                     <button data-cy="btn-view-files" style={{

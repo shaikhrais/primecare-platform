@@ -160,6 +160,19 @@ export default function PswDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
+                    <button
+                        className="btn-premium danger"
+                        onClick={() => alert('Launching Incident Reporting Flow...')}
+                        style={{
+                            padding: '12px 24px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            flex: '1 1 auto',
+                            maxWidth: '200px'
+                        }}
+                    >
+                        🚨 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-incident-report')?.label || 'Report Incident'}
+                    </button>
                     <Link to={RouteRegistry.LEARN} style={{ textDecoration: 'none', flex: '1 1 auto', maxWidth: '200px' }}>
                         <button style={{
                             padding: '12px 24px',
@@ -179,6 +192,22 @@ export default function PswDashboard() {
                         </button>
                     </Link>
                     <button
+                        onClick={() => alert('Opening Wellness Pulse...')}
+                        style={{
+                            padding: '12px 24px',
+                            backgroundColor: '#10b981',
+                            color: '#FFFFFF',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            flex: '1 1 auto',
+                            maxWidth: '200px'
+                        }}
+                    >
+                        ❤️ {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-wellness-pulse')?.label || 'Report Status'}
+                    </button>
+                    <button
                         data-cy="btn-view-all-shifts"
                         onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
                         style={{
@@ -193,9 +222,17 @@ export default function PswDashboard() {
                             maxWidth: '200px'
                         }}
                     >
-                        {t(ContentRegistry.PSW_DASHBOARD.BUTTON_FULL_SCHEDULE)}
+                        {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-view-schedule')?.label || 'View Schedule'}
                     </button>
                 </div>
+            </div>
+
+            {/* Phase 13 extra PSW actions */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Sync Availability')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-availability-sync')?.label || 'Sync Availability'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Accept Offer')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-accept')?.label || 'Accept Offer'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Decline Offer')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-decline')?.label || 'Decline Offer'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Live Visit Options')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-live-visit')?.label || 'Live Visit'}</button>
             </div>
 
             <PswStats chartData={chartData} />

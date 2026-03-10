@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
+import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import './OperationsHub.css';
@@ -82,8 +82,32 @@ export default function OperationsHub() {
                     <p>{MANAGER_OPERATIONS.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                    <button onClick={handleForceSync} className="btn-secondary-pc">{MANAGER_OPERATIONS.ACTIONS.GLOBAL_SYNC}</button>
-                    <button className="btn-primary-pc">{MANAGER_OPERATIONS.ACTIONS.DOWNLOAD_REPORT}</button>
+                    <button className="btn-primary-pc">
+                        {ButtonRegistry.find(b => b.id === 'btn-mgr-staff-add')?.label || 'Add New Staff'}
+                    </button>
+                    <button className="btn-secondary-pc">
+                        {ButtonRegistry.find(b => b.id === 'btn-mgr-audit-attendance')?.label || 'Audit Attendance'}
+                    </button>
+                    <button onClick={handleForceSync} className="btn-secondary-pc">
+                        {ButtonRegistry.find(b => b.id === 'btn-mgr-ops-stats')?.label || 'Refresh Ops Stats'}
+                    </button>
+                    <button className="btn-secondary-pc">
+                        {ButtonRegistry.find(b => b.id === 'btn-mgr-payroll-verify')?.label || 'Verify Weekly Payroll'}
+                    </button>
+                    <button className="btn-secondary-pc" style={{ background: 'transparent', border: '1px solid #e2e8f0', color: '#475569' }}>
+                        {ButtonRegistry.find(b => b.id === 'btn-mgr-feedback-triage')?.label || 'Triage Feedback'}
+                    </button>
+                </div>
+                {/* Phase 13 extra buttons */}
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Scanning...')}>{ButtonRegistry.find((b: any) => b.id === 'btn-staff-compliance-scan')?.label || 'Compliance Scan'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('New Campaign')}>{ButtonRegistry.find((b: any) => b.id === 'btn-mkt-campaign-new')?.label || 'New Campaign'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Export CRM')}>{ButtonRegistry.find((b: any) => b.id === 'btn-mkt-crm-export')?.label || 'Export CRM'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Post Role')}>{ButtonRegistry.find((b: any) => b.id === 'btn-hr-post-role')?.label || 'Post HR Role'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Approve Billing')}>{ButtonRegistry.find((b: any) => b.id === 'btn-mgr-approve-billing')?.label || 'Approve Billing'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Stats')}>{ButtonRegistry.find((b: any) => b.id === 'btn-rd-ops-stats')?.label || 'RD Ops Stats'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Export P&L')}>{ButtonRegistry.find((b: any) => b.id === 'btn-rd-pl-export')?.label || 'RD P&L Export'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Req Audit')}>{ButtonRegistry.find((b: any) => b.id === 'btn-rd-audit-req')?.label || 'RD Audit Req'}</button>
                 </div>
             </header>
 

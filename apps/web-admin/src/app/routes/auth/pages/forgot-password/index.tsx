@@ -47,7 +47,7 @@ export default function ForgotPassword() {
 
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)', position: 'relative'
+            display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '1rem', paddingBottom: '5rem', backgroundColor: 'var(--bg)', position: 'relative', boxSizing: 'border-box'
         }} data-cy="forgot-password-page">
             <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>
                 <FlagLanguageSwitcher />

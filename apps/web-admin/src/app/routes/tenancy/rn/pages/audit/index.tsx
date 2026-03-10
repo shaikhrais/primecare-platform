@@ -69,6 +69,12 @@ export const EntryVerify: React.FC = () => {
             <header className="assess-header">
                 <h1 data-cy="page-title">{ContentRegistry.RN_DAILY_AUDIT.TITLE}</h1>
                 <p data-cy="page-subtitle">{ContentRegistry.RN_DAILY_AUDIT.SUBTITLE}</p>
+                {/* Phase 13 RN Actions */}
+                <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Verify Entry')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-entry-verify')?.label || 'Verify Entry'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Careplan Save')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-careplan-save')?.label || 'Save Careplan'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Daily Review')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-daily-review')?.label || 'Daily Review'}</button>
+                </div>
             </header>
 
             <div className="audit-stack">
@@ -95,7 +101,7 @@ export const EntryVerify: React.FC = () => {
                                     data-cy={`btn-verify-${entry.id}`}
                                     onClick={() => handleVerify(entry)}
                                 >
-                                    {ContentRegistry.RN_DAILY_AUDIT.VERIFY_BUTTON}
+                                    {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-sign-off')?.label || 'Approve Visit'}
                                 </button>
                                 <button className="btn btn-ghost" style={{ fontSize: '12px' }}>Flag for Review</button>
                                 <button className="btn btn-ghost" style={{ fontSize: '12px', color: 'var(--brand-primary)' }}>Full Visit Profile →</button>

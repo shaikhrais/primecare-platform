@@ -21,6 +21,7 @@ interface Booking {
 }
 
 export default function ClientDashboard() {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const { showToast } = useNotification();
     const [bookings, setBookings] = useState<Booking[]>([]);
@@ -117,6 +118,20 @@ export default function ClientDashboard() {
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
                     <button
+                        className="btn"
+                        style={{ backgroundColor: 'white', color: 'var(--brand-600)', border: '1px solid #e5e7eb', padding: '12px 16px', borderRadius: '12px', fontWeight: 600 }}
+                        onClick={() => alert('Opening Support Chat...')}
+                    >
+                        💬 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-support-chat')?.label || 'Chat'}
+                    </button>
+                    <button
+                        className="btn"
+                        onClick={() => navigate('/tenancy/client/family')}
+                        style={{ backgroundColor: 'var(--brand-100)', color: 'var(--brand-700)', border: 'none', padding: '12px 16px', borderRadius: '12px', fontWeight: 600 }}
+                    >
+                        👨‍👩‍👧‍👦 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-family-hub')?.label || 'Family Hub'}
+                    </button>
+                    <button
                         data-cy="btn-client-request-care"
                         className="btn btn-primary"
                         onClick={() => setIsModalOpen(true)}
@@ -124,6 +139,12 @@ export default function ClientDashboard() {
                         {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-request-care')?.label || t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
                     </button>
                 </div>
+            </div>
+            {/* Phase 13 extra client actions */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('View Careplan')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-view-careplan')?.label || 'View Careplan'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => setIsModalOpen(true)}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-booking-request')?.label || 'Booking Request'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={() => alert('Cancel Visit')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-visit-cancel')?.label || 'Cancel Visit'}</button>
             </div>
 
             <ClientOverview stats={stats} />

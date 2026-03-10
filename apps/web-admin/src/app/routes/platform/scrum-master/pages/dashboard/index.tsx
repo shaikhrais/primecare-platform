@@ -73,7 +73,7 @@ export default function ScrumMasterDashboard() {
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <Link to={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} className="btn-utility" style={{ background: 'var(--brand-gradient)', color: 'white' }}>
-                        📊 {t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}
+                        📊 {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-summary-registry')?.label || t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}
                     </Link>
                     <Link to={RouteRegistry.LEARN} className="btn-utility" style={{ background: 'var(--brand-50)', color: 'var(--brand-600)' }}>
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
@@ -82,6 +82,13 @@ export default function ScrumMasterDashboard() {
                         🛠️ {t(ContentRegistry.SCRUM_MASTER.DEV_KB?.TITLE || 'Dev KB')}
                     </Link>
                 </div>
+            </div>
+
+            {/* Phase 13 actions */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '2rem' }}>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Flushing Audits...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-flush-audits')?.label || 'Flush Audits'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Reseeding DB...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-db-reseed')?.label || 'Reseed Database'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Deploying...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-build-deploy')?.label || 'Deploy Build'}</button>
             </div>
 
             {/* AI Copilot & Technical Governance (The "Future" layer) */}
