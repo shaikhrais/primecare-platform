@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
+import EmptyState from '../../../../../../shared/components/layout/EmptyState';
 
 interface SystemEvent {
     id: string;
@@ -230,8 +231,12 @@ export default function ForensicTrails() {
                         </table>
                     )}
                     {!showSummary && events.length === 0 && (
-                        <div style={{ padding: '48px', textAlign: 'center', color: '#9CA3AF' }}>
-                            No forensic events recorded yet.
+                        <div style={{ padding: '48px', textAlign: 'center' }}>
+                            <EmptyState
+                                title="No Forensic Trails Found"
+                                description="The system hasn't recorded any auditable mutations or access events matching the current parameters."
+                                icon="🛡️"
+                            />
                         </div>
                     )}
                 </div>

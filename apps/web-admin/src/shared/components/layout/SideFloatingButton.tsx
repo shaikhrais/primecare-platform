@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function SideFloatingButton() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const hiddenPaths = [
+        '/admin/users', '/platform/admin/users',
+        '/admin/schedule', '/platform/admin/schedule',
+        '/admin/leads', '/platform/admin/leads',
+        '/admin/services', '/platform/admin/services'
+    ];
+
+    if (hiddenPaths.some(p => location.pathname.includes(p))) {
+        return null;
+    }
 
     const baseStyle = {
         position: 'fixed' as 'fixed',

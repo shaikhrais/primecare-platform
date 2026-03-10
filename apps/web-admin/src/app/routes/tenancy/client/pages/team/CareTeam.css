@@ -1,0 +1,328 @@
+.care-team-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: var(--font-sans);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.care-team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid var(--line);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.care-team-header-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2rem;
+    opacity: 0.05;
+    font-size: 6rem;
+    transform: rotate(12deg) translateY(-1rem);
+}
+
+.care-team-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.care-team-subtitle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10B981;
+}
+
+.care-team-subtitle-text {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #059669;
+}
+
+.care-team-title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--text-100);
+}
+
+.care-team-desc {
+    color: var(--text-300);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.care-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.care-team-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.care-team-card:hover {
+    border-color: var(--brand-300);
+    box-shadow: var(--shadow-md);
+}
+
+.care-team-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.care-team-avatar-wrapper {
+    position: relative;
+}
+
+.care-team-avatar {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 1.25rem;
+    background-color: #F4F4F5;
+    border: 4px solid #FFFFFF;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-200);
+}
+
+.care-team-rating {
+    position: absolute;
+    bottom: -0.5rem;
+    right: -0.5rem;
+    background-color: #FFFFFF;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.care-team-rating-star {
+    font-size: 10px;
+    font-weight: 900;
+    color: #F59E0B;
+}
+
+.care-team-rating-score {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--text-100);
+}
+
+.care-team-member-name {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--text-100);
+}
+
+.care-team-member-role {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-600);
+    margin-top: 0.25rem;
+}
+
+.care-team-stats {
+    background-color: #FAFAFA;
+    border: 1px solid var(--line);
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.care-team-stat-box {
+    text-align: center;
+}
+
+.care-team-stat-label {
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-400);
+}
+
+.care-team-stat-value {
+    font-weight: 900;
+    font-size: 0.875rem;
+    color: var(--text-100);
+    margin-top: 0.25rem;
+}
+
+.care-team-stat-focus {
+    font-weight: 900;
+    font-size: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    color: var(--text-100);
+    margin-top: 0.25rem;
+}
+
+.care-team-stat-divider {
+    width: 1px;
+    background-color: var(--line);
+}
+
+.care-team-bio {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-300);
+    line-height: 1.6;
+    height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic;
+    margin: 0;
+}
+
+.care-team-action-btn {
+    width: 100%;
+    background-color: var(--text-100);
+    color: #FFFFFF;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 900;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+.care-team-action-btn:hover {
+    background-color: var(--brand-500);
+}
+
+.care-team-request-card {
+    background-color: #FAFAFA;
+    border: 2px dashed var(--line);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.care-team-request-card:hover {
+    border-color: var(--brand-300);
+    background-color: #F5FBFA;
+}
+
+.care-team-request-icon {
+    font-size: 2.25rem;
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+}
+
+.care-team-request-card:hover .care-team-request-icon {
+    opacity: 0.8;
+}
+
+.care-team-request-title {
+    font-weight: 900;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-300);
+    transition: color 0.2s ease;
+}
+
+.care-team-request-card:hover .care-team-request-title {
+    color: var(--text-100);
+}
+
+.care-team-request-desc {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-400);
+    margin-top: 0.5rem;
+    padding: 0 1.5rem;
+    line-height: 1.6;
+}
+
+.care-team-footer {
+    background-color: #FFFBEB;
+    border: 2px solid #FEF3C7;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.care-team-footer-icon {
+    background-color: #FEF3C7;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+}
+
+.care-team-footer-title {
+    font-size: 0.875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #78350F;
+    margin: 0 0 0.5rem 0;
+}
+
+.care-team-footer-desc {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #92400E;
+    line-height: 1.6;
+    max-width: 42rem;
+    margin: 0;
+}
