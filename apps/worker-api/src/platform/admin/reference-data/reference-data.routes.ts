@@ -25,11 +25,25 @@ const listInsuranceRoute = createRoute({
 routes.openapi(listInsuranceRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const kv = (c.env as any).KV;
+    const cacheKey = `insurance_providers_${tenantId}`;
+
+    if (kv) {
+        const cached = await kv.get(cacheKey, 'json');
+        if (cached) return c.json(cached, 200);
+    }
+
     const providers = await prisma.insuranceProvider.findMany({ where: { tenantId } });
-    return c.json(providers.map((p: any) => ({
+    const formatted = providers.map((p: any) => ({
         id: p.id, name: p.name, networkId: p.networkId,
         contactPhone: p.contactPhone, claimsEmail: p.claimsEmail,
-    })), 200);
+    }));
+
+    if (kv) {
+        await kv.put(cacheKey, JSON.stringify(formatted), { expirationTtl: 3600 });
+    }
+
+    return c.json(formatted, 200);
 });
 
 const createInsuranceRoute = createRoute({

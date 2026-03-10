@@ -33,7 +33,82 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                     <p style={{ color: '#6B7280' }}>Loading your upcoming visits...</p>
                 ) : shifts.length > 0 ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                        {shifts.map(shift => (
+
+                        {/* CURRENT / NEXT SHIFT HERO */}
+                        {shifts[0] && (
+                            <div data-cy={`shift-card-hero-${shifts[0].id}`} style={{
+                                padding: '24px',
+                                border: 'none',
+                                borderRadius: '16px',
+                                backgroundColor: 'var(--brand-600, #0f172a)',
+                                color: 'white',
+                                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'flex-start' }}>
+                                    <div>
+                                        <div style={{ color: '#94a3b8', fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Next Up</div>
+                                        <h3 data-cy="shift-client-name" style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900, color: 'white', lineHeight: 1.1 }}>
+                                            {shifts[0].client.fullName}
+                                        </h3>
+                                        <div style={{ color: '#34d399', fontWeight: 600, fontSize: '1rem', marginTop: '8px' }}>
+                                            🏥 {shifts[0].service.name}
+                                        </div>
+                                    </div>
+                                    <span data-cy="shift-status" style={{
+                                        color: shifts[0].status.toLowerCase() === 'in_progress' ? '#fbbf24' : '#6ee7b7',
+                                        fontWeight: 800,
+                                        fontSize: '0.75rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.5px',
+                                        background: 'rgba(255,255,255,0.1)',
+                                        padding: '6px 12px',
+                                        borderRadius: '20px'
+                                    }}>
+                                        {shifts[0].status}
+                                    </span>
+                                </div>
+
+                                <div data-cy="shift-details" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', color: '#cbd5e1', fontSize: '1rem' }}>
+                                    <div>
+                                        <strong style={{ display: 'block', color: '#64748b', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '4px' }}>Time</strong>
+                                        <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'white' }}>🕒 {new Date(shifts[0].requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                    </div>
+                                    <div>
+                                        <strong style={{ display: 'block', color: '#64748b', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '4px' }}>Location</strong>
+                                        <span>📍 {shifts[0].serviceAddressLine1}</span>
+                                    </div>
+                                </div>
+
+                                <div style={{ marginTop: '2rem', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem' }}>
+                                    {shifts[0].status.toLowerCase() !== 'completed' && (
+                                        <button
+                                            data-cy={shifts[0].status.toLowerCase() === 'in_progress' ? "btn-check-out" : "btn-check-in"}
+                                            onClick={() => shifts[0].status.toLowerCase() === 'in_progress' ? onCheckOut(shifts[0].id) : onCheckIn(shifts[0].id)}
+                                            style={{
+                                                flex: 1,
+                                                padding: '16px',
+                                                fontSize: '1.25rem',
+                                                backgroundColor: shifts[0].status.toLowerCase() === 'in_progress' ? '#ef4444' : '#10b981',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '12px',
+                                                fontWeight: '800',
+                                                cursor: 'pointer',
+                                                minHeight: '60px'
+                                            }}
+                                        >
+                                            {shifts[0].status.toLowerCase() === 'in_progress' ?
+                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-out')?.label || 'Clock Out') :
+                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-in')?.label || 'Clock In')
+                                            }
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* UPCOMING SHIFTS */}
+                        {shifts.slice(1).map(shift => (
                             <div key={shift.id} data-cy={`shift-card-${shift.id}`} style={{
                                 padding: '20px',
                                 border: '1px solid #E5E7EB',
@@ -104,7 +179,8 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                         border: '1px solid #E5E7EB',
                                         borderRadius: '8px',
                                         fontWeight: '600',
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        minHeight: '48px'
                                     }}>View Files</button>
                                 </div>
                             </div>

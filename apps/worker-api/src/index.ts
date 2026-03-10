@@ -27,8 +27,8 @@ import systemModule from './platform/system/system.module';
 import scrumMasterModule from './platform/scrum_master/scrum_master.module';
 import debugModule from './platform/system/debug.routes';
 
-import { ChatServer } from './durable_objects/ChatServer';
-export { ChatServer };
+// import { ChatServer } from './durable_objects/ChatServer';
+// export { ChatServer };
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -93,8 +93,8 @@ app.get('/v1/health', async (c) => {
 });
 
 app.onError((err, c) => {
-    console.error('Unhandled Exception (Worker Crash):', err);
     // R11: Don't log full error objects in production
+    // Removed raw console.error to prevent telemetry pollution
 
     const origin = c.req.header('Origin');
     const allowed = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];

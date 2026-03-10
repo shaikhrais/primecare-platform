@@ -39,6 +39,7 @@ const TENANCY = {
         FAMILY_MEMBERS: '/v1/client/family/members',
         FAMILY_FEED: (clientId: string) => `/v1/client/family/feed/${clientId}`,
         FAMILY_MESSAGE: '/v1/client/family/message',
+        FAMILY_HUB_OVERVIEW: '/v1/client/family/hub-overview',
         // Round 3 Extensions
         BILLING_INVOICES: '/v1/client/billing/invoices',
         BILLING_INVOICE_DETAIL: (id: string) => `/v1/client/billing/invoices/${id}`,

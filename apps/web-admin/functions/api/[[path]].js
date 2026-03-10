@@ -25,7 +25,8 @@ export async function onRequest(context) {
         method: context.request.method,
         headers,
         body: context.request.method !== 'GET' && context.request.method !== 'HEAD' ? context.request.body : null,
-        redirect: 'manual'
+        redirect: 'manual',
+        duplex: 'half'
     });
 
     try {

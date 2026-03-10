@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../../../../../shared/context/NotificationContext';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -14,6 +15,7 @@ interface TaxReport {
 }
 
 export default function TaxComplianceHub() {
+    const { showToast } = useNotification();
     const [report, setReport] = useState<TaxReport | null>(null);
     const [loading, setLoading] = useState(true);
     const [remitting, setRemitting] = useState(false);
@@ -28,7 +30,8 @@ export default function TaxComplianceHub() {
                 setReport(await res.json());
             }
         } catch (error) {
-            console.error('Failed to load tax filing report:', error);
+            showToast('Failed to load tax filing report', 'error');
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -40,7 +43,7 @@ export default function TaxComplianceHub() {
 
     const handleRemit = async () => {
         if (!remittanceAmount || !reference) {
-            alert('Please provide an amount and reference.');
+            showToast('Please provide an amount and reference.', 'error');
             return;
         }
 
@@ -48,16 +51,16 @@ export default function TaxComplianceHub() {
         try {
             const res = await apiClient.post(ApiRegistry.PLATFORM.ADMIN.REPORTING.TAX_REMITTANCE, {
                 amount: remittanceAmount,
-                reference
             });
             if (res.ok) {
-                alert('Tax remittance recorded successfully in the ledger.');
+                showToast('Tax remittance recorded successfully in the ledger.', 'success');
                 loadData();
                 setRemittanceAmount(0);
                 setReference('');
             }
         } catch (error) {
-            console.error('Remittance failed:', error);
+            showToast('Remittance failed', 'error');
+            console.error(error);
         } finally {
             setRemitting(false);
         }

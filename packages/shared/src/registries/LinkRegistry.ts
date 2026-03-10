@@ -107,4 +107,13 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-fd-dashboard', label: ACCOUNTING_DASHBOARD.TITLE, role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: 'High-level financial intelligence and real-time ledger oversight.' },
     { id: 'lnk-fd-ledger', label: 'Financial Ledger', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: 'Forensic audit trail and immutable ledger verification.' },
     { id: 'lnk-fd-tax-hub', label: 'Tax Compliance Hub', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: 'Periodic HST/GST filing and automated remittance processing.' },
+    // Phase 15 Domain Expansion
+    { id: 'lnk-client-medical-summary', label: 'Medical Summary', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.MEDICAL_SUMMARY, description: 'Consolidated view of clinical and medical history.' },
+    { id: 'lnk-client-family-portal', label: 'Family Engagement', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.FAMILY_PORTAL, description: 'Portal for authorized family members to track care.' },
+    { id: 'lnk-telehealth-admin-dashboard', label: 'Telehealth Command', role: 'admin', module: 'TELEHEALTH', path: RouteRegistry.ADMIN.TELEHEALTH.CENTER, description: 'Platform-wide telehealth session monitoring.' },
+    { id: 'lnk-evv-exceptions', label: 'EVV Corrections', role: 'admin', module: 'EVV', path: RouteRegistry.ADMIN.EVV.EXCEPTIONS, description: 'Audit and approve Electronic Visit Verification exceptions.' },
+    { id: 'lnk-rn-wound-care', label: 'Wound Care Flow', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.WOUND_CARE, description: 'Dedicated clinical module for wound progression tracking.' },
+    { id: 'lnk-rn-rai-assessments', label: 'MDS/RAI Hub', role: 'rn', module: 'CLINICAL', path: RouteRegistry.RN.RAI_ASSESSMENTS, description: 'Standardized Resident Assessment Instrument management.' },
+    { id: 'lnk-admin-consent-forms', label: 'Consent Forms', role: 'admin', module: 'AUTHORIZATIONS', path: RouteRegistry.ADMIN.CONSENT.LIST, description: 'Management of PHIPA/HIPAA digital consent forms.' },
+    { id: 'lnk-admin-authorizations', label: 'Funding Auth', role: 'admin', module: 'AUTHORIZATIONS', path: RouteRegistry.ADMIN.AUTHORIZATIONS.LIST, description: 'Tracking of funding source service hour authorizations.' },
 ];

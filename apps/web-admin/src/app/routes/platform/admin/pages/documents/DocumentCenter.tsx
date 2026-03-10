@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function DocumentCenter() {
     const { showToast } = useNotification();
@@ -9,18 +11,23 @@ export default function DocumentCenter() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setDocuments([
-                { id: '1', pswName: 'Jane Smith', docType: 'VSS (Vulnerable Sector Screen)', status: 'pending_review', uploadedAt: '2026-03-08', expiresAt: '2027-03-08' },
-                { id: '2', pswName: 'Maria Garcia', docType: 'CPR Certification', status: 'approved', uploadedAt: '2026-02-15', expiresAt: '2027-02-15' },
-                { id: '3', pswName: 'James Wilson', docType: 'Clinical License', status: 'rejected', uploadedAt: '2026-03-01', expiresAt: null },
-                { id: '4', pswName: 'Sarah Johnson', docType: 'COVID-19 Vaccination Record', status: 'approved', uploadedAt: '2026-01-10', expiresAt: null },
-                { id: '5', pswName: 'Robert Chen', docType: 'First Aid Certificate', status: 'pending_review', uploadedAt: '2026-03-07', expiresAt: '2027-03-07' },
-            ]);
-            setLoading(false);
-        }, 750);
+        fetchDocuments();
     }, []);
+
+    const fetchDocuments = async () => {
+        setLoading(true);
+        try {
+            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.DOCUMENTS.LIST);
+            if (response.ok) {
+                const data = await response.json();
+                setDocuments(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch documents', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const statusBadge = (s: string) => {
         const map: Record<string, { color: string; label: string }> = {

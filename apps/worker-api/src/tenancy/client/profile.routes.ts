@@ -21,7 +21,16 @@ const getProfileRoute = createRoute({
 });
 
 r.openapi(getProfileRoute, async (c) => {
-    return c.json({ name: 'Mock Client Profile' }, 200);
+    const prisma = c.get('prisma');
+    const payload = c.get('jwtPayload') as any;
+
+    const profile = await prisma.clientProfile.findUnique({
+        where: { userId: payload.sub }
+    });
+
+    if (!profile) return c.json({} as any, 200);
+
+    return c.json(profile, 200);
 });
 
 export default r;

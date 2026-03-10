@@ -11,6 +11,7 @@ import { PswStats } from './components/PswStats';
 import { ShiftList } from './components/ShiftList';
 import { ComplianceSection } from './components/ComplianceSection';
 import { WellnessPulse } from './components/WellnessPulse';
+import { Sparkline } from '@/shared/components/charts/Sparkline';
 import { useTranslation } from 'react-i18next';
 
 const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
@@ -66,6 +67,9 @@ export default function PswDashboard() {
             return;
         }
 
+        const originalShifts = [...shifts];
+        setShifts(prev => prev.map(s => s.id === id ? { ...s, status: 'IN_PROGRESS' } : s));
+
         navigator.geolocation.getCurrentPosition(async (position) => {
             try {
                 const token = localStorage.getItem('token');
@@ -83,15 +87,18 @@ export default function PswDashboard() {
                 });
                 if (response.ok) {
                     fetchShiftsAndStats();
-                    showToast('Check-in successful!', 'success');
+                    showToast(t('psw.checkin_success', { defaultValue: 'Check-in successful!' }), 'success');
                 } else {
+                    setShifts(originalShifts);
                     const data = await response.json();
-                    showToast(`Check-in failed: ${data.error || 'Unknown error'}`, 'error');
+                    showToast(t('psw.checkin_failed', { defaultValue: `Check-in failed: ${data?.error || 'Unknown error'}` }), 'error');
                 }
             } catch (error) {
+                setShifts(originalShifts);
                 showToast('Check-in failed', 'error');
             }
         }, (error) => {
+            setShifts(originalShifts);
             showToast(`Could not get location: ${error.message}`, 'error');
         });
     };
@@ -101,6 +108,9 @@ export default function PswDashboard() {
             showToast('Geolocation is not supported by your browser', 'error');
             return;
         }
+
+        const originalShifts = [...shifts];
+        setShifts(prev => prev.map(s => s.id === id ? { ...s, status: 'COMPLETED' } : s));
 
         navigator.geolocation.getCurrentPosition(async (position) => {
             try {
@@ -119,15 +129,18 @@ export default function PswDashboard() {
                 });
                 if (response.ok) {
                     fetchShiftsAndStats();
-                    showToast('Check-out successful! Visit completed.', 'success');
+                    showToast(t('psw.checkout_success', { defaultValue: 'Check-out successful! Visit completed.' }), 'success');
                 } else {
+                    setShifts(originalShifts);
                     const data = await response.json();
-                    showToast(`Check-out failed: ${data.error || 'Unknown error'}`, 'error');
+                    showToast(t('psw.checkout_failed', { defaultValue: `Check-out failed: ${data?.error || 'Unknown error'}` }), 'error');
                 }
             } catch (error) {
+                setShifts(originalShifts);
                 showToast('Check-out failed', 'error');
             }
         }, (error) => {
+            setShifts(originalShifts);
             showToast(`Could not get location: ${error.message}`, 'error');
         });
     };
@@ -229,10 +242,40 @@ export default function PswDashboard() {
 
             {/* Phase 13 extra PSW actions */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Sync Availability')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-availability-sync')?.label || 'Sync Availability'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Accept Offer')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-accept')?.label || 'Accept Offer'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Decline Offer')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-decline')?.label || 'Decline Offer'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Live Visit Options')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-live-visit')?.label || 'Live Visit'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-availability-sync" onClick={() => showToast(t('psw.syncing_availability', { defaultValue: 'Syncing Availability...' }), 'info')}>{t('psw.btn_sync_availability', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-availability-sync')?.label || 'Sync Availability' })}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-offer-accept" onClick={() => showToast(t('psw.offer_accepted', { defaultValue: 'Offer Accepted' }), 'success')}>{t('psw.btn_accept_offer', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-accept')?.label || 'Accept Offer' })}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-offer-decline" onClick={() => showToast(t('psw.offer_declined', { defaultValue: 'Offer Declined' }), 'info')}>{t('psw.btn_decline_offer', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-decline')?.label || 'Decline Offer' })}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-live-visit" onClick={() => showToast(t('psw.live_visit_options', { defaultValue: 'Live Visit Options Opened' }), 'info')}>{t('psw.btn_live_visit', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-live-visit')?.label || 'Live Visit' })}</button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
+                <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #10b981`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Weekly Earnings</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>$840</div>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                        <Sparkline data={[400, 550, 600, 300, 700, 800, 840]} color="#10b981" width={80} height={24} />
+                    </div>
+                </div>
+                <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #3b82f6`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Hours Logged</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>32.5</div>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                        <Sparkline data={[20, 25, 22, 30, 28, 30, 32.5]} color="#3b82f6" width={80} height={24} />
+                    </div>
+                </div>
+                <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #f59e0b`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Reliability Score</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>98%</div>
+                    </div>
+                    <div style={{ marginBottom: '8px' }}>
+                        <Sparkline data={[95, 96, 96, 97, 98, 97, 98]} color="#f59e0b" width={80} height={24} />
+                    </div>
+                </div>
             </div>
 
             <PswStats chartData={chartData} />

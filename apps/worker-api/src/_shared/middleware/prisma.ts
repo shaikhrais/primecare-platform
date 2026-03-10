@@ -28,7 +28,6 @@ export const prismaMiddleware = () => {
             const isAccelerate = dbUrl?.startsWith('prisma://');
 
             try {
-                console.log('[PRISMA_INIT_START]', { isAccelerate });
                 if (isAccelerate) {
                     // @ts-ignore
                     const mod = await import('../../../generated/client/edge');
@@ -36,21 +35,11 @@ export const prismaMiddleware = () => {
                     // @ts-ignore
                     const { withAccelerate } = await import('@prisma/extension-accelerate');
                     prismaInstance = new PrismaClient({ datasourceUrl: dbUrl }).$extends(withAccelerate());
-                    console.log('[PRISMA_INIT_SUCCESS] Accelerate');
                 } else {
-                    // Production Cloudflare Worker / Local with postgres://
-                    // @ts-ignore
-                    const mod = await import('../../../generated/client/wasm.js');
+                    // Local Node.js / SQLite Fallback Strategy
+                    const mod = await import('../../../generated/client/index.js');
                     const PrismaClient = mod.PrismaClient || (mod.default ? mod.default.PrismaClient : mod.default);
-                    // @ts-ignore
-                    const { PrismaPg } = await import('@prisma/adapter-pg');
-                    // @ts-ignore
-                    const pg = await import('pg');
-
-                    const pgPool = pg.default ? new pg.default.Pool({ connectionString: dbUrl }) : new (pg as any).Pool({ connectionString: dbUrl });
-                    const adapter = new PrismaPg(pgPool);
-                    prismaInstance = new PrismaClient({ adapter });
-                    console.log('[PRISMA_INIT_SUCCESS] Direct (WASM)');
+                    prismaInstance = new PrismaClient({ datasourceUrl: dbUrl });
                 }
             } catch (err: any) {
                 console.error('[PRISMA_INIT_ERROR]', err.message);

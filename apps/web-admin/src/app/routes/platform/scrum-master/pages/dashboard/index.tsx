@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { Link } from 'react-router-dom';
 
 // Components
 import { DashboardStatus } from './components/DashboardStatus';
@@ -20,9 +20,11 @@ const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function ScrumMasterDashboard() {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [drillType, setDrillType] = useState<'endpoints' | 'pages' | 'flows' | 'mesh' | null>(null);
 
     const closeModal = () => setDrillType(null);
+    const handleNavigation = (path: string) => navigate(path);
 
     return (
         <div data-cy="scrum-master-dashboard" style={{ animation: 'fadeIn 0.6s ease-out' }}>

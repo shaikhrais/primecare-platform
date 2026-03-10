@@ -47,23 +47,7 @@ const registerRoute = createRoute({
 r.openapi(registerRoute, async (c) => {
     const { email, password, role, tenantName, tenantSlug } = c.req.valid('json');
 
-    // MOCK FALLBACK FOR PUBLIC URL UI DRILLS
-    if (email.startsWith('test') || email.startsWith('admin')) {
-        const safeRole = role || 'client';
-        const mockUser = {
-            id: 'mock-test-id',
-            email: email,
-            roles: [safeRole],
-            tenantId: 'system',
-            status: 'active'
-        };
-        const jwtSecret = c.env.JWT_SECRET || 'fallback-secret-for-testing';
-        const accessToken = await generateToken({ id: mockUser.id, roles: mockUser.roles as any, tenantId: mockUser.tenantId }, jwtSecret);
-        const refreshToken = await generateRefreshToken(mockUser.id, jwtSecret);
-        setCookie(c, 'accessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 86400, path: '/' });
-        setCookie(c, 'refreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 604800, path: '/v1/auth/refresh' });
-        return c.json({ user: mockUser }, 201);
-    }
+
 
     const prisma = c.get('prisma');
 
@@ -83,7 +67,11 @@ r.openapi(registerRoute, async (c) => {
             create: {
                 name: tenantName || 'Default Tenant',
                 slug: slug,
-                status: 'active'
+                status: 'active',
+                allowedVpnRanges: '',
+                corsAllowedOrigins: '',
+                corsAllowedMethods: '',
+                corsAllowedHeaders: ''
             }
         });
     }
@@ -96,7 +84,7 @@ r.openapi(registerRoute, async (c) => {
             data: {
                 email,
                 passwordHash,
-                roles: [role] as any,
+                roles: role,
                 tenantId: tenant.id
             },
         });
@@ -114,7 +102,10 @@ r.openapi(registerRoute, async (c) => {
                 data: {
                     userId: newUser.id,
                     fullName: email.split('@')[0],
-                    tenantId: tenant.id
+                    tenantId: tenant.id,
+                    languages: '',
+                    serviceAreas: '',
+                    skills: ''
                 }
             });
         }

@@ -1,12 +1,12 @@
 ﻿import { Context, Next } from 'hono';
-import { Role } from '../../../generated/client/edge';
+
 import { Permission } from '../rbac/permissions';
 import { ROLE_PERMISSIONS } from '../rbac/policies';
 
-export const requireRole = (allowedRoles: Role[]) => {
+export const requireRole = (allowedRoles: string[]) => {
     return async (c: Context, next: Next) => {
         const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string } | undefined;
-        const userRoles = payload?.roles as Role[] || [];
+        const userRoles = Array.isArray(payload?.roles) ? payload.roles : (payload?.roles ? [payload.roles as unknown as string] : []);
 
         const SERVICE_PROVIDERS = ['psw', 'rn', 'rmt', 'rpt', 'rch'];
         const STAFF_SUBROLES = ['staff', 'finance', 'hr', 'compliance', 'finance_manager', 'hr_manager'];
@@ -17,7 +17,7 @@ export const requireRole = (allowedRoles: Role[]) => {
             if (allowedRoles.includes(role)) return true;
 
             // 1. Manager Umbrella: explicit subrole membership (NOT string-includes)
-            const isManagerAllowed = allowedRoles.includes('manager' as Role);
+            const isManagerAllowed = allowedRoles.includes('manager');
             if (isManagerAllowed && MANAGER_SUBROLES.includes(lowerRole)) return true;
 
             // 2. Service Provider Umbrella: PSW, RN, RMT, RPT, RCH
@@ -25,7 +25,7 @@ export const requireRole = (allowedRoles: Role[]) => {
             if (isSPAllowed && SERVICE_PROVIDERS.includes(lowerRole)) return true;
 
             // 3. Staff Umbrella: finance, hr, compliance, etc.
-            const isStaffAllowed = allowedRoles.includes('staff' as Role);
+            const isStaffAllowed = allowedRoles.includes('staff');
             if (isStaffAllowed && STAFF_SUBROLES.includes(lowerRole)) return true;
 
             return false;
@@ -42,7 +42,7 @@ export const requireRole = (allowedRoles: Role[]) => {
 export const requirePermission = (permission: Permission) => {
     return async (c: Context, next: Next) => {
         const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string } | undefined;
-        const userRoles = payload?.roles as Role[] || [];
+        const userRoles = Array.isArray(payload?.roles) ? payload.roles : (payload?.roles ? [payload.roles as unknown as string] : []);
 
         const hasPermission = userRoles.some(role => {
             const perms = ROLE_PERMISSIONS[role] || [];

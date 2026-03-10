@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { ContentRegistry, ApiRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useTranslation } from 'react-i18next';
+import { useNotification } from '@/shared/context/NotificationContext';
+import EmptyState from '@/shared/components/layout/EmptyState';
+import { Search } from 'lucide-react';
 import './WaitlistManager.css';
 
 const { COORDINATOR_WAITLIST } = ContentRegistry;
 
 export default function WaitlistManager() {
+    const { t } = useTranslation();
+    const { showToast } = useNotification();
     const [waitlist, setWaitlist] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -17,7 +23,8 @@ export default function WaitlistManager() {
                     setWaitlist(data);
                 }
             } catch (error) {
-                console.error('Failed to fetch waitlist:', error);
+                showToast(t('waitlist.fetchError', 'Failed to fetch waitlist'), 'error');
+                console.error(error);
             } finally {
                 setLoading(false);
             }
@@ -43,7 +50,7 @@ export default function WaitlistManager() {
         }
     };
 
-    if (loading) return <div className="waitlist-manager-container">Synchronizing Demand Ledger...</div>;
+    if (loading) return <div className="waitlist-manager-container">{t('waitlist.syncLedger', 'Synchronizing Demand Ledger...')}</div>;
 
     return (
         <div className="waitlist-manager-container">
@@ -60,14 +67,18 @@ export default function WaitlistManager() {
                             <th>{COORDINATOR_WAITLIST.COLUMNS.PRIORITY}</th>
                             <th>{COORDINATOR_WAITLIST.COLUMNS.ACUITY}</th>
                             <th>{COORDINATOR_WAITLIST.COLUMNS.ENTRY_DATE}</th>
-                            <th>Actions</th>
+                            <th>{t('waitlist.actions', 'Actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {waitlist.length === 0 ? (
                             <tr>
-                                <td colSpan={5} style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
-                                    No active waitlist entries found.
+                                <td colSpan={5} style={{ padding: '0' }}>
+                                    <EmptyState
+                                        title={t(ContentRegistry.COMMON?.NO_RESULTS || 'No Results')}
+                                        description={t('waitlist.emptyDescription', 'No active waitlist entries found.')}
+                                        icon={<Search size={24} />}
+                                    />
                                 </td>
                             </tr>
                         ) : (
@@ -86,11 +97,11 @@ export default function WaitlistManager() {
                                     <td style={{ color: '#64748b' }}>{new Date(entry.entryDate).toLocaleDateString()}</td>
                                     <td>
                                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                            <button className="btn-action">
-                                                {COORDINATOR_WAITLIST.ACTIONS.BOOST_PRIORITY}
+                                            <button data-cy="btn-waitlist-boost" className="btn-action">
+                                                {t('waitlist.actions.boost', COORDINATOR_WAITLIST.ACTIONS.BOOST_PRIORITY)}
                                             </button>
-                                            <button className="btn-action" style={{ background: '#0f172a', color: 'white', border: 'none' }}>
-                                                {COORDINATOR_WAITLIST.ACTIONS.ASSIGN_STAFF}
+                                            <button data-cy="btn-waitlist-assign" className="btn-action" style={{ background: '#0f172a', color: 'white', border: 'none' }}>
+                                                {t('waitlist.actions.assign', COORDINATOR_WAITLIST.ACTIONS.ASSIGN_STAFF)}
                                             </button>
                                         </div>
                                     </td>

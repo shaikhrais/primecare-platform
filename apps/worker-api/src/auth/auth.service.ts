@@ -1,5 +1,5 @@
 import { sign } from 'hono/jwt';
-import { Role } from '../../generated/client/edge';
+
 
 /**
  * R8: Hardened token generation with proper JWT claims.
@@ -10,9 +10,9 @@ import { Role } from '../../generated/client/edge';
  */
 
 export const generateToken = async (
-    user: { id: string; roles: Role[]; tenantId: string },
+    user: { id: string; roles: string[]; tenantId: string },
     secret: string,
-    options: { activeRole?: Role, expiresInMinutes?: number, type?: string } = {}
+    options: { activeRole?: string, expiresInMinutes?: number, type?: string } = {}
 ) => {
     const { activeRole, expiresInMinutes = 60, type } = options;
     const now = Math.floor(Date.now() / 1000);

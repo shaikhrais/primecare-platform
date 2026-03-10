@@ -8,8 +8,8 @@ interface RequestOptions extends RequestInit {
 // #23: Typed API error class
 export class ApiError extends Error {
     status: number;
-    data: any;
-    constructor(status: number, message: string, data?: any) {
+    data: unknown;
+    constructor(status: number, message: string, data?: unknown) {
         super(message);
         this.name = 'ApiError';
         this.status = status;
@@ -53,15 +53,16 @@ export const apiClient = {
 
         // Retry with backoff for cold-start resilience
         let response!: Response;
-        let lastError: any;
+        let lastError: Error | null = null;
         for (let attempt = 0; attempt < 3; attempt++) {
             try {
                 response = await fetch(url, defaultOptions);
                 lastError = null;
                 break;
-            } catch (err: any) {
-                lastError = err;
-                if (err.name === 'AbortError') {
+            } catch (err: unknown) {
+                const error = err as Error;
+                lastError = error;
+                if (error.name === 'AbortError') {
                     clearTimeout(timeoutId);
                     throw new ApiError(408, `Request timeout after ${timeoutMs}ms`, { path });
                 }
@@ -124,7 +125,7 @@ export const apiClient = {
         return this.request(path, { ...options, method: 'GET' });
     },
 
-    post(path: string, body?: any, options?: RequestOptions) {
+    post(path: string, body?: unknown, options?: RequestOptions) {
         return this.request(path, {
             ...options,
             method: 'POST',
@@ -132,7 +133,7 @@ export const apiClient = {
         });
     },
 
-    put(path: string, body?: any, options?: RequestOptions) {
+    put(path: string, body?: unknown, options?: RequestOptions) {
         return this.request(path, {
             ...options,
             method: 'PUT',
@@ -140,7 +141,7 @@ export const apiClient = {
         });
     },
 
-    patch(path: string, body?: any, options?: RequestOptions) {
+    patch(path: string, body?: unknown, options?: RequestOptions) {
         return this.request(path, {
             ...options,
             method: 'PATCH',

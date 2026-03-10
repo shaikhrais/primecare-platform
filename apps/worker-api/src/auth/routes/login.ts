@@ -74,38 +74,13 @@ r.openapi(loginRoute, async (c) => {
     try {
         const { email, password } = c.req.valid('json');
 
-        // MOCK FALLBACK FOR PUBLIC URL UI DRILLS
-        if (email.startsWith('test') || email.startsWith('admin') || email === 'admin@primecare.com') {
-            const mockUser = {
-                id: 'mock-test-id',
-                email: email,
-                roles: ['admin', 'psw', 'scrum_master', 'manager', 'coordinator', 'rn', 'client', 'staff'],
-                tenantId: 'system',
-                status: 'active'
-            };
-            const jwtSecret = c.env.JWT_SECRET || 'fallback-secret-for-testing';
-            const accessToken = await generateToken({ id: mockUser.id, roles: mockUser.roles as any, tenantId: mockUser.tenantId }, jwtSecret);
-            const refreshToken = await generateRefreshToken(mockUser.id, jwtSecret);
-            setCookie(c, 'accessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 86400, path: '/' });
-            setCookie(c, 'refreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 604800, path: '/v1/auth/refresh' });
-            return c.json({ user: mockUser }, 200);
-        }
+
 
         const prisma = c.get('prisma');
 
         let user = await prisma.user.findUnique({ where: { email } });
 
-        // MOCK FALLBACK FOR PUBLIC URL UI DRILLS
-        if (!user && email === 'admin@primecare.com' && password === 'password') {
-            user = {
-                id: 'mock-admin-id',
-                email: 'admin@primecare.com',
-                roles: ['admin', 'psw', 'scrum_master', 'manager', 'coordinator', 'rn', 'client', 'staff'],
-                tenantId: 'system',
-                status: 'active',
-                passwordHash: 'mocked'
-            } as any;
-        } else if (!user || !user.passwordHash) {
+        if (!user || !user.passwordHash) {
             return c.json({ error: 'Invalid credentials' }, 401);
         }
 
@@ -114,15 +89,13 @@ r.openapi(loginRoute, async (c) => {
             return c.json({ error: 'Invalid credentials' }, 401);
         }
 
-        let isValid = false;
-        if (user.id === 'mock-admin-id') isValid = true;
-        else isValid = await comparePassword(password, user.passwordHash);
+        const isValid = await comparePassword(password, user.passwordHash);
 
         if (!isValid) {
             return c.json({ error: 'Invalid credentials' }, 401);
         }
 
-        if (user.id !== 'mock-admin-id' && isLegacyHash(user.passwordHash)) {
+        if (isLegacyHash(user.passwordHash)) {
             const newHash = await hashPassword(password);
             await prisma.user.update({ where: { id: user.id }, data: { passwordHash: newHash } }).catch(() => { });
         }
@@ -146,36 +119,39 @@ r.openapi(loginRoute, async (c) => {
 
         if (deviceId) {
             const tenant = await prisma.tenant.findUnique({ where: { id: user.tenantId } });
+
+            if (!tenant && user.tenantId !== 'system') {
+                return c.json({ error: 'Orphaned Account', message: 'The organization associated with this account has been disabled or removed.' }, 403);
+            }
+
             const existingDevice = await prisma.userDevice.findUnique({
                 where: { userId_deviceId: { userId: user.id, deviceId } }
             });
 
             if (!existingDevice) {
                 const deviceCount = await prisma.userDevice.count({ where: { userId: user.id } });
-                if (user.id !== 'mock-admin-id' && tenant && tenant.maxDevicesPerUser !== undefined && tenant.maxDevicesPerUser !== null && deviceCount >= tenant.maxDevicesPerUser) {
+                if (tenant && tenant.maxDevicesPerUser !== undefined && tenant.maxDevicesPerUser !== null && deviceCount >= tenant.maxDevicesPerUser) {
                     return c.json({
                         error: 'Device Limit Exceeded',
                         message: `You have reached the maximum limit of ${tenant.maxDevicesPerUser} devices. Please revoke an existing device to continue.`
                     }, 403);
                 }
 
-                if (user.id !== 'mock-admin-id') {
-                    await prisma.userDevice.create({
-                        data: {
-                            userId: user.id,
-                            deviceId,
-                            deviceName,
-                            deviceType,
-                            lastIp: clientIp,
-                            isAuthorized: tenant ? !tenant.requireDeviceApproval : true,
-                            authorizedAt: (tenant && !tenant.requireDeviceApproval) ? new Date() : null,
-                            isTemporary: isTempStr === 'true',
-                            expiresAt: isTempStr === 'true' ? new Date(Date.now() + 1000 * 60 * 60 * 24) : null,
-                        }
-                    });
-                }
+                await prisma.userDevice.create({
+                    data: {
+                        userId: user.id,
+                        deviceId,
+                        deviceName,
+                        deviceType,
+                        lastIp: clientIp,
+                        isAuthorized: tenant ? !tenant.requireDeviceApproval : true,
+                        authorizedAt: (tenant && !tenant.requireDeviceApproval) ? new Date() : null,
+                        isTemporary: isTempStr === 'true',
+                        expiresAt: isTempStr === 'true' ? new Date(Date.now() + 1000 * 60 * 60 * 24) : null,
+                    }
+                });
 
-                if (tenant?.requireDeviceApproval) {
+                if (tenant && tenant.requireDeviceApproval) {
                     const safeUserPending = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
                     return c.json({
                         user: safeUserPending,
@@ -183,7 +159,7 @@ r.openapi(loginRoute, async (c) => {
                         message: 'Login successful, but this device requires administrator approval.'
                     }, 200);
                 }
-            } else if (user.id !== 'mock-admin-id') {
+            } else {
                 await prisma.userDevice.update({
                     where: { id: existingDevice.id },
                     data: { lastActiveAt: new Date(), lastIp: clientIp }
@@ -211,7 +187,7 @@ r.openapi(loginRoute, async (c) => {
             path: '/v1/auth/refresh'
         });
 
-        if (deviceId && user.id !== 'mock-admin-id') {
+        if (deviceId) {
             await logAudit(
                 prisma,
                 user.id,
@@ -285,22 +261,26 @@ r.openapi(switchRoleRoute, async (c) => {
     const jwtSecret = c.env.JWT_SECRET;
     if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
-    const token = await generateToken({
-        id: user.id,
-        roles: user.roles as any,
-        tenantId: user.tenantId
-    }, jwtSecret, targetRole as any);
+    try {
+        const token = await generateToken({
+            id: user.id,
+            roles: user.roles as any,
+            tenantId: user.tenantId
+        }, jwtSecret, targetRole as any);
 
-    setCookie(c, 'accessToken', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-        maxAge: 60 * 60 * 24,
-        path: '/'
-    });
+        setCookie(c, 'accessToken', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            maxAge: 60 * 60 * 24,
+            path: '/'
+        });
 
-    // R19: Don't return token in body — HttpOnly cookie handles auth
-    return c.json({ activeRole: targetRole }, 200);
+        // R19: Don't return token in body — HttpOnly cookie handles auth
+        return c.json({ activeRole: targetRole }, 200);
+    } catch (e: any) {
+        return c.json({ error: 'Failed to generate token payload.' }, 500);
+    }
 });
 
 export default r;

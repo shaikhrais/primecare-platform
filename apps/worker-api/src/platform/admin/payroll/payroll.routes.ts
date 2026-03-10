@@ -120,22 +120,31 @@ payroll.openapi(runRoute, async (c) => {
     const { weekId, hourlyRate } = c.req.valid('json');
     const rate = hourlyRate || 25.0; // Default PSW rate
 
-    const approved = await prisma.timesheet.findMany({
-        where: { tenantId, weekId, status: 'approved' },
+    const result = await prisma.$transaction(async (tx: any) => {
+        const approved = await tx.timesheet.findMany({
+            where: { tenantId, weekId, status: 'approved' },
+        });
+
+        let totalAmount = 0;
+        for (const ts of approved) {
+            const hours = (ts.totalMinutes || 0) / 60;
+            const amount = hours * rate;
+            totalAmount += amount;
+
+            await tx.payout.create({
+                data: { pswId: ts.pswId, tenantId, amount, status: 'pending' },
+            });
+
+            // Mark as paid to prevent double payouts
+            await tx.timesheet.update({
+                where: { id: ts.id },
+                data: { status: 'paid' },
+            });
+        }
+        return { payoutsGenerated: approved.length, totalAmount };
     });
 
-    let totalAmount = 0;
-    for (const ts of approved) {
-        const hours = (ts.totalMinutes || 0) / 60;
-        const amount = hours * rate;
-        totalAmount += amount;
-
-        await prisma.payout.create({
-            data: { pswId: ts.pswId, tenantId, amount, status: 'pending' },
-        });
-    }
-
-    return c.json({ payoutsGenerated: approved.length, totalAmount: totalAmount.toFixed(2) }, 200);
+    return c.json({ payoutsGenerated: result.payoutsGenerated, totalAmount: result.totalAmount.toFixed(2) }, 200);
 });
 
 // GET /payroll/summary/:weekId — Payroll summary for a period

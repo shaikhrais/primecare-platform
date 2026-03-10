@@ -30,7 +30,7 @@ export function UserTable({ users, loading, onEdit, onApprove, onSelectUser }: U
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }} data-cy="tbl.users">
                 <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                     <tr>
-                        <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.TITLE)}</th>
+                        <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>User Info</th>
                         <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ROLE)}</th>
                         <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ID_VERIFICATION)}</th>
                         <th style={{ padding: '1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase' }}>{t(ContentRegistry.USERS.ACTIONS)}</th>

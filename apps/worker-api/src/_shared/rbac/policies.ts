@@ -1,7 +1,7 @@
-import { Role } from '../../../generated/client/edge';
+
 import { Permission } from './permissions';
 
-export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
+export const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     admin: [
         'USER_CREATE', 'USER_RESET_PASSWORD', 'CLIENT_VIEW_ALL', 'CLIENT_UPDATE',
         'SHIFT_ASSIGN', 'SHIFT_REASSIGN', 'SETTINGS_UPDATE',

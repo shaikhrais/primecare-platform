@@ -28,6 +28,7 @@ const InteractionAudit = lazy(() => import('./pages/audit/InteractionAudit'));
 const ResponseBot = lazy(() => import('./pages/audit/ResponseBot'));
 const UsageStatisticsManager = lazy(() => import('./pages/usage/UsageStatisticsManager'));
 const DigitalPropertyManager = lazy(() => import('./pages/property/DigitalPropertyManager'));
+const E2eRunner = lazy(() => import('./pages/e2e-runner'));
 
 export const ScrumMasterRoutes = () => (
     <Route path={`${RouteRegistry.SCRUM_MASTER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
@@ -53,5 +54,6 @@ export const ScrumMasterRoutes = () => (
         <Route path="response-bot" element={<ResponseBot />} />
         <Route path="usage-stats" element={<UsageStatisticsManager />} />
         <Route path="digital-property" element={<DigitalPropertyManager />} />
+        <Route path="e2e-runner" element={<E2eRunner />} />
     </Route>
 );

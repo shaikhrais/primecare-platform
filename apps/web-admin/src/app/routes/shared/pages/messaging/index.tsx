@@ -37,7 +37,8 @@ export default function MessagingPortal() {
         if (user.id || user.email) {
             const id = user.id || user.email;
             webChatService.connect(id);
-            const unsubscribe = webChatService.addListener((msg: { sender?: string; userId: string; message: string }) => {
+            const unsubscribe = webChatService.addListener((rawMsg: Record<string, unknown>) => {
+                const msg = rawMsg as { sender?: string; userId: string; message: string };
                 setMessages((prev: ChatMessage[]) => [...prev, {
                     id: Date.now(),
                     sender: msg.sender || (msg.userId === id ? 'Me' : 'Support'),

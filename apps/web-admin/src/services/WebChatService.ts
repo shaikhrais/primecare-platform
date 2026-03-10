@@ -1,8 +1,8 @@
 
 class WebChatService {
     private socket: WebSocket | null = null;
-    private listeners: ((message: any) => void)[] = [];
-    private reconnectInterval: any = null;
+    private listeners: ((message: Record<string, unknown>) => void)[] = [];
+    private reconnectInterval: ReturnType<typeof setInterval> | null = null;
     private userId: string | null = null;
     private url: string = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
@@ -65,7 +65,7 @@ class WebChatService {
         }
     }
 
-    addListener(callback: (message: any) => void) {
+    addListener(callback: (message: Record<string, unknown>) => void) {
         this.listeners.push(callback);
         return () => {
             this.listeners = this.listeners.filter(l => l !== callback);

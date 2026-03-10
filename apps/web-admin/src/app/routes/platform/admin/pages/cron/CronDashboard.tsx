@@ -1,25 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function CronDashboard() {
     const { showToast } = useNotification();
     const { t } = useTranslation();
     const [jobs, setJobs] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setJobs([
-                { id: 'compliance-sweep', name: 'Compliance Sweep', description: 'Scans all PSW credentials for expired certifications, licenses, and VSS docs. Auto-generates compliance alerts.', schedule: 'Daily @ 06:00', lastRun: '2026-03-09T06:00:00', status: 'success', duration: '12s' },
-                { id: 'training-reminders', name: 'Training Reminders', description: 'Sends reminder notifications to PSWs with overdue or upcoming training module deadlines.', schedule: 'Daily @ 08:00', lastRun: '2026-03-09T08:00:00', status: 'success', duration: '4s' },
-                { id: 'auth-exhaustion', name: 'Authorization Exhaustion Check', description: 'Checks clients nearing 80%+ utilization of approved service authorization hours. Creates alerts before exhaustion.', schedule: 'Mon/Wed/Fri @ 07:00', lastRun: '2026-03-07T07:00:00', status: 'success', duration: '8s' },
-                { id: 'inventory-reorder', name: 'Inventory Reorder Alerts', description: 'Scans medical supply inventory levels. Generates purchase order suggestions when stock falls below reorder threshold.', schedule: 'Weekly @ Mon 09:00', lastRun: '2026-03-03T09:00:00', status: 'warning', duration: '15s' },
-            ]);
-            setLoading(false);
-        }, 600);
+        setJobs([
+            { id: 'compliance-sweep', name: 'Compliance Sweep', description: 'Scans all PSW credentials for expired certifications, licenses, and VSS docs. Auto-generates compliance alerts.', schedule: 'Daily @ 06:00', lastRun: '2026-03-09T06:00:00', status: 'success', duration: '12s' },
+            { id: 'training-reminders', name: 'Training Reminders', description: 'Sends reminder notifications to PSWs with overdue or upcoming training module deadlines.', schedule: 'Daily @ 08:00', lastRun: '2026-03-09T08:00:00', status: 'success', duration: '4s' },
+            { id: 'auth-exhaustion', name: 'Authorization Exhaustion Check', description: 'Checks clients nearing 80%+ utilization of approved service authorization hours. Creates alerts before exhaustion.', schedule: 'Mon/Wed/Fri @ 07:00', lastRun: '2026-03-07T07:00:00', status: 'success', duration: '8s' },
+            { id: 'inventory-reorder', name: 'Inventory Reorder Alerts', description: 'Scans medical supply inventory levels. Generates purchase order suggestions when stock falls below reorder threshold.', schedule: 'Weekly @ Mon 09:00', lastRun: '2026-03-03T09:00:00', status: 'warning', duration: '15s' },
+        ]);
     }, []);
+
+    const handleRunJob = async (jobId: string, jobName: string) => {
+        showToast(`Initiating cron job: ${jobName}...`, 'info');
+        try {
+            const apiMap: Record<string, string> = {
+                'compliance-sweep': AdminRegistry.ApiRegistry.ADMIN.CRON.COMPLIANCE_SWEEP,
+                'training-reminders': AdminRegistry.ApiRegistry.ADMIN.CRON.TRAINING_REMINDERS,
+                'auth-exhaustion': AdminRegistry.ApiRegistry.ADMIN.CRON.AUTH_EXHAUSTION,
+                'inventory-reorder': AdminRegistry.ApiRegistry.ADMIN.CRON.INVENTORY_REORDER,
+            };
+
+            const endpoint = apiMap[jobId];
+            if (!endpoint) throw new Error('Endpoint not found');
+
+            const isGet = jobId === 'inventory-reorder';
+            const response = isGet ? await apiClient.get(endpoint) : await apiClient.post(endpoint, {});
+
+            if (response.ok) {
+                showToast(t('admin.job_triggered', { defaultValue: `${jobName} completed successfully`, name: jobName }), 'success');
+                setJobs(jobs.map(j => j.id === jobId ? { ...j, lastRun: new Date().toISOString() } : j));
+            } else {
+                throw new Error('API Error');
+            }
+        } catch (error) {
+            showToast(`${jobName} execution failed`, 'error');
+        }
+    };
 
     return (
         <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
@@ -55,7 +80,7 @@ export default function CronDashboard() {
                                     </div>
                                     <p style={{ color: 'var(--text-300)', margin: '0', fontSize: '14px', maxWidth: '700px' }}>{j.description}</p>
                                 </div>
-                                <button className="btn secondary" data-cy={`btn-run-${j.id}`} onClick={() => showToast(t('admin.job_triggered', { defaultValue: `${j.name} triggered manually`, name: j.name }), 'success')}>▶ {t('admin.run_now', { defaultValue: 'Run Now' })}</button>
+                                <button className="btn secondary" data-cy={`btn-run-${j.id}`} onClick={() => handleRunJob(j.id, j.name)}>▶ {t('admin.run_now', { defaultValue: 'Run Now' })}</button>
                             </div>
                             <div style={{ display: 'flex', gap: '32px', marginTop: '16px', fontSize: '13px', color: 'var(--text-300)' }}>
                                 <span><strong>{t('admin.schedule', { defaultValue: 'Schedule' })}:</strong> {j.schedule}</span>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '../../../../../../shared/context/NotificationContext';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 const strings = ContentRegistry.ACCOUNTING_DASHBOARD;
@@ -46,6 +47,7 @@ interface ForecastingResult {
 }
 
 export default function AccountingDashboard() {
+    const { showToast } = useNotification();
     const [tradingAcc, setTradingAcc] = useState<TradingAccount | null>(null);
     const [pAndL, setPAndL] = useState<ProfitAndLoss | null>(null);
     const [balanceSheet, setBalanceSheet] = useState<BalanceSheet | null>(null);
@@ -70,6 +72,7 @@ export default function AccountingDashboard() {
             if (reconRes.ok) setReconSummary(await reconRes.json());
             if (forecastRes.ok) setForecastData(await forecastRes.json());
         } catch (error) {
+            showToast('Failed to load accounting data', 'error');
             console.error('Failed to load accounting data:', error);
         } finally {
             setLoading(false);
@@ -85,10 +88,11 @@ export default function AccountingDashboard() {
             const res = await apiClient.post(ApiRegistry.PLATFORM.ADMIN.REPORTING.AUTO_RECONCILE, {});
             if (res.ok) {
                 const data = await res.json();
-                alert(`Successfully matched ${data.matchedCount} transactions!`);
+                showToast(`Successfully matched ${data.matchedCount} transactions!`, 'success');
                 loadData();
             }
         } catch (error) {
+            showToast('Auto-reconciliation failed', 'error');
             console.error('Auto-reconciliation failed:', error);
         }
     };

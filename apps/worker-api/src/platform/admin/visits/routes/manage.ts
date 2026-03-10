@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { VisitStatus } from '../../../../../generated/client/edge';
+
 import { Bindings, Variables } from '../../../../bindings';
 import { logAudit } from '../../../../_shared/utils/audit';
 import { ROUTE_METADATA } from '../../../../_shared/constants/route_metadata';
@@ -55,7 +55,7 @@ r.openapi(createVisitRoute, async (c) => {
     const data = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
-    const status: VisitStatus = data.assignedPswId ? 'scheduled' : 'requested';
+    const status: string = data.assignedPswId ? 'scheduled' : 'requested';
 
     const visit = await prisma.visit.create({
         data: {
@@ -118,7 +118,7 @@ r.openapi(updateVisitRoute, async (c) => {
 
     const updateData: any = { ...data };
     if (data.status) {
-        updateData.status = data.status as VisitStatus;
+        updateData.status = data.status;
     }
 
     const visit = await prisma.visit.update({

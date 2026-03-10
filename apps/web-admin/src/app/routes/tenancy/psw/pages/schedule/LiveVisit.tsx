@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { VitalHistoryTooltip } from './components/VitalHistoryTooltip';
+import { InAppTimer } from './components/InAppTimer';
+import { QuickReportMacros } from './components/QuickReportMacros';
 import './LiveVisit.css';
 
 const CONTENT = ContentRegistry.PSW_LIVE_VISIT;
@@ -14,27 +17,35 @@ export default function LiveVisit() {
     const [status, setStatus] = useState<'idle' | 'checked_in' | 'completed'>('idle');
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
     const [elapsed, setElapsed] = useState(0);
+    const touchStartXRef = React.useRef<number | null>(null);
     const [visit, setVisit] = useState<any>(null);
     const [tasks, setTasks] = useState([
-        { id: '1', label: 'Medication Administration', done: false },
-        { id: '2', label: 'Mobility Support & Transfers', done: false },
-        { id: '3', label: 'Hydration & Nutrition Check', done: false },
-        { id: '4', label: 'Documentation Sink', done: false },
+        { id: '1', label: 'Medication Administration', done: false, isStandard: true },
+        { id: '2', label: 'Mobility Support & Transfers', done: false, isStandard: true },
+        { id: '3', label: 'Hydration & Nutrition Check', done: false, isStandard: true },
+        { id: '4', label: 'Documentation Sink', done: false, isStandard: false },
+        { id: '5', label: 'ROM Exercises (15 mins)', done: false, isStandard: false, requiresTimer: true },
     ]);
+    const [visitNotes, setVisitNotes] = useState('');
+    const [showVitalHistory, setShowVitalHistory] = useState(false);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchVisit = async () => {
             try {
-                const response = await apiClient.get(AdminRegistry.ApiRegistry.PLATFORM.ADMIN.VISITS_UPDATE(id!));
+                const response = await apiClient.get(AdminRegistry.ApiRegistry.PLATFORM.ADMIN.VISITS_UPDATE(id!), { signal: controller.signal });
                 if (response.ok) {
                     const data = await response.json();
                     setVisit(data);
                 }
-            } catch (error) {
-                console.error('Error fetching visit details:', error);
+            } catch (error: unknown) {
+                if ((error as Error).name !== 'AbortError') {
+                    console.error('Error fetching visit details:', error);
+                }
             }
         };
         if (id) fetchVisit();
+        return () => controller.abort();
     }, [id]);
 
     useEffect(() => {
@@ -59,6 +70,11 @@ export default function LiveVisit() {
 
     const toggleTask = (taskId: string) => {
         setTasks(prev => prev.map(t => t.id === taskId ? { ...t, done: !t.done } : t));
+    };
+
+    const applySmartDefaults = () => {
+        setTasks(prev => prev.map(t => t.isStandard ? { ...t, done: true } : t));
+        showToast('Standard ADLs pre-checked', 'info');
     };
 
     useEffect(() => {
@@ -104,6 +120,7 @@ export default function LiveVisit() {
                 clientId: 'visit-context-client', // In a real application, this would come from the visit object
                 visitId: id,
                 adlData: tasks.filter(t => t.done).map(t => t.label),
+                notes: visitNotes,
                 status: 'SUBMITTED'
             });
 
@@ -159,28 +176,94 @@ export default function LiveVisit() {
                     </div>
 
                     <div className="tasks-container">
-                        <div className="tasks-header-row">
-                            <h3 className="tasks-title">{CONTENT.CLINICAL.TITLE}</h3>
+                        <div className="tasks-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                            <h3 className="tasks-title" style={{ margin: 0 }}>{CONTENT.CLINICAL.TITLE}</h3>
                             <button
-                                className="adl-sync-btn"
-                                onClick={handleDailyEntrySubmit}
-                                disabled={loading}
+                                onClick={applySmartDefaults}
+                                style={{
+                                    backgroundColor: '#E0E7FF',
+                                    color: '#4F46E5',
+                                    border: 'none',
+                                    padding: '6px 12px',
+                                    borderRadius: '16px',
+                                    fontSize: '0.8rem',
+                                    fontWeight: 700,
+                                    cursor: 'pointer'
+                                }}
                             >
-                                {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-daily-entry')?.label || 'Sync ADLs'}
+                                ⚡ Smart Defaults
                             </button>
                         </div>
                         {tasks.map(task => (
-                            <div
-                                key={task.id}
-                                className={`task-item ${task.done ? 'done' : ''}`}
-                                onClick={() => toggleTask(task.id)}
-                            >
-                                <span className="task-label">{task.label}</span>
-                                <div className="task-checkbox">
-                                    {task.done ? '✓' : ''}
+                            <React.Fragment key={task.id}>
+                                <div
+                                    className={`task-item ${task.done ? 'done' : ''}`}
+                                    onClick={() => toggleTask(task.id)}
+                                    onTouchStart={(e) => { touchStartXRef.current = e.touches[0].clientX; }}
+                                    onTouchMove={(e) => {
+                                        if (touchStartXRef.current === null) return;
+                                        const diff = e.touches[0].clientX - touchStartXRef.current;
+                                        if (diff > 80 || diff < -80) {
+                                            toggleTask(task.id);
+                                            touchStartXRef.current = null;
+                                            if (window.navigator?.vibrate) { window.navigator.vibrate(50); }
+                                        }
+                                    }}
+                                    onTouchEnd={() => { touchStartXRef.current = null; }}
+                                    style={{ touchAction: 'pan-y' }}
+                                >
+                                    <span className="task-label">{task.label} <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', display: 'block' }}>Swipe or tap to complete</span></span>
+                                    <div className="task-checkbox">
+                                        {task.done ? '✓' : ''}
+                                    </div>
                                 </div>
-                            </div>
+                                {(task as any).requiresTimer && (
+                                    <div style={{ padding: '0 16px 16px 16px' }} onClick={(e) => e.stopPropagation()}>
+                                        <InAppTimer onSave={(seconds) => {
+                                            toggleTask(task.id);
+                                            showToast(`Timer saved: ${Math.floor(seconds / 60)}m ${seconds % 60}s`, 'success');
+                                        }} />
+                                    </div>
+                                )}
+                            </React.Fragment>
                         ))}
+
+                        <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #E2E8F0' }}>
+                            <h3 style={{ fontSize: '1.2rem', margin: '0 0 16px 0', color: '#0F172A' }}>Daily Notes</h3>
+                            <QuickReportMacros onSelectMacro={(m) => setVisitNotes(prev => prev ? `${prev} ${m}` : m)} />
+                            <textarea
+                                value={visitNotes}
+                                onChange={(e) => setVisitNotes(e.target.value)}
+                                placeholder="Add any additional observations..."
+                                style={{
+                                    width: '100%',
+                                    minHeight: '100px',
+                                    padding: '12px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #CBD5E1',
+                                    fontFamily: 'inherit',
+                                    resize: 'vertical',
+                                    marginBottom: '16px'
+                                }}
+                            />
+                            <button
+                                onClick={handleDailyEntrySubmit}
+                                disabled={loading}
+                                style={{
+                                    width: '100%',
+                                    padding: '16px',
+                                    backgroundColor: '#0F172A',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    fontWeight: 700,
+                                    fontSize: '1.1rem',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {loading ? 'Submitting...' : 'Submit Charting & Notes'}
+                            </button>
+                        </div>
                     </div>
 
                     <button className="check-out-btn" onClick={handleCheckOut}>
@@ -190,12 +273,26 @@ export default function LiveVisit() {
             </div>
 
             <div className="vitals-grid">
-                <div className="vital-card">
-                    <span className="vital-label">{CONTENT.CLINICAL.VITALS_HUB}</span>
+                <div
+                    className="vital-card"
+                    style={{ position: 'relative', cursor: 'pointer' }}
+                    onClick={() => setShowVitalHistory(!showVitalHistory)}
+                >
+                    <span className="vital-label">{CONTENT.CLINICAL.VITALS_HUB} ℹ️</span>
                     <div className="vital-value">
                         120/80
                         <span className="vital-unit">{COMMON.UNITS.MMHG}</span>
                     </div>
+                    {showVitalHistory && (
+                        <VitalHistoryTooltip
+                            label="Blood Pressure"
+                            vitals={[
+                                { date: 'Today, 08:00 AM', value: '120/80' },
+                                { date: 'Yesterday, 08:00 AM', value: '118/78' },
+                                { date: '2 days ago, 08:15 AM', value: '122/82' }
+                            ]}
+                        />
+                    )}
                 </div>
                 <div className="vital-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div className="rn-connect">

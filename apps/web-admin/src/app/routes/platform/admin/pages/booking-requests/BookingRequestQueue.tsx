@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function BookingRequestQueue() {
     const { showToast } = useNotification();
@@ -9,16 +11,23 @@ export default function BookingRequestQueue() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setRequests([
-                { id: '1', clientName: 'Sarah Jenkins', serviceType: 'Personal Care', preferredDate: '2026-03-12', notes: 'Morning preferred', status: 'pending', createdAt: '2026-03-08' },
-                { id: '2', clientName: 'Emily Wilson', serviceType: 'Respite Care', preferredDate: '2026-03-15', notes: 'Full day needed — caregiver medical appointment', status: 'pending', createdAt: '2026-03-07' },
-                { id: '3', clientName: 'Robert Chen', serviceType: 'Meal Preparation', preferredDate: '2026-03-14', notes: '', status: 'approved', createdAt: '2026-03-06' },
-            ]);
-            setLoading(false);
-        }, 650);
+        fetchRequests();
     }, []);
+
+    const fetchRequests = async () => {
+        setLoading(true);
+        try {
+            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.BOOKING_REQUESTS.LIST);
+            if (response.ok) {
+                const data = await response.json();
+                setRequests(data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch booking requests', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">

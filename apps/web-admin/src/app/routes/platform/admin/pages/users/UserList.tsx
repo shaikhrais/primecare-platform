@@ -127,6 +127,46 @@ export default function UserList() {
                 </div>
             </div>
 
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', alignItems: 'center', backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#374151' }}>Role:</label>
+                    <select
+                        value={searchParams.get('role') || ''}
+                        onChange={(e) => {
+                            const newParams = new URLSearchParams(searchParams);
+                            if (e.target.value) newParams.set('role', e.target.value);
+                            else newParams.delete('role');
+                            navigate({ search: newParams.toString() });
+                        }}
+                        style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', fontSize: '0.875rem' }}
+                    >
+                        <option value="">All Roles</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="psw">PSW</option>
+                        <option value="rn">RN</option>
+                        <option value="client">Client</option>
+                    </select>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#374151' }}>Status:</label>
+                    <select
+                        value={searchParams.get('status') || ''}
+                        onChange={(e) => {
+                            const newParams = new URLSearchParams(searchParams);
+                            if (e.target.value) newParams.set('status', e.target.value);
+                            else newParams.delete('status');
+                            navigate({ search: newParams.toString() });
+                        }}
+                        style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', fontSize: '0.875rem' }}
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="verified">Verified</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+            </div>
+
             {(searchParams.get('role') || searchParams.get('status')) && (
                 <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.USERS.ACTIVE_FILTERS)}</span>

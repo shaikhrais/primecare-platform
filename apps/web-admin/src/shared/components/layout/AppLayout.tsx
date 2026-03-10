@@ -8,6 +8,9 @@ import { useRouteTracker } from '@/shared/hooks/useRouteTracker';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import SideFloatingButton from './SideFloatingButton';
+import OfflineIndicator from './OfflineIndicator';
+import PswBottomNav from './PswBottomNav';
+import SosButton from './SosButton';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
@@ -147,6 +150,13 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
             </main>
 
             <SideFloatingButton />
+            <OfflineIndicator />
+            {['psw', 'rn', 'rmt', 'rpt', 'rch'].includes(role.toLowerCase()) && (
+                <>
+                    <PswBottomNav />
+                    <SosButton />
+                </>
+            )}
         </div>
     );
 }

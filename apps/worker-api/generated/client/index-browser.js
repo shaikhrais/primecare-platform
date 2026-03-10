@@ -116,9 +116,6 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -213,7 +210,7 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   bio: 'bio',
   languages: 'languages',
   serviceAreas: 'serviceAreas',
-  availabilityJson: 'availabilityJson',
+  availabilityString: 'availabilityString',
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   createdAt: 'createdAt',
@@ -298,7 +295,7 @@ exports.Prisma.VisitChecklistScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
   pswId: 'pswId',
-  checklistJson: 'checklistJson',
+  checklistString: 'checklistString',
   createdAt: 'createdAt'
 };
 
@@ -386,7 +383,7 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   action: 'action',
   resourceType: 'resourceType',
   resourceId: 'resourceId',
-  metadataJson: 'metadataJson',
+  metadataString: 'metadataString',
   deviceId: 'deviceId',
   ipAddress: 'ipAddress',
   createdAt: 'createdAt',
@@ -551,7 +548,7 @@ exports.Prisma.MarketplaceListingScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  price: 'price',
+  total: 'total',
   category: 'category',
   providerId: 'providerId',
   tenantId: 'tenantId',
@@ -1147,7 +1144,7 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   transactionId: 'transactionId',
   accountId: 'accountId',
   debit: 'debit',
-  credit: 'credit',
+  paidOutAmount: 'paidOutAmount',
   currency: 'currency',
   balanceBefore: 'balanceBefore',
   balanceAfter: 'balanceAfter',
@@ -1327,143 +1324,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
 
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
-exports.Role = exports.$Enums.Role = {
-  super_admin: 'super_admin',
-  admin: 'admin',
-  staff: 'staff',
-  manager: 'manager',
-  marketing_manager: 'marketing_manager',
-  operations_manager: 'operations_manager',
-  hr_manager: 'hr_manager',
-  clinical_manager: 'clinical_manager',
-  regional_manager: 'regional_manager',
-  finance_manager: 'finance_manager',
-  recruiting_manager: 'recruiting_manager',
-  coordinator: 'coordinator',
-  client: 'client',
-  psw: 'psw',
-  rn: 'rn',
-  rmt: 'rmt',
-  rpt: 'rpt',
-  rch: 'rch',
-  finance: 'finance',
-  scrum_master: 'scrum_master'
-};
-
-exports.VisitStatus = exports.$Enums.VisitStatus = {
-  requested: 'requested',
-  scheduled: 'scheduled',
-  assigned: 'assigned',
-  en_route: 'en_route',
-  arrived: 'arrived',
-  in_progress: 'in_progress',
-  completed: 'completed',
-  cancelled: 'cancelled',
-  draft: 'draft',
-  posted: 'posted',
-  offered: 'offered',
-  accepted: 'accepted',
-  no_show: 'no_show',
-  replaced: 'replaced'
-};
-
-exports.EventType = exports.$Enums.EventType = {
-  check_in: 'check_in',
-  check_out: 'check_out'
-};
-
-exports.EventResult = exports.$Enums.EventResult = {
-  success: 'success',
-  rejected: 'rejected'
-};
-
-exports.IncidentType = exports.$Enums.IncidentType = {
-  fall_risk: 'fall_risk',
-  refusal: 'refusal',
-  no_show: 'no_show',
-  safety: 'safety',
-  medical_emergency: 'medical_emergency',
-  sos_alert: 'sos_alert',
-  other: 'other'
-};
-
-exports.IncidentStatus = exports.$Enums.IncidentStatus = {
-  open: 'open',
-  investigating: 'investigating',
-  resolved: 'resolved'
-};
-
-exports.TimesheetStatus = exports.$Enums.TimesheetStatus = {
-  draft: 'draft',
-  submitted: 'submitted',
-  approved: 'approved',
-  rejected: 'rejected'
-};
-
-exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
-  draft: 'draft',
-  unpaid: 'unpaid',
-  paid: 'paid',
-  void: 'void'
-};
-
-exports.AssignmentStatus = exports.$Enums.AssignmentStatus = {
-  offered: 'offered',
-  accepted: 'accepted',
-  declined: 'declined',
-  assigned: 'assigned'
-};
-
-exports.DocStatus = exports.$Enums.DocStatus = {
-  pending: 'pending',
-  verified: 'verified',
-  rejected: 'rejected'
-};
-
-exports.DailyEntryStatus = exports.$Enums.DailyEntryStatus = {
-  DRAFT: 'DRAFT',
-  SUBMITTED: 'SUBMITTED'
-};
-
-exports.AccountType = exports.$Enums.AccountType = {
-  ASSET: 'ASSET',
-  LIABILITY: 'LIABILITY',
-  EQUITY: 'EQUITY',
-  REVENUE: 'REVENUE',
-  EXPENSE: 'EXPENSE'
-};
-
-exports.TransactionState = exports.$Enums.TransactionState = {
-  draft: 'draft',
-  posted: 'posted',
-  matched: 'matched',
-  reconciled: 'reconciled',
-  closed: 'closed'
-};
 
 exports.Prisma.ModelName = {
   User: 'User',

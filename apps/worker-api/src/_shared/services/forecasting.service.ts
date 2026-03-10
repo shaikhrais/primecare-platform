@@ -34,7 +34,7 @@ export class ForecastingService {
         let currentCash = new Decimal(0);
         for (const acc of accounts) {
             for (const entry of acc.journalEntries) {
-                currentCash = currentCash.plus(new Decimal(entry.debit as any)).minus(new Decimal(entry.credit as any));
+                currentCash = currentCash.plus(new Decimal(entry.debit as any)).minus(new Decimal((entry.paidOutAmount as any) || 0));
             }
         }
 
@@ -55,10 +55,10 @@ export class ForecastingService {
         for (const entry of historicalEntries) {
             if (entry.account.type === 'REVENUE') {
                 // Revenue: Credit increases
-                totalRevenue = totalRevenue.plus(new Decimal(entry.credit as any)).minus(new Decimal(entry.debit as any));
+                totalRevenue = totalRevenue.plus(new Decimal((entry.paidOutAmount as any) || 0)).minus(new Decimal(entry.debit as any));
             } else if (entry.account.type === 'EXPENSE') {
                 // Expense: Debit increases
-                totalExpense = totalExpense.plus(new Decimal(entry.debit as any)).minus(new Decimal(entry.credit as any));
+                totalExpense = totalExpense.plus(new Decimal(entry.debit as any)).minus(new Decimal((entry.paidOutAmount as any) || 0));
             }
         }
 

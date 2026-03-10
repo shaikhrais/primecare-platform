@@ -98,12 +98,21 @@ export default function ClientDashboard() {
                         {user?.email ? `${user.email} • Your Care Team` : t(ContentRegistry.CLIENT_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => document.documentElement.style.fontSize = document.documentElement.style.fontSize === '120%' ? '100%' : '120%'}
+                        style={{ padding: '12px 16px', borderRadius: '12px', border: '2px solid #0f172a', background: 'transparent', fontWeight: 'bold', cursor: 'pointer', fontSize: '1.2rem', minHeight: '48px', minWidth: '48px' }}
+                        title="Toggle Large Text"
+                        aria-label="Toggle Large Text"
+                    >
+                        Aa
+                    </button>
                     <Link
                         to={RouteRegistry.LEARN}
                         style={{
                             display: 'inline-flex',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             gap: '8px',
                             padding: '12px 24px',
                             backgroundColor: 'white',
@@ -112,14 +121,16 @@ export default function ClientDashboard() {
                             textDecoration: 'none',
                             fontWeight: 700,
                             boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                            transition: 'all 0.2s'
+                            transition: 'all 0.2s',
+                            minHeight: '48px',
+                            fontSize: '1.1rem'
                         }}
                     >
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
                     </Link>
                     <button
                         className="btn"
-                        style={{ backgroundColor: 'white', color: 'var(--brand-600)', border: '1px solid #e5e7eb', padding: '12px 16px', borderRadius: '12px', fontWeight: 600 }}
+                        style={{ backgroundColor: 'white', color: 'var(--brand-600)', border: '1px solid #e5e7eb', padding: '12px 24px', borderRadius: '12px', fontWeight: 600, minHeight: '48px', fontSize: '1.1rem' }}
                         onClick={() => alert('Opening Support Chat...')}
                     >
                         💬 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-support-chat')?.label || 'Chat'}
@@ -127,7 +138,7 @@ export default function ClientDashboard() {
                     <button
                         className="btn"
                         onClick={() => navigate('/tenancy/client/family')}
-                        style={{ backgroundColor: 'var(--brand-100)', color: 'var(--brand-700)', border: 'none', padding: '12px 16px', borderRadius: '12px', fontWeight: 600 }}
+                        style={{ backgroundColor: 'var(--brand-100)', color: 'var(--brand-700)', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: 600, minHeight: '48px', fontSize: '1.1rem' }}
                     >
                         👨‍👩‍👧‍👦 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-family-hub')?.label || 'Family Hub'}
                     </button>
@@ -135,16 +146,17 @@ export default function ClientDashboard() {
                         data-cy="btn-client-request-care"
                         className="btn btn-primary"
                         onClick={() => setIsModalOpen(true)}
+                        style={{ minHeight: '48px', padding: '12px 32px', fontSize: '1.1rem', borderRadius: '12px', fontWeight: 700 }}
                     >
                         {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-client-request-care')?.label || t(ContentRegistry.CLIENT_DASHBOARD.BUTTON_REQUEST)}
                     </button>
                 </div>
             </div>
             {/* Phase 13 extra client actions */}
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('View Careplan')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-view-careplan')?.label || 'View Careplan'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => setIsModalOpen(true)}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-booking-request')?.label || 'Booking Request'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={() => alert('Cancel Visit')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-visit-cancel')?.label || 'Cancel Visit'}</button>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600 }} onClick={() => alert('View Careplan')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-view-careplan')?.label || 'View Careplan'}</button>
+                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600 }} onClick={() => setIsModalOpen(true)}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-booking-request')?.label || 'Booking Request'}</button>
+                <button className="btn" style={{ fontSize: '1rem', padding: '12px 20px', minHeight: '48px', borderRadius: '8px', fontWeight: 600, color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fee2e2' }} onClick={() => alert('Cancel Visit')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-client-visit-cancel')?.label || 'Cancel Visit'}</button>
             </div>
 
             <ClientOverview stats={stats} />

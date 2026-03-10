@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function NotificationsHub() {
     const { showToast } = useNotification();
@@ -10,19 +12,24 @@ export default function NotificationsHub() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setNotifications([
-                { id: '1', type: 'COMPLIANCE', message: 'PSW Jane Smith — CPR certification expires in 7 days', status: 'unread', createdAt: '2026-03-09T10:30:00' },
-                { id: '2', type: 'VISIT_ALERT', message: 'Client Robert Chen — missed medication window at 9:00 AM', status: 'unread', createdAt: '2026-03-09T09:15:00' },
-                { id: '3', type: 'SYSTEM', message: 'Payroll batch #2026-W10 completed — 47 payouts processed', status: 'read', createdAt: '2026-03-08T17:00:00' },
-                { id: '4', type: 'SOS', message: 'SOS Alert: PSW Maria Garcia triggered emergency alert near 123 Oak St', status: 'unread', createdAt: '2026-03-09T08:45:00' },
-                { id: '5', type: 'BOOKING', message: 'New booking request from Sarah Jenkins — Personal Care, Mar 12', status: 'read', createdAt: '2026-03-08T14:20:00' },
-            ]);
-            setUnreadCount(3);
-            setLoading(false);
-        }, 700);
+        fetchNotifications();
     }, []);
+
+    const fetchNotifications = async () => {
+        setLoading(true);
+        try {
+            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.NOTIFICATIONS.LIST);
+            if (response.ok) {
+                const data = await response.json();
+                setNotifications(data);
+                setUnreadCount(data.filter((n: any) => n.status === 'unread').length);
+            }
+        } catch (error) {
+            console.error('Failed to fetch notifications', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const typeBadge = (type: string) => {
         const colors: Record<string, string> = { COMPLIANCE: '#F59E0B', VISIT_ALERT: '#EF4444', SYSTEM: '#6366F1', SOS: '#DC2626', BOOKING: '#10B981' };

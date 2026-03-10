@@ -1,7 +1,8 @@
 import { Decimal } from 'Decimal.js'; // Prisma usually exports this or uses decimal.js
+import type { PrismaClient } from '../../../generated/client/index.js';
 
 export class FinancialService {
-    constructor(private prisma: any) { }
+    constructor(private prisma: PrismaClient) { }
 
     /**
      * Initializes a default Chart of Accounts for a new Tenant.
@@ -68,7 +69,7 @@ export class FinancialService {
         }
 
         // 2. Create the FinancialTransaction and JournalEntries
-        return await this.prisma.$transaction(async (tx: any) => {
+        return await this.prisma.$transaction(async (tx) => {
             const transaction = await tx.financialTransaction.create({
                 data: {
                     tenantId,
@@ -99,9 +100,9 @@ export class FinancialService {
                 let balanceBefore = new Decimal(0);
                 for (const pastEntry of account.journalEntries) {
                     if (['ASSET', 'EXPENSE'].includes(account.type)) {
-                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.debit)).minus(new Decimal(pastEntry.credit));
+                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.debit)).minus(new Decimal(pastEntry.paidOutAmount || 0));
                     } else {
-                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.credit)).minus(new Decimal(pastEntry.debit));
+                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.paidOutAmount || 0)).minus(new Decimal(pastEntry.debit));
                     }
                 }
 
@@ -121,7 +122,7 @@ export class FinancialService {
                         transactionId: transaction.id,
                         accountId: account.id,
                         debit,
-                        credit,
+                        paidOutAmount: credit,
                         currency,
                         balanceBefore,
                         balanceAfter
@@ -210,7 +211,7 @@ export class FinancialService {
      * Matches a Payment to an Invoice and updates statuses.
      */
     async matchInvoiceWithPayment(tenantId: string, invoiceTxId: string, paymentTxId: string) {
-        return await this.prisma.$transaction(async (tx: any) => {
+        return await (this.prisma as any).$transaction(async (tx: any) => {
             // 1. Link them in reconciliation table
             await tx.financialReconciliation.create({
                 data: {
@@ -239,7 +240,7 @@ export class FinancialService {
     /**
      * Imports bank transactions and attempts auto-matching.
      */
-    async importBankFeed(tenantId: string, transactions: any[]) {
+    async importBankFeed(tenantId: string, transactions: Record<string, any>[]) {
         for (const bt of transactions) {
             await this.prisma.bankTransaction.create({
                 data: {
@@ -322,15 +323,15 @@ export class FinancialService {
             }
         });
 
-        return accounts.map((acc: any) => {
+        return accounts.map((acc) => {
             let balance = new Decimal(0);
             for (const entry of acc.journalEntries) {
                 // Asset/Expense: Debit increases, Credit decreases
                 // Liability/Equity/Revenue: Credit increases, Debit decreases
                 if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
                 } else {
-                    balance = balance.plus(new Decimal(entry.credit)).minus(new Decimal(entry.debit));
+                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
                 }
             }
             return {
@@ -361,9 +362,9 @@ export class FinancialService {
         let balance = new Decimal(0);
         for (const entry of account.journalEntries) {
             if (['ASSET', 'EXPENSE'].includes(account.type)) {
-                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
             } else {
-                balance = balance.plus(new Decimal(entry.credit)).minus(new Decimal(entry.debit));
+                balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
             }
         }
         return balance.toNumber();
@@ -384,16 +385,16 @@ export class FinancialService {
 
         let revenue = new Decimal(0);
         let directCosts = new Decimal(0);
-        const revenueBreakdown: any = {};
-        const directCostsBreakdown: any = {};
+        const revenueBreakdown: Record<string, number> = {};
+        const directCostsBreakdown: Record<string, number> = {};
 
         for (const acc of accounts) {
             let balance = new Decimal(0);
             for (const entry of acc.journalEntries) {
                 if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
                 } else {
-                    balance = balance.plus(new Decimal(entry.credit)).minus(new Decimal(entry.debit));
+                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
                 }
             }
 
@@ -433,12 +434,12 @@ export class FinancialService {
         });
 
         let indirectExpenses = new Decimal(0);
-        const expensesBreakdown: any = {};
+        const expensesBreakdown: Record<string, number> = {};
 
         for (const acc of accounts) {
             let balance = new Decimal(0);
             for (const entry of acc.journalEntries) {
-                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
             }
             indirectExpenses = indirectExpenses.plus(balance);
             expensesBreakdown[acc.name] = balance.toNumber();
@@ -468,7 +469,7 @@ export class FinancialService {
             }
         });
 
-        const report: any = {
+        const report: Record<string, { total: Decimal; accounts: Record<string, number> }> = {
             assets: { total: new Decimal(0), accounts: {} },
             liabilities: { total: new Decimal(0), accounts: {} },
             equity: { total: new Decimal(0), accounts: {} }
@@ -478,9 +479,9 @@ export class FinancialService {
             let balance = new Decimal(0);
             for (const entry of acc.journalEntries) {
                 if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.credit));
+                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
                 } else {
-                    balance = balance.plus(new Decimal(entry.credit)).minus(new Decimal(entry.debit));
+                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
                 }
             }
 
@@ -524,8 +525,8 @@ export class FinancialService {
         const summary = {
             date: start.toISOString().split('T')[0],
             transactionCount: transactions.length,
-            totalVolume: transactions.reduce((sum: number, tx: any) => sum + Number(tx.amount), 0),
-            types: {} as any,
+            totalVolume: transactions.reduce((sum: number, tx: { amount: Decimal | string | number }) => sum + Number(tx.amount), 0),
+            types: {} as Record<string, number>,
             integrityCheck: 'PASSED'
         };
 
@@ -554,7 +555,7 @@ export class FinancialService {
         let totalPaidOnExpenses = new Decimal(0); // Debits decrease liability (paid to vendors)
 
         for (const entry of entries) {
-            totalCollected = totalCollected.plus(new Decimal(entry.credit));
+            totalCollected = totalCollected.plus(new Decimal(entry.paidOutAmount || 0));
             totalPaidOnExpenses = totalPaidOnExpenses.plus(new Decimal(entry.debit));
         }
 

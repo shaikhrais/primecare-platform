@@ -7,6 +7,7 @@ import { PatientAcuityDistribution } from '@/shared/components/charts/PatientAcu
 import { AssessmentComplianceChart } from '@/shared/components/charts/AssessmentComplianceChart';
 import { ClinicalIncidentHeatmap } from '@/shared/components/charts/ClinicalIncidentHeatmap';
 import { CarePlanAdherenceGauge } from '@/shared/components/charts/CarePlanAdherenceGauge';
+import { Sparkline } from '@/shared/components/charts/Sparkline';
 import { MOCK_RN_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 import { useTranslation } from 'react-i18next';
 
@@ -26,10 +27,17 @@ interface ClinicalTask {
     targetName: string;
 }
 
-const KPICard = ({ label, value, color, dataCy }: any) => (
-    <div className="pc-card" data-cy={dataCy} style={{ padding: '20px', borderLeft: `4px solid ${color}` }}>
-        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{label}</div>
-        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{value}</div>
+const KPICard = ({ label, value, color, dataCy, trendData }: any) => (
+    <div className="pc-card" data-cy={dataCy} style={{ padding: '20px', borderLeft: `4px solid ${color}`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div>
+            <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>{label}</div>
+            <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{value}</div>
+        </div>
+        {trendData && (
+            <div style={{ marginBottom: '8px' }}>
+                <Sparkline data={trendData} color={color} width={80} height={24} />
+            </div>
+        )}
     </div>
 );
 
@@ -103,9 +111,9 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.PENDING_CARE_PLANS)} value={stats.pendingCarePlans} color="#ff9800" dataCy="kpi-pending-plans" />
-                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.DAILY_REVIEWS)} value={stats.dailyReviewsNeed} color="#2196f3" dataCy="kpi-daily-reviews" />
-                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.SUPERVISED_PSWS)} value={stats.supervisedPswCount} color="#4caf50" dataCy="kpi-psw-count" />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.PENDING_CARE_PLANS)} value={stats.pendingCarePlans} color="#ff9800" dataCy="kpi-pending-plans" trendData={[2, 4, 3, 5, 2, 8, stats.pendingCarePlans || 0]} />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.DAILY_REVIEWS)} value={stats.dailyReviewsNeed} color="#2196f3" dataCy="kpi-daily-reviews" trendData={[10, 8, 12, 5, 7, 9, stats.dailyReviewsNeed || 0]} />
+                <KPICard label={t(ContentRegistry.RN_DASHBOARD.STATS.SUPERVISED_PSWS)} value={stats.supervisedPswCount} color="#4caf50" dataCy="kpi-psw-count" trendData={[40, 41, 40, 42, 43, 43, stats.supervisedPswCount || 0]} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>

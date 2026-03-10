@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function PayrollHub() {
     const { showToast } = useNotification();
@@ -10,19 +12,60 @@ export default function PayrollHub() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setTimesheets([
-                { id: '1', pswName: 'Jane Smith', hours: 38.5, rate: 24.50, status: 'approved', weekOf: '2026-W10' },
-                { id: '2', pswName: 'Maria Garcia', hours: 42.0, rate: 25.00, status: 'pending', weekOf: '2026-W10' },
-                { id: '3', pswName: 'James Wilson', hours: 35.0, rate: 23.00, status: 'pending', weekOf: '2026-W10' },
-                { id: '4', pswName: 'Sarah Johnson', hours: 40.0, rate: 26.00, status: 'approved', weekOf: '2026-W10' },
-                { id: '5', pswName: 'Robert Chen', hours: 28.0, rate: 24.00, status: 'pending', weekOf: '2026-W10' },
-            ]);
-            setSummary({ totalHours: 183.5, totalPayout: 4578.00, approvedCount: 2, pendingCount: 3 });
-            setLoading(false);
-        }, 800);
+        fetchPayroll();
     }, []);
+
+    const fetchPayroll = async () => {
+        setLoading(true);
+        try {
+            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.PENDING);
+            if (response.ok) {
+                const data = await response.json();
+                setTimesheets(data.timesheets || data);
+                if (data.summary) {
+                    setSummary(data.summary);
+                } else {
+                    const tsArray = data.timesheets || data;
+                    const approvedCount = tsArray.filter((t: any) => t.status === 'approved').length;
+                    const pendingCount = tsArray.filter((t: any) => t.status === 'pending').length;
+                    const totalHours = tsArray.reduce((acc: number, cur: any) => acc + (cur.hours || 0), 0);
+                    const totalPayout = tsArray.reduce((acc: number, cur: any) => acc + ((cur.hours || 0) * (cur.rate || 0)), 0);
+                    setSummary({ totalHours, totalPayout, approvedCount, pendingCount });
+                }
+            }
+        } catch (error) {
+            console.error('Failed to fetch payroll', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleBulkApprove = async () => {
+        try {
+            const response = await apiClient.post(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.BATCH_APPROVE, { action: 'approve_all' });
+            if (response.ok) {
+                showToast(t('admin.bulk_approve_success', { defaultValue: 'All pending timesheets approved' }), 'success');
+                fetchPayroll();
+            } else {
+                showToast(t('admin.bulk_approve_failed', { defaultValue: 'Failed to approve timesheets' }), 'error');
+            }
+        } catch (error) {
+            showToast(t('admin.bulk_approve_failed', { defaultValue: 'Failed to approve timesheets' }), 'error');
+        }
+    };
+
+    const handleRunPayroll = async () => {
+        try {
+            const response = await apiClient.post(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.RUN, { period: '2026-W10' });
+            if (response.ok) {
+                showToast(t('admin.payroll_run_success', { defaultValue: 'Payroll batch initiated for period 2026-W10' }), 'success');
+            } else {
+                showToast(t('admin.payroll_run_failed', { defaultValue: 'Failed to initiate payroll run.' }), 'error');
+            }
+        } catch (error) {
+            showToast(t('admin.payroll_run_failed', { defaultValue: 'Failed to initiate payroll run.' }), 'error');
+        }
+    };
 
     return (
         <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
@@ -39,8 +82,8 @@ export default function PayrollHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" data-cy="btn-bulk-approve" onClick={() => showToast(t('admin.bulk_approve_success', { defaultValue: 'All pending timesheets approved' }), 'success')}>✅ {t('admin.bulk_approve_all', { defaultValue: 'Bulk Approve All' })}</button>
-                    <button className="btn primary" data-cy="btn-run-payroll" onClick={() => showToast(t('admin.payroll_run_success', { defaultValue: 'Payroll batch initiated for period 2026-W10' }), 'success')}>🚀 {t('admin.run_payroll', { defaultValue: 'Run Payroll' })}</button>
+                    <button className="btn secondary" data-cy="btn-bulk-approve" onClick={handleBulkApprove}>✅ {t('admin.bulk_approve_all', { defaultValue: 'Bulk Approve All' })}</button>
+                    <button className="btn primary" data-cy="btn-run-payroll" onClick={handleRunPayroll}>🚀 {t('admin.run_payroll', { defaultValue: 'Run Payroll' })}</button>
                 </div>
             </div>
 

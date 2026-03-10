@@ -118,9 +118,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     if (!isOpen) return null;
 
     return (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit">
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
+                <h3 id="modal-title" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
                 <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <ClientServiceFields
                         clientId={formData.clientId} serviceId={formData.serviceId} clients={clients} services={services}

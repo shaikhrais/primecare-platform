@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import EmptyState from '@/shared/components/layout/EmptyState';
@@ -10,6 +12,8 @@ const DASH_CONTENT = ContentRegistry.PSW_DASHBOARD;
 const API = AdminRegistry.ApiRegistry.PSW;
 
 export default function ShiftsPage() {
+    const { t } = useTranslation();
+    const { showToast } = useNotification();
     const navigate = useNavigate();
     const [shifts, setShifts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -48,7 +52,7 @@ export default function ShiftsPage() {
     const COMMON = ContentRegistry.COMMON;
 
     return (
-        <div className="shifts-page-container">
+        <div className="shifts-page-container" data-cy="page.container">
             <header className="shifts-header">
                 <div className="header-group">
                     <h1>{CONTENT.TITLE}</h1>
@@ -98,6 +102,7 @@ export default function ShiftsPage() {
                                 <tr
                                     key={shift.id}
                                     className="schedule-row"
+                                    data-cy={`row-shift-${shift.id}`}
                                 >
                                     <td>
                                         <span className="client-name">{shift.client?.fullName || COMMON.FALLBACKS.REGISTRY_NODE}</span>
@@ -120,19 +125,11 @@ export default function ShiftsPage() {
                                     </td>
                                     <td>
                                         <button
+                                            className="btn-primary-pc"
+                                            data-cy={`btn-view-shift-${shift.id}`}
                                             onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.CHECK_IN.replace(':id', shift.id)}`)}
-                                            style={{
-                                                padding: '8px 16px',
-                                                backgroundColor: 'var(--brand-500, #0f172a)',
-                                                color: '#FFFFFF',
-                                                border: 'none',
-                                                borderRadius: '6px',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                fontSize: '0.875rem'
-                                            }}
                                         >
-                                            View Shift
+                                            {t('psw.view_shift', { defaultValue: 'View Shift' })}
                                         </button>
                                     </td>
                                 </tr>
