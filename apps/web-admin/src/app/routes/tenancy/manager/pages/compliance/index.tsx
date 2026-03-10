@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import './ComplianceSync.css';
 
 const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
@@ -118,7 +119,7 @@ export default function ComplianceSync() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {auditData.map(row => (
+                                {auditData.length > 0 ? auditData.map(row => (
                                     <tr key={row.id}>
                                         <td>
                                             <div className="provider-cell">
@@ -131,17 +132,27 @@ export default function ComplianceSync() {
                                             {row.expiry}
                                         </td>
                                         <td>
-                                            <span className={`badge-premium ${row.status === 'valid' ? 'badge-green' : row.status === 'warning' ? 'badge-amber' : 'badge-blue'}`} style={{ background: row.status === 'critical' ? '#fee2e2' : '', color: row.status === 'critical' ? '#991b1b' : '' }}>
+                                            <span className={`badge-premium ${row.status === 'valid' ? 'badge-green' : row.status === 'warning' ? 'badge-amber' : 'badge-blue'}`} style={{ background: row.status === 'critical' ? 'var(--danger-100, #fee2e2)' : '', color: row.status === 'critical' ? 'var(--danger-700, #991b1b)' : '' }}>
                                                 {row.status.toUpperCase()}
                                             </span>
                                         </td>
                                         <td>
-                                            <button style={{ background: 'none', border: 'none', color: '#3b82f6', fontWeight: 700, cursor: 'pointer', fontSize: '0.75rem' }}>
+                                            <button style={{ background: 'none', border: 'none', color: 'var(--brand-500, #3b82f6)', fontWeight: 700, cursor: 'pointer', fontSize: '0.75rem' }}>
                                                 REQUEST UPDATE
                                             </button>
                                         </td>
                                     </tr>
-                                ))}
+                                )) : (
+                                    <tr>
+                                        <td colSpan={5} style={{ padding: '3rem 0' }}>
+                                            <EmptyState
+                                                title="100% Compliant"
+                                                description="There are no expiring credentials or background checks requiring manager action."
+                                                icon="shield-check"
+                                            />
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>

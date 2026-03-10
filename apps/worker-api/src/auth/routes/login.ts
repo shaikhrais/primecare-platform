@@ -82,7 +82,7 @@ r.openapi(loginRoute, async (c) => {
             user = {
                 id: 'mock-admin-id',
                 email: 'admin@primecare.com',
-                roles: ['admin'],
+                roles: ['admin', 'psw'],
                 tenantId: 'system',
                 status: 'active',
                 passwordHash: 'mocked'
@@ -104,7 +104,7 @@ r.openapi(loginRoute, async (c) => {
             return c.json({ error: 'Invalid credentials' }, 401);
         }
 
-        if (isLegacyHash(user.passwordHash)) {
+        if (user.id !== 'mock-admin-id' && isLegacyHash(user.passwordHash)) {
             const newHash = await hashPassword(password);
             await prisma.user.update({ where: { id: user.id }, data: { passwordHash: newHash } }).catch(() => { });
         }

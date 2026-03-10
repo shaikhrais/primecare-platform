@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import EmptyState from '@/shared/components/layout/EmptyState';
 import './OperationsHub.css';
 
 const { MANAGER_OPERATIONS } = ContentRegistry;
@@ -117,7 +118,7 @@ export default function OperationsHub() {
                             <span className="badge-premium badge-amber">{alerts.length} Pending Triage</span>
                         </div>
                         <div className="card-body">
-                            {alerts.map(alert => (
+                            {alerts.length > 0 ? alerts.map(alert => (
                                 <div key={alert.id} className="alert-item">
                                     <div className="alert-icon">⚠️</div>
                                     <div className="alert-content">
@@ -125,7 +126,13 @@ export default function OperationsHub() {
                                         <p>{alert.desc}</p>
                                     </div>
                                 </div>
-                            ))}
+                            )) : (
+                                <EmptyState
+                                    title="All Clear"
+                                    description="There are no high-risk operational alerts requiring immediate triage at this time."
+                                    icon="shield-check"
+                                />
+                            )}
                         </div>
                     </article>
 
@@ -135,7 +142,7 @@ export default function OperationsHub() {
                         </div>
                         <div className="card-body">
                             <div className="activity-list">
-                                {activities.map(act => (
+                                {activities.length > 0 ? activities.map(act => (
                                     <div key={act.id} className="activity-item">
                                         <div className="activity-info">
                                             <h4>{act.user} - {act.action}</h4>
@@ -145,7 +152,13 @@ export default function OperationsHub() {
                                             {act.type}
                                         </span>
                                     </div>
-                                ))}
+                                )) : (
+                                    <EmptyState
+                                        title="No Recent Activity"
+                                        description="The live audit timeline has not recorded any new structural changes or user actions."
+                                        icon="clock-rewind"
+                                    />
+                                )}
                             </div>
                         </div>
                     </article>

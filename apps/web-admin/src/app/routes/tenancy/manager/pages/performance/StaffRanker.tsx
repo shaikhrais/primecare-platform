@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CoreBarChart, CorePieChart } from '@/shared/components/charts/core';
 
+import './StaffRanker.css';
+
 export default function StaffRanker() {
     const { t } = useTranslation();
     const [period, setPeriod] = useState('30d');
@@ -22,18 +24,18 @@ export default function StaffRanker() {
     ];
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
-            <header className="flex justify-between items-center">
+        <div className="staff-ranker-container">
+            <header className="staff-ranker-header">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight">Staff Performance Ranker</h1>
-                    <p className="text-muted-foreground">Identify top performers and optimize branch clinical reliability.</p>
+                    <h1>Staff Performance Ranker</h1>
+                    <p>Identify top performers and optimize branch clinical reliability.</p>
                 </div>
-                <div className="flex bg-secondary p-1 rounded-xl border">
+                <div className="period-toggle">
                     {['7d', '30d', '90d'].map(p => (
                         <button
                             key={p}
                             onClick={() => setPeriod(p)}
-                            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${period === p ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+                            className={`period-btn ${period === p ? 'active' : ''}`}
                         >
                             {p.toUpperCase()}
                         </button>
@@ -41,63 +43,64 @@ export default function StaffRanker() {
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div className="lg:col-span-1 space-y-6">
-                    <div className="bg-card border rounded-2xl p-6 shadow-sm">
-                        <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest block mb-4">Performance Spread</label>
-                        <div className="h-48">
+            <div className="ranker-grid">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <div className="ranker-card">
+                        <span className="ranker-card-label">Performance Spread</span>
+                        <div style={{ height: '200px' }}>
                             <CorePieChart data={distributionData} dataKey="value" nameKey="name" />
                         </div>
                     </div>
-                    <div className="bg-primary text-primary-foreground p-6 rounded-2xl space-y-2 shadow-xl shadow-primary/10">
-                        <div className="text-xs font-bold opacity-60 uppercase">Branch Average</div>
-                        <div className="text-4xl font-black">94.2</div>
-                        <div className="text-xs font-medium opacity-80 flex items-center gap-1">
-                            <span className="text-green-300">▲ 2.1%</span> vs previous {period}
+
+                    <div className="branch-avg-card">
+                        <div className="branch-avg-title">Branch Average</div>
+                        <div className="branch-avg-value">94.2</div>
+                        <div className="branch-avg-trend">
+                            <span style={{ color: '#86efac' }}>▲ 2.1%</span> vs previous {period}
                         </div>
                     </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-card border rounded-2xl p-6 shadow-sm">
-                    <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                <div className="ranker-card">
+                    <h3 className="leaderboard-title">
                         <span>🏆</span> Leaderboard: Clinical Excellence
                     </h3>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                    <div className="leaderboard-table-wrapper">
+                        <table className="leaderboard-table">
                             <thead>
-                                <tr className="text-xs font-black uppercase text-muted-foreground border-b bg-secondary/30">
-                                    <th className="px-4 py-3 first:rounded-tl-lg">Staff Member</th>
-                                    <th className="px-4 py-3">Attendance</th>
-                                    <th className="px-4 py-3">Performance</th>
-                                    <th className="px-4 py-3">Reliability</th>
-                                    <th className="px-4 py-3 last:rounded-tr-lg">Shifts</th>
+                                <tr>
+                                    <th>Staff Member</th>
+                                    <th>Attendance</th>
+                                    <th>Performance</th>
+                                    <th>Reliability</th>
+                                    <th>Shifts</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {rankData.map((staff, idx) => (
-                                    <tr key={idx} className="border-b last:border-0 hover:bg-accent/5 transition-colors group">
-                                        <td className="px-4 py-4 font-bold flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-xs">
+                                    <tr key={idx}>
+                                        <td className="staff-name-cell">
+                                            <div className="staff-rank-badge">
                                                 {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
                                             </div>
                                             {staff.name}
                                         </td>
-                                        <td className="px-4 py-4">
-                                            <div className="flex items-center gap-2">
-                                                <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden w-20">
-                                                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${staff.attendance}%` }} />
+                                        <td>
+                                            <div className="attendance-bar-container">
+                                                <div className="attendance-bar-bg">
+                                                    <div className="attendance-bar-fill" style={{ width: `${staff.attendance}%` }} />
                                                 </div>
-                                                <span className="text-xs font-mono font-bold">{staff.attendance}%</span>
+                                                <span className="attendance-value">{staff.attendance}%</span>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-4">
-                                            <span className={`px-2 py-1 rounded-md text-xs font-black border ${staff.performance >= 90 ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-blue-500/10 text-blue-600 border-blue-500/20'}`}>
+                                        <td>
+                                            <span className={`performance-badge ${staff.performance >= 90 ? 'high' : 'med'}`}>
                                                 {staff.performance} / 100
                                             </span>
                                         </td>
-                                        <td className="px-4 py-4 font-mono text-sm font-bold">{staff.reliability}%</td>
-                                        <td className="px-4 py-4">
-                                            <span className="text-xs font-bold px-2 py-1 bg-secondary rounded-md">{staff.shifts}</span>
+                                        <td className="reliability-cell">{staff.reliability}%</td>
+                                        <td>
+                                            <span className="shifts-badge">{staff.shifts}</span>
                                         </td>
                                     </tr>
                                 ))}
@@ -107,10 +110,10 @@ export default function StaffRanker() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-card border rounded-2xl p-6 shadow-sm">
-                    <h3 className="font-bold mb-6 text-muted-foreground text-sm uppercase tracking-widest">Attendance Trends</h3>
-                    <div className="h-64">
+            <div className="ranker-bottom-grid">
+                <div className="ranker-card">
+                    <h3 className="ranker-card-label">Attendance Trends</h3>
+                    <div style={{ height: '250px' }}>
                         <CoreBarChart
                             data={[
                                 { date: 'Week 1', attendance: 92 },
@@ -123,13 +126,14 @@ export default function StaffRanker() {
                         />
                     </div>
                 </div>
-                <div className="bg-card border rounded-2xl p-6 shadow-sm flex flex-col justify-center items-center text-center space-y-4">
-                    <div className="text-4xl text-primary opacity-20">📅</div>
-                    <h3 className="font-bold text-lg">Next Review Cycle</h3>
-                    <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+
+                <div className="ranker-card review-cycle-card">
+                    <div className="review-icon">📅</div>
+                    <h3 className="review-title">Next Review Cycle</h3>
+                    <p className="review-desc">
                         Your next automated performance sweep is scheduled for <strong>Monday, March 9th</strong>. You can manually trigger a review for specific staff members.
                     </p>
-                    <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-bold text-sm hover:opacity-90 transition-all">
+                    <button className="btn-primary-pc">
                         Schedule Evaluation
                     </button>
                 </div>
