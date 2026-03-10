@@ -6,6 +6,27 @@ import { apiClient } from '@/shared/utils/apiClient';
 import { VitalHistoryTooltip } from './components/VitalHistoryTooltip';
 import { InAppTimer } from './components/InAppTimer';
 import { QuickReportMacros } from './components/QuickReportMacros';
+
+const ConfettiOverlay = () => {
+    return (
+        <div style={{
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999,
+            display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.85)'
+        }}>
+            <div style={{ fontSize: '4rem', textAlign: 'center', animation: 'popIn 0.5s ease-out forwards' }}>
+                🎉 Great Job! 🎉<br />
+                <span style={{ fontSize: '1.5rem', color: '#10B981' }}>100% Care Plan Completed</span>
+            </div>
+            <style>{`
+                @keyframes popIn {
+                    0% { transform: scale(0.5); opacity: 0; }
+                    80% { transform: scale(1.1); opacity: 1; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+            `}</style>
+        </div>
+    );
+};
 import './LiveVisit.css';
 
 const CONTENT = ContentRegistry.PSW_LIVE_VISIT;
@@ -28,6 +49,7 @@ export default function LiveVisit() {
     ]);
     const [visitNotes, setVisitNotes] = useState('');
     const [showVitalHistory, setShowVitalHistory] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -83,6 +105,17 @@ export default function LiveVisit() {
         // we'll assume navigation here means we are or should be checked in.
         setStatus('checked_in');
     }, []);
+
+    // Effect for checking 100% completion to trigger confetti gamification
+    useEffect(() => {
+        if (tasks.length > 0 && tasks.every(t => t.done)) {
+            if (!sessionStorage.getItem(`confetti_${id}`)) {
+                setShowConfetti(true);
+                sessionStorage.setItem(`confetti_${id}`, 'true');
+                setTimeout(() => setShowConfetti(false), 3000);
+            }
+        }
+    }, [tasks, id]);
 
     const handleCheckOut = async () => {
         if (!navigator.geolocation) {
@@ -142,6 +175,7 @@ export default function LiveVisit() {
 
     return (
         <div className="live-visit-container">
+            {showConfetti && <ConfettiOverlay />}
             <header className="live-header">
                 <div className="header-left">
                     <div className="header-icon">

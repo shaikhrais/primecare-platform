@@ -11,8 +11,11 @@ import { PswStats } from './components/PswStats';
 import { ShiftList } from './components/ShiftList';
 import { ComplianceSection } from './components/ComplianceSection';
 import { WellnessPulse } from './components/WellnessPulse';
+import { ReliabilityStreak } from './components/ReliabilityStreak';
+import { DirectDispatchChat } from './components/DirectDispatchChat';
 import { Sparkline } from '@/shared/components/charts/Sparkline';
 import { useTranslation } from 'react-i18next';
+import { MessageSquare } from 'lucide-react';
 
 const { ContentRegistry, ApiRegistry, RouteRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -33,6 +36,7 @@ export default function PswDashboard() {
     const [shifts, setShifts] = useState<Shift[]>([]);
     const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const fetchShiftsAndStats = async () => {
         setLoading(true);
@@ -267,15 +271,7 @@ export default function PswDashboard() {
                         <Sparkline data={[20, 25, 22, 30, 28, 30, 32.5]} color="#3b82f6" width={80} height={24} />
                     </div>
                 </div>
-                <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #f59e0b`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Reliability Score</div>
-                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>98%</div>
-                    </div>
-                    <div style={{ marginBottom: '8px' }}>
-                        <Sparkline data={[95, 96, 96, 97, 98, 97, 98]} color="#f59e0b" width={80} height={24} />
-                    </div>
-                </div>
+                <ReliabilityStreak score={98} streakDays={14} trendData={[95, 96, 96, 97, 98, 97, 98]} />
             </div>
 
             <PswStats chartData={chartData} />
@@ -296,6 +292,34 @@ export default function PswDashboard() {
                     <WellnessPulse />
                 </div>
             </div>
+
+            {/* Floating Dispatch Chat Trigger */}
+            {!isChatOpen && (
+                <button
+                    onClick={() => setIsChatOpen(true)}
+                    style={{
+                        position: 'fixed',
+                        bottom: '80px',
+                        right: '20px',
+                        width: '60px',
+                        height: '60px',
+                        backgroundColor: '#3B82F6',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '30px',
+                        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        zIndex: 9997
+                    }}
+                >
+                    <MessageSquare size={28} />
+                </button>
+            )}
+
+            <DirectDispatchChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
         </div >
     );
 }

@@ -24,7 +24,20 @@ export const WellnessPulse: React.FC = () => {
                 status,
                 note: note || undefined
             });
-            showToast('Thank you for checking in. We value your wellbeing.', 'success');
+            if (status === 'struggling' || status === 'burnout') {
+                const currentStreak = parseInt(localStorage.getItem('wellness_low_streak') || '0', 10);
+                const newStreak = currentStreak + 1;
+                localStorage.setItem('wellness_low_streak', newStreak.toString());
+
+                if (newStreak >= 3) {
+                    showToast('HR Intervention Triggered: An advocate will reach out to support you today.', 'warning');
+                } else {
+                    showToast('Thank you for checking in. We value your wellbeing.', 'success');
+                }
+            } else {
+                localStorage.setItem('wellness_low_streak', '0');
+                showToast('Glad you are doing well! Thanks for checking in.', 'success');
+            }
             setNote('');
         } catch (error) {
             console.error('Pulse failed', error);

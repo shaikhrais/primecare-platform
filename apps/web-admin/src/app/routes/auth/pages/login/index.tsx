@@ -9,6 +9,8 @@ import { useAuth } from '@/shared/context/AuthContext';
 import { useTheme } from '@/shared/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
+import { BiometricLogin } from '../components/BiometricLogin';
+import { Fingerprint } from 'lucide-react';
 
 export default function Login() {
     const { t } = useTranslation();
@@ -20,6 +22,7 @@ export default function Login() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [showBiometric, setShowBiometric] = useState(false);
 
     // New Multi-Role States
     const [authStep, setAuthStep] = useState<'login' | 'select-role'>('login');
@@ -74,6 +77,13 @@ export default function Login() {
 
         const target = RouteRegistry.ROLE_DASHBOARDS[activeRole] || RouteRegistry.ADMIN.DASHBOARD;
         navigate(target);
+    };
+
+    const handleBiometricSuccess = () => {
+        // Mock successful biometric bypass for demo. In reality, we'd exchange WebAuthn assertions for a token.
+        setShowBiometric(false);
+        const mockPswUser = { id: 'psw-1', email: 'psw@primecare.com', fullName: 'Sarah PSW', roles: ['psw'] };
+        finalizeLogin(mockPswUser, 'psw', 'mock-biometric-token');
     };
 
     if (authStep === 'select-role' && tempUser) {
@@ -147,6 +157,24 @@ export default function Login() {
                 </p>
 
                 {error && <div data-cy="login-error" style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
+
+                <div style={{ marginBottom: '1.5rem' }}>
+                    <button
+                        type="button"
+                        onClick={() => setShowBiometric(true)}
+                        style={{
+                            width: '100%', padding: '0.75rem', backgroundColor: '#F3F4F6', color: '#111827', border: '1px solid #D1D5DB', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                        }}
+                    >
+                        <Fingerprint size={20} color="#3B82F6" />
+                        Sign in with Touch ID / Face ID
+                    </button>
+
+                    <div style={{ marginTop: '1rem', position: 'relative', textAlign: 'center' }}>
+                        <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', backgroundColor: 'var(--line)', zIndex: 1 }}></div>
+                        <span style={{ position: 'relative', backgroundColor: '#FFFFFF', padding: '0 10px', fontSize: '0.75rem', color: '#6B7280', zIndex: 2 }}>OR USE PASSWORD</span>
+                    </div>
+                </div>
 
                 <form onSubmit={handleLogin}>
                     <div style={{ marginBottom: '1rem' }}>
@@ -242,6 +270,10 @@ export default function Login() {
                     </div>
                 </form>
             </div>
+
+            {showBiometric && (
+                <BiometricLogin onSuccess={handleBiometricSuccess} onCancel={() => setShowBiometric(false)} />
+            )}
         </div>
     );
 }
