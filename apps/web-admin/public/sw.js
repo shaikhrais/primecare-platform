@@ -44,6 +44,9 @@ self.addEventListener('fetch', (event) => {
     // Skip non-GET requests (they go through the offline queue system)
     if (event.request.method !== 'GET') return;
 
+    // Skip chrome-extension requests to avoid Cache API errors
+    if (url.protocol === 'chrome-extension:') return;
+
     // API calls: Network-first, fall back to cache
     if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/v1/')) {
         event.respondWith(networkFirstStrategy(event.request));

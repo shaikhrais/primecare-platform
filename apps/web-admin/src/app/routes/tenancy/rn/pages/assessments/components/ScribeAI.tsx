@@ -79,7 +79,7 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                         <button 
                             onClick={() => setIsRecording(!isRecording)}
                             style={{ 
-                                width: '120px', height: '120px', borderRadius: '50%', border: 'none', cursor: 'pointer',
+                                width: '120px', height: '120px', borderRadius: '50%', cursor: 'pointer',
                                 backgroundColor: isRecording ? '#FEF2F2' : '#F1F5F9',
                                 border: `4px solid ${isRecording ? '#EF4444' : '#CBD5E1'}`,
                                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px',

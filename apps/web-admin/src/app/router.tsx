@@ -41,6 +41,7 @@ const VisitCompletion = React.lazy(() => import('./routes/shared/pages/visit-com
 const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training'));
 const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseIndex'));
 const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseArticle'));
+const MarketingShowcase = React.lazy(() => import('./routes/shared/pages/MarketingShowcase'));
 
 // Fallback Loader
 const LoadingFallback = () => (
@@ -83,6 +84,7 @@ export const AppRouter: React.FC = () => {
                         <Route path={RouteRegistry.BUSINESS_ONBOARD} element={<BusinessOnboard />} />
                         <Route path={RouteRegistry.FORGOT_PASSWORD} element={<ForgotPassword />} />
                         <Route path={RouteRegistry.RESET_PASSWORD} element={<ResetPassword />} />
+                        <Route path="/cmo-showcase" element={<MarketingShowcase />} />
 
                         {/* EXTRACTED ROUTE MODULES */}
                         {AdminRoutes()}

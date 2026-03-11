@@ -100,23 +100,61 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                     </p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', marginTop: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', marginTop: '24px' }}>
+                    
+                    {status === 'prompt' && (
+                        <button
+                         onClick={() => {
+                             setStatus('scanning');
+                             setTimeout(() => {
+                                 setStatus('success');
+                                 setTimeout(() => onSuccess(), 800);
+                             }, 1500);
+                         }}
+                         disabled={!isSupported}
+                         style={{ 
+                             padding: '20px', 
+                             background: 'linear-gradient(135deg, #10B981, #059669)', 
+                             color: 'white', 
+                             border: 'none', 
+                             borderRadius: '16px', 
+                             fontSize: '1.25rem', 
+                             fontWeight: 800, 
+                             cursor: 'pointer', 
+                             opacity: !isSupported ? 0.7 : 1,
+                             boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.4)',
+                             transition: 'transform 0.2s',
+                             textTransform: 'uppercase',
+                             letterSpacing: '0.05em'
+                         }}
+                         onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+                         onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                                <Fingerprint size={24} />
+                                Register New Biometrics
+                            </span>
+                        </button>
+                    )}
+
                     <button
                         onClick={handleAuthenticate}
                         disabled={status === 'scanning' || status === 'success' || !isSupported}
                         style={{
-                            padding: '16px',
-                            backgroundColor: '#3B82F6',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '12px',
-                            fontSize: '1.1rem',
-                            fontWeight: 600,
+                            padding: '20px',
+                            background: status === 'prompt' ? 'rgba(59, 130, 246, 0.1)' : 'linear-gradient(135deg, #3B82F6, #2563EB)',
+                            color: status === 'prompt' ? '#60A5FA' : 'white',
+                            border: status === 'prompt' ? '2px solid #3B82F6' : 'none',
+                            borderRadius: '16px',
+                            fontSize: '1.25rem',
+                            fontWeight: 800,
                             cursor: 'pointer',
-                            opacity: (status === 'scanning' || !isSupported) ? 0.7 : 1
+                            opacity: (status === 'scanning' || !isSupported) ? 0.7 : 1,
+                            boxShadow: status !== 'prompt' ? '0 10px 15px -3px rgba(59, 130, 246, 0.4)' : 'none',
+                            transition: 'all 0.2s ease'
                         }}
                     >
-                        {status === 'scanning' ? 'Authenticating...' : 'Use Biometrics'}
+                        {status === 'scanning' ? 'Authenticating...' : 'Use Existing Biometrics'}
                     </button>
 
                     {status === 'prompt' && (
@@ -126,14 +164,14 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                                 padding: '16px',
                                 backgroundColor: 'transparent',
                                 color: '#94A3B8',
-                                border: '1px solid #334155',
-                                borderRadius: '12px',
+                                border: 'none',
                                 fontSize: '1rem',
-                                fontWeight: 500,
-                                cursor: 'pointer'
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                textDecoration: 'underline'
                             }}
                         >
-                            Cancel
+                            Cancel & Return to Password Login
                         </button>
                     )}
                 </div>

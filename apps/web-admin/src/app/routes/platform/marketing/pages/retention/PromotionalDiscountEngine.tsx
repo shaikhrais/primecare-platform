@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tag, Copy, CalendarOff, Ticket, DollarSign, Percent, CheckCircle2 } from 'lucide-react';
+import { Tag, Copy, CalendarOff, Ticket, DollarSign, Percent, CheckCircle2, Users } from 'lucide-react';
 
 interface PromoCode {
     id: string;

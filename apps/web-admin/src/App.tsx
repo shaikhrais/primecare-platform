@@ -6,19 +6,22 @@ import CookieConsent from '@/shared/components/ui/CookieConsent';
 import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper';
 import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
 import { NetworkStatusBanner } from '@/shared/components/ui/NetworkStatusBanner';
+import { OfflineSyncProvider } from '@/shared/context/OfflineSyncContext';
 
 function App() {
   return (
     <ErrorBoundary>
-      <NotificationProvider>
-        <NetworkStatusBanner />
-        <CookieConsent />
-        <BrowserRouter>
-          <CommandPaletteWrapper>
-            <AppRouter />
-          </CommandPaletteWrapper>
-        </BrowserRouter>
-      </NotificationProvider>
+      <OfflineSyncProvider>
+        <NotificationProvider>
+          <NetworkStatusBanner />
+          <CookieConsent />
+          <BrowserRouter>
+            <CommandPaletteWrapper>
+              <AppRouter />
+            </CommandPaletteWrapper>
+          </BrowserRouter>
+        </NotificationProvider>
+      </OfflineSyncProvider>
     </ErrorBoundary>
   );
 
