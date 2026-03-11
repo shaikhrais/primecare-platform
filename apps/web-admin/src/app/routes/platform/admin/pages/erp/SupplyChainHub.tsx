@@ -5,6 +5,7 @@ const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
 export default function SupplyChainHub() {
     const [inventory, setInventory] = useState<any[]>([]);
+    const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchInventory = async () => {
@@ -18,6 +19,7 @@ export default function SupplyChainHub() {
             if (response.ok) {
                 const data = await response.json();
                 setInventory(data.items || []);
+                setStats(data.stats || null);
             }
         } catch (e) {
             console.error(e);
@@ -58,19 +60,19 @@ export default function SupplyChainHub() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Total SKU Count</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>142</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>{stats?.totalSkus ?? 0}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Low Stock Alerts</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#EF4444', marginTop: '4px' }}>8</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#EF4444', marginTop: '4px' }}>{stats?.lowStock ?? 0}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Open POs</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--brand-500)', marginTop: '4px' }}>12</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--brand-500)', marginTop: '4px' }}>{stats?.openPos ?? 0}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Procurement Latency</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>4.2d</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>{stats?.procurementLatency ?? '0.0d'}</div>
                 </div>
             </div>
 

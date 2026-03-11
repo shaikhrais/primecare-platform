@@ -5,6 +5,7 @@ const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
 export default function PharmacyHub() {
     const [meds, setMeds] = useState<any[]>([]);
+    const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
@@ -18,6 +19,7 @@ export default function PharmacyHub() {
             if (response.ok) {
                 const data = await response.json();
                 setMeds(data.prescriptions || []);
+                setStats(data.stats || null);
             }
         } catch (e) {
             console.error(e);
@@ -56,19 +58,19 @@ export default function PharmacyHub() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Active Prescriptions</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>128</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-100)', marginTop: '4px' }}>{stats?.active ?? 0}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Pending Renewals</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--brand-500)', marginTop: '4px' }}>14</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--brand-500)', marginTop: '4px' }}>{stats?.pendingRenewals ?? 0}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>MAR Compliance</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#10B981', marginTop: '4px' }}>98.5%</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#10B981', marginTop: '4px' }}>{stats?.marCompliance ?? '100%'}</div>
                 </div>
                 <div className="pc-card" style={{ padding: '20px' }}>
                     <div style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-300)' }}>Critical Alerts</div>
-                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#EF4444', marginTop: '4px' }}>2</div>
+                    <div style={{ fontSize: '28px', fontWeight: '800', color: '#EF4444', marginTop: '4px' }}>{stats?.criticalAlerts ?? 0}</div>
                 </div>
             </div>
 
