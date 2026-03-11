@@ -488,6 +488,31 @@ export type WebhookEndpoint = $Result.DefaultSelection<Prisma.$WebhookEndpointPa
  * 
  */
 export type WebhookDelivery = $Result.DefaultSelection<Prisma.$WebhookDeliveryPayload>
+/**
+ * Model IoTEvent
+ * 
+ */
+export type IoTEvent = $Result.DefaultSelection<Prisma.$IoTEventPayload>
+/**
+ * Model AppNotification
+ * 
+ */
+export type AppNotification = $Result.DefaultSelection<Prisma.$AppNotificationPayload>
+/**
+ * Model GamificationProfile
+ * 
+ */
+export type GamificationProfile = $Result.DefaultSelection<Prisma.$GamificationProfilePayload>
+/**
+ * Model AIInference
+ * 
+ */
+export type AIInference = $Result.DefaultSelection<Prisma.$AIInferencePayload>
+/**
+ * Model CommunicationLog
+ * 
+ */
+export type CommunicationLog = $Result.DefaultSelection<Prisma.$CommunicationLogPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1561,6 +1586,56 @@ export class PrismaClient<
     * ```
     */
   get webhookDelivery(): Prisma.WebhookDeliveryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.ioTEvent`: Exposes CRUD operations for the **IoTEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IoTEvents
+    * const ioTEvents = await prisma.ioTEvent.findMany()
+    * ```
+    */
+  get ioTEvent(): Prisma.IoTEventDelegate<ExtArgs>;
+
+  /**
+   * `prisma.appNotification`: Exposes CRUD operations for the **AppNotification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AppNotifications
+    * const appNotifications = await prisma.appNotification.findMany()
+    * ```
+    */
+  get appNotification(): Prisma.AppNotificationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.gamificationProfile`: Exposes CRUD operations for the **GamificationProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GamificationProfiles
+    * const gamificationProfiles = await prisma.gamificationProfile.findMany()
+    * ```
+    */
+  get gamificationProfile(): Prisma.GamificationProfileDelegate<ExtArgs>;
+
+  /**
+   * `prisma.aIInference`: Exposes CRUD operations for the **AIInference** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIInferences
+    * const aIInferences = await prisma.aIInference.findMany()
+    * ```
+    */
+  get aIInference(): Prisma.AIInferenceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.communicationLog`: Exposes CRUD operations for the **CommunicationLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunicationLogs
+    * const communicationLogs = await prisma.communicationLog.findMany()
+    * ```
+    */
+  get communicationLog(): Prisma.CommunicationLogDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2096,7 +2171,12 @@ export namespace Prisma {
     FamilyMember: 'FamilyMember',
     PerformanceReview: 'PerformanceReview',
     WebhookEndpoint: 'WebhookEndpoint',
-    WebhookDelivery: 'WebhookDelivery'
+    WebhookDelivery: 'WebhookDelivery',
+    IoTEvent: 'IoTEvent',
+    AppNotification: 'AppNotification',
+    GamificationProfile: 'GamificationProfile',
+    AIInference: 'AIInference',
+    CommunicationLog: 'CommunicationLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2112,7 +2192,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -8766,6 +8846,356 @@ export namespace Prisma {
           }
         }
       }
+      IoTEvent: {
+        payload: Prisma.$IoTEventPayload<ExtArgs>
+        fields: Prisma.IoTEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IoTEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IoTEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          findFirst: {
+            args: Prisma.IoTEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IoTEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          findMany: {
+            args: Prisma.IoTEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>[]
+          }
+          create: {
+            args: Prisma.IoTEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          createMany: {
+            args: Prisma.IoTEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IoTEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>[]
+          }
+          delete: {
+            args: Prisma.IoTEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          update: {
+            args: Prisma.IoTEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.IoTEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IoTEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IoTEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IoTEventPayload>
+          }
+          aggregate: {
+            args: Prisma.IoTEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIoTEvent>
+          }
+          groupBy: {
+            args: Prisma.IoTEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IoTEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IoTEventCountArgs<ExtArgs>
+            result: $Utils.Optional<IoTEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      AppNotification: {
+        payload: Prisma.$AppNotificationPayload<ExtArgs>
+        fields: Prisma.AppNotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppNotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppNotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.AppNotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppNotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          findMany: {
+            args: Prisma.AppNotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>[]
+          }
+          create: {
+            args: Prisma.AppNotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          createMany: {
+            args: Prisma.AppNotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AppNotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.AppNotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          update: {
+            args: Prisma.AppNotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.AppNotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppNotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AppNotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppNotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.AppNotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAppNotification>
+          }
+          groupBy: {
+            args: Prisma.AppNotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppNotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppNotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<AppNotificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      GamificationProfile: {
+        payload: Prisma.$GamificationProfilePayload<ExtArgs>
+        fields: Prisma.GamificationProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GamificationProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GamificationProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.GamificationProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GamificationProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          findMany: {
+            args: Prisma.GamificationProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>[]
+          }
+          create: {
+            args: Prisma.GamificationProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          createMany: {
+            args: Prisma.GamificationProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GamificationProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.GamificationProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          update: {
+            args: Prisma.GamificationProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.GamificationProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GamificationProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.GamificationProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GamificationProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.GamificationProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGamificationProfile>
+          }
+          groupBy: {
+            args: Prisma.GamificationProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GamificationProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GamificationProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<GamificationProfileCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIInference: {
+        payload: Prisma.$AIInferencePayload<ExtArgs>
+        fields: Prisma.AIInferenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIInferenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIInferenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          findFirst: {
+            args: Prisma.AIInferenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIInferenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          findMany: {
+            args: Prisma.AIInferenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>[]
+          }
+          create: {
+            args: Prisma.AIInferenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          createMany: {
+            args: Prisma.AIInferenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIInferenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>[]
+          }
+          delete: {
+            args: Prisma.AIInferenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          update: {
+            args: Prisma.AIInferenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          deleteMany: {
+            args: Prisma.AIInferenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIInferenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AIInferenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInferencePayload>
+          }
+          aggregate: {
+            args: Prisma.AIInferenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIInference>
+          }
+          groupBy: {
+            args: Prisma.AIInferenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIInferenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIInferenceCountArgs<ExtArgs>
+            result: $Utils.Optional<AIInferenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunicationLog: {
+        payload: Prisma.$CommunicationLogPayload<ExtArgs>
+        fields: Prisma.CommunicationLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunicationLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunicationLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunicationLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunicationLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          findMany: {
+            args: Prisma.CommunicationLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>[]
+          }
+          create: {
+            args: Prisma.CommunicationLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          createMany: {
+            args: Prisma.CommunicationLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunicationLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunicationLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          update: {
+            args: Prisma.CommunicationLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunicationLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunicationLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CommunicationLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunicationLogPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunicationLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunicationLog>
+          }
+          groupBy: {
+            args: Prisma.CommunicationLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunicationLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunicationLogCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunicationLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8951,6 +9381,8 @@ export namespace Prisma {
     devices: number
     systemEvents: number
     performanceReviewsAuthored: number
+    iotEvents: number
+    appNotifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8974,6 +9406,8 @@ export namespace Prisma {
     devices?: boolean | UserCountOutputTypeCountDevicesArgs
     systemEvents?: boolean | UserCountOutputTypeCountSystemEventsArgs
     performanceReviewsAuthored?: boolean | UserCountOutputTypeCountPerformanceReviewsAuthoredArgs
+    iotEvents?: boolean | UserCountOutputTypeCountIotEventsArgs
+    appNotifications?: boolean | UserCountOutputTypeCountAppNotificationsArgs
   }
 
   // Custom InputTypes
@@ -9127,6 +9561,20 @@ export namespace Prisma {
     where?: PerformanceReviewWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountIotEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IoTEventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAppNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppNotificationWhereInput
+  }
+
 
   /**
    * Count Type TenantCountOutputType
@@ -9178,6 +9626,11 @@ export namespace Prisma {
     dailyAuditSignOffs: number
     wellnessPulses: number
     systemTouchpoints: number
+    iotEvents: number
+    appNotifications: number
+    gamificationProfiles: number
+    aiInferences: number
+    communicationLogs: number
     childTenants: number
     franchises: number
     marketplaceListings: number
@@ -9252,6 +9705,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | TenantCountOutputTypeCountDailyAuditSignOffsArgs
     wellnessPulses?: boolean | TenantCountOutputTypeCountWellnessPulsesArgs
     systemTouchpoints?: boolean | TenantCountOutputTypeCountSystemTouchpointsArgs
+    iotEvents?: boolean | TenantCountOutputTypeCountIotEventsArgs
+    appNotifications?: boolean | TenantCountOutputTypeCountAppNotificationsArgs
+    gamificationProfiles?: boolean | TenantCountOutputTypeCountGamificationProfilesArgs
+    aiInferences?: boolean | TenantCountOutputTypeCountAiInferencesArgs
+    communicationLogs?: boolean | TenantCountOutputTypeCountCommunicationLogsArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     franchises?: boolean | TenantCountOutputTypeCountFranchisesArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
@@ -9604,6 +10062,41 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountSystemTouchpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SystemTouchpointWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountIotEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IoTEventWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAppNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppNotificationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountGamificationProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GamificationProfileWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAiInferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInferenceWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountCommunicationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunicationLogWhereInput
   }
 
   /**
@@ -11123,6 +11616,9 @@ export namespace Prisma {
     devices?: boolean | User$devicesArgs<ExtArgs>
     systemEvents?: boolean | User$systemEventsArgs<ExtArgs>
     performanceReviewsAuthored?: boolean | User$performanceReviewsAuthoredArgs<ExtArgs>
+    iotEvents?: boolean | User$iotEventsArgs<ExtArgs>
+    appNotifications?: boolean | User$appNotificationsArgs<ExtArgs>
+    gamificationProfile?: boolean | User$gamificationProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -11183,6 +11679,9 @@ export namespace Prisma {
     devices?: boolean | User$devicesArgs<ExtArgs>
     systemEvents?: boolean | User$systemEventsArgs<ExtArgs>
     performanceReviewsAuthored?: boolean | User$performanceReviewsAuthoredArgs<ExtArgs>
+    iotEvents?: boolean | User$iotEventsArgs<ExtArgs>
+    appNotifications?: boolean | User$appNotificationsArgs<ExtArgs>
+    gamificationProfile?: boolean | User$gamificationProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11215,6 +11714,9 @@ export namespace Prisma {
       devices: Prisma.$UserDevicePayload<ExtArgs>[]
       systemEvents: Prisma.$SystemEventPayload<ExtArgs>[]
       performanceReviewsAuthored: Prisma.$PerformanceReviewPayload<ExtArgs>[]
+      iotEvents: Prisma.$IoTEventPayload<ExtArgs>[]
+      appNotifications: Prisma.$AppNotificationPayload<ExtArgs>[]
+      gamificationProfile: Prisma.$GamificationProfilePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11617,6 +12119,9 @@ export namespace Prisma {
     devices<T extends User$devicesArgs<ExtArgs> = {}>(args?: Subset<T, User$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDevicePayload<ExtArgs>, T, "findMany"> | Null>
     systemEvents<T extends User$systemEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$systemEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemEventPayload<ExtArgs>, T, "findMany"> | Null>
     performanceReviewsAuthored<T extends User$performanceReviewsAuthoredArgs<ExtArgs> = {}>(args?: Subset<T, User$performanceReviewsAuthoredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformanceReviewPayload<ExtArgs>, T, "findMany"> | Null>
+    iotEvents<T extends User$iotEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$iotEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findMany"> | Null>
+    appNotifications<T extends User$appNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$appNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    gamificationProfile<T extends User$gamificationProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$gamificationProfileArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12407,6 +12912,61 @@ export namespace Prisma {
   }
 
   /**
+   * User.iotEvents
+   */
+  export type User$iotEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    where?: IoTEventWhereInput
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    cursor?: IoTEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IoTEventScalarFieldEnum | IoTEventScalarFieldEnum[]
+  }
+
+  /**
+   * User.appNotifications
+   */
+  export type User$appNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    where?: AppNotificationWhereInput
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    cursor?: AppNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppNotificationScalarFieldEnum | AppNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.gamificationProfile
+   */
+  export type User$gamificationProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    where?: GamificationProfileWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12808,6 +13368,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
     systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
+    iotEvents?: boolean | Tenant$iotEventsArgs<ExtArgs>
+    appNotifications?: boolean | Tenant$appNotificationsArgs<ExtArgs>
+    gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
+    aiInferences?: boolean | Tenant$aiInferencesArgs<ExtArgs>
+    communicationLogs?: boolean | Tenant$communicationLogsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -12935,6 +13500,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
     systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
+    iotEvents?: boolean | Tenant$iotEventsArgs<ExtArgs>
+    appNotifications?: boolean | Tenant$appNotificationsArgs<ExtArgs>
+    gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
+    aiInferences?: boolean | Tenant$aiInferencesArgs<ExtArgs>
+    communicationLogs?: boolean | Tenant$communicationLogsArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -13016,6 +13586,11 @@ export namespace Prisma {
       dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
       wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
       systemTouchpoints: Prisma.$SystemTouchpointPayload<ExtArgs>[]
+      iotEvents: Prisma.$IoTEventPayload<ExtArgs>[]
+      appNotifications: Prisma.$AppNotificationPayload<ExtArgs>[]
+      gamificationProfiles: Prisma.$GamificationProfilePayload<ExtArgs>[]
+      aiInferences: Prisma.$AIInferencePayload<ExtArgs>[]
+      communicationLogs: Prisma.$CommunicationLogPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       franchises: Prisma.$FranchisePayload<ExtArgs>[]
@@ -13476,6 +14051,11 @@ export namespace Prisma {
     dailyAuditSignOffs<T extends Tenant$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
     wellnessPulses<T extends Tenant$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
     systemTouchpoints<T extends Tenant$systemTouchpointsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$systemTouchpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findMany"> | Null>
+    iotEvents<T extends Tenant$iotEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$iotEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findMany"> | Null>
+    appNotifications<T extends Tenant$appNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$appNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    gamificationProfiles<T extends Tenant$gamificationProfilesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$gamificationProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findMany"> | Null>
+    aiInferences<T extends Tenant$aiInferencesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$aiInferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findMany"> | Null>
+    communicationLogs<T extends Tenant$communicationLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$communicationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     franchises<T extends Tenant$franchisesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$franchisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchisePayload<ExtArgs>, T, "findMany"> | Null>
@@ -14769,6 +15349,106 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.iotEvents
+   */
+  export type Tenant$iotEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    where?: IoTEventWhereInput
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    cursor?: IoTEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IoTEventScalarFieldEnum | IoTEventScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.appNotifications
+   */
+  export type Tenant$appNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    where?: AppNotificationWhereInput
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    cursor?: AppNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppNotificationScalarFieldEnum | AppNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.gamificationProfiles
+   */
+  export type Tenant$gamificationProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    where?: GamificationProfileWhereInput
+    orderBy?: GamificationProfileOrderByWithRelationInput | GamificationProfileOrderByWithRelationInput[]
+    cursor?: GamificationProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GamificationProfileScalarFieldEnum | GamificationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.aiInferences
+   */
+  export type Tenant$aiInferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    where?: AIInferenceWhereInput
+    orderBy?: AIInferenceOrderByWithRelationInput | AIInferenceOrderByWithRelationInput[]
+    cursor?: AIInferenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInferenceScalarFieldEnum | AIInferenceScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.communicationLogs
+   */
+  export type Tenant$communicationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    where?: CommunicationLogWhereInput
+    orderBy?: CommunicationLogOrderByWithRelationInput | CommunicationLogOrderByWithRelationInput[]
+    cursor?: CommunicationLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunicationLogScalarFieldEnum | CommunicationLogScalarFieldEnum[]
   }
 
   /**
@@ -111001,6 +111681,5067 @@ export namespace Prisma {
 
 
   /**
+   * Model IoTEvent
+   */
+
+  export type AggregateIoTEvent = {
+    _count: IoTEventCountAggregateOutputType | null
+    _min: IoTEventMinAggregateOutputType | null
+    _max: IoTEventMaxAggregateOutputType | null
+  }
+
+  export type IoTEventMinAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    deviceType: string | null
+    payload: string | null
+    status: string | null
+    userId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type IoTEventMaxAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    deviceType: string | null
+    payload: string | null
+    status: string | null
+    userId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type IoTEventCountAggregateOutputType = {
+    id: number
+    deviceId: number
+    deviceType: number
+    payload: number
+    status: number
+    userId: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type IoTEventMinAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceType?: true
+    payload?: true
+    status?: true
+    userId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type IoTEventMaxAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceType?: true
+    payload?: true
+    status?: true
+    userId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type IoTEventCountAggregateInputType = {
+    id?: true
+    deviceId?: true
+    deviceType?: true
+    payload?: true
+    status?: true
+    userId?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type IoTEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IoTEvent to aggregate.
+     */
+    where?: IoTEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IoTEvents to fetch.
+     */
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IoTEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IoTEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IoTEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IoTEvents
+    **/
+    _count?: true | IoTEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IoTEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IoTEventMaxAggregateInputType
+  }
+
+  export type GetIoTEventAggregateType<T extends IoTEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateIoTEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIoTEvent[P]>
+      : GetScalarType<T[P], AggregateIoTEvent[P]>
+  }
+
+
+
+
+  export type IoTEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IoTEventWhereInput
+    orderBy?: IoTEventOrderByWithAggregationInput | IoTEventOrderByWithAggregationInput[]
+    by: IoTEventScalarFieldEnum[] | IoTEventScalarFieldEnum
+    having?: IoTEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IoTEventCountAggregateInputType | true
+    _min?: IoTEventMinAggregateInputType
+    _max?: IoTEventMaxAggregateInputType
+  }
+
+  export type IoTEventGroupByOutputType = {
+    id: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status: string
+    userId: string | null
+    tenantId: string | null
+    createdAt: Date
+    _count: IoTEventCountAggregateOutputType | null
+    _min: IoTEventMinAggregateOutputType | null
+    _max: IoTEventMaxAggregateOutputType | null
+  }
+
+  type GetIoTEventGroupByPayload<T extends IoTEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IoTEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IoTEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IoTEventGroupByOutputType[P]>
+            : GetScalarType<T[P], IoTEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IoTEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    deviceType?: boolean
+    payload?: boolean
+    status?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | IoTEvent$tenantArgs<ExtArgs>
+    user?: boolean | IoTEvent$userArgs<ExtArgs>
+  }, ExtArgs["result"]["ioTEvent"]>
+
+  export type IoTEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    deviceType?: boolean
+    payload?: boolean
+    status?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | IoTEvent$tenantArgs<ExtArgs>
+    user?: boolean | IoTEvent$userArgs<ExtArgs>
+  }, ExtArgs["result"]["ioTEvent"]>
+
+  export type IoTEventSelectScalar = {
+    id?: boolean
+    deviceId?: boolean
+    deviceType?: boolean
+    payload?: boolean
+    status?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type IoTEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | IoTEvent$tenantArgs<ExtArgs>
+    user?: boolean | IoTEvent$userArgs<ExtArgs>
+  }
+  export type IoTEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | IoTEvent$tenantArgs<ExtArgs>
+    user?: boolean | IoTEvent$userArgs<ExtArgs>
+  }
+
+  export type $IoTEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IoTEvent"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deviceId: string
+      deviceType: string
+      payload: string
+      status: string
+      userId: string | null
+      tenantId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["ioTEvent"]>
+    composites: {}
+  }
+
+  type IoTEventGetPayload<S extends boolean | null | undefined | IoTEventDefaultArgs> = $Result.GetResult<Prisma.$IoTEventPayload, S>
+
+  type IoTEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<IoTEventFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: IoTEventCountAggregateInputType | true
+    }
+
+  export interface IoTEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IoTEvent'], meta: { name: 'IoTEvent' } }
+    /**
+     * Find zero or one IoTEvent that matches the filter.
+     * @param {IoTEventFindUniqueArgs} args - Arguments to find a IoTEvent
+     * @example
+     * // Get one IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IoTEventFindUniqueArgs>(args: SelectSubset<T, IoTEventFindUniqueArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one IoTEvent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {IoTEventFindUniqueOrThrowArgs} args - Arguments to find a IoTEvent
+     * @example
+     * // Get one IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IoTEventFindUniqueOrThrowArgs>(args: SelectSubset<T, IoTEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first IoTEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventFindFirstArgs} args - Arguments to find a IoTEvent
+     * @example
+     * // Get one IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IoTEventFindFirstArgs>(args?: SelectSubset<T, IoTEventFindFirstArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first IoTEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventFindFirstOrThrowArgs} args - Arguments to find a IoTEvent
+     * @example
+     * // Get one IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IoTEventFindFirstOrThrowArgs>(args?: SelectSubset<T, IoTEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more IoTEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IoTEvents
+     * const ioTEvents = await prisma.ioTEvent.findMany()
+     * 
+     * // Get first 10 IoTEvents
+     * const ioTEvents = await prisma.ioTEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ioTEventWithIdOnly = await prisma.ioTEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IoTEventFindManyArgs>(args?: SelectSubset<T, IoTEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a IoTEvent.
+     * @param {IoTEventCreateArgs} args - Arguments to create a IoTEvent.
+     * @example
+     * // Create one IoTEvent
+     * const IoTEvent = await prisma.ioTEvent.create({
+     *   data: {
+     *     // ... data to create a IoTEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends IoTEventCreateArgs>(args: SelectSubset<T, IoTEventCreateArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many IoTEvents.
+     * @param {IoTEventCreateManyArgs} args - Arguments to create many IoTEvents.
+     * @example
+     * // Create many IoTEvents
+     * const ioTEvent = await prisma.ioTEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IoTEventCreateManyArgs>(args?: SelectSubset<T, IoTEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IoTEvents and returns the data saved in the database.
+     * @param {IoTEventCreateManyAndReturnArgs} args - Arguments to create many IoTEvents.
+     * @example
+     * // Create many IoTEvents
+     * const ioTEvent = await prisma.ioTEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IoTEvents and only return the `id`
+     * const ioTEventWithIdOnly = await prisma.ioTEvent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IoTEventCreateManyAndReturnArgs>(args?: SelectSubset<T, IoTEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a IoTEvent.
+     * @param {IoTEventDeleteArgs} args - Arguments to delete one IoTEvent.
+     * @example
+     * // Delete one IoTEvent
+     * const IoTEvent = await prisma.ioTEvent.delete({
+     *   where: {
+     *     // ... filter to delete one IoTEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IoTEventDeleteArgs>(args: SelectSubset<T, IoTEventDeleteArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one IoTEvent.
+     * @param {IoTEventUpdateArgs} args - Arguments to update one IoTEvent.
+     * @example
+     * // Update one IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IoTEventUpdateArgs>(args: SelectSubset<T, IoTEventUpdateArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more IoTEvents.
+     * @param {IoTEventDeleteManyArgs} args - Arguments to filter IoTEvents to delete.
+     * @example
+     * // Delete a few IoTEvents
+     * const { count } = await prisma.ioTEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IoTEventDeleteManyArgs>(args?: SelectSubset<T, IoTEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IoTEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IoTEvents
+     * const ioTEvent = await prisma.ioTEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IoTEventUpdateManyArgs>(args: SelectSubset<T, IoTEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IoTEvent.
+     * @param {IoTEventUpsertArgs} args - Arguments to update or create a IoTEvent.
+     * @example
+     * // Update or create a IoTEvent
+     * const ioTEvent = await prisma.ioTEvent.upsert({
+     *   create: {
+     *     // ... data to create a IoTEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IoTEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IoTEventUpsertArgs>(args: SelectSubset<T, IoTEventUpsertArgs<ExtArgs>>): Prisma__IoTEventClient<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of IoTEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventCountArgs} args - Arguments to filter IoTEvents to count.
+     * @example
+     * // Count the number of IoTEvents
+     * const count = await prisma.ioTEvent.count({
+     *   where: {
+     *     // ... the filter for the IoTEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends IoTEventCountArgs>(
+      args?: Subset<T, IoTEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IoTEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IoTEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IoTEventAggregateArgs>(args: Subset<T, IoTEventAggregateArgs>): Prisma.PrismaPromise<GetIoTEventAggregateType<T>>
+
+    /**
+     * Group by IoTEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IoTEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IoTEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IoTEventGroupByArgs['orderBy'] }
+        : { orderBy?: IoTEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IoTEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIoTEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IoTEvent model
+   */
+  readonly fields: IoTEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IoTEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IoTEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends IoTEvent$tenantArgs<ExtArgs> = {}>(args?: Subset<T, IoTEvent$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    user<T extends IoTEvent$userArgs<ExtArgs> = {}>(args?: Subset<T, IoTEvent$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IoTEvent model
+   */ 
+  interface IoTEventFieldRefs {
+    readonly id: FieldRef<"IoTEvent", 'String'>
+    readonly deviceId: FieldRef<"IoTEvent", 'String'>
+    readonly deviceType: FieldRef<"IoTEvent", 'String'>
+    readonly payload: FieldRef<"IoTEvent", 'String'>
+    readonly status: FieldRef<"IoTEvent", 'String'>
+    readonly userId: FieldRef<"IoTEvent", 'String'>
+    readonly tenantId: FieldRef<"IoTEvent", 'String'>
+    readonly createdAt: FieldRef<"IoTEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IoTEvent findUnique
+   */
+  export type IoTEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter, which IoTEvent to fetch.
+     */
+    where: IoTEventWhereUniqueInput
+  }
+
+  /**
+   * IoTEvent findUniqueOrThrow
+   */
+  export type IoTEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter, which IoTEvent to fetch.
+     */
+    where: IoTEventWhereUniqueInput
+  }
+
+  /**
+   * IoTEvent findFirst
+   */
+  export type IoTEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter, which IoTEvent to fetch.
+     */
+    where?: IoTEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IoTEvents to fetch.
+     */
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IoTEvents.
+     */
+    cursor?: IoTEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IoTEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IoTEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IoTEvents.
+     */
+    distinct?: IoTEventScalarFieldEnum | IoTEventScalarFieldEnum[]
+  }
+
+  /**
+   * IoTEvent findFirstOrThrow
+   */
+  export type IoTEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter, which IoTEvent to fetch.
+     */
+    where?: IoTEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IoTEvents to fetch.
+     */
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IoTEvents.
+     */
+    cursor?: IoTEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IoTEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IoTEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IoTEvents.
+     */
+    distinct?: IoTEventScalarFieldEnum | IoTEventScalarFieldEnum[]
+  }
+
+  /**
+   * IoTEvent findMany
+   */
+  export type IoTEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter, which IoTEvents to fetch.
+     */
+    where?: IoTEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IoTEvents to fetch.
+     */
+    orderBy?: IoTEventOrderByWithRelationInput | IoTEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IoTEvents.
+     */
+    cursor?: IoTEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IoTEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IoTEvents.
+     */
+    skip?: number
+    distinct?: IoTEventScalarFieldEnum | IoTEventScalarFieldEnum[]
+  }
+
+  /**
+   * IoTEvent create
+   */
+  export type IoTEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IoTEvent.
+     */
+    data: XOR<IoTEventCreateInput, IoTEventUncheckedCreateInput>
+  }
+
+  /**
+   * IoTEvent createMany
+   */
+  export type IoTEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IoTEvents.
+     */
+    data: IoTEventCreateManyInput | IoTEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IoTEvent createManyAndReturn
+   */
+  export type IoTEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many IoTEvents.
+     */
+    data: IoTEventCreateManyInput | IoTEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IoTEvent update
+   */
+  export type IoTEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IoTEvent.
+     */
+    data: XOR<IoTEventUpdateInput, IoTEventUncheckedUpdateInput>
+    /**
+     * Choose, which IoTEvent to update.
+     */
+    where: IoTEventWhereUniqueInput
+  }
+
+  /**
+   * IoTEvent updateMany
+   */
+  export type IoTEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IoTEvents.
+     */
+    data: XOR<IoTEventUpdateManyMutationInput, IoTEventUncheckedUpdateManyInput>
+    /**
+     * Filter which IoTEvents to update
+     */
+    where?: IoTEventWhereInput
+  }
+
+  /**
+   * IoTEvent upsert
+   */
+  export type IoTEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IoTEvent to update in case it exists.
+     */
+    where: IoTEventWhereUniqueInput
+    /**
+     * In case the IoTEvent found by the `where` argument doesn't exist, create a new IoTEvent with this data.
+     */
+    create: XOR<IoTEventCreateInput, IoTEventUncheckedCreateInput>
+    /**
+     * In case the IoTEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IoTEventUpdateInput, IoTEventUncheckedUpdateInput>
+  }
+
+  /**
+   * IoTEvent delete
+   */
+  export type IoTEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+    /**
+     * Filter which IoTEvent to delete.
+     */
+    where: IoTEventWhereUniqueInput
+  }
+
+  /**
+   * IoTEvent deleteMany
+   */
+  export type IoTEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IoTEvents to delete
+     */
+    where?: IoTEventWhereInput
+  }
+
+  /**
+   * IoTEvent.tenant
+   */
+  export type IoTEvent$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * IoTEvent.user
+   */
+  export type IoTEvent$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * IoTEvent without action
+   */
+  export type IoTEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IoTEvent
+     */
+    select?: IoTEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IoTEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AppNotification
+   */
+
+  export type AggregateAppNotification = {
+    _count: AppNotificationCountAggregateOutputType | null
+    _min: AppNotificationMinAggregateOutputType | null
+    _max: AppNotificationMaxAggregateOutputType | null
+  }
+
+  export type AppNotificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    isRead: boolean | null
+    link: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type AppNotificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    isRead: boolean | null
+    link: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type AppNotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    message: number
+    type: number
+    isRead: number
+    link: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AppNotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    link?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type AppNotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    link?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type AppNotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    link?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AppNotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppNotification to aggregate.
+     */
+    where?: AppNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppNotifications to fetch.
+     */
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AppNotifications
+    **/
+    _count?: true | AppNotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppNotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppNotificationMaxAggregateInputType
+  }
+
+  export type GetAppNotificationAggregateType<T extends AppNotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppNotification[P]>
+      : GetScalarType<T[P], AggregateAppNotification[P]>
+  }
+
+
+
+
+  export type AppNotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppNotificationWhereInput
+    orderBy?: AppNotificationOrderByWithAggregationInput | AppNotificationOrderByWithAggregationInput[]
+    by: AppNotificationScalarFieldEnum[] | AppNotificationScalarFieldEnum
+    having?: AppNotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppNotificationCountAggregateInputType | true
+    _min?: AppNotificationMinAggregateInputType
+    _max?: AppNotificationMaxAggregateInputType
+  }
+
+  export type AppNotificationGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    message: string
+    type: string
+    isRead: boolean
+    link: string | null
+    tenantId: string | null
+    createdAt: Date
+    _count: AppNotificationCountAggregateOutputType | null
+    _min: AppNotificationMinAggregateOutputType | null
+    _max: AppNotificationMaxAggregateOutputType | null
+  }
+
+  type GetAppNotificationGroupByPayload<T extends AppNotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AppNotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppNotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppNotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], AppNotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppNotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    link?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | AppNotification$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appNotification"]>
+
+  export type AppNotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    link?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | AppNotification$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appNotification"]>
+
+  export type AppNotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    link?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type AppNotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | AppNotification$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AppNotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | AppNotification$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AppNotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AppNotification"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      message: string
+      type: string
+      isRead: boolean
+      link: string | null
+      tenantId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["appNotification"]>
+    composites: {}
+  }
+
+  type AppNotificationGetPayload<S extends boolean | null | undefined | AppNotificationDefaultArgs> = $Result.GetResult<Prisma.$AppNotificationPayload, S>
+
+  type AppNotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AppNotificationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AppNotificationCountAggregateInputType | true
+    }
+
+  export interface AppNotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AppNotification'], meta: { name: 'AppNotification' } }
+    /**
+     * Find zero or one AppNotification that matches the filter.
+     * @param {AppNotificationFindUniqueArgs} args - Arguments to find a AppNotification
+     * @example
+     * // Get one AppNotification
+     * const appNotification = await prisma.appNotification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AppNotificationFindUniqueArgs>(args: SelectSubset<T, AppNotificationFindUniqueArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AppNotification that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AppNotificationFindUniqueOrThrowArgs} args - Arguments to find a AppNotification
+     * @example
+     * // Get one AppNotification
+     * const appNotification = await prisma.appNotification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AppNotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, AppNotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AppNotification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationFindFirstArgs} args - Arguments to find a AppNotification
+     * @example
+     * // Get one AppNotification
+     * const appNotification = await prisma.appNotification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AppNotificationFindFirstArgs>(args?: SelectSubset<T, AppNotificationFindFirstArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AppNotification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationFindFirstOrThrowArgs} args - Arguments to find a AppNotification
+     * @example
+     * // Get one AppNotification
+     * const appNotification = await prisma.appNotification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AppNotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, AppNotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AppNotifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AppNotifications
+     * const appNotifications = await prisma.appNotification.findMany()
+     * 
+     * // Get first 10 AppNotifications
+     * const appNotifications = await prisma.appNotification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appNotificationWithIdOnly = await prisma.appNotification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AppNotificationFindManyArgs>(args?: SelectSubset<T, AppNotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AppNotification.
+     * @param {AppNotificationCreateArgs} args - Arguments to create a AppNotification.
+     * @example
+     * // Create one AppNotification
+     * const AppNotification = await prisma.appNotification.create({
+     *   data: {
+     *     // ... data to create a AppNotification
+     *   }
+     * })
+     * 
+     */
+    create<T extends AppNotificationCreateArgs>(args: SelectSubset<T, AppNotificationCreateArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AppNotifications.
+     * @param {AppNotificationCreateManyArgs} args - Arguments to create many AppNotifications.
+     * @example
+     * // Create many AppNotifications
+     * const appNotification = await prisma.appNotification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AppNotificationCreateManyArgs>(args?: SelectSubset<T, AppNotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AppNotifications and returns the data saved in the database.
+     * @param {AppNotificationCreateManyAndReturnArgs} args - Arguments to create many AppNotifications.
+     * @example
+     * // Create many AppNotifications
+     * const appNotification = await prisma.appNotification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AppNotifications and only return the `id`
+     * const appNotificationWithIdOnly = await prisma.appNotification.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AppNotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, AppNotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AppNotification.
+     * @param {AppNotificationDeleteArgs} args - Arguments to delete one AppNotification.
+     * @example
+     * // Delete one AppNotification
+     * const AppNotification = await prisma.appNotification.delete({
+     *   where: {
+     *     // ... filter to delete one AppNotification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AppNotificationDeleteArgs>(args: SelectSubset<T, AppNotificationDeleteArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AppNotification.
+     * @param {AppNotificationUpdateArgs} args - Arguments to update one AppNotification.
+     * @example
+     * // Update one AppNotification
+     * const appNotification = await prisma.appNotification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AppNotificationUpdateArgs>(args: SelectSubset<T, AppNotificationUpdateArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AppNotifications.
+     * @param {AppNotificationDeleteManyArgs} args - Arguments to filter AppNotifications to delete.
+     * @example
+     * // Delete a few AppNotifications
+     * const { count } = await prisma.appNotification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AppNotificationDeleteManyArgs>(args?: SelectSubset<T, AppNotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AppNotifications
+     * const appNotification = await prisma.appNotification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AppNotificationUpdateManyArgs>(args: SelectSubset<T, AppNotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AppNotification.
+     * @param {AppNotificationUpsertArgs} args - Arguments to update or create a AppNotification.
+     * @example
+     * // Update or create a AppNotification
+     * const appNotification = await prisma.appNotification.upsert({
+     *   create: {
+     *     // ... data to create a AppNotification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AppNotification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AppNotificationUpsertArgs>(args: SelectSubset<T, AppNotificationUpsertArgs<ExtArgs>>): Prisma__AppNotificationClient<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AppNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationCountArgs} args - Arguments to filter AppNotifications to count.
+     * @example
+     * // Count the number of AppNotifications
+     * const count = await prisma.appNotification.count({
+     *   where: {
+     *     // ... the filter for the AppNotifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppNotificationCountArgs>(
+      args?: Subset<T, AppNotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppNotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AppNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppNotificationAggregateArgs>(args: Subset<T, AppNotificationAggregateArgs>): Prisma.PrismaPromise<GetAppNotificationAggregateType<T>>
+
+    /**
+     * Group by AppNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppNotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppNotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppNotificationGroupByArgs['orderBy'] }
+        : { orderBy?: AppNotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppNotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AppNotification model
+   */
+  readonly fields: AppNotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AppNotification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AppNotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends AppNotification$tenantArgs<ExtArgs> = {}>(args?: Subset<T, AppNotification$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AppNotification model
+   */ 
+  interface AppNotificationFieldRefs {
+    readonly id: FieldRef<"AppNotification", 'String'>
+    readonly userId: FieldRef<"AppNotification", 'String'>
+    readonly title: FieldRef<"AppNotification", 'String'>
+    readonly message: FieldRef<"AppNotification", 'String'>
+    readonly type: FieldRef<"AppNotification", 'String'>
+    readonly isRead: FieldRef<"AppNotification", 'Boolean'>
+    readonly link: FieldRef<"AppNotification", 'String'>
+    readonly tenantId: FieldRef<"AppNotification", 'String'>
+    readonly createdAt: FieldRef<"AppNotification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AppNotification findUnique
+   */
+  export type AppNotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which AppNotification to fetch.
+     */
+    where: AppNotificationWhereUniqueInput
+  }
+
+  /**
+   * AppNotification findUniqueOrThrow
+   */
+  export type AppNotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which AppNotification to fetch.
+     */
+    where: AppNotificationWhereUniqueInput
+  }
+
+  /**
+   * AppNotification findFirst
+   */
+  export type AppNotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which AppNotification to fetch.
+     */
+    where?: AppNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppNotifications to fetch.
+     */
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppNotifications.
+     */
+    cursor?: AppNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppNotifications.
+     */
+    distinct?: AppNotificationScalarFieldEnum | AppNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * AppNotification findFirstOrThrow
+   */
+  export type AppNotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which AppNotification to fetch.
+     */
+    where?: AppNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppNotifications to fetch.
+     */
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppNotifications.
+     */
+    cursor?: AppNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppNotifications.
+     */
+    distinct?: AppNotificationScalarFieldEnum | AppNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * AppNotification findMany
+   */
+  export type AppNotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which AppNotifications to fetch.
+     */
+    where?: AppNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppNotifications to fetch.
+     */
+    orderBy?: AppNotificationOrderByWithRelationInput | AppNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AppNotifications.
+     */
+    cursor?: AppNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppNotifications.
+     */
+    skip?: number
+    distinct?: AppNotificationScalarFieldEnum | AppNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * AppNotification create
+   */
+  export type AppNotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AppNotification.
+     */
+    data: XOR<AppNotificationCreateInput, AppNotificationUncheckedCreateInput>
+  }
+
+  /**
+   * AppNotification createMany
+   */
+  export type AppNotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AppNotifications.
+     */
+    data: AppNotificationCreateManyInput | AppNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AppNotification createManyAndReturn
+   */
+  export type AppNotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AppNotifications.
+     */
+    data: AppNotificationCreateManyInput | AppNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AppNotification update
+   */
+  export type AppNotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AppNotification.
+     */
+    data: XOR<AppNotificationUpdateInput, AppNotificationUncheckedUpdateInput>
+    /**
+     * Choose, which AppNotification to update.
+     */
+    where: AppNotificationWhereUniqueInput
+  }
+
+  /**
+   * AppNotification updateMany
+   */
+  export type AppNotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AppNotifications.
+     */
+    data: XOR<AppNotificationUpdateManyMutationInput, AppNotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which AppNotifications to update
+     */
+    where?: AppNotificationWhereInput
+  }
+
+  /**
+   * AppNotification upsert
+   */
+  export type AppNotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AppNotification to update in case it exists.
+     */
+    where: AppNotificationWhereUniqueInput
+    /**
+     * In case the AppNotification found by the `where` argument doesn't exist, create a new AppNotification with this data.
+     */
+    create: XOR<AppNotificationCreateInput, AppNotificationUncheckedCreateInput>
+    /**
+     * In case the AppNotification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppNotificationUpdateInput, AppNotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * AppNotification delete
+   */
+  export type AppNotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+    /**
+     * Filter which AppNotification to delete.
+     */
+    where: AppNotificationWhereUniqueInput
+  }
+
+  /**
+   * AppNotification deleteMany
+   */
+  export type AppNotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppNotifications to delete
+     */
+    where?: AppNotificationWhereInput
+  }
+
+  /**
+   * AppNotification.tenant
+   */
+  export type AppNotification$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * AppNotification without action
+   */
+  export type AppNotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppNotification
+     */
+    select?: AppNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppNotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GamificationProfile
+   */
+
+  export type AggregateGamificationProfile = {
+    _count: GamificationProfileCountAggregateOutputType | null
+    _avg: GamificationProfileAvgAggregateOutputType | null
+    _sum: GamificationProfileSumAggregateOutputType | null
+    _min: GamificationProfileMinAggregateOutputType | null
+    _max: GamificationProfileMaxAggregateOutputType | null
+  }
+
+  export type GamificationProfileAvgAggregateOutputType = {
+    careCoins: number | null
+    lifetimePoints: number | null
+  }
+
+  export type GamificationProfileSumAggregateOutputType = {
+    careCoins: number | null
+    lifetimePoints: number | null
+  }
+
+  export type GamificationProfileMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    careCoins: number | null
+    currentTier: string | null
+    lifetimePoints: number | null
+    tenantId: string | null
+    updatedAt: Date | null
+  }
+
+  export type GamificationProfileMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    careCoins: number | null
+    currentTier: string | null
+    lifetimePoints: number | null
+    tenantId: string | null
+    updatedAt: Date | null
+  }
+
+  export type GamificationProfileCountAggregateOutputType = {
+    id: number
+    userId: number
+    careCoins: number
+    currentTier: number
+    lifetimePoints: number
+    tenantId: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GamificationProfileAvgAggregateInputType = {
+    careCoins?: true
+    lifetimePoints?: true
+  }
+
+  export type GamificationProfileSumAggregateInputType = {
+    careCoins?: true
+    lifetimePoints?: true
+  }
+
+  export type GamificationProfileMinAggregateInputType = {
+    id?: true
+    userId?: true
+    careCoins?: true
+    currentTier?: true
+    lifetimePoints?: true
+    tenantId?: true
+    updatedAt?: true
+  }
+
+  export type GamificationProfileMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    careCoins?: true
+    currentTier?: true
+    lifetimePoints?: true
+    tenantId?: true
+    updatedAt?: true
+  }
+
+  export type GamificationProfileCountAggregateInputType = {
+    id?: true
+    userId?: true
+    careCoins?: true
+    currentTier?: true
+    lifetimePoints?: true
+    tenantId?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GamificationProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GamificationProfile to aggregate.
+     */
+    where?: GamificationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GamificationProfiles to fetch.
+     */
+    orderBy?: GamificationProfileOrderByWithRelationInput | GamificationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GamificationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GamificationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GamificationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GamificationProfiles
+    **/
+    _count?: true | GamificationProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GamificationProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GamificationProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GamificationProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GamificationProfileMaxAggregateInputType
+  }
+
+  export type GetGamificationProfileAggregateType<T extends GamificationProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateGamificationProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGamificationProfile[P]>
+      : GetScalarType<T[P], AggregateGamificationProfile[P]>
+  }
+
+
+
+
+  export type GamificationProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GamificationProfileWhereInput
+    orderBy?: GamificationProfileOrderByWithAggregationInput | GamificationProfileOrderByWithAggregationInput[]
+    by: GamificationProfileScalarFieldEnum[] | GamificationProfileScalarFieldEnum
+    having?: GamificationProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GamificationProfileCountAggregateInputType | true
+    _avg?: GamificationProfileAvgAggregateInputType
+    _sum?: GamificationProfileSumAggregateInputType
+    _min?: GamificationProfileMinAggregateInputType
+    _max?: GamificationProfileMaxAggregateInputType
+  }
+
+  export type GamificationProfileGroupByOutputType = {
+    id: string
+    userId: string
+    careCoins: number
+    currentTier: string
+    lifetimePoints: number
+    tenantId: string | null
+    updatedAt: Date
+    _count: GamificationProfileCountAggregateOutputType | null
+    _avg: GamificationProfileAvgAggregateOutputType | null
+    _sum: GamificationProfileSumAggregateOutputType | null
+    _min: GamificationProfileMinAggregateOutputType | null
+    _max: GamificationProfileMaxAggregateOutputType | null
+  }
+
+  type GetGamificationProfileGroupByPayload<T extends GamificationProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GamificationProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GamificationProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GamificationProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], GamificationProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GamificationProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    careCoins?: boolean
+    currentTier?: boolean
+    lifetimePoints?: boolean
+    tenantId?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | GamificationProfile$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gamificationProfile"]>
+
+  export type GamificationProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    careCoins?: boolean
+    currentTier?: boolean
+    lifetimePoints?: boolean
+    tenantId?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | GamificationProfile$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gamificationProfile"]>
+
+  export type GamificationProfileSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    careCoins?: boolean
+    currentTier?: boolean
+    lifetimePoints?: boolean
+    tenantId?: boolean
+    updatedAt?: boolean
+  }
+
+  export type GamificationProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | GamificationProfile$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GamificationProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | GamificationProfile$tenantArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GamificationProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GamificationProfile"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      careCoins: number
+      currentTier: string
+      lifetimePoints: number
+      tenantId: string | null
+      updatedAt: Date
+    }, ExtArgs["result"]["gamificationProfile"]>
+    composites: {}
+  }
+
+  type GamificationProfileGetPayload<S extends boolean | null | undefined | GamificationProfileDefaultArgs> = $Result.GetResult<Prisma.$GamificationProfilePayload, S>
+
+  type GamificationProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<GamificationProfileFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: GamificationProfileCountAggregateInputType | true
+    }
+
+  export interface GamificationProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GamificationProfile'], meta: { name: 'GamificationProfile' } }
+    /**
+     * Find zero or one GamificationProfile that matches the filter.
+     * @param {GamificationProfileFindUniqueArgs} args - Arguments to find a GamificationProfile
+     * @example
+     * // Get one GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GamificationProfileFindUniqueArgs>(args: SelectSubset<T, GamificationProfileFindUniqueArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one GamificationProfile that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {GamificationProfileFindUniqueOrThrowArgs} args - Arguments to find a GamificationProfile
+     * @example
+     * // Get one GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GamificationProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, GamificationProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first GamificationProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileFindFirstArgs} args - Arguments to find a GamificationProfile
+     * @example
+     * // Get one GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GamificationProfileFindFirstArgs>(args?: SelectSubset<T, GamificationProfileFindFirstArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first GamificationProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileFindFirstOrThrowArgs} args - Arguments to find a GamificationProfile
+     * @example
+     * // Get one GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GamificationProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, GamificationProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more GamificationProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GamificationProfiles
+     * const gamificationProfiles = await prisma.gamificationProfile.findMany()
+     * 
+     * // Get first 10 GamificationProfiles
+     * const gamificationProfiles = await prisma.gamificationProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gamificationProfileWithIdOnly = await prisma.gamificationProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GamificationProfileFindManyArgs>(args?: SelectSubset<T, GamificationProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a GamificationProfile.
+     * @param {GamificationProfileCreateArgs} args - Arguments to create a GamificationProfile.
+     * @example
+     * // Create one GamificationProfile
+     * const GamificationProfile = await prisma.gamificationProfile.create({
+     *   data: {
+     *     // ... data to create a GamificationProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends GamificationProfileCreateArgs>(args: SelectSubset<T, GamificationProfileCreateArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many GamificationProfiles.
+     * @param {GamificationProfileCreateManyArgs} args - Arguments to create many GamificationProfiles.
+     * @example
+     * // Create many GamificationProfiles
+     * const gamificationProfile = await prisma.gamificationProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GamificationProfileCreateManyArgs>(args?: SelectSubset<T, GamificationProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GamificationProfiles and returns the data saved in the database.
+     * @param {GamificationProfileCreateManyAndReturnArgs} args - Arguments to create many GamificationProfiles.
+     * @example
+     * // Create many GamificationProfiles
+     * const gamificationProfile = await prisma.gamificationProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GamificationProfiles and only return the `id`
+     * const gamificationProfileWithIdOnly = await prisma.gamificationProfile.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GamificationProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, GamificationProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a GamificationProfile.
+     * @param {GamificationProfileDeleteArgs} args - Arguments to delete one GamificationProfile.
+     * @example
+     * // Delete one GamificationProfile
+     * const GamificationProfile = await prisma.gamificationProfile.delete({
+     *   where: {
+     *     // ... filter to delete one GamificationProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GamificationProfileDeleteArgs>(args: SelectSubset<T, GamificationProfileDeleteArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one GamificationProfile.
+     * @param {GamificationProfileUpdateArgs} args - Arguments to update one GamificationProfile.
+     * @example
+     * // Update one GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GamificationProfileUpdateArgs>(args: SelectSubset<T, GamificationProfileUpdateArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more GamificationProfiles.
+     * @param {GamificationProfileDeleteManyArgs} args - Arguments to filter GamificationProfiles to delete.
+     * @example
+     * // Delete a few GamificationProfiles
+     * const { count } = await prisma.gamificationProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GamificationProfileDeleteManyArgs>(args?: SelectSubset<T, GamificationProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GamificationProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GamificationProfiles
+     * const gamificationProfile = await prisma.gamificationProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GamificationProfileUpdateManyArgs>(args: SelectSubset<T, GamificationProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GamificationProfile.
+     * @param {GamificationProfileUpsertArgs} args - Arguments to update or create a GamificationProfile.
+     * @example
+     * // Update or create a GamificationProfile
+     * const gamificationProfile = await prisma.gamificationProfile.upsert({
+     *   create: {
+     *     // ... data to create a GamificationProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GamificationProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GamificationProfileUpsertArgs>(args: SelectSubset<T, GamificationProfileUpsertArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of GamificationProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileCountArgs} args - Arguments to filter GamificationProfiles to count.
+     * @example
+     * // Count the number of GamificationProfiles
+     * const count = await prisma.gamificationProfile.count({
+     *   where: {
+     *     // ... the filter for the GamificationProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends GamificationProfileCountArgs>(
+      args?: Subset<T, GamificationProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GamificationProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GamificationProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GamificationProfileAggregateArgs>(args: Subset<T, GamificationProfileAggregateArgs>): Prisma.PrismaPromise<GetGamificationProfileAggregateType<T>>
+
+    /**
+     * Group by GamificationProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamificationProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GamificationProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GamificationProfileGroupByArgs['orderBy'] }
+        : { orderBy?: GamificationProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GamificationProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGamificationProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GamificationProfile model
+   */
+  readonly fields: GamificationProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GamificationProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GamificationProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends GamificationProfile$tenantArgs<ExtArgs> = {}>(args?: Subset<T, GamificationProfile$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GamificationProfile model
+   */ 
+  interface GamificationProfileFieldRefs {
+    readonly id: FieldRef<"GamificationProfile", 'String'>
+    readonly userId: FieldRef<"GamificationProfile", 'String'>
+    readonly careCoins: FieldRef<"GamificationProfile", 'Int'>
+    readonly currentTier: FieldRef<"GamificationProfile", 'String'>
+    readonly lifetimePoints: FieldRef<"GamificationProfile", 'Int'>
+    readonly tenantId: FieldRef<"GamificationProfile", 'String'>
+    readonly updatedAt: FieldRef<"GamificationProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GamificationProfile findUnique
+   */
+  export type GamificationProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which GamificationProfile to fetch.
+     */
+    where: GamificationProfileWhereUniqueInput
+  }
+
+  /**
+   * GamificationProfile findUniqueOrThrow
+   */
+  export type GamificationProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which GamificationProfile to fetch.
+     */
+    where: GamificationProfileWhereUniqueInput
+  }
+
+  /**
+   * GamificationProfile findFirst
+   */
+  export type GamificationProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which GamificationProfile to fetch.
+     */
+    where?: GamificationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GamificationProfiles to fetch.
+     */
+    orderBy?: GamificationProfileOrderByWithRelationInput | GamificationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GamificationProfiles.
+     */
+    cursor?: GamificationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GamificationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GamificationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GamificationProfiles.
+     */
+    distinct?: GamificationProfileScalarFieldEnum | GamificationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * GamificationProfile findFirstOrThrow
+   */
+  export type GamificationProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which GamificationProfile to fetch.
+     */
+    where?: GamificationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GamificationProfiles to fetch.
+     */
+    orderBy?: GamificationProfileOrderByWithRelationInput | GamificationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GamificationProfiles.
+     */
+    cursor?: GamificationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GamificationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GamificationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GamificationProfiles.
+     */
+    distinct?: GamificationProfileScalarFieldEnum | GamificationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * GamificationProfile findMany
+   */
+  export type GamificationProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which GamificationProfiles to fetch.
+     */
+    where?: GamificationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GamificationProfiles to fetch.
+     */
+    orderBy?: GamificationProfileOrderByWithRelationInput | GamificationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GamificationProfiles.
+     */
+    cursor?: GamificationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GamificationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GamificationProfiles.
+     */
+    skip?: number
+    distinct?: GamificationProfileScalarFieldEnum | GamificationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * GamificationProfile create
+   */
+  export type GamificationProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GamificationProfile.
+     */
+    data: XOR<GamificationProfileCreateInput, GamificationProfileUncheckedCreateInput>
+  }
+
+  /**
+   * GamificationProfile createMany
+   */
+  export type GamificationProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GamificationProfiles.
+     */
+    data: GamificationProfileCreateManyInput | GamificationProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GamificationProfile createManyAndReturn
+   */
+  export type GamificationProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many GamificationProfiles.
+     */
+    data: GamificationProfileCreateManyInput | GamificationProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GamificationProfile update
+   */
+  export type GamificationProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GamificationProfile.
+     */
+    data: XOR<GamificationProfileUpdateInput, GamificationProfileUncheckedUpdateInput>
+    /**
+     * Choose, which GamificationProfile to update.
+     */
+    where: GamificationProfileWhereUniqueInput
+  }
+
+  /**
+   * GamificationProfile updateMany
+   */
+  export type GamificationProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GamificationProfiles.
+     */
+    data: XOR<GamificationProfileUpdateManyMutationInput, GamificationProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which GamificationProfiles to update
+     */
+    where?: GamificationProfileWhereInput
+  }
+
+  /**
+   * GamificationProfile upsert
+   */
+  export type GamificationProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GamificationProfile to update in case it exists.
+     */
+    where: GamificationProfileWhereUniqueInput
+    /**
+     * In case the GamificationProfile found by the `where` argument doesn't exist, create a new GamificationProfile with this data.
+     */
+    create: XOR<GamificationProfileCreateInput, GamificationProfileUncheckedCreateInput>
+    /**
+     * In case the GamificationProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GamificationProfileUpdateInput, GamificationProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * GamificationProfile delete
+   */
+  export type GamificationProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+    /**
+     * Filter which GamificationProfile to delete.
+     */
+    where: GamificationProfileWhereUniqueInput
+  }
+
+  /**
+   * GamificationProfile deleteMany
+   */
+  export type GamificationProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GamificationProfiles to delete
+     */
+    where?: GamificationProfileWhereInput
+  }
+
+  /**
+   * GamificationProfile.tenant
+   */
+  export type GamificationProfile$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * GamificationProfile without action
+   */
+  export type GamificationProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GamificationProfile
+     */
+    select?: GamificationProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GamificationProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIInference
+   */
+
+  export type AggregateAIInference = {
+    _count: AIInferenceCountAggregateOutputType | null
+    _avg: AIInferenceAvgAggregateOutputType | null
+    _sum: AIInferenceSumAggregateOutputType | null
+    _min: AIInferenceMinAggregateOutputType | null
+    _max: AIInferenceMaxAggregateOutputType | null
+  }
+
+  export type AIInferenceAvgAggregateOutputType = {
+    confidenceScore: number | null
+  }
+
+  export type AIInferenceSumAggregateOutputType = {
+    confidenceScore: number | null
+  }
+
+  export type AIInferenceMinAggregateOutputType = {
+    id: string | null
+    modelName: string | null
+    targetId: string | null
+    targetType: string | null
+    confidenceScore: number | null
+    predictionData: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type AIInferenceMaxAggregateOutputType = {
+    id: string | null
+    modelName: string | null
+    targetId: string | null
+    targetType: string | null
+    confidenceScore: number | null
+    predictionData: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type AIInferenceCountAggregateOutputType = {
+    id: number
+    modelName: number
+    targetId: number
+    targetType: number
+    confidenceScore: number
+    predictionData: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AIInferenceAvgAggregateInputType = {
+    confidenceScore?: true
+  }
+
+  export type AIInferenceSumAggregateInputType = {
+    confidenceScore?: true
+  }
+
+  export type AIInferenceMinAggregateInputType = {
+    id?: true
+    modelName?: true
+    targetId?: true
+    targetType?: true
+    confidenceScore?: true
+    predictionData?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type AIInferenceMaxAggregateInputType = {
+    id?: true
+    modelName?: true
+    targetId?: true
+    targetType?: true
+    confidenceScore?: true
+    predictionData?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type AIInferenceCountAggregateInputType = {
+    id?: true
+    modelName?: true
+    targetId?: true
+    targetType?: true
+    confidenceScore?: true
+    predictionData?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AIInferenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInference to aggregate.
+     */
+    where?: AIInferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInferences to fetch.
+     */
+    orderBy?: AIInferenceOrderByWithRelationInput | AIInferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIInferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIInferences
+    **/
+    _count?: true | AIInferenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AIInferenceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AIInferenceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIInferenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIInferenceMaxAggregateInputType
+  }
+
+  export type GetAIInferenceAggregateType<T extends AIInferenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIInference]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIInference[P]>
+      : GetScalarType<T[P], AggregateAIInference[P]>
+  }
+
+
+
+
+  export type AIInferenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInferenceWhereInput
+    orderBy?: AIInferenceOrderByWithAggregationInput | AIInferenceOrderByWithAggregationInput[]
+    by: AIInferenceScalarFieldEnum[] | AIInferenceScalarFieldEnum
+    having?: AIInferenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIInferenceCountAggregateInputType | true
+    _avg?: AIInferenceAvgAggregateInputType
+    _sum?: AIInferenceSumAggregateInputType
+    _min?: AIInferenceMinAggregateInputType
+    _max?: AIInferenceMaxAggregateInputType
+  }
+
+  export type AIInferenceGroupByOutputType = {
+    id: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    tenantId: string | null
+    createdAt: Date
+    _count: AIInferenceCountAggregateOutputType | null
+    _avg: AIInferenceAvgAggregateOutputType | null
+    _sum: AIInferenceSumAggregateOutputType | null
+    _min: AIInferenceMinAggregateOutputType | null
+    _max: AIInferenceMaxAggregateOutputType | null
+  }
+
+  type GetAIInferenceGroupByPayload<T extends AIInferenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIInferenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIInferenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIInferenceGroupByOutputType[P]>
+            : GetScalarType<T[P], AIInferenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIInferenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    modelName?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    confidenceScore?: boolean
+    predictionData?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | AIInference$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInference"]>
+
+  export type AIInferenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    modelName?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    confidenceScore?: boolean
+    predictionData?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | AIInference$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInference"]>
+
+  export type AIInferenceSelectScalar = {
+    id?: boolean
+    modelName?: boolean
+    targetId?: boolean
+    targetType?: boolean
+    confidenceScore?: boolean
+    predictionData?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type AIInferenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | AIInference$tenantArgs<ExtArgs>
+  }
+  export type AIInferenceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | AIInference$tenantArgs<ExtArgs>
+  }
+
+  export type $AIInferencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIInference"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      modelName: string
+      targetId: string
+      targetType: string
+      confidenceScore: number
+      predictionData: string
+      tenantId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["aIInference"]>
+    composites: {}
+  }
+
+  type AIInferenceGetPayload<S extends boolean | null | undefined | AIInferenceDefaultArgs> = $Result.GetResult<Prisma.$AIInferencePayload, S>
+
+  type AIInferenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AIInferenceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AIInferenceCountAggregateInputType | true
+    }
+
+  export interface AIInferenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIInference'], meta: { name: 'AIInference' } }
+    /**
+     * Find zero or one AIInference that matches the filter.
+     * @param {AIInferenceFindUniqueArgs} args - Arguments to find a AIInference
+     * @example
+     * // Get one AIInference
+     * const aIInference = await prisma.aIInference.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIInferenceFindUniqueArgs>(args: SelectSubset<T, AIInferenceFindUniqueArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AIInference that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AIInferenceFindUniqueOrThrowArgs} args - Arguments to find a AIInference
+     * @example
+     * // Get one AIInference
+     * const aIInference = await prisma.aIInference.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIInferenceFindUniqueOrThrowArgs>(args: SelectSubset<T, AIInferenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AIInference that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceFindFirstArgs} args - Arguments to find a AIInference
+     * @example
+     * // Get one AIInference
+     * const aIInference = await prisma.aIInference.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIInferenceFindFirstArgs>(args?: SelectSubset<T, AIInferenceFindFirstArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AIInference that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceFindFirstOrThrowArgs} args - Arguments to find a AIInference
+     * @example
+     * // Get one AIInference
+     * const aIInference = await prisma.aIInference.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIInferenceFindFirstOrThrowArgs>(args?: SelectSubset<T, AIInferenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AIInferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIInferences
+     * const aIInferences = await prisma.aIInference.findMany()
+     * 
+     * // Get first 10 AIInferences
+     * const aIInferences = await prisma.aIInference.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIInferenceWithIdOnly = await prisma.aIInference.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIInferenceFindManyArgs>(args?: SelectSubset<T, AIInferenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AIInference.
+     * @param {AIInferenceCreateArgs} args - Arguments to create a AIInference.
+     * @example
+     * // Create one AIInference
+     * const AIInference = await prisma.aIInference.create({
+     *   data: {
+     *     // ... data to create a AIInference
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIInferenceCreateArgs>(args: SelectSubset<T, AIInferenceCreateArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AIInferences.
+     * @param {AIInferenceCreateManyArgs} args - Arguments to create many AIInferences.
+     * @example
+     * // Create many AIInferences
+     * const aIInference = await prisma.aIInference.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIInferenceCreateManyArgs>(args?: SelectSubset<T, AIInferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIInferences and returns the data saved in the database.
+     * @param {AIInferenceCreateManyAndReturnArgs} args - Arguments to create many AIInferences.
+     * @example
+     * // Create many AIInferences
+     * const aIInference = await prisma.aIInference.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIInferences and only return the `id`
+     * const aIInferenceWithIdOnly = await prisma.aIInference.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIInferenceCreateManyAndReturnArgs>(args?: SelectSubset<T, AIInferenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AIInference.
+     * @param {AIInferenceDeleteArgs} args - Arguments to delete one AIInference.
+     * @example
+     * // Delete one AIInference
+     * const AIInference = await prisma.aIInference.delete({
+     *   where: {
+     *     // ... filter to delete one AIInference
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIInferenceDeleteArgs>(args: SelectSubset<T, AIInferenceDeleteArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AIInference.
+     * @param {AIInferenceUpdateArgs} args - Arguments to update one AIInference.
+     * @example
+     * // Update one AIInference
+     * const aIInference = await prisma.aIInference.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIInferenceUpdateArgs>(args: SelectSubset<T, AIInferenceUpdateArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AIInferences.
+     * @param {AIInferenceDeleteManyArgs} args - Arguments to filter AIInferences to delete.
+     * @example
+     * // Delete a few AIInferences
+     * const { count } = await prisma.aIInference.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIInferenceDeleteManyArgs>(args?: SelectSubset<T, AIInferenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIInferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIInferences
+     * const aIInference = await prisma.aIInference.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIInferenceUpdateManyArgs>(args: SelectSubset<T, AIInferenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AIInference.
+     * @param {AIInferenceUpsertArgs} args - Arguments to update or create a AIInference.
+     * @example
+     * // Update or create a AIInference
+     * const aIInference = await prisma.aIInference.upsert({
+     *   create: {
+     *     // ... data to create a AIInference
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIInference we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIInferenceUpsertArgs>(args: SelectSubset<T, AIInferenceUpsertArgs<ExtArgs>>): Prisma__AIInferenceClient<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AIInferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceCountArgs} args - Arguments to filter AIInferences to count.
+     * @example
+     * // Count the number of AIInferences
+     * const count = await prisma.aIInference.count({
+     *   where: {
+     *     // ... the filter for the AIInferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIInferenceCountArgs>(
+      args?: Subset<T, AIInferenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIInferenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIInference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIInferenceAggregateArgs>(args: Subset<T, AIInferenceAggregateArgs>): Prisma.PrismaPromise<GetAIInferenceAggregateType<T>>
+
+    /**
+     * Group by AIInference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInferenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIInferenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIInferenceGroupByArgs['orderBy'] }
+        : { orderBy?: AIInferenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIInferenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIInferenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIInference model
+   */
+  readonly fields: AIInferenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIInference.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIInferenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends AIInference$tenantArgs<ExtArgs> = {}>(args?: Subset<T, AIInference$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIInference model
+   */ 
+  interface AIInferenceFieldRefs {
+    readonly id: FieldRef<"AIInference", 'String'>
+    readonly modelName: FieldRef<"AIInference", 'String'>
+    readonly targetId: FieldRef<"AIInference", 'String'>
+    readonly targetType: FieldRef<"AIInference", 'String'>
+    readonly confidenceScore: FieldRef<"AIInference", 'Float'>
+    readonly predictionData: FieldRef<"AIInference", 'String'>
+    readonly tenantId: FieldRef<"AIInference", 'String'>
+    readonly createdAt: FieldRef<"AIInference", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIInference findUnique
+   */
+  export type AIInferenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInference to fetch.
+     */
+    where: AIInferenceWhereUniqueInput
+  }
+
+  /**
+   * AIInference findUniqueOrThrow
+   */
+  export type AIInferenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInference to fetch.
+     */
+    where: AIInferenceWhereUniqueInput
+  }
+
+  /**
+   * AIInference findFirst
+   */
+  export type AIInferenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInference to fetch.
+     */
+    where?: AIInferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInferences to fetch.
+     */
+    orderBy?: AIInferenceOrderByWithRelationInput | AIInferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInferences.
+     */
+    cursor?: AIInferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInferences.
+     */
+    distinct?: AIInferenceScalarFieldEnum | AIInferenceScalarFieldEnum[]
+  }
+
+  /**
+   * AIInference findFirstOrThrow
+   */
+  export type AIInferenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInference to fetch.
+     */
+    where?: AIInferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInferences to fetch.
+     */
+    orderBy?: AIInferenceOrderByWithRelationInput | AIInferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInferences.
+     */
+    cursor?: AIInferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInferences.
+     */
+    distinct?: AIInferenceScalarFieldEnum | AIInferenceScalarFieldEnum[]
+  }
+
+  /**
+   * AIInference findMany
+   */
+  export type AIInferenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInferences to fetch.
+     */
+    where?: AIInferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInferences to fetch.
+     */
+    orderBy?: AIInferenceOrderByWithRelationInput | AIInferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIInferences.
+     */
+    cursor?: AIInferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInferences.
+     */
+    skip?: number
+    distinct?: AIInferenceScalarFieldEnum | AIInferenceScalarFieldEnum[]
+  }
+
+  /**
+   * AIInference create
+   */
+  export type AIInferenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIInference.
+     */
+    data: XOR<AIInferenceCreateInput, AIInferenceUncheckedCreateInput>
+  }
+
+  /**
+   * AIInference createMany
+   */
+  export type AIInferenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIInferences.
+     */
+    data: AIInferenceCreateManyInput | AIInferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIInference createManyAndReturn
+   */
+  export type AIInferenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AIInferences.
+     */
+    data: AIInferenceCreateManyInput | AIInferenceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIInference update
+   */
+  export type AIInferenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIInference.
+     */
+    data: XOR<AIInferenceUpdateInput, AIInferenceUncheckedUpdateInput>
+    /**
+     * Choose, which AIInference to update.
+     */
+    where: AIInferenceWhereUniqueInput
+  }
+
+  /**
+   * AIInference updateMany
+   */
+  export type AIInferenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIInferences.
+     */
+    data: XOR<AIInferenceUpdateManyMutationInput, AIInferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which AIInferences to update
+     */
+    where?: AIInferenceWhereInput
+  }
+
+  /**
+   * AIInference upsert
+   */
+  export type AIInferenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIInference to update in case it exists.
+     */
+    where: AIInferenceWhereUniqueInput
+    /**
+     * In case the AIInference found by the `where` argument doesn't exist, create a new AIInference with this data.
+     */
+    create: XOR<AIInferenceCreateInput, AIInferenceUncheckedCreateInput>
+    /**
+     * In case the AIInference was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIInferenceUpdateInput, AIInferenceUncheckedUpdateInput>
+  }
+
+  /**
+   * AIInference delete
+   */
+  export type AIInferenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+    /**
+     * Filter which AIInference to delete.
+     */
+    where: AIInferenceWhereUniqueInput
+  }
+
+  /**
+   * AIInference deleteMany
+   */
+  export type AIInferenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInferences to delete
+     */
+    where?: AIInferenceWhereInput
+  }
+
+  /**
+   * AIInference.tenant
+   */
+  export type AIInference$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * AIInference without action
+   */
+  export type AIInferenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInference
+     */
+    select?: AIInferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInferenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunicationLog
+   */
+
+  export type AggregateCommunicationLog = {
+    _count: CommunicationLogCountAggregateOutputType | null
+    _min: CommunicationLogMinAggregateOutputType | null
+    _max: CommunicationLogMaxAggregateOutputType | null
+  }
+
+  export type CommunicationLogMinAggregateOutputType = {
+    id: string | null
+    direction: string | null
+    channel: string | null
+    recipient: string | null
+    sender: string | null
+    subject: string | null
+    bodyText: string | null
+    status: string | null
+    externalId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommunicationLogMaxAggregateOutputType = {
+    id: string | null
+    direction: string | null
+    channel: string | null
+    recipient: string | null
+    sender: string | null
+    subject: string | null
+    bodyText: string | null
+    status: string | null
+    externalId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommunicationLogCountAggregateOutputType = {
+    id: number
+    direction: number
+    channel: number
+    recipient: number
+    sender: number
+    subject: number
+    bodyText: number
+    status: number
+    externalId: number
+    tenantId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommunicationLogMinAggregateInputType = {
+    id?: true
+    direction?: true
+    channel?: true
+    recipient?: true
+    sender?: true
+    subject?: true
+    bodyText?: true
+    status?: true
+    externalId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type CommunicationLogMaxAggregateInputType = {
+    id?: true
+    direction?: true
+    channel?: true
+    recipient?: true
+    sender?: true
+    subject?: true
+    bodyText?: true
+    status?: true
+    externalId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type CommunicationLogCountAggregateInputType = {
+    id?: true
+    direction?: true
+    channel?: true
+    recipient?: true
+    sender?: true
+    subject?: true
+    bodyText?: true
+    status?: true
+    externalId?: true
+    tenantId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommunicationLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunicationLog to aggregate.
+     */
+    where?: CommunicationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunicationLogs to fetch.
+     */
+    orderBy?: CommunicationLogOrderByWithRelationInput | CommunicationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunicationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunicationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunicationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunicationLogs
+    **/
+    _count?: true | CommunicationLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunicationLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunicationLogMaxAggregateInputType
+  }
+
+  export type GetCommunicationLogAggregateType<T extends CommunicationLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunicationLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunicationLog[P]>
+      : GetScalarType<T[P], AggregateCommunicationLog[P]>
+  }
+
+
+
+
+  export type CommunicationLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunicationLogWhereInput
+    orderBy?: CommunicationLogOrderByWithAggregationInput | CommunicationLogOrderByWithAggregationInput[]
+    by: CommunicationLogScalarFieldEnum[] | CommunicationLogScalarFieldEnum
+    having?: CommunicationLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunicationLogCountAggregateInputType | true
+    _min?: CommunicationLogMinAggregateInputType
+    _max?: CommunicationLogMaxAggregateInputType
+  }
+
+  export type CommunicationLogGroupByOutputType = {
+    id: string
+    direction: string
+    channel: string
+    recipient: string | null
+    sender: string | null
+    subject: string | null
+    bodyText: string | null
+    status: string
+    externalId: string | null
+    tenantId: string | null
+    createdAt: Date
+    _count: CommunicationLogCountAggregateOutputType | null
+    _min: CommunicationLogMinAggregateOutputType | null
+    _max: CommunicationLogMaxAggregateOutputType | null
+  }
+
+  type GetCommunicationLogGroupByPayload<T extends CommunicationLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunicationLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunicationLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunicationLogGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunicationLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunicationLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    direction?: boolean
+    channel?: boolean
+    recipient?: boolean
+    sender?: boolean
+    subject?: boolean
+    bodyText?: boolean
+    status?: boolean
+    externalId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | CommunicationLog$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["communicationLog"]>
+
+  export type CommunicationLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    direction?: boolean
+    channel?: boolean
+    recipient?: boolean
+    sender?: boolean
+    subject?: boolean
+    bodyText?: boolean
+    status?: boolean
+    externalId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | CommunicationLog$tenantArgs<ExtArgs>
+  }, ExtArgs["result"]["communicationLog"]>
+
+  export type CommunicationLogSelectScalar = {
+    id?: boolean
+    direction?: boolean
+    channel?: boolean
+    recipient?: boolean
+    sender?: boolean
+    subject?: boolean
+    bodyText?: boolean
+    status?: boolean
+    externalId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommunicationLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | CommunicationLog$tenantArgs<ExtArgs>
+  }
+  export type CommunicationLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | CommunicationLog$tenantArgs<ExtArgs>
+  }
+
+  export type $CommunicationLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunicationLog"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      direction: string
+      channel: string
+      recipient: string | null
+      sender: string | null
+      subject: string | null
+      bodyText: string | null
+      status: string
+      externalId: string | null
+      tenantId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["communicationLog"]>
+    composites: {}
+  }
+
+  type CommunicationLogGetPayload<S extends boolean | null | undefined | CommunicationLogDefaultArgs> = $Result.GetResult<Prisma.$CommunicationLogPayload, S>
+
+  type CommunicationLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CommunicationLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CommunicationLogCountAggregateInputType | true
+    }
+
+  export interface CommunicationLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunicationLog'], meta: { name: 'CommunicationLog' } }
+    /**
+     * Find zero or one CommunicationLog that matches the filter.
+     * @param {CommunicationLogFindUniqueArgs} args - Arguments to find a CommunicationLog
+     * @example
+     * // Get one CommunicationLog
+     * const communicationLog = await prisma.communicationLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunicationLogFindUniqueArgs>(args: SelectSubset<T, CommunicationLogFindUniqueArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CommunicationLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CommunicationLogFindUniqueOrThrowArgs} args - Arguments to find a CommunicationLog
+     * @example
+     * // Get one CommunicationLog
+     * const communicationLog = await prisma.communicationLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunicationLogFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunicationLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CommunicationLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogFindFirstArgs} args - Arguments to find a CommunicationLog
+     * @example
+     * // Get one CommunicationLog
+     * const communicationLog = await prisma.communicationLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunicationLogFindFirstArgs>(args?: SelectSubset<T, CommunicationLogFindFirstArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CommunicationLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogFindFirstOrThrowArgs} args - Arguments to find a CommunicationLog
+     * @example
+     * // Get one CommunicationLog
+     * const communicationLog = await prisma.communicationLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunicationLogFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunicationLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CommunicationLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunicationLogs
+     * const communicationLogs = await prisma.communicationLog.findMany()
+     * 
+     * // Get first 10 CommunicationLogs
+     * const communicationLogs = await prisma.communicationLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communicationLogWithIdOnly = await prisma.communicationLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunicationLogFindManyArgs>(args?: SelectSubset<T, CommunicationLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CommunicationLog.
+     * @param {CommunicationLogCreateArgs} args - Arguments to create a CommunicationLog.
+     * @example
+     * // Create one CommunicationLog
+     * const CommunicationLog = await prisma.communicationLog.create({
+     *   data: {
+     *     // ... data to create a CommunicationLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunicationLogCreateArgs>(args: SelectSubset<T, CommunicationLogCreateArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CommunicationLogs.
+     * @param {CommunicationLogCreateManyArgs} args - Arguments to create many CommunicationLogs.
+     * @example
+     * // Create many CommunicationLogs
+     * const communicationLog = await prisma.communicationLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunicationLogCreateManyArgs>(args?: SelectSubset<T, CommunicationLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunicationLogs and returns the data saved in the database.
+     * @param {CommunicationLogCreateManyAndReturnArgs} args - Arguments to create many CommunicationLogs.
+     * @example
+     * // Create many CommunicationLogs
+     * const communicationLog = await prisma.communicationLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunicationLogs and only return the `id`
+     * const communicationLogWithIdOnly = await prisma.communicationLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunicationLogCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunicationLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CommunicationLog.
+     * @param {CommunicationLogDeleteArgs} args - Arguments to delete one CommunicationLog.
+     * @example
+     * // Delete one CommunicationLog
+     * const CommunicationLog = await prisma.communicationLog.delete({
+     *   where: {
+     *     // ... filter to delete one CommunicationLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunicationLogDeleteArgs>(args: SelectSubset<T, CommunicationLogDeleteArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CommunicationLog.
+     * @param {CommunicationLogUpdateArgs} args - Arguments to update one CommunicationLog.
+     * @example
+     * // Update one CommunicationLog
+     * const communicationLog = await prisma.communicationLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunicationLogUpdateArgs>(args: SelectSubset<T, CommunicationLogUpdateArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CommunicationLogs.
+     * @param {CommunicationLogDeleteManyArgs} args - Arguments to filter CommunicationLogs to delete.
+     * @example
+     * // Delete a few CommunicationLogs
+     * const { count } = await prisma.communicationLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunicationLogDeleteManyArgs>(args?: SelectSubset<T, CommunicationLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunicationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunicationLogs
+     * const communicationLog = await prisma.communicationLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunicationLogUpdateManyArgs>(args: SelectSubset<T, CommunicationLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CommunicationLog.
+     * @param {CommunicationLogUpsertArgs} args - Arguments to update or create a CommunicationLog.
+     * @example
+     * // Update or create a CommunicationLog
+     * const communicationLog = await prisma.communicationLog.upsert({
+     *   create: {
+     *     // ... data to create a CommunicationLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunicationLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunicationLogUpsertArgs>(args: SelectSubset<T, CommunicationLogUpsertArgs<ExtArgs>>): Prisma__CommunicationLogClient<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CommunicationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogCountArgs} args - Arguments to filter CommunicationLogs to count.
+     * @example
+     * // Count the number of CommunicationLogs
+     * const count = await prisma.communicationLog.count({
+     *   where: {
+     *     // ... the filter for the CommunicationLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunicationLogCountArgs>(
+      args?: Subset<T, CommunicationLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunicationLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunicationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunicationLogAggregateArgs>(args: Subset<T, CommunicationLogAggregateArgs>): Prisma.PrismaPromise<GetCommunicationLogAggregateType<T>>
+
+    /**
+     * Group by CommunicationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunicationLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunicationLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunicationLogGroupByArgs['orderBy'] }
+        : { orderBy?: CommunicationLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunicationLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunicationLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunicationLog model
+   */
+  readonly fields: CommunicationLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunicationLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunicationLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends CommunicationLog$tenantArgs<ExtArgs> = {}>(args?: Subset<T, CommunicationLog$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunicationLog model
+   */ 
+  interface CommunicationLogFieldRefs {
+    readonly id: FieldRef<"CommunicationLog", 'String'>
+    readonly direction: FieldRef<"CommunicationLog", 'String'>
+    readonly channel: FieldRef<"CommunicationLog", 'String'>
+    readonly recipient: FieldRef<"CommunicationLog", 'String'>
+    readonly sender: FieldRef<"CommunicationLog", 'String'>
+    readonly subject: FieldRef<"CommunicationLog", 'String'>
+    readonly bodyText: FieldRef<"CommunicationLog", 'String'>
+    readonly status: FieldRef<"CommunicationLog", 'String'>
+    readonly externalId: FieldRef<"CommunicationLog", 'String'>
+    readonly tenantId: FieldRef<"CommunicationLog", 'String'>
+    readonly createdAt: FieldRef<"CommunicationLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunicationLog findUnique
+   */
+  export type CommunicationLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunicationLog to fetch.
+     */
+    where: CommunicationLogWhereUniqueInput
+  }
+
+  /**
+   * CommunicationLog findUniqueOrThrow
+   */
+  export type CommunicationLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunicationLog to fetch.
+     */
+    where: CommunicationLogWhereUniqueInput
+  }
+
+  /**
+   * CommunicationLog findFirst
+   */
+  export type CommunicationLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunicationLog to fetch.
+     */
+    where?: CommunicationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunicationLogs to fetch.
+     */
+    orderBy?: CommunicationLogOrderByWithRelationInput | CommunicationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunicationLogs.
+     */
+    cursor?: CommunicationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunicationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunicationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunicationLogs.
+     */
+    distinct?: CommunicationLogScalarFieldEnum | CommunicationLogScalarFieldEnum[]
+  }
+
+  /**
+   * CommunicationLog findFirstOrThrow
+   */
+  export type CommunicationLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunicationLog to fetch.
+     */
+    where?: CommunicationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunicationLogs to fetch.
+     */
+    orderBy?: CommunicationLogOrderByWithRelationInput | CommunicationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunicationLogs.
+     */
+    cursor?: CommunicationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunicationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunicationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunicationLogs.
+     */
+    distinct?: CommunicationLogScalarFieldEnum | CommunicationLogScalarFieldEnum[]
+  }
+
+  /**
+   * CommunicationLog findMany
+   */
+  export type CommunicationLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunicationLogs to fetch.
+     */
+    where?: CommunicationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunicationLogs to fetch.
+     */
+    orderBy?: CommunicationLogOrderByWithRelationInput | CommunicationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunicationLogs.
+     */
+    cursor?: CommunicationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunicationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunicationLogs.
+     */
+    skip?: number
+    distinct?: CommunicationLogScalarFieldEnum | CommunicationLogScalarFieldEnum[]
+  }
+
+  /**
+   * CommunicationLog create
+   */
+  export type CommunicationLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunicationLog.
+     */
+    data: XOR<CommunicationLogCreateInput, CommunicationLogUncheckedCreateInput>
+  }
+
+  /**
+   * CommunicationLog createMany
+   */
+  export type CommunicationLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunicationLogs.
+     */
+    data: CommunicationLogCreateManyInput | CommunicationLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunicationLog createManyAndReturn
+   */
+  export type CommunicationLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CommunicationLogs.
+     */
+    data: CommunicationLogCreateManyInput | CommunicationLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunicationLog update
+   */
+  export type CommunicationLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunicationLog.
+     */
+    data: XOR<CommunicationLogUpdateInput, CommunicationLogUncheckedUpdateInput>
+    /**
+     * Choose, which CommunicationLog to update.
+     */
+    where: CommunicationLogWhereUniqueInput
+  }
+
+  /**
+   * CommunicationLog updateMany
+   */
+  export type CommunicationLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunicationLogs.
+     */
+    data: XOR<CommunicationLogUpdateManyMutationInput, CommunicationLogUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunicationLogs to update
+     */
+    where?: CommunicationLogWhereInput
+  }
+
+  /**
+   * CommunicationLog upsert
+   */
+  export type CommunicationLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunicationLog to update in case it exists.
+     */
+    where: CommunicationLogWhereUniqueInput
+    /**
+     * In case the CommunicationLog found by the `where` argument doesn't exist, create a new CommunicationLog with this data.
+     */
+    create: XOR<CommunicationLogCreateInput, CommunicationLogUncheckedCreateInput>
+    /**
+     * In case the CommunicationLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunicationLogUpdateInput, CommunicationLogUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunicationLog delete
+   */
+  export type CommunicationLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+    /**
+     * Filter which CommunicationLog to delete.
+     */
+    where: CommunicationLogWhereUniqueInput
+  }
+
+  /**
+   * CommunicationLog deleteMany
+   */
+  export type CommunicationLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunicationLogs to delete
+     */
+    where?: CommunicationLogWhereInput
+  }
+
+  /**
+   * CommunicationLog.tenant
+   */
+  export type CommunicationLog$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+  }
+
+  /**
+   * CommunicationLog without action
+   */
+  export type CommunicationLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunicationLog
+     */
+    select?: CommunicationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunicationLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -112499,6 +118240,79 @@ export namespace Prisma {
   export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
 
 
+  export const IoTEventScalarFieldEnum: {
+    id: 'id',
+    deviceId: 'deviceId',
+    deviceType: 'deviceType',
+    payload: 'payload',
+    status: 'status',
+    userId: 'userId',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type IoTEventScalarFieldEnum = (typeof IoTEventScalarFieldEnum)[keyof typeof IoTEventScalarFieldEnum]
+
+
+  export const AppNotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    type: 'type',
+    isRead: 'isRead',
+    link: 'link',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type AppNotificationScalarFieldEnum = (typeof AppNotificationScalarFieldEnum)[keyof typeof AppNotificationScalarFieldEnum]
+
+
+  export const GamificationProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    careCoins: 'careCoins',
+    currentTier: 'currentTier',
+    lifetimePoints: 'lifetimePoints',
+    tenantId: 'tenantId',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GamificationProfileScalarFieldEnum = (typeof GamificationProfileScalarFieldEnum)[keyof typeof GamificationProfileScalarFieldEnum]
+
+
+  export const AIInferenceScalarFieldEnum: {
+    id: 'id',
+    modelName: 'modelName',
+    targetId: 'targetId',
+    targetType: 'targetType',
+    confidenceScore: 'confidenceScore',
+    predictionData: 'predictionData',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type AIInferenceScalarFieldEnum = (typeof AIInferenceScalarFieldEnum)[keyof typeof AIInferenceScalarFieldEnum]
+
+
+  export const CommunicationLogScalarFieldEnum: {
+    id: 'id',
+    direction: 'direction',
+    channel: 'channel',
+    recipient: 'recipient',
+    sender: 'sender',
+    subject: 'subject',
+    bodyText: 'bodyText',
+    status: 'status',
+    externalId: 'externalId',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt'
+  };
+
+  export type CommunicationLogScalarFieldEnum = (typeof CommunicationLogScalarFieldEnum)[keyof typeof CommunicationLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -112648,6 +118462,9 @@ export namespace Prisma {
     devices?: UserDeviceListRelationFilter
     systemEvents?: SystemEventListRelationFilter
     performanceReviewsAuthored?: PerformanceReviewListRelationFilter
+    iotEvents?: IoTEventListRelationFilter
+    appNotifications?: AppNotificationListRelationFilter
+    gamificationProfile?: XOR<GamificationProfileNullableRelationFilter, GamificationProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -112687,6 +118504,9 @@ export namespace Prisma {
     devices?: UserDeviceOrderByRelationAggregateInput
     systemEvents?: SystemEventOrderByRelationAggregateInput
     performanceReviewsAuthored?: PerformanceReviewOrderByRelationAggregateInput
+    iotEvents?: IoTEventOrderByRelationAggregateInput
+    appNotifications?: AppNotificationOrderByRelationAggregateInput
+    gamificationProfile?: GamificationProfileOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -112729,6 +118549,9 @@ export namespace Prisma {
     devices?: UserDeviceListRelationFilter
     systemEvents?: SystemEventListRelationFilter
     performanceReviewsAuthored?: PerformanceReviewListRelationFilter
+    iotEvents?: IoTEventListRelationFilter
+    appNotifications?: AppNotificationListRelationFilter
+    gamificationProfile?: XOR<GamificationProfileNullableRelationFilter, GamificationProfileWhereInput> | null
   }, "id" | "email" | "osmId">
 
   export type UserOrderByWithAggregationInput = {
@@ -112840,6 +118663,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     systemTouchpoints?: SystemTouchpointListRelationFilter
+    iotEvents?: IoTEventListRelationFilter
+    appNotifications?: AppNotificationListRelationFilter
+    gamificationProfiles?: GamificationProfileListRelationFilter
+    aiInferences?: AIInferenceListRelationFilter
+    communicationLogs?: CommunicationLogListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -112937,6 +118765,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
     wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
     systemTouchpoints?: SystemTouchpointOrderByRelationAggregateInput
+    iotEvents?: IoTEventOrderByRelationAggregateInput
+    appNotifications?: AppNotificationOrderByRelationAggregateInput
+    gamificationProfiles?: GamificationProfileOrderByRelationAggregateInput
+    aiInferences?: AIInferenceOrderByRelationAggregateInput
+    communicationLogs?: CommunicationLogOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     franchises?: FranchiseOrderByRelationAggregateInput
@@ -113037,6 +118870,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     systemTouchpoints?: SystemTouchpointListRelationFilter
+    iotEvents?: IoTEventListRelationFilter
+    appNotifications?: AppNotificationListRelationFilter
+    gamificationProfiles?: GamificationProfileListRelationFilter
+    aiInferences?: AIInferenceListRelationFilter
+    communicationLogs?: CommunicationLogListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -120839,6 +126677,384 @@ export namespace Prisma {
     deliveredAt?: DateTimeWithAggregatesFilter<"WebhookDelivery"> | Date | string
   }
 
+  export type IoTEventWhereInput = {
+    AND?: IoTEventWhereInput | IoTEventWhereInput[]
+    OR?: IoTEventWhereInput[]
+    NOT?: IoTEventWhereInput | IoTEventWhereInput[]
+    id?: StringFilter<"IoTEvent"> | string
+    deviceId?: StringFilter<"IoTEvent"> | string
+    deviceType?: StringFilter<"IoTEvent"> | string
+    payload?: StringFilter<"IoTEvent"> | string
+    status?: StringFilter<"IoTEvent"> | string
+    userId?: StringNullableFilter<"IoTEvent"> | string | null
+    tenantId?: StringNullableFilter<"IoTEvent"> | string | null
+    createdAt?: DateTimeFilter<"IoTEvent"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type IoTEventOrderByWithRelationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceType?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type IoTEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: IoTEventWhereInput | IoTEventWhereInput[]
+    OR?: IoTEventWhereInput[]
+    NOT?: IoTEventWhereInput | IoTEventWhereInput[]
+    deviceId?: StringFilter<"IoTEvent"> | string
+    deviceType?: StringFilter<"IoTEvent"> | string
+    payload?: StringFilter<"IoTEvent"> | string
+    status?: StringFilter<"IoTEvent"> | string
+    userId?: StringNullableFilter<"IoTEvent"> | string | null
+    tenantId?: StringNullableFilter<"IoTEvent"> | string | null
+    createdAt?: DateTimeFilter<"IoTEvent"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type IoTEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceType?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: IoTEventCountOrderByAggregateInput
+    _max?: IoTEventMaxOrderByAggregateInput
+    _min?: IoTEventMinOrderByAggregateInput
+  }
+
+  export type IoTEventScalarWhereWithAggregatesInput = {
+    AND?: IoTEventScalarWhereWithAggregatesInput | IoTEventScalarWhereWithAggregatesInput[]
+    OR?: IoTEventScalarWhereWithAggregatesInput[]
+    NOT?: IoTEventScalarWhereWithAggregatesInput | IoTEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IoTEvent"> | string
+    deviceId?: StringWithAggregatesFilter<"IoTEvent"> | string
+    deviceType?: StringWithAggregatesFilter<"IoTEvent"> | string
+    payload?: StringWithAggregatesFilter<"IoTEvent"> | string
+    status?: StringWithAggregatesFilter<"IoTEvent"> | string
+    userId?: StringNullableWithAggregatesFilter<"IoTEvent"> | string | null
+    tenantId?: StringNullableWithAggregatesFilter<"IoTEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"IoTEvent"> | Date | string
+  }
+
+  export type AppNotificationWhereInput = {
+    AND?: AppNotificationWhereInput | AppNotificationWhereInput[]
+    OR?: AppNotificationWhereInput[]
+    NOT?: AppNotificationWhereInput | AppNotificationWhereInput[]
+    id?: StringFilter<"AppNotification"> | string
+    userId?: StringFilter<"AppNotification"> | string
+    title?: StringFilter<"AppNotification"> | string
+    message?: StringFilter<"AppNotification"> | string
+    type?: StringFilter<"AppNotification"> | string
+    isRead?: BoolFilter<"AppNotification"> | boolean
+    link?: StringNullableFilter<"AppNotification"> | string | null
+    tenantId?: StringNullableFilter<"AppNotification"> | string | null
+    createdAt?: DateTimeFilter<"AppNotification"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type AppNotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    link?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AppNotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AppNotificationWhereInput | AppNotificationWhereInput[]
+    OR?: AppNotificationWhereInput[]
+    NOT?: AppNotificationWhereInput | AppNotificationWhereInput[]
+    userId?: StringFilter<"AppNotification"> | string
+    title?: StringFilter<"AppNotification"> | string
+    message?: StringFilter<"AppNotification"> | string
+    type?: StringFilter<"AppNotification"> | string
+    isRead?: BoolFilter<"AppNotification"> | boolean
+    link?: StringNullableFilter<"AppNotification"> | string | null
+    tenantId?: StringNullableFilter<"AppNotification"> | string | null
+    createdAt?: DateTimeFilter<"AppNotification"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AppNotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    link?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AppNotificationCountOrderByAggregateInput
+    _max?: AppNotificationMaxOrderByAggregateInput
+    _min?: AppNotificationMinOrderByAggregateInput
+  }
+
+  export type AppNotificationScalarWhereWithAggregatesInput = {
+    AND?: AppNotificationScalarWhereWithAggregatesInput | AppNotificationScalarWhereWithAggregatesInput[]
+    OR?: AppNotificationScalarWhereWithAggregatesInput[]
+    NOT?: AppNotificationScalarWhereWithAggregatesInput | AppNotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AppNotification"> | string
+    userId?: StringWithAggregatesFilter<"AppNotification"> | string
+    title?: StringWithAggregatesFilter<"AppNotification"> | string
+    message?: StringWithAggregatesFilter<"AppNotification"> | string
+    type?: StringWithAggregatesFilter<"AppNotification"> | string
+    isRead?: BoolWithAggregatesFilter<"AppNotification"> | boolean
+    link?: StringNullableWithAggregatesFilter<"AppNotification"> | string | null
+    tenantId?: StringNullableWithAggregatesFilter<"AppNotification"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AppNotification"> | Date | string
+  }
+
+  export type GamificationProfileWhereInput = {
+    AND?: GamificationProfileWhereInput | GamificationProfileWhereInput[]
+    OR?: GamificationProfileWhereInput[]
+    NOT?: GamificationProfileWhereInput | GamificationProfileWhereInput[]
+    id?: StringFilter<"GamificationProfile"> | string
+    userId?: StringFilter<"GamificationProfile"> | string
+    careCoins?: IntFilter<"GamificationProfile"> | number
+    currentTier?: StringFilter<"GamificationProfile"> | string
+    lifetimePoints?: IntFilter<"GamificationProfile"> | number
+    tenantId?: StringNullableFilter<"GamificationProfile"> | string | null
+    updatedAt?: DateTimeFilter<"GamificationProfile"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type GamificationProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    careCoins?: SortOrder
+    currentTier?: SortOrder
+    lifetimePoints?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type GamificationProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: GamificationProfileWhereInput | GamificationProfileWhereInput[]
+    OR?: GamificationProfileWhereInput[]
+    NOT?: GamificationProfileWhereInput | GamificationProfileWhereInput[]
+    careCoins?: IntFilter<"GamificationProfile"> | number
+    currentTier?: StringFilter<"GamificationProfile"> | string
+    lifetimePoints?: IntFilter<"GamificationProfile"> | number
+    tenantId?: StringNullableFilter<"GamificationProfile"> | string | null
+    updatedAt?: DateTimeFilter<"GamificationProfile"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type GamificationProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    careCoins?: SortOrder
+    currentTier?: SortOrder
+    lifetimePoints?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: GamificationProfileCountOrderByAggregateInput
+    _avg?: GamificationProfileAvgOrderByAggregateInput
+    _max?: GamificationProfileMaxOrderByAggregateInput
+    _min?: GamificationProfileMinOrderByAggregateInput
+    _sum?: GamificationProfileSumOrderByAggregateInput
+  }
+
+  export type GamificationProfileScalarWhereWithAggregatesInput = {
+    AND?: GamificationProfileScalarWhereWithAggregatesInput | GamificationProfileScalarWhereWithAggregatesInput[]
+    OR?: GamificationProfileScalarWhereWithAggregatesInput[]
+    NOT?: GamificationProfileScalarWhereWithAggregatesInput | GamificationProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GamificationProfile"> | string
+    userId?: StringWithAggregatesFilter<"GamificationProfile"> | string
+    careCoins?: IntWithAggregatesFilter<"GamificationProfile"> | number
+    currentTier?: StringWithAggregatesFilter<"GamificationProfile"> | string
+    lifetimePoints?: IntWithAggregatesFilter<"GamificationProfile"> | number
+    tenantId?: StringNullableWithAggregatesFilter<"GamificationProfile"> | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"GamificationProfile"> | Date | string
+  }
+
+  export type AIInferenceWhereInput = {
+    AND?: AIInferenceWhereInput | AIInferenceWhereInput[]
+    OR?: AIInferenceWhereInput[]
+    NOT?: AIInferenceWhereInput | AIInferenceWhereInput[]
+    id?: StringFilter<"AIInference"> | string
+    modelName?: StringFilter<"AIInference"> | string
+    targetId?: StringFilter<"AIInference"> | string
+    targetType?: StringFilter<"AIInference"> | string
+    confidenceScore?: FloatFilter<"AIInference"> | number
+    predictionData?: StringFilter<"AIInference"> | string
+    tenantId?: StringNullableFilter<"AIInference"> | string | null
+    createdAt?: DateTimeFilter<"AIInference"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }
+
+  export type AIInferenceOrderByWithRelationInput = {
+    id?: SortOrder
+    modelName?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    confidenceScore?: SortOrder
+    predictionData?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type AIInferenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIInferenceWhereInput | AIInferenceWhereInput[]
+    OR?: AIInferenceWhereInput[]
+    NOT?: AIInferenceWhereInput | AIInferenceWhereInput[]
+    modelName?: StringFilter<"AIInference"> | string
+    targetId?: StringFilter<"AIInference"> | string
+    targetType?: StringFilter<"AIInference"> | string
+    confidenceScore?: FloatFilter<"AIInference"> | number
+    predictionData?: StringFilter<"AIInference"> | string
+    tenantId?: StringNullableFilter<"AIInference"> | string | null
+    createdAt?: DateTimeFilter<"AIInference"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }, "id">
+
+  export type AIInferenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    modelName?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    confidenceScore?: SortOrder
+    predictionData?: SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AIInferenceCountOrderByAggregateInput
+    _avg?: AIInferenceAvgOrderByAggregateInput
+    _max?: AIInferenceMaxOrderByAggregateInput
+    _min?: AIInferenceMinOrderByAggregateInput
+    _sum?: AIInferenceSumOrderByAggregateInput
+  }
+
+  export type AIInferenceScalarWhereWithAggregatesInput = {
+    AND?: AIInferenceScalarWhereWithAggregatesInput | AIInferenceScalarWhereWithAggregatesInput[]
+    OR?: AIInferenceScalarWhereWithAggregatesInput[]
+    NOT?: AIInferenceScalarWhereWithAggregatesInput | AIInferenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIInference"> | string
+    modelName?: StringWithAggregatesFilter<"AIInference"> | string
+    targetId?: StringWithAggregatesFilter<"AIInference"> | string
+    targetType?: StringWithAggregatesFilter<"AIInference"> | string
+    confidenceScore?: FloatWithAggregatesFilter<"AIInference"> | number
+    predictionData?: StringWithAggregatesFilter<"AIInference"> | string
+    tenantId?: StringNullableWithAggregatesFilter<"AIInference"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AIInference"> | Date | string
+  }
+
+  export type CommunicationLogWhereInput = {
+    AND?: CommunicationLogWhereInput | CommunicationLogWhereInput[]
+    OR?: CommunicationLogWhereInput[]
+    NOT?: CommunicationLogWhereInput | CommunicationLogWhereInput[]
+    id?: StringFilter<"CommunicationLog"> | string
+    direction?: StringFilter<"CommunicationLog"> | string
+    channel?: StringFilter<"CommunicationLog"> | string
+    recipient?: StringNullableFilter<"CommunicationLog"> | string | null
+    sender?: StringNullableFilter<"CommunicationLog"> | string | null
+    subject?: StringNullableFilter<"CommunicationLog"> | string | null
+    bodyText?: StringNullableFilter<"CommunicationLog"> | string | null
+    status?: StringFilter<"CommunicationLog"> | string
+    externalId?: StringNullableFilter<"CommunicationLog"> | string | null
+    tenantId?: StringNullableFilter<"CommunicationLog"> | string | null
+    createdAt?: DateTimeFilter<"CommunicationLog"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }
+
+  export type CommunicationLogOrderByWithRelationInput = {
+    id?: SortOrder
+    direction?: SortOrder
+    channel?: SortOrder
+    recipient?: SortOrderInput | SortOrder
+    sender?: SortOrderInput | SortOrder
+    subject?: SortOrderInput | SortOrder
+    bodyText?: SortOrderInput | SortOrder
+    status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type CommunicationLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunicationLogWhereInput | CommunicationLogWhereInput[]
+    OR?: CommunicationLogWhereInput[]
+    NOT?: CommunicationLogWhereInput | CommunicationLogWhereInput[]
+    direction?: StringFilter<"CommunicationLog"> | string
+    channel?: StringFilter<"CommunicationLog"> | string
+    recipient?: StringNullableFilter<"CommunicationLog"> | string | null
+    sender?: StringNullableFilter<"CommunicationLog"> | string | null
+    subject?: StringNullableFilter<"CommunicationLog"> | string | null
+    bodyText?: StringNullableFilter<"CommunicationLog"> | string | null
+    status?: StringFilter<"CommunicationLog"> | string
+    externalId?: StringNullableFilter<"CommunicationLog"> | string | null
+    tenantId?: StringNullableFilter<"CommunicationLog"> | string | null
+    createdAt?: DateTimeFilter<"CommunicationLog"> | Date | string
+    tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
+  }, "id">
+
+  export type CommunicationLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    direction?: SortOrder
+    channel?: SortOrder
+    recipient?: SortOrderInput | SortOrder
+    sender?: SortOrderInput | SortOrder
+    subject?: SortOrderInput | SortOrder
+    bodyText?: SortOrderInput | SortOrder
+    status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
+    tenantId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CommunicationLogCountOrderByAggregateInput
+    _max?: CommunicationLogMaxOrderByAggregateInput
+    _min?: CommunicationLogMinOrderByAggregateInput
+  }
+
+  export type CommunicationLogScalarWhereWithAggregatesInput = {
+    AND?: CommunicationLogScalarWhereWithAggregatesInput | CommunicationLogScalarWhereWithAggregatesInput[]
+    OR?: CommunicationLogScalarWhereWithAggregatesInput[]
+    NOT?: CommunicationLogScalarWhereWithAggregatesInput | CommunicationLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CommunicationLog"> | string
+    direction?: StringWithAggregatesFilter<"CommunicationLog"> | string
+    channel?: StringWithAggregatesFilter<"CommunicationLog"> | string
+    recipient?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    sender?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    subject?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    bodyText?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    status?: StringWithAggregatesFilter<"CommunicationLog"> | string
+    externalId?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    tenantId?: StringNullableWithAggregatesFilter<"CommunicationLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CommunicationLog"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -120875,6 +127091,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -120913,6 +127132,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -120951,6 +127173,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -120989,6 +127214,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -121105,6 +127333,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -121202,6 +127435,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -121297,6 +127535,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -121394,6 +127637,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -129737,6 +135985,404 @@ export namespace Prisma {
     deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IoTEventCreateInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutIotEventsInput
+    user?: UserCreateNestedOneWithoutIotEventsInput
+  }
+
+  export type IoTEventUncheckedCreateInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    userId?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type IoTEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutIotEventsNestedInput
+    user?: UserUpdateOneWithoutIotEventsNestedInput
+  }
+
+  export type IoTEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IoTEventCreateManyInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    userId?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type IoTEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IoTEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutAppNotificationsInput
+    user: UserCreateNestedOneWithoutAppNotificationsInput
+  }
+
+  export type AppNotificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutAppNotificationsNestedInput
+    user?: UserUpdateOneRequiredWithoutAppNotificationsNestedInput
+  }
+
+  export type AppNotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GamificationProfileCreateInput = {
+    id?: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutGamificationProfilesInput
+    user: UserCreateNestedOneWithoutGamificationProfileInput
+  }
+
+  export type GamificationProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    tenantId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type GamificationProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutGamificationProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutGamificationProfileNestedInput
+  }
+
+  export type GamificationProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GamificationProfileCreateManyInput = {
+    id?: string
+    userId: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    tenantId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type GamificationProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GamificationProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceCreateInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutAiInferencesInput
+  }
+
+  export type AIInferenceUncheckedCreateInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIInferenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutAiInferencesNestedInput
+  }
+
+  export type AIInferenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceCreateManyInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AIInferenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogCreateInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutCommunicationLogsInput
+  }
+
+  export type CommunicationLogUncheckedCreateInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommunicationLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutCommunicationLogsNestedInput
+  }
+
+  export type CommunicationLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogCreateManyInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommunicationLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -129918,6 +136564,23 @@ export namespace Prisma {
     none?: PerformanceReviewWhereInput
   }
 
+  export type IoTEventListRelationFilter = {
+    every?: IoTEventWhereInput
+    some?: IoTEventWhereInput
+    none?: IoTEventWhereInput
+  }
+
+  export type AppNotificationListRelationFilter = {
+    every?: AppNotificationWhereInput
+    some?: AppNotificationWhereInput
+    none?: AppNotificationWhereInput
+  }
+
+  export type GamificationProfileNullableRelationFilter = {
+    is?: GamificationProfileWhereInput | null
+    isNot?: GamificationProfileWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -129996,6 +136659,14 @@ export namespace Prisma {
   }
 
   export type PerformanceReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IoTEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AppNotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -130348,6 +137019,24 @@ export namespace Prisma {
     none?: SystemTouchpointWhereInput
   }
 
+  export type GamificationProfileListRelationFilter = {
+    every?: GamificationProfileWhereInput
+    some?: GamificationProfileWhereInput
+    none?: GamificationProfileWhereInput
+  }
+
+  export type AIInferenceListRelationFilter = {
+    every?: AIInferenceWhereInput
+    some?: AIInferenceWhereInput
+    none?: AIInferenceWhereInput
+  }
+
+  export type CommunicationLogListRelationFilter = {
+    every?: CommunicationLogWhereInput
+    some?: CommunicationLogWhereInput
+    none?: CommunicationLogWhereInput
+  }
+
   export type TenantNullableRelationFilter = {
     is?: TenantWhereInput | null
     isNot?: TenantWhereInput | null
@@ -130616,6 +137305,18 @@ export namespace Prisma {
   }
 
   export type SystemTouchpointOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GamificationProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIInferenceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunicationLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -135111,6 +141812,198 @@ export namespace Prisma {
     retryCount?: SortOrder
   }
 
+  export type IoTEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceType?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IoTEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceType?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IoTEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    deviceType?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppNotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    link?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppNotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    link?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AppNotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    link?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GamificationProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    careCoins?: SortOrder
+    currentTier?: SortOrder
+    lifetimePoints?: SortOrder
+    tenantId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GamificationProfileAvgOrderByAggregateInput = {
+    careCoins?: SortOrder
+    lifetimePoints?: SortOrder
+  }
+
+  export type GamificationProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    careCoins?: SortOrder
+    currentTier?: SortOrder
+    lifetimePoints?: SortOrder
+    tenantId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GamificationProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    careCoins?: SortOrder
+    currentTier?: SortOrder
+    lifetimePoints?: SortOrder
+    tenantId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GamificationProfileSumOrderByAggregateInput = {
+    careCoins?: SortOrder
+    lifetimePoints?: SortOrder
+  }
+
+  export type AIInferenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    modelName?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    confidenceScore?: SortOrder
+    predictionData?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIInferenceAvgOrderByAggregateInput = {
+    confidenceScore?: SortOrder
+  }
+
+  export type AIInferenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    modelName?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    confidenceScore?: SortOrder
+    predictionData?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIInferenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    modelName?: SortOrder
+    targetId?: SortOrder
+    targetType?: SortOrder
+    confidenceScore?: SortOrder
+    predictionData?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIInferenceSumOrderByAggregateInput = {
+    confidenceScore?: SortOrder
+  }
+
+  export type CommunicationLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    direction?: SortOrder
+    channel?: SortOrder
+    recipient?: SortOrder
+    sender?: SortOrder
+    subject?: SortOrder
+    bodyText?: SortOrder
+    status?: SortOrder
+    externalId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunicationLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    direction?: SortOrder
+    channel?: SortOrder
+    recipient?: SortOrder
+    sender?: SortOrder
+    subject?: SortOrder
+    bodyText?: SortOrder
+    status?: SortOrder
+    externalId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunicationLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    direction?: SortOrder
+    channel?: SortOrder
+    recipient?: SortOrder
+    sender?: SortOrder
+    subject?: SortOrder
+    bodyText?: SortOrder
+    status?: SortOrder
+    externalId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type AuditLogCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -135269,6 +142162,26 @@ export namespace Prisma {
     connect?: PerformanceReviewWhereUniqueInput | PerformanceReviewWhereUniqueInput[]
   }
 
+  export type IoTEventCreateNestedManyWithoutUserInput = {
+    create?: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput> | IoTEventCreateWithoutUserInput[] | IoTEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutUserInput | IoTEventCreateOrConnectWithoutUserInput[]
+    createMany?: IoTEventCreateManyUserInputEnvelope
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+  }
+
+  export type AppNotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput> | AppNotificationCreateWithoutUserInput[] | AppNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutUserInput | AppNotificationCreateOrConnectWithoutUserInput[]
+    createMany?: AppNotificationCreateManyUserInputEnvelope
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+  }
+
+  export type GamificationProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutUserInput
+    connect?: GamificationProfileWhereUniqueInput
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -135419,6 +142332,26 @@ export namespace Prisma {
     connectOrCreate?: PerformanceReviewCreateOrConnectWithoutReviewerInput | PerformanceReviewCreateOrConnectWithoutReviewerInput[]
     createMany?: PerformanceReviewCreateManyReviewerInputEnvelope
     connect?: PerformanceReviewWhereUniqueInput | PerformanceReviewWhereUniqueInput[]
+  }
+
+  export type IoTEventUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput> | IoTEventCreateWithoutUserInput[] | IoTEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutUserInput | IoTEventCreateOrConnectWithoutUserInput[]
+    createMany?: IoTEventCreateManyUserInputEnvelope
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+  }
+
+  export type AppNotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput> | AppNotificationCreateWithoutUserInput[] | AppNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutUserInput | AppNotificationCreateOrConnectWithoutUserInput[]
+    createMany?: AppNotificationCreateManyUserInputEnvelope
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+  }
+
+  export type GamificationProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutUserInput
+    connect?: GamificationProfileWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -135745,6 +142678,44 @@ export namespace Prisma {
     deleteMany?: PerformanceReviewScalarWhereInput | PerformanceReviewScalarWhereInput[]
   }
 
+  export type IoTEventUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput> | IoTEventCreateWithoutUserInput[] | IoTEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutUserInput | IoTEventCreateOrConnectWithoutUserInput[]
+    upsert?: IoTEventUpsertWithWhereUniqueWithoutUserInput | IoTEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IoTEventCreateManyUserInputEnvelope
+    set?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    disconnect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    delete?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    update?: IoTEventUpdateWithWhereUniqueWithoutUserInput | IoTEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IoTEventUpdateManyWithWhereWithoutUserInput | IoTEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+  }
+
+  export type AppNotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput> | AppNotificationCreateWithoutUserInput[] | AppNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutUserInput | AppNotificationCreateOrConnectWithoutUserInput[]
+    upsert?: AppNotificationUpsertWithWhereUniqueWithoutUserInput | AppNotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AppNotificationCreateManyUserInputEnvelope
+    set?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    disconnect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    delete?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    update?: AppNotificationUpdateWithWhereUniqueWithoutUserInput | AppNotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppNotificationUpdateManyWithWhereWithoutUserInput | AppNotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+  }
+
+  export type GamificationProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutUserInput
+    upsert?: GamificationProfileUpsertWithoutUserInput
+    disconnect?: GamificationProfileWhereInput | boolean
+    delete?: GamificationProfileWhereInput | boolean
+    connect?: GamificationProfileWhereUniqueInput
+    update?: XOR<XOR<GamificationProfileUpdateToOneWithWhereWithoutUserInput, GamificationProfileUpdateWithoutUserInput>, GamificationProfileUncheckedUpdateWithoutUserInput>
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -136043,6 +143014,44 @@ export namespace Prisma {
     update?: PerformanceReviewUpdateWithWhereUniqueWithoutReviewerInput | PerformanceReviewUpdateWithWhereUniqueWithoutReviewerInput[]
     updateMany?: PerformanceReviewUpdateManyWithWhereWithoutReviewerInput | PerformanceReviewUpdateManyWithWhereWithoutReviewerInput[]
     deleteMany?: PerformanceReviewScalarWhereInput | PerformanceReviewScalarWhereInput[]
+  }
+
+  export type IoTEventUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput> | IoTEventCreateWithoutUserInput[] | IoTEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutUserInput | IoTEventCreateOrConnectWithoutUserInput[]
+    upsert?: IoTEventUpsertWithWhereUniqueWithoutUserInput | IoTEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IoTEventCreateManyUserInputEnvelope
+    set?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    disconnect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    delete?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    update?: IoTEventUpdateWithWhereUniqueWithoutUserInput | IoTEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IoTEventUpdateManyWithWhereWithoutUserInput | IoTEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+  }
+
+  export type AppNotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput> | AppNotificationCreateWithoutUserInput[] | AppNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutUserInput | AppNotificationCreateOrConnectWithoutUserInput[]
+    upsert?: AppNotificationUpsertWithWhereUniqueWithoutUserInput | AppNotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AppNotificationCreateManyUserInputEnvelope
+    set?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    disconnect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    delete?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    update?: AppNotificationUpdateWithWhereUniqueWithoutUserInput | AppNotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppNotificationUpdateManyWithWhereWithoutUserInput | AppNotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+  }
+
+  export type GamificationProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutUserInput
+    upsert?: GamificationProfileUpsertWithoutUserInput
+    disconnect?: GamificationProfileWhereInput | boolean
+    delete?: GamificationProfileWhereInput | boolean
+    connect?: GamificationProfileWhereUniqueInput
+    update?: XOR<XOR<GamificationProfileUpdateToOneWithWhereWithoutUserInput, GamificationProfileUpdateWithoutUserInput>, GamificationProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type AuditLogCreateNestedManyWithoutTenantInput = {
@@ -136358,6 +143367,41 @@ export namespace Prisma {
     connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
     createMany?: SystemTouchpointCreateManyTenantInputEnvelope
     connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+  }
+
+  export type IoTEventCreateNestedManyWithoutTenantInput = {
+    create?: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput> | IoTEventCreateWithoutTenantInput[] | IoTEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutTenantInput | IoTEventCreateOrConnectWithoutTenantInput[]
+    createMany?: IoTEventCreateManyTenantInputEnvelope
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+  }
+
+  export type AppNotificationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput> | AppNotificationCreateWithoutTenantInput[] | AppNotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutTenantInput | AppNotificationCreateOrConnectWithoutTenantInput[]
+    createMany?: AppNotificationCreateManyTenantInputEnvelope
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+  }
+
+  export type GamificationProfileCreateNestedManyWithoutTenantInput = {
+    create?: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput> | GamificationProfileCreateWithoutTenantInput[] | GamificationProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutTenantInput | GamificationProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: GamificationProfileCreateManyTenantInputEnvelope
+    connect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+  }
+
+  export type AIInferenceCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput> | AIInferenceCreateWithoutTenantInput[] | AIInferenceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AIInferenceCreateOrConnectWithoutTenantInput | AIInferenceCreateOrConnectWithoutTenantInput[]
+    createMany?: AIInferenceCreateManyTenantInputEnvelope
+    connect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+  }
+
+  export type CommunicationLogCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput> | CommunicationLogCreateWithoutTenantInput[] | CommunicationLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
+    createMany?: CommunicationLogCreateManyTenantInputEnvelope
+    connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
   }
 
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
@@ -136861,6 +143905,41 @@ export namespace Prisma {
     connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
     createMany?: SystemTouchpointCreateManyTenantInputEnvelope
     connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+  }
+
+  export type IoTEventUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput> | IoTEventCreateWithoutTenantInput[] | IoTEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutTenantInput | IoTEventCreateOrConnectWithoutTenantInput[]
+    createMany?: IoTEventCreateManyTenantInputEnvelope
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+  }
+
+  export type AppNotificationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput> | AppNotificationCreateWithoutTenantInput[] | AppNotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutTenantInput | AppNotificationCreateOrConnectWithoutTenantInput[]
+    createMany?: AppNotificationCreateManyTenantInputEnvelope
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+  }
+
+  export type GamificationProfileUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput> | GamificationProfileCreateWithoutTenantInput[] | GamificationProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutTenantInput | GamificationProfileCreateOrConnectWithoutTenantInput[]
+    createMany?: GamificationProfileCreateManyTenantInputEnvelope
+    connect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+  }
+
+  export type AIInferenceUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput> | AIInferenceCreateWithoutTenantInput[] | AIInferenceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AIInferenceCreateOrConnectWithoutTenantInput | AIInferenceCreateOrConnectWithoutTenantInput[]
+    createMany?: AIInferenceCreateManyTenantInputEnvelope
+    connect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+  }
+
+  export type CommunicationLogUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput> | CommunicationLogCreateWithoutTenantInput[] | CommunicationLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
+    createMany?: CommunicationLogCreateManyTenantInputEnvelope
+    connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -137693,6 +144772,76 @@ export namespace Prisma {
     update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+  }
+
+  export type IoTEventUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput> | IoTEventCreateWithoutTenantInput[] | IoTEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutTenantInput | IoTEventCreateOrConnectWithoutTenantInput[]
+    upsert?: IoTEventUpsertWithWhereUniqueWithoutTenantInput | IoTEventUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: IoTEventCreateManyTenantInputEnvelope
+    set?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    disconnect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    delete?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    update?: IoTEventUpdateWithWhereUniqueWithoutTenantInput | IoTEventUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: IoTEventUpdateManyWithWhereWithoutTenantInput | IoTEventUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+  }
+
+  export type AppNotificationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput> | AppNotificationCreateWithoutTenantInput[] | AppNotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutTenantInput | AppNotificationCreateOrConnectWithoutTenantInput[]
+    upsert?: AppNotificationUpsertWithWhereUniqueWithoutTenantInput | AppNotificationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AppNotificationCreateManyTenantInputEnvelope
+    set?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    disconnect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    delete?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    update?: AppNotificationUpdateWithWhereUniqueWithoutTenantInput | AppNotificationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AppNotificationUpdateManyWithWhereWithoutTenantInput | AppNotificationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+  }
+
+  export type GamificationProfileUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput> | GamificationProfileCreateWithoutTenantInput[] | GamificationProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutTenantInput | GamificationProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: GamificationProfileUpsertWithWhereUniqueWithoutTenantInput | GamificationProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: GamificationProfileCreateManyTenantInputEnvelope
+    set?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    disconnect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    delete?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    connect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    update?: GamificationProfileUpdateWithWhereUniqueWithoutTenantInput | GamificationProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: GamificationProfileUpdateManyWithWhereWithoutTenantInput | GamificationProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: GamificationProfileScalarWhereInput | GamificationProfileScalarWhereInput[]
+  }
+
+  export type AIInferenceUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput> | AIInferenceCreateWithoutTenantInput[] | AIInferenceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AIInferenceCreateOrConnectWithoutTenantInput | AIInferenceCreateOrConnectWithoutTenantInput[]
+    upsert?: AIInferenceUpsertWithWhereUniqueWithoutTenantInput | AIInferenceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AIInferenceCreateManyTenantInputEnvelope
+    set?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    disconnect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    delete?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    connect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    update?: AIInferenceUpdateWithWhereUniqueWithoutTenantInput | AIInferenceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AIInferenceUpdateManyWithWhereWithoutTenantInput | AIInferenceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AIInferenceScalarWhereInput | AIInferenceScalarWhereInput[]
+  }
+
+  export type CommunicationLogUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput> | CommunicationLogCreateWithoutTenantInput[] | CommunicationLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
+    upsert?: CommunicationLogUpsertWithWhereUniqueWithoutTenantInput | CommunicationLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CommunicationLogCreateManyTenantInputEnvelope
+    set?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    disconnect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    delete?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    update?: CommunicationLogUpdateWithWhereUniqueWithoutTenantInput | CommunicationLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CommunicationLogUpdateManyWithWhereWithoutTenantInput | CommunicationLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -138697,6 +145846,76 @@ export namespace Prisma {
     update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+  }
+
+  export type IoTEventUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput> | IoTEventCreateWithoutTenantInput[] | IoTEventUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: IoTEventCreateOrConnectWithoutTenantInput | IoTEventCreateOrConnectWithoutTenantInput[]
+    upsert?: IoTEventUpsertWithWhereUniqueWithoutTenantInput | IoTEventUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: IoTEventCreateManyTenantInputEnvelope
+    set?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    disconnect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    delete?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    connect?: IoTEventWhereUniqueInput | IoTEventWhereUniqueInput[]
+    update?: IoTEventUpdateWithWhereUniqueWithoutTenantInput | IoTEventUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: IoTEventUpdateManyWithWhereWithoutTenantInput | IoTEventUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+  }
+
+  export type AppNotificationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput> | AppNotificationCreateWithoutTenantInput[] | AppNotificationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AppNotificationCreateOrConnectWithoutTenantInput | AppNotificationCreateOrConnectWithoutTenantInput[]
+    upsert?: AppNotificationUpsertWithWhereUniqueWithoutTenantInput | AppNotificationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AppNotificationCreateManyTenantInputEnvelope
+    set?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    disconnect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    delete?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    connect?: AppNotificationWhereUniqueInput | AppNotificationWhereUniqueInput[]
+    update?: AppNotificationUpdateWithWhereUniqueWithoutTenantInput | AppNotificationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AppNotificationUpdateManyWithWhereWithoutTenantInput | AppNotificationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+  }
+
+  export type GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput> | GamificationProfileCreateWithoutTenantInput[] | GamificationProfileUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: GamificationProfileCreateOrConnectWithoutTenantInput | GamificationProfileCreateOrConnectWithoutTenantInput[]
+    upsert?: GamificationProfileUpsertWithWhereUniqueWithoutTenantInput | GamificationProfileUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: GamificationProfileCreateManyTenantInputEnvelope
+    set?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    disconnect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    delete?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    connect?: GamificationProfileWhereUniqueInput | GamificationProfileWhereUniqueInput[]
+    update?: GamificationProfileUpdateWithWhereUniqueWithoutTenantInput | GamificationProfileUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: GamificationProfileUpdateManyWithWhereWithoutTenantInput | GamificationProfileUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: GamificationProfileScalarWhereInput | GamificationProfileScalarWhereInput[]
+  }
+
+  export type AIInferenceUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput> | AIInferenceCreateWithoutTenantInput[] | AIInferenceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AIInferenceCreateOrConnectWithoutTenantInput | AIInferenceCreateOrConnectWithoutTenantInput[]
+    upsert?: AIInferenceUpsertWithWhereUniqueWithoutTenantInput | AIInferenceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AIInferenceCreateManyTenantInputEnvelope
+    set?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    disconnect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    delete?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    connect?: AIInferenceWhereUniqueInput | AIInferenceWhereUniqueInput[]
+    update?: AIInferenceUpdateWithWhereUniqueWithoutTenantInput | AIInferenceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AIInferenceUpdateManyWithWhereWithoutTenantInput | AIInferenceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AIInferenceScalarWhereInput | AIInferenceScalarWhereInput[]
+  }
+
+  export type CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput> | CommunicationLogCreateWithoutTenantInput[] | CommunicationLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
+    upsert?: CommunicationLogUpsertWithWhereUniqueWithoutTenantInput | CommunicationLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CommunicationLogCreateManyTenantInputEnvelope
+    set?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    disconnect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    delete?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+    update?: CommunicationLogUpdateWithWhereUniqueWithoutTenantInput | CommunicationLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CommunicationLogUpdateManyWithWhereWithoutTenantInput | CommunicationLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
@@ -144489,6 +151708,130 @@ export namespace Prisma {
     update?: XOR<XOR<WebhookEndpointUpdateToOneWithWhereWithoutDeliveriesInput, WebhookEndpointUpdateWithoutDeliveriesInput>, WebhookEndpointUncheckedUpdateWithoutDeliveriesInput>
   }
 
+  export type TenantCreateNestedOneWithoutIotEventsInput = {
+    create?: XOR<TenantCreateWithoutIotEventsInput, TenantUncheckedCreateWithoutIotEventsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutIotEventsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutIotEventsInput = {
+    create?: XOR<UserCreateWithoutIotEventsInput, UserUncheckedCreateWithoutIotEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIotEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneWithoutIotEventsNestedInput = {
+    create?: XOR<TenantCreateWithoutIotEventsInput, TenantUncheckedCreateWithoutIotEventsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutIotEventsInput
+    upsert?: TenantUpsertWithoutIotEventsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutIotEventsInput, TenantUpdateWithoutIotEventsInput>, TenantUncheckedUpdateWithoutIotEventsInput>
+  }
+
+  export type UserUpdateOneWithoutIotEventsNestedInput = {
+    create?: XOR<UserCreateWithoutIotEventsInput, UserUncheckedCreateWithoutIotEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIotEventsInput
+    upsert?: UserUpsertWithoutIotEventsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIotEventsInput, UserUpdateWithoutIotEventsInput>, UserUncheckedUpdateWithoutIotEventsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutAppNotificationsInput = {
+    create?: XOR<TenantCreateWithoutAppNotificationsInput, TenantUncheckedCreateWithoutAppNotificationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAppNotificationsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAppNotificationsInput = {
+    create?: XOR<UserCreateWithoutAppNotificationsInput, UserUncheckedCreateWithoutAppNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneWithoutAppNotificationsNestedInput = {
+    create?: XOR<TenantCreateWithoutAppNotificationsInput, TenantUncheckedCreateWithoutAppNotificationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAppNotificationsInput
+    upsert?: TenantUpsertWithoutAppNotificationsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAppNotificationsInput, TenantUpdateWithoutAppNotificationsInput>, TenantUncheckedUpdateWithoutAppNotificationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAppNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutAppNotificationsInput, UserUncheckedCreateWithoutAppNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppNotificationsInput
+    upsert?: UserUpsertWithoutAppNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppNotificationsInput, UserUpdateWithoutAppNotificationsInput>, UserUncheckedUpdateWithoutAppNotificationsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutGamificationProfilesInput = {
+    create?: XOR<TenantCreateWithoutGamificationProfilesInput, TenantUncheckedCreateWithoutGamificationProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutGamificationProfilesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutGamificationProfileInput = {
+    create?: XOR<UserCreateWithoutGamificationProfileInput, UserUncheckedCreateWithoutGamificationProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGamificationProfileInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneWithoutGamificationProfilesNestedInput = {
+    create?: XOR<TenantCreateWithoutGamificationProfilesInput, TenantUncheckedCreateWithoutGamificationProfilesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutGamificationProfilesInput
+    upsert?: TenantUpsertWithoutGamificationProfilesInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutGamificationProfilesInput, TenantUpdateWithoutGamificationProfilesInput>, TenantUncheckedUpdateWithoutGamificationProfilesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutGamificationProfileNestedInput = {
+    create?: XOR<UserCreateWithoutGamificationProfileInput, UserUncheckedCreateWithoutGamificationProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGamificationProfileInput
+    upsert?: UserUpsertWithoutGamificationProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGamificationProfileInput, UserUpdateWithoutGamificationProfileInput>, UserUncheckedUpdateWithoutGamificationProfileInput>
+  }
+
+  export type TenantCreateNestedOneWithoutAiInferencesInput = {
+    create?: XOR<TenantCreateWithoutAiInferencesInput, TenantUncheckedCreateWithoutAiInferencesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAiInferencesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneWithoutAiInferencesNestedInput = {
+    create?: XOR<TenantCreateWithoutAiInferencesInput, TenantUncheckedCreateWithoutAiInferencesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAiInferencesInput
+    upsert?: TenantUpsertWithoutAiInferencesInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAiInferencesInput, TenantUpdateWithoutAiInferencesInput>, TenantUncheckedUpdateWithoutAiInferencesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutCommunicationLogsInput = {
+    create?: XOR<TenantCreateWithoutCommunicationLogsInput, TenantUncheckedCreateWithoutCommunicationLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCommunicationLogsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneWithoutCommunicationLogsNestedInput = {
+    create?: XOR<TenantCreateWithoutCommunicationLogsInput, TenantUncheckedCreateWithoutCommunicationLogsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCommunicationLogsInput
+    upsert?: TenantUpsertWithoutCommunicationLogsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCommunicationLogsInput, TenantUpdateWithoutCommunicationLogsInput>, TenantUncheckedUpdateWithoutCommunicationLogsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -145307,6 +152650,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -145403,6 +152751,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -145870,6 +153223,91 @@ export namespace Prisma {
   export type PerformanceReviewCreateManyReviewerInputEnvelope = {
     data: PerformanceReviewCreateManyReviewerInput | PerformanceReviewCreateManyReviewerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type IoTEventCreateWithoutUserInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutIotEventsInput
+  }
+
+  export type IoTEventUncheckedCreateWithoutUserInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type IoTEventCreateOrConnectWithoutUserInput = {
+    where: IoTEventWhereUniqueInput
+    create: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type IoTEventCreateManyUserInputEnvelope = {
+    data: IoTEventCreateManyUserInput | IoTEventCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AppNotificationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    createdAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutAppNotificationsInput
+  }
+
+  export type AppNotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationCreateOrConnectWithoutUserInput = {
+    where: AppNotificationWhereUniqueInput
+    create: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppNotificationCreateManyUserInputEnvelope = {
+    data: AppNotificationCreateManyUserInput | AppNotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GamificationProfileCreateWithoutUserInput = {
+    id?: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutGamificationProfilesInput
+  }
+
+  export type GamificationProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    tenantId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type GamificationProfileCreateOrConnectWithoutUserInput = {
+    where: GamificationProfileWhereUniqueInput
+    create: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
   }
 
   export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
@@ -146388,6 +153826,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -146484,6 +153927,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -146890,6 +154338,96 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PerformanceReview"> | Date | string
     updatedAt?: DateTimeFilter<"PerformanceReview"> | Date | string
     tenantId?: StringFilter<"PerformanceReview"> | string
+  }
+
+  export type IoTEventUpsertWithWhereUniqueWithoutUserInput = {
+    where: IoTEventWhereUniqueInput
+    update: XOR<IoTEventUpdateWithoutUserInput, IoTEventUncheckedUpdateWithoutUserInput>
+    create: XOR<IoTEventCreateWithoutUserInput, IoTEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type IoTEventUpdateWithWhereUniqueWithoutUserInput = {
+    where: IoTEventWhereUniqueInput
+    data: XOR<IoTEventUpdateWithoutUserInput, IoTEventUncheckedUpdateWithoutUserInput>
+  }
+
+  export type IoTEventUpdateManyWithWhereWithoutUserInput = {
+    where: IoTEventScalarWhereInput
+    data: XOR<IoTEventUpdateManyMutationInput, IoTEventUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type IoTEventScalarWhereInput = {
+    AND?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+    OR?: IoTEventScalarWhereInput[]
+    NOT?: IoTEventScalarWhereInput | IoTEventScalarWhereInput[]
+    id?: StringFilter<"IoTEvent"> | string
+    deviceId?: StringFilter<"IoTEvent"> | string
+    deviceType?: StringFilter<"IoTEvent"> | string
+    payload?: StringFilter<"IoTEvent"> | string
+    status?: StringFilter<"IoTEvent"> | string
+    userId?: StringNullableFilter<"IoTEvent"> | string | null
+    tenantId?: StringNullableFilter<"IoTEvent"> | string | null
+    createdAt?: DateTimeFilter<"IoTEvent"> | Date | string
+  }
+
+  export type AppNotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: AppNotificationWhereUniqueInput
+    update: XOR<AppNotificationUpdateWithoutUserInput, AppNotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<AppNotificationCreateWithoutUserInput, AppNotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppNotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: AppNotificationWhereUniqueInput
+    data: XOR<AppNotificationUpdateWithoutUserInput, AppNotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AppNotificationUpdateManyWithWhereWithoutUserInput = {
+    where: AppNotificationScalarWhereInput
+    data: XOR<AppNotificationUpdateManyMutationInput, AppNotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AppNotificationScalarWhereInput = {
+    AND?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+    OR?: AppNotificationScalarWhereInput[]
+    NOT?: AppNotificationScalarWhereInput | AppNotificationScalarWhereInput[]
+    id?: StringFilter<"AppNotification"> | string
+    userId?: StringFilter<"AppNotification"> | string
+    title?: StringFilter<"AppNotification"> | string
+    message?: StringFilter<"AppNotification"> | string
+    type?: StringFilter<"AppNotification"> | string
+    isRead?: BoolFilter<"AppNotification"> | boolean
+    link?: StringNullableFilter<"AppNotification"> | string | null
+    tenantId?: StringNullableFilter<"AppNotification"> | string | null
+    createdAt?: DateTimeFilter<"AppNotification"> | Date | string
+  }
+
+  export type GamificationProfileUpsertWithoutUserInput = {
+    update: XOR<GamificationProfileUpdateWithoutUserInput, GamificationProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<GamificationProfileCreateWithoutUserInput, GamificationProfileUncheckedCreateWithoutUserInput>
+    where?: GamificationProfileWhereInput
+  }
+
+  export type GamificationProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: GamificationProfileWhereInput
+    data: XOR<GamificationProfileUpdateWithoutUserInput, GamificationProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GamificationProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutGamificationProfilesNestedInput
+  }
+
+  export type GamificationProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuditLogCreateWithoutTenantInput = {
@@ -147527,6 +155065,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -147564,6 +155105,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -148588,6 +156132,162 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IoTEventCreateWithoutTenantInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutIotEventsInput
+  }
+
+  export type IoTEventUncheckedCreateWithoutTenantInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    userId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type IoTEventCreateOrConnectWithoutTenantInput = {
+    where: IoTEventWhereUniqueInput
+    create: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput>
+  }
+
+  export type IoTEventCreateManyTenantInputEnvelope = {
+    data: IoTEventCreateManyTenantInput | IoTEventCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AppNotificationCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAppNotificationsInput
+  }
+
+  export type AppNotificationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationCreateOrConnectWithoutTenantInput = {
+    where: AppNotificationWhereUniqueInput
+    create: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AppNotificationCreateManyTenantInputEnvelope = {
+    data: AppNotificationCreateManyTenantInput | AppNotificationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GamificationProfileCreateWithoutTenantInput = {
+    id?: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutGamificationProfileInput
+  }
+
+  export type GamificationProfileUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    updatedAt?: Date | string
+  }
+
+  export type GamificationProfileCreateOrConnectWithoutTenantInput = {
+    where: GamificationProfileWhereUniqueInput
+    create: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type GamificationProfileCreateManyTenantInputEnvelope = {
+    data: GamificationProfileCreateManyTenantInput | GamificationProfileCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInferenceCreateWithoutTenantInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    createdAt?: Date | string
+  }
+
+  export type AIInferenceUncheckedCreateWithoutTenantInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    createdAt?: Date | string
+  }
+
+  export type AIInferenceCreateOrConnectWithoutTenantInput = {
+    where: AIInferenceWhereUniqueInput
+    create: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AIInferenceCreateManyTenantInputEnvelope = {
+    data: AIInferenceCreateManyTenantInput | AIInferenceCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunicationLogCreateWithoutTenantInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommunicationLogUncheckedCreateWithoutTenantInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommunicationLogCreateOrConnectWithoutTenantInput = {
+    where: CommunicationLogWhereUniqueInput
+    create: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CommunicationLogCreateManyTenantInputEnvelope = {
+    data: CommunicationLogCreateManyTenantInput | CommunicationLogCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -148655,6 +156355,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -148751,6 +156456,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -148850,6 +156560,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -148945,6 +156660,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -151133,6 +158853,130 @@ export namespace Prisma {
     tenantId?: StringFilter<"SystemTouchpoint"> | string
   }
 
+  export type IoTEventUpsertWithWhereUniqueWithoutTenantInput = {
+    where: IoTEventWhereUniqueInput
+    update: XOR<IoTEventUpdateWithoutTenantInput, IoTEventUncheckedUpdateWithoutTenantInput>
+    create: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput>
+  }
+
+  export type IoTEventUpdateWithWhereUniqueWithoutTenantInput = {
+    where: IoTEventWhereUniqueInput
+    data: XOR<IoTEventUpdateWithoutTenantInput, IoTEventUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type IoTEventUpdateManyWithWhereWithoutTenantInput = {
+    where: IoTEventScalarWhereInput
+    data: XOR<IoTEventUpdateManyMutationInput, IoTEventUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type AppNotificationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AppNotificationWhereUniqueInput
+    update: XOR<AppNotificationUpdateWithoutTenantInput, AppNotificationUncheckedUpdateWithoutTenantInput>
+    create: XOR<AppNotificationCreateWithoutTenantInput, AppNotificationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AppNotificationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AppNotificationWhereUniqueInput
+    data: XOR<AppNotificationUpdateWithoutTenantInput, AppNotificationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AppNotificationUpdateManyWithWhereWithoutTenantInput = {
+    where: AppNotificationScalarWhereInput
+    data: XOR<AppNotificationUpdateManyMutationInput, AppNotificationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type GamificationProfileUpsertWithWhereUniqueWithoutTenantInput = {
+    where: GamificationProfileWhereUniqueInput
+    update: XOR<GamificationProfileUpdateWithoutTenantInput, GamificationProfileUncheckedUpdateWithoutTenantInput>
+    create: XOR<GamificationProfileCreateWithoutTenantInput, GamificationProfileUncheckedCreateWithoutTenantInput>
+  }
+
+  export type GamificationProfileUpdateWithWhereUniqueWithoutTenantInput = {
+    where: GamificationProfileWhereUniqueInput
+    data: XOR<GamificationProfileUpdateWithoutTenantInput, GamificationProfileUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type GamificationProfileUpdateManyWithWhereWithoutTenantInput = {
+    where: GamificationProfileScalarWhereInput
+    data: XOR<GamificationProfileUpdateManyMutationInput, GamificationProfileUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type GamificationProfileScalarWhereInput = {
+    AND?: GamificationProfileScalarWhereInput | GamificationProfileScalarWhereInput[]
+    OR?: GamificationProfileScalarWhereInput[]
+    NOT?: GamificationProfileScalarWhereInput | GamificationProfileScalarWhereInput[]
+    id?: StringFilter<"GamificationProfile"> | string
+    userId?: StringFilter<"GamificationProfile"> | string
+    careCoins?: IntFilter<"GamificationProfile"> | number
+    currentTier?: StringFilter<"GamificationProfile"> | string
+    lifetimePoints?: IntFilter<"GamificationProfile"> | number
+    tenantId?: StringNullableFilter<"GamificationProfile"> | string | null
+    updatedAt?: DateTimeFilter<"GamificationProfile"> | Date | string
+  }
+
+  export type AIInferenceUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AIInferenceWhereUniqueInput
+    update: XOR<AIInferenceUpdateWithoutTenantInput, AIInferenceUncheckedUpdateWithoutTenantInput>
+    create: XOR<AIInferenceCreateWithoutTenantInput, AIInferenceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AIInferenceUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AIInferenceWhereUniqueInput
+    data: XOR<AIInferenceUpdateWithoutTenantInput, AIInferenceUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AIInferenceUpdateManyWithWhereWithoutTenantInput = {
+    where: AIInferenceScalarWhereInput
+    data: XOR<AIInferenceUpdateManyMutationInput, AIInferenceUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type AIInferenceScalarWhereInput = {
+    AND?: AIInferenceScalarWhereInput | AIInferenceScalarWhereInput[]
+    OR?: AIInferenceScalarWhereInput[]
+    NOT?: AIInferenceScalarWhereInput | AIInferenceScalarWhereInput[]
+    id?: StringFilter<"AIInference"> | string
+    modelName?: StringFilter<"AIInference"> | string
+    targetId?: StringFilter<"AIInference"> | string
+    targetType?: StringFilter<"AIInference"> | string
+    confidenceScore?: FloatFilter<"AIInference"> | number
+    predictionData?: StringFilter<"AIInference"> | string
+    tenantId?: StringNullableFilter<"AIInference"> | string | null
+    createdAt?: DateTimeFilter<"AIInference"> | Date | string
+  }
+
+  export type CommunicationLogUpsertWithWhereUniqueWithoutTenantInput = {
+    where: CommunicationLogWhereUniqueInput
+    update: XOR<CommunicationLogUpdateWithoutTenantInput, CommunicationLogUncheckedUpdateWithoutTenantInput>
+    create: XOR<CommunicationLogCreateWithoutTenantInput, CommunicationLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CommunicationLogUpdateWithWhereUniqueWithoutTenantInput = {
+    where: CommunicationLogWhereUniqueInput
+    data: XOR<CommunicationLogUpdateWithoutTenantInput, CommunicationLogUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CommunicationLogUpdateManyWithWhereWithoutTenantInput = {
+    where: CommunicationLogScalarWhereInput
+    data: XOR<CommunicationLogUpdateManyMutationInput, CommunicationLogUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type CommunicationLogScalarWhereInput = {
+    AND?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
+    OR?: CommunicationLogScalarWhereInput[]
+    NOT?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
+    id?: StringFilter<"CommunicationLog"> | string
+    direction?: StringFilter<"CommunicationLog"> | string
+    channel?: StringFilter<"CommunicationLog"> | string
+    recipient?: StringNullableFilter<"CommunicationLog"> | string | null
+    sender?: StringNullableFilter<"CommunicationLog"> | string | null
+    subject?: StringNullableFilter<"CommunicationLog"> | string | null
+    bodyText?: StringNullableFilter<"CommunicationLog"> | string | null
+    status?: StringFilter<"CommunicationLog"> | string
+    externalId?: StringNullableFilter<"CommunicationLog"> | string | null
+    tenantId?: StringNullableFilter<"CommunicationLog"> | string | null
+    createdAt?: DateTimeFilter<"CommunicationLog"> | Date | string
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -151211,6 +159055,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -151307,6 +159156,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -152169,6 +160023,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -152265,6 +160124,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -152375,6 +160239,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -152471,6 +160340,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152564,6 +160438,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -152660,6 +160539,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -152770,6 +160654,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -152866,6 +160755,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -152998,6 +160892,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -153094,6 +160993,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -153162,6 +161066,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -153199,6 +161106,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -154168,6 +162078,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -154264,6 +162179,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -154338,6 +162258,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -154375,6 +162298,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -154958,6 +162884,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -155054,6 +162985,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -155122,6 +163058,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -155159,6 +163098,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -155802,6 +163744,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -155898,6 +163845,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -155972,6 +163924,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -156009,6 +163964,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -156858,6 +164816,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -156954,6 +164917,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -157560,6 +165528,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -157656,6 +165629,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -157811,6 +165789,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -157907,6 +165890,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -158139,6 +166127,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -158235,6 +166228,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -158330,6 +166328,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -158367,6 +166368,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -158511,6 +166515,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -158607,6 +166616,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -158771,6 +166785,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -158808,6 +166825,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -158964,6 +166984,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -159060,6 +167085,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -159862,6 +167892,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -159899,6 +167932,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -159941,6 +167977,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -159978,6 +168017,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -160051,6 +168093,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -160147,6 +168194,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -160311,6 +168363,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -160348,6 +168403,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -160396,6 +168454,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -160433,6 +168494,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -160512,6 +168576,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -160608,6 +168677,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -160857,6 +168931,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -160894,6 +168971,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -160967,6 +169047,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -161063,6 +169148,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -161235,6 +169325,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -161272,6 +169365,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -161351,6 +169447,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -161447,6 +169548,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -161882,6 +169988,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -161978,6 +170089,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -162215,6 +170331,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -162311,6 +170432,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -162694,6 +170820,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -162790,6 +170921,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -163092,6 +171228,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -163188,6 +171329,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -163251,6 +171397,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -163288,6 +171437,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -163364,6 +171516,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -163401,6 +171556,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -163467,6 +171625,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -163504,6 +171665,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -163577,6 +171741,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -163673,6 +171842,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -163752,6 +171926,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -163789,6 +171966,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -163868,6 +172048,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -163964,6 +172149,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -164059,6 +172249,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -164155,6 +172350,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -164222,6 +172422,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemEventsInput = {
@@ -164259,6 +172462,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemEventsInput = {
@@ -164344,6 +172550,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -164440,6 +172651,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -164513,6 +172729,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemEventsInput = {
@@ -164550,6 +172769,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutLeadsInput = {
@@ -164618,6 +172840,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -164714,6 +172941,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -164824,6 +173056,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -164920,6 +173157,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -165107,6 +173349,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -165203,6 +173450,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -165502,6 +173754,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -165598,6 +173855,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -165779,6 +174041,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -165875,6 +174142,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -166062,6 +174334,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -166158,6 +174435,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -166323,6 +174605,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -166419,6 +174706,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -166691,6 +174983,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -166787,6 +175084,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -166941,6 +175243,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -166978,6 +175283,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -167031,6 +175339,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -167068,6 +175379,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -167136,6 +175450,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -167232,6 +175551,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -167342,6 +175666,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -167438,6 +175767,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -167572,6 +175906,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -167609,6 +175946,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -167739,6 +176079,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -167776,6 +176119,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutDailyEntryInput = {
@@ -167906,6 +176252,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -167943,6 +176292,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -168016,6 +176368,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -168112,6 +176469,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -168375,6 +176737,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -168412,6 +176777,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -168491,6 +176859,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -168587,6 +176960,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -168741,6 +177119,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDevicesInput = {
@@ -168778,6 +177159,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDevicesInput = {
@@ -168831,6 +177215,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDevicesInput = {
@@ -168868,6 +177255,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutMarketplaceListingsInput = {
@@ -168937,6 +177327,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -169033,6 +177428,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -169143,6 +177543,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -169239,6 +177644,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -169425,6 +177835,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -169521,6 +177936,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -169815,6 +178235,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -169911,6 +178336,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -170189,6 +178619,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -170285,6 +178720,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -170353,6 +178793,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -170390,6 +178833,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -170573,6 +179019,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -170669,6 +179120,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -170743,6 +179199,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -170780,6 +179239,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTrainingModulesInput = {
@@ -170848,6 +179310,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -170944,6 +179411,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -171082,6 +179554,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -171178,6 +179655,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -171361,6 +179843,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -171457,6 +179944,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -171591,6 +180083,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -171687,6 +180184,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -171864,6 +180366,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -171960,6 +180467,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -172100,6 +180612,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -172196,6 +180713,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -172380,6 +180902,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -172476,6 +181003,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -172586,6 +181118,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -172682,6 +181219,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -172776,6 +181318,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -172872,6 +181419,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -172982,6 +181534,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -173078,6 +181635,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -173172,6 +181734,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -173268,6 +181835,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -173378,6 +181950,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -173474,6 +182051,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -173568,6 +182150,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -173664,6 +182251,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -173774,6 +182366,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -173870,6 +182467,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -173964,6 +182566,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -174060,6 +182667,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -174170,6 +182782,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -174266,6 +182883,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -174360,6 +182982,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -174456,6 +183083,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -174566,6 +183198,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -174662,6 +183299,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -175060,6 +183702,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -175156,6 +183803,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -175434,6 +184086,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -175530,6 +184187,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -175752,6 +184414,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -175848,6 +184515,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -176098,6 +184770,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -176194,6 +184871,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -176288,6 +184970,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -176384,6 +185071,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -176494,6 +185186,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -176590,6 +185287,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -176684,6 +185386,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -176780,6 +185487,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -176890,6 +185602,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -176986,6 +185703,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -177081,6 +185803,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -177177,6 +185904,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -177413,6 +186145,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -177509,6 +186246,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -177754,6 +186496,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -177850,6 +186597,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -178053,6 +186805,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -178149,6 +186906,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -178369,6 +187131,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -178465,6 +187232,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -178701,6 +187473,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -178797,6 +187574,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -178989,6 +187771,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -179085,6 +187872,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -179246,6 +188038,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -179283,6 +188078,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -179367,6 +188165,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -179463,6 +188266,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -179636,6 +188444,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -179673,6 +188484,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -179933,6 +188747,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -180029,6 +188848,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -180232,6 +189056,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -180328,6 +189157,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -180521,6 +189355,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -180617,6 +189456,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -180759,6 +189603,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -180855,6 +189704,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -180965,6 +189819,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -181061,6 +189920,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -181289,6 +190153,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -181385,6 +190254,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -181665,6 +190539,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -181761,6 +190640,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -182017,6 +190901,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -182113,6 +191002,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -182778,6 +191672,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -182874,6 +191773,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -183152,6 +192056,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -183248,6 +192157,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -183413,6 +192327,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -183509,6 +192428,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -183696,6 +192620,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -183792,6 +192721,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -183957,6 +192891,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -184053,6 +192992,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -184240,6 +193184,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -184336,6 +193285,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -184491,6 +193445,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -184528,6 +193485,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -184602,6 +193562,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -184698,6 +193663,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -184875,6 +193845,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -184912,6 +193885,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -184992,6 +193968,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -185088,6 +194069,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -185243,6 +194229,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -185280,6 +194269,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -185354,6 +194346,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -185450,6 +194447,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -185627,6 +194629,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -185664,6 +194669,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -185744,6 +194752,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -185840,6 +194853,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -185973,6 +194991,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -186010,6 +195031,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -186084,6 +195108,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -186180,6 +195209,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -186335,6 +195369,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -186372,6 +195409,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -186452,6 +195492,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -186548,6 +195593,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -186734,6 +195784,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -186830,6 +195885,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -187039,6 +196099,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -187135,6 +196200,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -187407,6 +196477,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -187503,6 +196578,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -187803,6 +196883,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -187899,6 +196984,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -187962,6 +197052,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
@@ -187999,6 +197092,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedAuditsInput = {
@@ -188072,6 +197168,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -188168,6 +197269,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -188247,6 +197353,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
@@ -188284,6 +197393,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTechnicalAuditsInput = {
@@ -188363,6 +197475,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -188459,6 +197576,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -188646,6 +197768,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -188742,6 +197869,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -188951,6 +198083,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -189047,6 +198184,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -189110,6 +198252,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -189147,6 +198292,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -189220,6 +198368,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -189316,6 +198469,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -189480,6 +198638,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -189517,6 +198678,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyAuditSignOffsInput = {
@@ -189596,6 +198760,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -189692,6 +198861,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -189846,6 +199020,9 @@ export namespace Prisma {
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWellnessPulsesInput = {
@@ -189883,6 +199060,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWellnessPulsesInput = {
@@ -189956,6 +199136,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -190052,6 +199237,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -190131,6 +199321,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -190168,6 +199361,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutWellnessPulsesInput = {
@@ -190247,6 +199443,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -190343,6 +199544,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -190437,6 +199643,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -190533,6 +199744,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -190643,6 +199859,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -190739,6 +199960,11 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -190834,6 +200060,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -190930,6 +200161,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -191074,6 +200310,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -191170,6 +200411,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -191280,6 +200526,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -191376,6 +200627,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -191546,6 +200802,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -191642,6 +200903,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -191826,6 +201092,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -191922,6 +201193,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -192102,6 +201378,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -192198,6 +201479,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -192352,6 +201638,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -192448,6 +201739,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -192630,6 +201926,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -192726,6 +202027,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -192820,6 +202126,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -192916,6 +202227,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -193052,6 +202368,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -193148,6 +202469,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -193258,6 +202584,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -193354,6 +202685,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -193464,6 +202800,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -193560,6 +202901,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -193747,6 +203093,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -193843,6 +203194,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -194052,6 +203408,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -194148,6 +203509,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -194335,6 +203701,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -194431,6 +203802,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -194640,6 +204016,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -194736,6 +204117,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -194901,6 +204287,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -194997,6 +204388,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -195184,6 +204580,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -195280,6 +204681,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -195374,6 +204780,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -195470,6 +204881,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -195580,6 +204996,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -195676,6 +205097,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -195863,6 +205289,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -195959,6 +205390,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -196168,6 +205604,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -196264,6 +205705,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -196397,6 +205843,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
     devices?: UserDeviceCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformanceReviewsAuthoredInput = {
@@ -196434,6 +205883,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
     devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
     systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformanceReviewsAuthoredInput = {
@@ -196508,6 +205960,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -196604,6 +206061,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -196759,6 +206221,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformanceReviewsAuthoredInput = {
@@ -196796,6 +206261,9 @@ export namespace Prisma {
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPerformanceReviewsInput = {
@@ -196876,6 +206344,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -196972,6 +206445,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -197096,6 +206574,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -197192,6 +206675,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -197332,6 +206820,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -197428,6 +206921,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -197521,6 +207019,2614 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCreateWithoutIotEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutIotEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutIotEventsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutIotEventsInput, TenantUncheckedCreateWithoutIotEventsInput>
+  }
+
+  export type UserCreateWithoutIotEventsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutIotEventsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutIotEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutIotEventsInput, UserUncheckedCreateWithoutIotEventsInput>
+  }
+
+  export type TenantUpsertWithoutIotEventsInput = {
+    update: XOR<TenantUpdateWithoutIotEventsInput, TenantUncheckedUpdateWithoutIotEventsInput>
+    create: XOR<TenantCreateWithoutIotEventsInput, TenantUncheckedCreateWithoutIotEventsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutIotEventsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutIotEventsInput, TenantUncheckedUpdateWithoutIotEventsInput>
+  }
+
+  export type TenantUpdateWithoutIotEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutIotEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutIotEventsInput = {
+    update: XOR<UserUpdateWithoutIotEventsInput, UserUncheckedUpdateWithoutIotEventsInput>
+    create: XOR<UserCreateWithoutIotEventsInput, UserUncheckedCreateWithoutIotEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutIotEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutIotEventsInput, UserUncheckedUpdateWithoutIotEventsInput>
+  }
+
+  export type UserUpdateWithoutIotEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutIotEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutAppNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAppNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAppNotificationsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAppNotificationsInput, TenantUncheckedCreateWithoutAppNotificationsInput>
+  }
+
+  export type UserCreateWithoutAppNotificationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAppNotificationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAppNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAppNotificationsInput, UserUncheckedCreateWithoutAppNotificationsInput>
+  }
+
+  export type TenantUpsertWithoutAppNotificationsInput = {
+    update: XOR<TenantUpdateWithoutAppNotificationsInput, TenantUncheckedUpdateWithoutAppNotificationsInput>
+    create: XOR<TenantCreateWithoutAppNotificationsInput, TenantUncheckedCreateWithoutAppNotificationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAppNotificationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAppNotificationsInput, TenantUncheckedUpdateWithoutAppNotificationsInput>
+  }
+
+  export type TenantUpdateWithoutAppNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAppNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutAppNotificationsInput = {
+    update: XOR<UserUpdateWithoutAppNotificationsInput, UserUncheckedUpdateWithoutAppNotificationsInput>
+    create: XOR<UserCreateWithoutAppNotificationsInput, UserUncheckedCreateWithoutAppNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAppNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAppNotificationsInput, UserUncheckedUpdateWithoutAppNotificationsInput>
+  }
+
+  export type UserUpdateWithoutAppNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAppNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutGamificationProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutGamificationProfilesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutGamificationProfilesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutGamificationProfilesInput, TenantUncheckedCreateWithoutGamificationProfilesInput>
+  }
+
+  export type UserCreateWithoutGamificationProfileInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGamificationProfileInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGamificationProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGamificationProfileInput, UserUncheckedCreateWithoutGamificationProfileInput>
+  }
+
+  export type TenantUpsertWithoutGamificationProfilesInput = {
+    update: XOR<TenantUpdateWithoutGamificationProfilesInput, TenantUncheckedUpdateWithoutGamificationProfilesInput>
+    create: XOR<TenantCreateWithoutGamificationProfilesInput, TenantUncheckedCreateWithoutGamificationProfilesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutGamificationProfilesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutGamificationProfilesInput, TenantUncheckedUpdateWithoutGamificationProfilesInput>
+  }
+
+  export type TenantUpdateWithoutGamificationProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutGamificationProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutGamificationProfileInput = {
+    update: XOR<UserUpdateWithoutGamificationProfileInput, UserUncheckedUpdateWithoutGamificationProfileInput>
+    create: XOR<UserCreateWithoutGamificationProfileInput, UserUncheckedCreateWithoutGamificationProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGamificationProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGamificationProfileInput, UserUncheckedUpdateWithoutGamificationProfileInput>
+  }
+
+  export type UserUpdateWithoutGamificationProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGamificationProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutAiInferencesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAiInferencesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAiInferencesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAiInferencesInput, TenantUncheckedCreateWithoutAiInferencesInput>
+  }
+
+  export type TenantUpsertWithoutAiInferencesInput = {
+    update: XOR<TenantUpdateWithoutAiInferencesInput, TenantUncheckedUpdateWithoutAiInferencesInput>
+    create: XOR<TenantCreateWithoutAiInferencesInput, TenantUncheckedCreateWithoutAiInferencesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAiInferencesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAiInferencesInput, TenantUncheckedUpdateWithoutAiInferencesInput>
+  }
+
+  export type TenantUpdateWithoutAiInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAiInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutCommunicationLogsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCommunicationLogsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCommunicationLogsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutCommunicationLogsInput, TenantUncheckedCreateWithoutCommunicationLogsInput>
+  }
+
+  export type TenantUpsertWithoutCommunicationLogsInput = {
+    update: XOR<TenantUpdateWithoutCommunicationLogsInput, TenantUncheckedUpdateWithoutCommunicationLogsInput>
+    create: XOR<TenantCreateWithoutCommunicationLogsInput, TenantUncheckedCreateWithoutCommunicationLogsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCommunicationLogsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCommunicationLogsInput, TenantUncheckedUpdateWithoutCommunicationLogsInput>
+  }
+
+  export type TenantUpdateWithoutCommunicationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCommunicationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -197782,6 +209888,27 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenantId: string
+  }
+
+  export type IoTEventCreateManyUserInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    tenantId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationCreateManyUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    tenantId?: string | null
+    createdAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutActorInput = {
@@ -198569,6 +210696,69 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type IoTEventUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutIotEventsNestedInput
+  }
+
+  export type IoTEventUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IoTEventUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutAppNotificationsNestedInput
+  }
+
+  export type AppNotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -199104,6 +211294,59 @@ export namespace Prisma {
     isOverridden?: boolean
     overrideValue?: string | null
     lastChecked?: Date | string
+  }
+
+  export type IoTEventCreateManyTenantInput = {
+    id?: string
+    deviceId: string
+    deviceType: string
+    payload: string
+    status?: string
+    userId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppNotificationCreateManyTenantInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    link?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GamificationProfileCreateManyTenantInput = {
+    id?: string
+    userId: string
+    careCoins?: number
+    currentTier?: string
+    lifetimePoints?: number
+    updatedAt?: Date | string
+  }
+
+  export type AIInferenceCreateManyTenantInput = {
+    id?: string
+    modelName: string
+    targetId: string
+    targetType: string
+    confidenceScore: number
+    predictionData: string
+    createdAt?: Date | string
+  }
+
+  export type CommunicationLogCreateManyTenantInput = {
+    id?: string
+    direction?: string
+    channel: string
+    recipient?: string | null
+    sender?: string | null
+    subject?: string | null
+    bodyText?: string | null
+    status?: string
+    externalId?: string | null
+    createdAt?: Date | string
   }
 
   export type TenantCreateManyParentTenantInput = {
@@ -200117,6 +212360,9 @@ export namespace Prisma {
     devices?: UserDeviceUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -200154,6 +212400,9 @@ export namespace Prisma {
     devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
     systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
     performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -201222,6 +213471,165 @@ export namespace Prisma {
     lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IoTEventUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutIotEventsNestedInput
+  }
+
+  export type IoTEventUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IoTEventUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceType?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAppNotificationsNestedInput
+  }
+
+  export type AppNotificationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppNotificationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GamificationProfileUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGamificationProfileNestedInput
+  }
+
+  export type GamificationProfileUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GamificationProfileUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    careCoins?: IntFieldUpdateOperationsInput | number
+    currentTier?: StringFieldUpdateOperationsInput | string
+    lifetimePoints?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInferenceUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    modelName?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    confidenceScore?: FloatFieldUpdateOperationsInput | number
+    predictionData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunicationLogUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    recipient?: NullableStringFieldUpdateOperationsInput | string | null
+    sender?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyText?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -201289,6 +213697,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -201384,6 +213797,11 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -206432,6 +218850,26 @@ export namespace Prisma {
      * @deprecated Use WebhookDeliveryDefaultArgs instead
      */
     export type WebhookDeliveryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WebhookDeliveryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use IoTEventDefaultArgs instead
+     */
+    export type IoTEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IoTEventDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AppNotificationDefaultArgs instead
+     */
+    export type AppNotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AppNotificationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GamificationProfileDefaultArgs instead
+     */
+    export type GamificationProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GamificationProfileDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AIInferenceDefaultArgs instead
+     */
+    export type AIInferenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AIInferenceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CommunicationLogDefaultArgs instead
+     */
+    export type CommunicationLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CommunicationLogDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

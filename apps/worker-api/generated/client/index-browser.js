@@ -1322,6 +1322,64 @@ exports.Prisma.WebhookDeliveryScalarFieldEnum = {
   deliveredAt: 'deliveredAt'
 };
 
+exports.Prisma.IoTEventScalarFieldEnum = {
+  id: 'id',
+  deviceId: 'deviceId',
+  deviceType: 'deviceType',
+  payload: 'payload',
+  status: 'status',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AppNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  isRead: 'isRead',
+  link: 'link',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GamificationProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  careCoins: 'careCoins',
+  currentTier: 'currentTier',
+  lifetimePoints: 'lifetimePoints',
+  tenantId: 'tenantId',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIInferenceScalarFieldEnum = {
+  id: 'id',
+  modelName: 'modelName',
+  targetId: 'targetId',
+  targetType: 'targetType',
+  confidenceScore: 'confidenceScore',
+  predictionData: 'predictionData',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CommunicationLogScalarFieldEnum = {
+  id: 'id',
+  direction: 'direction',
+  channel: 'channel',
+  recipient: 'recipient',
+  sender: 'sender',
+  subject: 'subject',
+  bodyText: 'bodyText',
+  status: 'status',
+  externalId: 'externalId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1433,7 +1491,12 @@ exports.Prisma.ModelName = {
   FamilyMember: 'FamilyMember',
   PerformanceReview: 'PerformanceReview',
   WebhookEndpoint: 'WebhookEndpoint',
-  WebhookDelivery: 'WebhookDelivery'
+  WebhookDelivery: 'WebhookDelivery',
+  IoTEvent: 'IoTEvent',
+  AppNotification: 'AppNotification',
+  GamificationProfile: 'GamificationProfile',
+  AIInference: 'AIInference',
+  CommunicationLog: 'CommunicationLog'
 };
 
 /**

@@ -52,6 +52,9 @@ model User {
   devices              UserDevice[]
   systemEvents         SystemEvent[]
   performanceReviewsAuthored PerformanceReview[] @relation("ReviewAuthor")
+  iotEvents            IoTEvent[]
+  appNotifications     AppNotification[]
+  gamificationProfile  GamificationProfile?
 
   @@index([tenantId])
   @@map("users")
@@ -109,6 +112,11 @@ model Tenant {
   dailyAuditSignOffs  DailyAuditSignOff[]
   wellnessPulses      WellnessPulse[]
   systemTouchpoints   SystemTouchpoint[]
+  iotEvents           IoTEvent[]
+  appNotifications    AppNotification[]
+  gamificationProfiles GamificationProfile[]
+  aiInferences        AIInference[]
+  communicationLogs   CommunicationLog[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -1889,4 +1897,93 @@ model WebhookDelivery {
 
   @@index([endpointId])
   @@map("webhook_deliveries")
+}
+
+model IoTEvent {
+  id          String   @id @default(uuid())
+  deviceId    String   @map("device_id")
+  deviceType  String   @map("device_type")
+  payload     String
+  status      String   @default("processed")
+  userId      String?  @map("user_id")
+  tenantId    String?  @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+  user        User?    @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([deviceId])
+  @@map("iot_events")
+}
+
+model AppNotification {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  title       String
+  message     String
+  type        String   @default("info") // info, warning, success, error
+  isRead      Boolean  @default(false) @map("is_read")
+  link        String?
+  tenantId    String?  @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@map("app_notifications")
+}
+
+model GamificationProfile {
+  id            String   @id @default(uuid())
+  userId        String   @unique @map("user_id")
+  careCoins     Int      @default(0) @map("care_coins")
+  currentTier   String   @default("Bronze") @map("current_tier")
+  lifetimePoints Int     @default(0) @map("lifetime_points")
+  tenantId      String?  @map("tenant_id")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@index([tenantId])
+  @@map("gamification_profiles")
+}
+
+model AIInference {
+  id              String   @id @default(uuid())
+  modelName       String   @map("model_name") // e.g., lead_scorer, no_show_predictor
+  targetId        String   @map("target_id")  // e.g., leadId, visitId
+  targetType      String   @map("target_type")
+  confidenceScore Float    @map("confidence_score")
+  predictionData  String   @map("prediction_data_json") // JSON string of the inference result
+  tenantId        String?  @map("tenant_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  tenant          Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([targetId, targetType])
+  @@map("ai_inferences")
+}
+
+model CommunicationLog {
+  id              String   @id @default(uuid())
+  direction       String   @default("outbound") // inbound, outbound
+  channel         String   // sms, email, voice, social
+  recipient       String?
+  sender          String?
+  subject         String?
+  bodyText        String?  @map("body_text")
+  status          String   @default("sent") // queued, sent, failed, delivered
+  externalId      String?  @map("external_id") // Twilio SID, SendGrid ID
+  tenantId        String?  @map("tenant_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  tenant          Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("communication_logs")
 }
