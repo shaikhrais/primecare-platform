@@ -29,7 +29,7 @@ export class OvertimeSentinel {
     /**
      * Executes the Overlap analysis sweep.
      */
-    static async scanForTemporalFraud(workerId: string): Promise<boolean> {
+    static async scanForTemporalFraud(prisma: any, workerId: string): Promise<boolean> {
         console.log(`[Fraud Sentinel] Scanning submitted timesheets for worker ${workerId}...`);
 
         const sheets = await this.getWorkerTimesheetsForWeek(workerId);
@@ -46,6 +46,16 @@ export class OvertimeSentinel {
             // If the next shift started *before* the current shift ended, we have an impossible overlap.
             if (next.startTime < current.endTime) {
                 overlapFound = true;
+                
+                await prisma.aIInference.create({
+                    data: {
+                        modelName: 'temporal_fraud_detector',
+                        predictionData: JSON.stringify({ workerId, overlap: { shift1: current.id, shift2: next.id } }),
+                        confidenceScore: 0.99,
+                        userId: workerId
+                    }
+                });
+
                 console.warn(`[FRAUD ALERT] Impossible Overlap Detected for worker ${workerId}!`);
                 console.warn(`   -> Shift ${current.id} ends at ${new Date(current.endTime * 1000).toISOString()}`);
                 console.warn(`   -> Shift ${next.id} starts at ${new Date(next.startTime * 1000).toISOString()}`);

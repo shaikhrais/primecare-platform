@@ -21,7 +21,7 @@ export class PhilipsDispenserLog {
     /**
      * Mocks a DB lookup evaluating if this dose was actually scheduled for this time window.
      */
-    private static async getEMARSchedule(patientId: string, doseId: string) {
+    private static async getEMARSchedule(prisma: any, patientId: string, doseId: string) {
         // Assume dose was scheduled for right now
         return {
             status: 'PENDING',
@@ -32,15 +32,25 @@ export class PhilipsDispenserLog {
     /**
      * Core Webhook processing logic
      */
-    static async handleDispenseEvent(payload: PillDispenseWebhook): Promise<boolean> {
+    static async handleDispenseEvent(prisma: any, payload: PillDispenseWebhook): Promise<boolean> {
         console.log(`[Smart Pharmacy] Received dispense event from machine ${payload.machineId} for Patient ${payload.patientId}`);
         
+        await prisma.ioTEvent.create({
+            data: {
+                deviceId: payload.machineId,
+                deviceType: 'smartpill',
+                payload: JSON.stringify(payload),
+                status: payload.compartmentStatus === 'BLOCKED' ? 'error' : 'processed',
+                userId: payload.patientId
+            }
+        });
+
         if (payload.compartmentStatus === 'BLOCKED') {
             console.error(`[Smart Pharmacy] Machine jammed! Generating critical alert to on-call RN.`);
             return false;
         }
 
-        const emarDose = await this.getEMARSchedule(payload.patientId, payload.doseId);
+        const emarDose = await this.getEMARSchedule(prisma, payload.patientId, payload.doseId);
 
         if (emarDose && emarDose.status === 'PENDING') {
             console.log(`[Smart Pharmacy] Validating dose of ${payload.medicationName}. Auto-signing eMAR...`);

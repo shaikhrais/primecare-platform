@@ -43,7 +43,7 @@ export class LeadScoringEngine {
     /**
      * Mocks a batch processing job of fresh inbound web leads
      */
-    static async processNightlyBatch() {
+    static async processNightlyBatch(prisma: any) {
         console.log(`[Sales Alg] Ingesting 3 new inbound leads...`);
         const inboundQueue = [
             { id: 'L1', zip: '10021', note: 'Mother needs 24/7 dementia care, she is bedbound.' },
@@ -54,6 +54,15 @@ export class LeadScoringEngine {
         for (const lead of inboundQueue) {
             const priority = await this.evaluateNewLead(lead.note, lead.zip);
             
+            await prisma.aIInference.create({
+                data: {
+                    modelName: 'lead_priority_scoring',
+                    predictionData: JSON.stringify({ leadId: lead.id, note: lead.note }),
+                    confidenceScore: priority / 100,
+                    userId: 'system'
+                }
+            });
+
             let tag = 'STANDARD';
             if (priority >= 80) tag = '🔥 HOT LEAD (CALL IMMEDIATELY)';
             if (priority <= 40) tag = '❄️ COLD LEAD (PUT ON DRIP EMAIL)';

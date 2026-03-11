@@ -39,7 +39,7 @@ export class MultiPayerEngine {
     /**
      * Evaluates the completed visit and returns the split ledger payload.
      */
-    static async generateInvoiceSplit(visit: CompletedVisit): Promise<SplitManifest> {
+    static async generateInvoiceSplit(prisma: any, visit: CompletedVisit): Promise<SplitManifest> {
         console.log(`[Finance Engine] Calculating Multi-Payer Split for Visit ${visit.id}...`);
         const rules = await this.getPatientCoverageRules(visit.patientId);
         
@@ -71,12 +71,24 @@ export class MultiPayerEngine {
         // 4. Whatever is left drops to the Family Portal Invoice
         const oop = remainingBalance;
 
-        // Round to 2 decimals
-        return {
+        const splitResult = {
             totalInvoice: Number(totalGross.toFixed(2)),
             medicarePortion: Number(medicareAllocated.toFixed(2)),
             vaPortion: Number(vaAllocated.toFixed(2)),
             outOfPocket: Number(oop.toFixed(2))
         };
+
+        if (prisma) {
+            await prisma.aIInference.create({
+                data: {
+                    modelName: 'multi_payer_decision',
+                    predictionData: JSON.stringify(splitResult),
+                    confidenceScore: 1.0,
+                    userId: visit.patientId
+                }
+            });
+        }
+
+        return splitResult;
     }
 }

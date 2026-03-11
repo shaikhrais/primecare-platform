@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { AdminRegistry } from 'prime-care-shared';
+
+const { ApiRegistry } = AdminRegistry;
 
 export interface AppNotification {
     id: string;
@@ -24,37 +27,27 @@ const NotificationCenterContext = createContext<NotificationCenterContextType | 
 export const NotificationCenterProvider = ({ children }: { children: ReactNode }) => {
     const [notifications, setNotifications] = useState<AppNotification[]>([]);
 
-    // Load initial mock data
+    // Fetch live persistence data
     useEffect(() => {
-        const mockData: AppNotification[] = [
-            {
-                id: '1',
-                title: 'New Incident Reported',
-                message: 'Fall detected at Room 304 (Client: John Doe)',
-                type: 'error',
-                isRead: false,
-                createdAt: new Date(Date.now() - 1000 * 60 * 5).toISOString(), // 5 mins ago
-                link: '/admin/incidents'
-            },
-            {
-                id: '2',
-                title: 'Shift Request',
-                message: 'Sarah Jones requested next Friday off.',
-                type: 'warning',
-                isRead: false,
-                createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(), // 1 hour ago
-                link: '/admin/schedule'
-            },
-            {
-                id: '3',
-                title: 'System Update',
-                message: 'Platform maintenance scheduled for Sunday 2 AM.',
-                type: 'info',
-                isRead: true,
-                createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
+        const fetchNotifications = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                
+                const response = await fetch(`${apiUrl}${ApiRegistry.PLATFORM.ADMIN.SYSTEM_DATA.NOTIFICATIONS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setNotifications(data);
+                }
+            } catch (error) {
+                console.error('Failed to load system notifications:', error);
             }
-        ];
-        setNotifications(mockData);
+        };
+
+        fetchNotifications();
     }, []);
 
     const unreadCount = notifications.filter(n => !n.isRead).length;

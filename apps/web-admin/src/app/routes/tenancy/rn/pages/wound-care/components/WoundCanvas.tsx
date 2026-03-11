@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Image as ImageIcon, Crosshair, XCircle, FileCheck } from 'lucide-react';
 
-export const WoundCanvas: React.FC = () => {
+interface WoundCanvasProps {
+    imageUrl?: string;
+}
+
+export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://images.unsplash.com/photo-1628186105315-e232938b813b?q=80&w=800&auto=format&fit=crop" }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -19,8 +23,8 @@ export const WoundCanvas: React.FC = () => {
 
         const img = new Image();
         img.crossOrigin = "anonymous";
-        // Safe anatomical stock photo mock
-        img.src = "https://images.unsplash.com/photo-1628186105315-e232938b813b?q=80&w=800&auto=format&fit=crop"; 
+        // Safe anatomical stock photo mock or dynamic prop
+        img.src = imageUrl; 
         img.onload = () => {
              // Draw image to fill canvas
              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -93,7 +97,7 @@ export const WoundCanvas: React.FC = () => {
         // Redraw image to wipe
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.src = "https://images.unsplash.com/photo-1628186105315-e232938b813b?q=80&w=800&auto=format&fit=crop"; 
+        img.src = imageUrl; 
         img.onload = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);

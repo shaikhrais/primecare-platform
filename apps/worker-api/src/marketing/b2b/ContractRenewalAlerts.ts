@@ -9,7 +9,7 @@
 
 export class ContractRenewalAlerts {
 
-    static async scanExpiringAgreements() {
+    static async scanExpiringAgreements(prisma: any) {
         console.log(`[Legal/Sales Bot] Scanning B2B Master Service Agreements for impending expiration...`);
         
         // Simulating DB query
@@ -34,6 +34,16 @@ export class ContractRenewalAlerts {
                 console.log(`\n⚠️ [RENEWAL ALERT] Contract ${contract.id} (${contract.facility}) expires in ${daysUntilExpiration} days!`);
                 console.log(`- Annual Value At Risk: ${contract.value}`);
                 console.log(`- Drafting urgent email to Account Exec (${contract.rep}) & CMO...`);
+                
+                await prisma.communicationLog.create({
+                    data: {
+                        recipientId: contract.rep,
+                        channel: 'EMAIL',
+                        status: 'processed',
+                        metadata: JSON.stringify({ type: 'renewal_alert', contractId: contract.id })
+                    }
+                });
+
                 await this.sendWarningEmail(contract);
                 alertsSent++;
             }

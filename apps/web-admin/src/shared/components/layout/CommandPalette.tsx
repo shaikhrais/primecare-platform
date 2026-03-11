@@ -16,6 +16,7 @@ interface SearchResult {
 export const CommandPalette: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState('');
+    const [results, setResults] = useState<SearchResult[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
@@ -41,30 +42,33 @@ export const CommandPalette: React.FC = () => {
         }
     }, [isOpen]);
 
-    // Mock search logic targeting Coordinator / Dispatcher needs
-    const getMockResults = (q: string): SearchResult[] => {
-        if (!q.trim()) return [
-            { id: 'm1', type: 'module', name: 'Logistics Fleet Map', subtitle: 'Live Fleet Radar', route: '/tenancy/manager/logistics' },
-            { id: 'm2', type: 'module', name: 'Staff Marketplace', subtitle: 'Open Shifts Board', route: '/tenancy/manager/scheduling' },
-        ];
+    // Fetch live search results
+    useEffect(() => {
+        if (!isOpen) return;
 
-        const term = q.toLowerCase();
-        const results: SearchResult[] = [];
-
-        if ('beatrice morrison'.includes(term)) {
-            results.push({ id: 'p1', type: 'patient', name: 'Beatrice Morrison', subtitle: 'Waitlisted - High Acuity', route: '/client/123' });
-        }
-        if ('james reynolds'.includes(term) || 'rn'.includes(term)) {
-            results.push({ id: 's1', type: 'staff', name: 'James Reynolds, RN', subtitle: 'Active in Field (North York)', route: '/staff/456' });
-        }
-        if ('fleet'.includes(term) || 'map'.includes(term)) {
-            results.push({ id: 'm1', type: 'module', name: 'Logistics Fleet Map', subtitle: 'Live Fleet Radar', route: '/tenancy/manager/logistics' });
+        if (!query.trim()) {
+            setResults([
+                { id: 'm1', type: 'module', name: 'Logistics Fleet Map', subtitle: 'Live Fleet Radar', route: '/tenancy/manager/logistics' },
+                { id: 'm2', type: 'module', name: 'Staff Marketplace', subtitle: 'Open Shifts Board', route: '/tenancy/manager/scheduling' },
+            ]);
+            return;
         }
 
-        return results;
-    };
+        const fetchResults = async () => {
+             try {
+                 const res = await fetch(`/api/v1/system/data/search?q=${encodeURIComponent(query)}`);
+                 if (res.ok) {
+                     const data = await res.json();
+                     setResults(data);
+                 }
+             } catch (e) {
+                 console.error('Command Palette Search Error', e);
+             }
+        };
 
-    const results = getMockResults(query);
+        const debounce = window.setTimeout(fetchResults, 300);
+        return () => window.clearTimeout(debounce);
+    }, [query, isOpen]);
 
     if (!isOpen) return null;
 

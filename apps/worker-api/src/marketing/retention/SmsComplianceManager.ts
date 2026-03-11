@@ -21,13 +21,20 @@ export class SmsComplianceManager {
     // Standard TCPA opt-out keywords
     private static readonly OPT_OUT_KEYWORDS = ['stop', 'cancel', 'unsubscribe', 'quit', 'end', 'stopall'];
 
-    static async processInboundWebhook(webhookData: InboundSmsWebhook) {
+    static async processInboundWebhook(prisma: any, webhookData: InboundSmsWebhook) {
         console.log(`[Compliance Engine] Inbound Webhook Received from ${webhookData.fromNumber}. Analyzing content for TCPA opt-out commands...`);
         
-        // Simulating processing delay
-        await new Promise(res => setTimeout(res, 300));
-
         const normalizedBody = webhookData.body.trim().toLowerCase();
+        const isOptOut = this.OPT_OUT_KEYWORDS.includes(normalizedBody);
+
+        await prisma.communicationLog.create({
+            data: {
+                recipientId: webhookData.fromNumber,
+                channel: 'SMS',
+                status: isOptOut ? 'opt-out_triggered' : 'processed',
+                metadata: JSON.stringify(webhookData)
+            }
+        });
         
         // Check if the exact message matches an opt-out word
         if (this.OPT_OUT_KEYWORDS.includes(normalizedBody)) {
@@ -53,9 +60,9 @@ export class SmsComplianceManager {
     /**
      * Helper to mock data for terminal demonstrations
      */
-    static async runDemo() {
+    static async runDemo(prisma: any) {
         // Safe message
-        await this.processInboundWebhook({
+        await this.processInboundWebhook(prisma, {
             messageId: 'sms_99182',
             fromNumber: '+15551234567',
             body: 'Thanks for the pricing guide!',
@@ -63,7 +70,7 @@ export class SmsComplianceManager {
         });
 
         // Trigger message
-        await this.processInboundWebhook({
+        await this.processInboundWebhook(prisma, {
             messageId: 'sms_99183',
             fromNumber: '+15559876543',
             body: 'STOP',

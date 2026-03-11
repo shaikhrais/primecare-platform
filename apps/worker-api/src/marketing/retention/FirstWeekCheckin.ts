@@ -18,7 +18,7 @@ interface NewContract {
 
 export class FirstWeekCheckin {
 
-    static async executeDailyCheckins() {
+    static async executeDailyCheckins(prisma: any) {
         console.log(`[Retention Engine] Scanning for "Week 1" anniversary accounts...`);
         
         // Simulating DB fetch
@@ -34,6 +34,16 @@ export class FirstWeekCheckin {
 
         for (const contract of contracts) {
             console.log(`\n--- Automating Touchpoint for ${contract.patientName} [$${contract.leadValue.toLocaleString()}/yr LTV] ---`);
+            
+            await prisma.communicationLog.create({
+                data: {
+                    recipientId: contract.familyPhone,
+                    channel: 'SMS',
+                    status: 'processed',
+                    metadata: JSON.stringify({ type: 'first_week_checkin', contractId: contract.contractId })
+                }
+            });
+
             console.log(`>> [Twilio SMS Dispatch] TO: ${contract.familyPhone}`);
             console.log(`   "Hi there, this is the PrimeCare Clinical Team. You've just finished your first week of service! How is everything going so far? Please reply with a number 1-5 (5 being Excellent).`);
         }
@@ -51,7 +61,7 @@ export class FirstWeekCheckin {
     /**
      * Helper to mock data for terminal demonstrations
      */
-    static runDemo() {
-        this.executeDailyCheckins();
+    static runDemo(prisma: any) {
+        this.executeDailyCheckins(prisma);
     }
 }

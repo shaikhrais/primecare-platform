@@ -26,10 +26,8 @@ export const PublicWifiSanitizer: React.FC = () => {
 
             return () => connection.removeEventListener('change', handleConnectionChange);
         } else {
-            // Fallback mock simulation
-            setTimeout(() => {
-                setIsSecure(false); // Simulate moving to a Starbucks Wi-Fi
-            }, 3000);
+            // Native Network API unsupported in this browser environment, defaulting to secure
+            setIsSecure(true);
         }
     }, []);
 

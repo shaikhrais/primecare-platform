@@ -18,7 +18,7 @@ export class RingDoorbellHook {
     /**
      * Mocks a DB lookup evaluating if a shift was scheduled right now.
      */
-    private static async getActiveShiftForPatient(patientId: string) {
+    private static async getActiveShiftForPatient(prisma: any, patientId: string) {
         // Pretend a shift for this patient started 5 minutes ago
         return {
             shiftId: 'shift_992',
@@ -30,10 +30,20 @@ export class RingDoorbellHook {
     /**
      * Translates a Ring Motion Event into a verified Shift Arrival.
      */
-    static async processIotMotion(payload: RingTelemetry): Promise<boolean> {
+    static async processIotMotion(prisma: any, payload: RingTelemetry): Promise<boolean> {
         console.log(`[IoT Sentinel] Ring Camera (${payload.deviceId}) detected motion.`);
 
-        const activeShift = await this.getActiveShiftForPatient(payload.ownerId);
+        await prisma.ioTEvent.create({
+            data: {
+                deviceId: payload.deviceId,
+                deviceType: 'doorbell_camera',
+                payload: JSON.stringify(payload),
+                status: 'processed',
+                userId: payload.ownerId
+            }
+        });
+
+        const activeShift = await this.getActiveShiftForPatient(prisma, payload.ownerId);
 
         if (activeShift && activeShift.status === 'PENDING_ARRIVAL') {
             console.log(`[IoT Sentinel] Motion correlates with pending Shift ${activeShift.shiftId}. Automatically verifying PSW arrival...`);

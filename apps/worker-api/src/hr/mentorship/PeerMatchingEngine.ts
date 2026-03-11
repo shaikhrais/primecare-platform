@@ -35,7 +35,7 @@ export class PeerMatchingEngine {
     /**
      * Executes the Mentor Matching algorithm.
      */
-    static async executeMentorshipPairing(): Promise<number> {
+    static async executeMentorshipPairing(prisma: any): Promise<number> {
         console.log(`[Mentorship Engine] Scanning roster for un-mentored New Hires...`);
         const roster = await this.getCaregiverRoster();
         
@@ -59,7 +59,23 @@ export class PeerMatchingEngine {
 
             if (bestMentor) {
                 console.log(`[Mentorship Engine] Match Found! Connected Rookie ${rookie.workerId} with Veteran ${bestMentor}.`);
-                // Mocks DB insert to create a private chat thread
+                
+                await prisma.aIInference.create({
+                    data: {
+                        modelName: 'peer_matching_algorithm',
+                        predictionData: JSON.stringify({ rookie: rookie.workerId, mentor: bestMentor }),
+                        confidenceScore: 0.85,
+                        userId: rookie.workerId
+                    }
+                });
+
+                // Upsert Gamification Profile for the Rookie
+                await prisma.gamificationProfile.upsert({
+                    where: { userId: rookie.workerId },
+                    create: { userId: rookie.workerId, currentTier: 'MENTEE', totalPoints: 100, careCoins: 10 },
+                    update: { currentTier: 'MENTEE' }
+                });
+
                 pairsCreated++;
             } else {
                 console.log(`[Mentorship Engine] No suitable mentor found for Rookie ${rookie.workerId} at this time.`);

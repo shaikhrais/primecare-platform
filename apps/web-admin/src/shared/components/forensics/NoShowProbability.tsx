@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CloudRain, Sun, AlertCircle } from 'lucide-react';
+import { AdminRegistry } from 'prime-care-shared';
 
 interface NoShowProps {
     patientId: string;
@@ -11,22 +12,35 @@ export const NoShowProbability: React.FC<NoShowProps> = ({ patientId, visitDate 
     const [weather, setWeather] = useState<'rain' | 'clear'>('clear');
 
     useEffect(() => {
-        // MOCK: Machine Learning Heuristic Simulation
-        // In reality, this would query a backend returning probability based on past attendance and live API weather arrays.
-        setTimeout(() => {
-            const mockIsRainyDay = Math.random() > 0.5;
-            setWeather(mockIsRainyDay ? 'rain' : 'clear');
-            
-            // Base historical no-show rate for mock patient: 12%
-            let calcProb = 12;
+        const fetchInference = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                
+                const response = await fetch(`${apiUrl}${AdminRegistry.ApiRegistry.PLATFORM.ADMIN.SYSTEM_DATA.AI_INFERENCES}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
 
-            if (mockIsRainyDay) {
-                calcProb += 35; // Weather significantly impacts senior attendance
+                if (response.ok) {
+                    const data = await response.json();
+                    // Match a predictor mapped to the current environment context
+                    const prediction = data.find((p: any) => p.modelName === 'no_show_predictor');
+                    
+                    if (prediction) {
+                        const pData = JSON.parse(prediction.predictionData);
+                        setWeather(pData.riskFactors?.includes('weather') ? 'rain' : 'clear');
+                        setProbability(Math.round(prediction.confidenceScore * 100));
+                    } else {
+                        setProbability(12);
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load no-show probability', e);
+                setProbability(12);
             }
+        };
 
-            // High probability cap
-            setProbability(Math.min(calcProb, 95));
-        }, 800);
+        fetchInference();
     }, [patientId, visitDate]);
 
     if (probability === null) return <div style={{ height: '32px', width: '120px', backgroundColor: '#F1F5F9', borderRadius: '8px', animation: 'pulse 1.5s infinite' }} />;

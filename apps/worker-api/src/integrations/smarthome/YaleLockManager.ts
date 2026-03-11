@@ -33,7 +33,7 @@ export class YaleLockManager {
     /**
      * Executes the provisioning sequence when a shift is assigned.
      */
-    static async provisionShiftAccess(request: LockProvisionRequest): Promise<boolean> {
+    static async provisionShiftAccess(prisma: any, request: LockProvisionRequest): Promise<boolean> {
         try {
             console.log(`[Access Control] Provisioning physical access for Worker ${request.workerId} at Patient ${request.patientId}'s home.`);
             
@@ -42,6 +42,16 @@ export class YaleLockManager {
                 request.shiftStartTime, 
                 request.shiftEndTime
             );
+
+            await prisma.ioTEvent.create({
+                data: {
+                    deviceId: request.lockMacAddress,
+                    deviceType: 'smartlock',
+                    payload: JSON.stringify({ action: 'provision_key', token: accessToken }),
+                    status: 'processed',
+                    userId: request.patientId
+                }
+            });
 
             // In production, sync this `accessToken` to the Worker's active JWT or device keychain
             console.log(`[Access Control] Success. Temporary token generated: ${accessToken}`);

@@ -180,6 +180,13 @@ export const PLATFORM = {
             AUTH_EXHAUSTION: '/v1/admin/cron/authorization-exhaustion',
             INVENTORY_REORDER: '/v1/admin/cron/inventory-reorder',
         },
+        SYSTEM_DATA: {
+            NOTIFICATIONS: '/v1/admin/system-data/notifications',
+            IOT_EVENTS: '/v1/admin/system-data/iot-events',
+            GAMIFICATION: '/v1/admin/system-data/gamification',
+            AI_INFERENCES: '/v1/admin/system-data/ai-inferences',
+            COMMUNICATION_LOGS: '/v1/admin/system-data/communication-logs',
+        },
     },
     SCRUM_MASTER: {
         DASHBOARD: '/v1/scrum-master/stats',

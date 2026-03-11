@@ -77,6 +77,18 @@ export const SoftphoneWidget: React.FC = () => {
         setCallState('idle');
         setIsOpen(false);
         showToast('Call ended', 'info');
+
+        // Log the call outcome to the backend
+        fetch('/api/v1/system/data/communications', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                recipientId: phoneNumber,
+                channel: 'VOICE',
+                status: 'completed',
+                metadata: JSON.stringify({ duration, contactName })
+            })
+        }).catch(err => console.error('Failed to log call data:', err));
     };
 
     if (!isOpen) return null;

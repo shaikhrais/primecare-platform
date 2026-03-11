@@ -23,9 +23,11 @@ export class CareCoinRedemption {
     /**
      * Mocks fetching the current coin balance of a worker from the DB.
      */
-    private static async getWorkerWalletBalance(workerId: string): Promise<number> {
-        // Return a mock balance of 1,250 coins
-        return 1250; 
+    private static async getWorkerWalletBalance(prisma: any, workerId: string): Promise<number> {
+        const profile = await prisma.gamificationProfile.findUnique({
+            where: { userId: workerId }
+        });
+        return profile?.careCoins || 0;
     }
 
     /**
@@ -40,7 +42,7 @@ export class CareCoinRedemption {
     /**
      * Process the full gamification redemption transaction.
      */
-    static async processRedemption(request: RedemptionRequest, workerEmail: string): Promise<{ success: boolean; link?: string; message?: string }> {
+    static async processRedemption(prisma: any, request: RedemptionRequest, workerEmail: string): Promise<{ success: boolean; link?: string; message?: string }> {
         console.log(`[CareCoin Bank] Processing redemption request for ${request.workerId}...`);
 
         const requiredCoins = this.VENDOR_COST_MAP[request.rewardType];
@@ -48,7 +50,7 @@ export class CareCoinRedemption {
             return { success: false, message: 'Invalid Reward Type.' };
         }
 
-        const currentBalance = await this.getWorkerWalletBalance(request.workerId);
+        const currentBalance = await this.getWorkerWalletBalance(prisma, request.workerId);
 
         if (currentBalance < requiredCoins) {
             console.warn(`[CareCoin Bank] Insufficient Funds. Worker has ${currentBalance}, needs ${requiredCoins}.`);
@@ -61,6 +63,13 @@ export class CareCoinRedemption {
         try {
             const rewardLink = await this.invokeVendorAPI(request.rewardType, workerEmail);
             console.log(`[CareCoin Bank] Redemption Successful! Link generated: ${rewardLink}`);
+
+            // Deduct from Gamification Profile
+            await prisma.gamificationProfile.update({
+                where: { userId: request.workerId },
+                data: { careCoins: { decrement: requiredCoins } }
+            });
+
             return { success: true, link: rewardLink };
         } catch (e) {
             console.error(`[CareCoin Bank] Vendor API failure. Rolling back coin deduction.`, e);

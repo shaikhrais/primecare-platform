@@ -40,8 +40,17 @@ export class SmartVoiceTriage {
     /**
      * Mocks an Express/Hono route handler intercepting the Twilio Webhook
      */
-    static async handleInboundCall(payload: TwilioVoicePayload): Promise<string> {
+    static async handleInboundCall(prisma: any, payload: TwilioVoicePayload): Promise<string> {
         console.log(`[Twilio Webhook] Analyzing Voice Transcription from ${payload.From}...`);
+
+        await prisma.communicationLog.create({
+            data: {
+                recipientId: payload.From,
+                channel: 'VOICE',
+                status: 'processed',
+                metadata: JSON.stringify(payload)
+            }
+        });
         
         const text = payload.TranscriptionText;
         if (!text) {

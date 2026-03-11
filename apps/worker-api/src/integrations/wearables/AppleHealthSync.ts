@@ -22,15 +22,24 @@ export class AppleHealthSync {
     /**
      * Mocks DB insertion for the wearable data
      */
-    private static async appendToPatientRecord(payload: WearablePayload) {
-        // Mocking Prisma create
+    private static async appendToPatientRecord(prisma: any, payload: WearablePayload) {
+        // Writing to Prisma IoT 
         console.log(`[Wearables] Patient ${payload.patientId} logged ${payload.metrics.steps} steps and ${payload.metrics.avgRestingBpm} BPM.`);
+        await prisma.ioTEvent.create({
+            data: {
+                deviceId: payload.deviceId,
+                deviceType: 'apple_health_wearable',
+                payload: JSON.stringify(payload.metrics),
+                status: 'processed',
+                userId: payload.patientId
+            }
+        });
     }
 
     /**
      * Main Webhook Processor Route
      */
-    static async handleInboundTelemetry(payload: WearablePayload): Promise<boolean> {
+    static async handleInboundTelemetry(prisma: any, payload: WearablePayload): Promise<boolean> {
         console.log(`[HealthKit Sync] Processing inbound telemetry for ${payload.patientId}...`);
 
         if (!payload.metrics || payload.metrics.steps < 0) {
@@ -39,7 +48,7 @@ export class AppleHealthSync {
         }
 
         try {
-            await this.appendToPatientRecord(payload);
+            await this.appendToPatientRecord(prisma, payload);
 
             // Optional: Trigger a heuristic check
             // e.g. If resting BPM > 100, trigger an alert to the RN queue

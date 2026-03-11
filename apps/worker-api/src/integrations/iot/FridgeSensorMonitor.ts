@@ -20,27 +20,35 @@ export class FridgeSensorMonitor {
     /**
      * Mocks a DB aggregation fetching the latest door interaction
      */
-    private static async getLastInteraction(patientId: string): Promise<DoorEvent | null> {
-        // Return a mock event from 28 hours ago
-        return {
-            patientId,
-            sensorId: 'sensor_fridge_01',
-            action: 'CLOSE',
-            timestamp: new Date().getTime() - (28 * 60 * 60 * 1000)
-        };
+    private static async getLastInteraction(prisma: any, patientId: string): Promise<DoorEvent | null> {
+        const lastEvent = await prisma.ioTEvent.findFirst({
+            where: { userId: patientId, deviceType: 'refrigerator_sensor' },
+            orderBy: { createdAt: 'desc' }
+        });
+        
+        if (lastEvent) {
+            const parsed = JSON.parse(lastEvent.payload);
+            return {
+                patientId,
+                sensorId: lastEvent.deviceId,
+                action: parsed.action || 'CLOSE',
+                timestamp: lastEvent.createdAt.getTime()
+            };
+        }
+        return null;
     }
 
     /**
      * Executes the daily IoT scan loop
      */
-    static async executeNutritionScan(patientQueue: string[]): Promise<number> {
+    static async executeNutritionScan(prisma: any, patientQueue: string[]): Promise<number> {
         let crisisEventsDetected = 0;
         const now = new Date().getTime();
 
         console.log(`[IoT Sentinel] Scanning fridge sensor logs for ${patientQueue.length} monitored patients...`);
 
         for (const patientId of patientQueue) {
-            const lastEvent = await this.getLastInteraction(patientId);
+            const lastEvent = await this.getLastInteraction(prisma, patientId);
 
             if (!lastEvent) {
                 console.warn(`[IoT Sentinel] Patient ${patientId} has no sensor data. Assuming offline.`);

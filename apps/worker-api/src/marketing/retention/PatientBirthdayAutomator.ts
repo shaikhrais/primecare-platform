@@ -18,7 +18,7 @@ interface ActivePatient {
 
 export class PatientBirthdayAutomator {
 
-    static async executeNightlyBirthdayBatch() {
+    static async executeNightlyBirthdayBatch(prisma: any) {
         console.log(`[Retention Engine] Scanning active patient ledger for birthdays...`);
         
         const todayStr = new Date().toISOString().substring(5, 10); // '-MM-DD'
@@ -45,6 +45,15 @@ export class PatientBirthdayAutomator {
             
             console.log(`\n--- Dispatching Automations for: ${patient.name} (Turning ${age}) ---`);
             
+            await prisma.communicationLog.create({
+                data: {
+                    recipientId: patient.familyContactPhone,
+                    channel: 'SMS',
+                    status: 'processed',
+                    metadata: JSON.stringify({ type: 'birthday_greeting', patientId: patient.id })
+                }
+            });
+
             // 1. Alert the caregiver
             console.log(`>> [Twilio SMS] Paging Caregiver ${patient.primaryCaregiverId}: "Friendly reminder! Today is ${patient.name}'s birthday! Please be sure to wish them a happy birthday when you arrive for shift today!"`);
             
@@ -58,7 +67,7 @@ export class PatientBirthdayAutomator {
     /**
      * Helper to mock data for terminal demonstrations
      */
-    static runDemo() {
-        this.executeNightlyBirthdayBatch();
+    static runDemo(prisma: any) {
+        this.executeNightlyBirthdayBatch(prisma);
     }
 }

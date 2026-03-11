@@ -23,7 +23,7 @@ export class VipPartnerInterceptor {
     private static VIP_FACILITIES = ['FAC_ST_JUDE_01', 'FAC_MAYO_CLINIC_HQ'];
     private static VIP_PHYSICIANS = ['NPI_882910', 'NPI_112233']; // Top referrers
 
-    static async processIncomingReferral(payload: ReferralPayload) {
+    static async processIncomingReferral(prisma: any, payload: ReferralPayload) {
         console.log(`[Referral Intake] Processing facesheet for patient: ${payload.patientName}...`);
         
         let isVip = false;
@@ -43,6 +43,15 @@ export class VipPartnerInterceptor {
             console.log(`- Action: Bypassing standard intake queue.`);
             console.log(`- Action: Dispatching PagerDuty alert to Director of Clinical Operations.`);
             
+            await prisma.aIInference.create({
+                data: {
+                    modelName: 'vip_referral_flag',
+                    predictionData: JSON.stringify({ facility: payload.referringFacilityId, npi: payload.npi, reason: vipReason }),
+                    confidenceScore: 1.0,
+                    userId: 'system'
+                }
+            });
+
             await this.dispatchVipAlert(payload);
         } else {
             console.log(`[Referral Intake] Standard routing. Added to General Triage Queue.\n`);
@@ -58,9 +67,9 @@ export class VipPartnerInterceptor {
     /**
      * Helper to mock data for terminal demonstrations
      */
-    static runMockHandoff() {
+    static runMockHandoff(prisma: any) {
         console.log("--- Executing Standard Handoff ---");
-        this.processIncomingReferral({
+        this.processIncomingReferral(prisma, {
             id: randomUUID(),
             patientName: 'John Doe',
             referringFacilityId: 'FAC_RURAL_CLINIC',
@@ -69,7 +78,7 @@ export class VipPartnerInterceptor {
         });
 
         console.log("--- Executing VIP Handoff ---");
-        this.processIncomingReferral({
+        this.processIncomingReferral(prisma, {
             id: randomUUID(),
             patientName: 'Jane Smith (VIP)',
             referringFacilityId: 'FAC_ST_JUDE_01',
