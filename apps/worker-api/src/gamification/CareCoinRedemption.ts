@@ -35,7 +35,7 @@ export class CareCoinRedemption {
      */
     private static async invokeVendorAPI(rewardType: string, workerEmail: string): Promise<string> {
         console.log(`[Tremendous API] Generating ${rewardType} gift link for ${workerEmail}...`);
-        await new Promise(resolve => setTimeout(resolve, 800)); 
+
         return `https://reward.vendor.com/redeem/${Date.now().toString(36)}`;
     }
 

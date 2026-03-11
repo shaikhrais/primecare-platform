@@ -23,9 +23,6 @@ export class YaleLockManager {
     private static async requestTemporaryLockToken(macAddress: string, start: string, end: string): Promise<string> {
         console.log(`[SmartHome API] Requesting temporary Bluetooth token for Lock ${macAddress}...`);
         
-        // Simulating network latency to the lock vendor
-        await new Promise(resolve => setTimeout(resolve, 800));
-
         // Return a generated token payload
         const timestamp = Date.now().toString(36);
         return `yale_temp_${timestamp}_valid_${start}_to_${end}`;

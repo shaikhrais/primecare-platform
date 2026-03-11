@@ -30,7 +30,7 @@ export class PatientBirthdayAutomator {
         const patients: ActivePatient[] = dbPatients.map((p: any) => ({
             id: p.id,
             name: p.fullName || 'Client',
-            dateOfBirth: `19${Math.floor(Math.random()*50)+40}${todayStr}`, // deterministic fallback for logic test
+            dateOfBirth: p.dateOfBirth?.toISOString() || `1945${todayStr}`,
             primaryCaregiverId: 'CG_1',
             familyContactPhone: p.phone || '+1000000000'
         }));

@@ -139,7 +139,7 @@ export const CommandPalette: React.FC = () => {
                                             alignItems: 'center',
                                             gap: '16px',
                                             padding: '12px 24px',
-                                            backgroundColor: idx === 0 && query ? '#F8FAFC' : 'transparent', // Simulate auto-focus first item if typing
+                                            backgroundColor: idx === 0 && query ? '#F8FAFC' : 'transparent', // Mimic auto-focus first item if typing
                                             border: 'none',
                                             textAlign: 'left',
                                             cursor: 'pointer',
