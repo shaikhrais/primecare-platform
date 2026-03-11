@@ -38,9 +38,12 @@ export const DigitalIdBadge: React.FC<DigitalIdBadgeProps> = ({ onClose, pswName
                     <h3 style={{ margin: '0 0 4px 0', fontSize: '1.8rem', fontWeight: 900, color: '#111827' }}>{pswName}</h3>
                     <p style={{ margin: 0, color: '#4F46E5', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.5px' }}>{pswRole}</p>
 
-                    <div style={{ margin: '24px auto', width: '180px', height: '180px', backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-                        {/* Mock QR Code Pattern */}
-                        <div style={{ width: '100%', height: '100%', backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h5v5H0V0zm2 2v1h1V2H2zm8-2h10v5H10V0zm2 2v1h6V2h-6zM0 15h5v5H0v-5zm2 2v1h1v-1H2zm8-2h10v5H10v-5zm2 2v1h6v-1h-6zM5 5h10v10H5V5zm2 2v6h6V7H7z\' fill=\'%230F172A\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")', backgroundSize: '10px 10px' }} />
+                    <div style={{ margin: '24px auto', width: '180px', height: '180px', backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img 
+                            src={`https://api.qrserver.com/v1/create-qr-code/?size=156x156&data=PRIMECARE-VERIFIED-${encodeURIComponent(pswName)}-${new Date().toISOString().split('T')[0]}`} 
+                            alt="Verified Digital ID QR Code"
+                            style={{ width: '100%', height: '100%' }}
+                        />
                     </div>
 
                     <div style={{ padding: '12px', backgroundColor: '#ECFDF5', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: '#059669', fontWeight: 700, fontSize: '0.9rem' }}>

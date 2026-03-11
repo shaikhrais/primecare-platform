@@ -50,20 +50,20 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
 
                 <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', marginBottom: '1rem' }}>Shift Breakdown</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    {/* Mock Shift Data if real data isn't in the list view object yet */}
-                    {timesheet.shifts ? timesheet.shifts.map((shift: any) => (
-                        <div key={shift.id} style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}>
+                    {/* Map real timesheet items originating from Prisma TimesheetItem relations */}
+                    {timesheet.items && timesheet.items.length > 0 ? timesheet.items.map((item: any) => (
+                        <div key={item.id} style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <span style={{ fontWeight: 600 }}>{new Date(shift.start).toLocaleDateString()}</span>
-                                <span style={{ color: '#6b7280' }}>{shift.hours} hrs</span>
+                                <span style={{ fontWeight: 600 }}>{new Date(item.visit?.requestedStartAt || item.createdAt).toLocaleDateString()}</span>
+                                <span style={{ color: '#6b7280' }}>{(item.minutes / 60).toFixed(1)} hrs</span>
                             </div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                Client: <Link to={`${RouteRegistry.ADMIN.USERS}?role=client`} style={{ color: '#00875A' }}>{shift.clientName || 'Unknown'}</Link>
+                                Client ID: <Link to={`${RouteRegistry.ADMIN.USERS}?role=client`} style={{ color: '#00875A' }}>{item.visit?.clientId || 'Unknown'}</Link>
                             </div>
                         </div>
                     )) : (
                         <div style={{ textAlign: 'center', padding: '2rem', color: '#9ca3af', border: '1px dashed #e5e7eb', borderRadius: '0.5rem' }}>
-                            Detailed shift data not available in this preview.
+                            Detailed shift data not currently available on this record.
                         </div>
                     )}
                 </div>
